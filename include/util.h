@@ -80,6 +80,7 @@ planet         *findPlanet(game *aGame, char *name);
 planet         *groupLocation(game *aGame, group *g);
 
 double          round2(double);
+double          roundup2(double);
 
 void            numberGroup(player *aPlayer, group *aGroup);
 group          *findgroup(player *P, char *s);
