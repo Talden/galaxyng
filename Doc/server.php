@@ -19,6 +19,7 @@
 
 			<h2>Table of Contents</h2>
 				<ul>
+					<li><a href="#intro">Introduction</a></li>
 					<li><a href="#ex">Example Files</a></li>
 					<li><a href="#compile">Compilation</a></li>
 					<li><a href="#install">Installation</a></li>
@@ -44,6 +45,18 @@
 					<li><a href="example.glx">Game Configuration File</a></li>
  					<li><a href="intro.text">Game Introduction Text</a></li>
  				</ul>
+ 				
+ 			<hr />
+ 			
+ 			<h2 id="intro">Introduction</h2>
+ 			
+				<p>The two basic items to host a game are a Linux box and an internet connection. All tools necessary to compile the server and automatically run a game are present in the current slackware distribution of Linux. And GalaxyNG should compile and run right out of the box on a Linux box.</p>
+				<p>To see if you can use it on another system, here's a checklist of the sofware needed:
+					<br>C (gcc) compiler; to compile the server 
+					<br>crontab; to automatically run turns at a given time 
+					<br>procmail; to automatically process in comming orders</p>
+				<p>The system is command line based, so you don't need X-windows. The program requires little memory. It even runs on a 2 Mbyte Amiga. As for harddisk requirements; depending on the size of the game, you need about 2 to 5 MByte of disk space. It isn't so much that the programs are large but that the data files can become quite large. For instance, in the end phase of the game, turn reports can be 100 KB. So if there are 30 players left at that time this would amount to 3 MB of disk space just to store the reports before they are sent. A thirteen player game needed about 2 MB of disk space at turn 52. In these times of GB hard disks this should not be a problem though :)</p>
+				<p>It isn't that difficult to start up your own game. It takes a while to configure a game and the machine, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time, and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
 
 			<hr />
  			
