@@ -28,6 +28,7 @@
 		
 		<ul>
 			<li><a href="daily8.php">Daily8</a> by Chris Shaffer</li>
+			<li><a href="delta.php">Delta</a> by Tommy Lindqvist</li>
 			<li><a href="newbie7.php">A Newbie's Tale</a> by John Woolsey</li>
 		</ul>
 		

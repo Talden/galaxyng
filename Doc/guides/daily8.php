@@ -20,6 +20,7 @@
 		
 		<ul>
 			<li><a href="daily8.tgz">Turn Reports and Orders</a></li>
+			<li><a href="/hall/game.php?g=36">Hall of Fame</a></li>
 		</ul>
 		
 		<p>Daily8 was a highlander game. The orders are numbered for the turn they were created, thus orders15.txt were submitted for processing on turn 16.</p>
