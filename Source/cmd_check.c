@@ -408,8 +408,7 @@ int CMD_check( int argc, char **argv, int kind ) {
 		}
 		
 		/* code here for advanced orders, we need to see how to determine this */
-		if ( !( ( theTurnNumber == LG_CURRENT_TURN ) ||
-				( theTurnNumber == ( aGame->turn ) + 1 ) ) ) {
+		if ( theTurnNumber > (aGame->turn+1)) {
 			
 			if ( aPlayer->orders == NULL )
 				copyOrders( aGame, stdin, raceName, password, final_orders,
