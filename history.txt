@@ -13,12 +13,15 @@ o By Ken Weinert (madcoder42)
     than that and the names will run off the right side.
   + XML reporting temporarily turned off as the C command would cause
     TXT reports to be not be created and copies of orders were lost
-
+o By Chris Shaffer (christhecat)
+  + Lots of minor updates to the manuals and web site.
+  + Modified files created by install.sh script.  Better documentation
+    and examples for procmail and crontab.
+    
 Release 6.4.4: January 2004
 o By Ken Weinert (madcoder42)
   + added fontpath variable to the rc file to eliminate dependency on
     the environment variable
-  + made compiling with influence map generation the default
   + restored generating an influence map on turn 0 as the main 
     impediment was the lack of an environment variable
 
