@@ -188,9 +188,23 @@ echo "# .checkedorders" >> $PROCRC
 echo "# .checkedorders/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone sent-in orders, check them.." >> $PROCRC
-echo ":0 rw :turno" >> $PROCRC
+echo ":0 rw :orders" >> $PROCRC
 echo "* ^Subject:.*order" >> $PROCRC
 echo "|"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -check" >> $PROCRC
+echo "" >> $PROCRC
+echo "# If you would like to keep copies of all orders sent, comment out the" >> $PROCRC
+echo "# recipe above and use this instead:" >> $PROCRC
+echo "# :0" >> $PROCRC
+echo "# * ^Subject:.*order" >> $PROCRC
+echo "# {" >> $PROCRC
+echo "# 	:0 c" >> $PROCRC
+echo "# only un-comment one of the next three lines:" >> $PROCRC
+echo "# 	orders" >> $PROCRC
+echo "# .orders" >> $PROCRC
+echo "# .orders/" >> $PROCRC
+echo "# 	:0 rw:orders.lock" >> $PROCRC
+echo "#	|/usr/bin/formail -rkbt -s /home/gng/Games/galaxyng -check" >> $PROCRC
+echo "# }" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone requested a copy of a turn report, send a copy..." >> $PROCRC
 echo "# However don't reply to turn reports." >> $PROCRC
@@ -199,10 +213,17 @@ echo "* ^Subject:.*report" >> $PROCRC
 echo "* !^Subject:.*report for" >> $PROCRC
 echo "|"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -report" >> $PROCRC
 echo "" >> $PROCRC
-echo "# A player wants to relay a message to another player." >> $PROCRC
+echo "# Someone wants to relay a message to another player." >> $PROCRC
 echo ":0 rw :turno" >> $PROCRC
 echo "* ^Subject:.*relay" >> $PROCRC
 echo "|"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -relay" >> $PROCRC
+echo "" >> $PROCRC
+echo "# Someone wants to sign up for a game" >> $PROCRC
+echo "# Uncomment the following lines.  Change the gamename and number" >> $PROCRC
+echo "# of players." >> $PROCRC
+echo "# :0: gamename.lock" >> $PROCRC
+echo "# * ^Subject.*Join gamename" >> $PROCRC
+echo "# |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Anything else, or messages that causes the engine to fail" >> $PROCRC
 echo "# are stored in the default mailbox." >> $PROCRC
