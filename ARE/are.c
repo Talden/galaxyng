@@ -64,7 +64,7 @@
  *     GALAXYNGHOME=$HOME/Games
  *
  *     :0 rw :jangi.lock
- *     * ^Subject.*Enroll Jangi
+ *     * ^Subject.*Join Jangi
  *     |/usr/bin/formail -rkbt -s    {continued on the next line}
  *          $GALAXYNGHOME/are Jangi 25 2000 1000 5 | /usr/sbin/sendmail -t 
  *
@@ -73,7 +73,7 @@
  *   Players can now enroll in the game sending you an email with 
  *   the subject:
  *
- *      "Enroll Jangi"
+ *      "Join Jangi"
  * BUGS
  *   Should be configured by the install script.
  *******
