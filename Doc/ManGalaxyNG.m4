@@ -26,7 +26,7 @@ www_subSection('units', 'Units')
 
 <P>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods or raw materials represents about 10 million tons.  Each game turn represents about four years of time.</P>
 
-<P>The game engine stores numbers in double precision format but interacts with players to two decimal places.  For example, Drive technology 2.4389732225478 will be reported as 2.44.  Player orders will be truncated to two decimal places before processing, thus 12.88888 will be reduced to 12.88 and not 12.89.  Note that planetary x,y coordinates are the exception - a planet reported at 138.44,43.29 is actually at that location and will not be found at 138.442683,43.2893435.</P>
+<P>The game engine stores numbers in double precision format but interacts with players to two decimal places.  For example, Drive technology 2.4389732225478 will be reported as 2.44.  Player orders will be truncated to two decimal places before processing, thus 12.88888 will be reduced to 12.88 and not 12.89.  Note that planetary x,y coordinates are the exception - a planet reported at 138.44,43.29 is actually at that location and will not be found at 138.442683,43.2893435.  Negative numbers are not used in GalaxyNG.</P>
 
 www_subSection('names', 'Names')
 
@@ -38,52 +38,51 @@ www_subSection('war', 'War and Alliances')
 
 www_subSection('victory', 'Victory and Defeat')
 
-<P>The game can be won by a single race or by an alliance of races, depending upon the game settings.  A race is eliminated if it owns no planets and has no ships.  The game ends when all surviving players agree to end it and notify the game master.</P>
+<P>The game can be won by a single race or by an alliance of races, depending upon the game settings.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</P>
 
 www_section('tech', 'Technology')
 
-<P>There are four technologies: Drive, Weapons, Shields and Cargo.  Each race begins the game with 1.00 points in each technology.  Technology can be increased by allocating ALink('#produce', 'planetary production') to research.  Technology levels determine the effectiveness of ships.  A ship with Drive 2.00 is twice as fast as an equivalent ship with Drive 1.00, a ship with Weapons 3.00 has a 50% more powerful attack than the same ship with Weapons 2.00, and so forth.</P>
+<P>Technology determines the effectiveness of ships.  There are four technologies: Drive, Weapons, Shields and Cargo.  Each race begins the game with 1.00 points in each technology.  Technology can be increased by ordering planets to ALink('#produce', 'produce') research.  A ship with Drive 2.00 is twice as fast as an equivalent ship with Drive 1.00, a ship with Weapons 3.00 has a 50% more powerful attack than the same ship with Weapons 2.00, and so forth.</P>
 
 www_section('ships', 'Ships')
 
-<P>Ships are built by players for exploration, attack, defence and cargo transport.  Ships have sixteen characteristics: ship type, drive mass, attacks, weapons mass, shields mass, cargo mass, group number, fleet name, drive technology, attacks, weapons technology, shields technology, cargo technology, cargo type carried, cargo carried mass, destination planet, and distance to destination planet.</P>
+<P>Ships are used for exploration, attack, defence and cargo transport.  Ships have sixteen characteristics: ship type, drive mass, attacks, weapons mass, shields mass, cargo mass, group number, fleet name, drive technology, attacks, weapons technology, shields technology, cargo technology, cargo type carried, cargo carried mass, destination planet, and distance to destination planet.</P>
 
 www_subSection('design', 'Designing Ship Types')
 
-<P>Galaxy allows you to design your own types of spaceships!  To design a ship type, you select a name and give numbers for the following:</P>
+<P>Each player can ALink('#ordd', 'design') ship types, which are unique to that player, by specifying:</P>
 
 <UL>
-  <LI>Drive Mass - how powerful is its hyperdrive engine</LI>
-  <LI>Attacks - how many guns does it carry</LI>
-  <LI>Weapons Mass - how powerful is each of its guns</LI>
-  <LI>Shields Mass - how powerful is its shields generator</LI>
-  <LI>Cargo Mass - how large is its cargo bay</LI>
+  <LI>Name - ship type</LI>
+  <LI>Drive Mass - the power of the hyperdrive engines</LI>
+  <LI>Attacks - the number of guns</LI>
+  <LI>Weapons Mass - the strength of the gun(s)</LI>
+  <LI>Shields Mass - the power of the shields generator</LI>
+  <LI>Cargo Mass - the size of the cargo bay</LI>
 </UL>
 
-<P>Some example types are:<P>
+<P>Drive Mass, Weapons Mass, Shields Mass, and Cargo Mass must equal zero or be equal to or larger than 1.  Thus, Drive Mass 0.00 and 1.50 are allowed but Drive Mass 0.75 is not.  Attacks must be an integer.</P>
 
-<TABLE >
-  <TR><TH>Name</TH><TH>D</TH><TH>A</TH><TH>W</TH><TH>S</TH><TH>C</TH></TR>
-  <TR><TD>Drone</TD><TD>1</TD><TD>0</TD><TD>0</TD><TD>0</TD><TD>0</TD></TR>
-  <TR><TD>Fighter</TD><TD>1</TD><TD>1</TD><TD>1</TD><TD>1</TD><TD>0</TD></TR>
-  <TR><TD>Gunship</TD><TD>4</TD><TD>2</TD><TD>2</TD><TD>4</TD><TD>0</TD></TR>
-  <TR><TD>Destroyer</TD><TD>6</TD><TD>1</TD><TD>8</TD><TD>4</TD><TD>0</TD></TR>
-  <TR><TD>Cruiser</TD><TD>15</TD><TD>1</TD><TD>15</TD><TD>15</TD><TD>0</TD></TR>
-  <TR><TD>BattleCruiser</TD><TD>30</TD><TD>3</TD><TD>10</TD><TD>30</TD><TD>0</TD></TR>
-  <TR><TD>Battleship</TD><TD>25</TD><TD>1</TD><TD>30</TD><TD>35</TD><TD>0</TD></TR>
-  <TR><TD>BattleStation</TD><TD>60</TD><TD>3</TD><TD>30</TD><TD>100</TD><TD>0</TD></TR>
-  <TR><TD>OrbitalFort</TD><TD>0</TD><TD>3</TD><TD>30</TD><TD>100</TD><TD>0</TD></TR>
-  <TR><TD>SpaceGun</TD><TD>0</TD><TD>1</TD><TD>10</TD><TD>0</TD><TD>0</TD></TR>
-  <TR><TD>Freighter</TD><TD>8</TD><TD>0</TD><TD>0</TD><TD>2</TD><TD>10</TD></TR>
-  <TR><TD>Megafreighter</TD><TD>80</TD><TD>2</TD><TD>2</TD><TD>30</TD><TD>100</TD></TR>
-</TABLE>
+<P>Some example ship types are:<P>
 
-<P> 
-The Attacks number has to be a whole number, but the others
-can be fractional.  However they must be either zero or at least
-1.  For example, you can have a Drive of 1.5 but not 0.5.  See
-below for the effects of the numbers.  
-</P>
+<PRE>
+  Name              D    A     W       S       C
+  Drone            1.00   0   0.00   0.00   0.00
+  Flak             1.00   0   0.00   2.00   0.00
+  FastFlak         1.01   0   0.00   1.01   0.00
+  Fighter          2.48   1   1.20   1.27   0.00
+  Gunship          4.00   2   2.00   4.00   0.00
+  Destroyer        6.00   1   8.00   4.00   0.00
+  Cruiser         16.50  30   1.50   9.75   0.00
+  BattleCruiser   49.50  25   3.00   9.50   1.00
+  Battleship      33.00   3  25.00  16.00   1.00
+  BattleStation   99.00   1  50.00  49.00   0.00
+  OrbitalFort      0.00   3  30.00  39.00   0.00
+  SpaceGun         0.00   1   9.90   9.90   0.00
+  Hauler           2.00   0   0.00   0.00   1.00
+  Freighter       30.00   0   0.00   9.50  10.00
+  Megafreighter  120.00   0   0.00  39.43  39.57
+</PRE>
 
 www_subSection('groups', 'Groups')
 
@@ -151,6 +150,8 @@ travel at maximum speed in hyperspace. When a ship enters hyperspace,
 no time passes for the ship or those on board; a ship in hyperspace
 cannot turn around, change course, or be attacked.  
 </P>
+
+www_subSection('incoming', 'Incoming Ships')
 
 <P> 
 Detection of ships in hyperspace is a difficult business.  Of
