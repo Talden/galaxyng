@@ -102,142 +102,174 @@
 #define T_PLAYER  1
 #define T_STANDBY 2
 
+void dump_so(serverOpts* so);	/* used for debugging, not needed othewise */
 
 char* gamename;
 
-int
-main(int argc, char *argv[])
-{
-  playerOpts* po;		/* setting player options */
-  serverOpts* so;		/* server options */
-  gameOpts*   go;		/* options for a game */
+int main(int argc, char *argv[]) {
+	playerOpts* po;		/* setting player options */
+	serverOpts* so;		/* server options */
+	gameOpts*   go;		/* options for a game */
 
-  envelope*   env;		/* for mailing back to the player */
+	envelope*   env;		/* for mailing back to the player */
 #if 0
-  strlist*    orders;
+	strlist*    orders;
 #endif
-  char*       returnAddress;	/* players return address, from email */
-  char*       value;		/* getting values from player email
-				 * and environment */
-  char*       ptr;		/* text manipulation, generic char ptr
-				   */
-  char*       gameName;		/* from the #GALAXY line */
-  char*       raceName;		/* from the #GALAXY line */
-  char*       password;		/* from the #GALAXY line */
+	char*       returnAddress;	/* players return address, from email */
+	char*       value;		/* getting values from player email
+							 * and environment */
+	char*       ptr;		/* text manipulation, generic char ptr */
+	char*       gameName;		/* from the #GALAXY line */
+	char*       raceName;		/* from the #GALAXY line */
+	char*       password;		/* from the #GALAXY line */
 
-  int         errorCode;	/* exit value */
+	int         errorCode;	/* exit value */
 
-#if 0
-  int curNumberOfPlayers;	/* number registered for the game */
-  int maxNumberOfPlayers;	/* the number of players the GM will allow */
-  float totalPlanetSize;	/* total size of planets player can specify */
-  float maxPlanetSize;		/* largest any particular planet can be */
-  int maxNumberOfPlanets;	/* how many planets a player can specify */
 
-  char sys_string[2000];
-#endif
+	int curNumberOfPlayers;	/* number registered for the game */
+	int maxNumberOfPlayers;	/* the number of players the GM will allow */
+	float totalPlanetSize;	/* total size of planets player can specify */
+	float maxPlanetSize;		/* largest any particular planet can be */
+	int maxNumberOfPlanets;	/* how many planets a player can specify */
+	
+	DBUG_ENTER("main");
+	DBUG_PROCESS(argv[0]);
+	DBUG_PUSH_ENV("DBUG");
+	
+	if ((value = getenv("GALAXYNGHOME"))) {
+		galaxynghome = strdup(value);
+	} else if ((value = getenv("HOME"))) {
+		sprintf(lineBuffer, "%s/Games", value);
+		galaxynghome = strdup(lineBuffer);
+	} else {
+		galaxynghome =
+			strdup("/please/set/your/HOME/or/GALAXYNGHOME/variable");
+	}
+
+	if (argc > 1) {
+		DBUG_PUSH(&(argv[1][2]));
+	}
+
+	DBUG_PRINT("env", ("home dir: %s", galaxynghome));
+	
+	errorCode = EXIT_FAILURE;
   
-  if ((value = getenv("GALAXYNGHOME"))) {
-    galaxynghome = strdup(value);
-  } else if ((value = getenv("HOME"))) {
-    sprintf(lineBuffer, "%s/Games", value);
-    galaxynghome = strdup(lineBuffer);
-  } else {
-    galaxynghome =
-      strdup("/please/set/your/HOME/or/GALAXYNGHOME/variable");
-  }
-  
-  errorCode = EXIT_FAILURE;
-  
-  po = (playerOpts*)malloc(sizeof(playerOpts));
-
-  /* load the configuration file */
-  so = loadAREConfig(galaxynghome);
-
-  env = createEnvelope();
-  returnAddress = getReturnAddress(stdin);
-
-  /* now we need to load the orders into memory so we can determine
-     which game and which player we are dealing with */
-
-  getLine(stdin);
-  if ((ptr = strchr(lineBuffer, '#')) == NULL)
-    ptr = lineBuffer;
-
-  while (!feof(stdin)) {
-    if (noCaseStrncmp("#GALAXY", ptr, 7) == 0) {
-      getstr(ptr);	/* discard #GALAXY */
-      gameName = strdup(getstr(NULL));
-      raceName = strdup(getstr(NULL));
-      password = strdup(getstr(NULL));
-
-      if ((go = findElement(gameOpts, so->games, gameName)) == NULL) {
-	/* return message about not finding game */
-	fprintf(stderr, "Could not find game \"%s\"\n", gameName);
-	exit(EXIT_FAILURE);
-      }
-      else {
-	fprintf(stderr, "found game \"%s\"\n", gameName);
-      }
-    }
-    getLine(stdin);
-    if ((ptr = strchr(lineBuffer, '#')) == NULL)
-      ptr = lineBuffer;
-  }
-#if 0
-  curNumberOfPlayers   = numberOfElements(so->go);
-  maxNumberOfPlayers   = so->playerlimit;
-  totalPlanetSize      = so->player_totalplanetsize;
-  maxPlanetSize        = so->player_maxplanetsize;
-  maxNumberOfPlanets   = so->player_maxplanets;
-    
-    if (curNumberOfPlayers >= 0) {
-      if ((po->address = getReturnAddress(stdin))) {
-	printf("To: %s\n%s%s%s%s", po->address, so->from,
-	       so->cc, so->subject, so->replyto);
-	printf("\n\nMessage from A.R.E (Automatic Registration "
-	       "Engine)\n\n\nGreetings,\n");
-	sprintf(sys_string, "/bin/grep %s %s/%s.players > /dev/null",
-		po->address, galaxynghome, gamename);
-	ret = system(sys_string);
-	if (ret == 0) {
-	  printf("\nERROR:\nYou are already registered for "
-		 "this game\n");
-	  exit(0);
+	/* load the configuration file */
+	DBUG_PRINT("load", ("loadAREConfig(%s)", galaxynghome));
+	so = loadAREConfig(galaxynghome);
+	
+	DBUG_PRINT("load", ("loaded .arerc (%p)", (void*)so));
+	
+	env = createEnvelope();
+	if ((returnAddress = getReturnAddress(stdin)) == NULL) {
+		fprintf(stderr, "could not get return address from email.\n");
+		exit(EXIT_FAILURE);
 	}
 	
-	if (getPlanetSizes(stdin, &planets, totalPlanetSize,
-			   maxNumberOfPlanets, maxPlanetSize)) {
-	  errorCode = registerPlayer(po, gamename,
-				     (curNumberOfPlayers < maxNumberOfPlayers) ? T_PLAYER : T_STANDBY);
-	  
-	  if (errorCode == EXIT_SUCCESS) { 
-	    if (curNumberOfPlayers < maxNumberOfPlayers) {
-	      playerMessage(po, gamename);
-	    } else {
-	      standbyMessage(gamename);
-	    }
-	  }
-	} else { /* Player made a mistake in planet sizes */
-	  badPlanetMessage(planets);
+	DBUG_PRINT("mail", ("returnAddress: %s", returnAddress));
+	
+	/* now we need to load the orders into memory so we can determine
+	   which game and which player we are dealing with */
+
+	getLine(stdin);
+	if ((ptr = strchr(lineBuffer, '#')) == NULL)
+		ptr = lineBuffer;
+
+	while (!feof(stdin)) {
+		if (noCaseStrncmp("#GALAXY", ptr, 7) == 0) {
+			getstr(ptr);	/* discard #GALAXY */
+			gameName = strdup(getstr(NULL));
+			raceName = strdup(getstr(NULL));
+			password = strdup(getstr(NULL));
+
+			DBUG_PRINT("mail", ("gameName: %s  race: %s  password: %s\n",
+								 gameName, raceName, password));
+
+			DBUG_PRINT("find", ("Searching for game \"%s\" in %p\n", gameName, (void*)so->games));
+			
+			if ((go = findElement(gameOpts, so->games, gameName)) == NULL) {
+				/* return message about not finding game */
+				fprintf(stderr, "Could not find game \"%s\"\n", gameName);
+				exit(EXIT_FAILURE);
+			}
+			else {
+				DBUG_PRINT("find", ("found game \"%s\"\n", gameName));
+			}
+		}
+		getLine(stdin);
+		if ((ptr = strchr(lineBuffer, '#')) == NULL)
+			ptr = lineBuffer;
 	}
-	if (planets)
-	  free(planets);
-	if (address)
-	  free(address);
-      } else {
-	fprintf(stderr, 
-		"ARE: Can't determine return address.\n");
-      }
+
+	curNumberOfPlayers   = numberOfElements(go->po);
+	DBUG_PRINT("disc", ("current number of players: %d", curNumberOfPlayers));
+
+	maxNumberOfPlayers   = go->maxplayers;
+	totalPlanetSize      = go->home.size_total;
+	maxPlanetSize        = go->home.size_max;
+	maxNumberOfPlanets   = go->home.count_max;
+	
+    if (curNumberOfPlayers >= 0) {
+		char* messages = createString("%s/log/%s.txt", galaxynghome, raceName);
+		FILE* msgFP = fopen(messages, "w");
+		
+		env->from = strdup(so->from);
+		env->replyto = strdup(so->replyto);
+		env->to = strdup(po->email);
+		
+		fprintf(msgFP, "Greetings,\n");
+		/* see if the current player is already in the game */
+		if ((po = findElement(playerOpts, go->po, raceName)) != NULL) {
+			fprintf(msgFP, "You have already been accepted for this game.\n"
+					"I am replacing your information with the new information"
+					"you just supplied.\n\n");
+		}
+		remList(go->po, po);
+		free(po->email);
+		po->email = strdup(returnAddress);
+		free(password);
+		po->password = strdup(password);
+		free(po->real_name);
+		po->options = 0L;
+		po->x = 0.0;
+		po->y = 0.0;
+		po->size = 0.0;
+		freelist(po->planets);
+		po->planets = NULL;
+	}
+#if 0		
+			if (getPlanetSizes(stdin, &planets, totalPlanetSize,
+							   maxNumberOfPlanets, maxPlanetSize)) {
+				errorCode = registerPlayer(po, gamename,
+										   (curNumberOfPlayers < maxNumberOfPlayers) ? T_PLAYER : T_STANDBY);
+				
+				if (errorCode == EXIT_SUCCESS) { 
+					if (curNumberOfPlayers < maxNumberOfPlayers) {
+						playerMessage(po, gamename);
+					} else {
+						standbyMessage(gamename);
+					}
+				}
+			} else { /* Player made a mistake in planet sizes */
+				badPlanetMessage(planets);
+			}
+			if (planets)
+				free(planets);
+			if (address)
+				free(address);
+		} else {
+			fprintf(stderr, 
+					"ARE: Can't determine return address.\n");
+		}
     }
     else {
-      fprintf(stderr, 
-	      "ARE: Can't determine the number players that "
-	      "enrolled.\n");
+		fprintf(stderr, 
+				"ARE: Can't determine the number players that "
+				"enrolled.\n");
     }
-  }
+
 #endif
-  return errorCode;
+	DBUG_RETURN(errorCode);
 }
 #if 0
 

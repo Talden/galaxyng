@@ -23,6 +23,8 @@ typedef struct envelope {
 	char* to;        /* destination */
 	char* from;      /* Who sent it */
 	char* subject;
+	char* replyto;
+	char* cc;
 	char* bcc;
 } envelope;
 

@@ -5,7 +5,7 @@ XMLINCLUDES = `xml2-config --cflags`
 XMLLIBS = `xml2-config --libs`
 
 CFLAGS = -g -Wall -pedantic -I../include $(XMLINCLUDES) $(ADDTL_CFLAGS)
-LIBS = -lm -L../lib -lgalaxyng $(XMLLIBS) $(ADDTL_LIBS)
+LIBS = -g -lm -L../lib -lgalaxyng -ldbug $(XMLLIBS) $(ADDTL_LIBS)
 CC = gcc
 
 SOURCES=are.c loadConfig.c storage.c

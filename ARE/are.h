@@ -11,6 +11,7 @@
 #include <assert.h>
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
+#include <dbug.h>
 
 #include "list.h"
 #include "galaxy.h"

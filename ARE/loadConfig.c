@@ -9,8 +9,8 @@ static void getPlayers(xmlNodePtr players, gameOpts* go);
 static planetTemplate* instantiatePlanet(xmlNodePtr planet);
 static int validatePlanets(FILE* emfFP, gameOpts* go,
 						   planetSpec* ps, char* title);
+static void mailReport(FILE* emfFP, char* configName);
 
-static envelope* env;
 static char* errorMailFile;
 static FILE* emfFP;
 
@@ -19,55 +19,63 @@ xmlXPathObjectPtr getNodeSet(xmlDocPtr doc, xmlChar* xpath) {
 	xmlXPathContextPtr context;
 	xmlXPathObjectPtr  result;
 
+	DBUG_ENTER("getNodeSet");
 	context = xmlXPathNewContext(doc);
 	if ((result = xmlXPathEvalExpression(xpath, context)) == NULL) {
 		xmlXPathFreeContext(context);
-		fprintf(stderr, "No result\n");
 		return NULL;
 	}
 
 
 	if (xmlXPathNodeSetIsEmpty(result->nodesetval)) {
 		xmlXPathFreeContext(context);
-		fprintf(stderr, "No result\n");
 		return NULL;
 	}
 
 	xmlXPathFreeContext(context);
 
-	return result;
+	DBUG_RETURN(result);
 }
 
 xmlDocPtr getDoc(char* filename) {
 	xmlDocPtr doc;
 	xmlXPathObjectPtr are_node;
 	xmlChar* version;
+
+	DBUG_ENTER("getDoc");
 	
+	/* parse the document */
 	doc = xmlParseFile(filename);
 
+	/* was the document parseable? */
 	if (doc == NULL) {
-		fprintf(stderr, "Document not successfully parsed.\n");
-		return NULL;
-	}
-
-	if ((are_node = getNodeSet(doc, (xmlChar*)"/are")) == NULL) {
-		fprintf(stderr, "Document is not an ARE config file.\n");
+		fprintf(emfFP, "Document not successfully parsed (%s).\n", filename);
+		mailReport(emfFP, filename);
+	} /* is there an <are> element? */
+	else if ((are_node = getNodeSet(doc, (xmlChar*)"/are")) == NULL) {
+		fprintf(emfFP, "Document is not an ARE config file (%s).\n", filename);
+		mailReport(emfFP, filename);
 		xmlFreeDoc(doc);
-		return NULL;
+		doc = NULL;
 	}
 
-	version =
-		xmlGetProp(are_node->nodesetval->nodeTab[0], (xmlChar*)"version");
+	/* check the version of the are file */
+	if (doc) {
+		version =
+			xmlGetProp(are_node->nodesetval->nodeTab[0], (xmlChar*)"version");
 
-	if (version == NULL || strcmp((char*)version, "1.0") != 0) {
-		fprintf(stderr, "Incorrect ARE version. Continuing, but some"
-				" new features may not be used.\n");
+		if (version == NULL || strcmp((char*)version, "1.0") != 0) {
+			fprintf(emfFP, "Incorrect ARE version. Continuing, but some"
+					" new features may not be used.\n");
+		}
+
+		free(version);
 	}
-
-	free(version);
 	
-	xmlXPathFreeObject(are_node);
-	return doc;
+	if (are_node)
+		xmlXPathFreeObject(are_node);
+	
+	DBUG_RETURN(doc);
 }
 
 serverOpts* loadAREConfig(const char* pathname) {
@@ -76,22 +84,29 @@ serverOpts* loadAREConfig(const char* pathname) {
 	xmlDocPtr   doc;			/* root of the xml document */
 	char*       attr;			/* attribute pointer */
 
+	DBUG_ENTER("loadAREConfig");
+	
+	/* create a mail file so that any warnings/errors get sent to the GM */
 	errorMailFile = createString("%s/log/are.%d", galaxynghome, getpid());
 	if ((emfFP = fopen(errorMailFile, "w")) == NULL) {
 		fprintf(stderr,
 				"**FATAL** cannot create \"%s\" for error email.\n",
 				errorMailFile);
-		return NULL;
+		DBUG_RETURN(NULL);
 	}
 
 	configName = createString("%s/.arerc", pathname);
 
+	/* initialize the parser and the element lookup routines */
 	xmlInitParser();
-	initElementLookup();		/* initialize the lookup structure */
+	initElementLookup();
 
+	/* can we parse the document? */
 	if ((doc = getDoc(configName)) == NULL) {
+		fprintf(emfFP, "%s could not be parsed\n", configName);
 		free(configName);
-		return NULL;
+		mailReport(emfFP, errorMailFile);
+		DBUG_RETURN(NULL);
 	}
 	
 	/* get the server info */
@@ -102,50 +117,64 @@ serverOpts* loadAREConfig(const char* pathname) {
 		
 		if ((server_node = getNodeSet(doc, (xmlChar*)"/are/server")) == NULL) {
 			fprintf(emfFP, "Cannot find server element, exiting.\n");
-			return NULL;
+			mailReport(emfFP, errorMailFile);
+			DBUG_RETURN(NULL);
 		}
 		so = (serverOpts*)malloc(sizeof(serverOpts));
-		so->from = so->sub_succeed = so->sub_fail = so->replyto = NULL;
-		so->cc = NULL;
+		/* initialize values */
+		so->from = so->sub_succeed = so->sub_fail =
+			so->replyto = so->cc = NULL;
 		so->games = NULL;
+
+		/* look through the elements in the server section */
 		for (nptr = server_node->nodesetval->nodeTab[0]->children;
 			 nptr != NULL; nptr = nptr->next) {
 			char* content;
+			
 			switch(nptr->type) {
-				case XML_ELEMENT_NODE:
+				case XML_ELEMENT_NODE: /* we really only care about elements */
 					ev = lookupElement((char*)nptr->name);
 					content = (char*)xmlNodeGetContent(nptr);
 					switch(ev) {
 						case fromElement:
 							so->from = content;
+							DBUG_PRINT("server", ("from: %s", so->from));
 							break;
 
 						case subjectElement:
 							attr =
 								(char *)xmlGetProp(nptr, (xmlChar*)"type");
-							if (noCaseStrcmp(attr, "success") == 0)
+							if (noCaseStrcmp(attr, "success") == 0) {
 								so->sub_succeed = content;
-							else
+								DBUG_PRINT("server", ("succ: %s", so->sub_succeed));
+							}
+							else {
 								so->sub_fail = content;
+								DBUG_PRINT("server", ("fail: %s", so->sub_fail));
+							}
 							free(attr);
 							break;
 
 						case replytoElement:
 							so->replyto = content;
+							DBUG_PRINT("server", ("replyto: %s", so->replyto));
 							break;
 
 						case ccElement:
 							so->cc = content;
+							DBUG_PRINT("server", ("cc: %s", so->cc));
 							break;
 
 						case UnknownElement:
 							fprintf(emfFP, "Unrecognized element \"%s\", "
 									"exiting\n", nptr->name);
-							return NULL;
+							DBUG_PRINT("server", ("Unrecognized element \"%s\", exiting\n", nptr->name));
+							DBUG_RETURN(NULL);
 							break;
 							
 						default: /* no other elements are in the server area */
-							fprintf(stderr, "(server) skipping element <%s> (%d)\n", nptr->name, ev);
+							fprintf(emfFP, "(server) skipping element <%s> (%d)\n", nptr->name, ev);
+							DBUG_PRINT("server", ("(server) skipping element <%s> (%d)\n", nptr->name, ev));
 							break;
 					}
 					break;
@@ -155,7 +184,8 @@ serverOpts* loadAREConfig(const char* pathname) {
 					break;
 					
 				default:
-					fprintf(stderr, "(server) skipping type %d\n", nptr->type);
+					fprintf(emfFP, "(server) skipping type %d\n", nptr->type);
+					DBUG_PRINT("server", ("(server) skipping type %d\n", nptr->type));
 					break;
 			}
 		}
@@ -286,7 +316,9 @@ serverOpts* loadAREConfig(const char* pathname) {
 							case UnknownElement:
 								fprintf(emfFP, "Unrecognized element \"%s\", "
 										"exiting\n", nptr->name);
-								return NULL;
+								fprintf(stderr, "Unrecognized element \"%s\", "
+										"exiting\n", nptr->name);
+								DBUG_RETURN(NULL);
 								break;
 
 							default:
@@ -409,6 +441,7 @@ serverOpts* loadAREConfig(const char* pathname) {
 						go->name);
 			}
 			else {
+				DBUG_PRINT("load", ("adding game %s to server", go->name));
 				addList(&so->games, go);
 			}
 			
@@ -417,29 +450,46 @@ serverOpts* loadAREConfig(const char* pathname) {
 	}
 
 	if (ftell(emfFP)) {
-		game* aGame;
-		
-		fclose(emfFP);
-		
-		aGame->name = strdup("ARE Engine");
-		loadNGConfig(aGame);
-		env = createEnvelope();
-		
-		env->to = strdup(aGame->serverOptions.GMemail);
-		env->from = strdup(aGame->serverOptions.SERVERemail);
-		env->subject = createString("ARE Config Problems");
-		eMail(aGame, env, errorMailFile);
-		destroyEnvelope(env);
+		mailReport(emfFP, errorMailFile);
 	}				
 	xmlCleanupParser();
-	return so;
+
+	DBUG_PRINT("load", ("returning %p", (void*)so));
+	DBUG_RETURN(so);
 }
 
+static void mailReport(FILE* fp, char* name) {
+	game* aGame;
+	envelope* env;
+
+	DBUG_ENTER("mailReport");
+	
+	fclose(fp);
+
+	aGame = allocStruct(game);
+	
+	aGame->name = strdup("ARE Engine");
+	loadNGConfig(aGame);
+	env = createEnvelope();
+		
+	env->to = strdup(aGame->serverOptions.GMemail);
+	env->from = strdup(aGame->serverOptions.SERVERemail);
+	env->subject = createString("ARE Config Problems");
+	eMail(aGame, env, errorMailFile);
+	destroyEnvelope(env);
+
+	unlink(name);
+	free(name);
+
+	DBUG_VOID_RETURN;
+}
 
 static void getTechElements(xmlNodePtr tech, gameOpts* go) {
 	enum ELEMENT_VALS ev;
 	char* content;
 
+	DBUG_ENTER("getTechElements");
+	
 	for (; tech != NULL; tech = tech->next) {
 		switch(tech->type) {
 			case XML_ELEMENT_NODE:
@@ -471,7 +521,8 @@ static void getTechElements(xmlNodePtr tech, gameOpts* go) {
 						break;
 						
 					default:
-						fprintf(stderr, "(tech) skipping element <%s> (%d)\n", tech->name, ev);
+						fprintf(emfFP, "(tech) skipping element <%s> (%d)\n",
+								tech->name, ev);
 						break;
 				}
 				break;
@@ -485,7 +536,8 @@ static void getTechElements(xmlNodePtr tech, gameOpts* go) {
 				break;
 		}
 	}
-	return;
+	
+	DBUG_VOID_RETURN;
 }
 
 static void getPlayers(xmlNodePtr players, gameOpts* go) {
@@ -495,6 +547,8 @@ static void getPlayers(xmlNodePtr players, gameOpts* go) {
 	char* content;
 	playerOpts* po;
 	int errors = 0;
+
+	DBUG_ENTER("getPlayers");
 	
 	for (; players != NULL; players = players->next) {
 		errors = 0;
@@ -624,11 +678,11 @@ static void getPlayers(xmlNodePtr players, gameOpts* go) {
 											break;
 											
 										case UnknownElement:
-											fprintf(stderr, "Did not recognize \"%s\" as a valid element.\n", player->name);
+											fprintf(emfFP, "Did not recognize \"%s\" as a valid element.\n", player->name);
 											break;
 											
 										default:
-											fprintf(stderr, "(player) skipping element <%s> (%d)\n", player->name, ev);
+											fprintf(emfFP, "(player) skipping element <%s> (%d)\n", player->name, ev);
 											break;
 									}
 									break;
@@ -638,7 +692,7 @@ static void getPlayers(xmlNodePtr players, gameOpts* go) {
 									break;
 									
 								default:
-									fprintf(stderr, "(player) skipping type %d\n", player->type);
+									fprintf(emfFP, "(player) skipping type %d\n", player->type);
 									break;
 							}
 						}
@@ -673,7 +727,7 @@ static void getPlayers(xmlNodePtr players, gameOpts* go) {
 		}
 	}
 
-	return;
+	DBUG_VOID_RETURN;
 }
 
 static void getPlanets(xmlNodePtr planets, enum ELEMENT_VALS worldtype,
@@ -682,6 +736,8 @@ static void getPlanets(xmlNodePtr planets, enum ELEMENT_VALS worldtype,
 	char* content;
 	planetSpec* ps;
 	xmlNodePtr  nptr;
+
+	DBUG_ENTER("getPlanets");
 	
 	switch(worldtype) {
 		case homeworldsElement:
@@ -797,7 +853,8 @@ static void getPlanets(xmlNodePtr planets, enum ELEMENT_VALS worldtype,
 				break;
 		}
 	}
-	return;
+
+	DBUG_VOID_RETURN;
 }
 
 static planetTemplate* instantiatePlanet(xmlNodePtr planet) {
@@ -807,6 +864,8 @@ static planetTemplate* instantiatePlanet(xmlNodePtr planet) {
 	enum ELEMENT_VALS ev;
 	char* content;
 	char  name[16];
+
+	DBUG_ENTER("instantiatePlanet");
 	
 	pt = allocStruct(planetTemplate);
 	pt->size = pt->res = pt->pop = pt->ind = pt->cap = pt->col = pt->mat = 0.0;
@@ -858,7 +917,7 @@ static planetTemplate* instantiatePlanet(xmlNodePtr planet) {
 		}
 	}
 
-	return pt;
+	DBUG_RETURN(pt);
 }
 
 static int validatePlanets(FILE* fp, gameOpts* go,
@@ -869,6 +928,8 @@ static int validatePlanets(FILE* fp, gameOpts* go,
 	float total_size;
 	int   homeworlds = !noCaseStrcmp(title, "Home Worlds");
 
+	DBUG_ENTER("validatePlanets");
+	
 	if (ps->res_min > ps->res_max) {
 		float tmp = ps->res_min;
 		ps->res_min = ps->res_max;
@@ -1031,14 +1092,13 @@ static int validatePlanets(FILE* fp, gameOpts* go,
 		errors++;
 	}
 	
-	return errors;
+	DBUG_RETURN(errors);
 }
 
 
 
-#if defined(LoadConfigMainNeeded)
 
-static void dump_planets(planetSpec* ps) {
+void dump_planets(planetSpec* ps) {
 	planetTemplate* pt;
 	
 	printf("      resources: %.2f to %.2f\n", ps->res_min, ps->res_max);
@@ -1059,7 +1119,7 @@ static void dump_planets(planetSpec* ps) {
 	return;
 }
 
-static void dump_players(playerOpts* players) {
+void dump_players(playerOpts* players) {
 	playerOpts* po;
 	for(po = players; po != NULL; po = po->next) {
 		printf("      name: %s\n", po->name);
@@ -1102,7 +1162,7 @@ static void dump_players(playerOpts* players) {
 	}
 }
 
-static void dump_so(serverOpts* so) {
+void dump_so(serverOpts* so) {
 	gameOpts* go;
 	
 	printf("server:\n  from: \"%s\"\n  subject (succeed): \"%s\"\n",
@@ -1144,6 +1204,8 @@ static void dump_so(serverOpts* so) {
 	
 	return;
 }
+
+#if defined(LoadConfigMainNeeded)
 
 int
 main (int argc, char *argv[])
