@@ -2,247 +2,265 @@
 #include "xmlparse.h"
 #include "list.h"
 #include "are.h"
+#include "storage.h"
 
 enum element_context {
-  server_context, game_context, core_context, growth_context, tech_context,
-  player_context
+	unknown, start, are, server, server_data, game, homeworlds, growth, stuff,
+	asteroids, player
 };
+
+static enum element_context stack[64] = {start};
+static int top = 0;
+static int line_number = 1;
 
 static char** curElement;
 static serverOpts* so = NULL;
 static gameOpts* go = NULL;
 static playerOpts* po = NULL;
 
-static int tagContext = 0;
-static enum element_context context = server_context;
-static int core_idx = 0;
+void startElement (void *userData, const char *name, const char **atts) {
+	
+	enum ELEMENT_VALS element;
+
+	if (*name == '\n') {
+		line_number++;
+		return;
+	}
+	
+	if ((element = lookupElement(name)) == UnknownElement) {
+		fprintf(stderr, "Unexpected element \"%s\", exiting.\n", name);
+		exit(EXIT_FAILURE);
+	}
+
+	switch(stack[top]) {
+		case unknown:			/* this should never happen */
+			fprintf(stderr, "TRC: unbalanced stack, line %d\n", line_number);
+			exit(EXIT_FAILURE);
+			break;
+			
+		case start:
+			if (element != areElement) {
+				fprintf(stderr, "Expected <are> at line %d\n", line_number);
+				exit(EXIT_FAILURE);
+			}
+
+			if (strcmp(atts[1], "1.0") != 0) {
+				fprintf(stderr, "unrecognized ARE version, continuing\n");
+			}
+			stack[++top] = are;
+			break;
+
+		case are:
+			switch(element) {
+				case serverElement:
+					stack[++top] = server_data;
+					break;
+
+				case gameElement:
+					stack[++top] = game_data;
+					go = allocStruct(gameOpts);
+					assert(go != NULL);
+					go->next = NULL;
+					go->from = NULL;
+					go->succeed_subject = NULL;
+					go->fail_subject = NULL;
+					go->replyto = NULL;
+					go->cc = NULL;
+					go->minplayers = 0;
+					go->maxplayers = 0;
+					go->delay_hours = 0;
+					go->totalplanetsize = 0.0;
+					go->maxplanetsize = 0.0;
+					go->minplanets = 0;
+					go->maxplanets = 0;
+					go->galaxy_size = 0.0;
+					go->nation_spacing = 0.0;
+					go->core_sizes = (float*)malloc(sizeof(float));
+					go->core_sizes[0] = -1;
+					go->growth_planets_count = 0;
+					go->growth_planets_radius = 0.0;
+					go->stuff_planets = 0;
+					go->pax_galactica = 0;
+					go->initial_drive = 1.0;
+					go->initial_weapons = 1.0;
+					go->initial_shields = 1.0;
+					go->initial_cargo = 1.0;
+					go->game_options = 0;
+					setName(go,atts[1]);
+					break;
+
+				default:
+					fprintf(stderr, "Expecting <server> or <game> at line\n",
+							line_number);
+					break;
+			}
+			break;
+
+		case server_data:
+			switch(element) {
+				case fromElement:
+					curElement = &so->from;
+					break;
+
+				case subjectElement:
+					if (noCaseStrcmp(atts[1], "success") == 0)
+						curElement = &so->succeed_subject;
+					else
+						curElement = &so->fail_subject;
+					break;
+
+				case replytoElement:
+					curElement = &so->replyto;
+					break;
+
+				case ccElement:
+					curElement = &so->cc;
+					break;
+
+				default:
+					fprintf(stderr, "Unexpected element \"%s\" at line %d\n",
+							name, line_number);
+					break;
+			}
+			break;
+
+		case game_data:
+			switch(element) {
+				case fromElement:
+					curElement = &go->from;
+					break;
+
+				case subjectElement:
+					if (noCaseStrcmp(atts[1], "success") == 0)
+						curElement = &go->succeed_subject;
+					else
+						curElement = &go->fail_subject;
+					break;
+					
+				case repltytoElement:
+					curElement = &go->replyto;
+					break;
+
+				case ccElement:
+					curElement = &go->cc;
+					break;
+			}
+			break;
+	}
 
 
-void
-startElement (void *userData, const char *name, const char **atts)
-{
-  tagContext = 1;
-
-  if (noCaseStrcmp (name, "are") == 0) {
-    if (strcmp(atts[1], "1.0") != 0)
-      fprintf(stderr, "unrecognized ARE version, continuing\n");
-    tagContext = 0;
-  }
-  else if (noCaseStrcmp(name, "server") == 0) {
-    context = server_context;
-    tagContext = 0;
-  }
-  else if (noCaseStrcmp(name, "from") == 0) {
-    switch(context) {
-    case server_context:
-      curElement = &so->from;
-      break;
-    case game_context:
-      curElement = &go->from;
-      break;
-    case core_context:
-    case growth_context:
-    case tech_context:
-    case player_context:
-      break;
-    }
-  }
-  else if (noCaseStrcmp(name, "subject") == 0) {
-    switch(context) {
-    case server_context:
-      if (noCaseStrcmp(atts[1], "success") == 0)
-	curElement = &so->succeed_subject;
-      else
-	curElement = &so->fail_subject;
-      break;
-    case game_context:
-      if (noCaseStrcmp(atts[1], "success") == 0)
-	curElement = &go->succeed_subject;
-      else
-	curElement = &go->fail_subject;
-      break;
-    case core_context:
-    case growth_context:
-    case tech_context:
-    case player_context:
-      break;
-    }
-  }
-  else if (noCaseStrcmp(name, "replyto") == 0) {
-    switch(context) {
-    case server_context:
-      curElement = &so->replyto;
-      break;
-    case game_context:
-      curElement = &go->replyto;
-      break;
-    case core_context:
-    case growth_context:
-    case tech_context:
-    case player_context:
-      break;
-    }
-  }
-  else if (noCaseStrcmp(name, "cc") == 0) {
-    switch(context) {
-    case server_context:
-      curElement = &so->cc;
-      break;
-    case game_context:
-      curElement = &go->cc;
-      break;
-    case core_context:
-    case growth_context:
-    case tech_context:
-    case player_context:
-      break;
-    }
-  }
-  else if (noCaseStrcmp(name, "game") == 0) {
-    tagContext = 0;
-    go = allocStruct(gameOpts);
-    assert(go != NULL);
-    go->next = NULL;
-    go->from = NULL;
-    go->succeed_subject = NULL;
-    go->fail_subject = NULL;
-    go->replyto = NULL;
-    go->cc = NULL;
-    go->minplayers = 0;
-    go->maxplayers = 0;
-    go->delay_hours = 0;
-    go->totalplanetsize = 0.0;
-    go->maxplanetsize = 0.0;
-    go->minplanets = 0;
-    go->maxplanets = 0;
-    go->galaxy_size = 0.0;
-    go->nation_spacing = 0.0;
-    go->core_sizes = (float*)malloc(sizeof(float));
-    go->core_sizes[0] = -1;
-    go->growth_planets_count = 0;
-    go->growth_planets_radius = 0.0;
-    go->stuff_planets = 0;
-    go->pax_galactica = 0;
-    go->initial_drive = 1.0;
-    go->initial_weapons = 1.0;
-    go->initial_shields = 1.0;
-    go->initial_cargo = 1.0;
-    go->game_options = 0;
-    setName(go,atts[1]);
-    context = game_context;
-  }
-  else if (noCaseStrcmp(name, "core_sizes") == 0) {
-    int nbr_core = atoi(atts[1]);
-    free(go->core_sizes);
-    go->core_sizes = (float*)malloc(sizeof(float)*(nbr_core+1));
-    go->core_sizes[nbr_core] = -1;
-    context = core_context;
-  }
-  else if (noCaseStrcmp(name, "minplayers") == 0) {
-    curElement = (char**)&go->minplayers;
-  }
-  else if (noCaseStrcmp(name, "maxplayers") == 0) {
-    curElement = (char**)&go->maxplayers;
-  }
-  else if (noCaseStrcmp(name, "totalplanetsize") == 0) {
-    curElement = (char**)&go->totalplanetsize;
-  }
-  else if (noCaseStrcmp(name, "maxplanetsize") == 0) {
-    curElement = (char**)&go->maxplanetsize;
-  }
-  else if (noCaseStrcmp(name, "minplanets") == 0) {
-    curElement = (char**)&go->minplanets;
-  }
-  else if (noCaseStrcmp(name, "maxplanets") == 0) {
-    curElement = (char**)&go->maxplanets;
-  }
-  else if (noCaseStrcmp(name, "galaxy_size") == 0) {
-    curElement = (char**)&go->galaxy_size;
-  }
-  else if (noCaseStrcmp(name, "delay_hours") == 0) {
-    curElement = (char**)&go->delay_hours;
-  }
-  else if (noCaseStrcmp(name, "nation_spacing") == 0) {
-    curElement = (char**)&go->nation_spacing;
-  }
-  else if (noCaseStrcmp(name, "planet") == 0) {
-    if (context == core_context) {
-      core_idx = atoi(atts[1]) - 1;
-      curElement = (char**)&go->core_sizes;
-    }
-  }
-  else if (noCaseStrcmp(name, "growth_planets") == 0) {
-    context = growth_context;
-  }
-  else if (noCaseStrcmp(name, "count") == 0) {
-    if (context == growth_context) 
-      curElement = (char**)&go->growth_planets_count;
-  }
-  else if (noCaseStrcmp(name, "radius") == 0) {
-    if (context == growth_context)
-      curElement = (char**)&go->growth_planets_radius;
-  }
-  else if (noCaseStrcmp(name, "stuff_planets") == 0) {
-    curElement = (char**)&go->stuff_planets;
-  }
-  else if (noCaseStrcmp(name, "paxgalactica") == 0) {
-    curElement = (char**)&go->pax_galactica;
-  }
-  else if (noCaseStrcmp(name, "initial_tech_levels") == 0) {
-    context = tech_context;
-  }
-  else if (noCaseStrcmp(name, "drive") == 0) {
-    if (context == tech_context)
-      curElement = (char**)&go->initial_drive;
-  }
-  else if (noCaseStrcmp(name, "weapons") == 0) {
-    if (context == tech_context)
-      curElement = (char**)&go->initial_weapons;
-  }
-  else if (noCaseStrcmp(name, "shields") == 0) {
-    if (context == tech_context)
-      curElement = (char**)&go->initial_shields;
-  }
-  else if (noCaseStrcmp(name, "cargo") == 0) {
-    if (context == tech_context)
-      curElement = (char**)&go->initial_cargo;
-  }
-  else if (noCaseStrcmp(name, "full_bombing") == 0) {
-    go->game_options |= GAME_NONGBOMBING;
-  }
-  else if (noCaseStrcmp(name, "keep_production") == 0) {
-    go->game_options |= GAME_KEEPPRODUCTION;
-  }
-  else if (noCaseStrcmp(name, "dont_drop_dead") == 0) {
-    go->game_options |= GAME_NODROP;
-  }
-  else if (noCaseStrcmp(name, "save_report_copy") == 0) {
-    go->game_options |= GAME_SAVECOPY;
-  }
-  else if (noCaseStrcmp(name, "spherical_galaxy") == 0) {
-    go->game_options |= GAME_SPHERICALGALAXY;
-  }
-  else if (noCaseStrcmp(name, "players") == 0) {
-    tagContext = 0;
-    context = player_context;
-    po = allocStruct(playerOpts);
-    assert(po != NULL);
-    po->next = NULL;
-    po->email = NULL;
-    po->password = NULL;
-    po->real_name = NULL;
-    po->x = 0.0;
-    po->y = 0.0;
-    po->size = 0.0;
-    po->planets = allocStruct(planet);
-    po->options = 0;
-  }
-  else if (noCaseStrcmp(name, "player") == 0) {
-  }
-  else {
-    tagContext = 0;
-    printf("unrecognized element %s\n", name);
-  }
+	else if (noCaseStrcmp(name, "core_sizes") == 0) {
+		int nbr_core = atoi(atts[1]);
+		free(go->core_sizes);
+		go->core_sizes = (float*)malloc(sizeof(float)*(nbr_core+1));
+		go->core_sizes[nbr_core] = -1;
+		context = core_context;
+	}
+	else if (noCaseStrcmp(name, "minplayers") == 0) {
+		curElement = (char**)&go->minplayers;
+	}
+	else if (noCaseStrcmp(name, "maxplayers") == 0) {
+		curElement = (char**)&go->maxplayers;
+	}
+	else if (noCaseStrcmp(name, "totalplanetsize") == 0) {
+		curElement = (char**)&go->totalplanetsize;
+	}
+	else if (noCaseStrcmp(name, "maxplanetsize") == 0) {
+		curElement = (char**)&go->maxplanetsize;
+	}
+	else if (noCaseStrcmp(name, "minplanets") == 0) {
+		curElement = (char**)&go->minplanets;
+	}
+	else if (noCaseStrcmp(name, "maxplanets") == 0) {
+		curElement = (char**)&go->maxplanets;
+	}
+	else if (noCaseStrcmp(name, "galaxy_size") == 0) {
+		curElement = (char**)&go->galaxy_size;
+	}
+	else if (noCaseStrcmp(name, "delay_hours") == 0) {
+		curElement = (char**)&go->delay_hours;
+	}
+	else if (noCaseStrcmp(name, "nation_spacing") == 0) {
+		curElement = (char**)&go->nation_spacing;
+	}
+	else if (noCaseStrcmp(name, "planet") == 0) {
+		if (context == core_context) {
+			core_idx = atoi(atts[1]) - 1;
+			curElement = (char**)&go->core_sizes;
+		}
+	}
+	else if (noCaseStrcmp(name, "growth_planets") == 0) {
+		context = growth_context;
+	}
+	else if (noCaseStrcmp(name, "count") == 0) {
+		if (context == growth_context) 
+			curElement = (char**)&go->growth_planets_count;
+	}
+	else if (noCaseStrcmp(name, "radius") == 0) {
+		if (context == growth_context)
+			curElement = (char**)&go->growth_planets_radius;
+	}
+	else if (noCaseStrcmp(name, "stuff_planets") == 0) {
+		curElement = (char**)&go->stuff_planets;
+	}
+	else if (noCaseStrcmp(name, "paxgalactica") == 0) {
+		curElement = (char**)&go->pax_galactica;
+	}
+	else if (noCaseStrcmp(name, "initial_tech_levels") == 0) {
+		context = tech_context;
+	}
+	else if (noCaseStrcmp(name, "drive") == 0) {
+		if (context == tech_context)
+			curElement = (char**)&go->initial_drive;
+	}
+	else if (noCaseStrcmp(name, "weapons") == 0) {
+		if (context == tech_context)
+			curElement = (char**)&go->initial_weapons;
+	}
+	else if (noCaseStrcmp(name, "shields") == 0) {
+		if (context == tech_context)
+			curElement = (char**)&go->initial_shields;
+	}
+	else if (noCaseStrcmp(name, "cargo") == 0) {
+		if (context == tech_context)
+			curElement = (char**)&go->initial_cargo;
+	}
+	else if (noCaseStrcmp(name, "full_bombing") == 0) {
+		go->game_options |= GAME_NONGBOMBING;
+	}
+	else if (noCaseStrcmp(name, "keep_production") == 0) {
+		go->game_options |= GAME_KEEPPRODUCTION;
+	}
+	else if (noCaseStrcmp(name, "dont_drop_dead") == 0) {
+		go->game_options |= GAME_NODROP;
+	}
+	else if (noCaseStrcmp(name, "save_report_copy") == 0) {
+		go->game_options |= GAME_SAVECOPY;
+	}
+	else if (noCaseStrcmp(name, "spherical_galaxy") == 0) {
+		go->game_options |= GAME_SPHERICALGALAXY;
+	}
+	else if (noCaseStrcmp(name, "players") == 0) {
+		tagContext = 0;
+		context = player_context;
+		po = allocStruct(playerOpts);
+		assert(po != NULL);
+		po->next = NULL;
+		po->email = NULL;
+		po->password = NULL;
+		po->real_name = NULL;
+		po->x = 0.0;
+		po->y = 0.0;
+		po->size = 0.0;
+		po->planets = allocStruct(planet);
+		po->options = 0;
+	}
+	else if (noCaseStrcmp(name, "player") == 0) {
+	}
+	else {
+		tagContext = 0;
+		printf("unrecognized element %s\n", name);
+	}
 }
 
 void
@@ -479,9 +497,7 @@ dumpGameOptData(void* data)
 	  go->initial_cargo);
 }
 
-serverOpts*
-loadConfig (const char *galaxynghome)
-{
+serverOpts* loadConfig (const char *galaxynghome) {
     FILE *areFP;
     char arename[BUFSIZ];
     char buf[BUFSIZ];
@@ -489,6 +505,8 @@ loadConfig (const char *galaxynghome)
     int done;
     so = (serverOpts*)malloc(sizeof(serverOpts));
 
+	initElementLookup();
+	
     XML_SetUserData (parser, NULL);
     XML_SetElementHandler (parser, startElement, endElement);
     XML_SetCharacterDataHandler(parser, contentData);
