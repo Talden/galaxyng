@@ -7,6 +7,8 @@
 #define ELEMENT_CODE_LEN   16
 #define forever          1
 
+#include <ctype.h>
+
 char* strlwr(char* input) {
 	char* ptr = input;
 
@@ -35,9 +37,6 @@ static int elementComp (const void *element1, const void *element2) {
 int initElementLookup () {
 	static int initialized = 0;
 	
-	int tags;
-	int elements;
-	
 	if (!initialized) {
 		initialized = 1;
 		qsort ((char *) elementLookup, NUM_ELEMENTS,
@@ -58,7 +57,7 @@ enum ELEMENT_VALS lookupElement (const char *elementName) {
 
 /*  fprintf(stderr, "Looking up TAG--->%s\n", elementName);  */
 
-	dataElement = (struct element *) bsearch ((void *) &srchElement, (void *)
+	dataElement = (struct _elementLookup *) bsearch ((void *) &srchElement, (void *)
 											  elementLookup,
 											  NUM_ELEMENTS,
 											  sizeof (srchElement),
@@ -77,8 +76,6 @@ enum ELEMENT_VALS lookupElement (const char *elementName) {
 /*--------------------------------------------------------------------*/
 enum ERR_CODES storeElementData (enum ELEMENT_VALS type, char *elementText) {
 	int elementTextLen;              /* how much do we have to store? */
-	int tagIdx;                   /* shortcut to the member element */
-	int requiredTextSize;         /* how big do we make it? */
 
 #if DEBUG == 1
 	fprintf (stderr, "Came into STOREELEMENTDATA with ELEMENTTEXT-->%s\n",
@@ -105,8 +102,6 @@ int getElementCount (enum ELEMENT_VALS type) {
 /*            FUNCTION:  getElementData                                  */
 /*--------------------------------------------------------------------*/
 char* getElementData (enum ELEMENT_VALS type) {
-	int i;
-
 	return "";
 }
 
@@ -127,8 +122,6 @@ char * lookupElementName (enum ELEMENT_VALS type) {
 /*            FUNCTION: dumpStorage                                   */
 /*--------------------------------------------------------------------*/
 void dumpStorage (enum ELEMENT_VALS type) {
-	int i;
-	
 	return;
 }
 

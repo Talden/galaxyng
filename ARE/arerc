@@ -45,7 +45,6 @@
          <min>3</min>
          <max>3</max>
        </count>
-       <radius>8</radius>
     </homeworlds>
     <!-- note that with nothing else defined there is a lot of default
          behaviour here. This is unlikely to happen in reality because
@@ -227,6 +226,7 @@
       <player seq="1">
         <name>ChaccaCor</name>
         <realname>Ken Weinert</realname>
+	    <email>mc@quarter-flash.com</email>
         <map>
           <x>40</x>
           <y>40</y>
@@ -253,7 +253,7 @@
           </planet>
         </homeworlds>
         <!-- player options -->
-        <textreport />
+        <txtreport />
         <xmlreport />
         <anonymous />
         <autounload />

@@ -136,7 +136,7 @@ typedef struct _gameOpts {
 	float  initial_weapons;
 	float  initial_shields;
 	float  initial_cargo;
-	long   game_options;		/* game option flags */
+	long   options;		/* game option flags */
 	planetSpec home;
 	planetSpec dev;
 	planetSpec stuff;

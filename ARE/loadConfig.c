@@ -5,11 +5,12 @@
 
 static void getTechElements(xmlNodePtr tech, gameOpts* go);
 static void getPlanets(xmlNodePtr planets, enum ELEMENT_VALS ev, gameOpts* go);
+static void getPlayers(xmlNodePtr players, gameOpts* go);
 static planetTemplate* instantiatePlanet(xmlNodePtr planet);
 static int validatePlanets(FILE* emfFP, gameOpts* go,
 						   planetSpec* ps, char* title);
 
-envelope* env;
+static envelope* env;
 static char* errorMailFile;
 static FILE* emfFP;
 
@@ -86,13 +87,12 @@ serverOpts* loadAREConfig(const char* pathname) {
 	configName = createString("%s/.arerc", pathname);
 
 	xmlInitParser();
+	initElementLookup();		/* initialize the lookup structure */
 
 	if ((doc = getDoc(configName)) == NULL) {
 		free(configName);
 		return NULL;
 	}
-
-	initElementLookup();		/* initialize the lookup structure */
 	
 	/* get the server info */
 	{
@@ -145,11 +145,17 @@ serverOpts* loadAREConfig(const char* pathname) {
 							break;
 							
 						default: /* no other elements are in the server area */
+							fprintf(stderr, "(server) skipping element <%s> (%d)\n", nptr->name, ev);
 							break;
 					}
 					break;
 
+				case XML_TEXT_NODE:
+				case XML_COMMENT_NODE:
+					break;
+					
 				default:
+					fprintf(stderr, "(server) skipping type %d\n", nptr->type);
 					break;
 			}
 		}
@@ -185,7 +191,7 @@ serverOpts* loadAREConfig(const char* pathname) {
 			go->galaxy_size = go->nation_spacing = 0.0;
 			go->initial_drive = go->initial_weapons = 0.0;
 			go->initial_shields = go->initial_cargo = 0.0;
-			go->game_options = 0L;
+			go->options = 0L;
 			memset(&go->home, '\0', sizeof(planetSpec));
 			memset(&go->dev, '\0', sizeof(planetSpec));
 			memset(&go->stuff, '\0', sizeof(planetSpec));
@@ -253,6 +259,30 @@ serverOpts* loadAREConfig(const char* pathname) {
 								getPlanets(nptr->children, ev, go);
 								break;
 								
+							case playersElement:
+								getPlayers(nptr->children, go);
+								break;
+
+							case fullbombingElement:
+								go->options |= GAME_NONGBOMBING;
+								break;
+
+							case keepproductionElement:
+								go->options |= GAME_KEEPPRODUCTION;
+								break;
+
+							case dontdropdeadElement:
+								go->options |= GAME_NODROP;
+								break;
+
+							case savereportcopyElement:
+								go->options |= GAME_SAVECOPY;
+								break;
+
+							case sphericalgalaxyElement:
+								go->options |= GAME_SPHERICALGALAXY;
+								break;
+
 							case UnknownElement:
 								fprintf(emfFP, "Unrecognized element \"%s\", "
 										"exiting\n", nptr->name);
@@ -260,10 +290,17 @@ serverOpts* loadAREConfig(const char* pathname) {
 								break;
 
 							default:
+								fprintf(stderr, "(game) skipping element <%s> (%d)\n", nptr->name, ev);
 								break;
 						}
-
+						break;
+						
+					case XML_TEXT_NODE:
+					case XML_COMMENT_NODE:
+						break;
+					
 					default:
+						fprintf(stderr, "(game) skipping type %d\n", nptr->type);
 						break;
 				}
 			}
@@ -434,6 +471,199 @@ static void getTechElements(xmlNodePtr tech, gameOpts* go) {
 						break;
 						
 					default:
+						fprintf(stderr, "(tech) skipping element <%s> (%d)\n", tech->name, ev);
+						break;
+				}
+				break;
+				
+			case XML_TEXT_NODE:
+			case XML_COMMENT_NODE:
+				break;
+				
+			default:
+				fprintf(stderr, "(tech) skipping type %d\n", tech->type);
+				break;
+		}
+	}
+	return;
+}
+
+static void getPlayers(xmlNodePtr players, gameOpts* go) {
+	xmlNodePtr player;
+	xmlNodePtr nptr;
+	enum ELEMENT_VALS ev;
+	char* content;
+	playerOpts* po;
+	int errors = 0;
+	
+	for (; players != NULL; players = players->next) {
+		errors = 0;
+		switch(players->type) {
+			case XML_ELEMENT_NODE:
+				ev = lookupElement((char*)players->name);
+				content = (char*)xmlNodeGetContent(players);
+
+				switch(ev) {
+					case playerElement:
+						po = allocStruct(playerOpts);
+						po->options = 0L;
+						po->email = po->password = po->real_name = NULL;
+						po->x = po->y = po->size = 0.0;
+						po->planets = NULL;
+						
+						for (player = players->children; player != NULL;
+							 player = player->next) {
+							switch(player->type) {
+								case XML_ELEMENT_NODE:
+									ev = lookupElement((char*)player->name);
+									content = (char*)xmlNodeGetContent(player);
+									switch(ev) {
+										case nameElement:
+											setName(po, content);
+											break;
+											
+										case realnameElement:
+											po->real_name = strdup(content);
+											break;
+
+										case emailElement:
+											po->email = strdup(content);
+											break;
+
+										case mapElement:
+											for (nptr = player->children;
+												 nptr != NULL;
+												 nptr = nptr->next) {
+												switch(nptr->type) {
+													case XML_ELEMENT_NODE:
+														content = (char*)xmlNodeGetContent(nptr);
+														if (noCaseStrcmp((char*)nptr->name, "x") == 0) {
+															po->x = atof(content);
+														}
+														else if (noCaseStrcmp((char*)nptr->name, "y") == 0) {
+															po->y = atof(content);
+														}
+														else {
+															po->size = atof(content);
+														}
+														break;
+
+													case XML_TEXT_NODE:
+													case XML_COMMENT_NODE:
+														break;
+														
+													default:
+														fprintf(stderr, "(map) skipping type %d\n", nptr->type);
+														break;
+												}
+											}
+											break;
+											
+										case passwordElement:
+											po->password = strdup(content);
+											break;
+											
+										case homeworldsElement:
+											break;
+											
+										case txtreportElement:
+											po->options |= F_TXTREPORT;
+											break;
+											
+										case xmlreportElement:
+											po->options |= F_XMLREPORT;
+											break;
+											
+										case anonymousElement:
+											po->options |= F_ANONYMOUS;
+											break;
+											
+										case autounloadElement:
+											po->options |= F_AUTOUNLOAD;
+											break;
+											
+										case battleprotocolElement:
+											po->options |= F_BATTLEPROTOCOL;
+											break;
+											
+										case compressElement:
+											po->options |= F_COMPRESS;
+											break;
+
+										case gplusElement:
+											po->options |= F_GPLUS;
+											break;
+											
+										case groupforecastElement:
+											po->options |= F_GROUPFORECAST;
+											break;
+											
+										case planetforecastElement:
+											po->options |= F_PLANETFORECAST;
+											break;
+											
+										case prodtableElement:
+											po->options |= F_PRODTABLE;
+											break;
+											
+										case routesforecastElement:
+											po->options |= F_ROUTESFORECAST;
+											break;
+											
+										case shiptypeforecastElement:
+											po->options |= F_SHIPTYPEFORECAST;
+											break;
+											
+										case sortgroupsElement:
+											po->options |= F_SORTGROUPS;
+											break;
+
+										case machinereportElement:
+											fprintf(emfFP, "**INFO** %s: the MachineReport option is deprecated, ignoring.\n",
+													po->name);
+											break;
+											
+										case UnknownElement:
+											fprintf(stderr, "Did not recognize \"%s\" as a valid element.\n", player->name);
+											break;
+											
+										default:
+											fprintf(stderr, "(player) skipping element <%s> (%d)\n", player->name, ev);
+											break;
+									}
+									break;
+
+								case XML_TEXT_NODE:
+								case XML_COMMENT_NODE:
+									break;
+									
+								default:
+									fprintf(stderr, "(player) skipping type %d\n", player->type);
+									break;
+							}
+						}
+						/* validation */
+						if (po->name == NULL) {
+							fprintf(emfFP, "**ERROR** %s: player needs name.\n",
+									go->name);
+							errors++;
+						}
+
+						if (po->email == NULL) {
+							fprintf(emfFP,
+									"**ERROR** %s: player needs an email.\n",
+									po->name);
+							errors++;
+						}
+
+						if (!errors)
+							addList(&go->po, po);
+						else {
+							fprintf(emfFP, "invalid user, skipping.\n");
+						}
+						break;
+						
+					default:
 						break;
 				}
 				break;
@@ -442,6 +672,7 @@ static void getTechElements(xmlNodePtr tech, gameOpts* go) {
 				break;
 		}
 	}
+
 	return;
 }
 
@@ -637,7 +868,7 @@ static int validatePlanets(FILE* fp, gameOpts* go,
 	int total_count;
 	float total_size;
 	int   homeworlds = !noCaseStrcmp(title, "Home Worlds");
-	fprintf(stderr, "title: \"%s\"  homeworlds: %d\n", title, homeworlds);
+
 	if (ps->res_min > ps->res_max) {
 		float tmp = ps->res_min;
 		ps->res_min = ps->res_max;
@@ -827,7 +1058,50 @@ static void dump_planets(planetSpec* ps) {
 	
 	return;
 }
-	
+
+static void dump_players(playerOpts* players) {
+	playerOpts* po;
+	for(po = players; po != NULL; po = po->next) {
+		printf("      name: %s\n", po->name);
+		printf("      realname: %s\n      email: %s\n",
+			   po->real_name, po->email);
+		printf("      map: %.2f,%.2f -- %.2f\n",
+			   po->x, po->y, po->size);
+		printf("      options: ");
+		if (po->options & F_ANONYMOUS)
+			printf("anonymous/");
+		if (po->options & F_AUTOUNLOAD)
+			printf("autounload/");
+		if (po->options & F_PRODTABLE)
+			printf("prodtable/");
+		if (po->options & F_SORTGROUPS)
+			printf("sortgroups/");
+		if (po->options & F_GROUPFORECAST)
+			printf("groupforecast/");
+		if (po->options & F_PLANETFORECAST)
+			printf("planetforecast/");
+		if (po->options & F_SHIPTYPEFORECAST)
+			printf("shiptypeforecast/");
+		if (po->options & F_ROUTESFORECAST)
+			printf("routesforecast/");
+		if (po->options & F_SORTED)
+			printf("sorted/");
+		if (po->options & F_COMPRESS)
+			printf("compress/");
+		if (po->options & F_GPLUS)
+			printf("gplus/");
+		if (po->options & F_BATTLEPROTOCOL)
+			printf("battleprotocol/");
+		if (po->options & F_XMLREPORT)
+			printf("xmlreport/");
+		if (po->options & F_TXTREPORT)
+			printf("txtreport/");
+		printf("\n");
+
+		printf("    HomeWorlds:\n");
+	}
+}
+
 static void dump_so(serverOpts* so) {
 	gameOpts* go;
 	
@@ -863,6 +1137,8 @@ static void dump_so(serverOpts* so) {
 		printf("\n    Asteroids:\n");
 		dump_planets(&go->asteroid);
 
+		printf("\n    Players:\n");
+		dump_players(go->po);
 		
 	}
 	
