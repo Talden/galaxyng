@@ -28,11 +28,8 @@
 							<li>Ship Types</li>
 							<li>Groups</li>
 							<li>Fleets</li>
-						</ol>
-					</li>
-					<li>Technology</li>
-					<li>Movement
-						<ol>
+							<li>Technology</li>
+							<li>Movement
 							<li>Speed</li>
 							<li>Locating Ships</li>
 						</ol>
@@ -169,12 +166,12 @@
 					<p>Fleets contain groups, allowing players to gather different ship types together in a single unit.  Many of the orders for groups can also be used for fleets.  Players can <a href="#ordd">create</a>, <a href="#orde', 'erase</a>, <a href="#ordj">merge</a> and <a href="#ordt">rename</a> fleets.  Fleets can be ordered to <a href="#ords">travel</a> to another planet, <a href="#ordi">intercept</a> other ships, or <a href="#ordh">reverse</a> course.  The slowest group in the fleet sets the maximum speed for the entire fleet.</p>
 					<p>A group in a fleet that is given a <a href="#ords">send</a> or <a href="#ordi">intercept</a> order is automatically removed from the fleet.  Ships in a fleet that are <a href="#ordb', 'broken</a> from groups are also removed from the fleet.  Groups in fleets that are ordered to <a href="#ordg">upgrade</a>, <a href="#ordl">load</a> or <a href="#ordu">unload</a> cargo remain in the fleet.  Groups in fleets will not travel on <a href="#routes">routes</a>.</p>
 
-			<h2><a link="tech">Technology</a></h2>
-				<p>Technology determines the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to conduct <a href="#ordp">research</a>.</p>
-				<p>A ship with drive technology 4.00 is twice as fast as an equivalent ship with drive technology 2.00, a ship with weapons technology 1.50 has a 50% more powerful attack than the same ship with weapons technology 1.00, and so forth.  Ships without a component are considered to have a matching technology of 0.  For example, a ship with weapons mass 0 is consdered to have weapons technology 0.</p>
+				<h3><a link="tech">Technology</a></h3>
+					<p>Technology determines the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to conduct <a href="#ordp">research</a>.</p>
+					<p>A ship with drive technology 4.00 is twice as fast as an equivalent ship with drive technology 2.00, a ship with weapons technology 1.50 has a 50% more powerful attack than the same ship with weapons technology 1.00, and so forth.  Ships without a component are considered to have a matching technology of 0.  For example, a ship with weapons mass 0 is consdered to have weapons technology 0.</p>
 
-			<h2><a link="move">Movement</a></h2>
-				<p>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  <a href="#ords">Send</a>, <a href="#ordi">intercept</a> and <a href="#ordh">reverse</a> orders can be issued to groups and fleets to move them between planets.</p>
+				<h3><a link="move">Movement</a></h3>
+					<p>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  <a href="#ords">Send</a>, <a href="#ordi">intercept</a> and <a href="#ordh">reverse</a> orders can be issued to groups and fleets to move them between planets.</p>
 
 				<h3><a link="speed">Speed</a></h3>
 					<p>Ships move a number of light years per turn according to the following formula:  Light years travelled = 20 * drive technology level * (drive mass / (ship mass + cargo carried mass)).</p>
