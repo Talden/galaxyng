@@ -322,7 +322,11 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 
 			<h2 id="maps">Influence Maps</h2>
 			
-				<p>Various colorful maps can be created: public, industry, attack, and defence.  You must have <a href="http://www.freetype.org/">freetype</a>, <a href="http://www.boutell.com/gd/">GD</a>, <a href="http://www.ijg.org/">libjpeg</a> and <a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> and their development libraries installed to enable this feature.</p>
+				<p>Various colorful maps can be created: public, industry, attack, and defence.  You must have <a href="http://www.freetype.org/">freetype</a>, <a href="http://www.boutell.com/gd/">GD</a>, <a href="http://www.ijg.org/">libjpeg</a> and <a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> and their development libraries installed to enable this feature.
+				
+				<p>Each map is 500k - 1MB in size.  Generating influence maps is memory intensive.  It may not be possible to create industry, attack and defence maps on hosted servers with limited memory.  Public maps should be possible in most circumstances.</p>
+				
+				<p>Currently, attack and defence maps aren't working.</p>
 
 			<hr />
 
