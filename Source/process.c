@@ -2332,13 +2332,16 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 		*raceName = strdup( getstr( NULL ) );
 		*password = strdup( getstr( NULL ) );
 		if ((ptr = getstr(NULL)) != NULL) {
+			fprintf(stderr, "I think I have a turn number here: \"%s\"\n", ptr);
 			*theTurnNumber = atoi(ptr);
 			if (*theTurnNumber == 0) {
+				*aGame = loadgame( gameName, LG_CURRENT_TURN);
 				return RES_NO_TURN_NBR;
 			}
 		}
 		
 		if ((ptr = getstr(NULL)) != NULL) {
+			fprintf(stderr, "I think I have final orders here: \"%s\"\n", ptr);
 			if (noCaseStrcmp(ptr, "FinalOrders") == 0)
 				*final_orders = strdup(ptr);
 		}
@@ -2360,7 +2363,7 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 				if ( aPlayer ) {
 					if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
 						if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
-							 ( *theTurnNumber eq LG_CURRENT_TURN ) ) {
+							 ( *theTurnNumber == LG_CURRENT_TURN ) ) {
 							resNumber = RES_OK;
 						} else {
 							resNumber = RES_TURNRAN;
