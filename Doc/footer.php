@@ -8,7 +8,7 @@
 <p><?php echo $title; ?>
 <br /><?php echo "Last modified " . date( "F d, Y", getlastmod() ); ?>
 <br /><?php if ($_SERVER['PHP_SELF'] == "/index.php") { echo "http://galaxyng.sourceforge.net/"; } else { echo "http://galaxyng.sourceforge.net$_SERVER[PHP_SELF]"; } ?></p>
-<p><?php if ($_SERVER['PHP_SELF'] == "/index.php") { ?>GalaxyNG 6.6<?php } else { ?><a href="/">GalaxyNG 6.6</a>.<?php } ?>
+<p><?php if ($_SERVER['PHP_SELF'] == "/index.php") { ?>GalaxyNG 6.4.6<?php } else { ?><a href="/">GalaxyNG 6.4.6</a>.<?php } ?>
 <!-- Creative Commons License -->
 <br /><a href="http://creativecommons.org/licenses/by-nc-sa/1.0/"><img alt="Creative Commons License" src="http://creativecommons.org/images/public/somerights.gif" /></a>
 <br />This web site is licensed under a <a href="http://creativecommons.org/licenses/by-nc-sa/1.0/">Creative Commons License</a>.

@@ -203,16 +203,16 @@ echo "</table>";
 // display header and set sort order for games query
 if ($g=="" or $g=="n") {
 	echo "<h2>Games Sorted by Name</h2>";
-	$order = "ORDER BY game.name";
+	$order = "ORDER BY game.name, game.year";
 } else if ($g=="p") {
 	echo "<h2>Games Sorted by Number of Players</h2>";
-	$order = "ORDER BY game.players DESC, game.name";
+	$order = "ORDER BY game.players DESC, game.name, game.year";
 } else if ($g=="v") {
 	echo "<h2>Games Sorted by Variant</h2>";
-	$order = "ORDER BY game.variant DESC";
+	$order = "ORDER BY game.variant, game.name DESC";
 } else if ($g=="g") {
 	echo "<h2>Games Sorted by Game Master</h2>";
-	$order = "ORDER BY player.last, player.first, game.name";
+	$order = "ORDER BY player.last, player.first, game.name, game.year";
 } else if ($g=="y") {
 	echo "<h2>Games Sorted by Year</h2>";
 	$order = "ORDER BY game.year DESC, game.name";

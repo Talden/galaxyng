@@ -39,14 +39,16 @@ include '../menu.php';
 
 // game info
 echo "<h2>Game Information</h2>" 
-. "<table summary\"Information about the game\">"
+. "<table summary=\"Information about the game\">"
 . "<tr><td class=\"hallright\">Name</td><td class=\"hall\">$game[name]</td></tr>"
 . "<tr><td class=\"hallright\">Variant</td><td class=\"hall\">$game[variantname]</td></tr>"
 . "<tr><td class=\"hallright\">GM</td><td class=\"hall\"><a href=\"player.php?p=$game[gm]\">$game[first] $game[last]</a></td></tr>"
 . "<tr><td class=\"hallright\">Players</td><td class=\"hall\">$game[players]</td></tr>"
 . "<tr><td class=\"hallright\">Turns</td><td class=\"hall\">$game[turns]</td></tr>"
 . "<tr><td class=\"hallright\">Year</td><td class=\"hall\">$game[year]</td></tr>"
-. "<tr><td class=\"hallright\">Web&nbsp;Site</td><td class=\"hall\">$game[web]</td></tr>"
+. "<tr><td class=\"hallright\">Web&nbsp;Site</td><td class=\"hall\">";
+if ($game['web']) { echo "<a href=\"$game[web]\">$game[web]</a>"; }
+echo "</td></tr>"
 . "<tr><td class=\"halltopright\">Notes</td><td class=\"hall\">$game[notes]</td></tr>"
 . "</table>";
 
