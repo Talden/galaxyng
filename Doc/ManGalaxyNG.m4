@@ -4,7 +4,6 @@ DocStart
 AHeader(`GalaxyNG User Manual')
 BodyStart
 m4_include(`mannavigator.m4')m4_dnl
-<!-- $Id$ -->
 
 ATitle(`GalaxyNG User Manual')
 
@@ -88,11 +87,13 @@ www_subSection(`shiptechs', `Ship Technology Levels')
 
 www_subSection(`groups', `Groups')
 
-<P>In the later stages of the game a race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</P>
+<P>A race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</P>
 
-<P>Each group is assigned a number, which is used to issue orders to ships in the corresponding group.  Groups can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, ALink(`#ordh', `reverse') course, ALink(`#ordb', `break') off ships into a new group, ALink(`#ordj', `join') a fleet, Alink(`#ordb', `leave') a fleet,ALink(`#ordg', `upgrade') technology levels, ALink(`#ordl', `load') cargo, or ALink(`#ordu', `unload') cargo.  Groups may also be ALink(`#ordx', `scrapped').</P>
+<P>Groups can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, ALink(`#ordh', `reverse') course, ALink(`#ordb', `break') off ships into a new group, ALink(`#ordj', `join') a fleet, Alink(`#ordb', `leave') a fleet, ALink(`#ordg', `upgrade') technology levels, ALink(`#ordl', `load') cargo, or ALink(`#ordu', `unload') cargo.  Groups may also be ALink(`#ordx', `scrapped').  Groups can also be sent on ALink(`#routes', `routes').</P>
 
-<P>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower-numbered group number.  For example, group 5 containing 48 ships is merged with group 12 containing 52 ships, resulting in group 5 with 100 ships and group 12 eliminated.</P>
+<P>Each group is assigned a number, which is used to issue orders to ships in the corresponding group.  When new groups are created, they are assigned a number N+1, where N is the highest numbered group in existence.  Whenever a group number is required as an order parameter, the keyword MAX may be used instead. This will apply the order to the group with the highest group number, i.e. the most recently created group.</P>
+
+<P>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower-numbered group number.  For example, if group 5 containing 48 ships is merged with group 12 containing 52 ships, group 5 will contain 100 ships and group 12 will be eliminated.</P>
 
 <P>At the end of each turn groups are automatically renumbered.  Automatic sorting may be disabled by turning off the SortGroups ALink(`#ordo', `option').  Groups are sorted by planet number as follows:</P>
 
@@ -105,21 +106,9 @@ www_subSection(`groups', `Groups')
 
 www_subSection(`fleets', `Fleets')
 
-<P> 
-Fleets are a formed group of different types of ships.  They are
-basically a group of groups.  Fleets can be ordered to move around as
-a single group using the fleet orders.  Fleets also do not go off on
-routes.  Also, the speed of the fleet is the speed of the slowest
-group.
-</P>
+<P>Fleets contain groups, allowing players to gather different ship types together in a single unit.  Many of the orders for groups can also be used for fleets.  Players can ALink(`#ordd', `create'), ALink(`#orde', 'erase'), Alink(`#ordj', `merge') and ALink(`#ordt', `rename') fleets.  Fleets can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, or ALink(`#ordh', `reverse') course.  The slowest group in the fleet sets the maximum speed for the entire fleet.</P>
 
-<P> 
-When a individual group is given a `send' or `intercept' order it
-is automatically removed from its current fleet if any.  Also,
-breaking off a number of ships from a group which is part of a fleet
-automatically removes the broken-off group from the fleet.  Loading
-and unloading cargo does not affect the fleet status of a group.  
-</P>
+<P>A group in a fleet that is given a ALink(`#ords', `send'), ALink(`#ordi', `intercept') or ALink(`#ordb', 'break') order is automatically removed from the fleet.  Groups in fleets that are ordered to ALink(`#ordg', `upgrade'), ALink(`#ordl', `load') or ALink(`#ordu', `unload') cargo remain in the fleet.  Groups in fleets will not travel on ALink(`#routes', `routes').</P>
 
 www_subSection(`move', `Movement')
 
@@ -923,12 +912,6 @@ All orders involving groups can take an optional last parameter giving
 the number of ships to be used. If this parameter is given, the
 indicated number of ships will be broken off into a separate group
 first, and the order applied only to that separate group.
-</P>
-
-<P>
-Whenever a group number is required as a parameter, the keyword MAX
-may be used instead. This will apply the order to the group with the
-highest group number.  This will be the most recently created group.
 </P>
 
 <P>
