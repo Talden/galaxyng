@@ -43,7 +43,7 @@ empty_radius 15
 
 
 ; It is possible to add a number of 'stuff' planets. These are useless
-; planets, all of size 50 or less, that are use to fill up the empty
+; planets, all of size 200 or less, that are use to fill up the empty
 ; space between Home Worlds. They make it possible for a players to
 ; approach (attack) other players by different routes. The following
 ; parameter specifies how many there are per nation.
