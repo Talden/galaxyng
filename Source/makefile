@@ -14,6 +14,7 @@
 #
 
 #
+# Influence mapping:
 # if you want to have a .png map generated when a turn is processed
 # then you'll need to have libgd (http://www.boutell.com/gd/)
 # installed with png, jpeg, and freetype support enabled.
@@ -25,15 +26,11 @@
 #ADDTL_SRCS = influence.c
 #ADDTL_OBJS = influence.o
 #
-
-#
 # and comment these lines
 #
 CFLAGS = -Wall -pedantic -g
 LIBS = -lm
 ADDTL_SRCS=
-
-
 
 
 CC=gcc
