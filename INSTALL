@@ -6,12 +6,11 @@ WEB SITE
 You have two options:
 
 1) Link to GalaxyNG SourceForge.net site (preferred)
-   Delete most of your local site and point to files on:
-     http://galaxyng.sourceforge.net/
+     Point to files on: http://galaxyng.sourceforge.net/
 
 2) Maintain a mirror of the GalaxyNG SourceForge.net site
-   Delete most of your local site.  Copy the files in /Doc/
-   into your local site.
+     Copy the files in /Doc/ into your local site and 
+     change /Doc/base_url.txt to the base URL of your site.
 
 
 GRAPHICAL MAP

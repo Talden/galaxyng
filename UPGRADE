@@ -13,7 +13,8 @@ options:
 
 2) Maintain a mirror of the GalaxyNG SourceForge.net site
    Delete most of your local site.  Copy the files in /Doc/
-   into your local site.
+   into your local site.  Edit base_url.txt to set the
+   base URL of your site.
 
 ==== UPGRADE To release-6.1a =================
 
