@@ -76,9 +76,9 @@
 #define   MACHINEREPORT_VERSION   0.1
 #define   XMLREPORT_VERSION       1.5
 #define   GNG_MAJOR               6
-#define   GNG_MINOR               3
+#define   GNG_MINOR               4
 #define   GNG_RELEASE             1
-#define   GNG_DATE                "September 2003"
+#define   GNG_DATE                "December 2003"
 
 /****d* GalaxyNG/Cookies
  * NAME
