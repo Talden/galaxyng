@@ -99,7 +99,8 @@ ADDRESS {
 
 h1 { 
   font-family: sans-serif;
-  font-size:24pt; 
+  font-size:xx-large;
+  font-weight:bold;
   text-align:right;
   margin-right:36px;
   margin-top: 0.5em; 
@@ -108,11 +109,13 @@ h1 {
 
 h2 { 
   font-family:sans-serif;
-  font-size:18pt; 
+  font-size:x-large;
+  font-weight:bold;
 }
 
 h3 { 
   font-family:sans-serif;
-  font-size:14pt;  
+  font-size:large;
+  font-style:italic;
 }
 

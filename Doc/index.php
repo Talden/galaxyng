@@ -7,7 +7,7 @@
 <!-- $Id$ -->
 
 	<head>
-		<link rel=stylesheet href="main.css" />
+		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Manuals</title>
 	</head>
 

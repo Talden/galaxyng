@@ -4,69 +4,54 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
 
+<!-- $Id$ -->
+
 	<head>
-		<link rel=stylesheet href="main.css" />
-		<title>GalaxyNG Manuals</title>
+		<link rel="stylesheet" href="main.css" />
+		<title>GalaxyNG Players' Manual</title>
 	</head>
 
 	<body>
-		<h1>Galaxy Next Generation Manuals</h1>
-<!-- $Id$ -->
+		<h1>Galaxy Next Generation Players' Manual</h1>
 
-ATitle(`GalaxyNG Manual')
+			<h2><a link="toc">Table of Contents</a></h2>
+				<ul>
+					<li>Introduction</li>
+					<li>Ships</li>
+					<li>..</li>
+				</ul>
 
-ASection(`Rules for Galaxy Next Generation release-5-1a (Oct 2001)')
+			<h2><a link="intro">Introduction</a></h2>
+				<p>GalaxyNG is a multiplayer game of interstellar war.  Each player is the leader of one race.  The objective of the game is to conquer the galaxy.</p>
+				<p>Players email a GalaxyNG server to ALink(`#register', `register') for games, submit ALink(`#orders', `orders') and receive ALink(`#reports', `turn reports').  The server automatically processes turns and responds to player email.  Most games run one to five ALink(`#turns', `turns') per week.  The Game Master (GM) maintains the server, selects game options, creates the galaxy, answers player questions and solves problems.</p>
+				<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, fight better and haul more cargo.</p>
+				<p>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods or raw materials represents about 10 million tons.  Each game turn represents about four years of time.</p>
 
-<P>Written by Frans Slothouber (gumpu) and edited by Chris Shaffer (christhecat).  Based on the rules for Galaxy V3.52: Copyright 1991-1992 by Russell Wallace, Copyright 1993 the Galaxy PBeM Development Group.  (ALink(`license.html', `License'))</P>
+				<h3><a link="names">Names</a></h3>
+					<p>Races, planets and ship types can be named.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should ALink(`#ordc', `provide a name') by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when ALink(`#ordd', `designed') and can be ALink(`#ordt', `renamed').  Planets are numbered at the start of the game and can be ALink(`#ordn', `renamed') by their current owner.</p>
 
-www_section(`toc', `Table of Contents')
+				<h3><a link="war">War and Alliances</a></h3>
+					<p>At the start of the game all races are assumed to be at war with all the other races (except in team games).  ALink(`#orda', `Alliances') may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, ALink(`#ordw', `war') may be declared again at the start of any subsequent turn and vice versa.</p>
 
-m4_include(toc.html)
+				<h3><a link="victory">Victory and Defeat</a></h3>
+					<p>The game can be won by a single race or by an alliance of races, depending upon the game settings.  Races are ranked based on the total production of their planets.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</p>
 
-www_section(`intro', `Introduction')
+			<h2><a link="ships">Ships</a></h2>
+				<p>Ships are organized into groups and fleets which are used for exploration, scouting, attack, defence and cargo transport.  Ships have the following characteristics: ship type (name, drive mass, attacks, weapons mass, shields mass, cargo mass and ship mass), group number, fleet name, drive technology, weapons technology, shields technology, cargo technology, cargo carried type, cargo carried mass, destination planet, and distance to destination planet.  Ships can be ALink(`#ordp', `built') at planets.</p>
 
-<P>GalaxyNG is a multiplayer game of interstellar war.  Each player is the leader of one race.  The objective of the game is to conquer the galaxy.</P>
-
-<P>Players email a GalaxyNG server to ALink(`#register', `register') for games, submit ALink(`#orders', `orders') and receive ALink(`#reports', `turn reports').  The server automatically processes turns and responds to player email.  Most games run one to five ALink(`#turns', `turns') per week.  The Game Master (GM) maintains the server, selects game options, creates the galaxy, answers player questions and solves problems.</P>
-
-<P>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, fight better and haul more cargo.</P>
-
-<P>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods or raw materials represents about 10 million tons.  Each game turn represents about four years of time.</P>
-
-www_subSection(`names', `Names')
-
-<P>Races, planets and ship types can be named.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should ALink(`#ordc', `provide a name') by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when ALink(`#ordd', `designed') and can be ALink(`#ordt', `renamed').  Planets are numbered at the start of the game and can be ALink(`#ordn', `renamed') by their current owner.</P>
-
-www_subSection(`war', `War and Alliances')
-
-<P>At the start of the game all races are assumed to be at war with all the other races (except in team games).  ALink(`#orda', `Alliances') may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, ALink(`#ordw', `war') may be declared again at the start of any subsequent turn and vice versa.</P>
-
-www_subSection(`victory', `Victory and Defeat')
-
-<P>The game can be won by a single race or by an alliance of races, depending upon the game settings.  Races are ranked based on the total production of their planets.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</P>
-
-www_section(`ships', `Ships')
-
-<P>Ships are organized into groups and fleets which are used for exploration, scouting, attack, defence and cargo transport.  Ships have the following characteristics: ship type (name, drive mass, attacks, weapons mass, shields mass, cargo mass and ship mass), group number, fleet name, drive technology, weapons technology, shields technology, cargo technology, cargo carried type, cargo carried mass, destination planet, and distance to destination planet.  Ships can be ALink(`#ordp', `built') at planets.</P>
-
-www_subSection(`shiptypes', `Ship Types')
-
-<P>Each player can ALink(`#ordd', `design') ship types, which are unique to that player, by specifying:</P>
-
-<UL>
-  <LI>Name - ship type</LI>
-  <LI>Drive mass - the power of the hyperdrive engines</LI>
-  <LI>Attacks - the number of guns</LI>
-  <LI>Weapons mass - the strength of the gun(s)</LI>
-  <LI>Shields mass - the power of the shields generator</LI>
-  <LI>Cargo mass - the size of the cargo bay</LI>
-</UL>
-
-<P>Drive mass, weapons mass, shields mass, and cargo mass must equal 0 or be equal to or greater than 1.  Thus, drive mass 0.00 and 1.50 are allowed but drive mass 0.75 is not.  Attacks must be an integer.</P>
-
-<P>Some example ship types are:<P>
-
-<PRE>
+				<h3><a link="shiptypes">Ship Types</a></h3>
+					<p>Each player can ALink(`#ordd', `design') ship types, which are unique to that player, by specifying:</p>
+					<ul>
+						<li>Name - ship type</li>
+						<li>Drive mass - the power of the hyperdrive engines</li>
+						<li>Attacks - the number of guns</li>
+						<li>Weapons mass - the strength of the gun(s)</li>
+						<li>Shields mass - the power of the shields generator</li>
+						<li>Cargo mass - the size of the cargo bay</li>
+					</ul>
+					<p>Drive mass, weapons mass, shields mass, and cargo mass must equal 0 or be equal to or greater than 1.  Thus, drive mass 0.00 and 1.50 are allowed but drive mass 0.75 is not.  Attacks must be an integer.</p>
+					<p>Some example ship types are:<p>
+					<pre>
   Name              D    A     W      S      C
   Drone            1.00   0   0.00   0.00   0.00
   Flak             1.00   0   0.00   2.00   0.00
@@ -83,11 +68,10 @@ www_subSection(`shiptypes', `Ship Types')
   Hauler           2.00   0   0.00   0.00   1.00
   Freighter       30.00   0   0.00   9.50  10.00
   MegaFreighter  120.00   0   0.00  38.43  39.57
-</PRE>
-
-<P>Ship types with zero or one attack have a ship mass of drive mass + weapon mass + shield mass + cargo mass.  Each additional attack beyond the first adds 50% of the weapons mass to the ship mass.  For example:</P>
-
-<PRE>               D       W     Additional Weapons    S      C      Ship Mass
+					</pre>
+					<p>Ship types with zero or one attack have a ship mass of drive mass + weapon mass + shield mass + cargo mass.  Each additional attack beyond the first adds 50% of the weapons mass to the ship mass.  For example:</p>
+					<pre>
+                    D       W     Additional Weapons    S      C      Ship Mass
   Drone            1.00 +  0.00 +        0          +  0.00 + 0.00  =    1.00
   Flak             1.00 +  0.00 +        0          +  2.00 + 0.00  =    3.00
   FastFlak         1.01 +  0.00 +        0          +  1.01 + 0.00  =    2.02
@@ -103,43 +87,30 @@ www_subSection(`shiptypes', `Ship Types')
   Hauler           2.00 +  0.00 +        0          +  0.00 + 1.00  =    3.00
   Freighter       30.00 +  0.00 +        0          +  9.50 + 10.00 =   49.50
   MegaFreighter  120.00 +  0.00 +        0          + 38.43 + 39.57 =  198.00
-</PRE>
+					</pre>
 
-www_subSection(`groups', `Groups')
+				<h3><a link="groups">Groups</a></h3>
+					<p>A race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</p>
+					<p>Groups can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, ALink(`#ordh', `reverse') course, ALink(`#ordb', `break') off ships into a new group, ALink(`#ordj', `join') a fleet, Alink(`#ordb', `leave') a fleet, ALink(`#ordg', `upgrade') technology levels, ALink(`#ordl', `load') cargo, or ALink(`#ordu', `unload') cargo.  Groups may also be ALink(`#ordx', `scrapped').  Groups can also ALink(`#routes', `routed').</p>
+					<p>Each group is assigned a number, which is used to issue orders to ships in the corresponding group.  When new groups are created, they are assigned a number N+1, where N is the highest numbered group in existence.  Whenever a group number is required as an order parameter, the keyword MAX may be used instead. This will apply the order to the group with the highest group number, i.e. the most recently created group.</p>
+					<p>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower group number.  For example, if group 5 containing 48 ships is merged with group 12 containing 52 ships, group 5 will contain 100 ships and group 12 will be eliminated.</p>
+					<p>If the SortGroups ALink(`#ordo', `option') is turned on, at the end of each turn groups will be automatically sorted and renumbered as follows: Owner's groups at owner's planets; Owner's groups at other race's planets; Owner's groups at uninhabited planets; Owner's groups in fleets.</p>
 
-<P>A race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</P>
+				<h3><a link="fleets">Fleets</a></h3>
+					<p>Fleets contain groups, allowing players to gather different ship types together in a single unit.  Many of the orders for groups can also be used for fleets.  Players can ALink(`#ordd', `create'), ALink(`#orde', 'erase'), Alink(`#ordj', `merge') and ALink(`#ordt', `rename') fleets.  Fleets can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, or ALink(`#ordh', `reverse') course.  The slowest group in the fleet sets the maximum speed for the entire fleet.</p>
+					<p>A group in a fleet that is given a ALink(`#ords', `send') or ALink(`#ordi', `intercept') order is automatically removed from the fleet.  Ships in a fleet that are ALink(`#ordb', 'broken') from groups are also removed from the fleet.  Groups in fleets that are ordered to ALink(`#ordg', `upgrade'), ALink(`#ordl', `load') or ALink(`#ordu', `unload') cargo remain in the fleet.  Groups in fleets will not travel on ALink(`#routes', `routes').</p>
 
-<P>Groups can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, ALink(`#ordh', `reverse') course, ALink(`#ordb', `break') off ships into a new group, ALink(`#ordj', `join') a fleet, Alink(`#ordb', `leave') a fleet, ALink(`#ordg', `upgrade') technology levels, ALink(`#ordl', `load') cargo, or ALink(`#ordu', `unload') cargo.  Groups may also be ALink(`#ordx', `scrapped').  Groups can also ALink(`#routes', `routed').</P>
+			<h2><a link="tech">Technology</a></h2>
+				<p>Technology determines the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to conduct ALink(`#ordp', `research').</p>
+				<p>A ship with drive technology 4.00 is twice as fast as an equivalent ship with drive technology 2.00, a ship with weapons technology 1.50 has a 50% more powerful attack than the same ship with weapons technology 1.00, and so forth.  Ships without a component are considered to have a matching technology of 0.  For example, a ship with weapons mass 0 is consdered to have weapons technology 0.</p>
 
-<P>Each group is assigned a number, which is used to issue orders to ships in the corresponding group.  When new groups are created, they are assigned a number N+1, where N is the highest numbered group in existence.  Whenever a group number is required as an order parameter, the keyword MAX may be used instead. This will apply the order to the group with the highest group number, i.e. the most recently created group.</P>
+			<h2><a link="move">Movement</a></h2>
+				<p>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  ALink(`#ords', `Send'), ALink(`#ordi', `intercept') and ALink(`#ordh', `reverse') orders can be issued to groups and fleets to move them between planets.</p>
 
-<P>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower group number.  For example, if group 5 containing 48 ships is merged with group 12 containing 52 ships, group 5 will contain 100 ships and group 12 will be eliminated.</P>
-
-<P>If the SortGroups ALink(`#ordo', `option') is turned on, at the end of each turn groups will be automatically sorted and renumbered as follows: Owner's groups at owner's planets; Owner's groups at other race's planets; Owner's groups at uninhabited planets; Owner's groups in fleets</P>
-
-www_subSection(`fleets', `Fleets')
-
-<P>Fleets contain groups, allowing players to gather different ship types together in a single unit.  Many of the orders for groups can also be used for fleets.  Players can ALink(`#ordd', `create'), ALink(`#orde', 'erase'), Alink(`#ordj', `merge') and ALink(`#ordt', `rename') fleets.  Fleets can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, or ALink(`#ordh', `reverse') course.  The slowest group in the fleet sets the maximum speed for the entire fleet.</P>
-
-<P>A group in a fleet that is given a ALink(`#ords', `send') or ALink(`#ordi', `intercept') order is automatically removed from the fleet.  Ships in a fleet that are ALink(`#ordb', 'broken') from groups are also removed from the fleet.  Groups in fleets that are ordered to ALink(`#ordg', `upgrade'), ALink(`#ordl', `load') or ALink(`#ordu', `unload') cargo remain in the fleet.  Groups in fleets will not travel on ALink(`#routes', `routes').</P>
-
-www_section(`tech', `Technology')
-
-<P>Technology determines the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to conduct ALink(`#ordp', `research').</P>
-
-<P>A ship with drive technology 4.00 is twice as fast as an equivalent ship with drive technology 2.00, a ship with weapons technology 1.50 has a 50% more powerful attack than the same ship with weapons technology 1.00, and so forth.  Ships without a component are considered to have a matching technology of 0.  For example, a ship with weapons mass 0 is consdered to have weapons technology 0.</P>
-
-www_Section(`move', `Movement')
-
-<P>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  ALink(`#ords', `Send'), ALink(`#ordi', `intercept') and ALink(`#ordh', `reverse') orders can be issued to groups and fleets to move them between planets.</P>
-
-www_Section(`speed', `Speed')
-
-<P>Ships move a number of light years per turn according to the following formula:  Light years travelled = 20 * drive technology level * (drive mass / (ship mass + cargo carried mass)).</P>
-
-<P>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of 20 times your drive technology.  For example, using the ship types above and assuming drive technology 1.00 carrying no cargo:<P>
-
-<PRE>
+				<h3><a link="speed">Speed</a></h3>
+					<p>Ships move a number of light years per turn according to the following formula:  Light years travelled = 20 * drive technology level * (drive mass / (ship mass + cargo carried mass)).</p>
+					<p>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of 20 times your drive technology.  For example, using the ship types above and assuming drive technology 1.00 carrying no cargo:<p>
+					<pre>
                  20 * Drive Tech * (Drive Mass / Ship Mass) = Light Years
   Drone          20 *    1.00    * (    1.00   /   1.00   ) =    20.00
   Flak           20 *    1.00    * (    1.00   /   3.00   ) =     6.66
@@ -156,55 +127,42 @@ www_Section(`speed', `Speed')
   Hauler         20 *    1.00    * (    2.00   /   3.00   ) =    13.33
   Freighter      20 *    1.00    * (   30.00   /  49.50   ) =    12.12
   MegaFreighter  20 *    1.00    * (  120.00   / 198.00   ) =    12.12
-</PRE>
-
-<P>Note that, when fully loaded, cargo ships can be much slower.  For example, assuming drive technology 1.00 and cargo technology 1.00:</P>
-
-<PRE>
+					</pre>
+					<p>Note that, when fully loaded, cargo ships can be much slower.  For example, assuming drive technology 1.00 and cargo technology 1.00:</p>
+					<pre>
   Hauler         20 * 1.00 * (2.00/(3.00+1.10)) = 9.75
   Freighter      20 * 1.00 * (30.00/(49.50+20.00)) = 8.63
   MegaFreighter  20 * 1.00 * (120.00/(198.00+196.14)) = 6.09
-</PRE>
+					</pre>
 
-www_subSection(`locate', `Locating Ships')
+				<h3><a link="locate">Locating Ships</a></h3>
+					<p>Each race's administrative staff will keep a record of its own ships on planets or in hyperspace.  Planet owners have full knowledge of all ships orbiting their planets.  Players also receive complete reports on ships at planets visited by their own ships.</p>
+					<p>Locating alien ships in hyperspace is much more problematic.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can only be obtained for ships heading directly toward a detector (i.e. inbound to a planet).  A rough indication of the location of other alien groups is indicated on the ALink(`#ordm', `map'), but their mass, speed and direction of travel are unknown.</p>
 
-<P>Each race's administrative staff will keep a record of its own ships on planets or in hyperspace.  Planet owners have full knowledge of all ships orbiting their planets.  Players also receive complete reports on ships at planets visited by their own ships.</P>
+			<h2><a link="planets">Planets</a></h2>
+					<p>Planets are located in the galaxy by X and Y coordinates.  Planets have seven characteristics: owner, size, population, industry, natural resources, production and stockpiles.</p>
 
-<P>Locating alien ships in hyperspace is much more problematic.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can only be obtained for ships heading directly toward a detector (i.e. inbound to a planet).  A rough indication of the location of other alien groups is indicated on the ALink(`#ordm', `map'), but their mass, speed and direction of travel are unknown.</P>
+				<h3><a link="owner">Owner</a></h3>
+					<p>Inhabited planets are owned by one race at a time (except in the special case of a ALink(`#conquest', `standoff') when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</p>
 
-www_section(`planets', `Planets')
+				<h3><a link="size">Size</a></h3>
+					<p>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), development planets (size 200.00 to 1000.00) and stuff planets (size 0.01 to 200.00).</p>
 
-<P>Planets are located in the galaxy by X and Y coordinates.  Planets have seven characteristics: owner, size, population, industry, natural resources, production and stockpiles.</P>
+				<h3><a link="pop">Population</a></h3>
+					<p>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with 0 population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into colonists.  These are people stored in containers in deep freeze.  Every 8 extra population units are converted into 1 unit of colonists.</p>
 
-www_subSection(`owner', `Owner')
+				<h3><a link="ind">Industry</a></h3>
+					<p>Each inhabited planet has industry, which may not be greater than the planet's population but may be lower.  If population exceed industry, the industry may be increased by capital.  If there is not an existing stockpile of capital, it may be produced at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</p>
 
-<p>Inhabited planets are owned by one race at a time (except in the special case of a ALink(`#conquest', `standoff') when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</P>
+				<h3><a link="res">Resources</a></h3>
+					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in resources can easily produce materials such as sheet steel, copper wire and plastics.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00 with the average being 1.00.  The resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 resources will produce 5.00 units of materials per point of production, while a planet with 0.10 resources would only produce 0.10 units of materials.  Materials are necessary to produce ships and capital.  Each planet may have a stockpile of materials and if present this will be used.  If no stockpile exists, some production points will be diverted to producing materials.</p>
 
-www_subSection(`size', `Size')
-
-<P>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), development planets (size 200.00 to 1000.00) and stuff planets (size 0.01 to 200.00).</P>
-
-www_subSection(`pop', `Population')
-
-<P>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with 0 population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into colonists.  These are people stored in containers in deep freeze.  Every 8 extra population units are converted into 1 unit of colonists.</P>
-
-www_subSection(`ind', `Industry')
-
-<P>Each inhabited planet has industry, which may not be greater than the planet's population but may be lower.  If population exceed industry, the industry may be increased by capital.  If there is not an existing stockpile of capital, it may be produced at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</P>
-
-www_subSection(`res', `Natural Resources')
-
-<P>Each planet has a natural resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in natural resources can easily produce materials such as sheet steel, copper wire and plastics.  Home planets have a natural resources value of 10.00.  Other planets have a natural resources value between 0.01 and 10.00 with the average being 1.00.  The natural resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 natural resources will produce 5.00 units of materials per point of production, while a planet with 0.10 natural resources would only produce 0.10 units of materials.  Materials are necessary to produce ships and capital.  Each planet may have a stockpile of materials and if present this will be used.  If no stockpile exists, some production points will be diverted to producing materials.</P>
-
-www_subSection(`produce', `Production')
-
-<P>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every 4 points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 industry and 500.00 population has a production value of 500.00, while a planet with 250.00 industry and 500.00 population has a production value of 312.50.  Production points can be spent on researching technology, building ships, producing capital or producing materials.  Planets can only perform one type of production each turn.</P>
-
-<P>A planet can research one of the four technologies.  It costs 5,000 production points to increase Drive, Weapons, or Shields technology by one point.  Cargo technology research is 50% cheaper, thus it only takes 2,500 production points to increase the Cargo technology by one point.  Fractional increases are effective immediately (e.g. if you spend 500 production points on research into Weapons, your Weapons technology will go up by one tenth of a point).</P>
-
-<P>A planet can produce ships.  The production cost of a ship is equal to its mass times 10.  In addition, one unit of materials is required for every ten units of production.</P>
-
-<PRE>               Mass  Production  Materials
+				<h3><a link="produce">Production</a></h3>
+					<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every 4 points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 industry and 500.00 population has a production value of 500.00, while a planet with 250.00 industry and 500.00 population has a production value of 312.50.  Production points can be spent on researching technology, building ships, producing capital or producing materials.  Planets can only perform one type of production each turn.</p>
+					<p>A planet can research one of the four technologies.  It costs 5,000 production points to increase Drive, Weapons, or Shields technology by one point.  Cargo technology research is 50% cheaper, thus it only takes 2,500 production points to increase the Cargo technology by one point.  Fractional increases are effective immediately (e.g. if you spend 500 production points on research into Weapons, your Weapons technology will go up by one tenth of a point).</p>
+					<p>A planet can produce ships.  The production cost of a ship is equal to its mass times 10.  In addition, one unit of materials is required for every ten units of production.</p>
+					<pre>
+                    Mass  Production  Materials
   Drone             1.00     10.00       1.00
   Flak              3.00     30.00       1.00
   FastFlak          2.02     20.20       2.02
@@ -220,20 +178,17 @@ www_subSection(`produce', `Production')
   Hauler            3.00     30.00       3.00
   Freighter        49.50    495.00      49.50
   MegaFreighter   198.00   1980.00     198.00
-</PRE>
+					</pre>
+					<p>For example: If a planet with 1000.00 production and 10.00 resources with no stockpile of materials was producing Drones, it would produce slightly over 99 per turn.  About 9.9 production would be diverted to producing 99 materials to build the probes.  However, if it was producing Cruisers, it would only produce two per turn.  A planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.5 Cruisers per turn.</p>
 
-<P>For example: If a planet with 1000.00 production and 10.00 resources with no stockpile of materials was producing Drones, it would produce slightly over 99 per turn.  About 9.9 production would be diverted to producing 99 materials to build the probes.  However, if it was producing Cruisers, it would only produce two per turn.  A planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.5 Cruisers per turn.</P>
-
-www_subSection(`stock', `Stockpiles')
-
-<P> 
-When colonists from a planet's stockpile are shipped to other planets
+				<h3><a link="stock">Stockpiles</a></h3>
+<p>When colonists from a planet's stockpile are shipped to other planets
 which still have room for population growth, they are automatically
 thawed out and added to the planet's population.  This is how
 uninhabited planets are colonized.  (Note that colonist production is
-completely automatic, and consumes no production points.)  </P>
+completely automatic, and consumes no production points.)  </p>
 
-<P> A planet's industry level is increased by the production of
+<p> A planet's industry level is increased by the production of
 capital goods.  These represent things like machine tools, computers
 and transport vehicles.  To produce one unit of capital requires 5
 production points and 1 unit of raw materials.  If the planet's
@@ -241,28 +196,28 @@ industry level is below its population it will then be increased by
 one unit.  Otherwise the capital units will be stockpiled.  If shipped
 to a planet whose industry level is below its population, that
 planet's industry level will be increased.  This is useful for quickly
-building up the economy of a colony planet. </P>
+building up the economy of a colony planet. </p>
 
 www_Section(`cargo', `Cargo')
 
-<P> 
+<p> 
 The amount of cargo a ship can carry is determined by the
 following formula: 
-</P>
+</p>
 
 <PRE>
 	cargo-technology * (cargo-number + cargo-number^2/10)
 </PRE>
 
-<P>
+<p>
 where "cargo-technology" means the cargo technology at which
 the ship was built, and "cargo-number" is determined in the ship
 design.  
-</P>
+</p>
 
-<P>
+<p>
 So, at cargo technology level 1, some examples would be:
-</P>
+</p>
 
 <TABLE >
 <TR><TH>Cargo Number</TH><TH>Amount Carried</TH></TR>
@@ -273,16 +228,16 @@ So, at cargo technology level 1, some examples would be:
 <TR><TD>100</TD><TD>1100</TD></TR>
 </TABLE>
 
-<P>
+<p>
 At cargo technology level 2, these quantities would be
 doubled, and so on.  Note that large freighters can carry very
 large quantities of cargo, but if fully loaded are likely to be
 slow (e.g.  a fully loaded Megafreighter at drive and cargo
 technology 1 would have a speed of only 1.22 light years per
 turn). 
-</P>
+</p>
 
-<P>
+<p>
 The slow speed of heavily loaded ships can be alleviated by
 higher levels of cargo technology, however.  At tech level 2,
 the mass of any cargo loaded onto a ship is only considered to
@@ -295,18 +250,18 @@ slow it down as much as 20 units at tech level 1; thus, a tech
 level 2 freighter loaded with 40 units of raw materials can
 travel as fast (assuming the same drive technology) as a tech
 level 1 freighter loaded with 20 units.  
-</P>
+</p>
 
-<P>
+<p>
 A ship may only carry one type of cargo at one time.  The
 possible types are raw materials, capital and colonists.  Cargo
 may be loaded onto a ship at a planet where it is available.
 Cargo may be unloaded onto any planet.  
-</P>
+</p>
 
 www_subSection(`routes', `Routes')
 
-<P>
+<p>
 To move cargo between planets you can use a route instead of
 doing it manually.  A route from planet A to B for a particular
 cargo type means that the computer will try to get that type of
@@ -318,9 +273,9 @@ A which already are loaded with the appropriate type of cargo
 will also be sent to planet B.  Any ships which arrive at planet
 B carrying that type of cargo (even if they didn't come from
 planet A) will be automatically unloaded.  
-</P>
+</p>
 
-<P>
+<p>
 You can set up a total of four routes from each planet that
 you own, one for each of the three kinds of cargo and one for
 empty transports which is useful for returning transports from
@@ -330,49 +285,49 @@ up routes to any planet at all, so you can use them for shipping
 colonists to uninhabited planets.  Routes are assigned transport
 ships in the following order of priority:  colonists, capital,
 materials and empty transports.  
-</P>
+</p>
 
 www_section(`combat', `Combat')
 
-<P>
+<p>
 Ships in hyperspace cannot be attacked but whenever hostile
 warships are present at the same planet a battle will take
 place.  This proceeds as follows:  
 A battle consists of a number of rounds.
 In each round the following steps are repeated until all ships have fired.
 <OL>
-<LI>Randomly select a ship (attacker) from all the surviving ships that  
-    have not fired yet.</LI>
-<LI>For each gun on the ship:
-  <OL><LI>Randomly select a ship (target) from all the ships of the enemies 
-          of the owner of the ship that is about to fire.</LI>
-      <LI>Let the attacker fire on the target</LI>
+<li>Randomly select a ship (attacker) from all the surviving ships that  
+    have not fired yet.</li>
+<li>For each gun on the ship:
+  <OL><li>Randomly select a ship (target) from all the ships of the enemies 
+          of the owner of the ship that is about to fire.</li>
+      <li>Let the attacker fire on the target</li>
   </OL>
-</LI>
+</li>
 </OL>
-</P>
-<P>
+</p>
+<p>
 Note that if a ship gets destroyed before it gets a chance to fire it will
 not fire.
-</P>
+</p>
 
-<P>Battle rounds continue until the battle is either a draw or a win.
-A battle is a draw if:</P>
+<p>Battle rounds continue until the battle is either a draw or a win.
+A battle is a draw if:</p>
 <OL>
-<LI>there there are two or more players left that are at war with 
-    eachother.</LI>  
-<LI>One or more players have armed ships left, but  
+<li>there there are two or more players left that are at war with 
+    eachother.</li>  
+<li>One or more players have armed ships left, but  
     none of these ships have guns big enough to penetrate the shields of
-    the ships of their enemies. (see below)</LI>
+    the ships of their enemies. (see below)</li>
 </OL> 
-<P>A battle is won if:</P>
+<p>A battle is won if:</p>
 <OL>
-<LI>One or more players with ships are left.</LI>
-<LI>All the players that are left are at peace with eachother.</LI>
+<li>One or more players with ships are left.</li>
+<li>All the players that are left are at peace with eachother.</li>
 </OL>
-</P>
+</p>
 
-<P> The success of an attacker firing on a target is calculated as follows: 
+<p> The success of an attacker firing on a target is calculated as follows: 
 The power of
 the attack is equal to the Weapons number multiplied by the Weapons
 tech level.  The power of the defense is equal to the Shields number
@@ -384,22 +339,22 @@ ship with numbers 8 1 8 8 0 will have only 4 times the effective
 shields strength of one with numbers 1 1 1 1 0, even though it has 8
 times the Shields number.  (It might arguably be more realistic to
 dilute shields as the 2/3 power of the ship mass, but this would make
-large ships too vulnerable.)  </P>
+large ships too vulnerable.)  </p>
 
-<P> Note that any cargo carried adds to the total mass for purposes of
+<p> Note that any cargo carried adds to the total mass for purposes of
 shields strength calculation, as the shields generator must protect the
 cargo as well as the ship.  Thus, the "total mass" of the ship for
 purposes of calculating shields strength is the same as the "total
 mass" for purposes of calculating speed.  (This means that a freighter
 loaded with a given amount of cargo will have its shields strength
-diluted less if it has higher cargo technology.)  </P>
+diluted less if it has higher cargo technology.)  </p>
 
-<P> The numbers are calculated so that if a ship with numbers 10 1 10
+<p> The numbers are calculated so that if a ship with numbers 10 1 10
 10 0 fires at an identical ship, it will have a 50% chance of
 destroying the target.  If the effective attack is four times as
 strong, the attack will always succeed.  If the effective defense is
 four times as strong, the attack will always fail.  The exact formula
-is: </P>
+is: </p>
 
 <PRE>
   Eff_Weapons = Weapons_Mass * Weapons Tech
@@ -413,15 +368,15 @@ is: </P>
 
 www_subSection(`conquest', `Conquering Planets')
 
-<P> If an armed ship is left at one of an enemy race's planets after
+<p> If an armed ship is left at one of an enemy race's planets after
 all fighting has been done, it will bomb the planet and wipe out 75%
 of the population and industry (both population and industry are
 reduced to 25% of their original value). The ownership of the planet
 goes to the race that bombed the planet. This is how you conquer
-planets occupied by another race.  </P>
+planets occupied by another race.  </p>
 
 
-<P> You will ask, who gets the planet when two friendly races have
+<p> You will ask, who gets the planet when two friendly races have
 ships above the same planet?  Normally this is the races that comes
 first in the list with races (as shown in the turn report).  This is
 unfair of course, allies will like to divide the planets they conquer
@@ -430,20 +385,20 @@ allows a races to claim a planet. You use it to indicate that you
 claim ownership of a planet when it is bombed. It of course only works
 when you have ships left above the planet when it is bombed.  In case
 2 or more races claim the same planet, nobody gets ownership over
-the planet.  </P>
+the planet.  </p>
 
-<P> There is one other special situation. This is when after battle,
+<p> There is one other special situation. This is when after battle,
 both the owner of the planet, and the race(s) that attacked the
 planet all have ships left, a so called standoff.  This can happen
 when there are ships with small guns and big shields.  In this case,
-the planet is bombed but nobody gets ownership over the planet.  </P>
+the planet is bombed but nobody gets ownership over the planet.  </p>
 
 www_section(`orders', `Orders')
 
 www_subSection(`sendord', `Sending Orders')
 
-<P> To enter orders for Galaxy, you should send a mail message
-containing the following:  </P>
+<p> To enter orders for Galaxy, you should send a mail message
+containing the following:  </p>
 
 <PRE>
   #GALAXY &lt;gamename&gt; &lt;race-name&gt; &lt;password&gt;
@@ -451,37 +406,37 @@ containing the following:  </P>
   #END
 </PRE>
 
-<P> The #GALAXY line should be in the body of the message, not in the
+<p> The #GALAXY line should be in the body of the message, not in the
 subject line.  It is very important to type this line correctly, as
 otherwise all of your orders will be discarded. Everything before the
 #GALAXY line or after the #END line in the message is ignored by the
-program.  </P>
+program.  </p>
 
-<P>As subject for the message use "orders" the server checks your
+<p>As subject for the message use "orders" the server checks your
 orders and send you a forecast of what your situation will be the
 comming turn.  Replacement sets of orders may be sent anytime before
 the deadline. The last set of orders received at the time of running
-the turn is used.  </P>
+the turn is used.  </p>
 
 
 www_subSection(`advanc', `Advance Orders')
 
-<P> If you are away for a couple of days and are not able to send in
+<p> If you are away for a couple of days and are not able to send in
 orders on those days, you can sent in advance orders. For this sent in
 orders with as subject, "orders &lt;turn number&gt;".  Where the turn
 number indictates the turn the orders are intended for.  The server
 will store the orders (but not check them), and use them when the turn
-runs.  </P>
+runs.  </p>
 
-<P>Be careful <STRONG>not</STRONG> to change your race name or
+<p>Be careful <STRONG>not</STRONG> to change your race name or
 password, right before sending in advance orders. Since then your
-advance orders will be rejected when the turn runs.</P>
+advance orders will be rejected when the turn runs.</p>
 
 
 www_subSection(`examor', `Example Set of Orders')
 
-<P>Writing orders for the first time can be a daunting task,
-so here is an example set of orders.</P>
+<p>Writing orders for the first time can be a daunting task,
+so here is an example set of orders.</p>
 
 <PRE>
   #GALAXY Jangi Nation_200 P981231231  
@@ -506,21 +461,21 @@ so here is an example set of orders.</P>
 
 www_subSection(`orderformat', `Order Format')
 
-<P>Each type of order is designated by giving a letter or keyword as
+<p>Each type of order is designated by giving a letter or keyword as
 the first non-blank character on the line. The program only checks the
 first letter, so you can either give a whole word or just the
 letter. Parameters are given after this, separated by spaces or
 tabs. Blank lines are permitted, as are comments; anything after a
 semicolon on a line is treated as a comment and ignored.  (Messages
 (see below) are an exception; semicolons in message text are treated
-as part of the text rather than comments.)  </P>
+as part of the text rather than comments.)  </p>
 
-<P> The parser is not case sensitive, so all commands, names etc. may
+<p> The parser is not case sensitive, so all commands, names etc. may
 be given in upper case, lower case or a mixture of the two. However,
 when supplying names containing spaces, the name must be surrounded by
 double quotes, or else underscore characters must be used in place of
 spaces in the name.  Examples of correct order lines:
-</P>
+</p>
 
 <PRE>
   Send 100 "Zzyax Prime"
@@ -528,25 +483,25 @@ spaces in the name.  Examples of correct order lines:
   s 100 "zzyax prime"	; Attack the Zzyaxian homeplanet
 </PRE>
 
-<P>
+<p>
 Examples of incorrect order lines:
-</P>
+</p>
 
 <PRE>
   Send 100 Zzyax Prime
   s 100 "zzyax prime"	Attack the Zzyaxian homeplanet
 </PRE>
 
-<P>The following sections show what orders are available.</P>
+<p>The following sections show what orders are available.</p>
 
 
 www_subSection(`ordat', `@ [race ...]')
 
-<P> This command sends a message to one or more other players. All
+<p> This command sends a message to one or more other players. All
 lines between this line and the next one with an @ as its first
 non-blank character are treated as message text. The to-whom parameter
 should be a list of natio names separated by spaces. The message will
-be sent to all of these, e.g.  </P>
+be sent to all of these, e.g.  </p>
 
 <PRE>
   @ Zzyaxians "Mutant Camels"
@@ -555,60 +510,60 @@ be sent to all of these, e.g.  </P>
 </PRE>
 
 
-<P> If no list of races is provided (or if a race name is provided
+<p> If no list of races is provided (or if a race name is provided
 with no space between it and the @ sign - take care to avoid this),
 the message will be sent to all races. The program does not
 automatically sign your name, so you should sign it yourself unless
-you wish the message to be anonymous.  </P>
+you wish the message to be anonymous.  </p>
 
 www_subSection(`ordeq', `= &lt;your real name&gt;')
 
-<P>Sets your real name. It is used for the Hall of Fame.  If you set
+<p>Sets your real name. It is used for the Hall of Fame.  If you set
 your real name, and are still around when the game ends you will be
 awarded victory points. This information is only made available to the
-GM and the maintainer of the Hall of Fame.</P>
+GM and the maintainer of the Hall of Fame.</p>
 
-<P>Use quotes cause your name will most likely include spaces, for
-instance</P>
+<p>Use quotes cause your name will most likely include spaces, for
+instance</p>
 <PRE>
 = "John Wayne"
 </PRE>
 
 www_subSection(`orda', `A &lt;race&gt;')
 
-<P> Declare peace on another race.  </P>
+<p> Declare peace on another race.  </p>
 
 
 www_subSection(`ordb', `B &lt;group&gt; &lt;number of ships&gt;')
 
-<P> Break off a number of ships from a group.  </P>
+<p> Break off a number of ships from a group.  </p>
 
 
 www_subSection(`ordc', `C &lt;new name&gt;')
 
-<P> Change the name of your race.  </P>
+<p> Change the name of your race.  </p>
 
 www_subSection(`ordd', `D &lt;type name&gt; &lt;drive&gt; &lt;attacks&gt; &lt;weapons&gt; &lt;shields&gt; &lt;cargo&gt;')
 
-<P> Design a new ship type with the given numbers.  </P>
+<p> Design a new ship type with the given numbers.  </p>
 
 
 www_subSection(`orde', `E &lt;type name&gt;')
 
-<P> Erase a ship type (only works if you have no ships of that type in
-existence or being built).  </P>
+<p> Erase a ship type (only works if you have no ships of that type in
+existence or being built).  </p>
 
 
 www_subSection(`ordf', `F &lt;race&gt;')
 
-<P> This gives the address of the indicated player. If there is no
+<p> This gives the address of the indicated player. If there is no
 address, this means that that position is either not being played, or
 being played by the GM, or being played by someone who cannot be
-contacted by email.  </P>
+contacted by email.  </p>
 
 www_subSection(`ordg', `G &lt;group&gt; [number of ships]')
 
-<P> Upgrade a group of ships. The group must be at one of your
+<p> Upgrade a group of ships. The group must be at one of your
 planets, and must remain there during the turn long enough for the
 upgrade to be performed; this means that it cannot be given a Send or
 Intercept command that turn, though it may be automatically sent on a
@@ -620,7 +575,7 @@ the cost of building a new one; for example, if the ship is currently
 at 2/3 of the latest tech levels, the cost of upgrading will be 1/3 of
 the cost of building a new ship. (Effectively it will be even cheaper
 than this, because upgrading uses no raw materials.) The exact formula
-for the cost is: </P>
+for the cost is: </p>
 
 <PRE>
 10 * ((1 - ship-drive-tech/current-drive-tech) * ship-drive-mass +
@@ -629,7 +584,7 @@ for the cost is: </P>
       (1 - ship-cargo-tech/current-cargo-tech) * ship-cargo-mass)
 </PRE>
 
-<P> If the number-of-ships parameter is given (even as 0 to explicitly
+<p> If the number-of-ships parameter is given (even as 0 to explicitly
 specify the entire group), exactly that many ships will be upgraded,
 even if only enough production points are available to do a partial
 upgrade. If the parameter is omitted, only as many ships will be
@@ -640,19 +595,19 @@ turn to upgrade it again. (This is different from building expensive
 ships, where a single production order will cause a planet to keep
 working until told to stop.) Production points spent on upgrading
 ships during a turn are deducted from that planet's production that
-turn.  </P>
+turn.  </p>
 
 www_subSection(`ordh', `H &lt;group&gt;')
 
-<P> Call back a group. This order can be used to call back groups that
+<p> Call back a group. This order can be used to call back groups that
 have sent by mistake to a far away planet. It only works on groups
 that need at least 4 more turns to arrive at their destination planet.
-The group will return to the planet they departed from.  </P>
+The group will return to the planet they departed from.  </p>
 
 
 www_subSection(`ordi', `I &lt;group&gt; &lt;planet&gt; [number of ships]')
 
-<P>Order your group to intercept alien ships at another planet. With
+<p>Order your group to intercept alien ships at another planet. With
 this command, you specify one of your groups, and a target
 planet. Typically there will be an alien ship or fleet at the planet,
 which you want your group to attack and destroy. However if you use an
@@ -663,25 +618,25 @@ your group will be sent towards whatever planet has the largest total
 mass of alien ships <b>sent</b> to it from the target planet, except
 that only planets which your group can reach in no more than two turns
 will be considered. Otherwise your group will be sent to the target
-planet itself.  </P> 
+planet itself.  </p> 
 
-<P> In the intercept case the mass of ships left at the named planet
+<p> In the intercept case the mass of ships left at the named planet
 is ignored.  The command only looks at the outgoing mass. So if a
 player has a big fleet at a planet, and send one probe from that
-planet, you will follow the probe.  </P>
+planet, you will follow the probe.  </p>
 
 
 www_subSection(`ordl', `L &lt;group&gt; &lt;cargo type&gt; [number-of-ships] [AMOUNT &lt;amount&gt;]')
 
-<P> Load a specific amount cargo onto a group of ships or a number of
+<p> Load a specific amount cargo onto a group of ships or a number of
 ships in the group.  The amount parameter specifies the amount loaded
 per ship. For any order you should make sure that you load at least
 0.01 per ship, otherwise the order is refused.  For instance do not
 try to load 1 colonists onto a group of 1000 <TT>1 0 0 0 1</TT> ships.
-</P>
+</p>
 
 
-<P>The following cargo types are available: </P>
+<p>The following cargo types are available: </p>
 
 <TABLE >
 <TR><TD>CAP</TD><TD>Capital</TD></TR>
@@ -692,24 +647,24 @@ try to load 1 colonists onto a group of 1000 <TT>1 0 0 0 1</TT> ships.
 
 www_subSection(`ordm', `M &lt;x&gt; &lt;y&gt; &lt;size&gt;')
 
-<P> Change the area covered by the map on your turn report. X and Y
+<p> Change the area covered by the map on your turn report. X and Y
 are the coordinates of the top left corner of the map and size is the
 size you want covered in light years, e.g. M 10 20 50 will give you a
 map starting at (10,20) and 50 light years on a side. Useful for
 zooming in on a particular area for greater detail or zooming out
 again to get a wide picture. The position and size of the area covered
-by the map is included in your turn report.  </P>
+by the map is included in your turn report.  </p>
 
 www_subSection(`ordn', `N &lt;old planet name&gt; &lt;new planet name&gt;')
 
-<P>Change the name of a planet that you own.</P>
+<p>Change the name of a planet that you own.</p>
 
 www_subSection(`ordo', `O &lt;option&gt;')
 
 
-<P>Sets a game options.  You cannot set more than one option using one
+<p>Sets a game options.  You cannot set more than one option using one
 O command, separate commands must be used. The following options are
-currently available: </P>
+currently available: </p>
 
 <TABLE >
 <TR><TH>Option</TH>
@@ -815,9 +770,9 @@ logically.</TD>
 </TABLE>
 
 
-<P>
+<p>
 You can turn off options using by added a NO after the O, for instance:
-</P>
+</p>
 <PRE>
   O NO sortGroups
 </PRE>
@@ -826,10 +781,10 @@ You can turn off options using by added a NO after the O, for instance:
 
 www_subSection(`ordp', `P &lt;planet&gt; &lt;product&gt;')
 
-<P> Set production for a planet.  Every time you change production,
+<p> Set production for a planet.  Every time you change production,
 production that was in progress is lost.  So if you built a mass 400
 ship at you home planet, and decide to stop after 2 turns, you loose
-2000 production points.  The following products can be produced: </P>
+2000 production points.  The following products can be produced: </p>
 <TABLE > <TR><TD>CAP</TD><TD> Capital</TD></TR>
 <TR><TD>MAT</TD><TD> Materials</TD></TR> <TR><TD>DRIVE</TD><TD> Drive
 research</TD></TR> <TR><TD>WEAPONS</TD><TD> Weapons research</TD></TR>
@@ -840,105 +795,105 @@ research</TD></TR> <TR><TD>WEAPONS</TD><TD> Weapons research</TD></TR>
 
 www_subSection(`ordq', `Q &lt;your race name&gt;')
 
-<P> Quit the game. You must provide your race name as the parameter as
-a safeguard to prevent Quit orders being issued accidentally.  </P>
+<p> Quit the game. You must provide your race name as the parameter as
+a safeguard to prevent Quit orders being issued accidentally.  </p>
 
 
 
 www_subSection(`ordr', `R &lt;origin planet&gt; &lt;cargo type&gt; [destination planet]')
 
-<P>
+<p>
 Set a route. The following cargo types are available:
-</P>
+</p>
 
 <ul>
-<LI><b>CAP</b> - Capital</LI>
-<LI><b>MAT</b> - Materials</LI>
-<LI><b>COL</b> - Colonists</LI>
-<LI><b>EMP</b> - Empty transports</LI>
+<li><b>CAP</b> - Capital</li>
+<li><b>MAT</b> - Materials</li>
+<li><b>COL</b> - Colonists</li>
+<li><b>EMP</b> - Empty transports</li>
 </ul>
 
-<P> Specifying no destination planet indicates that an existing route
-should be cancelled.  </P>
+<p> Specifying no destination planet indicates that an existing route
+should be cancelled.  </p>
 
 
 www_subSection(`ords', `S &lt;group&gt; &lt;planet&gt; [number of ships]')
 
-<P> Send ships to a planet.  </P>
+<p> Send ships to a planet.  </p>
 
 
 www_subSection(`ordt', `T &lt;type name&gt; &lt;new name&gt;')
 
-<P> Change the name of a ship type.  </P>
+<p> Change the name of a ship type.  </p>
 
 
 www_subSection(`ordu', `U &lt;group&gt; [number-of-ships] [AMOUNT &lt;amount&gt;]')
 
-<P> Unload a group's cargo onto the planet it's currently at.  At the
+<p> Unload a group's cargo onto the planet it's currently at.  At the
 moment you unload colonist onto un uninhabited planet, you will become
 the owner of that planet.  Capital and materials unloaded onto an
 uninhabited planet will sit there until someone colonizes the planet.
 The amount parameter specifies the amount to be unloaded per ship.
-This should be at least 0.01.  </P>
+This should be at least 0.01.  </p>
 
 
 www_subSection(`ordv', `V &lt;planet&gt;')
 
-<P> Use this command to indicate that you claim ownership of a planet.
+<p> Use this command to indicate that you claim ownership of a planet.
 This command is of use when you and your allies jointly attack an
 enemy and you want to divide the captures planets among eachother
 (share the loot).  It only works if the race that claims the planet
 has armed ships left after the battle.  In case one of your allies
 cheat, that is in case 2 or more races claim the same planet, nobody
-gets the planet.  </P>
+gets the planet.  </p>
 
 www_subSection(`ordw', `W &lt;race&gt;')
 
-<P> Declare war on another race.  </P>
+<p> Declare war on another race.  </p>
 
 
 www_subSection(`ordx', `X &lt;group&gt; [number-of-ships]')
 
-<P> Scraps old spacecraft. The ships are converted into raw materials
+<p> Scraps old spacecraft. The ships are converted into raw materials
 which are deposited on the planet where the group is located (must be
 at a planet, not in hyperspace). Any cargo the ships were carrying is
 unloaded first. The command will not work if the ships are carrying
-colonists or are over an alien planet.  </P>
+colonists or are over an alien planet.  </p>
 
 
 www_subSection(`ordy', `Y &lt;passwd&gt;')
 
-<P> Sets your password to passwd.  </P>
+<p> Sets your password to passwd.  </p>
 
 
 www_subSection(`ordz', `Z &lt;new address&gt;')
 
-<P> Change the address to which your reports are sent.  </P>
+<p> Change the address to which your reports are sent.  </p>
 
 
 
 www_subSection(`note', `Things to note')
 
-<P>
+<p>
 All orders involving groups can take an optional last parameter giving
 the number of ships to be used. If this parameter is given, the
 indicated number of ships will be broken off into a separate group
 first, and the order applied only to that separate group.
-</P>
+</p>
 
-<P>
+<p>
 Keywords used as parameters to orders must be given precisely; unlike
 order keywords they cannot be abbreviated (nor expanded). The
 following keywords are used: CAP, MAT, COL, EMP, DRIVE, WEAPONS,
 SHIELDS, CARGO, MAX.
-</P>
+</p>
 
 
 www_subSection(`fleetorders', `Fleet Orders')
 
-<P>
+<p>
 The following fleet orders are available:
-</P>
+</p>
 
 <TABLE>
 <TR><TD>B &lt;group&gt; FLEET</TD>
@@ -975,428 +930,428 @@ fleet it will be moved to the new fleet.</TD>
 </TR>
 </TABLE>
 
-<P>
+<p>
 The following keyword is used: FLEET
-</P>
+</p>
 
 
 
 www_section(`turns', `Turns')
 
-<P>
+<p>
 The following sequence of events takes place when a turn is being run:
-</P>
+</p>
 <ol>
-<LI>
+<li>
 All orders except for renaming and upgrading orders (C, G, N and T)
 are executed.
-</LI>
-<LI>
+</li>
+<li>
 C, G, N and T orders are executed.
-</LI>
-<LI>
+</li>
+<li>
 Hostile ships fight each other.
-</LI>
-<LI>
+</li>
+<li>
 Ships bomb enemy planets.
-</LI>
-<LI>
+</li>
+<li>
 Ships, which are assigned to routes are loaded and sent into
 hyper space. 
-</LI>
-<LI>
+</li>
+<li>
 Ships are sent on intercept orders.
-</LI>
-<LI>
+</li>
+<li>
 Ships move through hyperspace.
-</LI>
-<LI>
+</li>
+<li>
 Hostile ships fight each other again (new battles might be possible
 after ships emerge from hyperspace).
-</LI>
-<LI>
+</li>
+<li>
 Ships bomb enemy planets again.
-</LI>
-<LI>
+</li>
+<li>
 Production takes place.
-</LI>
-<LI>
+</li>
+<li>
 Ships, which are assigned to routes, unload their cargo.. 
-</LI>
-<LI>
+</li>
+<li>
 Identical groups are merged.
-</LI>
+</li>
 </ol>
 
 
 www_section(`afewnotes', `A few things to note')
 
-<P> When orders conflict, such as two players trying to unload
+<p> When orders conflict, such as two players trying to unload
 colonists onto an uninhabited planet simultaneously at the start of
 the turn, whoever is first in the list of players will have his order
 executed first and colonize the planet. In practice this does not
-happen often enough to be relevant.  </P>
+happen often enough to be relevant.  </p>
 
-<P> A ship which takes several turns to build will be built with the
-tech levels available at the start of the final turn.  </P>
+<p> A ship which takes several turns to build will be built with the
+tech levels available at the start of the final turn.  </p>
 
-<P> Because names are changed after other orders, entities which are
+<p> Because names are changed after other orders, entities which are
 renamed in a turn must still be referred to by their old names for the
-rest of that turn.  </P>
+rest of that turn.  </p>
 
-<P>The game engine stores numbers in double precision format but <strong>truncates</strong> values reported to players to two decimal places.  For example, drive technology 2.4389 will be reported as 2.43 and a ship designed with shields mass 18.11999999 will be reported as shields mass 18.11.  Note that galaxy size, planetary coordinates and planetary resources are the exceptions - a planet reported at 138.44,43.29 with 4.30 resources is actually at that location and will not be found at 138.4426,43.28934 with 4.3032 resources.  Negative numbers are not used in GalaxyNG.</P>
+<p>The game engine stores numbers in double precision format but <strong>truncates</strong> values reported to players to two decimal places.  For example, drive technology 2.4389 will be reported as 2.43 and a ship designed with shields mass 18.11999999 will be reported as shields mass 18.11.  Note that galaxy size, planetary coordinates and planetary resources are the exceptions - a planet reported at 138.44,43.29 with 4.30 resources is actually at that location and will not be found at 138.4426,43.28934 with 4.3032 resources.  Negative numbers are not used in GalaxyNG.</p>
 
 www_section(`inactive', `Inactivity')
 
-<P> Inactivity, that is not sending in orders can cause you to be
+<p> Inactivity, that is not sending in orders can cause you to be
 expelled from the game.  You are allowed to miss a few turn, this to
 make sure you are not kicked out when your internet provider goes
 down, or if you are on holidays for a few days.  However not sending
 in orders, (even empty orders will do), for more than a few turns is
-not allowed.<P>
+not allowed.<p>
 
-<P>
+<p>
 You are not allowed to miss the first turn. If you do not send in
 orders for turn 1, you are automaticaly removed from the game.  This
 is to weed out players that sign-up for a game but then never play.
-</P>
+</p>
 
-<P> During the first 10 turns you are not allowed to miss
+<p> During the first 10 turns you are not allowed to miss
 more than 2 turns in a row. If you do so you are expelled from the
 game and your empire (complete with ships and population is removed
-from the game).</P>
+from the game).</p>
 
-<P>After turn 10 you are not allowed to miss more than 5
+<p>After turn 10 you are not allowed to miss more than 5
 turns in a row. If you do, you are expelled from the game, your empire
 continues to exists however. And without a leader it will be an easy
-prey for other races to feast on.</P>
+prey for other races to feast on.</p>
 
 
 www_section(`reports', `Turn Reports')
 
-<P>After each turn runs you will receive a turn report with information
+<p>After each turn runs you will receive a turn report with information
 on the state of your race. If you don't play in a game yet,
 you might want to look at some example reports at
 ALink(`http://galaxy.pbem.net/example.html', 
     `http://galaxy.pbem.net/example.html'). 
 
-<P> Your turn report will contain some or all of the following
-sections: </P>
+<p> Your turn report will contain some or all of the following
+sections: </p>
 
 www_subSection(`repopt', `Your Options')
 
-<P> A list with all the options that are available. It shows if you
+<p> A list with all the options that are available. It shows if you
 have switched an option on or off.  
 To switch options on or off use the ALink(`ordo', `O order').
-</P>
+</p>
 
 
 www_subSection(`repmes', `Messages')
 
-<P>Messages from other players. You can send your own messages
-by using the ALink(`#ordat', `@ command')</P>
+<p>Messages from other players. You can send your own messages
+by using the ALink(`#ordat', `@ command')</p>
 
 
 www_subSection(`repmis', `Mistakes')
 
-<P>Any mistakes in your orders.</P>
+<p>Any mistakes in your orders.</p>
 
 
 www_subSection(`repstat', `Status of Players')
 
-<P>This is the current status of all players in the game; the following
-information is provided:</P>
+<p>This is the current status of all players in the game; the following
+information is provided:</p>
 
 <ol>
-<LI>Name</LI>
-<LI>Drive Technology</LI>
-<LI>Weapons Technology</LI>
-<LI>Shields Technology</LI>
-<LI>Cargo Technology</LI>
-<LI>Total Population</LI>
-<LI>Total Industry</LI>
-<LI>Number of Planets Owned</LI>
-<LI>Diplomatic Relations</LI>
+<li>Name</li>
+<li>Drive Technology</li>
+<li>Weapons Technology</li>
+<li>Shields Technology</li>
+<li>Cargo Technology</li>
+<li>Total Population</li>
+<li>Total Industry</li>
+<li>Number of Planets Owned</li>
+<li>Diplomatic Relations</li>
 </ol>
 
 
 www_subSection(`repyst', `Your Ship Types')
 
-<P>
+<p>
 This is a list of your ship types; the following information is provided:
-</P>
+</p>
 <ol>
-<LI>Name</LI>
-<LI>Drive</LI>
-<LI>Attacks</LI>
-<LI>Weapons</LI>
-<LI>Shields</LI>
-<LI>Cargo</LI>
-<LI>Mass, the total mass of a ship of this type</LI>
-<LI>Speed, the speed of a ship of this type</LI>
-<LI>Def, the effective shields of a ship of this type</LI>
+<li>Name</li>
+<li>Drive</li>
+<li>Attacks</li>
+<li>Weapons</li>
+<li>Shields</li>
+<li>Cargo</li>
+<li>Mass, the total mass of a ship of this type</li>
+<li>Speed, the speed of a ship of this type</li>
+<li>Def, the effective shields of a ship of this type</li>
 </ol>
-<P>
+<p>
 Mass, speed, and def, are computed for techlevels of 1,1,1,1.
-</P>
+</p>
 
 
 www_subSection(`repast', `Alien Ship Types')
 
-<P> This is a description of each type of alien ship that you have
+<p> This is a description of each type of alien ship that you have
 come into contact with this turn; the information provided is the same
-as for your ship types.  </P>
+as for your ship types.  </p>
 
 
 www_subSection(`repbat', `Battles')
 
-<P>This is a description of all the battles that you have fought or
+<p>This is a description of all the battles that you have fought or
 witnessed this turn. For each battle, a list of groups belonging to
-each player is given. The following information is provided: </P>
+each player is given. The following information is provided: </p>
 
 <ol>
-<LI>Number of Ships</LI>
-<LI>Ship Type</LI>
-<LI>Drive Technology</LI>
-<LI>Weapons Technology</LI>
-<LI>Shields Technology</LI>
-<LI>Cargo Technology</LI>
-<LI>Cargo Type (a "-" means that the group is carrying no cargo)</LI>
-<LI>Cargo Quantity Per Ship</LI>
-<LI>Ships Left (survivors after the battle)</LI>
+<li>Number of Ships</li>
+<li>Ship Type</li>
+<li>Drive Technology</li>
+<li>Weapons Technology</li>
+<li>Shields Technology</li>
+<li>Cargo Technology</li>
+<li>Cargo Type (a "-" means that the group is carrying no cargo)</li>
+<li>Cargo Quantity Per Ship</li>
+<li>Ships Left (survivors after the battle)</li>
 </ol>
 
 
 www_subSection(`repbp', `Battle Protocol')
 
-<P> Tels you which ships fired on which ship and whether the ship
+<p> Tels you which ships fired on which ship and whether the ship
 survived.  You only get this when you switch on the option
-BattleProtocol.  </P>
+BattleProtocol.  </p>
 
 
 www_subSection(`repbom', `Bombings')
 
 
-<P>This is a list of all the planets that you have observed being
-bombed this turn. The following information is given:</P>
+<p>This is a list of all the planets that you have observed being
+bombed this turn. The following information is given:</p>
 
 <ol>
-<LI>Who bombed the planet</LI>
-<LI>Owner</LI>
-<LI>Planet Name</LI>
-<LI>Population</LI>
-<LI>Industry</LI>
-<LI>Producing (capital, raw materials, research or ships)</LI>
-<LI>Capital Stockpiled</LI>
-<LI>Material Stockpiled</LI>
-<LI>Colonists Stockpiled</LI>
+<li>Who bombed the planet</li>
+<li>Owner</li>
+<li>Planet Name</li>
+<li>Population</li>
+<li>Industry</li>
+<li>Producing (capital, raw materials, research or ships)</li>
+<li>Capital Stockpiled</li>
+<li>Material Stockpiled</li>
+<li>Colonists Stockpiled</li>
 </ol>
 
-<P>
+<p>
 (Obviously, most of this data is from just *before* the planet was bombed.)
-</P>
+</p>
 
 
 www_subSection(`repmap', `Map')
 
-<P> This is a map of all or part of the galaxy. Symbols on the map
-have the following meanings:</P>
+<p> This is a map of all or part of the galaxy. Symbols on the map
+have the following meanings:</p>
 
 <ol>
-<LI>*  - Your Planet</LI>
-<LI>o  - Uninhabited Planet</LI>
-<LI>+  - Alien Planet</LI>
-<LI>.  - Your Ships</LI>
-<LI>-  - Alien Ships</LI>
+<li>*  - Your Planet</li>
+<li>o  - Uninhabited Planet</li>
+<li>+  - Alien Planet</li>
+<li>.  - Your Ships</li>
+<li>-  - Alien Ships</li>
 </ol>
 
 
 www_subSection(`repigr', `Incoming Groups')
 
-<P> This is a list of all the groups of alien ships currently heading
-for planets owned by you. The following information is provided: </P>
+<p> This is a list of all the groups of alien ships currently heading
+for planets owned by you. The following information is provided: </p>
 
 <ol>
-<LI>Origin (which planet the group came from)</LI>
-<LI>Destination (which planet the group is heading towards)</LI>
-<LI>Distance Remaining</LI>
-<LI>Speed</LI>
-<LI>Total Mass</LI>
+<li>Origin (which planet the group came from)</li>
+<li>Destination (which planet the group is heading towards)</li>
+<li>Distance Remaining</li>
+<li>Speed</li>
+<li>Total Mass</li>
 </ol>
 
 
 www_subSection(`repypl', `Your Planets')
 
-<P> This is a list of all the planets that you own. The following
-information is provided: </P>
+<p> This is a list of all the planets that you own. The following
+information is provided: </p>
 
 <ol>
-<LI>Name</LI>
-<LI>X Coordinate</LI>
-<LI>Y Coordinate</LI>
-<LI>Size</LI>
-<LI>Population</LI>
-<LI>Industry</LI>
-<LI>Natural Resources</LI>
-<LI>Producing (capital, raw materials, research or ships)</LI>
-<LI>Capital Stockpiled</LI>
-<LI>Material Stockpiled</LI>
-<LI>Colonists Stockpiled</LI>
-<LI>The Effective Industry</LI>
+<li>Name</li>
+<li>X Coordinate</li>
+<li>Y Coordinate</li>
+<li>Size</li>
+<li>Population</li>
+<li>Industry</li>
+<li>Natural Resources</li>
+<li>Producing (capital, raw materials, research or ships)</li>
+<li>Capital Stockpiled</li>
+<li>Material Stockpiled</li>
+<li>Colonists Stockpiled</li>
+<li>The Effective Industry</li>
 </ol>
 
 
 www_subSection(`repsip', `Ships In Production')
 
-<P> This provides you will a list of ships in production with the
+<p> This provides you will a list of ships in production with the
 total cost to produce such a ship (including cost to produce any
 materials required) and the production that has gone into producing
-the next one of those ships. It will be displayed as follows: </P>
+the next one of those ships. It will be displayed as follows: </p>
 
 <ol>
-<LI>Planet</LI>
-<LI>Ship Type</LI>
-<LI>Cost to Produce</LI>
-<LI>Production Already Used</LI>
+<li>Planet</li>
+<li>Ship Type</li>
+<li>Cost to Produce</li>
+<li>Production Already Used</li>
 </ol>
 
-<P>This table is displayed when the ProdTable option is set.  </P>
+<p>This table is displayed when the ProdTable option is set.  </p>
 
 
 www_subSection(`reproute', `Your Routes')
 
-<P> This is a list of the routes from those of your planets which have
+<p> This is a list of the routes from those of your planets which have
 routes defined. For each planet, the destination planet is listed for
-the following commodities: </P>
+the following commodities: </p>
 
 <ol>
-<LI>Capital</LI>
-<LI>Raw Materials</LI>
-<LI>Colonists</LI>
-<LI>Empty Transports</LI>
+<li>Capital</li>
+<li>Raw Materials</li>
+<li>Colonists</li>
+<li>Empty Transports</li>
 </ol>
 
-<P> A "-" for a particular commodity means that no route is defined
-from that planet for that commodity.  </P>
+<p> A "-" for a particular commodity means that no route is defined
+from that planet for that commodity.  </p>
 
 
 www_subSection(`repapln', `Alien Planets')
 
-<P> This is a list of all those planets owned by another player, at
+<p> This is a list of all those planets owned by another player, at
 which you have at least one ship and which you can therefore
-observe. The same information is provided as for your planets.  </P>
+observe. The same information is provided as for your planets.  </p>
 
 
 www_subSection(`repuinpl', `Unidentified Planets')
 
-<P> This is a list of those planets owned by another player, which
+<p> This is a list of those planets owned by another player, which
 appear on your map but which you cannot observe. Only the name of the
 planet and the X and Y coordinates are available. (Occasionally, due
 to roundoff errors, a planet will appear at the edge of the map but
-not be listed, or vice versa.)  </P>
+not be listed, or vice versa.)  </p>
 
 
 www_subSection(`repuninhab', `Uninhabited Planets')
 
-<P> This is a list of uninhabited planets which appear on your map, or
+<p> This is a list of uninhabited planets which appear on your map, or
 which you can observe. For all planets on the list, the name and X and
 Y coordinates are provided. For those planets which you can observe,
-the Size and Natural Resources attributes are also listed.  </P>
+the Size and Natural Resources attributes are also listed.  </p>
 
 
 
 www_subSection(`repygrps', `Your Groups')
 
-<P> This is a list of your groups of spaceships. This will be a list
+<p> This is a list of your groups of spaceships. This will be a list
 of your groups which are not part of a fleet.  The following
-information is provided: </P>
+information is provided: </p>
 
 <ol>
-<LI>Group Number</LI>
-<LI>Number of Ships</LI>
-<LI>Ship Type</LI>
-<LI>Drive Technology</LI>
-<LI>Weapons Technology</LI>
-<LI>Shields Technology</LI>
-<LI>Cargo Technology</LI>
-<LI>Cargo Type (a "-" means that the group is carrying no cargo)</LI>
-<LI>Cargo Quantity Per Ship</LI>
-<LI>Destination</LI>
-<LI>Distance (if this is left blank, the group is at the Destination).</LI>
-<LI>Origin</LI>
+<li>Group Number</li>
+<li>Number of Ships</li>
+<li>Ship Type</li>
+<li>Drive Technology</li>
+<li>Weapons Technology</li>
+<li>Shields Technology</li>
+<li>Cargo Technology</li>
+<li>Cargo Type (a "-" means that the group is carrying no cargo)</li>
+<li>Cargo Quantity Per Ship</li>
+<li>Destination</li>
+<li>Distance (if this is left blank, the group is at the Destination).</li>
+<li>Origin</li>
 </ol>
 
 
 
 www_subSection(`repyflts', `Your Fleets')
 
-<P> You will get a table for each fleet.  The header for each fleet
-will be: </P>
+<p> You will get a table for each fleet.  The header for each fleet
+will be: </p>
 
 <PRE>
          `Fleet fleetname (Speed fleetspeed)'
 </PRE>
 
-<P> where fleetname and fleetspeed is the fleet name and fleet speed
+<p> where fleetname and fleetspeed is the fleet name and fleet speed
 respectively.  The following information is provided:
-</P>
+</p>
 
 <OL>
-<LI>Group Number</LI>
-<LI>Number of Ships</LI>
-<LI>Ship Type</LI>
-<LI>Drive Technology</LI>
-<LI>Weapons Technology</LI>
-<LI>Shields Technology</LI>
-<LI>Cargo Technology</LI>
-<LI>Cargo Type (a "-" means that the group is carrying no cargo)</LI>
-<LI>Cargo Quantity Per Ship</LI>
-<LI>Destination</LI>
-<LI>Distance (if this is left blank, the group is at the Destination)</LI>
-<LI>Origin</LI>
+<li>Group Number</li>
+<li>Number of Ships</li>
+<li>Ship Type</li>
+<li>Drive Technology</li>
+<li>Weapons Technology</li>
+<li>Shields Technology</li>
+<li>Cargo Technology</li>
+<li>Cargo Type (a "-" means that the group is carrying no cargo)</li>
+<li>Cargo Quantity Per Ship</li>
+<li>Destination</li>
+<li>Distance (if this is left blank, the group is at the Destination)</li>
+<li>Origin</li>
 </OL>
 
 
 
 www_subSection(`repagrps', `Alien Groups')
 
-<P> This is a list of groups of ships belonging to other players,
+<p> This is a list of groups of ships belonging to other players,
 which you can observe. The information provided is the same as for
-your groups except without the group numbers.  </P>
+your groups except without the group numbers.  </p>
 
 
 www_subSection(`copyreport', `Getting a Copy a Turn Report')
 
-<P> You can get a copy of a turn report by sending an email to the
-server. The message should contain one line: </P>
+<p> You can get a copy of a turn report by sending an email to the
+server. The message should contain one line: </p>
 
 <PRE>
 #GALAXY &lt;gamename&gt; &lt;race-name&gt; &lt;password&gt;
 </PRE>
 
-<P>As subject for the message use "report &lt;turn number&gt;".  The
+<p>As subject for the message use "report &lt;turn number&gt;".  The
 server will send you a copy of the report for that turn.  The
 copy is send to the email address you send the orders from.  You can
 use this feature to get a copy of your report in case your ISP fails
-for some reason.  </P>
+for some reason.  </p>
 
 
 www_section(`hints', `Hints and Tips')
 
-<P> In the early stages of the game, there will be plenty of planets
+<p> In the early stages of the game, there will be plenty of planets
 to spare so there will be little need to fight for territory; however,
 you should ensure that your homeplanet is defended against sneak
 attacks by xenophobic aliens. You will need to devote your efforts to
 exploration, building up colonies, researching technology, and
-contacting other races with a view to forming alliances.  </P>
+contacting other races with a view to forming alliances.  </p>
 
-<P> The map in your turn report only indicates which planets are
+<p> The map in your turn report only indicates which planets are
 occupied by alien races, and the total mass of any groups of alien
 ships in hyperspace heading for one of your planets. To learn of enemy
 fleets which may pose a threat to your safety, you will need to send
-ships to enemy planets to spy on them.  </P>
+ships to enemy planets to spy on them.  </p>
 
-<P> If you have an "Incoming Groups" section on your turn report, this
+<p> If you have an "Incoming Groups" section on your turn report, this
 probably means that one or more of your planets is under attack, and
 your first priority should be to ensure that you have an adequate
 defense. For each incoming group, divide the Distance by Speed to find
@@ -1406,25 +1361,25 @@ potential threat. Of course you don't know whether a very large group
 is a huge battleship or a fleet of small fighters or anything in
 between.  You could also try some last-minute diplomacy: the player
 owning the group cannot turn it back, but he could declare peace on
-you, so that the group would not attack you when it did arrive.  </P>
+you, so that the group would not attack you when it did arrive.  </p>
 
-<P> In the later stages of the game, it is quite likely that one
+<p> In the later stages of the game, it is quite likely that one
 player will develop a dominant position and appear to be heading for
 victory. At this point, it is vitally important for all the other
 players to immediately leave aside whatever differences they may have
 among themselves and launch an attack on this player, because if he is
 given a chance to pick the others off one by one at his leisure, he is
-very likely to win.  </P>
+very likely to win.  </p>
 
 www_section(`moreinfo', `Links to More Information')
 
 <OL>
-  <LI>ALink(`http://badcheese.com/~steve/phpwiki/index.php/GalaxyPlay',
-      `GalaxyNG Wiki')</LI>
-  <LI>ALink(`http://galaxyng.sourceforge.net/RefManual.html', 
+  <li>ALink(`http://badcheese.com/~steve/phpwiki/index.php/GalaxyPlay',
+      `GalaxyNG Wiki')</li>
+  <li>ALink(`http://galaxyng.sourceforge.net/RefManual.html', 
       `Quick Reference Manual')</li>
-  <LI>ALink(`http://galaxyng.sourceforge.net/FAQ.html', 
-      `GalaxyNG FAQ')</LI>
+  <li>ALink(`http://galaxyng.sourceforge.net/FAQ.html', 
+      `GalaxyNG FAQ')</li>
 </OL>
 
 BodyEnd
