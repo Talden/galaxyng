@@ -3,7 +3,7 @@ body {
   margin-bottom: 1em;
   margin-left: 2.5em;
   margin-right: 2.5em;
-  font-family: sans-serif;
+  font-family: serif;
   color: #FFFFFF;
   background-color: #000000;
 }
@@ -22,8 +22,8 @@ A:active {
 }
 
 p, form {
-  font-family:sans-serif;
-  font-size:small; 
+  font-family:serif;
+  font-size:medium; 
 }
 
 B, STRONG, I, EM, CITE, VAR, TT, CODE, KBD, SAMP, IMG
@@ -40,16 +40,17 @@ ul {
 
 li {
   margin-bottom: 0.2em;
-  font-family:sans-serif;
-  font-size:small; 
+  font-family:serif;
+  font-size:medium; 
+}
+
+H1, H2, H3 {
+  font-family: sans-serif;
+  font-weight: bold;
 }
 
 H2, H3 { 
   margin-top: 0.5em; 
-}
-
-H1, H2, H3 {
-  font-weight: bold;
 }
 
 B, STRONG { 
@@ -90,8 +91,6 @@ CODE {
 PRE { 
   white-space: pre;
   margin-top: 0.5em;
-  font-family: monospace;
-  font-size: small;
 }
 
 ADDRESS { 
@@ -101,8 +100,7 @@ ADDRESS {
   margin-bottom: 0.5em;
 }
 
-h1 { 
-  font-family: sans-serif;
+h1 {
   font-size:xx-large;
   font-weight:bold;
   text-align:right;
@@ -111,14 +109,12 @@ h1 {
   margin-bottom: 0.5em;
 }
 
-h2 { 
-  font-family:sans-serif;
+h2 {
   font-size:x-large;
   font-weight:bold;
 }
 
-h3 { 
-  font-family:sans-serif;
+h3 {
   font-size:large;
   font-style:italic;
 }

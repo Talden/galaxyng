@@ -18,10 +18,10 @@
 
 			<h2><a link="toc">Table of Contents</a></h2>
 				<ol>
-					<li>Introduction
+					<li><a href="#intro">Introduction</a>
 						<ol>
-							<li>The Galaxy</li>
-							<li>Names</li>
+							<li><a href="#galaxy">The Galaxy</a></li>
+							<li><a href="#names">Names</a></li>
 							<li>Victory and Defeat</li>
 						</ol>
 					</li>
@@ -193,7 +193,6 @@
   Freighter       30.00 +    0.00 +        0         +    9.50 + 10.00 =  49.50
   MegaFreighter  120.00 +    0.00 +        0         +   38.43 + 39.57 = 198.00</pre>
   
-
 				<h3><a link="move">Movement</a></h3>
 					<p>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  <a href="#ords">Send</a>, <a href="#ordi">intercept</a> and <a href="#ordh">reverse</a> orders can be issued to groups and fleets to move them between planets.</p>
 
@@ -229,7 +228,7 @@
 					<p>Locating alien ships in hyperspace is much more problematic.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can be obtained for ships heading directly toward a detector (i.e. inbound to a planet).  A rough indication of the location of other alien groups is indicated on the <a href="#ordm">map</a>, but their mass, speed and direction of travel are unknown.</p>
 
 				<h3><a link="#cargo">Cargo</a></h3>
-					<p>Cargo ships can <a href="#ordl">load</a> stockpiles of colonists, capital and materials to <a href="#ords">transport</a> them to other planets where they can be <a href="#ordu">unloaded</a>.  The base amount of cargo a ship can carry is determined by the following formula: base cargo = cargo mass + cargo mass^2/10.  Thus, at cargo technology 1.00, some examples would be:</p>
+					<p>Cargo ships can <a href="#ordl">load</a> stockpiles of colonists, capital and materials to <a href="#ords">transport</a> them to other planets where they can be <a href="#ordu">unloaded</a>.  Each ship may only carry one type of cargo at a time.  The base amount of cargo a ship can carry is determined by the following formula: base cargo = cargo mass + cargo mass^2/10.  Thus, at cargo technology 1.00, some examples would be:</p>
 
 					<pre>                 Cargo + Cargo Mass^2/10 =  Base Cargo
                   Mass                        Carried
@@ -239,50 +238,11 @@
   Freighter      10.00 +      10.00      =     20.00
   MegaFreighter  39.57 +     156.57      =    196.14</pre>
 
-<p>Cargo technology increases the amount of cargo that a ship can carry.  Thus, a Hauler with cargo technology 2.00 can carry 2.20 units of cargo and a Freighter with cargo technology 3.00 can carry 60.00 units of cargo.  This does not slow down the ships, as the cargo carried is divided by the cargo technology to obtain the effective cargo carried.  Thus, at cargo technology 3.00, a Freighter carrying 60.00 units of cargo has an effective cargo carried of 20.00, while the same Freighter carrying 35.00 units of cargo has an effective cargo carried of 11.66.</p>
+       <p>Cargo technology increases the amount of cargo that a ship can carry.  Thus, a Hauler with cargo technology 2.00 can carry 2.20 units of cargo and a Freighter with cargo technology 3.00 can carry 60.00 units of cargo.  This does not slow down the ships, as the cargo carried is divided by the cargo technology to obtain the effective cargo carried.  Thus, at cargo technology 3.00, a Freighter carrying 60.00 units of cargo has an effective cargo carried of 20.00, while the same Freighter carrying 35.00 units of cargo has an effective cargo carried of 11.66.</p>
 
+     <h3><a link="#routes">Routes</a></h3>
 
-
-<p>
-A ship may only carry one type of cargo at one time.  The
-possible types are raw materials, capital and colonists.  Cargo
-may be loaded onto a ship at a planet where it is available.
-Cargo may be unloaded onto any planet.  
-</p>
-
-					<p>When colonists from a planet's stockpile are shipped to other planets
-which still have room for population growth, they are automatically
-thawed out and added to the planet's population.  This is how
-uninhabited planets are colonized.  (Note that colonist production is
-completely automatic, and consumes no production points.)</p>
-
-<h3><a link="#routes">Routes</a></h3>
-
-<p>
-To move cargo between planets you can use a route instead of
-doing it manually.  A route from planet A to B for a particular
-cargo type means that the computer will try to get that type of
-cargo from planet A to planet B using all available transport
-ships.  So once the route is set up, any empty ships at planet A
-each turn will be loaded with cargo (if any of that type is
-present on planet A) and sent to planet B.  Any ships at planet
-A which already are loaded with the appropriate type of cargo
-will also be sent to planet B.  Any ships which arrive at planet
-B carrying that type of cargo (even if they didn't come from
-planet A) will be automatically unloaded.  
-</p>
-
-<p>
-You can set up a total of four routes from each planet that
-you own, one for each of the three kinds of cargo and one for
-empty transports which is useful for returning transports from
-resource consuming planets to resource producing planets.  You
-can only set up routes from planets that you own but you can set
-up routes to any planet at all, so you can use them for shipping
-colonists to uninhabited planets.  Routes are assigned transport
-ships in the following order of priority:  colonists, capital,
-materials and empty transports.  
-</p>
+      <p>Four routes (capital, colonists, materials, and empty) can be <a href="#ordr">established</a> from each planet.  Cargo ships that have not been ordered to load, unload or travel between planets will automatically follow routes.  A route from planet A to B for a particular cargo type means that the computer will try to get that type of cargo from planet A to planet B using all available cargo ships.  Any empty ships at planet A each turn will be loaded with cargo (if any of that type is present on planet A) and sent to planet B.  Any ships at planet A which already are loaded with the appropriate  type of cargo will also be sent to planet B.  Any ships which arrive at planet B carrying that type of cargo (even if they didn't come from planet A) will be automatically unloaded, regardless of the status of the autounload option.  Players can only establish routes from planets that they own, however routes can terminate at any planet at all, so they can be used to ship colonists to uninhabited planets.  Routes are assigned transport ships in the following order of priority:  colonists, capital, materials and empty transports.</p>
 
 			<h2><a link="produce">Production</a></h2>
 				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every four points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 industry and 500.00 population has 500.00 production points, while a planet with 250.00 industry and 500.00 population has 312.50 production points.  A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production each turn.</p>
