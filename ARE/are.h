@@ -38,7 +38,7 @@ typedef struct gameopts {
   int   playerlimit;
   float totalplanetsize;
   float maxplanetsize;
-  int   maxnbrplanets;
+  int   maxplanets;
 } gameopts;
   
 typedef struct _serverOpts {
