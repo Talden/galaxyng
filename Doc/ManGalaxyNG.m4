@@ -18,19 +18,17 @@ m4_include(toc.html)
 
 www_section('intro', 'Introduction')
 
-<P>GalaxyNG is a multiplayer game of interstellar war conducted by email.  Each player is the leader of one race.  The objective of the game is to conquer the galaxy.</P>
+<P>GalaxyNG is a multiplayer game of interstellar war.  Each player is the leader of one race.  The objective of the game is to conquer the galaxy.</P>
 
-<P>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, fight better and haul more cargo.</P>
+<P>Players email a GalaxyNG server to ALink('#register', 'register') for games, submit ALink('#orders', 'orders') and receive ALink('#reports', 'turn reports').  The server automatically processes turns and responds to player email.  Most games run one to five ALink('#turns', 'turns') per week.  The Game Master (GM) maintains the server, selects game options, creates the galaxy, answers player questions and solves problems.</P>
 
-www_subSection('units', 'Units')
+<P>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, fight better and haul more cargo.</P>
 
 <P>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods or raw materials represents about 10 million tons.  Each game turn represents about four years of time.</P>
 
-<P>The game engine stores numbers in double precision format but interacts with players to two decimal places.  For example, Drive technology 2.4389732225478 will be reported as 2.44.  Player orders will be truncated to two decimal places before processing, thus 12.88888 will be reduced to 12.88 and not 12.89.  Note that planetary x,y coordinates are the exception - a planet reported at 138.44,43.29 is actually at that location and will not be found at 138.442683,43.2893435.  Negative numbers are not used in GalaxyNG.</P>
-
 www_subSection('names', 'Names')
 
-<P>You should ALink('#ordc', 'provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you do not do this you will simply be known as Race_5 or whatever.  As well as the various races, other things in the game which have names are ship types and planets.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Ship types are given names by their ALink('#ordd', 'designer').  All planets only have numbers for names at the start of the game.  If you own a planet you can ALink('#ordn', 'change its name').  You may want to change your home planet name(s) to something more exciting e.g. from "112" to "Zzyax_Prime".</P>
+<P>You should ALink('#ordc', 'provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you do not do this you will simply be known as Race_5 or whatever.  You can also provide names for ship types and planets.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Ship types are given names by their ALink('#ordd', 'designer').  All planets only have numbers for names at the start of the game.  If you own a planet you can ALink('#ordn', 'change its name').  You may want to change your home planet name(s) to something more exciting e.g. from "112" to "Zzyax_Prime".</P>
 
 www_subSection('war', 'War and Alliances')
 
@@ -42,26 +40,26 @@ www_subSection('victory', 'Victory and Defeat')
 
 www_section('tech', 'Technology')
 
-<P>Technology determines the effectiveness of ships.  There are four technologies: Drive, Weapons, Shields and Cargo.  Each race begins the game with 1.00 points in each technology.  Technology can be increased by ordering planets to ALink('#produce', 'produce') research.  A ship with Drive 2.00 is twice as fast as an equivalent ship with Drive 1.00, a ship with Weapons 3.00 has a 50% more powerful attack than the same ship with Weapons 2.00, and so forth.</P>
+<P>Technology levels determine the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to ALink('#ordp', 'produce') research.</P>
 
 www_section('ships', 'Ships')
 
-<P>Ships are used for exploration, attack, defence and cargo transport.  Ships have sixteen characteristics: ship type, drive mass, attacks, weapons mass, shields mass, cargo mass, group number, fleet name, drive technology, attacks, weapons technology, shields technology, cargo technology, cargo type carried, cargo carried mass, destination planet, and distance to destination planet.</P>
+<P>Ships are used for exploration, scouting, attack, defence and cargo transport.  Ships have sixteen characteristics: ship type, drive mass, attacks, weapons mass, shields mass, cargo mass, group number, fleet name, drive technology, attacks, weapons technology, shields technology, cargo technology, cargo type carried, cargo carried mass, destination planet, and distance to destination planet.  Ships can be built by ordering planets to ALink('#ordp', 'produce') them.</P>
 
-www_subSection('design', 'Designing Ship Types')
+www_subSection('shiptypes', 'Ship Types')
 
 <P>Each player can ALink('#ordd', 'design') ship types, which are unique to that player, by specifying:</P>
 
 <UL>
   <LI>Name - ship type</LI>
-  <LI>Drive Mass - the power of the hyperdrive engines</LI>
+  <LI>Drive mass - the power of the hyperdrive engines</LI>
   <LI>Attacks - the number of guns</LI>
-  <LI>Weapons Mass - the strength of the gun(s)</LI>
-  <LI>Shields Mass - the power of the shields generator</LI>
-  <LI>Cargo Mass - the size of the cargo bay</LI>
+  <LI>Weapons mass - the strength of the gun(s)</LI>
+  <LI>Shields mass - the power of the shields generator</LI>
+  <LI>Cargo mass - the size of the cargo bay</LI>
 </UL>
 
-<P>Drive Mass, Weapons Mass, Shields Mass, and Cargo Mass must equal zero or be equal to or larger than 1.  Thus, Drive Mass 0.00 and 1.50 are allowed but Drive Mass 0.75 is not.  Attacks must be an integer.</P>
+<P>Drive mass, weapons mass, shields mass, and cargo mass must equal 0 or be equal to or larger than 1.  Thus, drive mass 0.00 and 1.50 are allowed but drive mass 0.75 is not.  Attacks must be an integer.</P>
 
 <P>Some example ship types are:<P>
 
@@ -84,46 +82,26 @@ www_subSection('design', 'Designing Ship Types')
   Megafreighter  120.00   0   0.00  39.43  39.57
 </PRE>
 
+www_subSection('shiptechs', 'Ship Technology Levels')
+
+<P>A ship with drive technology 2.00 is twice as fast as an equivalent ship with drive technology 1.00, a ship with weapons technology 3.00 has a 50% more powerful attack than the same ship with weapons technology 2.00, and so forth.  Ships without a component are considered to have a matching technology level of 0.  For example, a ship with weapons mass 0 is consdered to have weapons technology 0.</P>
+
 www_subSection('groups', 'Groups')
 
-<P> 
-In later stages of the game you can have hundreds or even
-thousands of spaceships, which would be inconvenient to handle
-individually.  Hence spaceships are handled in groups.  A group is a
-collection of spaceships which are all of the same type, in the same
-place, carrying the same quantity and type of cargo and built with the
-same tech levels.  This last bit is important because a ship's
-effectiveness depends on the tech level at which it was built.  Any
-ships without a certain type of component are recorded as having a
-tech level of 0 in that component e.g.  unarmed ships are always
-recorded as having a Weapons tech level of 0 so that two otherwise
-equal groups of them can be merged into one.  You can load an entire
-group of ships with cargo, send it to another planet etc.  with one
-command.  Groups can be split up, and the program will automatically
-merge together any identical groups after processing your orders.
-</P>
+<P>In the later stages of the game a race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</P>
 
+<P>Each group is assigned a number, which is used to issue orders to ships in the corresponding group.  Groups can be ordered to ALink('#ords', 'travel') to another planet, ALink('#ordi', 'intercept') other ships, ALink('#ordh', 'reverse') course, ALink('#ordb', 'break') off ships into a new group, ALink('#ordj', 'join') a fleet, Alink('#ordb', 'leave') a fleet,ALink('#ordg', 'upgrade') technology levels, ALink('#ordl', 'load') cargo, or ALink('#ordu', 'unload') cargo.  Groups may also be ALink('#ordx', 'scrapped').</P>
 
-www_subSection('fleets', 'Fleets')
+<P>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower-numbered group number.  For example, group 5 containing 48 ships is merged with group 12 containing 52 ships, resulting in group 5 with 100 ships and group 12 eliminated.</P>
 
-<P> 
-Fleets are a formed group of different types of ships.  They are
-basically a group of groups.  Fleets can be ordered to move around as
-a single group using the fleet orders.  Fleets also do not go off on
-routes.  Also, the speed of the fleet is the speed of the slowest
-group.  
-</P>
+<P>At the end of each turn groups are automatically renumbered.  Automatic sorting may be disabled by turning off the SortGroups ALink('#ordo', 'option').  Groups are sorted by planet number as follows:</P>
 
-
-<P> 
-When a individual group is given a 'send' or 'intercept' order it
-is automatically removed from its current fleet if any.  Also,
-breaking off a number of ships from a group which is part of a fleet
-automatically removes the broken-off group from the fleet.  Loading
-and unloading cargo does not affect the fleet status of a group.  
-</P>
-
-
+<UL>
+  <LI>Owner's groups at owner's planets</LI>
+  <LI>Owner's groups at other race's planets</LI>
+  <LI>Owner's groups at uninhabited planets</LI>
+  <LI>Owner's groups in fleets</LI>
+</UL>
 
 www_subSection('move', 'Movement')
 
@@ -255,6 +233,26 @@ colonists to uninhabited planets.  Routes are assigned transport
 ships in the following order of priority:  colonists, capital,
 materials and empty transports.  
 </P>
+
+www_subSection('fleets', 'Fleets')
+
+<P> 
+Fleets are a formed group of different types of ships.  They are
+basically a group of groups.  Fleets can be ordered to move around as
+a single group using the fleet orders.  Fleets also do not go off on
+routes.  Also, the speed of the fleet is the speed of the slowest
+group.
+</P>
+
+
+<P> 
+When a individual group is given a 'send' or 'intercept' order it
+is automatically removed from its current fleet if any.  Also,
+breaking off a number of ships from a group which is part of a fleet
+automatically removes the broken-off group from the fleet.  Loading
+and unloading cargo does not affect the fleet status of a group.  
+</P>
+
 
 www_section('planets', 'Planets')
 
@@ -990,7 +988,7 @@ The following keyword is used: FLEET
 
 
 
-www_section('sequence', 'Sequence of Events')
+www_section('turns', 'Turns')
 
 <P>
 The following sequence of events takes place when a turn is being run:
@@ -1053,6 +1051,8 @@ tech levels available at the start of the final turn.  </P>
 renamed in a turn must still be referred to by their old names for the
 rest of that turn.  </P>
 
+<P>The game engine stores numbers in double precision format but reports values to players to two decimal places.  For example, drive technology 2.4389732225478 will be reported as 2.44.  Note that planetary x,y coordinates are the exception - a planet reported at 138.44,43.29 is actually at that location and will not be found at 138.442683,43.2893435.  Negative numbers are not used in GalaxyNG.</P>
+
 
 www_section('inactive', 'Inactivity')
 
@@ -1080,7 +1080,7 @@ continues to exists however. And without a leader it will be an easy
 prey for other races to feast on.</P>
 
 
-www_section('yourreport',  'Your Turn Report')
+www_section('reports', 'Turn Reports')
 
 <P>After each turn runs you will receive a turn report with information
 on the state of your race. If you don't play in a game yet,
