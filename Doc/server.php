@@ -34,17 +34,6 @@
 					<li><a href="config">Configuration</a></li>
 					<li><a href="host">Hosting Team Games</a></li>
 				</ul>
-
-			<hr />
-			
-			<h2 id="ex">Example Files</h2>
-				<ul>
-					<li><a href="house_rules.txt">House Rules</a></li>
-					<li><a href="global.bulletin">Global Bulletin</a></li>
-					<li><a href="galaxyngrc">Server Configuration File</a></li>
-					<li><a href="example.glx">Game Configuration File</a></li>
- 					<li><a href="intro.text">Game Introduction Text</a></li>
- 				</ul>
  				
  			<hr />
  			
@@ -57,6 +46,17 @@ crontab; to automatically run turns at a given time
 procmail; to automatically process in comming orders</pre>
 				<p>The system is command line based, so you don't need X-windows. The program requires little memory. It even runs on a 2 Mbyte Amiga. As for harddisk requirements; depending on the size of the game, you need about 2 to 5 MByte of disk space. It isn't so much that the programs are large but that the data files can become quite large. For instance, in the end phase of the game, turn reports can be 100 KB. So if there are 30 players left at that time this would amount to 3 MB of disk space just to store the reports before they are sent. A thirteen player game needed about 2 MB of disk space at turn 52. In these times of GB hard disks this should not be a problem though :)</p>
 				<p>It isn't that difficult to start up your own game. It takes a while to configure a game and the machine, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time, and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
+
+			<hr />
+			
+			<h2 id="ex">Example Files</h2>
+				<ul>
+					<li><a href="house_rules.txt">House Rules</a></li>
+					<li><a href="global.bulletin">Global Bulletin</a></li>
+					<li><a href="galaxyngrc">Server Configuration File</a></li>
+					<li><a href="example.glx">Game Configuration File</a></li>
+ 					<li><a href="intro.text">Game Introduction Text</a></li>
+ 				</ul>
 
 			<hr />
  			
