@@ -222,5 +222,11 @@ SetDirectoryVariables( void )
         galaxynghome =
             strdup( "/please/set/your/HOME/or/GALAXYNGHOME/variable" );
     }
-    tempdir = strdup( "/tmp" );
+
+    if ((value = getenv("GALAXYNGTMP"))) {
+      tempdir = strdup(value);
+    }
+    else {
+      tempdir = strdup( "/tmp" );
+    }
 }
