@@ -1,0 +1,51 @@
+
+GALAXY=$BASE/galaxyng
+GAME=$1
+
+# Script
+cd $BASE
+
+if { test -z $2 ; } then {
+    #	
+    # Determine Current turn number
+    #
+    TURN=`cat data/$1/next_turn` ;
+
+    #
+    # Copy the orders of all nations into a single file.
+    #
+    cat orders/$GAME/*.$TURN > orders/$GAME/$TURN.all ;
+
+    # Clean-up: 
+    # Since all individual order sets for each nation have been copied
+    # to $TURN.all  we can remove them.
+    #
+    rm -f orders/$GAME/*.$TURN ;
+    
+} else {
+    # We land here in case of a re-run of a turn. The previous run
+    # will already have put all orders into a single file, so no
+    # need to repeat it here.
+    #
+    TURN=$2 ;
+} 
+fi
+
+#
+# Run turn and email turn reports.
+#
+
+$GALAXY -run $GAME orders/$GAME/$TURN.all $TURN
+
+#
+# Create HTML high-score list and copy it the WWWHOME.
+#
+
+if { test ! -d $WWWHOME/$GAME/ ; } then { mkdir $WWWHOME/$GAME/ ; } fi
+$GALAXY -score $GAME  > $WWWHOME/$GAME/hitlist.html 
+
+#
+# Done. 
+#
+
+

@@ -1,0 +1,49 @@
+Greetings FrogStar Players,
+
+I just sent out turn 0. The next turn is on Friday around 22:00 CET.
+For those of you who played in my games before, there have been some
+changes:
+
+The address to send your orders to is now:
+
+    galaxyng@gumpu.student.utwente.nl
+
+use as subject 
+
+    orders
+
+
+Notice that the name of the game is FrogStar with a capital 'F' and 'S'.
+So make sure to use FrogStar in the #GALAXY line of your orders.
+
+For those of you that never played in a galaxy game before, you might
+try the following set of orders:
+
+#GALAXY FrogStar Nation_200 P981231231  
+ ; Nation_200 and the password P981231231 are just an example,
+ ; you can find the correct line at the begin of your turn report.
+
+C Vogons           ; give your race a name
+N 67  Vogonia      ; Give your first home planet a name
+                   ; notice that your home planet probably has a different
+                   ; number. You can find it in the 'Your Planets'
+                   ; section of the report.
+N 111 Moon         ; Give your second home planet a name
+D Probe 1 0 0 0 0  ; Design a ship
+P 67 Probe         ; Have the ship produced at the first home planet
+                   ; Notice that we still use the old name of the planet
+                   ; as the name change won't go in effect until the next
+                   ; turn.
+P 111 DRIVE        ; Have the other planet develop Drive technology
+
+#END
+
+
+If you have any question email to: 
+
+    gumpu@gumpu.student.utwente.nl
+
+Happy Hunting!
+Frans.
+
+

@@ -1,0 +1,8 @@
+# Function:    run a galaxyng turn 
+# Synopsis:    run_game <game_name> [turn number]
+#
+# $Id$
+# 
+#
+# Settings
+#
