@@ -18,7 +18,7 @@ usage()
 		   "   -mail0      <game name>\n"
 		   "   -check\n"
 		   "   -run        <game name> <file with all orders> [turn]\n"
-		   "   -score      <game name>\n"
+		   "   -score      <game name> [turn]\n"
 		   "   -toall      <game name>\n"
 		   "   -relay\n"
 		   "   -hall       <game name>\n"
