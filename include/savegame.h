@@ -5,6 +5,11 @@
 #include "list.h"
 #include "util.h"
 
+#if defined(DRAW_MAP)
+/* this is to enable the current map to be created as an image */
+#include "gd.h"
+#endif
+
 void            writeString(char *s);
 void            writeFloat(double f);
 void            writeInt(int i);
