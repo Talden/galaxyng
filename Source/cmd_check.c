@@ -178,7 +178,7 @@ int CMD_check( int argc, char **argv, int kind ) {
 		char* final_orders = NULL;
 		game *aGame = NULL;
 		int resNumber = areValidOrders( stdin, &aGame, &raceName,
-										&password, &final_orders, theTurnNumber );
+										&password, &final_orders, &theTurnNumber );
 		plog( LBRIEF, "game %s\n", aGame->name );
 		
 		setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
@@ -415,12 +415,20 @@ int CMD_check( int argc, char **argv, int kind ) {
 				copyOrders( aGame, stdin, raceName, password, final_orders,
 							theTurnNumber );
 			
-			setHeader( anEnvelope, MAILHEADER_SUBJECT,
-					   "[GNG] %s advance orders received for %s.",
-					   aGame->name, raceName );
-			plog( LBRIEF, "%s advance orders received for %s.\n",
-				  aGame->name, raceName );
-			
+			if (final_orders) {
+				setHeader( anEnvelope, MAILHEADER_SUBJECT,
+						   "[GNG] %s advance final orders received for %s.",
+						   aGame->name, raceName );
+				plog( LBRIEF, "%s advance final orders received for %s.\n",
+					  aGame->name, raceName );
+			}
+			else {
+				setHeader( anEnvelope, MAILHEADER_SUBJECT,
+						   "[GNG] %s advance orders received for %s.",
+						   aGame->name, raceName );
+				plog( LBRIEF, "%s advance orders received for %s.\n",
+					  aGame->name, raceName );
+			}
 			
 			if ( aPlayer->flags & F_XMLREPORT ) {
 				forecastName = createString( "%s/NG_XML_forecast", tempdir );
