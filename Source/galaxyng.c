@@ -1996,13 +1996,19 @@ CMD_battletest( int argc, char **argv )
 int
 CMD_ordersdue(int argc, char** argv)
 {
+	FILE* gmnote;
+	FILE* mof_fp;
+
+	char* gmbody;
+	
     game* aGame;
 	player* aplayer;
 	envelope* env;
+	char* missing_orders_file = NULL;
 	char* orders_dir;
 	char* orders_file;
     int result;
-	int bcc_count = 0;
+	int msg_count = 0;
 	
     result = EXIT_FAILURE;
 
@@ -2011,6 +2017,9 @@ CMD_ordersdue(int argc, char** argv)
 	}
 	else if ((aGame = loadgame(argv[2], LG_CURRENT_TURN)) != NULL) {
 		loadConfig( aGame );
+		gmbody = createString("%s/orders_due_%s", tempdir, aGame->name);
+		gmnote = GOS_fopen(gmbody, "w");
+		
 		orders_dir = createString("%s/orders/%s/", galaxynghome, aGame->name);
 		for (aplayer = aGame->players; aplayer; aplayer = aplayer->next) {
 			if (aplayer->flags & F_DEAD)
@@ -2019,20 +2028,29 @@ CMD_ordersdue(int argc, char** argv)
 			orders_file = createString("%s/%s.%d", orders_dir,
 									   aplayer->name, aGame->turn+1);
 			if (access(orders_file, R_OK) == -1) {
-				if (bcc_count == 0) {
-					env = createEnvelope();
-					env->to = strdup(aGame->serverOptions.GMemail);
-					env->from = strdup(aGame->serverOptions.GMemail);
-					env->subject = createString("Turn %d of %s is about to run",
-												aGame->turn+1, argv[2]);
-					env->bcc = (char*)malloc(sizeof(char)*4096);
-					strcpy(env->bcc, aplayer->addr);
+				env = createEnvelope();
+				env->to = strdup(aplayer->addr);
+				env->from = strdup(aGame->serverOptions.GMemail);
+				env->subject = createString("Turn %d of %s is about to run",
+											aGame->turn+1, argv[2]);
+				if (msg_count == 0) {
+					fprintf(gmnote, "The following players have not yet "
+							"submitted orders for turn %d of %s\n",
+							aGame->turn+1, aGame->name);
+
+					missing_orders_file = createString("%s/data/%s/missing_orders.%d",
+													   galaxynghome, aGame->name,
+													   aGame->turn+1);
+					mof_fp = fopen(missing_orders_file, "w");
+					fprintf(mof_fp, "Your orders for turn %d for %s have not been "
+							"received.\nOrders are due %s. Please send them now.\n",
+							aGame->turn+1, aGame->name, aGame->serverOptions.due);
+					fclose(mof_fp);
 				}
-				else {
-					strcat(env->bcc, ", ");
-					strcat(env->bcc, aplayer->addr);
-				}
-				bcc_count++;
+				fprintf(gmnote, "%s has not turned in orders.\n", aplayer->name);
+				result |= eMail(aGame, env, missing_orders_file);
+				destroyEnvelope(env);
+				msg_count++;
 			}
 			free(orders_file);
 		}
@@ -2042,22 +2060,21 @@ CMD_ordersdue(int argc, char** argv)
 		fprintf(stderr, "Cannot open game %s\n", argv[2]);
 	}
 
-	if (bcc_count) {			/* need to send out email */
-		FILE* mof_fp;
-		char* missing_orders_file;
-
-		missing_orders_file = createString("%s/data/%s/missing_orders.%d",
-										   galaxynghome, aGame->name,
-										   aGame->turn+1);
-		mof_fp = fopen(missing_orders_file, "w");
-		fprintf(mof_fp, "Your orders for turn %d for %s have not been "
-				"received.\nOrders are due %s. Please send them now.\n",
-				aGame->turn+1, aGame->name, aGame->serverOptions.due);
-		fclose(mof_fp);
-		result |= eMail(aGame, env, missing_orders_file);
+	if (missing_orders_file)
 		free(missing_orders_file);
+
+	if (msg_count) {
+		fclose(gmnote);
+		env = createEnvelope();
+		env->to = strdup(aGame->serverOptions.GMemail);
+		env->from = strdup(aGame->serverOptions.GMemail);
+		env->subject = createString("Turn %d of %s is about to run",
+									aGame->turn+1, aGame->name);
+		result |= eMail(aGame, env, gmbody);
+
 		destroyEnvelope(env);
 	}
+
 	
 	return result;
 }
