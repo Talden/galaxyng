@@ -3,6 +3,7 @@ Redirect permanent /ManGalaxyNG.html http://galaxyng.sourceforge.net/manual.php
 Redirect permanent /RefManual.html http://galaxyng.sourceforge.net/quickref.php
 Redirect permanent /FAQ.html http://galaxyng.sourceforge.net/faq.php
 Redirect permanent /gpl.txt http://www.gnu.org/copyleft/gpl.html
+Redirect permanent /index.html http://galaxyng.sourceforge.net/
 
 # redirect old links on galaxyng.com
 Redirect permanent /ng/index.html http://galaxyng.sourceforge.net/
