@@ -117,7 +117,6 @@ savegame(game *aGame)
 
   writeString("@GameOptions");  /* CB-20010407 */
   writeFloat(aGame->gameOptions.gameOptions);
-fprintf(stderr, "savegame: galactic_peace: %d/%d\n", aGame->gameOptions.galactic_peace, aGame->gameOptions.galactic_peace*-1);
   writeInt(aGame->gameOptions.galactic_peace*-1);
   writeFloat(aGame->gameOptions.initial_drive);
   writeFloat(aGame->gameOptions.initial_weapons);

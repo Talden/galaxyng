@@ -2596,7 +2596,6 @@ removeDeadPlayer( game *aGame )
       idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
 	allowedOrderGap + 1;
       plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
-      fprintf(stderr, "Player %s idle turns %d\n", P->name, idleTurns );
       if ( idleTurns != 0 ) {
 	if ( idleTurns < allowedOrderGap ) {
 	  int gap = allowedOrderGap - idleTurns;
