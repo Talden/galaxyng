@@ -40,8 +40,9 @@
  * Will move to another file later on
  */
 
-
-
+#include "strutl.h"
+#include "cookies.h"
+#include "logging.h"
 
 #define _GNU_SOURCE
 #include <stdio.h>
@@ -99,80 +100,9 @@
 #define   GNG_RELEASE             6
 #define   GNG_DATE                "February 2004"
 
-/****d* GalaxyNG/Cookies
- * NAME
- *   Cookies -- magic cookies used for sanity checks.
- * SOURCE
- */
-
-#define  COOKIEplanet             0x01DFEE01
-#define  COOKIEgroup              0x02DEEE12
-#define  COOKIEbattle             0x03DDEE23
-#define  COOKIEplayer             0x04DCEE34
-#define  COOKIEalliance           0x05DBEE45
-#define  COOKIEfleetname          0x06DAEE56
-#define  COOKIEparticipant        0x07D9EE67
-#define  COOKIEbatstat            0x08D8EE78
-#define  COOKIEAplanet            0x09D7EE89
-#define  COOKIEAalliance          0x0AD6EE9A
-#define  COOKIEshiptype           0x0BD5EEAB
-#define  COOKIEbombing            0x0CD4EEBC
-#define  COOKIEplanet_claim       0x0DD3EECD
-#define  COOKIEstrlist            0x0ED2EEDE
-#define  COOKIEgame               0x0FD4EEDF
-#define  COOKIEgamespecification  0xF1AABEEF
-#define  COOKIEnewplayer          0xF1EA5747
-
-/******/
-
-
-#define   allocStruct(t) allocStructF(sizeof(t), COOKIE ## t)
-#define   isStruct(t,p)  (p->cookie == COOKIE ## t)
-#define   validateStruct(t,p) if(!(p->cookie == COOKIE ## t)) \
- { printf("validateStruct Failed in line %d of %s\n", __LINE__ , __FILE__);exit(100); } ;
 #define   getLine(f) fgets(lineBuffer, LINE_BUFFER_SIZE, f)
 
 void usage(void);
-
-
-/****d* GalaxyNG/DebugLevels
- * NAME
- *   DebugLevels --
- * FUNCTION
- *   DFULL
- *   DWARN
- *   DSTOP
- *   DERR   
- ******
- */
-
-#define   DFULL2 5
-#define   DFULL  4
-#define   DWARN  3
-#define   DSTOP  2
-#define   DERR   1
-
-
-/****d* GalaxyNG/LogLevels
- * NAME
- *   LogLevels --
- * FUNCTION
- *   LFULL  -- Log everything. This creates huge log files.
- *   LPART  -- Partial log, used when a turn is ran, messages at this level 
- *             end up in the GM report.
- *   LBRIEF -- Be brief. Used during an orders check
- *   LNONE  -- Don't log anything.
- * SEE ALSO
- *   plog()
- * SOURCE
- */
-
-#define   LFULL  3
-#define   LPART  2
-#define   LBRIEF 1
-#define   LNONE  0
-
-/******/
 
 
 /****d* GameElements/ProductTypes
@@ -227,27 +157,6 @@ typedef struct mapdimensions {
   double          x1, y1;
   double          x2, y2;
 } mapdimensions;
-
-
-/****s* GalaxyNG/strlist
- * NAME
- *   strlist -- 
- * PURPOSE
- *   Structure to store strings. Used to store orders, mistakes, and
- *   messages.
- * NOTES
- *   Has a wrong name. Should be called String or so, since it is
- *   an element in a list.
- * SOURCE
- */
-
-typedef struct strlist {
-  struct strlist *next;
-  long            cookie;
-  char           *str;
-} strlist;
-
-/********/
 
 
 struct player;
