@@ -174,6 +174,7 @@ int   getPlanetSizes(FILE *orders, char **planets, double totalPlanetSize,
 		     int maxNumberOfPlanets, double maxPlanetSize);
 char* getReturnAddress(FILE *orders);
 void  badPlanetMessage(char *planets);
-serverOpts* loadAREConfig(const char* gamename);
+serverOpts* loadAREConfig(const char* pathname);
+int   saveAREConfig(serverOpts* so);
 
 #endif
