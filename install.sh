@@ -228,8 +228,8 @@ echo "# For maildir delivery, mailboxes end in a /, so comment" >> $PROCRC
 echo "# out the above line and use this instead:" >> $PROCRC
 echo "# DEFAULT=\$MAILDIR/" >> $PROCRC
 echo >> $PROCRC
-echo "LOGFILE=\$MAILDIR/procmail.log" >> $PROCRC
-echo "LOCKFILE=\$MAILDIR/.lockmail" >> $PROCRC
+echo "LOGFILE=\$HOME/procmail.log" >> $PROCRC
+echo "LOCKFILE=\$HOME/.lockmail" >> $PROCRC
 echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
 echo >> $PROCRC
@@ -306,7 +306,7 @@ echo ":0" >> $PROCRC
 echo "* ^Subject.*Join Jangi" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  :0c:Jangi" >> $PROCRC
-echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Jangi 25 0 0 0 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Jangi 25 0 0 0 | $SENDMAIL -t" >> $PROCRC
 echo "  :0:Jangi" >> $PROCRC
 echo "  # Save a copy of the registration request" >> $PROCRC
 echo "  Jangi" >> $PROCRC
@@ -320,13 +320,13 @@ echo ":0" >> $PROCRC
 echo "* ^Subject.*Join Welland" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  :0c:Welland" >> $PROCRC
-echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Welland 10 2500 1000 5 | $SENDMAIL -t" >> $PROCRC
 echo "  :0:Welland" >> $PROCRC
 echo "  # Save a copy of the registration request" >> $PROCRC
 echo "  Welland" >> $PROCRC
 echo "}" >> $PROCRC
 echo >> $PROCRC
-echo "# Anything else, or messages that causes the engine to fail" >> $PROCRC
+echo "# Anything else, or messages that cause the engine to fail" >> $PROCRC
 echo "# are stored in the default mailbox which was set at the" >> $PROCRC
 echo "# top of this file." >> $PROCRC
 
