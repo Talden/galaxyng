@@ -14,7 +14,7 @@
 
 	<body>
 
-		<h1><a href="/"><img src="galaxyngsmall.png"></a><br>FAQ</h1>
+		<h1><a href="/"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a><br>FAQ</h1>
 
 			<hr />
 

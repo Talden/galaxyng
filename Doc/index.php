@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<h1><img src="galaxyng.png"></h1>
+		<h1><img src="galaxyng.png" alt="GalaxyNG" /></h1>
 
 			<hr />
 		

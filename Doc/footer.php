@@ -6,5 +6,5 @@
 <p><?php echo $title; ?>
 <br /><?php echo "Last modified " . date( "F d, Y", getlastmod() ); ?>
 <br /><?php echo "http://galaxyng.sourceforge.net$_SERVER[PHP_SELF]"; ?></p>
-<p><a href="http://sourceforge.net/projects/galaxyng/"><IMG src="http://sourceforge.net/sflogo.php?group_id=48224&amp;type=5" width="210" height="62" border="0" alt="SourceForge.net Logo"></a></p>
+<p><a href="http://sourceforge.net/projects/galaxyng/"><img src="http://sourceforge.net/sflogo.php?group_id=48224&amp;type=5" width="210" height="62" alt="SourceForge.net Logo" /></a></p>
 <!-- end footer.php -->
