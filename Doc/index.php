@@ -15,7 +15,7 @@
 		<h1>Galaxy Next Generation Manuals</h1>
 
 		<ul>
- 			<li><a href="manual.php">Player's Manual</a></li>
+ 			<li><a href="manual.php">Players' Manual</a></li>
  			<li><a href="faq.php">FAQ</a></li>
  			<li><a href="quickref.php">Orders Quick Reference</a></li>
 		 <li><a href="server.php">Server Manual</a>

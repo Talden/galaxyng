@@ -1,9 +1,16 @@
-m4_include(`base.m4')m4_dnl
-m4_include(`general.m4')m4_dnl
-DocStart
-AHeader(`GalaxyNG User Manual')
-BodyStart
-m4_include(`mannavigator.m4')m4_dnl
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+
+	<head>
+		<link rel=stylesheet href="main.css" />
+		<title>GalaxyNG Manuals</title>
+	</head>
+
+	<body>
+		<h1>Galaxy Next Generation Manuals</h1>
 <!-- $Id$ -->
 
 ATitle(`GalaxyNG Manual')

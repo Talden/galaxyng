@@ -6,25 +6,45 @@
 
 	<head>
 		<link rel=stylesheet href="main.css" />
-		<title>GalaxyNG Documentation</title>
+		<title>GalaxyNG Credits</title>
 	</head>
 
 	<body>
-		<dl>
-			<dt>Galaxy NG Code</dt>
-				<dd>Frans Slothouber</dd>
-				<dd>Ken Weinert</dd>
-				<dd>Christophe Barbier</dd>
-				<dd>Jacco van Weert</dd>
-				<dd>Tommy Lindqvist</dd>
-				<dd>Rogerio Fung</dd>
-			<dt>Original Version of Galaxy Code</dt>
-				<dd>Russell Wallace</dd>
-				<dd>Tim Myers</dd>
-				<dd>Robert Stone</dd>
-				<dd>Mayan Moudgill</dd>
-				<dd>Graeme Griffiths</dd>
-				<dd>K Pankhurst</dd>
-		</dl>
+	
+		<h1>Galaxy NG Credits</h1>
+		
+		<h2>GalaxyNG Code</h2>
+			<ul>
+				<li>Frans Slothouber</li>
+				<li>Ken Weinert</li>
+				<li>Christophe Barbier</li>
+				<li>Jacco van Weert</li>
+				<li>Tommy Lindqvist</li>
+				<li>Rogerio Fung</li>
+			</ul>
+		
+		<h2>Original Galaxy Code</h2>
+			<ul>
+				<li>Russell Wallace</li>
+				<li>Tim Myers</li>
+				<li>Robert Stone</li>
+				<li>Mayan Moudgill</li>
+				<li>Graeme Griffiths</li>
+				<li>K Pankhurst</li>
+			</ul>
+			
+		<h2>Rules</h2>
+			<ul>
+				<li>Frans Slothouber (gumpu)</li>
+				<li>Chris Shaffer (christhecat)</li>
+			</ul>
+			
+		<h2>License</h2>
+			<p>Based on Galaxy V3.52: Copyright 1991-1992 by Russell Wallace, Copyright 1993 the Galaxy PBeM Development Group.</p>
+			<p>This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.</p>
+			<p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.</p>
+			<p>You should have received a copy of the <a href="gnu.txt">GNU General Public License</a> along with this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA</p>
+
+		<?php include 'footer.php'; ?>
 	</body>
 </html>
