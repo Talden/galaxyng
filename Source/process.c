@@ -1857,71 +1857,74 @@ runTurn(game *aGame, char *ordersFileName)
 void
 checkOrders(game *aGame, char *nationName, FILE * forecast, int kind)
 {
-  player         *aPlayer;
-  struct fielddef fields;
+	player*         aPlayer;
+	struct fielddef fields;
 
-  /* blatant attempt to avoid doing orders more than once if more than 
-     one report type is being generated */
-  static int orders_done = 0;
+	/* blatant attempt to avoid doing orders more than once if more than 
+	   one report type is being generated */
+	static int orders_done = 0;
+	
+	pdebug(DFULL, "check orders\n");
+	aPlayer = findElement(player, aGame->players, nationName);
+	
+	fields.destination = forecast;
+	tagVisiblePlanets(aGame->planets, aPlayer);
+	
+	checkIntegrity(aGame);
+	
+	if (orders_done == 0) {
+		fprintf(stderr, "processing orders, %s:%d\n", nationName, kind);
+		orders_done = 1;
+		
+		doOrders(aGame, aPlayer, phase1orders, 1);
+		doOrders(aGame, aPlayer, phase2orders, 2);
 
-  pdebug(DFULL, "check orders\n");
-  aPlayer = findElement(player, aGame->players, nationName);
+		joinphase(aGame);
+		loadphase(aGame);
+		fleetphase(aGame);
+		checkIntegrity(aGame);
+		interceptphase(aGame);
+		movephase(aGame);
+		joinphase(aGame);
+		producephase(aGame);
+		unloadphase(aGame);
+		joinphase(aGame);
+		fleetphase(aGame);
+		
+		preComputeGroupData(aGame);
+		sortphase(aGame);
+		checkIntegrity(aGame);
+	}
 
-  fields.destination = forecast;
-  tagVisiblePlanets(aGame->planets, aPlayer);
-
-  checkIntegrity(aGame);
-
-  if (orders_done == 0) {
-    orders_done = 1;
-
-    doOrders(aGame, aPlayer, phase1orders, 1);
-    doOrders(aGame, aPlayer, phase2orders, 2);
-
-    joinphase(aGame);
-    loadphase(aGame);
-    fleetphase(aGame);
-    checkIntegrity(aGame);
-    interceptphase(aGame);
-    movephase(aGame);
-    joinphase(aGame);
-    producephase(aGame);
-    unloadphase(aGame);
-    joinphase(aGame);
-    fleetphase(aGame);
-    
-    preComputeGroupData(aGame);
-    sortphase(aGame);
-    checkIntegrity(aGame);
-  }
-
-  (aGame->turn)++;
-  if (kind == F_XMLREPORT) {
-    report_xml(aGame, aPlayer, forecast, Forecast);
-  }
-  else {
-    nationStatus(aGame);
-    reportGlobalMessages(aGame->messages, &fields);
-    reportMessages(aPlayer, &fields);
-    reportOrders(aPlayer, &fields);
-    reportMistakes(aPlayer, &fields);
-    yourStatusForecast(aGame->planets, aPlayer, &fields);
-    if (aPlayer->flags & F_SHIPTYPEFORECAST) {
-      reportYourShipTypes(aPlayer, &fields);
-    }
-    if (aPlayer->flags & F_PLANETFORECAST) {
-      yourPlanetsForecast(aGame->planets, aPlayer, &fields);
-      reportProdTable(aGame->planets, aPlayer, &fields);
-    }
-    if (aPlayer->flags & F_ROUTESFORECAST) {
-      reportRoutes(aGame->planets, aPlayer, &fields);
-    }
-    if (aPlayer->flags & F_GROUPFORECAST) {
-      reportYourGroups(aGame->planets, aPlayer, &fields);
-      reportFleets(aPlayer, &fields);
-    }
-  }
-  (aGame->turn)--;
+	(aGame->turn)++;
+	if (kind == F_XMLREPORT) {
+		fprintf(stderr, "Creating XML report, %s:%d\n", nationName, kind);
+		report_xml(aGame, aPlayer, forecast, Forecast);
+	}
+	else {
+		fprintf(stderr, "Creating TXT report, %s:%d\n", nationName, kind);
+		nationStatus(aGame);
+		reportGlobalMessages(aGame->messages, &fields);
+		reportMessages(aPlayer, &fields);
+		reportOrders(aPlayer, &fields);
+		reportMistakes(aPlayer, &fields);
+		yourStatusForecast(aGame->planets, aPlayer, &fields);
+		if (aPlayer->flags & F_SHIPTYPEFORECAST) {
+			reportYourShipTypes(aPlayer, &fields);
+		}
+		if (aPlayer->flags & F_PLANETFORECAST) {
+			yourPlanetsForecast(aGame->planets, aPlayer, &fields);
+			reportProdTable(aGame->planets, aPlayer, &fields);
+		}
+		if (aPlayer->flags & F_ROUTESFORECAST) {
+			reportRoutes(aGame->planets, aPlayer, &fields);
+		}
+		if (aPlayer->flags & F_GROUPFORECAST) {
+			reportYourGroups(aGame->planets, aPlayer, &fields);
+			reportFleets(aPlayer, &fields);
+		}
+	}
+	(aGame->turn)--;
 }
 
 /*************/
