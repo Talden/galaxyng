@@ -21,7 +21,7 @@
 			<h2>Where can I learn more about Galaxy strategy and tactics?</h2>
 				<ul>
 					<li>Review the <a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a>.  (Note that it is not completely accurate in all details, as it describes original Galaxy and not GalaxyNG.)</li>
-					<li>Subscribe to the <a href="http://sourceforge.net/mail/?group_id=48224">galaxyng-players</a> mailing list and ask questions.</li>
+					<li>Subscribe to the <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">galaxyng-players</a> mailing list and ask questions.</li>
 				</ul>
 				<p>In the early stages of the game, there will be plenty of planets to spare so there will be little need to fight for territory; however, you should ensure that your homeworlds are defended against sneak attacks by xenophobic aliens. You will need to devote your efforts to exploration, building up colonies, researching technology, and contacting other races with a view to forming alliances.</p>
 				<p>The map in your turn report only indicates which planets are occupied by alien races, and the location of alien ships in hyperspace. To learn of enemy fleets which may pose a threat to your safety, you will need to send ships to enemy planets to spy on them.</p>
