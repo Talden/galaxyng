@@ -556,7 +556,7 @@ readDefaults(game *aGame, FILE * f)
 			if (noCaseStrcmp("GMemail", key) == 0) {
 				aGame->serverOptions.GMemail = strdup(getstr(0));
 			}
-			if (noCaseStrcmp("GMpassword", key) == 0) {
+			else if (noCaseStrcmp("GMpassword", key) == 0) {
 				aGame->serverOptions.GMpassword = strdup(getstr(0));
 			}
 			else if (noCaseStrcmp("compress", key) == 0) {
