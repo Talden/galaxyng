@@ -19,23 +19,21 @@ So make sure to use FrogStar in the #GALAXY line of your orders.
 For those of you that never played in a galaxy game before, you might
 try the following set of orders:
 
-#GALAXY FrogStar Nation_200 P981231231  
- ; Nation_200 and the password P981231231 are just an example,
- ; you can find the correct line at the begin of your turn report.
-
-C Vogons           ; give your race a name
-N 67  Vogonia      ; Give your first home planet a name
-                   ; notice that your home planet probably has a different
-                   ; number. You can find it in the 'Your Planets'
-                   ; section of the report.
-N 111 Moon         ; Give your second home planet a name
-D Probe 1 0 0 0 0  ; Design a ship
-P 67 Probe         ; Have the ship produced at the first home planet
-                   ; Notice that we still use the old name of the planet
-                   ; as the name change won't go in effect until the next
-                   ; turn.
-P 111 DRIVE        ; Have the other planet develop Drive technology
-
+#GALAXY FrogStar Race_12 P981231231
+c Vogons           ; Change the player's race name.
+y towel            ; Change password.
+= "Arthur Dent"    ; Set player name for Hall of Fame.
+n 67 Vogonia       ; Name first home world.
+n 68 Ford          ; Name second home world.
+n 69 Prefect       ; Name third home world.
+d Haul 2 0 0 0 1   ; Design a cargo ship.
+p 67 Haul          ; Produce cargo ships at the first home planet.
+                   ; Notice that the old name of the planet is used
+                   ; as the name change won't go in effect until the
+                   ; end of the turn.
+p 68 DRIVE         ; Research drive technology at the second planet.
+d Probe 1 0 0 0 0  ; Design a ship for scouting.
+p 69 Probe         ; Produce scouting ships at the third planet.
 #END
 
 
