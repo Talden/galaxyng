@@ -1,156 +1,47 @@
 
 <!-- start menu.php -->
 
-<?php
-if (!function_exists("file_get_contents")) {
-  function file_get_contents($filename, $use_include_path = 0) {
-   $data = ""; // just to be safe. Dunno, if this is really needed
-   $file = @fopen($filename, "rb", $use_include_path);
-   if ($file) {
-     while (!feof($file)) $data .= fread($file, 1024);
-     fclose($file);
-   }
-   return $data;
-  }
-}
+<!-- $Id$ -->
 
-$base = file_get_contents('base_url.txt');
-?>
+<p class="menu"><?php if ($_SERVER['PHP_SELF'] == "/index.php") { ?><span class="bold">[&nbsp;GalaxyNG&nbsp;Home&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/">GalaxyNG&nbsp;Home</a>&nbsp;]<?php } ?>	
 
-<p class="menu"><?php
-$self = trim($base) . "index.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;GalaxyNG&nbsp;Home&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>">GalaxyNG&nbsp;Home</a>&nbsp;]
-<?php } ?>	
+<?php if ($_SERVER['PHP_SELF'] == "/start.php") { ?><span class="bold">[&nbsp;Getting&nbsp;Started&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/start.php">Getting&nbsp;Started</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "start.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Getting&nbsp;Started&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>start.php">Getting&nbsp;Started</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/manual.php") { ?><span class="bold">[&nbsp;Players'&nbsp;Manual&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/manual.php">Players'&nbsp;Manual</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "manual.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Players'&nbsp;Manual&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>manual.php">Players'&nbsp;Manual</a>&nbsp;]
-<?php } ?>
-
-<?php
-$self = trim($base) . "quickref.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Quick&nbsp;Reference&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>quickref.php">Quick&nbsp;Reference</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/quickref.php") { ?><span class="bold">[&nbsp;Quick&nbsp;Reference&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/quickref.php">Quick&nbsp;Reference</a>&nbsp;]<?php } ?>
 
 [&nbsp;<a href="http://galaxyview.sourceforge.net/tools.html">Tools</a>&nbsp;]
 
-<?php
-$self = trim($base) . "turns.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Turn&nbsp;Reports&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>turns.php">Turn&nbsp;Reports</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/turns.php") { ?><span class="bold">[&nbsp;Turn&nbsp;Reports&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/turns.php">Turn&nbsp;Reports</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "faq.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;FAQ&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>faq.php">FAQ</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/faq.php") { ?><span class="bold">[&nbsp;FAQ&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/faq.php">FAQ</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "etiquette.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Etiquette&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>etiquette.php">Etiquette</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/etiquette.php") { ?><span class="bold">[&nbsp;Etiquette&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/etiquette.php">Etiquette</a>&nbsp;]<?php } ?>
 
 [&nbsp;<a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">Mailing&nbsp;List</a>&nbsp;]
 
-<?php
-$self = trim($base) . "hall.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Hall&nbsp;Of&nbsp;Fame&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>hall.php">Hall&nbsp;Of&nbsp;Fame</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/hall.php") { ?><span class="bold">[&nbsp;Hall&nbsp;Of&nbsp;Fame&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/hall.php">Hall&nbsp;Of&nbsp;Fame</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "links.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Links&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>links.php">Links</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/links.php") { ?><span class="bold">[&nbsp;Links&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/links.php">Links</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "server.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Server&nbsp;Manual&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>server.php">Server&nbsp;Manual</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/server.php") { ?><span class="bold">[&nbsp;Server&nbsp;Manual&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/server.php">Server&nbsp;Manual</a>&nbsp;]<?php } ?>
 
 [&nbsp;<a href="http://sourceforge.net/projects/galaxyng/">Development</a>&nbsp;]
 
-<?php
-$self = trim($base) . "variants.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Galaxy&nbsp;Variants&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>variants.php">Galaxy&nbsp;Variants</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/variants.php") { ?><span class="bold">[&nbsp;Galaxy&nbsp;Variants&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/variants.php">Galaxy&nbsp;Variants</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "whyng.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Why&nbsp;GalaxyNG&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>whyng.php">Why&nbsp;GalaxyNG</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/whyng.php") { ?><span class="bold">[&nbsp;Why&nbsp;GalaxyNG&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/whyng.php">Why&nbsp;GalaxyNG</a>&nbsp;]<?php } ?>
 
-<?php
-$self = trim($base) . "credits.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<span class="bold">[&nbsp;Credits&nbsp;and&nbsp;License&nbsp;]</span>
-<?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>credits.php">Credits and License</a>&nbsp;]
-<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/credits.php") { ?><span class="bold">[&nbsp;Credits&nbsp;and&nbsp;Licenses&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/credits.php">Credits and Licenses</a>&nbsp;]<?php } ?></p>
 
-</p>
-
-<table class="wide" summary="This table contains the title of the page and the GalaxyNG logo"><tr><td><h1><?php echo $title; ?></h1></td><td class="right"><?php
-$self = trim($base) . "index.php";
-if ($_SERVER['PHP_SELF'] == $self) {
-?>
-	<img src="galaxyng.png" alt="GalaxyNG" />
-<?php } else { ?>
-	<a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>
-<?php } ?>
-</td></tr></table>
+<table class="wide" summary="This table contains the title of the page and the GalaxyNG logo">
+<tr>
+<td><h1><?php echo $title; ?></h1></td>
+<td class="right"><?php
+if ($_SERVER['PHP_SELF'] == "/index.php") { ?><img src="galaxyng.png" alt="GalaxyNG" /><?php } else { ?><a href="/"><img src="/galaxyngsmall.png" alt="GalaxyNG" /></a><?php } ?></td>
+</tr>
+</table>
 
 <hr class="menu" />
 
