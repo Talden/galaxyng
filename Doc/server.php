@@ -44,53 +44,56 @@
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
 procmail; to automatically process in comming orders</pre>
-				<p>The GalaxyNG server is command line based, so you don't need X-windows. The program requires little memory. It even runs on a 2 MB Amiga. Depending on the size of the game, you need about 2 to 5 MB of disk space. It isn't so much that the programs are large but that the data files can become quite large. For instance, in the end phase of the game, turn reports can be 100 KB. So if there are 30 players left at that time this would amount to 3 MB of disk space just to store the reports before they are sent. A thirteen player game needed about 2 MB of disk space at turn 52. In these times of GB hard disks this should not be a problem though :)</p>
-				<p>It isn't that difficult to start up your own game. It takes a while to configure a game and the server, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time, and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
+				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory, and even runs on a 2 MB Amiga. Depending on the mumber of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
+				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time, and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
 
 			<hr />
  			
 			<h2 id="compile">Compilation</h2>
-				<p>Most of the configuration is done after compilation and is handled by the <tt>install.sh</tt> program.  Before compiling the GalaxyNG server you should review the <tt>makefile</tt> in the <tt>Source/</tt> directory to make it fit your machine's configuration.  The following variables can be configured:</p>
+				<p>To extract the code, run:</p>
+<pre>tar -xvzf galaxy-#.tar.gz</pre>
+				<p>This creates the directory <tt>NG/</tt>. 				
+				<p>Most of the configuration is done after compilation and is handled by the program <tt>NG/install.sh</tt>.  Before compiling the GalaxyNG server you should review <tt>NG/Source/makefile</tt> to make sure it fit your computer's configuration.  The following variables can be configured:</p>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
 LIBS   = -lm</pre>
-				<p>The above settings are valid for most systems that have <tt>GCC</tt> installed. It has been tested on Debian, Slackware, SuSE, and RedHat systems and should compile without changes on most Linux boxes.  Do not add any optimization options otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
-				<p>To compile the code, run:</p>
+				<p>The above settings are valid for most systems that have <tt>GCC</tt> installed. They have been tested on Debian, Slackware, SuSE, and RedHat systems and should compile without changes on most Linux boxes.  Do not add any optimization options otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
+				<p>To compile the code, in the <tt>NG/</tt> directory run:</p>
 <pre>make</pre>
-				<p>in the top level directory <tt>GalaxyNG/</tt>, this creates the executable <tt>Source/galaxyng</tt>.</p> 
+				<p>This creates the executable <tt>NG/Source/galaxyng</tt>.</p> 
 
 			<hr />
 
 			<h2 id="install">Installation</h2>
-				<p>To install the GalaxyNG server, run:</p>
+				<p>To install the GalaxyNG server, in the <tt>NG/</tt> directory run:</p>
 <pre>make install</pre>
-				<p>It creates a directory called <tt>Games</tt> in your home directory and installs a number of files in it.</p>
-				<p>If you want to have the game installed in a different directory you have to edit the first line of the <tt>install.sh</tt> script.  You also <strong>must</strong> set the environment variable <tt>GALAXYNGHOME</tt> to this directory.  You can do this by adding a line to your <tt>.bash_profile</tt> file (or the appropriate file for your favourite shell).  For instance if you have installed the game in /home/gng/mygames, add:</p>
+				<p>It creates <tt>$HOME/Games</tt> and installs a number of files in it.</p>
+				<p>To install the GalaxyNG server in a different directory, you must edit the first line of <tt>NG/install.sh</tt>.  You also <strong>must</strong> set the environment variable <tt>GALAXYNGHOME</tt> to this directory.  You can do this by adding a line to your <tt>.bash_profile</tt> file (or the appropriate file for your favourite shell).  For instance, if you have installed the GalaxyNG server in <tt>/home/gng/mygames</tt>, add:</p>
 <pre>export GALAXYNGHOME=/home/gng/mygames</pre>
 
 			<hr />
 
 			<h2 id="files">Files and Directories</h2>
-				<p>The following files and directories are created.</p>
+				<p>The following files are created.</p>
 				<table>
 					<tr>
 						<th>File</th>
 						<th>Explanation</th>
 					</tr>
 					<tr>
-						<td><tt>galaxyng</tt></td>
+						<td><tt>Games/galaxyng</tt></td>
 						<td>The server program.  You use it to create new games, check orders, and run turns.</td>
 					</tr>
 					<tr>
-						<td><tt>run_game</tt></td>
+						<td><tt>Games/run_game</tt></td>
 						<td>A shell script to run a game.  It is used in combination with cron, and allows you to automatically run turns at specified times.</td>
 					</tr>
 					<tr>
-						<td><tt>procmailrc</tt></td>
-						<td>An example procmailrc file. This contains the commands to automatically process incoming orders and other email received by the server. Edit it with your own local settings and copy it to <tt>$HOME/.procmail</tt>.</td>
+						<td><tt>Games/procmailrc</tt></td>
+						<td>An example .procmailrc file. This contains the commands to automatically process incoming orders and other email received by the server. Edit it with your own local settings and copy it to <tt>$HOME/.procmail</tt>.</td>
 					</tr>
 					<tr>
-						<td><tt>.galaxyngrc</tt></td>
+						<td><tt>Games/.galaxyngrc</tt></td>
 						<td>The <a href="#config">configuration</a> file for the the server.  The installation script tries to figure out the location of <tt>sendmail</tt> and <tt>formail</tt>.  It also asks for the GM email address.</td>
 					</tr>
 				</table>
@@ -101,27 +104,31 @@ LIBS   = -lm</pre>
 						<th>Explanation</th>
 					</tr>
 					<tr>
-						<td><tt>orders/</tt></td>
-						<td>This is where the players orders are stored. For each game there is a subdirectory. Orders are stored here under the name <var>&lt;nation_name&gt;.&lt;turn_number&gt;</var>.</td>
+						<td><tt>Games/data/</tt></td>
+						<td>Game data is stored in a subdirectory for each game.</td>
 					</tr>
 					<tr>
-						<td><tt>data/</tt></td>
-						<td>This is where the game data is stored, there is a subdirectory for each game.</td>
+						<td><tt>Games/orders/</tt></td>
+						<td>Players' orders are stored in a subdirectory for each game, with the name <var>&lt;nation_name&gt;.&lt;turn_number&gt;</var>.</td>
 					</tr>
 					<tr>
-						<td><tt>reports/</tt></td>
-						<td>Contains, for each game a subdirectory where the turn reports are stored. It is only used for debug purposes.</td>
+						<td><tt>Games/forecasts/</tt></td>
+						<td>Forecasts are stored in a subdirectory for each game. This is only used for debugging the program.</td>
 					</tr>
 					<tr>
-						<td><tt>log/</tt></td>
+						<td><tt>Games/reports/</tt></td>
+						<td>Turn reports are stored in a subdirectory for each game. This is only used for debugging the program.</td>
+					</tr>
+					<tr>
+						<td><tt>Games/log/</tt></td>
 						<td>Contains log files that contain information on processed orders, and game runs.</td>
 					</tr>
 					<tr>
-						<td><tt>statistics/</tt></td>
-						<td>For experimental  purposes.</td>
+						<td><tt>Games/statistics/</tt></td>
+						<td>For experimental purposes.</td>
 					</tr>
 					<tr>
-						<td><tt>notices/</tt></td>
+						<td><tt>Games/notices/</tt></td>
 						<td>This contains game notices. You can use these to provide additional information to the turn reports.</td>
 					</tr>
 				</table>
@@ -132,16 +139,16 @@ LIBS   = -lm</pre>
 						<th>Explanation</th>
 					</tr>
 					<tr>
-						<td><tt>global.bulletin</tt></td>
-						<td>In this you can store information that applies to all your games. You can find an example in the <tt>Doc/</tt> directory.</td>
+						<td><tt><a href="global.bulletin">Games/notices/global.bulletin</a></tt></td>
+						<td>Information that applies to all your games.</td>
 					</tr>
 					<tr>
-						<td><var>&lt;game name&gt;</var><tt>.info</tt></td>
-						<td>In this you can store information that applies to a particular game.</td>
+						<td><tt>Games/notices/</tt><var>&lt;game name&gt;</var><tt>.info</tt></td>
+						<td>Information that applies to a particular game.</td>
 					</tr>
 					<tr>
-						<td><var>&lt;game name&gt;.&lt;turn number&gt;</var><tt>.notice</tt></td>
-						<td>In this you can store information that applies to a particular turn of a game.</td>
+						<td><tt>Games/notices/</tt><var>&lt;game name&gt;.&lt;turn number&gt;</var><tt>.notice</tt></td>
+						<td>Information that applies to a particular turn of a game.</td>
 					</tr>
 				</table>
 
@@ -200,10 +207,10 @@ LIBS   = -lm</pre>
 			<h2 id="create">Creating a New Game</h2>
 				<p>To create a game use the command:</p>
 <pre>./galaxyng -create &lt;specification file&gt;</pre>
-				<p>The specification file specifies the structure of the galaxy, that is the number of home planets, empty planets, stuff planets, the name of the galaxy and the size of the galaxy as well as the the email address of each of the players.</p>
-				<p>You can create a template <tt>.glx</tt> file by using the <tt>-template</tt> command.</p>
+				<p>The game configuration file specifies the structure of the galaxy, that is the number of home planets, empty planets, stuff planets, the name of the galaxy and the size of the galaxy as well as the the email address of each of the players.</p>
+				<p>You can create a template game configuration file by using the <tt>-template</tt> command.</p>
 <pre>./galaxyng -template &lt;game name&gt; &lt;number of players&gt;</pre>
-				<p>This creates a <tt>.glx</tt> file with default values for all parameters, plus documentation about what each parameter does.  You will have to edit this file to insert the email addresses of the players. For instance, say you have eight players to play in a galaxy game, and want to call the game Orion. You can then create the game as follows:</p>
+				<p>This creates a file named <a href="example.glx"><tt>game name.glx</tt></a> with default values for all parameters, plus documentation about what each parameter does.  You will have to edit this file to insert the email addresses of the players. For instance, say you have eight players to play in a galaxy game, and want to call the game Orion. You can then create the game as follows:</p>
 <pre>./galaxyng -template Orion 8</pre>
 				<p>Edit the <tt>Orion.glx</tt> and change the dummy email addresses to the real email addresses of the players, then run:</p>
 <pre>./galaxyng -create Orion.glx</pre>
