@@ -1751,12 +1751,19 @@ w_order( game *aGame, player *P, strlist **s )
 
     pdebug( DFULL, "w_order\n" );
 
+	if (aGame->turn < aGame->gameOptions.galactic_peace) {
+		mistake(P, ERROR, *s, "Galactic Peace enforced until turn %d.",
+				aGame->gameOptions.galactic_peace);
+		return;
+	}
+	
     P2 = findElement( player, aGame->players, getstr( 0 ) );
 
     if ( !P2 ) {
         mistake( P, ERROR, *s, "Race not recognized." );
         return;
     }
+
     for ( a = P->allies; a; a = a->next ) {
         if ( a->who == P2 ) {
             remList( &P->allies, a );

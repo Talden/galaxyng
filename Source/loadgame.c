@@ -251,7 +251,7 @@ getReadVersion(int *version, int *revision)
  *   speeds are incorrect until the fleetphase() is executed.
  *****/
 
-game           *
+game*
 loadgame(char *gameName, int whichTurn)
 {
 	FILE           *nextTurnFile;
@@ -300,6 +300,10 @@ loadgame(char *gameName, int whichTurn)
 		 getLine(turnFile)) {
 		aGame->gameOptions.gameOptions = getReadInt();
 		aGame->gameOptions.initial_drive = getReadFloat();
+		if (aGame->gameOptions.initial_drive < 0) {
+			aGame->gameOptions.galactic_peace = aGame->gameOptions.galactic_peace * -1;
+			aGame->gameOptions.initial_drive = getReadFloat();
+		}
 		aGame->gameOptions.initial_weapons = getReadFloat();
 		aGame->gameOptions.initial_shields = getReadFloat();
 		aGame->gameOptions.initial_cargo = getReadFloat();

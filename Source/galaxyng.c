@@ -201,7 +201,8 @@ main( int argc, char **argv )
  *   Set the values of the tempdir and galaxynghome.
  * SOURCE
  */
-void SetDirectoryVariables( void )
+void
+SetDirectoryVariables( void )
 {
     char *value;
     if ( ( value = getenv( "GALAXYNGHOME" ) ) ) {
@@ -343,8 +344,15 @@ CMD_template( int argc, char **argv )
                      "; Uncomment if you want this option.\n"
                      "\n"
                      "; FullBombing\n"
-                     "\n"
-                     "; If keepproduction is set, the production points spent\n"
+                     "\n");
+			fprintf( glxfile,
+					 "; You can enforce Pax Galactica - just put in the number\n"
+					 "; of turns you want to disallow players to declare war\n"
+					 "; on each other\n"
+					 "; Uncomment if you want this option.\n\n"
+					 "; Peace 20\n\n");
+			fprintf( glxfile,
+					 "; If keepproduction is set, the production points spent\n"
                      "; on the previous product are preserved, otherwise all points are lost\n"
                      ";\n" "; Uncomment if you want this option.\n" "\n" );
             fprintf( glxfile,

@@ -734,11 +734,12 @@ typedef struct server {
  */
 
 typedef struct gameOpt {
-  long            gameOptions;
-  double          initial_drive;
-  double          initial_weapons;
-  double          initial_shields;
-  double          initial_cargo;
+	 long   gameOptions;
+	 int	galactic_peace;
+	 double initial_drive;
+	 double initial_weapons;
+	 double initial_shields;
+	 double initial_cargo;
 } gameOpt;
 
 /*******/

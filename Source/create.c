@@ -122,6 +122,7 @@ readGameSpec(FILE * specfile)
   aGameSpec->teamGame = FALSE;
   aGameSpec->coreSizes[0] = 1000.0;
   aGameSpec->coreSizes[1] = 400.0;
+  aGameSpec->gameOptions.galactic_peace = 0;
   aGameSpec->gameOptions.initial_drive = 1.0;
   aGameSpec->gameOptions.initial_weapons = 1.0;
   aGameSpec->gameOptions.initial_shields = 1.0;
@@ -178,6 +179,13 @@ readGameSpec(FILE * specfile)
           aNewPlayer->numberOfHomePlanets = aGameSpec->numberOfHomePlanets;
         }
       }
+	  else if (noCaseStrcmp("peace", key) == 0) {
+		  /* store as negative for now so that we can recognize the
+		   * difference between old game files and new ones
+		   */
+		  value = getstr(0);
+		  aGameSpec->gameOptions.galactic_peace = atoi(value)*-1;
+	  }
       else if (noCaseStrcmp("size", key) == 0) {
         value = getstr(0);
         aGameSpec->galaxySize = atof(value);
@@ -343,8 +351,13 @@ printGameSpecs(gamespecification *aGameSpec)
             * Drive:     %5.2f,\n\
             * Weapons:   %5.2f,\n\
             * Shields:   %5.2f,\n\
-            * Cargo:     %5.2f.\n", aGameSpec->gameOptions.initial_drive, aGameSpec->gameOptions.initial_weapons, aGameSpec->gameOptions.initial_shields, aGameSpec->gameOptions.initial_cargo);
+            * Cargo:     %5.2f.\n", aGameSpec->gameOptions.initial_drive,
+		 aGameSpec->gameOptions.initial_weapons,
+		 aGameSpec->gameOptions.initial_shields,
+		 aGameSpec->gameOptions.initial_cargo);
 
+  printf("Turns of Pax Galactica:   %d\n",
+		 aGameSpec->gameOptions.galactic_peace*-1);
   printf("Races:                    %d\n", aGameSpec->numberOfPlayers);
   printf("Home planets/nation:      %d\n", aGameSpec->numberOfHomePlanets);
   printf("Spacing races:            %.1f\n", aGameSpec->minDist);
@@ -386,54 +399,78 @@ printGameSpecs(gamespecification *aGameSpec)
 game           *
 creategame(gamespecification *aGameSpec)
 {
-  if (createGameDirectories(aGameSpec->name)) {
-    int             planet_name;
-    int             created_ok;
-
-    game           *aGame;
-
-    srand((int) time(NULL));
-    resetErnie(197162622 + (rand() & 0xFF));
-    aGame = allocStruct(game);
-
-    setName(aGame, aGameSpec->name);
-    aGame->turn = 0;
-    aGame->gameOptions.gameOptions = aGameSpec->gameOptions.gameOptions;
-    aGame->gameOptions.initial_drive =
-        aGameSpec->gameOptions.initial_drive;
-    aGame->gameOptions.initial_weapons =
-        aGameSpec->gameOptions.initial_weapons;
-    aGame->gameOptions.initial_shields =
-        aGameSpec->gameOptions.initial_shields;
-    aGame->gameOptions.initial_cargo =
-        aGameSpec->gameOptions.initial_cargo;
-
-    /* Do not change this! planets can be looked up by number and this
-     * function expects the first planet to have number 1 */
-    planet_name = 1;
-    if (aGameSpec->teamGame) {
-      created_ok = createCheckeredLayout(aGameSpec, aGame, planet_name);
-      if (created_ok)
-        setTeamAllies(aGame->players);
-    }
-    else {
-      created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
-    }
-
-    if (created_ok) {
-      Randomize_Planet_Numbers(aGame);
-      preComputeGroupData(aGame);
-      raceStatus(aGame);
-      return aGame;
-    }
-    else {
-      freegame(aGame);
-      return NULL;
-    }
-  }
-  else {
-    return NULL;
-  }
+	if (createGameDirectories(aGameSpec->name)) {
+		int             planet_name;
+		int             created_ok;
+		
+		game           *aGame;
+		
+		srand((int) time(NULL));
+		resetErnie(197162622 + (rand() & 0xFF));
+		aGame = allocStruct(game);
+		
+		setName(aGame, aGameSpec->name);
+		aGame->turn = 0;
+		aGame->gameOptions.gameOptions = aGameSpec->gameOptions.gameOptions;
+		aGame->gameOptions.initial_drive =
+			aGameSpec->gameOptions.initial_drive;
+		aGame->gameOptions.initial_weapons =
+			aGameSpec->gameOptions.initial_weapons;
+		aGame->gameOptions.initial_shields =
+			aGameSpec->gameOptions.initial_shields;
+		aGame->gameOptions.initial_cargo =
+			aGameSpec->gameOptions.initial_cargo;
+		aGame->gameOptions.galactic_peace =
+			aGameSpec->gameOptions.galactic_peace;
+		
+		/* Do not change this! planets can be looked up by number and this
+		 * function expects the first planet to have number 1 */
+		planet_name = 1;
+		if (aGameSpec->teamGame) {
+			created_ok = createCheckeredLayout(aGameSpec, aGame, planet_name);
+			if (created_ok)
+				setTeamAllies(aGame->players);
+		}
+		else {
+			created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
+		}
+		
+		if (aGame->gameOptions.galactic_peace < 0) {
+			player* aPlayer;
+			player* aPlayer2;
+			
+			
+			for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
+				fprintf(stderr, "Making friends for %s\n", aPlayer->name );
+				for (aPlayer2 = aGame->players; aPlayer2; aPlayer2 = aPlayer2->next) {
+					alliance       *a;
+					
+					if (aPlayer == aPlayer2)
+						continue;
+					
+					a = allocStruct(alliance);
+					
+					a->who = aPlayer2;
+					addList(&aPlayer->allies, a);
+					fprintf(stderr, "\t adding %s\n", aPlayer2->name);
+				}
+			}
+		}
+		
+		if (created_ok) {
+			Randomize_Planet_Numbers(aGame);
+			preComputeGroupData(aGame);
+			raceStatus(aGame);
+			return aGame;
+		}
+		else {
+			freegame(aGame);
+			return NULL;
+		}
+	}
+	else {
+		return NULL;
+	}
 }
 
 /********/
