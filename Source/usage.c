@@ -20,6 +20,7 @@ usage()
 	 "   -run        <game name> <file with all orders> [turn]\n"
 	 "   -score      <game name> [turn]\n"
 	 "   -toall      <game name>\n"
+	 "   -report\n"
 	 "   -relay\n"
 	 "   -hall       <game name>\n");
   printf("   -lastorders <game name> [turn]\n"
@@ -49,6 +50,8 @@ usage()
 	 " -check      - check incoming orders, orders are read from stdin.\n");
   printf(" -run        - run a game and mail the turn reports.\n"
 	 " -score      - creates highscore list in HTML format.\n"
+	 " -report     - creates and mails a report, turn and race are"
+	 " read from stdin.\n"
 	 " -relay      - relay email between players,"
 	 " orders are read from stdin.\n"
 	 " -hall       - create information for the Hall of Fame.\n"
