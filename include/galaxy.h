@@ -734,5 +734,6 @@ extern char    *vloadgame;
 extern int      nbrProducts;
 
 void loadNGConfig(game* aGame);
+int spcLockFile(const char* lfpath);
 
 #endif                          /* GNG_GALAXY_H */
