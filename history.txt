@@ -12,6 +12,7 @@ o By Ken Weinert (madcoder42)
     in all code and documentation. One side effect is that this 
     engine can't be used with existing templates (.glx files) unless
     you edit it to change "nation_spacing" to "race_spacing"
+  + changed the relay command so it will stop at a #END line
 
 Release 6.4.5: January 2004
 o By Ken Weinert (madcoder42)
