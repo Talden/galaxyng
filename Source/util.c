@@ -1121,7 +1121,7 @@ savefprintf(FILE * f, char *format, ...)
     printf("Subject: Error\n");
     printf("\nThere was a serious error, your orders are lost.\n");
     printf("\nPlease Contact your game master\n");
-    fclose(logFile);
+    closeLog();
     abort();
   }
   va_end(ap);
