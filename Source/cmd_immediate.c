@@ -19,33 +19,34 @@
  * SOURCE
  */
 
-int CMD_immediate( int argc, char **argv) {
-  struct stat buf;			/* for checking file existance */
-  int         result;			/* return code for the function */
+int
+CMD_immediate( int argc, char **argv) {
+  struct stat buf;		/* for checking file existance */
+  int         result;		/* return code for the function */
   long        elapsedTime;	/* how much time has elapsed since
 				 * last orders */
   long        dueTime;		/* when is this tick due to run */
   long        tickTime;		/* how long is the interval between ticks */
   int         msgCount = 0;	/* count of msgs sent to players */
-  char*       gmBody;			/* name of file for GM messages */
-  FILE*       gmNote;			/* file written to with GM messages */
-  game*       aGame;			/* game information */
-  int         turn;			/* which turn are we checking */
-  char*       logName;		/* name of log file */
-  char*       nextTurn;		/* name of next turn file */
-  player*     aPlayer;		/* for looking at players in the game */
-  char*       ordersfile;		/* name of each player's orders file */
-  int         nbrOrders;		/* how many have final orders */
+  char       *gmBody;		/* name of file for GM messages */
+  FILE       *gmNote;		/* file written to with GM messages */
+  game       *aGame;		/* game information */
+  int         turn;		/* which turn are we checking */
+  char       *logName;		/* name of log file */
+  char       *nextTurn;		/* name of next turn file */
+  player     *aPlayer;		/* for looking at players in the game */
+  char       *ordersfile;	/* name of each player's orders file */
+  int         nbrOrders;	/* how many have final orders */
   int         actvPlayers;	/* how many active players */
-  char*       notifyFileName;
+  char       *notifyFileName;
   char        command_line[1024];
-  char*       modifier;
-  char*       mofAllName = NULL; /* missing orders file name */
-  char*       mofFinalName = NULL;
+  char       *modifier;
+  char       *mofAllName = NULL; /* missing orders file name */
+  char       *mofFinalName = NULL;
   
-  result = EXIT_FAILURE;		/* assume it's all going to go bad -
-					 * mainly because we we do a lot more
-					 * checks than we'll run turns */
+  result = EXIT_FAILURE;	/* assume it's all going to go bad -
+				 * mainly because we we do a lot more 
+				 * checks than we'll run turns */
   
   /* all arguments present? */
   if (argc != 3) {
@@ -80,7 +81,7 @@ int CMD_immediate( int argc, char **argv) {
   nextTurn = createString("%s/data/%s/next_turn", galaxynghome, argv[2]);
   stat(nextTurn, &buf);
   /* this is how much time has elapsed since then, in seconds */
-  elapsedTime = time(NULL) - buf.st_mtime;
+  elapsedTime = ((time(NULL) - buf.st_mtime) / 15) *15;
   free(nextTurn);
   
   /* time, in seconds, between game ticks */
@@ -176,7 +177,7 @@ int CMD_immediate( int argc, char **argv) {
 		     aGame->turn+1, argv[2]);
       setHeader(env, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
       env->from_name = strdup(aGame->serverOptions.SERVERname);
-      env->from_address = strdup(aGame->serverOptions.ReplyTo);
+      env->from_address = strdup(aGame->serverOptions.SERVERemail);
       
       /* if we haven't sent any player notifications
        * yet, then we need to put the header in the GM
@@ -262,7 +263,7 @@ int CMD_immediate( int argc, char **argv) {
 				  argv[2], aGame->turn+1);
       setHeader(env, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
       env->from_name = strdup(aGame->serverOptions.SERVERname);
-      env->from_address = strdup(aGame->serverOptions.ReplyTo);
+      env->from_address = strdup(aGame->serverOptions.SERVERemail);
 
       fclose(gmNote);
       eMail(aGame, env, gmBody);

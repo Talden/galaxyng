@@ -222,15 +222,5 @@ SetDirectoryVariables( void )
         galaxynghome =
             strdup( "/please/set/your/HOME/or/GALAXYNGHOME/variable" );
     }
-#ifdef WIN32
-    if ( ( value = getenv( "TEMP" ) ) ) {
-        tempdir = strdup( value );
-    } else if ( ( value = getenv( "TMP" ) ) ) {
-        tempdir = strdup( value );
-    } else {
-        tempdir = strdup( "c:/temp" );
-    }
-#else
     tempdir = strdup( "/tmp" );
-#endif
 }

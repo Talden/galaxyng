@@ -112,15 +112,13 @@ highScoreList(game *aGame)
 void
 mailGMReport(game *aGame, char *gameName)
 {
-  char           *fileName;
-  FILE           *gmreport;
-  envelope       *anEnvelope;
+  char     *fileName;
+  FILE     *gmreport;
+  envelope *anEnvelope;
 
   assert(aGame != NULL);
 
   if (aGame->serverOptions.GMemail) {
-    if (!aGame)
-      aGame = createDummyGame();
     anEnvelope = createEnvelope();
     setHeader(anEnvelope, MAILHEADER_TO, "%s",
               aGame->serverOptions.GMemail);
@@ -130,13 +128,15 @@ mailGMReport(game *aGame, char *gameName)
               "GM Report Turn %d for Galaxy Game %s", aGame->turn,
               gameName);
     setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+    anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
+    anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
 
     fileName = createString("%s/%s_GM", tempdir, gameName);
-    if ((gmreport = GOS_fopen(fileName, "w"))) {
+    if ((gmreport = fopen(fileName, "w"))) {
       createGMReport(aGame, gameName, gmreport);
       fclose(gmreport);
       eMail(aGame, anEnvelope, fileName);
-      ssystem("rm %s", fileName);
+      /*ssystem("rm %s", fileName);*/
     }
     else {
       fprintf(stderr, "Can't open \"%s\".\n", fileName);

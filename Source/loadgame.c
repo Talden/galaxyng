@@ -254,22 +254,22 @@ getReadVersion(int *version, int *revision)
 game*
 loadgame(char *gameName, int whichTurn)
 {
-	FILE           *nextTurnFile;
-	player         *P;
-	int             turn;
-	game           *aGame;
-	int             turnversion;
-	int             turnrevision;
+  FILE           *nextTurnFile;
+  player         *P;
+  int             turn;
+  game           *aGame;
+  int             turnversion;
+  int             turnrevision;
 
-	pdebug(DFULL, "Load Game\n");
-	plog(LPART, "Loading game %s\n", gameName);
+  pdebug(DFULL, "Load Game\n");
+  plog(LPART, "Loading game %s\n", gameName);
 
-	aGame = allocStruct(game);
+  aGame = allocStruct(game);
 
-	setName(aGame, gameName);
+  setName(aGame, gameName);
 
-	if (whichTurn eq LG_CURRENT_TURN) {
-		sprintf(lineBuffer, "%s/data/%s/next_turn", galaxynghome, aGame->name);
+  if (whichTurn == LG_CURRENT_TURN) {
+    sprintf(lineBuffer, "%s/data/%s/next_turn", galaxynghome, aGame->name);
 		nextTurnFile = GOS_fopen(lineBuffer, "r");
 		if (nextTurnFile eq NULL)
 			return FALSE;
