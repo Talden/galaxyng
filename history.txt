@@ -10,6 +10,10 @@ o By Chris Shaffer (christhecat)
   + GMs should point to http://galaxyng.sourceforge.net/
   + now, rather than hosting the manuals and FAQ and such
   + locally.
+o By Ken Weinert (madcoder42)
+  + updated version information
+  + made change to ensure the "to" field in the envelope
+    is always valid
 
 Release 6-3-0: September 2003
 o By Ken Weinert (madcoder42)
