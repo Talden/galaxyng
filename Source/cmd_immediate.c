@@ -39,6 +39,9 @@ int CMD_immediate( int argc, char **argv) {
 	int         actvPlayers;	/* how many active players */
 	char*       notifyFileName;
 	char        command_line[1024];
+	char*       modifier;
+	char*       mofAllName; /* missing orders file name */
+	char*       mofFinalName;
 	
 	result = EXIT_FAILURE;		/* assume it's all going to go bad -
 								 * mainly because we we do a lot more
@@ -100,6 +103,20 @@ int CMD_immediate( int argc, char **argv) {
 	nbrOrders = 0;
 	actvPlayers = 0;
 	
+	/* if this GM notify file doesn't exist, then create
+	 * it so the GM gets a message */
+	/* this is the email to the GM about which players are missing
+	 * orders at <dueTime> prior to the turn running */
+	gmBody = createString("%s/orders/%s/GMnotify_%d", galaxynghome,
+						  aGame->name, aGame->turn+1);
+	
+	if (access(gmBody, R_OK)) {
+		gmNote = fopen(gmBody, "w");
+	}
+	else {
+		gmNote = NULL;
+	}
+	
 	for ( aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next ) {
 		/* dead players don't like getting email */
 		if (aPlayer->flags & F_DEAD)
@@ -120,6 +137,17 @@ int CMD_immediate( int argc, char **argv) {
 
 		/* ok, no final orders here */
 
+		/* do we have normal orders? */
+		free(ordersfile);
+		ordersfile = createString("%s/orders/%s/%s.%d",
+								  galaxynghome, argv[2],
+								  aPlayer->name, aGame->turn+1);
+
+		if (access(ordersfile, R_OK) == 0)
+			modifier = "final";
+		else
+			modifier = "any";
+		
 		/* only send out missing orders message once. we create
 		 * the .notify file so we only send out the one email */
 		if (elapsedTime < dueTime) {
@@ -131,25 +159,10 @@ int CMD_immediate( int argc, char **argv) {
 									  galaxynghome, argv[2],
 									  aPlayer->name, aGame->turn+1);
 		
-		/* if this GM notify file doesn't exist, then create
-		 * it so the GM gets a message */
-		
-		/* this is the email to the GM about which players are missing
-		 * orders at <dueTime> prior to the turn running */
-		gmBody = createString("%s/orders/%s/GMnotify_%d", galaxynghome,
-							  aGame->name, aGame->turn+1);
-		
-		if (access(gmBody, R_OK)) {
-			gmNote = fopen(gmBody, "w");
-		}
-		else {
-			gmNote = NULL;
-		}
 		
 		if (access(notifyFileName, R_OK)) {
 			envelope* env;
 			FILE* fp = fopen(notifyFileName, "w");
-			char* mofName; /* missing orders file name */
 			
 			fprintf(fp, "notified\n");
 			fclose(fp);
@@ -173,15 +186,32 @@ int CMD_immediate( int argc, char **argv) {
 							"of %s\n", aGame->turn+1, aGame->name);
 				}
 				
-				mofName = createString("%s/data/%s/missing_orders.%d",
+				mofAllName = createString("%s/data/%s/missing_all_orders.%d",
 									   galaxynghome, aGame->name,
 									   aGame->turn+1);
 				
-				mofFP = fopen(mofName, "w");
+				mofFP = fopen(mofAllName, "w");
 				fprintf(mofFP, "Your orders for turn %d for "
 						"%s have not been received.\nOrders "
 						"are due in %s hours. Please send "
 						"them now.\n",
+						aGame->turn+1, aGame->name,
+						aGame->serverOptions.due);
+				fclose(mofFP);
+
+				mofFinalName =
+					createString("%s/data/%s/missing_final_orders.%d",
+								 galaxynghome, aGame->name,
+								 aGame->turn+1);
+				
+				mofFP = fopen(mofFinalName, "w");
+				fprintf(mofFP, "Your final orders for turn %d of "
+						"%s have not been received.\n\nThe orders you have "
+						"sent will be used, but you can help speed\n"
+						"the game along by resending your orders and "
+						"appending FinalOrders\nto the end of the #GALAXY "
+						"line. The turn will run in %s hours. Please "
+						"update them now.\n",
 						aGame->turn+1, aGame->name,
 						aGame->serverOptions.due);
 				fclose(mofFP);
@@ -190,18 +220,25 @@ int CMD_immediate( int argc, char **argv) {
 			/* now email the player and put a note in the GMs
 			   file */
 			if (gmNote) {
-				fprintf(gmNote, "%s has not turned in orders.\n",
-						aPlayer->name);
+				fprintf(gmNote, "%s has not turned in %s orders.\n",
+						aPlayer->name, modifier);
 			}
 			
-			result |= eMail(aGame, env, mofName);
+			if (strcmp(modifier, "any") == 0)
+				result |= eMail(aGame, env, mofAllName);
+			else
+				result |= eMail(aGame, env, mofFinalName);
+			
 			destroyEnvelope(env);
 			msgCount++;
-			unlink(mofName);
-			free(mofName);
 		}
 	}
 
+	unlink(mofAllName);
+	unlink(mofFinalName);
+	free(mofAllName);
+	free(mofFinalName);
+	
 	/* if there were any missing orders and we need to email the GM,
 	 * then do so */
 	if (nbrOrders != actvPlayers) {
