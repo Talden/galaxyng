@@ -2215,9 +2215,13 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
     copyFileName = alloc( strlen( aGame->name ) + strlen( aPlayer->name ) +
                           strlen( galaxynghome ) + strlen( "/orders//" ) +
                           20 );
-    if (final_orders)
+    if (final_orders) {
+      sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome,
+	       aGame->name, aPlayer->name, theTurnNumber );
+      unlink(copyFileName);
       sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
 	       aGame->name, aPlayer->name, theTurnNumber );
+    }
     else
       sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome, aGame->name,
 	       aPlayer->name, theTurnNumber );
