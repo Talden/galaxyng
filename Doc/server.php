@@ -33,6 +33,7 @@
 					<li><a href="#command">Command Summary</a></li>
 					<li><a href="#host">Hosting Team Games</a></li>
 					<li><a href="#trouble">Troubleshooting</a></li>
+					<li><a href="#house">Example House Rules</a></li>
 				</ul>
  				
  			<hr />
@@ -441,6 +442,11 @@ t1   t0   t1</pre>
 declare -x GNG_LOG_LEVEL=part
 declare -x GNG_LOG_LEVEL=brief
 declare -x GNG_LOG_LEVEL=none</pre>
+
+			<hr />
+			
+			<h2 id="house">Example House Rules</h2>
+				<p>You should post <a href="house.php">house rules</a> for your GalaxyNG server on your web site.</p>
 
 		<?php include 'footer.php'; ?>
  	</body>
