@@ -568,7 +568,8 @@ draw_maps(game* aGame, enum map_type map_type)
 				x = (int) ((scale * p->x) + 1);
 				y = (int) ((scale * p->y) + 1);
 				
-				gdImageArc(map_png, x, y, 8, 8, 0, 360, white);
+				gdImageArc(map_png, x, y, 8, 8, 0, 360,
+						   gdImageColorResolve(map_png, 0, 255, 0));
 			}
 			break;
 
