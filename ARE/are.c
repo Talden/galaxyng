@@ -96,60 +96,30 @@
 
 #include "are.h"
 
-#define TRUE  1
-#define FALSE 0
-
-enum PlayerStatus {Player, Standby};
-
-void dump_so(serverOpts* so);	/* used for debugging, not needed othewise */
-static int processPlanet(playerOpts* po, char* ordersLine, FILE* playerMsg);
-static void processOptions(playerOpts* po, char* ordersLine, FILE* playerMsg);
-
 char* gamename;
 
+int join(serverOpts* so, envelope* env);
+int drop(serverOpts* so, envelope* env);
+
 int main(int argc, char *argv[]) {
-	playerOpts* po;		/* setting player options */
-	serverOpts* so;		/* server options */
-	gameOpts*   go;		/* options for a game */
+	serverOpts* so;				/* server options */
+	envelope*   received_env;
 
-	envelope*   env;		/* for mailing back to the player */
-	envelope*   received_env;	/* mail headers */
-
-	char*       value;		/* getting values from player email
-							 * and environment */
-	char*       ptr;		/* text manipulation, generic char ptr */
-	char*       gameName;		/* from the #GALAXY line */
-	char*       raceName;		/* from the #GALAXY line */
-	char*       password;		/* from the #GALAXY line */
-
-	int         errorCode;	/* exit value */
-
-
-	int curNumberOfPlayers;	/* number registered for the game */
-	int maxNumberOfPlayers;	/* the number of players the GM will allow */
-	float totalPlanetSize;	/* total size of planets player can specify */
-	float maxPlanetSize;		/* largest any particular planet can be */
-	int maxNumberOfPlanets;	/* how many planets a player can specify */
-	float totalSize;
-	
-	char* messages = NULL;
-	FILE* msgFP = NULL;
-	int   endOrders;			/* to flag the #END found in the orders */
-	char  buffer[4096];			/* for reading in orders */
-	int   playerFound = 0;
+	char*       value;
+	int         errorCode = EXIT_FAILURE;
 	
 	DBUG_ENTER("main");
-	if (argc > 1)
-		DBUG_PUSH(argv[1]);
 	DBUG_PROCESS(argv[0]);
 	DBUG_PUSH_ENV("DBUG");
 	
 	if ((value = getenv("GALAXYNGHOME"))) {
 		galaxynghome = strdup(value);
-	} else if ((value = getenv("HOME"))) {
+	}
+	else if ((value = getenv("HOME"))) {
 		sprintf(lineBuffer, "%s/Games", value);
 		galaxynghome = strdup(lineBuffer);
-	} else {
+	}
+	else {
 		galaxynghome =
 			strdup("/please/set/your/HOME/or/GALAXYNGHOME/variable");
 	}
@@ -163,382 +133,29 @@ int main(int argc, char *argv[]) {
 	errorCode = EXIT_FAILURE;
   
 	/* load the configuration file */
-	DBUG_PRINT("load", ("loadAREConfig(%s)", galaxynghome));
-	so = loadAREConfig(galaxynghome);
-	
-	DBUG_PRINT("load", ("loaded .arerc (%p)", (void*)so));
-	
-	env = createEnvelope();
+	if ((so = loadAREConfig(galaxynghome)) == NULL) {
+		DBUG_RETURN(errorCode);
+	}
+
 	received_env = readEnvelope(stdin);
 	
-	DBUG_PRINT("mail", ("returnAddress: %s/%s", received_env->from, received_env->replyto));
-	
-	/* now we need to load the orders into memory so we can determine
-	   which game and which player we are dealing with */
+	DBUG_PRINT("mail", ("returnAddress: %s/%s",
+						received_env->from, received_env->replyto));
+	DBUG_PRINT("mail", ("subject: %s", received_env->subject));
 
-	getLine(stdin);
-	if ((ptr = strchr(lineBuffer, '#')) == NULL)
-		ptr = lineBuffer;
-
-	while (!feof(stdin)) {
-		if (noCaseStrncmp("#GALAXY", ptr, 7) == 0) {
-			getstr(ptr);	/* discard #GALAXY */
-			gameName = strdup(getstr(NULL));
-			raceName = strdup(getstr(NULL));
-			password = strdup(getstr(NULL));
-
-			DBUG_PRINT("mail", ("gameName: %s  race: %s  password: %s\n",
-								 gameName, raceName, password));
-
-			DBUG_PRINT("find", ("Searching for game \"%s\" in %p\n", gameName, (void*)so->games));
-			
-			if ((go = findElement(gameOpts, so->games, gameName)) == NULL) {
-				/* return message about not finding game */
-				fprintf(stderr, "Could not find game \"%s\"\n", gameName);
-				exit(EXIT_FAILURE);
-			}
-			else {
-				DBUG_PRINT("find", ("found game \"%s\"\n", gameName));
-			}
-			break;
-		}
-		getLine(stdin);
-		if ((ptr = strchr(lineBuffer, '#')) == NULL)
-			ptr = lineBuffer;
+	if (noCaseStrncmp(received_env->subject, "join", 4) == 0) {
+		errorCode = join(so, received_env);
+	}
+	else if (noCaseStrncmp(received_env->subject, "drop", 4) == 0) {
+		errorCode = drop(so, received_env);
 	}
 
-	curNumberOfPlayers   = numberOfElements(go->po);
-	DBUG_PRINT("disc", ("current number of players: %d", curNumberOfPlayers));
-
-	maxNumberOfPlayers   = go->maxplayers;
-	totalPlanetSize      = go->home.size_total;
-	maxPlanetSize        = go->home.size_max;
-	maxNumberOfPlanets   = go->home.count_max;
-	
-	env->from = strdup(so->from);
-	env->replyto = strdup(so->replyto);
-	env->to = strdup(received_env->replyto ? received_env->replyto : received_env->from);
-	DBUG_PRINT("email", ("envelope: from/replyto/to: %s/%s/%s", env->from, env->replyto, env->to));
-	messages = createString("%s/log/%s.txt", galaxynghome, raceName);
-	msgFP = fopen(messages, "w");
-	
-	fprintf(msgFP, "Greetings %s,\n", raceName);
-	/* see if the current player is already in the game */
-	DBUG_PRINT("current", ("looking for %s in the people signed up", raceName));
-	if ((po = findElement(playerOpts, go->po, raceName)) != NULL) {
-		fprintf(msgFP, "You have already been accepted for this game.\n\n");
-		playerFound = 1;
-		
-		DBUG_PRINT("current", ("found player, resetting information"));
-		remList(&go->po, po);
-		free(po->email);
-		po->email = strdup(received_env->replyto ? received_env->replyto : received_env->from); 
-		free(password);
-		po->password = strdup(password);
-		free(po->real_name);
-		po->options = 0L;
-		po->x = 0.0;
-		po->y = 0.0;
-		po->size = 0.0;
-		freelist(po->planets);
-		po->planets = NULL;
-	}
-	else {
-		po = (playerOpts*)malloc(sizeof(playerOpts));
-		po->email = strdup(received_env->replyto ? received_env->replyto : received_env->from);
-		po->password = strdup(password);
-		po->real_name = NULL;
-		po->options = 0L;
-		po->x = 0.0;
-		po->y = 0.0;
-		po->size = 0.0;
-		po->planets = NULL;
-	}
-
-	if (po->name)
-		free(po->name);
-	po->name = strdup(raceName);
-	
-			
-
-	/* now we have to read in the orders */
-	endOrders = 0;
-	while ((fgets(buffer, 4096, stdin) != NULL) && !endOrders) {
-		*(strchr(buffer, '\n')) = '\0';
-		ptr = buffer + strspn(buffer, " ");
-		switch(*ptr) {
-			case 'k':
-			case 'K':
-				DBUG_PRINT("orders", ("found planet, \"%s\"", ptr));
-				if (processPlanet(po, ptr, msgFP) > 0) {
-					fprintf(msgFP, "You are not registered for this game "
-							"due to incorrect planet specifications.\n"
-							"Please try again.\n");
-				}
-				break;
-
-			case 'o':
-			case 'O':
-				DBUG_PRINT("orders", ("found option, \"%s\"", ptr));
-				processOptions(po, ptr, msgFP);
-				break;
-
-			case '#':
-				if (noCaseStrncmp("#END", ptr, 4) == 0) {
-					endOrders = 1;
-				}
-				break;
-
-			default:
-				DBUG_PRINT("orders", ("unknown: \"%s\"\n", ptr));
-				break;
-		}
-	}
-
-	{
-		planet* p;
-		int errors = 0;
-
-		DBUG_PRINT("planets", ("added planets"));
-		totalSize = 0.0;
-		for (p = po->planets; p; p=p->next) {
-			totalSize += p->size;
-			if (p->size > maxPlanetSize) {
-				fprintf(msgFP, "Planet \"%s\" (%.2f) is larger than the GM "
-						"maximum of %.2f.\n", p->name, p->size, maxPlanetSize);
-				errors++;
-			}
-			
-			DBUG_PRINT("planets", ("    %.2f %s", p->size, p->name));
-		}
-
-		if (totalSize > totalPlanetSize) {
-			fprintf(msgFP, "\nThe total size of all your planets is %.2f.\n"
-					"This is larger than the GM maximum of %.2f.\n",
-					totalSize, totalPlanetSize);
-			errors++;
-		}
-
-		if (errors) {
-			fprintf(msgFP, "\nBecause of errors in your Join request your "
-					"data has been ignored.\n");
-
-			if (playerFound)
-				fprintf(msgFP, "\nI'm keeping your previous information.\n");
-			else
-				fprintf(msgFP, "\nYou are *not* registered for %s.\n",
-						gameName);
-			
-			errorCode += errors;
-		}
-	}
-	
 	DBUG_RETURN(errorCode);
 }
+
+
+
 #if 0
-
-int
-getPlanetSizes(FILE *orders, char **planets, double totalPlanetSize,
-	       int maxNumberOfPlanets, double maxPlanetSize)
-{
-  char* isRead;
-  char* c;
-  char* ns;
-  double totalSize = 0.0;
-  int numberOfPlanets = 0;
-  int result;
-  double size;
-  int tooBig;
-  
-  result = TRUE;   /* All is OK */
-  
-  for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders);
-       isRead;
-       isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders)) {
-    if (noCaseStrncmp("#PLANETS", lineBuffer, 3) == 0) 
-      break;
-  }
-  printf("\n");
-  
-  if (isRead != NULL) {
-    getstr(lineBuffer);
-    tooBig = FALSE;
-    printf("\nProcessing your planet specifications.\n");
-    for (ns = getstr(0);
-	 ns[0] != '\0';
-	 ns = getstr(0)) {
-      size = atof(ns);
-      totalSize += size;
-      if (size > maxPlanetSize) {
-	tooBig = TRUE;
-      }
-      numberOfPlanets++;
-    }
-    if (tooBig) {
-      printf("\nERROR:\n"
-	     "One or more of your planets are larger than the\n"
-	     "limit of %.1f set by the game master.\n\n", maxPlanetSize);
-      result = FALSE;
-    }
-    
-    if (numberOfPlanets > maxNumberOfPlanets) {
-      printf("\nERROR:\nYou specified %d planets, only %d "
-	     "planets are allowed.\n\n",
-	     numberOfPlanets, maxNumberOfPlanets);
-      result = FALSE;
-    }
-    
-    if (totalSize > totalPlanetSize) {
-      printf("\nERROR:\n"
-	     "The sum of the sizes of all your planets is %9.2f.\n" 
-	     "This exceeds the limit of %9.2f set by your game master.\n"
-	     "Please reduce the size of some of your planets.\n\n",
-	     totalSize, totalPlanetSize);
-      result = FALSE;
-    }
-    
-    if (totalSize < totalPlanetSize - 25.0) {
-      printf("\nWARNING:\n"
-	     "The sum of the sizes of your planets is:  %9.2f\n" 
-	     "The maximum limit set by your game master is: %9.2f\n"
-	     "This means that you can increase the size of one (or more) of\n"
-	     "your planets by %.2f!\n"
-	     "My guess is that you want to edit and retransmit your\n"
-	     "specification and make use of this additional space.\n\n",
-	     totalSize, totalPlanetSize, totalPlanetSize - totalSize);
-      result = FALSE;
-    }
-    *planets = strdup(lineBuffer + 8);
-    if (result) {
-      printf("All planets are OK.\n\n");
-    }
-  } else {
-    *planets = NULL;  /* no planet sizes were specified */
-  }
-  return result;
-}
-
-
-
-/****** ARE/registerPlayer
- * NAME
- *   registerPlayer --
- * FUNCTION
- *   
- * RESULT
- *   errorCode
- *      EXIT_SUCCESS  All is OK
- *      EXIT_FAILURE  Something went wrong
- *   Address of the player that registered is appended to
- *   either <gameName>.players or <gameName>.standby
- ******
- */
-
-int
-registerPlayer(playerOpts* po, char *gameName, int type)    
-{
-  FILE* registerFile;
-  char* readit;
-  int   errorCode;
-  
-  errorCode = EXIT_SUCCESS;
-  
-  if (type == T_PLAYER) {
-    sprintf(lineBuffer, "%s/%s.players", galaxynghome, gameName);
-  }
-  else {
-    sprintf(lineBuffer, "%s/%s.standby", galaxynghome, gameName);
-  }
-  
-  if ((registerFile = fopen(lineBuffer, "a"))) {
-    fprintf(registerFile, "player %s", po->address);
-    if (planets) {
-      fprintf(registerFile, " %s", planets);
-    }
-    else {
-      fprintf(registerFile, "\n");
-    }
-    fclose(registerFile);
-  }
-  else {
-    fprintf(stderr, "ARE: can't open %s\n", lineBuffer);
-    errorCode = EXIT_FAILURE;
-  }
-  
-  return errorCode;
-}
-
-
-/****** ARE/countPlayersRegistered
- * NAME
- *   countPlayersRegistered
- * SYNOPSIS
- *   int     countPlayersRegistered(char *) 
- *   count = countPlayersRegistered(gameName)
- * FUNCTION
- *   Count the number of players that registered sofar for a game.
- *   This is done by counting the number of lines in the 
- *   <gamename>.players file.  
- * INPUTS
- *   gameName -- Name of the game the player is enrolling in.
- * RESULT
- *   count
- *      < 0  -- something went wrong, registration file could not be opened.
- *     >= 0  -- number of players that registered sofar 
- * SEE ALSO
- *   GAMEPATH
- ********
- */
-
-int
-countPlayersRegistered(char *gameName) 
-{
-  FILE* registerFile;
-  char* fileName;
-  int   count;
-  
-  sprintf(lineBuffer, "%s/%s.players", galaxynghome, gameName);
-  fileName = strdup(lineBuffer);
-  
-  if ((registerFile = fopen(fileName, "r"))) {
-    char *readIt;
-    count = 0;
-    for(readIt = fgets (lineBuffer, LINE_BUFFER_SIZE, registerFile);
-	readIt;
-	readIt = fgets (lineBuffer, LINE_BUFFER_SIZE, registerFile)) {
-      count++;
-    }
-    fclose(registerFile);
-  }
-  else { /* Maybe the file does not exist yet */
-    if (registerFile = fopen(fileName, "w")) {
-      count = 0;
-      fclose(registerFile);
-    }
-    else {
-      fprintf(stderr, "ARE: can't open %s\n", fileName); 
-      count = -1;
-    }
-  }
-  free(fileName);
-  return count;
-}
-
-
-
-void
-badPlanetMessage(char *planets)
-{
-  printf(
-	 "\nYou tried to enroll using the following #PLANETS specification\n"
-	 "  %s\n", planets);
-  printf(
-	 "This line contains one or more errors/warnings as described above.\n"
-	 "You are therefore not yet enrolled in the game.\n"
-	 "Please correct the mistake and retransmit the enroll request.\n");
-}
-
-
 /****** ARE/playerMessage
  * NAME
  *   playerMessage -- write the "accepted" message
@@ -605,7 +222,7 @@ standbyMessage(char *gameName)
  *   word = getstr(someString)
  * FUNCTION
  *   Extract a word from a string of words.  A word is any things that
- *   is seperated by white spaces or a comma, any string that is
+ *   is separated by white spaces or a comma, any string that is
  *   delimited by quotes ("), or or any string delimited by { }.
  *
  *   The function is intended to parse a string word by word. It
@@ -643,71 +260,69 @@ standbyMessage(char *gameName)
  * SOURCE
  */
 
-char*
-getstr(char *s)
-{
-  static char*    s1;
-  static char     buf[256];
-  int             i, j;
+char* getstr(char *s) {
+	static char*    s1;
+	static char     buf[256];
+	int             i, j;
   
-  if (s)
-    s1 = s; 
-  /* first invocation of this function, for an order line. 
-     Each next times, for the same order line, s1 will "progress" 
-     by a word to the right */
-  assert (s1 != NULL);
-  
-  i = 0;
-  for (; *s1 && isspace(*s1); s1++)
-    ;	/* skips spaces */
-  
-  if (*s1 == '"') {
-    /* Players can enclose name (ie : including spaces) with double quotes */
-    for (s1++; *s1 && *s1 != '"';) {	
-      buf[i] = isspace(*s1) ? '_' : *s1;
-      s1++;
-      i++;
-      assert(i < 256);	/* abort execution if s1 too long */
-    }
-  }
-  else if (*s1=='{') {		
-    for (s1++; *s1 && *s1 != '}';) {
-      buf[i] = *s1;
-      s1++;
-      i++;
-      assert(i < 256);	/* abort execution if s1 too long */
-    }
-  }
-  else {
-    if (*s1 != ';') {		/* otherwise, it's a comment */
-      for (; *s1 && !isspace(*s1) && *s1 != ',';) {
-	/* space or ',' can be  used as separators, */
-	buf[i] = *s1;
-	s1++;
-	i++;
-	assert(i < 256);  /* abort execution if s1 too long */
-      }
-    }
-  }
-  
-  buf[i] = '\0';
-  if (*s1) s1++;  /* Skip ',' or space */
-  /* CB, 19980922. Remove ";" and "<" from names (planets,  ships...), 
-     to protect machine report from corruption. Don't break messages 
-     and comments. */
-  i = 0;
-  j = 0;	
-  while (buf[j] && j < 256) {
-    if (buf[j] != ';' && buf[j] != '<') {
-      buf[i] = buf[j];
-      i++;
-    }
-    j++;
-  }
-  if (i)
-    buf[i] = '\0';	
-  
-  return buf;
+	if (s)
+		s1 = s; 
+	/* first invocation of this function, for an order line. 
+	   Each next times, for the same order line, s1 will "progress" 
+	   by a word to the right */
+	assert (s1 != NULL);
+	
+	i = 0;
+	for (; *s1 && isspace(*s1); s1++)
+		;	/* skips spaces */
+	
+	if (*s1 == '"') {
+		/* Players can enclose name (ie : including spaces) with double quotes */
+		for (s1++; *s1 && *s1 != '"';) {	
+			buf[i] = isspace(*s1) ? '_' : *s1;
+			s1++;
+			i++;
+			assert(i < 256);	/* abort execution if s1 too long */
+		}
+	}
+	else if (*s1=='{') {		
+		for (s1++; *s1 && *s1 != '}';) {
+			buf[i] = *s1;
+			s1++;
+			i++;
+			assert(i < 256);	/* abort execution if s1 too long */
+		}
+	}
+	else {
+		if (*s1 != ';') {		/* otherwise, it's a comment */
+			for (; *s1 && !isspace(*s1) && *s1 != ',';) {
+				/* space or ',' can be  used as separators, */
+				buf[i] = *s1;
+				s1++;
+				i++;
+				assert(i < 256);  /* abort execution if s1 too long */
+			}
+		}
+	}
+	
+	buf[i] = '\0';
+	if (*s1) s1++;  /* Skip ',' or space */
+	/* CB, 19980922. Remove ";" and "<" from names (planets,  ships...), 
+	   to protect machine report from corruption. Don't break messages 
+	   and comments. */
+	i = 0;
+	j = 0;	
+	while (buf[j] && j < 256) {
+		if (buf[j] != ';' && buf[j] != '<') {
+			buf[i] = buf[j];
+			i++;
+		}
+		j++;
+	}
+	if (i)
+		buf[i] = '\0';	
+	
+	return buf;
 }
 
 /***********/
@@ -722,23 +337,21 @@ getstr(char *s)
  ******
  */
 
-char *
-getReturnAddress(FILE *orders)
-{
-  char* isRead;
-  char* c;
-  
-  for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders);
-       isRead;
-       isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders)) {
-    if (noCaseStrncmp("To:", lineBuffer, 3) == 0) 
-      break;
-  }
-  assert(isRead != NULL);
-  for (c = lineBuffer; *c; c++) {
-    if (*c == '\n') *c = '\0';
-  }
-  return strdup(lineBuffer + 3) ;
+char* getReturnAddress(FILE *orders) {
+	char* isRead;
+	char* c;
+	
+	for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders);
+		 isRead;
+		 isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders)) {
+		if (noCaseStrncmp("To:", lineBuffer, 3) == 0) 
+			break;
+	}
+	assert(isRead != NULL);
+	for (c = lineBuffer; *c; c++) {
+		if (*c == '\n') *c = '\0';
+	}
+	return strdup(lineBuffer + 3) ;
 }
 
 
@@ -758,127 +371,74 @@ getReturnAddress(FILE *orders)
  * SOURCE
  */
 
-int
-noCaseStrncmp(char *s, char *t, int n)
-{
-  for (n--; (tolower(*s) == tolower(*t)) && (n > 0); s++, t++, n--)
-    if (*s == '\0')
-      return 0;
-  return (int) (tolower(*s) - tolower(*t));
+int noCaseStrncmp(char *s, char *t, int n) {
+	for (n--; (tolower(*s) == tolower(*t)) && (n > 0); s++, t++, n--)
+		if (*s == '\0')
+			return 0;
+	return (int) (tolower(*s) - tolower(*t));
 }
 
 /***********/
 
 							 
-void
-ReadDefaults(serverOpts* so, FILE* f)
-{
-  char* isRead;				/* a line read? if so, ptr to it */
-  char* key;					/* key of the key/value pair */
-  char* value;				/* value of the keyword */
-  char* ptr;					/* for buffer manipulation */
-  
-  char  lineBuffer[LINE_BUFFER_SIZE+1]; /* for reading the config file */
-  
-  so->from = NULL;
-  so->subject = NULL;
-  so->replyto = NULL;
-  so->cc = NULL;
-  
-  for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
-       isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
-    strtok(lineBuffer, "\r\n");
-    if (lineBuffer[0] == '\0' || lineBuffer[0] == '#')
-      continue;
-    
-    key = getstr(lineBuffer);
-    
-    if (key[0] != '\0') {
-      if (noCaseStrcmp("from", key) == 0) {
-	value = getstr(0);
-	if (strchr(value, '%'))
-	  value = substitute(value);
-	so->from = (char*)malloc(sizeof(char)*(strlen(value)+16));
-	sprintf(so->from, "From: %s", value);
-      }
-      else if (noCaseStrcmp("subject", key) == 0) {
-	value = getstr(0);
-	if (strchr(value, '%'))
-	  value = substitute(value);
+void ReadDefaults(serverOpts* so, FILE* f) {
+	char* isRead;				/* a line read? if so, ptr to it */
+	char* key;					/* key of the key/value pair */
+	char* value;				/* value of the keyword */
+	char* ptr;					/* for buffer manipulation */
 	
-	so->subject =
-	  (char*)malloc(sizeof(char)*(strlen(value)+16));
+	char  lineBuffer[LINE_BUFFER_SIZE+1]; /* for reading the config file */
 	
-	sprintf(so->subject, "Subject: %s", value);
-      }
-      else if (noCaseStrcmp("replyto", key) == 0) {
-	value = getstr(0);
-	if (strchr(value, '%'))
-	  value = substitute(value);
-	so->replyto = (char*)malloc(sizeof(char)*(strlen(value)+16));
-	sprintf(so->replyto, "ReplyTo: %s", value);
-      }
-      else if (noCaseStrcmp("cc", key) == 0) {
-	value = getstr(0);
-	if (strchr(value, '%'))
-	  value = substitute(value);
-	so->cc = (char*)malloc(sizeof(char)*(strlen(value)+16));
-	sprintf(so->cc, "CC: %s", value);
-      }
-    }
-  }
-  
-  return;
-}
-#endif
-
-
-static int processPlanet(playerOpts* po, char* ordersLine, FILE* playerMsg) {
-	planet* p;					/* new planet */
-	char*   ptr;				/* for separating out the planet sizes */
-
-	float   planetSize;
-
-	int     errors = 0;
-	static int idx = 0;
+	so->from = NULL;
+	so->subject = NULL;
+	so->replyto = NULL;
+	so->cc = NULL;
 	
-	DBUG_ENTER("processPlanet");
-
-	idx++;
-
-	ptr = strtok(ordersLine, " ");
-
-	if ((ptr = strtok(NULL, " ")) != NULL) {
-		p = allocStruct(planet);
-		planetSize = (float)strtod(ptr, NULL);
-
-		p->size = planetSize;;
-		ptr = strtok(NULL, " ");
-		if (ptr != NULL) {		/* we have a name */
-			setName(p, ptr);
-		}
-		else {
-			char nameBuf[32];
-			sprintf(nameBuf, "%s_%d", po->name, idx);
-			setName(p, nameBuf);
-		}
+	for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
+		 isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
+		strtok(lineBuffer, "\r\n");
+		if (lineBuffer[0] == '\0' || lineBuffer[0] == '#')
+			continue;
 		
-		DBUG_PRINT("planets", ("adding planet %s (%.2f)",
-							   p->name, p->size));
-		addList(&po->planets, p);
+		key = getstr(lineBuffer);
+		
+		if (key[0] != '\0') {
+			if (noCaseStrcmp("from", key) == 0) {
+				value = getstr(0);
+				if (strchr(value, '%'))
+					value = substitute(value);
+				so->from = (char*)malloc(sizeof(char)*(strlen(value)+16));
+				sprintf(so->from, "From: %s", value);
+			}
+			else if (noCaseStrcmp("subject", key) == 0) {
+				value = getstr(0);
+				if (strchr(value, '%'))
+					value = substitute(value);
+				
+				so->subject =
+					(char*)malloc(sizeof(char)*(strlen(value)+16));
+				
+				sprintf(so->subject, "Subject: %s", value);
+			}
+			else if (noCaseStrcmp("replyto", key) == 0) {
+				value = getstr(0);
+				if (strchr(value, '%'))
+					value = substitute(value);
+				so->replyto = (char*)malloc(sizeof(char)*(strlen(value)+16));
+				sprintf(so->replyto, "ReplyTo: %s", value);
+			}
+			else if (noCaseStrcmp("cc", key) == 0) {
+				value = getstr(0);
+				if (strchr(value, '%'))
+					value = substitute(value);
+				so->cc = (char*)malloc(sizeof(char)*(strlen(value)+16));
+				sprintf(so->cc, "CC: %s", value);
+			}
+		}
 	}
-#if 0
-	if (totalSize > tps) {
-		fprintf(playerMsg, "The total size of your planets (%.2f) exceeded "
-				"the total allowable by the GM (%.2f).\n",
-				totalSize, tps);
-		errors++;
-	}
-#endif
-	DBUG_RETURN(errors);
-}
-
-static void processOptions(playerOpts* po, char* ordersLine, FILE* playerMsg) {
+	
 	return;
 }
+#endif
+
 
