@@ -101,13 +101,15 @@ int CMD_template( int argc, char **argv ) {
 	    "; homeworld 500 50 50\n"
 	    "; homeworld 100 45 55\n"
 	    "; homeworld 1000 55 45\n"
-	    "; end_player\n\n");
+	    "; end_player\n\n"
+	    "; Note that the server assumes that the first homeworld listed"
+	    "; is the main world for determining development planet radius"
+	    "; and distance between races.\n\n");
 
     for (i = 1; i <= numberOfPlayers; i++) {
       fprintf(glxfile, "start_player\nemail race_%d@their.address.tld\n",
 	      i);
-      fprintf(glxfile, "#homeworld 500 50 50\n#homeworld 100 45 55\n"
-	      "#homeworld 1000 55 45\nend_player\n\n");
+      fprintf(glxfile, "; homeworld 1000 50 50\nend_player\n\n");
     }
     fprintf(glxfile, "\n");
     
