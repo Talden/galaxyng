@@ -77,7 +77,7 @@
 #define   XMLREPORT_VERSION       1.5
 #define   GNG_MAJOR               6
 #define   GNG_MINOR               4
-#define   GNG_RELEASE             1
+#define   GNG_RELEASE             2
 #define   GNG_DATE                "December 2003"
 
 /****d* GalaxyNG/Cookies
@@ -695,8 +695,6 @@ typedef struct server {
   char           *compress;
   /* the command to encode the compressed body */
   char           *encode;
-  /* the path to mutt... mutt is good */
-  char           *mutt;
 } server;
 
 /*******/
