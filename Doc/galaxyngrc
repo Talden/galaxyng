@@ -37,3 +37,9 @@ encode { /usr/bin/mmencode }
 ; encode { /usr/bin/mimencode }
 ; encode { /usr/bin/uuencode }
 compress { /usr/bin/zip }
+
+;
+; the following option is needed to draw influence maps
+; it should be set to the directory that galaxyng is
+; installed in
+fontpath { /home/galaxyng/Games }
