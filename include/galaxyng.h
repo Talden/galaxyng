@@ -34,7 +34,7 @@ int CMD_battletest( int argc, char **argv );
 int CMD_influence( int argc, char **argv );
 #endif
 int checkTime( game *aGame );
-int relayMessage( game *aGame, char *nationName, player *to );
+int relayMessage( game* aGame, char* nationName, player* from, player* to );
 int CMD_ordersdue(int argc, char** argv);
 
 

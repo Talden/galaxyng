@@ -1210,7 +1210,8 @@ CMD_relay( int argc, char **argv )
 
         confirmName = createString( "%s/NGconfirm", tempdir );
         if ( ( confirm = GOS_fopen( confirmName, "w" ) ) ) {
-            player *aPlayer;
+            player* toPlayer;
+			player* fromPlayer;
             char* destination;
 			char* returnAddress;
 			char* raceName;
@@ -1229,6 +1230,8 @@ CMD_relay( int argc, char **argv )
                 areValidOrders( stdin, &aGame, &raceName,
                                 &password, theTurnNumber );
 
+			fromPlayer = findElement(player, aGame->players, raceName);
+			
             if ( destination == NULL ) {
                 resNumber = RES_NODESTINATION;
             }
@@ -1241,29 +1244,30 @@ CMD_relay( int argc, char **argv )
 					mode = SINGLE_PLAYER;
 				}
 				
-				for (aPlayer = aGame->players;
-					 aPlayer;
-					 aPlayer = aPlayer->next) {
+				for (toPlayer = aGame->players;
+					 toPlayer;
+					 toPlayer = toPlayer->next) {
 
 					/* skip dead players, they dislike getting email
 					 *about the game :)
 					 */
 					
-					if (aPlayer->flags & F_DEAD)
+					if (toPlayer->flags & F_DEAD)
 						continue;
 					
 					if (mode == SINGLE_PLAYER) {
 						if (noCaseStrcmp(destination, "GM") == 0) {
-							aPlayer->name = strdup("GM");
-							aPlayer->addr = strdup(aGame->serverOptions.GMemail);
-							aPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+							toPlayer = (player*)malloc(sizeof(player));
+							toPlayer->name = strdup("GM");
+							toPlayer->addr = strdup(aGame->serverOptions.GMemail);
+							toPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
 						}
 						else {
-							aPlayer = findElement( player, aGame->players,
-												   destination );
+							toPlayer = findElement( player, aGame->players,
+													destination );
 						
 
-							if ( aPlayer == NULL ) {
+							if ( toPlayer == NULL ) {
 								resNumber = RES_DESTINATION;
 								break;
 							}
@@ -1272,13 +1276,14 @@ CMD_relay( int argc, char **argv )
 
 					result = 0;
 
-					result |= relayMessage( aGame, raceName, aPlayer );
+					result |= relayMessage( aGame, raceName,
+											fromPlayer, toPlayer );
 					
 					if ( result == 0 ) {
 						setHeader( anEnvelope, MAILHEADER_SUBJECT,
 								   "Galaxy HQ, message sent" );
 						fprintf( confirm, "Message has been sent to %s.\n",
-								 aPlayer->name );
+								 toPlayer->name );
 					} else {
 						setHeader( anEnvelope, MAILHEADER_SUBJECT,
 								   "Galaxy HQ, message not sent" );
@@ -1327,7 +1332,7 @@ CMD_relay( int argc, char **argv )
  */
 
 int
-relayMessage( game *aGame, char *raceName, player *to )
+relayMessage( game *aGame, char *raceName, player* from, player* to )
 {
     char* messageName;
 	char* isRead;
@@ -1340,15 +1345,21 @@ relayMessage( game *aGame, char *raceName, player *to )
 	strlist* s;
 	
     result = 1;
+	
     messageName = createString( "%s/NGmessage", tempdir );
 
 	if (!message_read) {
 		message_read = 1;
 		msg = makestrlist("\n-*- Message follows -*-\n\n" );
-
+		
 		for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin );
 			  isRead;
 			  isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin ) ) {
+			char* ptr;
+			
+			if ((ptr = strstr(lineBuffer, from->pswd)) != NULL)
+				memset(ptr, '*', strlen(from->pswd));
+			
 			if (noCaseStrncmp("#end", lineBuffer, 4) == 0)
 				break;
 			addList(&msg, makestrlist(lineBuffer));
@@ -1362,6 +1373,7 @@ relayMessage( game *aGame, char *raceName, player *to )
             anEnvelope = createEnvelope(  );
 
             setHeader( anEnvelope, MAILHEADER_TO, "%s", to->addr );
+
 			if (strstr(raceName, "@") != NULL) {
 				setHeader(anEnvelope, MAILHEADER_SUBJECT,
 						  "Galaxy HQ, message relay GM");
