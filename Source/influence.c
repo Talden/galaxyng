@@ -568,7 +568,7 @@ draw_maps(game* aGame, enum map_type map_type)
 				x = (int) ((scale * p->x) + 1);
 				y = (int) ((scale * p->y) + 1);
 				
-				gdImageArc(map_png, x, y, 8, 8, 0, 360,
+				gdImageArc(map_png, x, y, 9, 9, 0, 360,
 						   gdImageColorResolve(map_png, 0, 255, 0));
 			}
 			break;
@@ -583,7 +583,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	for (p = aGame->planets; p; p = p->next) {
 		x = (int) ((scale * p->x) + 1);
 		y = (int) ((scale * p->y) + 1);
-		gdImageArc(map_png, x, y, 2, 2, 0, 360, white);
+		gdImageArc(map_png, x, y, 3, 3, 0, 360, white);
 	}
 
 	/* put in markers for ships in transit */
@@ -592,7 +592,7 @@ draw_maps(game* aGame, enum map_type map_type)
 			if (groupLocation(aGame, gp) == NULL) {
 				x = (int) ((scale * groupx(aGame, gp)) + 1);
 				y = (int) ((scale * groupy(aGame, gp)) + 1);
-				gdImageArc(map_png, x, y, 1, 1, 0, 360, ship);
+				gdImageArc(map_png, x, y, 2, 2, 0, 360, ship);
 			}
 		}
 	}
