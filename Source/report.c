@@ -249,7 +249,7 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
       break;
     }
 
-    fileName = createString("%s/reports/%s/mail%s_%d.%s",
+    fileName = createString("%s/reports/%s/%s_%d.%s",
                             galaxynghome,
                             aGame->name, aPlayer->name, aGame->turn, ext);
     if ((turnreport = GOS_fopen(fileName, "w"))) {
@@ -2486,63 +2486,63 @@ reportMap_gnuplot(game *aGame, player *P, fielddef *fields)
 void
 reportMap(game *aGame, player *P, fielddef *fields)
 {
-  player         *P2;
-  int             i, j;
-  group          *g;
-  planet         *p;
-  mapdimensions   mapDim;
-
-  mapDim.x1 = P->mx;
-  mapDim.x2 = P->mx + P->msize;
-  mapDim.y1 = P->my;
-  mapDim.y2 = P->my + P->msize;
-
-
-  fprintf(fields->destination, "\n%.2f,%.2f  ", mapDim.x1, mapDim.y1);
-  fprintf(fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y1);
-
-  for (i = 0; i != MAPWIDTH; i++)
-    fprintf(fields->destination, "-");
-  fprintf(fields->destination, "\n");
-
-  memset(map, ' ', sizeof map);
-
-  for (p = aGame->planets; p; p = p->next)
-    if (!p->owner)
-      putmap(&mapDim, p->x, p->y, 'o');
-
-  for (p = aGame->planets; p; p = p->next)
-    if (p->owner && p->owner != P)
-      putmap(&mapDim, p->x, p->y, '+');
-
-  for (p = aGame->planets; p; p = p->next)
-    if (p->owner eq P)
-      putmap(&mapDim, p->x, p->y, '*');
-
-  for (g = P->groups; g; g = g->next)
-    if (groupLocation(aGame, g) == NULL)
-      putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '.');
-
-  for (P2 = aGame->players; P2; P2 = P2->next)
-    if (P2 != P)
-      for (g = P2->groups; g; g = g->next)
-        if (groupLocation(aGame, g) == NULL)
-          putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '-');
-
-  for (i = 0; i != MAPHEIGHT; i++) {
-    for (j = 0; j != MAPWIDTH; j++) {
-      fprintf(fields->destination, "%c", map[j][i]);
-    }
-    fprintf(fields->destination, "\n");
-  }
-
-  for (i = 0; i != MAPWIDTH; i++)
-    fprintf(fields->destination, "-");
-  fprintf(fields->destination, "\n");
-
-
-  fprintf(fields->destination, "%.2f,%.2f  ", mapDim.x1, mapDim.y2);
-  fprintf(fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y2);
+	player         *P2;
+	int             i, j;
+	group          *g;
+	planet         *p;
+	mapdimensions   mapDim;
+	
+	mapDim.x1 = P->mx;
+	mapDim.x2 = P->mx + P->msize;
+	mapDim.y1 = P->my;
+	mapDim.y2 = P->my + P->msize;
+	
+	
+	fprintf(fields->destination, "\n%.2f,%.2f  ", mapDim.x1, mapDim.y1);
+	fprintf(fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y1);
+	
+	for (i = 0; i != MAPWIDTH; i++)
+		fprintf(fields->destination, "-");
+	fprintf(fields->destination, "\n");
+	
+	memset(map, ' ', sizeof map);
+	
+	for (p = aGame->planets; p; p = p->next)
+		if (!p->owner)
+			putmap(&mapDim, p->x, p->y, 'o');
+	
+	for (p = aGame->planets; p; p = p->next)
+		if (p->owner && p->owner != P)
+			putmap(&mapDim, p->x, p->y, '+');
+	
+	for (p = aGame->planets; p; p = p->next)
+		if (p->owner eq P)
+			putmap(&mapDim, p->x, p->y, '*');
+	
+	for (g = P->groups; g; g = g->next)
+		if (groupLocation(aGame, g) == NULL)
+			putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '.');
+	
+	for (P2 = aGame->players; P2; P2 = P2->next)
+		if (P2 != P)
+			for (g = P2->groups; g; g = g->next)
+				if (groupLocation(aGame, g) == NULL)
+					putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '-');
+	
+	for (i = 0; i != MAPHEIGHT; i++) {
+		for (j = 0; j != MAPWIDTH; j++) {
+			fprintf(fields->destination, "%c", map[j][i]);
+		}
+		fprintf(fields->destination, "\n");
+	}
+	
+	for (i = 0; i != MAPWIDTH; i++)
+		fprintf(fields->destination, "-");
+	fprintf(fields->destination, "\n");
+	
+	
+	fprintf(fields->destination, "%.2f,%.2f  ", mapDim.x1, mapDim.y2);
+	fprintf(fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y2);
 }
 
 
