@@ -87,6 +87,7 @@ draw_maps(game* aGame, enum map_type map_type)
 {
 	player*     P;
 	planet*     p;
+	group*      gp;
 	
 	FILE*      mapfile;      /* output for map */
 	char*      err;
@@ -94,6 +95,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	
 	gdImagePtr map_png;	/* image */
 	int        white;        /* colour indices */
+	int        ship;
 	
 	float     scale;
 	
@@ -114,6 +116,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	int        map_colors[][4] = {
 		{0, 0, 0, 0},               /* black */
 		{255, 255, 255, 0},         /* white */
+		{255,   0,   0, 0},		/* ship color */
 		{0, 255, 127, 0},           /* spring green */
 		{205, 92, 92, 0},           /* indian red */
 		{132, 112, 255, 0},         /* light slate blue */
@@ -212,6 +215,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	}
 	
 	white = map_colors[1][3];
+	ship = map_colors[2][3];
 	
 	gdImageRectangle(map_png, 0, 0, 1023, 767, white);
 	gdImageLine(map_png, 767, 0, 767, 767, white);
@@ -275,17 +279,17 @@ draw_maps(game* aGame, enum map_type map_type)
 	}
 	
 	/* draw the player names in the key */
-	i = 2;                        /* nations off by 2 due to
-								   * black/white */
+	i = 3;                        /* nations off by 3 due to
+								   * black/white/ship color */
 	j = 0;
 	for (P = aGame->players; P; P = P->next) {
 		if (i == nbr_of_colors) {
-			i = 2;
+			i = 3;
 			j++;
 		}
 
 		err = gdImageStringFT(map_png, NULL, map_colors[i][3], font, 10.,
-							  0., 770 + (j*128), 3 + ((i - 1) * 15), P->name);
+							  0., 770 + (j*128), 3 + ((i - 2) * 15), P->name);
 		if (err)
 			fprintf(stderr, "%s\n", err);
 		i++;
@@ -503,9 +507,9 @@ draw_maps(game* aGame, enum map_type map_type)
 				if (winning_player == -1)
 					continue;
 				
-				r = map_colors[(winning_player%40)+2][0] * pi_map[i][j].factor[winning_player];
-				g = map_colors[(winning_player%40)+2][1] * pi_map[i][j].factor[winning_player];
-				b = map_colors[(winning_player%40)+2][2] * pi_map[i][j].factor[winning_player];
+				r = map_colors[(winning_player%40)+3][0] * pi_map[i][j].factor[winning_player];
+				g = map_colors[(winning_player%40)+3][1] * pi_map[i][j].factor[winning_player];
+				b = map_colors[(winning_player%40)+3][2] * pi_map[i][j].factor[winning_player];
 				
 				gdImageSetPixel(map_png, i, j,
 								gdImageColorResolve(map_png, r, g, b));
@@ -526,20 +530,32 @@ draw_maps(game* aGame, enum map_type map_type)
 			x = (int) ((scale * p->x) + 1);
 			y = (int) ((scale * p->y) + 1);
 
-			r = map_colors[(player_nbr%40)+2][0];
-			g = map_colors[(player_nbr%40)+2][1];
-			b = map_colors[(player_nbr%40)+2][2];
+			r = map_colors[(player_nbr%40)+3][0];
+			g = map_colors[(player_nbr%40)+3][1];
+			b = map_colors[(player_nbr%40)+3][2];
 				
 
 			gdImageArc(map_png, x, y, 8, 8, 0, 360,
 					   gdImageColorResolve(map_png, r, g, b));
 		}
 	}
+	
 	for (p = aGame->planets; p; p = p->next) {
 		x = (int) ((scale * p->x) + 1);
 		y = (int) ((scale * p->y) + 1);
 		gdImageArc(map_png, x, y, 2, 2, 0, 360, white);
 	}
+
+	for (P = aGame->players; P; P = P->next) {
+		for (gp = P->groups; gp; gp = gp->next) {
+			if (groupLocation(aGame, gp) == NULL) {
+				x = (int) ((scale * groupx(aGame, gp)) + 1);
+				y = (int) ((scale * groupy(aGame, gp)) + 1);
+				gdImageSetPixel(map_png, x, y, ship);
+			}
+		}
+	}
+	
 	gdImagePng(map_png, mapfile);
 	fclose(mapfile);
 	gdImageDestroy(map_png);
