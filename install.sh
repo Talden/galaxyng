@@ -244,7 +244,7 @@ echo "  # :0 E :relay-good" >> $PROCRC
 echo "  # galaxyng-relay-good" >> $PROCRC
 echo "  # .galaxyng-relay-good" >> $PROCRC
 echo "  # .galaxyng-relay-good/" >> $PROCRC
-ehco "}" >> $PROCRC
+echo "}" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone wants to sign up for a game" >> $PROCRC
 echo "# Uncomment the following lines.  Change the gamename and number" >> $PROCRC
