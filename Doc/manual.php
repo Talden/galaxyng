@@ -1190,7 +1190,7 @@ I'll never trust you again!
 					<br />Move all groups from the first fleet to the second fleet, leaving the first fleet empty.</p>
 						
 				<h3 id="ordl">l &lt;group number&gt; &lt;CAP | COL | MAT&gt; [number of ships] [AMOUNT &lt;amount&gt;]</h3>
-					<p>Load <a href="#cargo">cargo</a> onto a group of ships.  Ships will be fully loaded if sufficient cargo is present, otherwise the load will be split evenly between the ships.  The optional amount parameter specifies an amount of cargo to be loaded, which will be evenly divided between the ships.  Specifying an amount of less than 0.01 per ship or more than the total cargo capacity of the group will result in an error.</p>
+					<p>Load <a href="#cargo">cargo</a> onto a group of ships.  Ships will be fully loaded if sufficient cargo is present, otherwise the load will be split evenly between the ships.  The optional AMOUNT parameter specifies an amount of cargo to be loaded per ship.  Specifying an amount of less than 0.01 per ship or more than the cargo capacity of a ship in the group will result in an error.</p>
 
 				<h3 id="ordm">m &lt;x&gt; &lt;y&gt; &lt;extent&gt;</h3>
 					<p>Change the area covered by the text map.  The text map is a square with the top left at (x,y) and the extent of each side in light years.  For example, m 10 20 50 will result in a text map with corners at (10,20), (10,70), (60,20) and (60,70).  The <a href="#locate">location</a> of enemy ships in hyperspace is the only unique element on the text map.</p>
@@ -1242,7 +1242,7 @@ I'll never trust you again!
 					<br />Change the name of a <a href="#fleets">fleet</a>.</p>
 
 				<h3 id="ordu">u &lt;group number&gt; [number of ships] [AMOUNT &lt;amount&gt;]</h3>
-					<p>Unload <a href="#cargo">cargo</a> from a group of ships.  The optional amount parameter specifies an amount of cargo to be unloaded, which will be evenly divided between the ships.  Specifying an amount of less than 0.01 per ship or more than the total cargo carried by the group will result in an error.</p>
+					<p>Unload <a href="#cargo">cargo</a> from a group of ships.  The optional AMOUNT parameter specifies an amount of cargo to be unloaded per ship.  Specifying an amount of less than 0.01 per ship or more than the cargo currently carried by each ship in the group will result in an error.</p>
 
 				<h3 id="ordv">v &lt;planet name&gt;</h3>
 					<p>Claim victory over an enemy planet if it is <a href="#bomb">bombed</a>.</p>
