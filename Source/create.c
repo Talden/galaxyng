@@ -184,7 +184,7 @@ readGameSpec(FILE * specfile)
 		   * difference between old game files and new ones
 		   */
 		  value = getstr(0);
-		  aGameSpec->gameOptions.galactic_peace = atoi(value)*-1;
+		  aGameSpec->gameOptions.galactic_peace = atoi(value);
 	  }
       else if (noCaseStrcmp("size", key) == 0) {
         value = getstr(0);
