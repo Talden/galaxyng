@@ -121,7 +121,7 @@ CMD_relay( int argc, char **argv )
        * is a C ==, not a class ==
        * */
       if (itPlayer == fromPlayer)
-	continue;
+		  continue;
       
       listPlayer = allocStruct(emailList);
       listPlayer->name = strdup(itPlayer->name);
@@ -154,28 +154,28 @@ CMD_relay( int argc, char **argv )
     else {
       if ((itPlayer =
 	   findElement(player, aGame->players, destination)) == NULL) {
-	setHeader(anEnvelope, MAILHEADER_SUBJECT,
-		  "[GNG] Major Trouble");
-	generateErrorMessage(RES_DESTINATION, aGame, raceName,
-			     theTurnNumber, confirm);
-	fprintf(confirm, "\n\n%s\n", vcid);
-	fclose(confirm);
-	result |= eMail(aGame, anEnvelope, confirmName);
-	plog(LBRIEF, "can't find player mail is directed to.\n");
-	return result;
+		  setHeader(anEnvelope, MAILHEADER_SUBJECT,
+					"[GNG] Major Trouble");
+		  generateErrorMessage(RES_DESTINATION, aGame, raceName,
+							   theTurnNumber, confirm);
+		  fprintf(confirm, "\n\n%s\n", vcid);
+		  fclose(confirm);
+		  result |= eMail(aGame, anEnvelope, confirmName);
+		  plog(LBRIEF, "can't find player mail is directed to.\n");
+		  return result;
       }
       
       /* is the relay to a dead player? */
       if (itPlayer->flags & F_DEAD) {
-	setHeader(anEnvelope, MAILHEADER_SUBJECT,
-		  "[GNG] Major Trouble");
-	generateErrorMessage(RES_DEAD_PLAYER, aGame, raceName,
-			     theTurnNumber, confirm);
-	fprintf(confirm, "\n\n%s\n", vcid);
-	fclose(confirm);
-	result |= eMail(aGame, anEnvelope, confirmName);
-	plog(LBRIEF, "cmd_relay: relay is to a dead player.\n");
-	return result;
+		  setHeader(anEnvelope, MAILHEADER_SUBJECT,
+					"[GNG] Major Trouble");
+		  generateErrorMessage(RES_DEAD_PLAYER, aGame, raceName,
+							   theTurnNumber, confirm);
+		  fprintf(confirm, "\n\n%s\n", vcid);
+		  fclose(confirm);
+		  result |= eMail(aGame, anEnvelope, confirmName);
+		  plog(LBRIEF, "cmd_relay: relay is to a dead player.\n");
+		  return result;
       }
       
       
@@ -209,6 +209,7 @@ CMD_relay( int argc, char **argv )
   
   fprintf(confirm, "\n\n%s\n", vcid);
   fclose(confirm);
+  setHeader(anEnvelope, MAILHEADER_TO, fromPlayer->addr);
   result |= eMail(aGame, anEnvelope, confirmName);
   if (destination)
     free(destination);
