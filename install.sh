@@ -244,8 +244,8 @@ echo "# :0: gamename.lock" >> $PROCRC
 echo "# * ^Subject.*Join gamename" >> $PROCRC
 echo "# |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "# An error occured, save the email: " >> $PROCRC
-echo ":0 e :Jangi-error" >> $PROCRC
-echo "galaxyng-Jangi-error" >> $PROCRC
+echo "# :0 e :Jangi-error" >> $PROCRC
+echo "# galaxyng-Jangi-error" >> $PROCRC
 echo "# .galaxyng-Jangi-error" >> $PROCRC
 echo "# .galaxyng-Jangi-error/" >> $PROCRC
 echo "# Normally, only signup requests that generate errors are saved.  If" >> $PROCRC
@@ -263,8 +263,8 @@ echo "# :0: gamename.lock" >> $PROCRC
 echo "# * ^Subject.*Join gamename" >> $PROCRC
 echo "# |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "# An error occured, save the email: " >> $PROCRC
-echo ":0 e :Welland-error" >> $PROCRC
-echo "galaxyng-Welland-error" >> $PROCRC
+echo "# :0 e :Welland-error" >> $PROCRC
+echo "# galaxyng-Welland-error" >> $PROCRC
 echo "# .galaxyng-Welland-error" >> $PROCRC
 echo "# .galaxyng-Welland-error/" >> $PROCRC
 echo "# Normally, only signup requests that generate errors are saved.  If" >> $PROCRC
