@@ -22,10 +22,10 @@
 
 // sort order
 if ($s=="p") { $order="player.last, player.first"; }
-else if ($s=="e") { $order="score.email"; }
+else if ($s=="r") { $order="score.race"; }
 else if ($s=="n") { $order="score.nick"; }
 else if ($s=="g") { $order="game.name"; }
-else { $order="score.race"; }
+else { $order="score.email"; }
 
 // list races
 $races = mysql_query("SELECT score.*, player.first, player.last, player.nick, game.name as gamename FROM score LEFT JOIN player ON score.player=player.id LEFT JOIN game ON score.game=game.id ORDER BY $order") or die("Couldn't select races " . mysql_error());
