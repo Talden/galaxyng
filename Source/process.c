@@ -616,7 +616,8 @@ h_order(game *aGame, player *P, strlist **s)
   if (fl) {
     double          fleetspeed;
 
-    fleetspeed = fleetSpeed(fl, g);
+    // Fixed the "can turn around fleets, late" bug
+    fleetspeed = fleetSpeed(fl, P->groups);
 
     for (g = P->groups; g; g = g->next) {
       if (g->thefleet == fl)
