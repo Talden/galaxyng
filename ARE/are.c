@@ -102,9 +102,7 @@
 enum PlayerStatus {Player, Standby};
 
 void dump_so(serverOpts* so);	/* used for debugging, not needed othewise */
-static int processPlanets(playerOpts* po, char* ordersLine, FILE* playerMsg,
-						  float totalPlanetSize, float maxPlanetSize);
-static void processName(playerOpts* po, char* ordersLine, FILE* playerMsg);
+static int processPlanet(playerOpts* po, char* ordersLine, FILE* playerMsg);
 static void processOptions(playerOpts* po, char* ordersLine, FILE* playerMsg);
 
 char* gamename;
@@ -116,9 +114,7 @@ int main(int argc, char *argv[]) {
 
 	envelope*   env;		/* for mailing back to the player */
 	envelope*   received_env;	/* mail headers */
-#if 0
-	strlist*    orders;
-#endif
+
 	char*       value;		/* getting values from player email
 							 * and environment */
 	char*       ptr;		/* text manipulation, generic char ptr */
@@ -134,14 +130,17 @@ int main(int argc, char *argv[]) {
 	float totalPlanetSize;	/* total size of planets player can specify */
 	float maxPlanetSize;		/* largest any particular planet can be */
 	int maxNumberOfPlanets;	/* how many planets a player can specify */
+	float totalSize;
 	
 	char* messages = NULL;
 	FILE* msgFP = NULL;
 	int   endOrders;			/* to flag the #END found in the orders */
 	char  buffer[4096];			/* for reading in orders */
+	int   playerFound = 0;
 	
 	DBUG_ENTER("main");
-	DBUG_PUSH(argv[1]);
+	if (argc > 1)
+		DBUG_PUSH(argv[1]);
 	DBUG_PROCESS(argv[0]);
 	DBUG_PUSH_ENV("DBUG");
 	
@@ -223,13 +222,12 @@ int main(int argc, char *argv[]) {
 	messages = createString("%s/log/%s.txt", galaxynghome, raceName);
 	msgFP = fopen(messages, "w");
 	
-	fprintf(msgFP, "Greetings,\n");
+	fprintf(msgFP, "Greetings %s,\n", raceName);
 	/* see if the current player is already in the game */
 	DBUG_PRINT("current", ("looking for %s in the people signed up", raceName));
 	if ((po = findElement(playerOpts, go->po, raceName)) != NULL) {
-		fprintf(msgFP, "You have already been accepted for this game.\n"
-				"I am replacing your information with the new information "
-				"you supplied in this email.\n\n");
+		fprintf(msgFP, "You have already been accepted for this game.\n\n");
+		playerFound = 1;
 		
 		DBUG_PRINT("current", ("found player, resetting information"));
 		remList(&go->po, po);
@@ -256,7 +254,12 @@ int main(int argc, char *argv[]) {
 		po->size = 0.0;
 		po->planets = NULL;
 	}
+
+	if (po->name)
+		free(po->name);
+	po->name = strdup(raceName);
 	
+			
 
 	/* now we have to read in the orders */
 	endOrders = 0;
@@ -267,24 +270,11 @@ int main(int argc, char *argv[]) {
 			case 'k':
 			case 'K':
 				DBUG_PRINT("orders", ("found planet, \"%s\"", ptr));
-				if (processPlanets(po, ptr, msgFP,
-								   totalPlanetSize, maxPlanetSize) > 0) {
+				if (processPlanet(po, ptr, msgFP) > 0) {
 					fprintf(msgFP, "You are not registered for this game "
 							"due to incorrect planet specifications.\n"
 							"Please try again.\n");
 				}
-				else {
-					planet* p;
-					DBUG_PRINT("planets", ("added planets"));
-					for (p = po->planets; p; p=p->next)
-						DBUG_PRINT("planets", ("    %.2f ", p->size));
-				}
-				break;
-
-			case 'n':
-			case 'N':
-				DBUG_PRINT("orders", ("found planet name, \"%s\"", ptr));
-				processName(po, ptr, msgFP);
 				break;
 
 			case 'o':
@@ -305,6 +295,44 @@ int main(int argc, char *argv[]) {
 		}
 	}
 
+	{
+		planet* p;
+		int errors = 0;
+
+		DBUG_PRINT("planets", ("added planets"));
+		totalSize = 0.0;
+		for (p = po->planets; p; p=p->next) {
+			totalSize += p->size;
+			if (p->size > maxPlanetSize) {
+				fprintf(msgFP, "Planet \"%s\" (%.2f) is larger than the GM "
+						"maximum of %.2f.\n", p->name, p->size, maxPlanetSize);
+				errors++;
+			}
+			
+			DBUG_PRINT("planets", ("    %.2f %s", p->size, p->name));
+		}
+
+		if (totalSize > totalPlanetSize) {
+			fprintf(msgFP, "\nThe total size of all your planets is %.2f.\n"
+					"This is larger than the GM maximum of %.2f.\n",
+					totalSize, totalPlanetSize);
+			errors++;
+		}
+
+		if (errors) {
+			fprintf(msgFP, "\nBecause of errors in your Join request your "
+					"data has been ignored.\n");
+
+			if (playerFound)
+				fprintf(msgFP, "\nI'm keeping your previous information.\n");
+			else
+				fprintf(msgFP, "\nYou are *not* registered for %s.\n",
+						gameName);
+			
+			errorCode += errors;
+		}
+	}
+	
 	DBUG_RETURN(errorCode);
 }
 #if 0
@@ -805,49 +833,51 @@ ReadDefaults(serverOpts* so, FILE* f)
 #endif
 
 
-static int processPlanets(playerOpts* po, char* ordersLine, FILE* playerMsg,
-						   float tps, float mps) {
+static int processPlanet(playerOpts* po, char* ordersLine, FILE* playerMsg) {
 	planet* p;					/* new planet */
 	char*   ptr;				/* for separating out the planet sizes */
 
-	float   totalSize = 0.;
 	float   planetSize;
 
 	int     errors = 0;
+	static int idx = 0;
 	
-	DBUG_ENTER("processPlanets");
-	
+	DBUG_ENTER("processPlanet");
+
+	idx++;
+
 	ptr = strtok(ordersLine, " ");
 
-	while ((ptr = strtok(NULL, " ")) != NULL) {
+	if ((ptr = strtok(NULL, " ")) != NULL) {
 		p = allocStruct(planet);
 		planetSize = (float)strtod(ptr, NULL);
-		if (planetSize > mps) {
-			fprintf(playerMsg, "Your planet size of %.2f was larger than the "
-					"maximum size (%.2f) specified by the GM\n",
-					planetSize, mps);
-			errors++;
-			continue;
+
+		p->size = planetSize;;
+		ptr = strtok(NULL, " ");
+		if (ptr != NULL) {		/* we have a name */
+			setName(p, ptr);
 		}
-		totalSize += planetSize;
-		p->size = atof(ptr);
-		DBUG_PRINT("planets", ("adding planet sized %.2f", atof(ptr)));
+		else {
+			char nameBuf[32];
+			sprintf(nameBuf, "%s_%d", po->name, idx);
+			setName(p, nameBuf);
+		}
+		
+		DBUG_PRINT("planets", ("adding planet %s (%.2f)",
+							   p->name, p->size));
 		addList(&po->planets, p);
 	}
-
+#if 0
 	if (totalSize > tps) {
 		fprintf(playerMsg, "The total size of your planets (%.2f) exceeded "
 				"the total allowable by the GM (%.2f).\n",
 				totalSize, tps);
 		errors++;
 	}
-
+#endif
 	DBUG_RETURN(errors);
 }
 
-static void processName(playerOpts* po, char* ordersLine, FILE* playerMsg) {
-	return;
-}
 static void processOptions(playerOpts* po, char* ordersLine, FILE* playerMsg) {
 	return;
 }
