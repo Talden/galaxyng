@@ -99,17 +99,6 @@
 #define TRUE  1
 #define FALSE 0
 
-/****v* ARE/galaxynghome
- * NAME
- *   galaxynghome -- path to all data files
- * SOURCE
- */
-
-char *galaxynghome = NULL;
-
-/*****/
-
-
 #define T_PLAYER  1
 #define T_STANDBY 2
 
@@ -119,14 +108,34 @@ char* gamename;
 int
 main(int argc, char *argv[])
 {
-  playerOpts* po;
-  serverOpts* so;
-  
-  char* value;				/* getting values from player email
-					 * and environment */
-  int   errorCode;			/* exit value */
-  int ret;
+  playerOpts* po;		/* setting player options */
+  serverOpts* so;		/* server options */
+  gameOpts*   go;		/* options for a game */
+
+  envelope*   env;		/* for mailing back to the player */
+#if 0
+  strlist*    orders;
+#endif
+  char*       returnAddress;	/* players return address, from email */
+  char*       value;		/* getting values from player email
+				 * and environment */
+  char*       ptr;		/* text manipulation, generic char ptr
+				   */
+  char*       gameName;		/* from the #GALAXY line */
+  char*       raceName;		/* from the #GALAXY line */
+  char*       password;		/* from the #GALAXY line */
+
+  int         errorCode;	/* exit value */
+
+#if 0
+  int curNumberOfPlayers;	/* number registered for the game */
+  int maxNumberOfPlayers;	/* the number of players the GM will allow */
+  float totalPlanetSize;	/* total size of planets player can specify */
+  float maxPlanetSize;		/* largest any particular planet can be */
+  int maxNumberOfPlanets;	/* how many planets a player can specify */
+
   char sys_string[2000];
+#endif
   
   if ((value = getenv("GALAXYNGHOME"))) {
     galaxynghome = strdup(value);
@@ -141,16 +150,46 @@ main(int argc, char *argv[])
   errorCode = EXIT_FAILURE;
   
   po = (playerOpts*)malloc(sizeof(playerOpts));
-  so = (serverOpts*)malloc(sizeof(serverOpts));
 
-    
-  loadConfig(so, galaxynghome);
-    
-    curNumberOfPlayers   = countPlayersRegistered(gamename);
-    maxNumberOfPlayers   = atoi(argv[2]);
-    totalPlanetSize      = atof(argv[3]);
-    maxPlanetSize        = atof(argv[4]);
-    maxNumberOfPlanets   = atoi(argv[5]);
+  /* load the configuration file */
+  so = loadConfig(galaxynghome);
+
+  env = createEnvelope();
+  returnAddress = getReturnAddress(stdin);
+
+  /* now we need to load the orders into memory so we can determine
+     which game and which player we are dealing with */
+
+  getLine(stdin);
+  if ((ptr = strchr(lineBuffer, '#')) == NULL)
+    ptr = lineBuffer;
+
+  while (!feof(stdin)) {
+    if (noCaseStrncmp("#GALAXY", ptr, 7) == 0) {
+      getstr(ptr);	/* discard #GALAXY */
+      gameName = strdup(getstr(NULL));
+      raceName = strdup(getstr(NULL));
+      password = strdup(getstr(NULL));
+
+      if ((go = findElement(gameOpts, so->go, gameName)) == NULL) {
+	/* return message about not finding game */
+	fprintf(stderr, "Could not find game \"%s\"\n", gameName);
+	exit(EXIT_FAILURE);
+      }
+      else {
+	fprintf(stderr, "found game \"%s\"\n", gameName);
+      }
+    }
+    getLine(stdin);
+    if ((ptr = strchr(lineBuffer, '#')) == NULL)
+      ptr = lineBuffer;
+  }
+#if 0
+  curNumberOfPlayers   = numberOfElements(so->go);
+  maxNumberOfPlayers   = so->playerlimit;
+  totalPlanetSize      = so->player_totalplanetsize;
+  maxPlanetSize        = so->player_maxplanetsize;
+  maxNumberOfPlanets   = so->player_maxplanets;
     
     if (curNumberOfPlayers >= 0) {
       if ((po->address = getReturnAddress(stdin))) {
@@ -197,9 +236,10 @@ main(int argc, char *argv[])
 	      "enrolled.\n");
     }
   }
+#endif
   return errorCode;
 }
-
+#if 0
 
 int
 getPlanetSizes(FILE *orders, char **planets, double totalPlanetSize,
@@ -694,3 +734,4 @@ ReadDefaults(serverOpts* so, FILE* f)
   
   return;
 }
+#endif

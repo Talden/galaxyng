@@ -9,7 +9,7 @@ one tab stop more than their parent element. */
 #include "are.h"
 
 static char** curElement;
-static gameopts* go = NULL;
+static gameOpts* go = NULL;
 static int tagContext = 0;
 static serverOpts* so = NULL;
 
@@ -19,8 +19,6 @@ static serverOpts* so = NULL;
 void
 startElement (void *userData, const char *name, const char **atts)
 {
-    int i;
-    const char *ptr;
     static int context;
 
 
@@ -51,20 +49,39 @@ startElement (void *userData, const char *name, const char **atts)
 	curElement = &so->cc;
     }
     else if (noCaseStrcmp(name, "game") == 0) {
-	go = allocStruct(gameopts);
+	go = allocStruct(gameOpts);
 	assert(go != NULL);
 	go->from = NULL;
 	go->next = NULL;
-	go->playerlimit = 0;
+	go->minimum_players = 0;
+	go->maximum_players = 0;
+	go->delay_hours = 0;
 	go->maxplanetsize = 0.0;
 	go->totalplanetsize = 0.0;
+	go->minplanets = 0;
 	go->maxplanets = 0;
+	go->galaxy_size = 0.0;
+	go->nation_spacing = 0.0;
+	go->core_sizes = NULL;
+	go->growth_planets_count = 0;
+	go->growth_planets_radius = 0.0;
+	go->stuff_planets = 0;
+	go->pax_galactica = 0;
+	go->initial_drive = 1.0;
+	go->initial_shields = 1.0;
+	go->initial_shields = 1.0;
+	go->initial_cargo = 1.0;
+	go->game_options = 0;
 	setName(go,atts[1]);
 	context = game;
     }
-    else if (noCaseStrcmp(name, "playerlimit") == 0) {
+    else if (noCaseStrcmp(name, "minimum_players") == 0) {
     	tagContext = 1;
-	curElement = (char**)&go->playerlimit;
+	curElement = (char**)&go->minimum_players;
+    }
+    else if (noCaseStrcmp(name, "maximum_players") == 0) {
+    	tagContext = 1;
+	curElement = (char**)&go->maximum_players;
     }
     else if (noCaseStrcmp(name, "totalplanetsize") == 0) {
     	tagContext = 1;
@@ -73,6 +90,10 @@ startElement (void *userData, const char *name, const char **atts)
     else if (noCaseStrcmp(name, "maxplanetsize") == 0) {
     	tagContext = 1;
 	curElement = (char**)&go->maxplanetsize;
+    }
+    else if (noCaseStrcmp(name, "minplanets") == 0) {
+    	tagContext = 1;
+	curElement = (char**)&go->minplanets;
     }
     else if (noCaseStrcmp(name, "maxplanets") == 0) {
     	tagContext = 1;
@@ -115,14 +136,20 @@ contentData(void* userData, const char* text, int len)
 		strcat(*curElement, ltext);
 	    }
 	}
-	else if (curElement == (char**)&go->playerlimit) {
-	    go->playerlimit = atoi(ltext);
+	else if (curElement == (char**)&go->minimum_players) {
+	    go->minimum_players = atoi(ltext);
+	}
+	else if (curElement == (char**)&go->maximum_players) {
+	    go->maximum_players = atoi(ltext);
 	}
 	else if (curElement == (char**)&go->totalplanetsize) {
 	    go->totalplanetsize = atof(ltext);
 	}
 	else if (curElement == (char**)&go->maxplanetsize) {
 	    go->maxplanetsize = atof(ltext);
+	}
+	else if (curElement == (char**)&go->minplanets) {
+	    go->minplanets = atoi(ltext);
 	}
 	else if (curElement == (char**)&go->maxplanets) {
 	    go->maxplanets = atoi(ltext);
@@ -143,13 +170,14 @@ contentData(void* userData, const char* text, int len)
 void
 dumpGameOptData(void* data)
 {
-    gameopts* go = (gameopts*)data;
+    gameOpts* go = (gameOpts*)data;
 
     fprintf(stderr, "  from: %s\n", go->from);
-    fprintf(stderr, "  playerlimit: %d\n", go->playerlimit);
+    fprintf(stderr, "  playerlimit: %d to %d\n", go->minimum_players,
+	    go->maximum_players);
     fprintf(stderr, "  totalplanetsize: %f\n", go->totalplanetsize);
     fprintf(stderr, "  maxplanetsize: %f\n", go->maxplanetsize);
-    fprintf(stderr, "  maxplanets: %d\n", go->maxplanets);
+    fprintf(stderr, "  planets: %d to %d\n", go->minplanets, go->maxplanets);
 }
 
 serverOpts*
@@ -161,7 +189,7 @@ loadConfig (const char *galaxynghome)
     XML_Parser parser = XML_ParserCreate (NULL);
     int done;
     int depth = 0;
-    gameopts *go;
+    gameOpts *go;
     so = (serverOpts*)malloc(sizeof(serverOpts));
 
     XML_SetUserData (parser, NULL);
