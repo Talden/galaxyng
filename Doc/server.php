@@ -227,7 +227,7 @@ LIBS   = -lm</pre>
 e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>The server will send error messages to players who submit requests for planets that do not match the criteria specified in the <tt>.procmail</tt> recipe.</p>
 				<p>Note that better examples of game signup recipes can be found in the file <tt>$HOME/Games/procmailrc</tt>.</p>
-				<p>The email address and planet sizes are written to two files: <tt>$HOME/Games/&lt;gamename&gt;.players</tt> for players that were accepted and <tt>$HOME/Games/&lt;gamename&gt;.standby</tt> for players that were rejected. The contents of these files can be pasted into your .glx file.</p>
+				<p>The email address and planet sizes are written to two files: <tt>$HOME/Games/&lt;game name&gt;.players</tt> for players that were accepted and <tt>$HOME/Games/&lt;game name&gt;.standby</tt> for players that were rejected. The contents of these files can be pasted into your .glx file.</p>
 
 			<hr />
 
@@ -242,10 +242,13 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 <pre>./galaxyng -create Orion.glx</pre>
 				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>OrionLayout.txt</tt>:</p>
 <pre>./galaxyng -create Orion.glx  &gt; OrionLayout.txt</pre>
-				<p>To create the turn 0 hitlist, create a directory for it:</p>
-<pre>mkdir &lt;web directory&gt;/Orion</pre>
+				<p>To create the turn 0 hitlist, first create a directory for it:</p>
+<pre>mkdir &lt;web directory&gt;/&lt;game name&gt;</pre>
 				<p>and then create the hitlist:</p>
-<pre>./galaxyng -score Orion > &lt;web directory&gt;/Orion/hitlist.html</pre>
+<pre>./galaxyng -score &lt;game name&gt; > &lt;web directory&gt;/&lt;game name&gt;/hitlist.html</pre>
+				<p>So, for the Orion game, run:</p>
+<pre>mkdir &lt;;web directory&gt;/Orion
+./galaxyng -score Orion > &ltweb directory&gt;/Orion</pre>
 
 			<hr />
 
