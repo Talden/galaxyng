@@ -180,7 +180,7 @@
 					<p>Each inhabited planet has a population, which can never be larger than the planet's size but may be smaller.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  Each planet's population grows by 8% per turn.  Excess population is stockpiled as colonists.  Each unit of colonists represents eight population.</p>
 
 				<h3 id="ind">Industry</h3>
-					<p>Each inhabited planet has industry, which can never be larger than the planet's population but may be smaller.  If population exceed industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be <a href="#ordp">produced</a> at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 capital left (because population grows by 8% per turn).</p>
+					<p>Each inhabited planet has industry, which can never be larger than the planet's population but may be smaller.  If population exceeds industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be <a href="#ordp">produced</a> at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 capital left (because population grows by 8% per turn).</p>
 
 				<h3 id="res">Resources</h3>
 					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00, with the average being 1.00.  Planets high in resources can easily <a href="#ordp">produce</a> materials such as sheet steel, copper wire and plastics.  Materials are necessary to build ships and produce capital.</p>
@@ -547,10 +547,10 @@ p 69 Probe         ; Produce scouting ships at the third planet.
 					<p>Each order is designated by giving a letter or keyword as the first non-blank character on the line, followed by a space.  The program only checks the first letter, so you can either give a whole word or just the letter.  Parameters follow the order, separated by spaces or tabs.  Blank lines are permitted, as are comments; anything (except <a href="#ordA">messages</a>) after a semicolon on a line is treated as a comment and ignored.</p>
 					<p>Parameter keywords must be given precisely; unlike orders they cannot be abbreviated or expanded.  The following parameter keywords are used: AMOUNT, CAP, COL, EMP, MAT, DRIVE, WEAPONS, SHIELDS, CARGO, MAX, FLEET.</p>
 					<p>All orders involving groups can take an optional last parameter giving the number of ships to be used. If this parameter is given, the indicated number of ships will be <a href="#ordb">broken</a> off into a separate group first, and the order applied only to that separate group.  If the parameter is omitted or if it is 0 (zero), the order will be applied to the entire group.</p>
-					<p>The parser is not case sensitive, so all commands and names may be given in upper case, lower case or a mixture of the two. However, when supplying names containing spaces, the name must be surrounded by double quotes, or else underscore characters must be used in place of spaces in the name.  Examples of correct order lines:</p>
-<pre>Send 100 "Zzyax Prime"
+					<p>The parser is not case sensitive, so all commands and names may be given in upper case, lower case or a mixture of the two. However, when supplying names containing spaces, underscore characters must be used in place of spaces in the name.  Examples of correct order lines:</p>
+<pre>Send 100 Zzyax_Prime
 send 100 zzyax_prime
-s 100 "zzyax prime"	; Attack the Zzyaxian homeplanet</pre>
+s 100 zzyax_prime	; Attack the Zzyaxian homeplanet</pre>
 					<p>Examples of incorrect order lines:</p>
 <pre>Send 100 Zzyax Prime
 s 100 "zzyax prime"	Attack the Zzyaxian homeplanet</pre>

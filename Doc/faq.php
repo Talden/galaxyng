@@ -20,7 +20,7 @@
 			<h2>Where can I learn more about Galaxy strategy and tactics?</h2>
 				<ul>
 					<li>Read and contribute to the <a href="http://badcheese.com/~steve/phpwiki/index.php/GalaxyPlay">GalaxyPlay Wiki</a>.</li>
-					<li>Review the <a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a>.</li>
+					<li>Review the <a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a>.  (Note that it is not completely accurate in all details, as it describes original Galaxy and not GalaxyNG.)</li>
 					<li>Subscribe to the <a href="http://www.badcheese.com/cgi-bin/mailman/listinfo/galaxy">Galaxy mailing list</a> and ask questions.</li>
 				</ul>
 				<p>In the early stages of the game, there will be plenty of planets to spare so there will be little need to fight for territory; however, you should ensure that your homeworlds are defended against sneak attacks by xenophobic aliens. You will need to devote your efforts to exploration, building up colonies, researching technology, and contacting other races with a view to forming alliances.</p>
@@ -57,7 +57,7 @@
 
 			<hr />
 				
-			<h2>Is there any point to ordering a very tiny planet to research drive technology?</p>
+			<h2>Is there any point to ordering a very tiny planet to research drive technology?</h2>
 				<p>Yes.  The server reports technology levels to two decimal places, but stores numbers in double precision format, so researching 0.001 drive technology will effect ships on the following turn (but not much).  After ten turns, drive technology will be reported to be 0.01 higher.</p>
 
 			<hr />
@@ -82,7 +82,7 @@
 
 			<hr />
 
-			<h2>I have 100 cargo ships at planet X and I want to use 50 to transport COL to planet Y and 50 to transport CAP to planet Z.  How do I do this?</p>
+			<h2>I have 100 cargo ships at planet X and I want to use 50 to transport COL to planet Y and 50 to transport CAP to planet Z.  How do I do this?</h2>
 				<p>First option:</p>
 <pre>R X COL Y; set a COL route from planet X to planet Y
 R X CAP Z; set a CAP route from planet X to planet Z

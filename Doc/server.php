@@ -59,7 +59,7 @@ LIBS   = -lm</pre>
 			<hr />
 
 			<h2 id="install">Installation</h2>
-				<p>After you compiled the code, do a</p>
+				<p>After you compile the code, do a</p>
 <pre>make install</pre>
 				<p>to install galaxyng. It creates a directory called <tt>Games</tt> in your home directory and installs a number of files in it.</p>
 				<p>If you want to have the game installed in a different directory you have to edit the first line of the <tt>install.sh</tt> script.  You also <strong>must</strong> set the environment variable <tt>GALAXYNGHOME</tt> to this directory.  You can do this by adding a line to your <tt>.bash_profile</tt> file (or the appropriate file for your favourite shell).  For instance if you have installed the game in /home/gng/mygames, add</p>
@@ -84,7 +84,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>.galaxyngrc</tt></td>
-						<td>The configuration file for the the server. Here you can specify the email address for GM reports, as well the command that should be used to send email.</td>
+						<td>The configuration file for the the server which allows you to specify the email address for GM reports, as well the command that should be used to send email.</td>
 					</tr>
 				</table>
 				<p>The installation script tries to figure out the location of all programs needed to run the game, <tt>sendmail</tt> and <tt>formail</tt>.  It also asks you for an email address. The GM status reports go to this address.</p>
@@ -109,10 +109,6 @@ LIBS   = -lm</pre>
 					<tr>
 						<td><tt>statistics/</tt></td>
 						<td>For experimental  purposes.</td>
-					</tr>
-					<tr>
-						<td><tt>data</tt></td>
-						<td>Contains, for each game a subdirectory where all the game data is stored.</td>
 					</tr>
 					<tr>
 						<td><tt>notices/</tt></td>
@@ -184,7 +180,7 @@ LIBS   = -lm</pre>
 			<hr />
 
 			<h2 id="auto">Auto Checking</h2>
-				<p>Checking orders by hand is of course a very cumbersome process that is best automated. You can automate with <tt>procmail</tt> and <tt>formail</tt>. They are program that can reformat and process incomming emails.</p>
+				<p>Checking orders by hand is of course a very cumbersome process that is best automated. You can automate with <tt>procmail</tt> and <tt>formail</tt>. They are programs that can reformat and process incoming emails.</p>
 				<p>If you never used <tt>procmail</tt> before, read the man pages, and then use the example procmailrc installed in <tt>$HOME/Games/procmailrc</tt>. Also read the example procmailrc file as it contains additional documentation.</p>
 				<p>Procmail can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.</p>
 				<p>Each entry in a <tt>.procmailrc</tt> defines a recipe that tells what has to be done to a message and under what condition. The recipe for order messages looks as follows.</p>
