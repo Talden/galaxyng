@@ -225,6 +225,14 @@ echo "# :0: gamename.lock" >> $PROCRC
 echo "# * ^Subject.*Join gamename" >> $PROCRC
 echo "# |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "" >> $PROCRC
+echo "# Someone wants to sign up for a game with custom planet sizes" >> $PROCRC
+echo "# Up to ten players, max 2500 production, max planet size 1000, max planets 5" >> $PROCRC
+echo "# Uncomment the following lines.  Change the gamename and numbers" >> $PROCRC
+echo "# of players." >> $PROCRC
+echo "# :0: gamename.lock" >> $PROCRC
+echo "# * ^Subject.*Join gamename" >> $PROCRC
+echo "# |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "" >> $PROCRC
 echo "# Anything else, or messages that causes the engine to fail" >> $PROCRC
 echo "# are stored in the default mailbox." >> $PROCRC
 
@@ -301,6 +309,28 @@ if { test -e $NG; } then {
 fi
 cp Source/galaxyng $NG
 strip $NG
+
+# =========================================================
+#              Copy ARE code
+# =========================================================
+
+echo "o Copying the Automatic Registration Engine (ARE)"
+ARE=$GALAXY_HOME/are
+if { test -e $ARE; } then {
+  echo "  Found an existing version of " $ARE;
+  NG=$GALAXY_HOME/are.new;
+  echo "  Writing the new version to "  $NG;
+  echo "  _Test_ this new version and if it works according to your needs"
+  echo "  copy it to " $GALAXY_HOME; "/are"
+}
+fi
+cp Source/galaxyng $ARE
+strip $ARE
+
+# =========================================================
+#              Fonts for influence mapping
+# =========================================================
+
 if [ -f Source/cranberr.ttf ]; then
 	cp Source/cranberr.ttf $GALAXY_HOME
 fi
@@ -309,5 +339,10 @@ if [ -f Source/angostur.ttf ]; then
 	cp Source/angostur.ttf $GALAXY_HOME
 	cp Source/angostur.ttf $GALAXY_HOME/influence.ttf
 fi
+
+# =========================================================
+#              Finished
+# =========================================================
+
 echo "Installation completed."
 
