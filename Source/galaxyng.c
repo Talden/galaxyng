@@ -124,6 +124,8 @@ main(int argc, char **argv)
   /* Some initializations */
   resetErnie(197162622);
 
+  logLevel = LBRIEF;
+  
   sprintf(vcid, "GalaxyNG release-%d-%d, %s.",
     GNG_MAJOR, GNG_MINOR, GNG_DATE);
 
@@ -155,6 +157,19 @@ main(int argc, char **argv)
   tempdir = strdup("/tmp");
 #endif
 
+  if ((value = getenv("GNG_LOG_LEVEL"))) {
+	  if (strcasecmp(value, "full") == 0)
+		  logLevel = LFULL;
+	  else if (strcasecmp(value, "part") == 0)
+		  logLevel = LPART;
+	  else if (strcasecmp(value, "brief") == 0)
+		  logLevel = LBRIEF;
+	  else if (strcasecmp(value, "none") == 0)
+		  logLevel = LNONE;
+	  else
+		  logLevel = LBRIEF;
+  }
+  
   if (argc <= 1) {
     usage();
   }
@@ -440,8 +455,6 @@ CMD_run(int argc, char **argv, int kind)
     int   turn;
     char* logName;
 
-    logLevel = LFULL;
-
     logName = createString("%s/log/%s", galaxynghome, argv[2]);
     openLog(logName, "w");
     free(logName);
@@ -637,7 +650,6 @@ CMD_check(int argc, char **argv, int kind)
 
   int       resNumber, theTurnNumber;
 
-  logLevel = LBRIEF;
   result = EXIT_FAILURE;
 
   logName = createString("%s/log/orders_processed.txt", galaxynghome);
@@ -869,7 +881,6 @@ CMD_checkFile(int argc, char **argv, int kind)
   char           *logName;
   FILE           *stream;
 
-  logLevel = LBRIEF;
   result = EXIT_FAILURE;
 
   logName = createString("%s/log/orders_processed.txt", galaxynghome);
@@ -981,7 +992,6 @@ CMD_relay(int argc, char **argv)
   int             result;
   char           *logName;
 
-  logLevel = LBRIEF;
   result = EXIT_FAILURE;
   logName = createString("%s/log/orders_processed.txt", galaxynghome);
   openLog(logName, "a");
@@ -1264,7 +1274,7 @@ CMD_report(int argc, char **argv)
   logName = createString("%s/log/orders_processed.txt", galaxynghome);
   openLog(logName, "a");
   free(logName);
-  logLevel = LBRIEF;
+
   plogtime(LBRIEF);
   result = EXIT_FAILURE;
   if (argc >= 2) {
