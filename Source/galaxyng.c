@@ -104,7 +104,7 @@ main( int argc, char **argv )
     /* Some initializations */
     resetErnie( 197162622 );
 
-    logLevel = LBRIEF;
+    setLogLevel(LBRIEF);
 
     sprintf( vcid, "GalaxyNG release-%d-%d, %s.",
              GNG_MAJOR, GNG_MINOR, GNG_DATE );
@@ -113,15 +113,15 @@ main( int argc, char **argv )
 
     if ( ( value = getenv( "GNG_LOG_LEVEL" ) ) ) {
         if ( strcasecmp( value, "full" ) == 0 )
-            logLevel = LFULL;
+            setLogLevel(LFULL);
         else if ( strcasecmp( value, "part" ) == 0 )
-            logLevel = LPART;
+            setLogLevel(LPART);
         else if ( strcasecmp( value, "brief" ) == 0 )
-            logLevel = LBRIEF;
+            setLogLevel(LBRIEF);
         else if ( strcasecmp( value, "none" ) == 0 )
-            logLevel = LNONE;
+            setLogLevel(LNONE);
         else
-            logLevel = LBRIEF;
+            setLogLevel(LBRIEF);
     }
 
     if ( argc <= 1 ) {
