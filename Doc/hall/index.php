@@ -60,14 +60,13 @@ echo "</ul>";
 
 <?php
 // create temporary table playerinfo
-mysql_query("CREATE TEMPORARY TABLE playerinfo (player INT(10), standard FLOAT(10,2), industry FLOAT(10,2), firsts INT(10), wins INT(10), realname INT(1), games INT(10))") or die("Could not create table " . mysql_error());
+mysql_query("CREATE TEMPORARY TABLE playerinfo (player INT(10), standard FLOAT(10,2), industry FLOAT(10,2), firsts INT(10), wins INT(10), games INT(10), sort INT(1))") or die("Could not create table " . mysql_error());
 
 // create the records in playerinfo, count games played and indicate if player has real name
-$players = mysql_query("SELECT score.player, COUNT(score.game) AS games, player.last FROM score LEFT JOIN player ON score.player=player.id GROUP BY score.player");
+$players = mysql_query("SELECT score.player, COUNT(score.game) AS games, player.last, player.first FROM score LEFT JOIN player ON score.player=player.id GROUP BY score.player");
 while ($player = mysql_fetch_array($players)) {
-	$realname = substr($player[last], 0, 1);
-	if ($realname=="(") { $realname=0; } else { $realname=1; }
-	mysql_query("INSERT INTO playerinfo (player,games,firsts,wins,realname) VALUES ('$player[player]','$player[games]', '0', '0', '$realname')") or die("Could not add player " . mysql_error());
+	if ($player['last']) { $sort=0; } else if ($player['first']) { $sort=1; } else { $sort=2; }
+	mysql_query("INSERT INTO playerinfo (player,games,firsts,wins,sort) VALUES ('$player[player]','$player[games]', '0', '0', '$sort')") or die("Could not add player " . mysql_error());
 }
 
 // select games (to calculate standard victory points, industry victory points and first place finishes)
@@ -103,7 +102,7 @@ while ($game = mysql_fetch_array($games)) {
 // display header and set sort order for player query
 if ($p=="n") {
 	echo "<h2>Players Sorted by Name</h2>";
-	$order = "ORDER BY playerinfo.realname DESC, player.last ASC, player.first ASC";
+	$order = "ORDER BY playerinfo.sort ASC, player.last ASC, player.first ASC, player.nick ASC";
 } else if ($p=="" or $p=="s") {
 	echo "<h2>Players Sorted by Standard Victory Points</h2>";
 	$order = "ORDER BY playerinfo.standard DESC, player.last ASC, player.first ASC";
@@ -179,7 +178,9 @@ echo "<tr><td colspan=\"7\"><hr /></td></tr>";
 				echo "</td><td class=\"hall\"><a href=\"player.php?p=$player[id]\"";
 				if ($n==1 and $p!="n") { echo " class=\"hallwin\""; }
 				echo ">";
-				if ($player['first'] and $player['last']) {
+				if ($player['first'] and $player['last'] and $p=="n") {
+					echo "$player[last], $player[first]";
+				} else if ($player['first'] and $player['last']) {
 					echo "$player[first] $player[last]";
 				} else if ($player['first']) {
 					echo "$player[first]";
