@@ -200,7 +200,7 @@ createGMReport(game *aGame, char *gameName, FILE * gmreport)
 
   fields.destination = gmreport;
   reportPlayers(aGame->players, &fields);
-  reportNationProduction(aGame->players, &fields);
+  reportRaceProduction(aGame->players, &fields);
   reportLastOrders(aGame->players, &fields);
   reportGlobalMessages(aGame->messages, &fields);
   reportGMBombings(aGame, &fields);
@@ -342,7 +342,7 @@ saveTurnReport(game *aGame, player *aPlayer, long kind)
  * NAME
  *   createTurnReport -- create turn report.
  * FUNCTION
- *   Creates the turn report, a concatenation of 
+ *   Creates the turn report, a concaterace of 
  *   bulletins and the actual turn report.
  ******
  */
@@ -437,7 +437,7 @@ appendToFile(char *fileName, FILE * report)
  *   void score(game *g1, game *g2, int html, FILE *dest)
  * FUNCTION
  *   Compute the high score list based on the differences in
- *   the economic status of the nations between two turns. 
+ *   the economic status of the races between two turns. 
  * INPUTS
  *   g1    -- previous turn
  *   g2    -- this turn
@@ -454,10 +454,10 @@ score(game *g1, game *g2, int html, FILE * dest)
   time_t          ttp;
   char            timeBuffer[255];
 
-  nationStatus(g1);
-  nationStatus(g2);
-  rateNations(g2->players);
-  rateNations(g1->players);
+  raceStatus(g1);
+  raceStatus(g2);
+  rateRaces(g2->players);
+  rateRaces(g1->players);
   numberOfPlayers = numberOfElements(g2->players);
 
   if (html) {
@@ -475,7 +475,7 @@ score(game *g1, game *g2, int html, FILE * dest)
   time(&ttp);
   strftime(timeBuffer, 255, "%H:%M:%S %a %b %d %Y\n", localtime(&ttp));
   fprintf(dest, "%s\n", timeBuffer);
-  fprintf(dest, " # lt  Nation        Pop   dlt    Ind   dlt   eInd"
+  fprintf(dest, " # lt  Race          Pop   dlt    Ind   dlt   eInd"
           "   dlt  tech  dlt   #  dlt\n");
 
   for (number = 1; number <= numberOfPlayers; number++) {
@@ -539,19 +539,19 @@ score(game *g1, game *g2, int html, FILE * dest)
 
 
 
-/****f* Report/rateNations
+/****f* Report/rateRaces
  * NAME
- *   rateNations -- give nations a ranking number.
+ *   rateRaces -- give races a ranking number.
  * SYNOPSIS
- *   void rateNations(player *playerList)
+ *   void rateRaces(player *playerList)
  * NOTES
- *   If any nation manages to get more that 1E20 effective
+ *   If any race manages to get more that 1E20 effective
  *   industry this function will fail.
  *******
  */
 
 void
-rateNations(player *playerList)
+rateRaces(player *playerList)
 {
   player         *curPlayer;
   int             number;
@@ -593,15 +593,15 @@ rateNations(player *playerList)
  */
 
 #if FS_NEW_FORECAST
-void reportForecast( game *aGame, char *nationName, FILE *forecast )
+void reportForecast( game *aGame, char *raceName, FILE *forecast )
 {
     struct fielddef fields;
     player *aPlayer;
 
-    aPlayer = findElement( player, aGame->players, nationName );
+    aPlayer = findElement( player, aGame->players, raceName );
     fields.destination = forecast;
 
-    nationStatus( aGame );
+    raceStatus( aGame );
     reportGlobalMessages( aGame->messages, &fields );
     reportMessages( aPlayer, &fields );
     reportOrders( aPlayer, &fields );
@@ -678,7 +678,7 @@ report(game *aGame, player *P, FILE * report)
   reportOptions(aGame, P, &fields);
   reportOrders(P, &fields);
   reportMistakes(P, &fields);
-  nationStatus(aGame);
+  raceStatus(aGame);
   reportStatus(aGame->players, P, &fields);
   reportYourShipTypes(P, &fields);
   reportShipTypes(aGame, P, &fields);
@@ -2677,13 +2677,13 @@ reportHall(game *aGame, fielddef *fields)
   int             state;
   player         *aPlayer;
 
-  nationStatus(aGame);
+  raceStatus(aGame);
 
   fprintf(fields->destination, "\n\t\tHall Of Fame Info %s\n\n",
           aGame->name);
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Real_Name Address EffInd", "llll", fields);
+    formatLabels("Race Real_Name Address EffInd", "llll", fields);
     for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
       if (!(aPlayer->flags & F_DEAD)) {
         formatString(aPlayer->name, fields);
@@ -2715,7 +2715,7 @@ reportTeam(game *aGame, fielddef *fields, int team)
   double          tot_masslost = 0.0;
   double          tot_delta = 0.0;
 
-  nationStatus(aGame);
+  raceStatus(aGame);
 
   fprintf(fields->destination,
           "\n\t\tTeam Leader Status Report for Game %s\n\n", aGame->name);
@@ -2723,7 +2723,7 @@ reportTeam(game *aGame, fielddef *fields, int team)
   fprintf(fields->destination, "\n\t\tTeam Address Info\n\n");
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Address Password Last_Orders", "lllll", fields);
+    formatLabels("Race Address Password Last_Orders", "lllll", fields);
     for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
       if (!(aPlayer->flags & F_DEAD) && (aPlayer->team == team)) {
         formatString(aPlayer->name, fields);
@@ -2739,7 +2739,7 @@ reportTeam(game *aGame, fielddef *fields, int team)
   fprintf(fields->destination, "\n\t\tTeam Ship Production Info\n\n");
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Eff_Ind Produced Lost Delta", "lrrrr", fields);
+    formatLabels("Race Eff_Ind Produced Lost Delta", "lrrrr", fields);
     tot_eff_ind = 0.0;
     tot_massproduced = 0.0;
     tot_masslost = 0.0;
@@ -2772,7 +2772,7 @@ reportTeam(game *aGame, fielddef *fields, int team)
   fprintf(fields->destination, "\n\t\tTeam Technology Info\n\n");
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Drive Weapons Shields Cargo", "lrrrr", fields);
+    formatLabels("Race Drive Weapons Shields Cargo", "lrrrr", fields);
     for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
       if (!(aPlayer->flags & F_DEAD) && (aPlayer->team == team)) {
         formatString(aPlayer->name, fields);
@@ -2797,7 +2797,7 @@ reportPlayers(player *players, fielddef *fields)
   fprintf(fields->destination, "\n\t\tPlayer Info\n\n");
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Password Address Status", "llll", fields);
+    formatLabels("Race Password Address Status", "llll", fields);
     for (aPlayer = players; aPlayer; aPlayer = aPlayer->next) {
       formatString(aPlayer->name, fields);
       formatString(aPlayer->pswd, fields);
@@ -2815,15 +2815,15 @@ reportPlayers(player *players, fielddef *fields)
 }
 
 void
-reportNationProduction(player *players, fielddef *fields)
+reportRaceProduction(player *players, fielddef *fields)
 {
   int             state;
   player         *aPlayer;
 
-  fprintf(fields->destination, "\n\t\tNation Production Info\n\n");
+  fprintf(fields->destination, "\n\t\tRace Production Info\n\n");
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Produced Lost Delta", "llll", fields);
+    formatLabels("Race Produced Lost Delta", "llll", fields);
     for (aPlayer = players; aPlayer; aPlayer = aPlayer->next) {
       formatString(aPlayer->name, fields);
       formatFloat(aPlayer->massproduced, fields);
@@ -2845,7 +2845,7 @@ reportLastOrders(player *players, fielddef *fields)
   fprintf(fields->destination, "\n\t\tLast Orders\n\n");
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Turn", "lc", fields);
+    formatLabels("Race Turn", "lc", fields);
     for (aPlayer = players; aPlayer; aPlayer = aPlayer->next) {
       formatString(aPlayer->name, fields);
       formatInteger(aPlayer->lastorders, fields);
@@ -2918,10 +2918,10 @@ scorePercent(game *g1, fielddef *fields)
   double          totPop, totInd, totEInd;
 
   totNumberOfPlanets = numberOfElements(g1->planets);
-  nationStatus(g1);
-  rateNations(g1->players);
+  raceStatus(g1);
+  rateRaces(g1->players);
   numberOfPlayers = numberOfElements(g1->players);
-  fprintf(fields->destination, "\n\t\tNation Status with PercentsXXX\n\n");
+  fprintf(fields->destination, "\n\t\tRace Status with PercentsXXX\n\n");
 
   totPop = 0.0;
   totInd = 0.0;
@@ -2934,7 +2934,7 @@ scorePercent(game *g1, fielddef *fields)
 
   formatReset(fields);
   for (state = 0; state < 2; state++) {
-    formatLabels("Nation Pop pcnt Ind pcnt EInd pcnt Planets pcnt",
+    formatLabels("Race Pop pcnt Ind pcnt EInd pcnt Planets pcnt",
                  "lcccccccc", fields);
     for (number = 1; number <= numberOfPlayers; number++) {
       for (aPlayer = g1->players; aPlayer; aPlayer = aPlayer->next) {

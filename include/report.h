@@ -79,7 +79,7 @@ void            report(game *aGame, player *P, FILE * report);
 
 void            score(game *g1, game *g2, int html, FILE * dest);
 
-void            rateNations(player *playerList);
+void            rateRaces(player *playerList);
 
 void            storeLength(fielddef *fields, int length);
 
@@ -204,7 +204,7 @@ void            reportTeam(game *aGame, fielddef *fields, int team);
 
 void            reportPlayers(player *players, fielddef *fields);
 
-void            reportNationProduction(player *players, fielddef *fields);
+void            reportRaceProduction(player *players, fielddef *fields);
 
 void            reportGMBombings(game *aGame, fielddef *fields);
 
@@ -212,7 +212,7 @@ void            scorePercent(game *g1, fielddef *fields);
 
 
 #if FS_NEW_FORECAST
-void reportForecast( game *aGame, char *nationName, FILE *forecast );
+void reportForecast( game *aGame, char *raceName, FILE *forecast );
 #endif
 
 #endif                          /* GNG_REPORT_H */

@@ -152,7 +152,7 @@ mistake( player *P, enum error_type elevel, strlist *s, char *format, ... )
 
 /****f* Process/at_order
  * NAME
- *   at_order -- write message to a nation
+ *   at_order -- write message to a race
  * SOURCE
  */
 
@@ -177,7 +177,7 @@ at_order( game *aGame, player *P, strlist **s )
                 a->who = P2;
                 addList( &plist, a );
             } else
-                mistake( P, INFO, *s, "Nation not recognized" );
+                mistake( P, INFO, *s, "Race not recognized" );
         }
 
         /* create a list of players to send message to */
@@ -259,7 +259,7 @@ a_order( game *aGame, player *P, strlist **s )
     P2 = findElement( player, aGame->players, getstr( 0 ) );
 
     if ( !P2 ) {
-        mistake( P, ERROR, *s, "Nation not recognized" );
+        mistake( P, ERROR, *s, "Race not recognized" );
         return;
     }
 
@@ -681,7 +681,7 @@ f_order( game *aGame, player *P, strlist **s )
     P2 = findElement( player, aGame->players, getstr( 0 ) );
 
     if ( !P2 ) {
-        mistake( P, ERROR, *s, "Nation not recognized." );
+        mistake( P, ERROR, *s, "Race not recognized." );
         return;
     }
 
@@ -1421,7 +1421,7 @@ q_order( game *aGame, player *P, strlist **s )
 
     if ( findElement( player, aGame->players, getstr( 0 ) ) != P )
     {
-        mistake( P, ERROR, *s, "Nation identification not given." );
+        mistake( P, ERROR, *s, "Race identification not given." );
         return;
     }
     P->flags |= F_DEAD;
@@ -1715,7 +1715,7 @@ v_order( game *aGame, player *P, strlist **s )
     if ( !p ) {
         mistake( P, ERROR, *s, "Planet not recognized." );
     } else {
-        plog( LFULL, "Nation %s claims planet %s\n", P->name, p->name );
+        plog( LFULL, "Race %s claims planet %s\n", P->name, p->name );
         pclaim = allocStruct( planet_claim );
 
         pclaim->planet_claimed = p;
@@ -1729,7 +1729,7 @@ v_order( game *aGame, player *P, strlist **s )
 
 /****f* Process/w_order
  * NAME
- *   w_order -- declare war on another nation.
+ *   w_order -- declare war on another race.
  * SOURCE
  */
 
@@ -1744,7 +1744,7 @@ w_order( game *aGame, player *P, strlist **s )
     P2 = findElement( player, aGame->players, getstr( 0 ) );
 
     if ( !P2 ) {
-        mistake( P, ERROR, *s, "Nation not recognized." );
+        mistake( P, ERROR, *s, "Race not recognized." );
         return;
     }
     for ( a = P->allies; a; a = a->next ) {
@@ -1860,9 +1860,9 @@ z_order( game *aGame, player *P, strlist **s )
  *   int runTurn(game *, char *)
  *   result = runTurn(aGame, ordersFileName)
  * FUNCTION
- *   Move one turn forward in time. All orders sent in by the nations
+ *   Move one turn forward in time. All orders sent in by the races
  *   are executed and the different phases are executed.  
- *   Nations that did not sent in orders for a number of consecutive
+ *   Races that did not sent in orders for a number of consecutive
  *   turns are removed from the game.
  *   Although we can assume all the orders are correct, since they
  *   have been processed by checkorders(), we stil do some sanity
@@ -1870,7 +1870,7 @@ z_order( game *aGame, player *P, strlist **s )
  * INPUTS
  *   aGame --
  *   ordersFileName -- name of the file that contains the orders
- *                     of _all_ the nations.
+ *                     of _all_ the races.
  * RESULTS
  *   aGame->turn is increased by one.
  *   aGame       contains the new situation, including battles,
@@ -1889,7 +1889,7 @@ runTurn( game *aGame, char *ordersFileName )
 {
     player *P;
     char *oGameName;
-    char *nationName;
+    char *raceName;
     char *password;
     FILE *ordersFile;
 
@@ -1904,10 +1904,10 @@ runTurn( game *aGame, char *ordersFileName )
 
             getstr( lineBuffer );
             oGameName = strdup( getstr( NULL ) );
-            nationName = strdup( getstr( NULL ) );
+            raceName = strdup( getstr( NULL ) );
             password = strdup( getstr( NULL ) );
             if ( noCaseStrcmp( oGameName, aGame->name ) == 0 ) {
-                aPlayer = findElement( player, aGame->players, nationName );
+                aPlayer = findElement( player, aGame->players, raceName );
 
                 if ( aPlayer ) {
                     aPlayer->lastorders = aGame->turn + 1;
@@ -1927,13 +1927,13 @@ runTurn( game *aGame, char *ordersFileName )
                         plog( LPART, "Password Incorrect.\n" );
                     }
                 } else {
-                    plog( LPART, "Unrecognized player %s.\n", nationName );
+                    plog( LPART, "Unrecognized player %s.\n", raceName );
                 }
             } else {
                 plog( LPART, "Orders are not for game %s.\n", aGame->name );
             }
             free( oGameName );
-            free( nationName );
+            free( raceName );
             free( password );
         }
         getLine( ordersFile );
@@ -2009,7 +2009,7 @@ runTurn( game *aGame, char *ordersFileName )
 
     if ( !( aGame->gameOptions.gameOptions & GAME_NODROP ) )
         removeDeadPlayer( aGame );
-    nationStatus( aGame );
+    raceStatus( aGame );
 
     return TRUE;
 }
@@ -2026,7 +2026,7 @@ runTurn( game *aGame, char *ordersFileName )
  * FUNCTION
  *   Checks a file with orders and prints a report with a forecast and 
  *   any errors found in the orders to stdout.
- *   It is checked that the orders contain a valid game name, nation
+ *   It is checked that the orders contain a valid game name, race
  *   name and password.
  *   A copy of the orders is stored in the directory orders/<gameName>. 
  *
@@ -2038,7 +2038,7 @@ runTurn( game *aGame, char *ordersFileName )
  *   resNumber -- return code:
  *      RES_NO_ORDERS - no line containing "#GALAXY" or #REPORT was found.
  *      RES_PASSWORD  - password was incorrect.
- *      RES_PLAYER    - no such player (Nation) exists.
+ *      RES_PLAYER    - no such player (Race) exists.
  *      RES_NO_GAME   - no such game exists.
  *      RES_TURNRAN   - orders are for a turn that already ran.
  *      RES_OK        - everything was OK.
@@ -2051,12 +2051,12 @@ runTurn( game *aGame, char *ordersFileName )
 
 #if FS_NEW_FORECAST
 void
-checkOrders( game *aGame, char *nationName )
+checkOrders( game *aGame, char *raceName )
 {
     player *aPlayer;
 
     pdebug( DFULL, "check orders\n" );
-    aPlayer = findElement( player, aGame->players, nationName );
+    aPlayer = findElement( player, aGame->players, raceName );
 
     tagVisiblePlanets( aGame->planets, aPlayer );
 
@@ -2083,7 +2083,7 @@ checkOrders( game *aGame, char *nationName )
 }
 #else
 void
-checkOrders( game *aGame, char *nationName, FILE *forecast, int kind )
+checkOrders( game *aGame, char *raceName, FILE *forecast, int kind )
 {
     player *aPlayer;
     struct fielddef fields;
@@ -2093,7 +2093,7 @@ checkOrders( game *aGame, char *nationName, FILE *forecast, int kind )
     static int orders_done = 0;
 
     pdebug( DFULL, "check orders\n" );
-    aPlayer = findElement( player, aGame->players, nationName );
+    aPlayer = findElement( player, aGame->players, raceName );
 
     fields.destination = forecast;
     tagVisiblePlanets( aGame->planets, aPlayer );
@@ -2123,11 +2123,11 @@ checkOrders( game *aGame, char *nationName, FILE *forecast, int kind )
 
     ( aGame->turn )++;
     if ( kind == F_XMLREPORT ) {
-        fprintf( stderr, "Creating XML report, %s:%d\n", nationName, kind );
+        fprintf( stderr, "Creating XML report, %s:%d\n", raceName, kind );
         report_xml( aGame, aPlayer, forecast, Forecast );
     } else {
-        fprintf( stderr, "Creating TXT report, %s:%d\n", nationName, kind );
-        nationStatus( aGame );
+        fprintf( stderr, "Creating TXT report, %s:%d\n", raceName, kind );
+        raceStatus( aGame );
         reportGlobalMessages( aGame->messages, &fields );
         reportMessages( aPlayer, &fields );
         reportOrders( aPlayer, &fields );
@@ -2165,16 +2165,16 @@ checkOrders( game *aGame, char *nationName, FILE *forecast, int kind )
  * NAME
  *   copyOrders -- copy incoming orders to file.
  * SYNOPSIS
- * void copyOrders(game *aGame, FILE *orders, char *nationName, 
+ * void copyOrders(game *aGame, FILE *orders, char *raceName, 
  *                 char *password, int theTurnNumber)
  * FUNCTION
  *   Copy the orders to a file called 
- *     GAMEHOME/orders/<game name>/<nation name>.<turn number>
+ *     GAMEHOME/orders/<game name>/<race name>.<turn number>
  *   If and #END line is missing one is generated.
  * INPUTS
  *   orderFile      - should point to the line after the #GALAXY line.
  *   aGame 
- *   nationName
+ *   raceName
  *   password
  *   theTurnNumber
  * SOURCE
@@ -2183,14 +2183,14 @@ checkOrders( game *aGame, char *nationName, FILE *forecast, int kind )
 void
 copyOrders( game *aGame,
             FILE *orders,
-            char *nationName, char *password, int theTurnNumber )
+            char *raceName, char *password, int theTurnNumber )
 {
     strlist *s;
     char *copyFileName;
     FILE *copyFile;
     player *aPlayer;
 
-    aPlayer = findElement( player, aGame->players, nationName );
+    aPlayer = findElement( player, aGame->players, raceName );
 
     aPlayer->orders = NULL;
     copyFileName = alloc( strlen( aGame->name ) + strlen( aPlayer->name ) +
@@ -2201,7 +2201,7 @@ copyOrders( game *aGame,
 
     copyFile = Fopen( copyFileName, "w" );
     savefprintf( copyFile, "#GALAXY %s %s %s\n",
-                 aGame->name, nationName, password );
+                 aGame->name, raceName, password );
     getLine( orders );
     for ( ; !feof( orders ) && noCaseStrncmp( "#END", lineBuffer, 4 ); ) {
         savefprintf( copyFile, "%s", lineBuffer );
@@ -2226,12 +2226,12 @@ copyOrders( game *aGame,
  * SYNOPSIS
  *   int areValidOrders(FILE *ordersFile, 
  *                      char **command, game **game, 
- *                      char **nationName, char **password)
+ *                      char **raceName, char **password)
  * FUNCTION
  *   Scans through a file with orders until a line that starts
  *   with "#" is found.  The the rest of the line is then
- *   used to determine the name of the game, the nation the orders
- *   are for, and the password for the nation.
+ *   used to determine the name of the game, the race the orders
+ *   are for, and the password for the race.
  *   The given game is loaded.  It is checked that the given
  *   player exists in this game, and that the given password
  *   is equal to the stored password.
@@ -2242,13 +2242,13 @@ copyOrders( game *aGame,
  *   result      - return code:
  *      RES_NO_ORDERS - no line containing "#GALAXY" was found.
  *      RES_PASSWORD  - password was incorrect.
- *      RES_PLAYER    - no such player (Nation) exists.
+ *      RES_PLAYER    - no such player (Race) exists.
  *      RES_NO_GAME   - no such game exists.
  *      RES_TURNRAN   - orders are for a turn that already ran.
  *      RES_OK        - everything was OK.
  *   aGame       - game Structure loaded from disk
- *   nationName  - name of the nation the orders are for.
- *   password    - given password of the nation.
+ *   raceName  - name of the race the orders are for.
+ *   password    - given password of the race.
  *
  *   ordersFile  - points to the line after the #GALAXY line.
  *   
@@ -2262,7 +2262,7 @@ copyOrders( game *aGame,
 int
 areValidOrders( FILE *ordersFile,
                 game **aGame,
-                char **nationName, char **password, int theTurnNumber )
+                char **raceName, char **password, int theTurnNumber )
 {
     int   resNumber;
 	int   foundOrders;
@@ -2284,22 +2284,22 @@ areValidOrders( FILE *ordersFile,
     if ( foundOrders ) {
         getstr( lineBuffer );
         gameName = strdup( getstr( NULL ) );
-        *nationName = strdup( getstr( NULL ) );
+        *raceName = strdup( getstr( NULL ) );
         *password = strdup( getstr( NULL ) );
-        plog( LPART, "%s %s %s\n", gameName, *nationName, *password );
+        plog( LPART, "%s %s %s\n", gameName, *raceName, *password );
         if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
             player *aPlayer;
 
             loadConfig( *aGame );
 
-			if (noCaseStrcmp((*aGame)->serverOptions.GMemail, *nationName) == 0) {
+			if (noCaseStrcmp((*aGame)->serverOptions.GMemail, *raceName) == 0) {
 				if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
 					resNumber = RES_OK;
 				}
 			}
 			else {
 				aPlayer = findElement( player, ( *aGame )->players,
-									   *nationName );
+									   *raceName );
 
 				if ( aPlayer ) {
 					if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
@@ -2399,7 +2399,7 @@ getTurnNumber( FILE *orders )
  *   email.
  * NOTE
  *   The message should contain the line
- *      Subject:   relay <nation name>
+ *      Subject:   relay <race name>
  ******
  */
 
@@ -2487,10 +2487,10 @@ doOrders( game *aGame, player *aPlayer, orderinfo *orderInfo, int phase )
     strlist *s;
     orderinfo *op;
 
-    plog( LFULL, "doOrders: Phase %d Nation %s\n", phase, aPlayer->name );
+    plog( LFULL, "doOrders: Phase %d Race %s\n", phase, aPlayer->name );
 
     pdebug( DFULL, "doOrders\n" );
-    pdebug( DFULL2, "  Phase %d Nation %s\n", phase, aPlayer->name );
+    pdebug( DFULL2, "  Phase %d Race %s\n", phase, aPlayer->name );
     for ( s = aPlayer->orders; s; ) {
         char *order;
 
@@ -2648,21 +2648,21 @@ preComputeGroupData( game *aGame )
 
 void
 generateErrorMessage( int resNumber, game *aGame,
-                      char *nationName, int theTurnNumber, FILE *forecast )
+                      char *raceName, int theTurnNumber, FILE *forecast )
 {
     switch ( resNumber ) {
     case RES_NO_ORDERS:
         fprintf( forecast,
                  "O wise leader your mail did not contain any orders.\n"
                  "Remember orders start with,\n"
-                 " #GALAXY <Galaxy Name> <Nation Name> <Password>\n"
+                 " #GALAXY <Galaxy Name> <Race Name> <Password>\n"
                  "and end with,\n #END\n" );
         break;
     case RES_ERR_GALAXY:
         fprintf( forecast,
-                 "O wise leader you must supply your nation name and galaxy name.\n"
+                 "O wise leader you must supply your race name and galaxy name.\n"
                  "Remember orders start with,\n"
-                 " #GALAXY <Galaxy Name> <Nation Name> <Password>\n"
+                 " #GALAXY <Galaxy Name> <Race Name> <Password>\n"
                  "and end with,\n #END\n" );
         break;
     case RES_NO_GAME:
@@ -2677,9 +2677,9 @@ generateErrorMessage( int resNumber, game *aGame,
         break;
     case RES_PLAYER:
         fprintf( forecast,
-                 "O wise leader there is no nation called %s.\n"
-                 "This probably means that you mispelled your nation name.\n",
-                 nationName );
+                 "O wise leader there is no race called %s.\n"
+                 "This probably means that you mispelled your race name.\n",
+                 raceName );
         break;
     case RES_TURNRAN:
         fprintf( forecast,

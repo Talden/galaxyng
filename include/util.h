@@ -97,7 +97,7 @@ double          round2(double);
 
 void            numberGroup(player *aPlayer, group *aGroup);
 group          *findgroup(player *P, char *s);
-void            nationStatus(game *aGame);
+void            raceStatus(game *aGame);
 double          effectiveIndustry(double pop, double ind);
 double          addShipAtt(game* aGame, planet* p);
 

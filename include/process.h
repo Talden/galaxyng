@@ -110,13 +110,13 @@ void            mistake(player *P, enum error_type, strlist *s, char *format, ..
 void
                 copyOrders(game *aGame,
                            FILE * orders,
-                           char *nationName, char *password,
+                           char *raceName, char *password,
                            int theTurnNumber);
 
 int
                 areValidOrders(FILE * ordersFile,
                                game **aGame,
-                               char **nationName, char **password,
+                               char **raceName, char **password,
                                int theTurnNumber);
 
 void
@@ -140,17 +140,17 @@ int
                 runTurn(game *aGame, char *ordersFileName);
 
 #if FS_NEW_FORECAST
-void            checkOrders(game *aGame, char *nationName );
+void            checkOrders(game *aGame, char *raceName );
 #else
 void
                 checkOrders(game *aGame,
-                            char *nationName, FILE * forecast, int kind);
+                            char *raceName, FILE * forecast, int kind);
 #endif
 
 void
                 generateErrorMessage(int resNumber,
                                      game *aGame,
-                                     char *nationName,
+                                     char *raceName,
                                      int theTurnNumber, FILE * forecast);
 
 #endif                          /* GNG_PROCESS_H */

@@ -258,7 +258,7 @@ typedef struct player player;
  * NAME
  *   fleetname -- name of a fleet and its speed.
  * PURPOSE
- *   Structure to keep track of all fleet names of a nation.
+ *   Structure to keep track of all fleet names of a race.
  *   Can be an element in a standard list.
  * NOTES
  *   fleetspeed is computed in the fleetphase(), it is not stored
@@ -283,7 +283,7 @@ typedef struct fleetname {
  * NAME 
  *   shiptype -- design of a ship.
  * PURPOSE
- *   Structure to keep track of all shiptypes of a nation.
+ *   Structure to keep track of all shiptypes of a race.
  *   Can be an element in a standard list.
  * SOURCE
  */
@@ -570,7 +570,7 @@ typedef struct bombing {
  * NAME
  *   planet_claim
  * PURPOSE
- *   Structure to keep track which planets a nation claims.
+ *   Structure to keep track which planets a race claims.
  * SOURCE
  */
 
@@ -604,9 +604,9 @@ typedef struct option {
  * NAME
  *   player --
  * PURPOSE
- *   Stores information about a nation and the person that plays it.
+ *   Stores information about a race and the person that plays it.
  * BUGS
- *   This should be called nation!
+ *   This should be called race!
  * ATTRIBUTES
  *    unused3, unused4, unused5  
  *                   -- For future expansion.           
@@ -675,7 +675,7 @@ struct player {
 #define F_PLANETFORECAST    32
 #define F_SHIPTYPEFORECAST  64
 #define F_ROUTESFORECAST   128
-/* used by the rateNation function */
+/* used by the rateRace function */
 #define F_SORTED           256
 /* Compress turn reports before sending then */
 #define F_COMPRESS         512
@@ -759,7 +759,7 @@ typedef struct game {
   char           *starttime;
   int             turn;
   double          galaxysize;   /* CB-20010408 */
-  player         *players;      /* list with nations */
+  player         *players;      /* list with races */
   planet         *planets;      /* list with planets */
   battle         *battles;      /* list with battles */
   bombing        *bombings;     /* list with bombings */

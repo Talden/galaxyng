@@ -215,7 +215,7 @@ kill(group *attack, group *target)
  * SYNOPSIS
  *   void bombphase(game *aGame)
  * FUNCTION
- *   Examine which nations have armed ships over a planet.
+ *   Examine which races have armed ships over a planet.
  *   If there are any, the planets are bombed and it is 
  *   determined who should own the planet.
  * SOURCE
@@ -271,7 +271,7 @@ bombphase(game *aGame)
               determineOwnership(aGame, targetPlanet, aPlayer);
         }
 
-        plog(LPART, "Nation %s bombs planet %s\n",
+        plog(LPART, "Race %s bombs planet %s\n",
              aPlayer->name, targetPlanet->name);
 
         if (targetPlanet->owner) {
@@ -296,14 +296,14 @@ bombphase(game *aGame)
 
 /****f* Phase/mustBomb
  * NAME
- *   mustBomb -- must a nation bomb a planet?
+ *   mustBomb -- must a race bomb a planet?
  * SYNOPSIS
  *   int mustBomb(player *P, group *g)
  * FUNCTION
- *   Determine of a nation is obliged to bomb a planet.
+ *   Determine of a race is obliged to bomb a planet.
  * RESULT
- *   TRUE   -- yes the nation should bomb.
- *   FALSE  -- no the nation should not.
+ *   TRUE   -- yes the race should bomb.
+ *   FALSE  -- no the race should not.
  * SOURCE
  */
 
@@ -362,7 +362,7 @@ bombPlanet(game *aGame, planet *p)
  * NAME
  *   determineOwnership -- determine ownership of planet after bombing.
  * FUNCTION
- *   Determines which nation should get a planet after it is bombed.
+ *   Determines which race should get a planet after it is bombed.
  ******
  */
 
@@ -1140,8 +1140,8 @@ nametocargotype(char *s)
  *   Renumber the groups such that they are sorted according
  *   to planet. In particular they are number in the following
  *   order:
- *     (1) groups at planets owned by the nation,
- *     (2) groups at planets owned by other nations,
+ *     (1) groups at planets owned by the race,
+ *     (2) groups at planets owned by other races,
  *     (3) groups at all other planets, 
  *     (4) groups that are part of a fleet.
  * SOURCE
@@ -1161,7 +1161,7 @@ sortphase(game *aGame)
   for (P = aGame->players; P; P = P->next) {
     n = 1;
     if (P->flags & F_SORTGROUPS) {
-      /* Groups at planets owned by the nation */
+      /* Groups at planets owned by the race */
       for (p = aGame->planets; p; p = p->next) {
         if (p->owner == P) {
           for (g = P->groups; g; g = g->next) {
@@ -1178,7 +1178,7 @@ sortphase(game *aGame)
           }
         }
       }
-      /* Groups at planets owned by other nations */
+      /* Groups at planets owned by other races */
       for (p = aGame->planets; p; p = p->next) {
         if (p->owner && p->owner != P) {
           for (g = P->groups; g; g = g->next) {

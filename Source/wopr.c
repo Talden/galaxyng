@@ -80,7 +80,7 @@ WOPR_battle( int argc, char **argv )
         player *aPlayer;
 
         /* All data is read, precompute some date */
-        nationStatus( aGame );
+        raceStatus( aGame );
         preComputeGroupData( aGame );
 
         /* and do battle */

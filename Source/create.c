@@ -3,9 +3,9 @@
 *    Create -- create a new galaxy
 *  NOTES
 *    This code was developed since we found that the old code
-*    sometimes created galaxies that left some nations in rather
-*    unfair positions.  That is some nations would have their home
-*    planet located far away from other planets, while others nations
+*    sometimes created galaxies that left some races in rather
+*    unfair positions.  That is some races would have their home
+*    planet located far away from other planets, while others races
 *    home planets were located near a whole bunch of good planets.
 *    The code tries to provide all player with an equal chance on
 *    success, while still keeping the layout of the galaxy diverse
@@ -13,20 +13,20 @@
 *
 *    How is this accomplised:
 *
-*    (1) Each nation will get the same number of planets within a
+*    (1) Each race will get the same number of planets within a
 *        circle of a given radius.   The size of these planets differ
-*        but the total sum of the sizes is the same for all nations.
+*        but the total sum of the sizes is the same for all races.
 *        The resources of the planets are still chosen random.
 *
 *    (2) The home world can be spaced widely from each other, ensuring
-*        that a nation isn't kicked out in the first few turns.
+*        that a race isn't kicked out in the first few turns.
 *
 *    (3) To improve the tactical possibilities a number of `stuff
 *        planets' will be scattered across the galaxy.  These are
 *        small useless planets that provide players with different
 *        routes to attack their enemies.
 *
-*    (4) In addition it is possible to let the nations start with
+*    (4) In addition it is possible to let the races start with
 *        more than one home planet, this will speed up the game.
 *
 *    All these options can be controled with a set of variables
@@ -36,8 +36,8 @@
 *    little before you settle on a galaxy you like.
 *
 *    Notice that as opposed to the original code the names of
-*    the nations at turn zero will not be  Player_xx   but
-*    Nation_xx.
+*    the races at turn zero will not be  Player_xx   but
+*    race_XX.
 *
 *    Added the option to space out the empires along the edge of
 *    a large circle, in order to make certain that no one got
@@ -137,17 +137,17 @@ readGameSpec(FILE * specfile)
     if (key[0] != '\0') {
       if (noCaseStrcmp("player", key) == 0) {
         newplayer      *aNewPlayer;
-        char            nationName[20];
+        char            raceName[20];
 
         aNewPlayer = allocStruct(newplayer);
 
         aNewPlayer->addr = strdup(getstr(0));
         aNewPlayer->team = team;
         (aGameSpec->numberOfPlayers)++;
-        sprintf(nationName, "Nation_%d", aGameSpec->numberOfPlayers);
-        setName(aNewPlayer, nationName);
-        sprintf(nationName, "P%d", rand());
-        aNewPlayer->pswd = strdup(nationName);
+        sprintf(raceName, "race_%d", aGameSpec->numberOfPlayers);
+        setName(aNewPlayer, raceName);
+        sprintf(raceName, "P%d", rand());
+        aNewPlayer->pswd = strdup(raceName);
         addList(&(aGameSpec->players), aNewPlayer);
 
         for (value = getstr(0), aNewPlayer->numberOfHomePlanets = 0;
@@ -182,7 +182,7 @@ readGameSpec(FILE * specfile)
         value = getstr(0);
         aGameSpec->galaxySize = atof(value);
       }
-      else if (noCaseStrcmp("nation_spacing", key) == 0) {
+      else if (noCaseStrcmp("race_spacing", key) == 0) {
         value = getstr(0);
         aGameSpec->minDist = atof(value);
       }
@@ -345,16 +345,16 @@ printGameSpecs(gamespecification *aGameSpec)
             * Shields:   %5.2f,\n\
             * Cargo:     %5.2f.\n", aGameSpec->gameOptions.initial_drive, aGameSpec->gameOptions.initial_weapons, aGameSpec->gameOptions.initial_shields, aGameSpec->gameOptions.initial_cargo);
 
-  printf("Nations:                  %d\n", aGameSpec->numberOfPlayers);
+  printf("Races:                    %d\n", aGameSpec->numberOfPlayers);
   printf("Home planets/nation:      %d\n", aGameSpec->numberOfHomePlanets);
-  printf("Spacing nations:          %.1f\n", aGameSpec->minDist);
+  printf("Spacing races:            %.1f\n", aGameSpec->minDist);
   printf("Secondary planet radius:  %.1f\n",
          aGameSpec->radiusSecondaryPlanets);
-  printf("Empty planets/nation:     %d\n",
+  printf("Empty planets/race:     %d\n",
          aGameSpec->numberOfEmptyPlanets);
   printf("Located in within a:      %.1f radius\n",
          aGameSpec->radiusEmptyPlanets);
-  printf("Stuff planets/nation:     %d\n",
+  printf("Stuff planets/race:     %d\n",
          aGameSpec->numberOfStuffPlanets);
 
   for (curNewPlayer = aGameSpec->players;
@@ -374,9 +374,9 @@ printGameSpecs(gamespecification *aGameSpec)
  *   game     *creategame(gamespecification *)
  *   newGame = creategame(aGameSpec)
  * FUNCTION
- *   Creates all nations. For each nation a number 
+ *   Creates all races. For each race a number 
  *   of planets are created and intialized. The number
- *   of nations and number of planets are defined in the 
+ *   of races and number of planets are defined in the 
  *   game specification.
  * RESULT   
  *   Pointer to an initialized game structure.
@@ -423,7 +423,7 @@ creategame(gamespecification *aGameSpec)
     if (created_ok) {
       Randomize_Planet_Numbers(aGame);
       preComputeGroupData(aGame);
-      nationStatus(aGame);
+      raceStatus(aGame);
       return aGame;
     }
     else {
@@ -1004,7 +1004,7 @@ Add_Circle_Stuff_Planets(game *aGame,
  *   selecting two planets and swapping all their data. This process
  *   is repeated 2000 times.  The names are randomized to prevent
  *   players from guessing which planets are the good planets and bad
- *   planets around the nations core home planets.
+ *   planets around the races core home planets.
  * NOTES
  *   This is not a particular good or speedy way of shuffling.  
  *   Someone suggested a much faster method, but that got misplaced.
@@ -1052,20 +1052,20 @@ Randomize_Planet_Numbers(game *aGame)
 
 /****f* Create/Add_Core_Home_Planet
  * NAME
- *   Add_Core_Home_Planet -- add a core home planet for a nation.
+ *   Add_Core_Home_Planet -- add a core home planet for a race.
  * FUNCTION
- *   Each nation has at least one home planet. This is it's core home
+ *   Each race has at least one home planet. This is it's core home
  *   planet. The other home planets are located around it.  This
  *   function allocates a core home planet. It makes sure that there
  *   is a minimum distance between all core home planets.  The core
  *   home planets are all located on a big disc that fits inside the
- *   square galaxy.  The disc is used to prevent nations ending up in
+ *   square galaxy.  The disc is used to prevent races ending up in
  *   one of the corners.
  * INPUTS
  *   aGame        -- game to add the planet to.
  *   min_dist     -- minimum distance between the core planets.
  *   planet_name  -- name of the previously added planet.
- *   aPlayer      -- nation the core planet will belong to.
+ *   aPlayer      -- race the core planet will belong to.
  * RESULTS
  *   A core plane is added to the game's planet list.  planet_name is
  *   modified, will have the name (number) of this planet.
@@ -1194,7 +1194,7 @@ Add_Circle_Home_Planet(game *aGame,
  * NAME
  *   Add_Extra_Home_Planets
  * FUNCTION
- *   In addition to its core home planet a nation can have
+ *   In addition to its core home planet a race can have
  *   a number of additional home planets. This functions adds these.
  *   They are added randomly on a donut shape disk centered around
  *   the core home planet. The donut hole has a radius of 1, and the
@@ -1344,9 +1344,9 @@ Add_Center_Planet(game *aGame, int *planet_name)
  *   Add_Empty_Planets -- add some good size empty planets.
  * FUNCTION
  *   This adds a number of good (relatively big sized) planets
- *   around the core home planet of a nation.
+ *   around the core home planet of a race.
  *   The sum of the sizes of all these planets is about the
- *   same for each nation.
+ *   same for each race.
  * SOURCE
  */
 

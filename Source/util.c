@@ -754,11 +754,11 @@ groupSpeed(group *g)
  *   ship in the fleet.  
  * INPUTS
  *   fl  -- name of the fleet.
- *   g   -- list with all groups of the nation that owns the fleet.
+ *   g   -- list with all groups of the race that owns the fleet.
  * RESULT
  *   Speed of the fleet.
  * NOTES
- *   This is a time expensive function since all groups of a nation
+ *   This is a time expensive function since all groups of a race
  *   are scanned.
  * SOURCE
  */
@@ -800,11 +800,11 @@ fleetSpeed(fleetname *fl, group *g)
  *   Count the number of groups in a fleet.
  * INPUTS
  *   fl  -- name of the fleet
- *   g   -- list with all groups of the nation that owns the fleet
+ *   g   -- list with all groups of the race that owns the fleet
  * RESULT
  *   Number of groups in the fleet.
  * NOTES
- *   This is a time expensive function since all groups of a nation
+ *   This is a time expensive function since all groups of a race
  *   are scanned.
  * SOURCE
  */
@@ -907,9 +907,9 @@ putmap(mapdimensions *md, double x, double y, int c)
 void
 send(game *aGame, group *g, planet *p)
 {
-  g->from = g->where;
-  g->where = p;
-  g->dist = dist(aGame, p, g->from);
+	g->from = g->where;
+	g->where = p;
+	g->dist = dist(aGame, p, g->from);
 }
 
 /*********/
@@ -1463,11 +1463,11 @@ savefprintf(FILE * f, char *format, ...)
 
 /****f* Util/canseegroup
  * NAME
- *   canseegroup -- can a Nation see a group?
+ *   canseegroup -- can a Race see a group?
  * SYNOPSIS
  *   int canseegroup(player *P, group *g)
  * RESULT
- *   TRUE if nation P can see group g.
+ *   TRUE if race P can see group g.
  * SOURCE
  */
 
@@ -1491,11 +1491,11 @@ canseegroup(player *P, group *g)
 
 /****f* Util/canseeplanet
  * NAME
- *   canseeplanet -- can a Nation see a planet?
+ *   canseeplanet -- can a Race see a planet?
  * SYNOPSIS
  *   int canseeplanet(player *P, planet *p)
  * RESULT
- *   TRUE if nation P can see planet p.
+ *   TRUE if race P can see planet p.
  * SOURCE
  */
 
@@ -1521,12 +1521,12 @@ canseeplanet(player *P, planet *p)
  * SYNOPSIS
  *   int isunidentified(player *P, planet *p)
  * FUNCTION
- *   Is a planet considered unidentified for Nation P?
+ *   Is a planet considered unidentified for Race P?
  *   This is the case when a planet has an owner, and this
  *   owner is not P, and P can not see the planet (has no
  *   groups in orbit at the planet).
  * INPUTS
- *   P -- Nation to check for
+ *   P -- Race to check for
  *   p -- planet to check.
  * RESULT
  *   TRUE -- planet is unidentified
@@ -1803,16 +1803,16 @@ findgroup(player *P, char *s)
 
 
 
-/****f* Util/nationStatus
+/****f* Util/raceStatus
  * NAME
- *   nationStatus -- compute status of all nations
+ *   raceStatus -- compute status of all races
  * FUNCTION
- *   Compute population, industry, and number of planets of all nations.
+ *   Compute population, industry, and number of planets of all races.
  * SOURCE
  */
 
 void
-nationStatus(game *aGame)
+raceStatus(game *aGame)
 {
   planet         *aPlanet;
   player         *aPlayer;

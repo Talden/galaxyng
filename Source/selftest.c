@@ -500,7 +500,7 @@ game *bat_createGame ()
         bat_addShiptypes(playerE);
 
         preComputeGroupData(aGame);
-        nationStatus(aGame);
+        raceStatus(aGame);
         return aGame; 
     } else {
         return NULL;

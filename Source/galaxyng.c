@@ -274,19 +274,19 @@ CMD_template( int argc, char **argv )
                      "\n"
                      "; The engine will make sure that distance between any of primary home\n"
                      "; planets is atleast 30.0 light years.\n"
-                     "\n" "nation_spacing 30.0\n" "\n" );
+                     "\n" "race_spacing 30.0\n" "\n" );
             fprintf( glxfile,
-                     "; The sizes of the core home planets for each nation.\n"
-                     "; The following would give each nation 3 homeplanets of sizes\n"
+                     "; The sizes of the core home planets for each race.\n"
+                     "; The following would give each race 3 homeplanets of sizes\n"
                      "; 1000 250 350. The first one is the primary home planet.\n"
                      "; You have to define these before any of the player definitions.\n"
                      "\n" "core_sizes 1000 250 350\n" "\n" );
             fprintf( glxfile,
                      "; Within a radius [2,r] from the primary home world the engine allocates\n"
-                     "; a number of empty planets for the nation to colonize.\n"
-                     "; The following two parameters define how many there are per nation,\n"
+                     "; a number of empty planets for the race to colonize.\n"
+                     "; The following two parameters define how many there are per race,\n"
                      "; and in within what radius. A number between 4 and 10 and\n"
-                     "; a radius of  nation_spacing/2.0  is a good guess.\n"
+                     "; a radius of  race_spacing/2.0  is a good guess.\n"
                      "\n" );
             fprintf( glxfile,
                      "empty_planets 6\n"
@@ -296,7 +296,7 @@ CMD_template( int argc, char **argv )
                      "; planets, all of size 50 or less, that are use to fill up the empty\n"
                      "; space between the home worlds. They make it possible for a players to\n"
                      "; approach (attack) other players by different routes. The following\n"
-                     "; parameter specifies how many there are per nation.\n"
+                     "; parameter specifies how many there are per race.\n"
                      "\n" );
             fprintf( glxfile,
                      "stuff_planets 8\n"
@@ -351,9 +351,9 @@ CMD_template( int argc, char **argv )
                      "; KeepProduction\n"
                      "\n"
                      ";\n"
-                     "; Don't remove idle nations from a game.\n"
+                     "; Don't remove idle races from a game.\n"
                      "; Normally if players do not send in orders for a couple of turns\n"
-                     "; their nation self destructs.\n"
+                     "; their race self destructs.\n"
                      ";\n" "; Uncomment if you want this option.\n" "\n" );
             fprintf( glxfile,
                      "; DontDropDead\n"
@@ -609,7 +609,7 @@ checkTime( game *aGame )
  *   This header can be produced with formail (see .procmailrc file).
  * RESULTS
  *   Orders are stored in
- *   $GALAXYNGHOME/orders/<game name>/<nation name>.<turn number>
+ *   $GALAXYNGHOME/orders/<game name>/<race name>.<turn number>
  *   Forecast is mailed to the player.
  *   A log is kept of all order processing in log/orders_processed.txt
  * SOURCE
@@ -645,14 +645,14 @@ int mailForecast( char* forecastName, char* tag, envelope* anEnvelope, game* aGa
 }
 
 
-int mail_AdvanceReport( game* aGame, player *aPlayer, envelope *anEnvelope, char* nationName, int kind, enum EReportFormat report_format )
+int mail_AdvanceReport( game* aGame, player *aPlayer, envelope *anEnvelope, char* raceName, int kind, enum EReportFormat report_format )
 {
     int result = FALSE;
     /* TODO */
     return result;
 }
 
-int mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope, char* nationName, int kind, enum EReportFormat report_format )
+int mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope, char* raceName, int kind, enum EReportFormat report_format )
 {
     char* tag = 0;
     int result = FALSE;
@@ -681,14 +681,14 @@ int mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope, char* nat
 
     setHeader( anEnvelope, MAILHEADER_SUBJECT,
             "Galaxy HQ, %s turn %d %s forecast for %s",
-            aGame->name, ( aGame->turn ) + 1, tag, nationName );
+            aGame->name, ( aGame->turn ) + 1, tag, raceName );
 
     /* Create the report */
     ( aGame->turn )++;
-    fprintf( stderr, "Creating %s report, %s:%d\n", tag, nationName, kind );
+    fprintf( stderr, "Creating %s report, %s:%d\n", tag, raceName, kind );
     switch ( report_format ) {
         case REP_TXT :
-            reportForecast( aGame, nationName, forecast );
+            reportForecast( aGame, raceName, forecast );
             break;
         case REP_XML :
             report_xml( aGame, aPlayer, forecast, Forecast );
@@ -706,7 +706,7 @@ int mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope, char* nat
     return result;
 }
 
-int mail_TXT_Error( game* aGame, envelope *anEnvelope, char* nationName, int kind, int resNumber, int theTurnNumber )
+int mail_TXT_Error( game* aGame, envelope *anEnvelope, char* raceName, int kind, int resNumber, int theTurnNumber )
 {
     int result = FALSE;
     FILE* forecast;
@@ -723,7 +723,7 @@ int mail_TXT_Error( game* aGame, envelope *anEnvelope, char* nationName, int kin
     setHeader( anEnvelope, MAILHEADER_SUBJECT, "Galaxy HQ, major trouble" );
     plog( LBRIEF, "major trouble %d\n", resNumber );
 
-    generateErrorMessage( resNumber, aGame, nationName, theTurnNumber, forecast );
+    generateErrorMessage( resNumber, aGame, raceName, theTurnNumber, forecast );
     fclose( forecast );
 
     result |= mailForecast( forecastName, "TXT", anEnvelope, aGame, kind );
@@ -750,17 +750,17 @@ CMD_check( int argc, char **argv, int kind )
         envelope *anEnvelope = createEnvelope(  );
         char *returnAddress = getReturnAddress( stdin );
         int   theTurnNumber = getTurnNumber( stdin );
-        char *nationName = NULL;
+        char *raceName = NULL;
         char *password = NULL;
         game *aGame = NULL;
-        int resNumber = areValidOrders( stdin, &aGame, &nationName,
+        int resNumber = areValidOrders( stdin, &aGame, &raceName,
                                     &password, theTurnNumber );
         plog( LBRIEF, "game %s\n", aGame->name );
 
         setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
 
         if ( resNumber == RES_OK ) {
-            player *aPlayer = findElement( player, aGame->players, nationName );
+            player *aPlayer = findElement( player, aGame->players, raceName );
             assert( aPlayer);
             aPlayer->orders = NULL;
             plog( LBRIEF, "Orders from %s\n", returnAddress );
@@ -768,29 +768,29 @@ CMD_check( int argc, char **argv, int kind )
             if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
                  ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
                 /* They are orders for the comming turn, copy them. */
-                copyOrders( aGame, stdin, nationName, password, aGame->turn + 1 );
+                copyOrders( aGame, stdin, raceName, password, aGame->turn + 1 );
                 /* Check them */
-                checkOrders( aGame, nationName );
+                checkOrders( aGame, raceName );
                 /* Now mail the result */
                 if ( aPlayer->flags & F_XMLREPORT ) {
-                     result = mail_Forecast( aGame, aPlayer, anEnvelope, nationName, kind, REP_XML );
+                     result = mail_Forecast( aGame, aPlayer, anEnvelope, raceName, kind, REP_XML );
                 }
                 if ( aPlayer->flags & F_TXTREPORT ) {
-                     result = mail_Forecast( aGame, aPlayer, anEnvelope, nationName, kind, REP_TXT );
+                     result = mail_Forecast( aGame, aPlayer, anEnvelope, raceName, kind, REP_TXT );
                 }
             } else if ( theTurnNumber > ( aGame->turn ) + 1 ) {
                 /* They are advance orders */
-                copyOrders( aGame, stdin, nationName, password, theTurnNumber );
+                copyOrders( aGame, stdin, raceName, password, theTurnNumber );
                 setHeader( anEnvelope, MAILHEADER_SUBJECT,
                         "Galaxy HQ, %s advance orders received for %s.",
-                        aGame->name, nationName );
+                        aGame->name, raceName );
                 plog( LBRIEF, "%s advance orders received for %s.\n",
-                        aGame->name, nationName );
+                        aGame->name, raceName );
                 if ( aPlayer->flags & F_XMLREPORT ) {
-                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, nationName, kind, REP_XML );
+                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, raceName, kind, REP_XML );
                 }
                 if ( aPlayer->flags & F_TXTREPORT ) {
-                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, nationName, kind, REP_TXT );
+                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, raceName, kind, REP_TXT );
                 }
             } else {
                 /* Orders for a turn that already ran. 
@@ -801,7 +801,7 @@ CMD_check( int argc, char **argv, int kind )
         } else {
             /* Some major error */
             result |= mail_TXT_Error( aGame, anEnvelope, 
-                    nationName, kind, resNumber, theTurnNumber );
+                    raceName, kind, resNumber, theTurnNumber );
         }
     }
 
@@ -819,7 +819,7 @@ CMD_check( int argc, char **argv, int kind )
     envelope *anEnvelope;
     char *forecastName;
     char *returnAddress;
-    char *nationName;
+    char *raceName;
     char *password;
     game *aGame;
     FILE *forecast;
@@ -838,17 +838,17 @@ CMD_check( int argc, char **argv, int kind )
         anEnvelope = createEnvelope(  );
         returnAddress = getReturnAddress( stdin );
         theTurnNumber = getTurnNumber( stdin );
-        nationName = NULL;
+        raceName = NULL;
         password = NULL;
         aGame = NULL;
-        resNumber = areValidOrders( stdin, &aGame, &nationName,
+        resNumber = areValidOrders( stdin, &aGame, &raceName,
                                     &password, theTurnNumber );
         plog( LBRIEF, "game %s\n", aGame->name );
 
         setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
 
         if ( resNumber == RES_OK ) {
-            aPlayer = findElement( player, aGame->players, nationName );
+            aPlayer = findElement( player, aGame->players, raceName );
             aPlayer->orders = NULL;
 
             plog( LBRIEF, "Orders from %s\n", returnAddress );
@@ -859,7 +859,7 @@ CMD_check( int argc, char **argv, int kind )
                      ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
                     forecastName = createString( "%s/NG_XML_%d_forecast",
                                                  tempdir, getpid(  ) );
-                    copyOrders( aGame, stdin, nationName, password,
+                    copyOrders( aGame, stdin, raceName, password,
                                 aGame->turn + 1 );
                     if ( ( forecast =
                            GOS_fopen( forecastName, "w" ) ) == NULL ) {
@@ -873,9 +873,9 @@ CMD_check( int argc, char **argv, int kind )
 
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
                                "Galaxy HQ, %s turn %d XML forecast for %s",
-                               aGame->name, ( aGame->turn ) + 1, nationName );
+                               aGame->name, ( aGame->turn ) + 1, raceName );
 
-                    checkOrders( aGame, nationName, forecast, F_XMLREPORT );
+                    checkOrders( aGame, raceName, forecast, F_XMLREPORT );
 
                     fclose( forecast );
                     if ( kind == CMD_CHECK_REAL ) {
@@ -911,14 +911,14 @@ CMD_check( int argc, char **argv, int kind )
                     }
 
                     if ( aPlayer->orders == NULL )
-                        copyOrders( aGame, stdin, nationName, password,
+                        copyOrders( aGame, stdin, raceName, password,
                                     aGame->turn + 1 );
 
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
                                "Galaxy HQ, %s turn %d TXT forecast for %s",
-                               aGame->name, ( aGame->turn ) + 1, nationName );
+                               aGame->name, ( aGame->turn ) + 1, raceName );
 
-                    checkOrders( aGame, nationName, forecast, F_TXTREPORT );
+                    checkOrders( aGame, raceName, forecast, F_TXTREPORT );
 
                     fclose( forecast );
 
@@ -950,7 +950,7 @@ CMD_check( int argc, char **argv, int kind )
                        "Galaxy HQ, major trouble" );
             plog( LBRIEF, "major trouble %d\n", resNumber );
 
-            generateErrorMessage( resNumber, aGame, nationName,
+            generateErrorMessage( resNumber, aGame, raceName,
                                   theTurnNumber, forecast );
             fclose( forecast );
 
@@ -975,14 +975,14 @@ CMD_check( int argc, char **argv, int kind )
                 ( theTurnNumber == ( aGame->turn ) + 1 ) ) ) {
 
             if ( aPlayer->orders == NULL )
-                copyOrders( aGame, stdin, nationName, password,
+                copyOrders( aGame, stdin, raceName, password,
                             theTurnNumber );
 
             setHeader( anEnvelope, MAILHEADER_SUBJECT,
                        "Galaxy HQ, %s advance orders received for %s.",
-                       aGame->name, nationName );
+                       aGame->name, raceName );
             plog( LBRIEF, "%s advance orders received for %s.\n",
-                  aGame->name, nationName );
+                  aGame->name, raceName );
 
 
             if ( aPlayer->flags & F_XMLREPORT ) {
@@ -995,7 +995,7 @@ CMD_check( int argc, char **argv, int kind )
                          GNG_MAJOR, GNG_MINOR, GNG_RELEASE );
                 fprintf( forecast, "  <game name=\"%s\">\n", aGame->name );
                 fprintf( forecast, "    <turn num=\"%d\">\n", theTurnNumber );
-                fprintf( forecast, "      <race name=\"%s\">\n", nationName );
+                fprintf( forecast, "      <race name=\"%s\">\n", raceName );
                 fprintf( forecast, "        <message>\n" );
                 fprintf( forecast, "          <line num=\"1\">"
                          "O wise leader, your orders for turn %d</line>",
@@ -1024,7 +1024,7 @@ CMD_check( int argc, char **argv, int kind )
 
             if ( aPlayer->flags & F_TXTREPORT ) {
                 if ( aPlayer->orders == NULL )
-                    copyOrders( aGame, stdin, nationName, password,
+                    copyOrders( aGame, stdin, raceName, password,
                                 theTurnNumber );
                 forecastName = createString( "%s/NG_TXT_forecast", tempdir );
                 forecast = GOS_fopen( forecastName, "w" );
@@ -1048,8 +1048,8 @@ CMD_check( int argc, char **argv, int kind )
         }
     }
 
-    if ( nationName )
-        free( nationName );
+    if ( raceName )
+        free( raceName );
     if ( password )
         free( password );
     destroyEnvelope( anEnvelope );
@@ -1084,7 +1084,7 @@ CMD_checkFile( int argc, char **argv, int kind )
 
     plogtime( LBRIEF );
     if ( argc >= 2 ) {
-        char *forecastName, *returnAddress, *nationName, *password;
+        char *forecastName, *returnAddress, *raceName, *password;
         int resNumber, theTurnNumber;
         game *aGame;
         FILE *forecast;
@@ -1098,10 +1098,10 @@ CMD_checkFile( int argc, char **argv, int kind )
 
             returnAddress = getReturnAddress( stream );
             theTurnNumber = getTurnNumber( stream );
-            nationName = NULL;
+            raceName = NULL;
             password = NULL;
             aGame = NULL;
-            resNumber = areValidOrders( stream, &aGame, &nationName,
+            resNumber = areValidOrders( stream, &aGame, &raceName,
                                         &password, theTurnNumber );
             plog( LBRIEF, "game %s\n", aGame->name );
             setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
@@ -1109,22 +1109,22 @@ CMD_checkFile( int argc, char **argv, int kind )
             if ( resNumber == RES_OK ) {
                 if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
                      ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
-                    copyOrders( aGame, stream, nationName, password,
+                    copyOrders( aGame, stream, raceName, password,
                                 ( aGame->turn ) + 1 );
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
                                "Galaxy HQ, %s turn %d forecast for %s",
-                               aGame->name, ( aGame->turn ) + 1, nationName );
+                               aGame->name, ( aGame->turn ) + 1, raceName );
                     plog( LBRIEF, "%s turn %d orders checked for %s.\n",
-                          aGame->name, ( aGame->turn ) + 1, nationName );
-                    checkOrders( aGame, nationName, forecast, F_TXTREPORT );
+                          aGame->name, ( aGame->turn ) + 1, raceName );
+                    checkOrders( aGame, raceName, forecast, F_TXTREPORT );
                 } else {
-                    copyOrders( aGame, stream, nationName, password,
+                    copyOrders( aGame, stream, raceName, password,
                                 theTurnNumber );
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
                                "Galaxy HQ, %s advance orders received for %s.",
-                               aGame->name, nationName );
+                               aGame->name, raceName );
                     plog( LBRIEF, "%s advance orders received for %s.\n",
-                          aGame->name, nationName );
+                          aGame->name, raceName );
                     fprintf( forecast,
                              "O wise leader your orders for turn %d "
                              "have been received and stored.\n",
@@ -1134,7 +1134,7 @@ CMD_checkFile( int argc, char **argv, int kind )
                 setHeader( anEnvelope, MAILHEADER_SUBJECT,
                            "Galaxy HQ, major trouble" );
                 plog( LBRIEF, "major trouble %d\n", resNumber );
-                generateErrorMessage( resNumber, aGame, nationName,
+                generateErrorMessage( resNumber, aGame, raceName,
                                       theTurnNumber, forecast );
             }
             fprintf( forecast, "\n\n%s\n", vcid );
@@ -1149,8 +1149,8 @@ CMD_checkFile( int argc, char **argv, int kind )
                                              galaxynghome, returnAddress );
                 GOS_copy( forecastName, forecastFile );
             }
-            if ( nationName )
-                free( nationName );
+            if ( raceName )
+                free( raceName );
             if ( password )
                 free( password );
             destroyEnvelope( anEnvelope );
@@ -1174,7 +1174,7 @@ CMD_checkFile( int argc, char **argv, int kind )
 
 /****i* CLI/CMD_relay
  * NAME 
- *   CMD_relay -- relay a message from one nation to another.
+ *   CMD_relay -- relay a message from one race to another.
  * FUNCTION
  ******
  */
@@ -1199,7 +1199,7 @@ CMD_relay( int argc, char **argv )
         confirmName = createString( "%s/NGconfirm", tempdir );
         if ( ( confirm = GOS_fopen( confirmName, "w" ) ) ) {
             player *aPlayer;
-            char *destination, *returnAddress, *nationName, *password;
+            char *destination, *returnAddress, *raceName, *password;
             int theTurnNumber = LG_CURRENT_TURN;
             envelope *anEnvelope;
 
@@ -1207,11 +1207,11 @@ CMD_relay( int argc, char **argv )
             returnAddress = getReturnAddress( stdin );
             setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
             destination = getDestination( stdin );
-            nationName = NULL;
+            raceName = NULL;
             password = NULL;
             aGame = NULL;
             resNumber =
-                areValidOrders( stdin, &aGame, &nationName,
+                areValidOrders( stdin, &aGame, &raceName,
                                 &password, theTurnNumber );
 
             if ( destination == NULL ) {
@@ -1228,7 +1228,7 @@ CMD_relay( int argc, char **argv )
             plog( LBRIEF, "Message from %s\n", returnAddress );
             result = 0;
             if ( resNumber == RES_OK ) {
-                result |= relayMessage( aGame, nationName, aPlayer );
+                result |= relayMessage( aGame, raceName, aPlayer );
                 if ( result == 0 ) {
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
                                "Galaxy HQ, message sent" );
@@ -1244,7 +1244,7 @@ CMD_relay( int argc, char **argv )
             } else {
                 setHeader( anEnvelope, MAILHEADER_SUBJECT,
                            "Galaxy HQ, major trouble." );
-                generateErrorMessage( resNumber, aGame, nationName,
+                generateErrorMessage( resNumber, aGame, raceName,
                                       theTurnNumber, confirm );
             }
             fprintf( confirm, "\n\n%s\n", vcid );
@@ -1252,8 +1252,8 @@ CMD_relay( int argc, char **argv )
             result |= eMail( aGame, anEnvelope, confirmName );
             if ( destination )
                 free( destination );
-            if ( nationName )
-                free( nationName );
+            if ( raceName )
+                free( raceName );
             if ( password )
                 free( password );
             destroyEnvelope( anEnvelope );
@@ -1278,7 +1278,7 @@ CMD_relay( int argc, char **argv )
  */
 
 int
-relayMessage( game *aGame, char *nationName, player *to )
+relayMessage( game *aGame, char *raceName, player *to )
 {
     char *messageName;
     FILE *message;
@@ -1294,13 +1294,13 @@ relayMessage( game *aGame, char *nationName, player *to )
             anEnvelope = createEnvelope(  );
 
             setHeader( anEnvelope, MAILHEADER_TO, "%s", to->addr );
-			if (strstr(nationName, "@") != NULL) {
+			if (strstr(raceName, "@") != NULL) {
 				setHeader(anEnvelope, MAILHEADER_SUBJECT,
 						  "Galaxy HQ, message relay GM");
 			}
 			else {
 				setHeader( anEnvelope, MAILHEADER_SUBJECT,
-						   "Galaxy HQ, message relay %s", nationName );
+						   "Galaxy HQ, message relay %s", raceName );
 			}
             plog( LBRIEF, "Message relay, destination %s.\n", to->addr );
             fprintf( message, "#GALAXY %s %s %s\n",
@@ -1482,7 +1482,7 @@ CMD_report( int argc, char **argv )
     plogtime( LBRIEF );
     result = EXIT_FAILURE;
     if ( argc >= 2 ) {
-        char *returnAddress, *nationName, *password;
+        char *returnAddress, *raceName, *password;
         int resNumber, theTurnNumber;
         game *aGame;
         FILE *report;
@@ -1497,11 +1497,11 @@ CMD_report( int argc, char **argv )
             setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
             plog( LBRIEF, "Report request from %s.\n", returnAddress );
             theTurnNumber = getTurnNumber( stdin );
-            nationName = NULL;
+            raceName = NULL;
             password = NULL;
             aGame = NULL;
             resNumber =
-                areValidOrders( stdin, &aGame, &nationName, &password,
+                areValidOrders( stdin, &aGame, &raceName, &password,
                                 theTurnNumber );
             if ( ( resNumber == RES_TURNRAN )
                  || ( ( resNumber == RES_OK )
@@ -1534,10 +1534,10 @@ CMD_report( int argc, char **argv )
                         runTurn( aGame2, ordersName );
                         free( ordersName );
                     }
-                    /* Translate the current nation name into the name used during
+                    /* Translate the current race name into the name used during
                      * the * turn * * * * that is requested */
                     aPlayer =
-                        findElement( player, aGame->players, nationName );
+                        findElement( player, aGame->players, raceName );
 
                     index = ptonum( aGame->players, aPlayer );
                     aPlayer = numtop( aGame2->players, index );
@@ -1563,7 +1563,7 @@ CMD_report( int argc, char **argv )
             } else {
                 setHeader( anEnvelope, MAILHEADER_SUBJECT,
                            "Galaxy HQ, Major Trouble" );
-                generateErrorMessage( resNumber, aGame, nationName,
+                generateErrorMessage( resNumber, aGame, raceName,
                                       theTurnNumber, report );
             }
             fclose( report );
@@ -1571,8 +1571,8 @@ CMD_report( int argc, char **argv )
             destroyEnvelope( anEnvelope );
             result |= ssystem( "rm %s", reportName );
             result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
-            if ( nationName )
-                free( nationName );
+            if ( raceName )
+                free( raceName );
             if ( password )
                 free( password );
         } else {
@@ -1648,7 +1648,7 @@ CMD_graph( int argc, char **argv )
             player *aPlayer;
             int number;
 
-            nationStatus( aGame );
+            raceStatus( aGame );
             for ( number = 0, aPlayer = aGame->players;
                   aPlayer; aPlayer = aPlayer->next, number++ ) {
                 printf( "%d %d %s %f\n", aGame->turn, number, aPlayer->name,
