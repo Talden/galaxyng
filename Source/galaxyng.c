@@ -69,7 +69,7 @@
 char           *galaxyng =
     "$Id$";
 
-char           *vcid = "GalaxyNG release-6-0, May 2002.";
+char           *vcid = "GalaxyNG release-6-2, July 2003.";
 
 /* Should be in galaxy.h */
 
