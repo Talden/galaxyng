@@ -19,7 +19,7 @@
 				<p>The original version of <a href="http://www.indyramp.com/galaxy/">Galaxy</a> was developed by Russel Wallace somewhere in 1991 or maybe even earlier (V2.9 has a 1991 copyright).  To the best of our knowledge, there are no original-version Galaxy servers active.</p>
 				
 			<h2>GalaxyNG</h2>
-				<p><a href="index.php">GalaxyNG</a> was created by Frans Slothober and introduced multiple homeworlds and partial bombings.  Frans had <a href="whyng.php">several reasons</a> for creating GalaxyNG.  It is the variant that is most similar to original Galaxy.  The people who designed Galaxy and GalaxyNG are listed in the <a href="credits.php">GalaxyNG Credits</a>.</p>
+				<p><a href="/">GalaxyNG</a> was created by Frans Slothober and introduced multiple homeworlds and partial bombings.  Frans had <a href="whyng.php">several reasons</a> for creating GalaxyNG.  It is the variant that is most similar to original Galaxy.  The people who designed Galaxy and GalaxyNG are listed in the <a href="credits.php">GalaxyNG Credits</a>.</p>
 				
 			<h2>GalaxyPlus</h2>
 				<p><a href="http://galaxy.pbem.ru/">GalaxyPlus</a> (G+) was developed in Russia.  It is similar to GalaxyNG but has some differences.  These guys take their Galaxy seriously.  Some links: <a href="http://www.uplanet.ru/">Unidentified Planet</a>, <a href="http://www.uplanet.ru/gsn/">News and Links</a>, <a href="http://pbem.sargona.ru/">Sargona server</a>, <a href="http://galaxy.lucky.net/">Lucky</a>, <a href="http://pbem.times.lv/">PBEM Latvia</a>, <a href="http://www.gvng.com/GVNGAccess/index.srf">GVNG (Galaxy Viewer Next Generation</a>, <a href="http://galaxy.pbem.msk.ru/">First Moscow server</a>, <a href="http://www.uplanet.ru/racelist">The Russian Hall of Fame</a>.</p>

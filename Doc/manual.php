@@ -62,7 +62,7 @@
 					<li><a href="#combat">Combat</a>
 						<ul>
 							<li><a href="#war">War and Alliances</a></li>
-							<li><a href="#bat">Battles</a></li>
+							<li><a href="#bat">Fighting Battles</a></li>
 							<li><a href="#bomb">Bombing Planets</a></li>
 						</ul>
 					</li>
@@ -147,13 +147,13 @@
 					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Planets are used to build ships, conduct technology research, produce capital or produce materials.  Ships explore the galaxy, colonize uninhabited planets, haul cargo, conduct warfare and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, haul more cargo and fight better.</p>
 					
 				<h3 id="players">Players</h3>
-					<p>Each player is the leader of one race.  Players can communicate by sending <a href="#ordA">messages</a> or <a href="#email">email</a> to each other.  Players are <a href="#ordo">anonymous</a> but can choose to reveal their identities to other players.  Players can  provide their <a href="#ordE">real name</a> to the GM for inclusion in the <a href="http://www.refs-home.net/galaxyng/hof/">Hall of Fame</a> without breaking their anonymity.</p>
+					<p>Each player is the leader of one race.  Players can communicate by sending <a href="#ordA">messages</a> or <a href="#email">email</a> to each other.  Players are <a href="#ordo">anonymous</a> but can choose to reveal their identities to other players.  Players can <a href="#ordE">provide their real name</a> to the GM for inclusion in the <a href="http://www.refs-home.net/galaxyng/hof/">Hall of Fame</a> without breaking their anonymity.</p>
 
 				<h3 id="victory">Victory and Defeat</h3>
 					<p>The game can be won by a single race or by an alliance of races, depending upon the game settings.  Races are ranked based on the total production of their planets.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</p>
 
 				<h3 id="names">Names</h3>
-					<p>Races, planets, ship types and fleets can be named.  Names may be no more than twenty characters (a character is a letter, digit, or underscore) and may not include spaces.  Names must be unique.  For example, a race cannot have the same name as a fleet.  Each player should <a href="#ordc">provide a name</a> by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when <a href="#ordd">designed</a> and can be <a href="#ordt">renamed</a>.  Planets are numbered at the start of the game and can be <a href="#ordn">renamed</a> by their current owner.</p>
+					<p>Races, planets, ship types and fleets can be named.  Names may be no more than twenty characters (a character is a letter, digit, or underscore) and may not include spaces.  Names must be unique.  For example, a race cannot have the same name as a fleet.  Each player should <a href="#ordc">provide a name</a> by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when <a href="#ordd">designed</a> and can be <a href="#ordt">renamed</a>.  Planets are numbered at the start of the game and can be <a href="#ordn">given new names</a> by their current owner.</p>
 					
 				<h3 id="units">Units of Measure</h3>
 					<p>Distances are measured in light-years.  Each unit of population represents ten million people and each unit of capital or materials represents ten million tons.  Each turn represents about four years of time.</p>
@@ -210,14 +210,14 @@ MegaFreighter  120.00   0   0.00  38.43  39.57</pre>
 
 				<h3 id="groups">Groups</h3>
 					<p>A race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</p>
-					<p>Groups can be ordered to <a href="#ords">travel</a> to another planet, <a href="#ordi">intercept</a> other ships, <a href="#ordh">reverse</a> course, <a href="#ordb">break</a> off ships into a new group, <a href="#ordj">join</a> a fleet, <a href="#ordb">leave</a> a fleet, <a href="#ordg">upgrade</a> technology levels, <a href="#ordl">load</a> cargo, or <a href="#ordu">unload</a> cargo.  Groups may also be <a href="#ordx">scrapped</a>, which automatically unloads all cargo and deposits the materials used to produce the ships at the current planet.  If <a href="#ordr">routes</a> have been established, groups will follow them.</p>
+					<p>Groups can be ordered to <a href="#ords">travel</a> to another planet, <a href="#ordi">intercept</a> other ships, <a href="#ordh">reverse</a> course, <a href="#ordb">break</a> off ships into a new group, <a href="#ordj">join</a> a fleet, <a href="#ordb">leave</a> a fleet, <a href="#ordg">upgrade</a> technology levels, <a href="#ordl">load</a> cargo, or <a href="#ordu">unload</a> cargo.  Groups may also be <a href="#ordx">scrapped</a>, which automatically unloads all cargo and deposits the materials used to produce the ships at the current planet.  If <a href="#ordr">routes have been established</a>, groups will follow them.</p>
 					<p>Each group is assigned a number, which is used to issue orders to ships in the corresponding group.  When new groups are created, they are assigned a number N+1, where N is the highest numbered group in existence.  Whenever a group number is required as an order parameter, the keyword MAX may be used instead. This will apply the order to the group with the highest group number, i.e. the most recently created group.</p>
 					<p>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower group number.  For example, if group 5 containing 48 ships is merged with group 12 containing 52 ships, group 5 will contain 100 ships and group 12 will be eliminated.</p>
 					<p>If the SortGroups <a href="#ordo">option</a> is turned on, at the end of each turn groups will be automatically sorted and renumbered as follows: Owner's groups at owner's planets; Owner's groups at other race's planets; Owner's groups at uninhabited planets; Owner's groups in fleets.</p>
 
 				<h3 id="fleets">Fleets</h3>
 					<p>Fleets contain groups, allowing players to gather different ship types together in a single unit.  Many of the orders for groups can also be used for fleets.  Players can <a href="#ordd">create</a>, <a href="#orde">eliminate</a>, <a href="#ordj">merge</a> and <a href="#ordt">rename</a> fleets.  Fleets can be ordered to <a href="#ords">travel</a> to another planet, <a href="#ordi">intercept</a> other ships, or <a href="#ordh">reverse</a> course.  The slowest group in the fleet sets the maximum speed for the entire fleet.</p>
-					<p>A group in a fleet that is given a <a href="#ords">send</a> or <a href="#ordi">intercept</a> order is automatically removed from the fleet.  Ships in a fleet that are <a href="#ordb">broken</a> from groups are also removed from the fleet.  Groups in fleets that are ordered to <a href="#ordg">upgrade</a>, <a href="#ordl">load</a> or <a href="#ordu">unload</a> cargo remain in the fleet.  Groups in fleets will not travel on <a href="#ordr">routes</a>.</p>
+					<p>A group in a fleet that is given a <a href="#ords">send</a> or <a href="#ordi">intercept</a> order is automatically removed from the fleet.  Ships in a fleet that are <a href="#ordb">broken</a> from groups are also removed from the fleet.  Groups in fleets that are ordered to <a href="#ordg">upgrade</a>, <a href="#ordl">load</a> or <a href="#ordu">unload</a> cargo remain in the fleet.  Groups in fleets will not <a href="#ordr">travel on routes</a>.</p>
 
 				<h3 id="tech">Technology</h3>
 					<p>Technology determines the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to conduct <a href="#ordp">research</a>.</p>
@@ -341,7 +341,7 @@ MegaFreighter   198.00   1980.00     198.00	</pre>
 					<p>Excess ship production is carried forward into the next turn.  If the planet continues producing the same ship type, the fractional production is added to the current turn production.  For example, a planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.50 Cruisers per turn.  One Cruiser would be produced on the first turn and two Cruisers would be produced on the second turn.  A ship which is built over several turns will be assigned the technology levels of the race at the start of the final turn.  If the planet's production is changed, the extra ship production is lost and any materials produced on the previous turn are added to the planet's stockpiles.</p>
 					
 				<h3 id="upgrade">Upgrading Groups</h3>
-					<p>Groups can be <a href="#ordg">upgraded</a> at the owning player's planets.  Groups that are upgraded cannot be ordered to <a href="#ords">travel</a> to another planet or <a href="#ordi">intercept</a> an enemy group, however they will be sent on <a href="#ordr">routes</a> and participate in combat.  Ships in the group will be upgraded to the owning player's technology levels as of the beginning of the turn (if they are already at the current technology levels, nothing will happen). The cost of upgrading a ship is equal to a fraction of the production cost of a new ship of the same type.  Ugrades do not require materials.  The exact formula for the cost is:</p>
+					<p>Groups can be <a href="#ordg">upgraded</a> at the owning player's planets.  Groups that are upgraded cannot be ordered to <a href="#ords">travel</a> to another planet or <a href="#ordi">intercept</a> an enemy group, however they will be <a href="#ordr">sent on routes</a> and participate in combat.  Ships in the group will be upgraded to the owning player's technology levels as of the beginning of the turn (if they are already at the current technology levels, nothing will happen). The cost of upgrading a ship is equal to a fraction of the production cost of a new ship of the same type.  Ugrades do not require materials.  The exact formula for the cost is:</p>
 <pre>Upgrade cost = 10 * ((1 - ship drive tech / current drive tech) * ship drive mass +
 (1 - ship weapons tech / current weapons tech) * ship weapons mass +
 (1 - ship shields tech / current shields tech) * ship shields mass +
@@ -357,7 +357,7 @@ MegaFreighter   198.00   1980.00     198.00	</pre>
 				<h3 id="war">War and Alliances</h3>
 					<p>At the start of the game all races are assumed to be at war with all the other races (except in team games).  <a href="#orda">Alliances</a> may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, <a href="#ordw">war</a> may be declared again at the start of any subsequent turn and vice versa.</p>
 
-				<h3 id="bat">Battles</h3>
+				<h3 id="bat">Fighting Battles</h3>
 				 <p>Battles occur whenever a ship with weapons encounters an enemy ship at a planet.  Ships in hyperspace cannot participate in battles.  In each battle round, randomly select a ship from all surviving ships that have not yet attacked (note that if a ship is destroyed before it gets a chance to fire it will not attack).  For each gun on the ship, randomly select a surviving enemy ship and fire a shot.  Repeat until all ships have fired.  Battle rounds continue until the battle is either a standoff or a win.  A battle is a standoff if all remaining ships are invulnerable to enemy attacks.  A battle is won if all remaining ships belong to races that are allied with each other.</p>
 					<p>Attack and defence strengths are calculated using the following forumlae:</p>
 <pre>attack strength = (weapons mass * weapons technology)
@@ -375,14 +375,14 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 			<h2 id="turn">Turn Sequence</h2>
 
 				<ol>
-					<li>Planetary <a href="#ordp">production</a> orders are assigned.  Note that production occurs later in the turn.</li>
+					<li>Planetary <a href="#ordp">production orders</a> are assigned.  Note that production occurs later in the turn.</li>
 					<li><a href="#ordA">Messages</a> are sent.</li>
 					<li><a href="#orda">Alliances</a> and <a href="#ordw">war</a> are declared.</li>
 					<li>Groups with weapons attack enemy ships, causing combat.  This can happen if a player declares war on the current turn.  It can also happen if a player built a ship with weapons at a planet with enemy ships in orbit at the end of the previous turn.</li>
 					<li>Groups with weapons bomb enemy planets.  This can happen if a player declares war on the current turn.</li>
 					<li>Groups <a href="#ordl">load</a> or <a href="#ordu">unload</a> cargo.</li>
 					<li>Groups and fleets <a href="#ords">sent</a> to planets enter hyperspace.</li>
-					<li><a href="#ordr">Routes</a> are assigned to planets.</li>
+					<li><a href="#ordr">Routes are assigned</a> to planets.</li>
 					<li>Cargo ships are assigned cargos and destinations, load cargo (if necessary) and enter hyperspace.</li>
 					<li>Groups and fleets with <a href="#ordi">intercept</a> orders are assigned destinations and enter hyperspace.</li>
 					<li>Groups and fleets move through hyperspace, possibly arriving at planets.</li>
@@ -1134,7 +1134,7 @@ I'll never trust you again!
 @</pre>
 
 				<h3 id="ordE">= &lt;FirstName LastName&gt;</h3>
-					<p>Set the player's <a href="#players">real name</a> for use in the <a href="http://www.badcheese.com/~steve/hof/hofweb/">Hall of Fame</a>.</p>
+					<p>Set the player's <a href="#players">real name</a> for use in the <a href="http://www.refs-home.net/galaxyng/hof/">Hall of Fame</a>.</p>
 
 				<h3 id="orda">a &lt;alien race name&gt;</h3>
 					<p>Declare an <a href="#war">alliance</a> with another race.</p>
@@ -1164,17 +1164,17 @@ I'll never trust you again!
 					<p>Request a <a href="#player">player's</a> email address. If no email address is returned, the player is <a href="#ordo">anonymous</a>, the race is not being played, or the race is being played by the GM.</p>
 
 				<h3 id="ordg">g &lt;group number&gt; [number of ships]</h3>
-					<p><a href="#upgrade">Upgrade</a> a group of ships.</p>
+					<p><a href="#upgrade">Upgrade a group</a> of ships.</p>
      
 				<h3 id="ordh">h &lt;group number&gt;
 				<br />h &lt;fleet name&gt;</h3>
-					<p><a href="#move">Reverse</a> the course of a group in hyperspace.
+					<p><a href="#move">Reverse the course</a> of a group in hyperspace.
 					<br /><strong>or</strong>
 					<br />Reverse the course of a fleet in hyperspace.</p>
 
 				<h3 id="ordi">i &lt;group number&gt; &lt;planet name&gt; [number of ships]
 				<br />i &lt;fleet name&gt; &lt;planet name&gt;</h3>
-					<p><a href="#move">Intercept</a> alien groups with a group.
+					<p><a href="#move">Intercept alien groups</a> with a group.
 					<br /><strong>or</strong>
 					<br />Intercept alien groups with a fleet.</p>
 				
@@ -1243,13 +1243,13 @@ I'll never trust you again!
 					<p>Claim victory over an enemy planet if it is <a href="#bomb">bombed</a>.</p>
 
 				<h3 id="ordw">w &lt;alien race name&gt;</h3>
-					<p>Cancel an alliance with another race, declaring <a href="#war">war</a>.</p>
+					<p>Cancel an alliance with another race, <a href="#war">declaring war</a>.</p>
 
 				<h3 id="ordx">x &lt;group number&gt; [number of ships]</h3>
 					<p><a href="#groups">Scrap</a> a group, converting the ships into materials.  Scrapping ship that are carrying colonists or orbiting an alien planet will result in an error.</p>
 
 				<h3 id="ordy">y &lt;new password&gt;</h3>
-					<p>Change the player's <a href="#orders">password</a>.</p>
+					<p><a href="#orders">Change the player's password</a>.</p>
 
 				<h3 id="ordz">z &lt;new email address&gt;</h3>
 					<p>Change the player's <a href="#orders">email address</a>.</p>
@@ -1274,8 +1274,8 @@ Subject: relay &lt;alien race name&gt;
 					<p>Note that players can also <a href="#ordA">send messages</a> to other races in their turn reports.</p>
 				
 				<h3 id="ascii">Plain ASCII Text</h3>
-					<p>All email to the server must be sent in plain ASCII text.  The server cannot interpret HTML formatted email.  See <a href="http://www.expita.com/nomime.html">Configuring Mail Clients to Send Plain ASCII Text</a> for more information.</p>
-					<p>HTML messages sent to other players by the server will display the sender's true identity and password to the recipient.</p>
+					<p>All email to the server must be sent in plain ASCII text.  The server cannot interpret HTML formatted email.  Text+HTML can be used, however HTML messages sent to other players by the server will display the sender's true identity and password to the recipient!  See <a href="http://www.expita.com/nomime.html">Configuring Mail Clients to Send Plain ASCII Text</a> for more information.</p>
+					<p></p>
  		
  		<?php include 'footer.php'; ?>
  	</body>

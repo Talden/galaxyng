@@ -75,7 +75,7 @@ LIBS   = -lm</pre>
 
 			<h2 id="files">Files and Directories</h2>
 				<p>The following files are created.</p>
-				<table>
+				<table summary="List of files created and descriptions.">
 					<tr>
 						<th>File</th>
 						<th>Explanation</th>
@@ -98,7 +98,7 @@ LIBS   = -lm</pre>
 					</tr>
 				</table>
 				<p>The installation program also creates a number of directories:</p>
-				<table>
+				<table summary="List of directories created and descriptions.">
 					<tr>
 						<th>Directory</th>
 						<th>Explanation</th>
@@ -133,7 +133,7 @@ LIBS   = -lm</pre>
 					</tr>
 				</table>
 				<p>There are three kind of notices available:</p>
-				<table>
+				<table summary="List of notices and explanations">
 					<tr>
 						<th>Notice</th>
 						<th>Explanation</th>
@@ -156,7 +156,7 @@ LIBS   = -lm</pre>
 
 			<h2 id="config">Configuration</h2>
 				<p>The server is configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>, whcih overrides the global settings for that particular game. A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Doc/</tt> directory. You can use it to specify the following parameters:</p>
-				<table>
+				<table summary="List of configuration parameters and explanations.">
 					<tr>
 						<th>Parameter</th>
 						<th>Explanation</th>
@@ -302,7 +302,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 			<hr />
 
 			<h2 id="command">Command Summary</h2>
-				<table>
+				<table summary="Command summary and explanation.">
 					<tr>
 						<th>Command</th>
 						<th>Explanation</th>

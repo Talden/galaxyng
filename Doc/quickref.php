@@ -17,7 +17,7 @@
 			
 			<h2>Planet Orders</h2>
 			
-				<table>
+				<table summary="List of planet orders and parameters.">
 					<tr>
 						<td>Produce</td>
 						<td><tt>&nbsp;<a href="manual.php#ordp">p &lt;planet name&gt; &lt;CAP | MAT | DRIVE | WEAPONS | SHIELDS | CARGO | ship type name&gt;</a></tt></td>
@@ -40,7 +40,7 @@
 			
 			<h2>Ship Type Orders</h2>
 				
-				<table>
+				<table summary="List of ship type orders and parameters.">
 					<tr>
 						<td>Design</td>
 						<td><tt>&nbsp;<a href="manual.php#ordd">d &lt;name&gt; &lt;drive mass&gt; &lt;attacks&gt; &lt;weapons mass&gt; &lt;shields mass&gt; &lt;cargo mass&gt;</a></tt></td>
@@ -59,7 +59,7 @@
 			
 			<h2>Group Orders</h2>
 			
-				<table>
+				<table summary="List of group orders and parameters.">
 					<tr>
 						<td>Send</td>
 						<td><tt>&nbsp;<a href="manual.php#ords">s &lt;group number&gt; &lt;planet name&gt; [number of ships]</a></tt></td>
@@ -98,7 +98,7 @@
 			
 			<h2>Fleet Orders</h2>
 			
-				<table>
+				<table summary="List of fleet orders and parameters.">
 					<tr>
 						<td>Send</td>
 						<td><tt>&nbsp;<a href="manual.php#ords">s &lt;fleet name&gt; &lt;planet name&gt;</a></tt></td>
@@ -141,7 +141,7 @@
 			
 			<h2>Player Orders</h2>
 			
-				<table>
+				<table summary="List of player orders and parameters.">
 					<tr>
 						<td>Player</td>
 						<td><tt>&nbsp;<a href="manual.php#ordE">= &lt;FirstName LastName&gt;</a></tt></td>
@@ -176,7 +176,7 @@
 				
 			<h2>Race Orders</h2>
 
-				<table>
+				<table summary="List of race orders and parameters.">
 					<tr>
 						<td>Alliance</td>
 						<td><tt>&nbsp;<a href="manual.php#orda">a &lt;alien race name&gt;</a></tt></td>
