@@ -27,8 +27,8 @@
 			
 		<h2>Galaxy Information</h2>
 			<ul>
-				<li><a href="http://www.indyramp.com/galaxy/home.html">Galaxy PBeM Web Center</a>, from Robert Novak</a></li>
-				<li><a href="http://home.wanadoo.nl/falcon/a01/galaxy.html">Falcon Galaxy Pages</A>, from Paul van der Valk</li>
+				<li><a href="http://www.indyramp.com/galaxy/home.html">Galaxy PBeM Web Center</a>, from Robert Novak</li>
+				<li><a href="http://home.wanadoo.nl/falcon/a01/galaxy.html">Falcon Galaxy Pages</a>, from Paul van der Valk</li>
 				<li><a href="http://badcheese.com/~steve/phpwiki/index.php/GalaxyPlay">GalaxyPlay wiki</a></li>
 			</ul>
 		

@@ -141,7 +141,7 @@ if ($_SERVER['PHP_SELF'] == $self) {
 
 </p>
 
-<table class="wide"><tr><td class="h1"><?php echo $title; ?></td><td class="right"><?php
+<table class="wide" summary="This table contains the title of the page and the GalaxyNG logo"><tr><td class="h1"><?php echo $title; ?></td><td class="right"><?php
 $self = trim($base) . "index.php";
 if ($_SERVER['PHP_SELF'] == $self) {
 ?>

@@ -35,7 +35,7 @@
 				<ul>
 					<li><a href="manual.php">Players Manual</a></li>
 					<li><a href="quickref.php">Quick Reference</a></li>
-					<li><a href="faq.php">FAQ</A></li>
+					<li><a href="faq.php">FAQ</a></li>
 					<li><a href="etiquette.php">Galaxy Etiquette</a></li>
 					<li><a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a> (Note that it is not completely accurate in all details, as it describes original Galaxy and not GalaxyNG.)</li>
 					<li>Howard Bampton's <a href="http://www.indyramp.com/galaxy/strategy.html">Ship Design in Galaxy and Blind Galaxy</a></li>

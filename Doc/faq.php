@@ -111,7 +111,7 @@ S 20 Z; send them to planet Z</pre>
 				<h3>Scenario 2:</h3>
 					<ul>
 						<li>Betrayer and Unsuspecting have declared alliances with each other.</li>
-						<li>Planets GeeWhiz and Snoody are owned by Unsuspecting.
+						<li>Planets GeeWhiz and Snoody are owned by Unsuspecting.</li>
 						<li>Betrayer and Unsuspecting both have armed ships orbiting GeeWhiz.  There are no ships orbiting Snoody.</li>
 					</ul>
 					<p>Betrayer declares War on Unsuspecting, and orders its ships to travel from GeeWhiz to Snoody.  Before any ships move a battle takes place on Friendly.  The following can happen:</p>

@@ -52,7 +52,7 @@ procmail; to automatically process incoming orders</pre>
 			<h2 id="compile">Compilation</h2>
 				<p>To extract the code, run:</p>
 <pre>tar -xvzf galaxy-#.tar.gz</pre>
-				<p>This creates the directory <tt>NG/</tt>. 				
+				<p>This creates the directory <tt>NG/</tt>.</p>		
 				<p>Most of the configuration is done after compilation and is handled by the program <tt>NG/install.sh</tt>.  Before compiling the GalaxyNG server you should review <tt>NG/Source/makefile</tt> to make sure it fit your computer's configuration.  The following variables can be configured:</p>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
@@ -325,7 +325,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -dummymail0 &lt;game name&gt;</tt></td>
-						<td>Create the turn 0 reports, but don't email them. You can find them in <tt>reports/&lt;game name&gt;</tt><td>
+						<td>Create the turn 0 reports, but don't email them. You can find them in <tt>reports/&lt;game name&gt;</tt></td>
 					</tr>
 					<tr>
 						<td><tt>run_game &lt;game name&gt;</tt></td>
@@ -340,19 +340,19 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 						<td>Run a turn but do not mail the turn reports. Store them in <tt>reports/</tt> instead.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -check &lt;message via stdin&gt;</td>
+						<td><tt>galaxyng -check &lt;message via stdin&gt;</tt></td>
 						<td>Check orders and mail a forecast, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -dummycheck &lt;message via stdin&gt;</td>
+						<td><tt>galaxyng -dummycheck &lt;message via stdin&gt;</tt></td>
 						<td>Check orders, do not mail a forecast.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -report &lt;message via stdin&gt;</td>
+						<td><tt>galaxyng -report &lt;message via stdin&gt;</tt></td>
 						<td>Mail a copy of a turn report, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -relay &lt;message via stdin&gt;</td>
+						<td><tt>galaxyng -relay &lt;message via stdin&gt;</tt></td>
 						<td>Relay a message from one player to another player, used in combination with procmail.</td>
 					</tr>
 					<tr>

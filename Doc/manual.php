@@ -494,8 +494,8 @@ http://www.expita.com/nomime.html
 
 You can get a copy of any of the previous turn reports by sending a
 set of orders that contains just one line:
-  #GALAXY <game name> <your nation name> <your password>
-to steve@badcheese.com with a Subject line of "report <turn#>"
+  #GALAXY &lt;game name&gt; &lt;your nation name&gt; &lt;your password&gt;
+to steve@badcheese.com with a Subject line of "report &lt;turn#&gt;"
 Use the nation name and password of the last turn, not the
 name and password you had at the turn you request.
 
@@ -503,15 +503,15 @@ name and password you had at the turn you request.
 
 You can send a anonymous email to another nation by sending a
 message with the following format
-  #GALAXY <game name> <your nation name> <your password>
-  <text of your message>
+  #GALAXY &lt;game name&gt; &lt;your nation name&gt; &lt;your password&gt;
+  &lt;text of your message&gt;
   .
   .
-to steve@badcheese.com with as Subject: relay <destination nation name>
+to steve@badcheese.com with as Subject: relay &lt;destination nation name&gt;
 If you get a message like this you can just hit the reply button
 and write and send the reply. For your convenience the
 #GALAXY... line is included in the message, you probably have
-to remove the "> " your mail program added in front of it.
+to remove the "&gt; " your mail program added in front of it.
 Be careful with signatures if you want to stay anonymous.
 
 -*- TIME AND DUE DATES FOR ORDERS -*-
@@ -820,11 +820,11 @@ Nation_15    Farmers    205       211.21 211.21 Seed    38.06   0.00  0.00</pre>
 
 				<h3 id="repmap">Map</h3>
 					<p>An text map of the galaxy or a section of the galaxy.  The player can change the size and extent of the map.  Symbols on the map have the following meanings:
-<br>* The player's planet
-<br>o An uninhabited planet
-<br>+ Another race's planet
-<br>. The player's group in hyperspace
-<br>- Another race's group in hyperspace</p>
+<br />* The player's planet
+<br />o An uninhabited planet
+<br />+ Another race's planet
+<br />. The player's group in hyperspace
+<br />- Another race's group in hyperspace</p>
 
 <pre>50.00,0.00  200.00,0.00
 --------------------------------------------------------------------------------

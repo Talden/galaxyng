@@ -58,7 +58,7 @@
 						<li>Tiger2, second team game: "Ex-USSR" against "Rest of the World".</li>
 						<li><a href="hall/Tiger3.html">Tiger3</a>, third team game: "Ex-USSR" against "Rest of the World".</li>
 						<li><a href="hall/Tiger4.html">Tiger4</a>, fourth  team game: "Ex-USSR" against "Rest of the World".</li>
-					</ol>
+					</ul>
 
  		<?php include 'footer.php'; ?>
  	</body>
