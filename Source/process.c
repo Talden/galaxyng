@@ -387,8 +387,7 @@ c_order( game *aGame, player *P, strlist **s )
 	}
 	
     /* someone else already using it? */
-    if ( findElement( player, aGame->players, ns ) != NULL )
-    {
+    if ( findElement( player, aGame->players, ns ) != NULL ) {
         mistake( P, ERROR, *s, "Race name already in use." );
         return;
     }
@@ -2140,10 +2139,8 @@ checkOrders( game *aGame, char *raceName, FILE *forecast, int kind )
 
     ( aGame->turn )++;
     if ( kind == F_XMLREPORT ) {
-        fprintf( stderr, "Creating XML report, %s:%d\n", raceName, kind );
         report_xml( aGame, aPlayer, forecast, Forecast );
     } else {
-        fprintf( stderr, "Creating TXT report, %s:%d\n", raceName, kind );
         raceStatus( aGame );
         reportGlobalMessages( aGame->messages, &fields );
         reportMessages( aPlayer, &fields );
