@@ -49,7 +49,6 @@ int CMD_relay( int argc, char **argv ) {
 	}
 	else 
 		free(confirmName);
-	
 
 	anEnvelope = readEnvelope(stdin);
 
@@ -105,9 +104,6 @@ int CMD_relay( int argc, char **argv ) {
 	}
 			
 	toPlayers = allocStruct(player);
-
-	plog(LBRIEF, "dest: \"%s\"  game->name: \"%s\"\n",
-	     destination, aGame->name);
 
 	if (noCaseStrcmp(destination, aGame->name) == 0) {
 		/* since we are relaying to the game, then the relay goes to
@@ -176,6 +172,8 @@ int CMD_relay( int argc, char **argv ) {
 				
 
 	for (itPlayer = toPlayers; itPlayer; itPlayer = itPlayer->next) {
+	  plog(LBRIEF, "relayMessage(aGame, %s, %s, %s)\n", raceName, fromPlayer->name, itPlayer->name);
+
 		result = relayMessage(aGame, raceName, fromPlayer, itPlayer);
 					
 		if (result == 0) {
