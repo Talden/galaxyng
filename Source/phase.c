@@ -442,7 +442,7 @@ loadphase(game *aGame)
       if (p->routes[CG_COL])
         for (g = P->groups; g; g = g->next)
           if (g->where == p && g->type->cargo && g->dist == 0 &&
-              g->type->drive && !g->thefleet) {
+              g->type->drive > 0 && !g->thefleet) {
             if (g->loadtype == CG_EMPTY && p->col) {
               qty = p->col;
               shipspace = cargospace(g);
@@ -467,7 +467,7 @@ loadphase(game *aGame)
               g->loadtype = CG_COL;
               g->load = qty / g->ships;
             }
-            if (g->loadtype == CG_COL)
+            if (g->loadtype == CG_COL && g->type->drive)
               send(aGame, g, p->routes[CG_COL]);
           }
       if (p->routes[CG_CAP])
@@ -498,7 +498,7 @@ loadphase(game *aGame)
               g->loadtype = CG_CAP;
               g->load = qty / g->ships;
             }
-            if (g->loadtype == CG_CAP)
+            if (g->loadtype == CG_CAP && g->type->drive)
               send(aGame, g, p->routes[CG_CAP]);
           }
       if (p->routes[CG_MAT])
@@ -530,13 +530,13 @@ loadphase(game *aGame)
               g->loadtype = CG_MAT;
               g->load = qty / g->ships;
             }
-            if (g->loadtype == CG_MAT)
+            if (g->loadtype == CG_MAT && g->type->drive)
               send(aGame, g, p->routes[CG_MAT]);
           }
       if (p->routes[CG_EMPTY])
         for (g = P->groups; g; g = g->next)
           if (g->where == p && g->type->cargo && g->dist == 0 &&
-              g->loadtype == CG_EMPTY && !g->thefleet)
+              g->loadtype == CG_EMPTY && !g->thefleet && g->type->drive)
             send(aGame, g, p->routes[CG_EMPTY]);
     }
 }
@@ -560,87 +560,90 @@ loadphase(game *aGame)
 void
 interceptphase(game *aGame)
 {
-  player         *curPlayer, *otherPlayer;
-  double         *massPerPlanet;
-  int             noPlanets;
+	player* curPlayer;
+	player* otherPlayer;
+	double* massPerPlanet;
+	int     noPlanets;
 
-  pdebug(DFULL, "Intercept Phase\n");
+	pdebug(DFULL, "Intercept Phase\n");
 
-  noPlanets = numberOfElements(aGame->planets);
-  massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
+	noPlanets = numberOfElements(aGame->planets);
+	massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
 
-  for (curPlayer = aGame->players; curPlayer; curPlayer = curPlayer->next) {
-    group          *inGroup;
+	for (curPlayer = aGame->players; curPlayer; curPlayer = curPlayer->next) {
+		group* inGroup;
 
-    for (inGroup = curPlayer->groups; inGroup; inGroup = inGroup->next) {
-      if (inGroup->flags & GF_INTERCEPT) {
-        double          maxDist, maxMass;
-        planet         *inPlanet, *targetPlanet, *curPlanet;
-        int             planetIndex;
+		for (inGroup = curPlayer->groups; inGroup; inGroup = inGroup->next) {
+			if (inGroup->flags & GF_INTERCEPT) {
+				double maxDist;
+				double maxMass;
+				planet* inPlanet;
+				planet* targetPlanet;
+				planet* curPlanet;
+				int     planetIndex;
 
-        if (inGroup->thefleet)
-          maxDist = 2 * inGroup->thefleet->fleetspeed;
-        else
-          maxDist = 2 * groupSpeed(inGroup);
+				if (inGroup->thefleet)
+					maxDist = 2 * inGroup->thefleet->fleetspeed;
+				else
+					maxDist = 2 * groupSpeed(inGroup);
 
-        inPlanet = inGroup->where;
-        if (inGroup->thefleet) {
-          pdebug(DFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
-                 inGroup->thefleet->name, inPlanet->name, maxDist);
-        }
-        else {
-          pdebug(DFULL, "Group %d Intercept on Planet %s max Dist %f\n",
-                 inGroup->number, inPlanet->name, maxDist);
-        }
-        /* 
-         * Compute the total mass per destination planet, of all groups departing
-         * from the planet the intercept command was issued on.  Destination
-         * planet have to be with in two turn range. */
-        memset(massPerPlanet, 0, (noPlanets + 1) * sizeof(double));
-
-        for (otherPlayer = aGame->players;
-             otherPlayer; otherPlayer = otherPlayer->next) {
-          if (otherPlayer != curPlayer) {
-            group          *aGroup;
-
-            for (aGroup = otherPlayer->groups;
-                 aGroup; aGroup = aGroup->next) {
-              if ((aGroup->dist) &&
-                  (aGroup->location eq inPlanet) &&
-                  (dist(aGame, aGroup->where, inGroup->location) <
-                   maxDist)) {
-                massPerPlanet[ptonum(aGame->planets, aGroup->where)] +=
-                    aGroup->ships * shipmass(aGroup);
-              }
-            }
-          }
-        }
-        /* 
-         * Find the destination planet of the largest outgoing mass.  */
-        targetPlanet = NULL;
-        for (curPlanet = aGame->planets, planetIndex = 1, maxMass = 0;
-             curPlanet; planetIndex++, curPlanet = curPlanet->next) {
-          assert(planetIndex < (noPlanets + 1));
-          if (massPerPlanet[planetIndex] > maxMass) {
-            targetPlanet = curPlanet;
-            maxMass = massPerPlanet[planetIndex];
-          }
-        }
-
-        if (targetPlanet) {
-          pdebug(DFULL, "Result: Planet %s (%f ly away).\n",
-                 targetPlanet->name, dist(aGame, inGroup->where,
-                                          targetPlanet));
-          inGroup->where = inGroup->from;
-          send(aGame, inGroup, targetPlanet);
-        }
-        inGroup->flags &= ~GF_INTERCEPT;        /* Remove the * * *
-                                                 * intercept * * * * * *
-                                                 * * flag. */
-      }
-    }
-  }
-  free(massPerPlanet);
+				inPlanet = inGroup->where;
+				if (inGroup->thefleet) {
+					pdebug(DFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
+						   inGroup->thefleet->name, inPlanet->name, maxDist);
+				}
+				else {
+					pdebug(DFULL, "Group %d Intercept on Planet %s max Dist %f\n",
+						   inGroup->number, inPlanet->name, maxDist);
+				}
+				/* 
+				 * Compute the total mass per destination planet, of all groups departing
+				 * from the planet the intercept command was issued on.  Destination
+				 * planet have to be with in two turn range. */
+				memset(massPerPlanet, 0, (noPlanets + 1) * sizeof(double));
+				
+				for (otherPlayer = aGame->players;
+					 otherPlayer; otherPlayer = otherPlayer->next) {
+					if (otherPlayer != curPlayer) {
+						group          *aGroup;
+						
+						for (aGroup = otherPlayer->groups;
+							 aGroup; aGroup = aGroup->next) {
+							if ((aGroup->dist) &&
+								(aGroup->location eq inPlanet) &&
+								(dist(aGame, aGroup->where, inGroup->location) <
+								 maxDist)) {
+								massPerPlanet[ptonum(aGame->planets, aGroup->where)] +=
+									aGroup->ships * shipmass(aGroup);
+							}
+						}
+					}
+				}
+				/* 
+				 * Find the destination planet of the largest outgoing mass.  */
+				targetPlanet = NULL;
+				for (curPlanet = aGame->planets, planetIndex = 1, maxMass = 0;
+					 curPlanet; planetIndex++, curPlanet = curPlanet->next) {
+					assert(planetIndex < (noPlanets + 1));
+					if (massPerPlanet[planetIndex] > maxMass) {
+						targetPlanet = curPlanet;
+						maxMass = massPerPlanet[planetIndex];
+					}
+				}
+				
+				if (targetPlanet) {
+					pdebug(DFULL, "Result: Planet %s (%f ly away).\n",
+						   targetPlanet->name, dist(aGame, inGroup->where,
+													targetPlanet));
+					inGroup->where = inGroup->from;
+					send(aGame, inGroup, targetPlanet);
+				}
+                /* Remove the intercept flag. */ 
+				inGroup->flags &= ~GF_INTERCEPT;        
+			}
+		}
+	}
+	free(massPerPlanet);
 }
 
 /*********/
