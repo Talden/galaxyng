@@ -38,7 +38,7 @@ usage()
 		   "   -map        <game name> [turn]\n"
 #if defined(DRAW_INFLUENCE_MAP)
 		   "   -influence  <game name> <type> [turn]\n"
-		   "               (<type> is all, industry, attack, defend, location)\n"
+		   "               (<type> is all, industry, attack, defend, location, public)\n"
 #endif		   
 		   "   -gnuplot    <game name> [turn]\n");
 	printf("\nExplanation:\n"
@@ -63,7 +63,7 @@ usage()
 #if defined(DRAW_INFLUENCE_MAP)
 		   " -influence  - create influence map(s). The available maps are\n"
 		   "               Effective Industry, Attack Strength, Defense "
-		   "Strength, Planet Locater\n"
+		   "Strength, Planet Locater, Public\n"
 #endif		   
 		   " -lastorders - list the turn when players last sent in orders.\n"
 		   " -due        - send email to players that haven't submitted orders.\n"

@@ -16,6 +16,7 @@ enum map_type {
     ShipAttMap,
     ShipDefMap,
     LocationMap,
+    PublicMap,
     NbrMaps
 };
 
