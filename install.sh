@@ -130,6 +130,26 @@ fi
 echo "  The full path for the mime encoder is:"
 echo "  $ENCODE"
 
+# =========================================================
+#  Find the mime decoder
+# =========================================================
+
+echo "o Trying to find the mime decoder."
+for NAME in mimedecode; do
+  echo "  Checking: $NAME"
+  DECODE=`which $NAME`
+  if [ -n "$DECODE" ]; then
+    break;
+  fi
+done
+if [ -z "$DECODE" ]; then
+  echo "  I can't seem to find the mime decoder."
+  echo "  Please enter the full path for the mime decoder:"
+  read DECODE
+fi
+echo "  The full path for the mime decoder is:"
+echo "  $DECODE"
+
 # ===========================================================
 #  Try to find the location of the public web directory.
 # ===========================================================
@@ -270,7 +290,7 @@ echo "* ^Subject:.*order" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  :0crw:order" >> $PROCRC
 echo "  # Check the orders and send a forecast or an error message:" >> $PROCRC
-echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -check" >> $PROCRC
+echo "  |$DECODE|$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -check" >> $PROCRC
 echo "  :0:orders" >> $PROCRC
 echo "  # Save a copy of the orders message" >> $PROCRC
 echo "  orders" >> $PROCRC
@@ -282,7 +302,7 @@ echo "* ^Subject:.*report" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  # Send a turn report or an error message: " >> $PROCRC
 echo "  :0crw:report" >> $PROCRC
-echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -report" >> $PROCRC
+echo "  |$DECODE|$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -report" >> $PROCRC
 echo "  :0:reports" >> $PROCRC
 echo "  # Save a copy of the report request" >> $PROCRC
 echo "  reports" >> $PROCRC
@@ -294,7 +314,7 @@ echo "* ^Subject:.*relay" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  :0crw:relay" >> $PROCRC
 echo "  # Relay the message and send a confirmation or error report to the player" >> $PROCRC
-echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -relay" >> $PROCRC
+echo "  |$DECODE|$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -relay" >> $PROCRC
 echo "  :0:relays" >> $PROCRC
 echo "  # Save a copy of the relay request" >> $PROCRC
 echo "  relays" >> $PROCRC
@@ -306,7 +326,7 @@ echo ":0" >> $PROCRC
 echo "* ^Subject.*Join Jangi" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  :0c:Jangi" >> $PROCRC
-echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Jangi 25 0 0 0 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "  |$DECODE|$FORMAIL -rbt -s $GALAXY_HOME/are Jangi 25 0 0 0 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "  :0:Jangi" >> $PROCRC
 echo "  # Save a copy of the registration request" >> $PROCRC
 echo "  Jangi" >> $PROCRC
@@ -320,7 +340,7 @@ echo ":0" >> $PROCRC
 echo "* ^Subject.*Join Welland" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  :0c:Welland" >> $PROCRC
-echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "  |$DECODE|$FORMAIL -rbt -s $GALAXY_HOME/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "  :0:Welland" >> $PROCRC
 echo "  # Save a copy of the registration request" >> $PROCRC
 echo "  Welland" >> $PROCRC
