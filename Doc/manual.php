@@ -15,11 +15,80 @@
 		<h1>Galaxy Next Generation Players' Manual</h1>
 
 			<h2><a link="toc">Table of Contents</a></h2>
-				<ul>
-					<li>Introduction</li>
-					<li>Ships</li>
-					<li>..</li>
-				</ul>
+				<ol>
+					<li>Introduction
+						<ol>
+							<li>Names</li>
+							<li>War and Alliances</li>
+							<li>Victory and Defeat</li>
+						</ol>
+					</li>
+					<li>Ships
+						<ol>
+							<li>Ship Types</li>
+							<li>Groups</li>
+							<li>Fleets</li>
+						</ol>
+					</li>
+					<li>Technology</li>
+					<li>Movement
+						<ol>
+							<li>Speed</li>
+							<li>Locating Ships</li>
+						</ol>
+					</li>
+					<li>Planets
+						<ol>
+							<li>Owner</li>
+							<li>Size</li>
+							<li>Population</li>
+							<li>Industry</li>
+							<li>Resources</li>
+							<li>Production</li>
+							<li>Stockpiles</li>
+						</ol>
+					</li>
+					<li>Cargo
+						<ol>
+							<li>Routes</li>
+						</ol>
+					</li>
+					<li>Combat
+						<ol>
+							<li>Conquering Planets</li>
+						</ol>
+					</li>
+					<li>Orders
+						<ol>
+							<li>Sending Orders</li>
+							<li>Advance Orders</li>
+						 <li>Example Sets of Orders</li>
+						 <li>Order Format</li>
+						 <li>@ [race...]</li>
+						 <li>= &lt;your real name&gt;</li>
+						 <li>A &lt;race&gt;</li>
+						 <li>B &lt;group&gt; &lt;number of ships&gt;</li>
+						 <li>...</li>
+						 <li>Things to Note</li>
+						 <li>Fleet Orders</li>
+						</ol>
+					</li>
+					<li>Turns</li>
+					<li>A Few Things to Note</li>
+					<li>Inactivity</li>
+					<li>Turn Reports
+						<ol>
+							<li>Your Options</li>
+							<li>Messages</li>
+							<li>Mistakes</li>
+							<li>Status of Players</li>
+							<li>...</li>
+							<li>Getting a Copy of Your Turn Report</li>
+						</ol>
+					</li>
+					<li>Hints and Tips</li>
+					<li>Links to More Information</li>
+				</ol>
 
 			<h2><a link="intro">Introduction</a></h2>
 				<p>GalaxyNG is a multiplayer game of interstellar war.  Each player is the leader of one race.  The objective of the game is to conquer the galaxy.</p>
