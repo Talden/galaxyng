@@ -542,60 +542,82 @@ loadConfig(game *aGame)
 void
 readDefaults(game *aGame, FILE * f)
 {
-	char           *isRead, *key;
+  char* isRead;			/* to check for EOF */
+  char* key;			/* the key part of the name/value pair */
+  char* ptr;			/* for internal manipulation */
+  char  tick_key[128];		/* named key */
 
-	aGame->serverOptions.sendmail = NULL;
-	aGame->serverOptions.encode = NULL;
-	aGame->serverOptions.compress = NULL;
-	aGame->serverOptions.GMemail = NULL;
-	aGame->serverOptions.GMpassword = NULL;
-	aGame->serverOptions.SERVERemail = NULL;
-	aGame->serverOptions.fontpath = NULL;
-	aGame->serverOptions.due = NULL;
-	
-	for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
-		 isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
+  /* initialize values */
+  aGame->serverOptions.sendmail = NULL;
+  aGame->serverOptions.encode = NULL;
+  aGame->serverOptions.compress = NULL;
+  aGame->serverOptions.GMemail = NULL;
+  aGame->serverOptions.GMpassword = NULL;
+  aGame->serverOptions.SERVERemail = NULL;
+  aGame->serverOptions.fontpath = NULL;
+  aGame->serverOptions.due = NULL;
+  aGame->serverOptions.tick_interval = NULL;
+
+  /* since individual games might need a different interval, I'll
+     allow a way to create an individualized tick */
+  sprintf(tick_key, "%s.tick", aGame->name);
+  for (ptr = tick_key; *ptr; ptr++)
+    if (isspace(*ptr))
+      *ptr = '_';
+  
+  for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
+       isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
 		
-		key = getstr(lineBuffer);
-		if (key[0] != '\0') {
-			if (noCaseStrcmp("GMemail", key) == 0) {
-				aGame->serverOptions.GMemail = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("GMpassword", key) == 0) {
-				aGame->serverOptions.GMpassword = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("SERVERemail", key) == 0) {
-				aGame->serverOptions.SERVERemail = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("compress", key) == 0) {
-				aGame->serverOptions.compress = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("encode", key) == 0) {
-				aGame->serverOptions.encode = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("sendmail", key) == 0) {
-				aGame->serverOptions.sendmail = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("starttime", key) == 0) {
-				aGame->starttime = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("fontpath", key) == 0) {
-				aGame->serverOptions.fontpath = strdup(getstr(0));
-			}
-			else if (noCaseStrcmp("due", key) == 0) {
-				aGame->serverOptions.due = strdup(getstr(0));
-			}
-			else {
-				printf("Unknown key %s\n", key);
-			}
-		}
-	}
-
-	if (aGame->serverOptions.due == NULL)
-		aGame->serverOptions.due = strdup("soon");
-
-	if (aGame->serverOptions.SERVERemail == NULL)
-		aGame->serverOptions.SERVERemail =
-			strdup(aGame->serverOptions.GMemail);
+    key = getstr(lineBuffer);
+    if (key[0] != '\0') {
+      if (noCaseStrcmp("GMemail", key) == 0) {
+	aGame->serverOptions.GMemail = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("GMpassword", key) == 0) {
+	aGame->serverOptions.GMpassword = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("SERVERemail", key) == 0) {
+	aGame->serverOptions.SERVERemail = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("compress", key) == 0) {
+	aGame->serverOptions.compress = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("encode", key) == 0) {
+	aGame->serverOptions.encode = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("sendmail", key) == 0) {
+	aGame->serverOptions.sendmail = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("starttime", key) == 0) {
+	aGame->starttime = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("fontpath", key) == 0) {
+	aGame->serverOptions.fontpath = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp("due", key) == 0) {
+	aGame->serverOptions.due = strdup(getstr(0));
+      }
+      else if (noCaseStrcmp(tick_key, key) == 0) {
+	aGame->serverOptions.tick_interval = strdup(getstr(0));
+      }
+      else if (strstr(key, "tick") != 0) {
+	continue;		/* don't give warnings about ticks for
+				   other games*/
+      }
+      else {
+	printf("Unknown key %s\n", key);
+      }
+    }
+  }
+  
+  if (aGame->serverOptions.due == NULL)
+    aGame->serverOptions.due = strdup("soon");
+  
+  if (aGame->serverOptions.tick_interval == NULL)
+    aGame->serverOptions.tick_interval = strdup("48");
+  
+  if (aGame->serverOptions.SERVERemail == NULL)
+    aGame->serverOptions.SERVERemail =
+      strdup(aGame->serverOptions.GMemail);
 }
 

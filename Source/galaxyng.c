@@ -573,79 +573,80 @@ CMD_run( int argc, char **argv, int kind )
 int
 CMD_immediate( int argc, char **argv)
 {
-    int result;
-    struct stat buf;
+  struct stat buf;
+  int         result;
+  long        elapsed_time;
 
-    result = EXIT_FAILURE;
-    if ( argc == 3 ) {
-        game *aGame;
-        int turn;
-        char* logName;
-	char* next_turn;
-        logName = createString( "%s/log/%s", galaxynghome, argv[2] );
-        openLog( logName, "w" );
-        free( logName );
-
-        plogtime( LPART );
-        plog( LPART, "Checking to see if Game \"%s\" can be run now.\n",
-	      argv[2] );
-
-        aGame = NULL;
-        turn = LG_CURRENT_TURN;
-	next_turn =
-	  createString("%s/data/%s/next_turn", galaxynghome, argv[2]);
-	fstat(next_turn, &buf);
-	if (time(NULL) - buf.st_mtime < 3600 * 48) {
-	  /* less than GM determined time, see if all orders are in */
-	  if ( ( aGame = loadgame( argv[2], turn ) ) ) {
-            player* aPlayer;
-	    char* ordersfile;
-	    int   failed = 0;
-	    
-            loadConfig( aGame );
-	    
-	    for ( aPlayer = aGame->players; aPlayer;
-		  aPlayer = aPlayer->next ) {
-	      if (aPlayer->flags & F_DEAD)
-		continue;
-	      ordersfile = createString("%s/orders/%s/%s.%d",
-					galaxynghome, argv[2],
-					aPlayer->name, turn);
-	      failed |= access(ordersfile, R_OK);
-	      free(ordersfile);
-	      if (failed) {
-		plog( LPART, "Not all orders in, skipping tick.\n");
-		break;
-	      }
-	    }
-	    if (!failed)
-	      plog(LPART, "All orders in, running game\n");
-
-	    closeLog(  );
-	    freegame( aGame );
-	    if (!failed) {
-	      char command_line[1024];
-	      sprintf(command_line, "%s/run_game %s >> %s/log/%s",
-		      galaxynghome, argv[2], galaxynghome, argv[2]);
-	      ssystem(command_line);
-	    }
-	  }
-	  else {
-            plog( LBRIEF, "Game \"%s\" does not exist.\n", argv[2] );
-            fprintf( stderr, "Game \"%s\" does not exist.\n", argv[2] );
-	  }
+  result = EXIT_FAILURE;
+  if ( argc == 3 ) {
+    game *aGame;
+    int turn;
+    char* logName;
+    char* next_turn;
+    logName = createString( "%s/log/%s", galaxynghome, argv[2] );
+    openLog( logName, "w" );
+    free( logName );
+    
+    plogtime( LPART );
+    plog( LPART, "Checking to see if Game \"%s\" can be run now.\n",
+	  argv[2] );
+    
+    aGame = NULL;
+    turn = LG_CURRENT_TURN;
+    /* less than GM determined time, see if all orders are in */
+    if ( ( aGame = loadgame( argv[2], turn ) ) ) {
+      player* aPlayer;
+      char* ordersfile;
+      int   failed = 0;
+      
+      loadConfig( aGame );
+      
+      for ( aPlayer = aGame->players; aPlayer;
+	    aPlayer = aPlayer->next ) {
+	if (aPlayer->flags & F_DEAD)
+	  continue;
+	ordersfile = createString("%s/orders/%s/%s.%d",
+				  galaxynghome, argv[2],
+				  aPlayer->name, turn);
+	failed |= access(ordersfile, R_OK);
+	free(ordersfile);
+	if (failed) {
+	  plog( LPART, "Not all orders in, skipping tick.\n");
+	  break;
 	}
-	else {
-	  char command_line[1024];
-	  sprintf(command_line, "%s/run_game %s >> %s/log/%s",
-		  galaxynghome, argv[2], galaxynghome, argv[2]);
-	  ssystem(command_line);
-	}
-    } else {
-      usage(  );
+      }
+      
+      next_turn =
+	createString("%s/data/%s/next_turn", galaxynghome, argv[2]);
+      stat(next_turn, &buf);
+      elapsed_time = time(NULL) - buf.st_mtime;
+      
+      if (!failed)
+	plog(LPART, "All orders in, running game\n");
+      
+      closeLog(  );
+      freegame( aGame );
+      plog(LPART, "elapsed_time: %ld   interval: %ld\n",
+	   elapsed_time, 3600 * atol(aGame->serverOptions.tick_interval));
+
+      if (!failed ||
+	  elapsed_time < 3600 * atol(aGame->serverOptions.tick_interval)) {
+	char command_line[1024];
+	sprintf(command_line, "%s/run_game %s >> %s/log/%s",
+		galaxynghome, argv[2], galaxynghome, argv[2]);
+	ssystem(command_line);
+      }
     }
-    closeLog(  );
-    return result;
+    else {
+      plog( LBRIEF, "Game \"%s\" does not exist.\n", argv[2] );
+      fprintf( stderr, "Game \"%s\" does not exist.\n", argv[2] );
+    }
+  }
+  else {
+    usage(  );
+  }
+  closeLog(  );
+  return result;
 }
 
 /*********/

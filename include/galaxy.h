@@ -615,22 +615,24 @@ struct player {
  */
 
 typedef struct server {
-/* the command to email a file */
-	 char* sendmail;
-	 /* GM reports go to this address */
-	 char* GMemail;
-	 /* GM password, for the relay command */
-	 char* GMpassword;
-	 /* Server email */
-	 char* SERVERemail;
-	 /* the command to compress the body of an email */
-	 char* compress;
-	 /* the command to encode the compressed body */
-	 char* encode;
-	/* the directory where the fonts are located */
-	 char* fontpath;
-	 /* this is used for the -due command */
-	 char* due;
+   /* the command to email a file */
+   char* sendmail;
+   /* GM reports go to this address */
+   char* GMemail;
+   /* GM password, for the relay command */
+   char* GMpassword;
+   /* Server email */
+   char* SERVERemail;
+   /* the command to compress the body of an email */
+   char* compress;
+   /* the command to encode the compressed body */
+   char* encode;
+   /* the directory where the fonts are located */
+   char* fontpath;
+   /* this is used for the -due command */
+   char* due;
+   /* this is used for the -immediate command */
+   char* tick_interval;
 } server;
 
 /*******/
