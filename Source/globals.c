@@ -86,7 +86,7 @@ char           *tempdir = NULL;
  */
 
 struct option   options[] = {
-  {"address", F_ANONYMOUS},
+  {"anonymous", F_ANONYMOUS},
   {"autoUnload", F_AUTOUNLOAD},
   {"prodTable", F_PRODTABLE},
   {"sortGroups", F_SORTGROUPS},
