@@ -17,7 +17,7 @@
 
 			<h2>Where can I learn more about Galaxy strategy and tactics?</h2>
 				<ul>
-					<li>Review the <a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a>.  (Note that it is not completely accurate in all details, as it describes original Galaxy and not GalaxyNG.)</li>
+					<li>Review the <a href="guides/">Guides and Reports</a>.</li>
 					<li>Subscribe to the <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">galaxyng-players</a> mailing list and ask questions.</li>
 					<li>Read the <a href="start.php">Getting Started</a> guide.</li>
 				</ul>
