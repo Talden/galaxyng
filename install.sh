@@ -149,7 +149,8 @@ echo "PATH=\$HOME/bin:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
 echo "# Make sure that this exists!" >> $PROCRC
 echo "MAILDIR=\$HOME/Mail" >> $PROCRC
 echo "# For maildir delivery (used by some mail servers instead of mbox delivery)" >> $PROCRC
-echo "# mailbox names should be followed by a /.  Replace the above line with:" >> $PROCRC
+echo "# mailbox names should be followed by a /.  Comment out the above line" >> $PROCRC
+echo "# and uncomment this line:" >> $PROCRC
 echo "# MAILDIR=\$HOME/Maildir/" >> $PROCRC
 echo "DEFAULT=\$MAILDIR/mbox" >> $PROCRC
 echo "# For maildir delivery, use:" >> $PROCRC
@@ -164,15 +165,16 @@ echo ":0:" >> PROCRC
 echo "* ^Subject:.*GM Report" >> $PROCRC
 echo "GM" >> $PROCRC
 echo "# Some IMAP servers prefix mailbox names with a '.'  For example:" >> $PROCRC
-echo "#.GM" >> $PROCRC
+echo "# .GM" >> $PROCRC
 echo "# Combining this will maildir delivery would yield:" >> $PROCRC
-echo "#.GM/" >> $PROCRC
+echo "# .GM/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Don't reply to anything from a mail daemon, but store it" >> $PROCRC
 echo "# in a folder called postmaster." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^FROM_MAILER" >> $PROCRC
 echo "postmaster" >> $PROCRC
+echo "# .postmaster/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# The following prevents mail loops. These happen when the server" >> $PROCRC
 echo "# starts replying to its own messages or messages from another server." >> $PROCRC
@@ -180,6 +182,7 @@ echo "# Mail loops usually annoy the heck out of sysadmins." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^Subject:.*(orders checked|copy of turn|major trouble|orders received|message sent)" >> $PROCRC
 echo "checkedorders" >> $PROCRC
+echo "# ./checkedorders" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone sent-in orders, check them.." >> $PROCRC
 echo ":0 rw :turno" >> $PROCRC
@@ -272,8 +275,8 @@ if { test -e $NG; } then {
   echo "  copy it to " $GALAXY_HOME; "/galaxyng"
 }
 fi
-strip $NG
 cp Source/galaxyng $NG
+strip $NG
 if [ -f Source/cranberr.ttf ]; then
 	cp Source/cranberr.ttf $GALAXY_HOME
 fi
