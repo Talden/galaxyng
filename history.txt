@@ -5,6 +5,8 @@ o By Ken Weinert (madcoder42)
   + Updated version information
   + Made change to ensure the "to" field in the envelope
     is always valid
+  + Game creation file now correctly creates all sub-
+    directories.
 o By Chris Shaffer (christhecat)
   + Updates to server manual
   + Bugfixes and updated to galaxyngrc and procmailrc
