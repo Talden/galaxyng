@@ -435,29 +435,27 @@ creategame(gamespecification *aGameSpec)
 			created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
 		}
 		
-		if (aGame->gameOptions.galactic_peace < 0) {
-			player* aPlayer;
-			player* aPlayer2;
-			
-			
-			for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-				fprintf(stderr, "Making friends for %s\n", aPlayer->name );
-				for (aPlayer2 = aGame->players; aPlayer2; aPlayer2 = aPlayer2->next) {
-					alliance       *a;
-					
-					if (aPlayer == aPlayer2)
-						continue;
-					
-					a = allocStruct(alliance);
-					
-					a->who = aPlayer2;
-					addList(&aPlayer->allies, a);
-					fprintf(stderr, "\t adding %s\n", aPlayer2->name);
+		if (created_ok) {
+			if (aGame->gameOptions.galactic_peace < 0) {
+				player* aPlayer;
+				player* aPlayer2;
+				
+				
+				for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
+					for (aPlayer2 = aGame->players; aPlayer2; aPlayer2 = aPlayer2->next) {
+						alliance       *a;
+						
+						if (aPlayer == aPlayer2)
+							continue;
+						
+						a = allocStruct(alliance);
+						
+						a->who = aPlayer2;
+						addList(&aPlayer->allies, a);
+					}
 				}
 			}
-		}
-		
-		if (created_ok) {
+			
 			Randomize_Planet_Numbers(aGame);
 			preComputeGroupData(aGame);
 			raceStatus(aGame);

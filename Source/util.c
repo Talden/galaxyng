@@ -162,36 +162,37 @@ getstr(char *s)
  * SOURCE
  */
 
-strlist        *
+strlist*
 makestrlist(char *ns)
 {
-  strlist* s;
-  strlist* cur;
+	strlist* s;
+	strlist* cur;
 
-  char*    ptr;
-  char*    tmp;
+	char*    ptr;
+	char*    tmp;
 
-  tmp = strdup(ns);
+	tmp = strdup(ns);
+	
+	cur = NULL;
 
-  cur = NULL;
-
-  ptr = strtok(tmp, "\r\n");
-  if (ptr == NULL)
-	  return NULL;
-  do {
-    if (cur) {
-      cur->next = (strlist*)allocStruct(strlist);
-      cur = cur->next;
-    }
-    else  
-      s = cur = (strlist*)allocStruct(strlist);
-
-    cur->str = strdup(ptr);
-  } while ((ptr = strtok(NULL, "\n\r")) != NULL);
-
-  free(tmp);
-
-  return s;
+	ptr = strtok(tmp, "\r\n");
+	if (ptr == NULL)
+		return NULL;
+	
+	do {
+		if (cur) {
+			cur->next = (strlist*)allocStruct(strlist);
+			cur = cur->next;
+		}
+		else  
+			s = cur = (strlist*)allocStruct(strlist);
+		
+		cur->str = strdup(ptr);
+	} while ((ptr = strtok(NULL, "\n\r")) != NULL);
+	
+	free(tmp);
+	
+	return s;
 }
 
 /*********/
