@@ -10,7 +10,9 @@
 #define SINGLE_PLAYER 0
 #define ALL_PLAYERS   1
 
-int CMD_relay( int argc, char **argv ) {
+int
+CMD_relay( int argc, char **argv ) 
+{
   int   result;
   char* logName;
   char* confirmName;
@@ -62,10 +64,11 @@ int CMD_relay( int argc, char **argv ) {
     return result;
   }
   
-  setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.GMemail);
+  setHeader(anEnvelope, MAILHEADER_FROM, "%s",
+	    aGame->serverOptions.SERVERemail);
   setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
-  anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
-  anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
+  anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+  anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
 
   fprintf(confirm, "Relay for game \"%s\"\n", aGame->name);
   

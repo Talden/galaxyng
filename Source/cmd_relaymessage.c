@@ -47,8 +47,8 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
       
       setHeader( anEnvelope, MAILHEADER_TO, "%s", to->addr );
       setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
-      anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
-      anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
+      anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+      anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
       
       if (strstr(raceName, "@") != NULL) {
 	setHeader(anEnvelope, MAILHEADER_SUBJECT,
