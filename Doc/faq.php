@@ -56,7 +56,7 @@
 			<hr />
 				
 			<h2>Is there any point to ordering a very tiny planet to research drive technology?</h2>
-				<p>Yes.  The server reports technology levels to two decimal places, but stores numbers in double precision format, so researching 0.001 drive technology will effect ships on the following turn (but not much).  After ten turns, drive technology will be reported to be 0.01 higher.</p>
+				<p>Yes.  The server reports technology levels to two decimal places, but stores numbers in double precision format, so researching 0.001 drive technology will affect ships on the following turn (but not much).  After five turns, drive technology will be 0.005 higher.  Due to rounding, this will be reported to be 0.01 higher.</p>
 
 			<hr />
 
