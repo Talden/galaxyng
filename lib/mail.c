@@ -14,26 +14,24 @@
  */
 
 
-void
-createMailToAllHeader(game *aGame)
-{
-  player *aPlayer;
-  int state;
+void createMailToAllHeader(game *aGame) {
+	player* aPlayer;
+	int state;
   
-  printf("To: %s\nBCC: ", aGame->serverOptions.GMemail); 
-  for (aPlayer = aGame->players, state = 0;
-       aPlayer;
-       aPlayer = aPlayer->next) {
-    if (!(aPlayer->flags & F_DEAD)) { 
-      if (state == 0) {
-	printf("  %s", aPlayer->addr);
-	state = 1;
-      } else {
-	printf(",\n  %s", aPlayer->addr);
-      }
-    }
-  }
-  printf("\nSubject:\n");
+	printf("To: %s\nBCC: ", aGame->serverOptions.GMemail); 
+	for (aPlayer = aGame->players, state = 0;
+		 aPlayer;
+		 aPlayer = aPlayer->next) {
+		if (!(aPlayer->flags & F_DEAD)) { 
+			if (state == 0) {
+				printf("  %s", aPlayer->addr);
+				state = 1;
+			} else {
+				printf(",\n  %s", aPlayer->addr);
+			}
+		}
+	}
+	printf("\nSubject:\n");
 }
 
 /****f* Mail/createEnvelope
@@ -53,6 +51,9 @@ envelope* createEnvelope() {
 	e->subject = NULL;
 	e->bcc = NULL;
 	e->compress = FALSE;
+	e->contentType = NULL;
+	e->contentEncoding = NULL;
+	e->contentDescription = NULL;
 	return e; 
 }
 
@@ -66,7 +67,6 @@ envelope* createEnvelope() {
  */
 
 envelope* readEnvelope(FILE* fp) {
-
 	envelope *e;
 	char      buffer[4096];
 	char*     ptr;
@@ -90,6 +90,12 @@ envelope* readEnvelope(FILE* fp) {
 			e->to = strdup(ptr+2);
 		else if (noCaseStrcmp(buffer, "subject") == 0)
 			e->subject = strdup(ptr+2);
+		else if (noCaseStrcmp(buffer, "content-type") == 0)
+			e->contentType = strdup(ptr+2);
+		else if (noCaseStrcmp(buffer, "content-transfer-encoding") == 0)
+			e->contentEncoding = strdup(ptr+2);
+		else if (noCaseStrcmp(buffer, "content-description") == 0)
+			e->contentDescription = strdup(ptr+2);
 		else
 			continue;
 	}
@@ -112,49 +118,66 @@ envelope* readEnvelope(FILE* fp) {
  */
 
 void setHeader(envelope *e, int headerType, char *format, ...) {
-  int   n;
+	int     n;
   
-  va_list         ap;
+	va_list ap;
   
-  assert(e != NULL);
+	assert(e != NULL);
   
-  va_start(ap, format);
+	va_start(ap, format);
 #ifdef WIN32
-  vsprintf(lineBuffer, format, ap);
+	vsprintf(lineBuffer, format, ap);
 #else
-  n = vsnprintf(lineBuffer, LINE_BUFFER_SIZE, format, ap);
-  assert(n != -1);
+	n = vsnprintf(lineBuffer, LINE_BUFFER_SIZE, format, ap);
+	assert(n != -1);
 #endif
-  va_end(ap);
+	va_end(ap);
   
-  switch(headerType) {
-  case MAILHEADER_TO:
-    if (e->to)
-      free(e->to);
-    e->to = strdup(lineBuffer);
-    break;
-    
-  case MAILHEADER_FROM:
-    if (e->from)
-      free(e->from);
-    e->from = strdup(lineBuffer);
-    break;
-    
-  case MAILHEADER_SUBJECT:
-    if (e->subject)
-      free(e->subject);
-    e->subject = strdup(lineBuffer);
-    break;
-    
-  case MAILHEADER_BCC:
-    if (e->bcc)
-      free(e->bcc);
-    e->bcc = strdup(lineBuffer);
-    break;
-    
-  default:
-    assert(0);
-  }
+	switch(headerType) {
+		case MAILHEADER_TO:
+			if (e->to)
+				free(e->to);
+			e->to = strdup(lineBuffer);
+			break;
+			
+		case MAILHEADER_FROM:
+			if (e->from)
+				free(e->from);
+			e->from = strdup(lineBuffer);
+			break;
+			
+		case MAILHEADER_SUBJECT:
+			if (e->subject)
+				free(e->subject);
+			e->subject = strdup(lineBuffer);
+			break;
+			
+		case MAILHEADER_BCC:
+			if (e->bcc)
+				free(e->bcc);
+			e->bcc = strdup(lineBuffer);
+			break;
+			
+		case MAILHEADER_CONTENTTYPE:
+			if (e->contentType)
+				free(e->contentType);
+			e->contentType = strdup(lineBuffer);
+			break;
+
+		case MAILHEADER_CONTENTENCODING:
+			if (e->contentEncoding)
+				free(e->contentEncoding);
+			e->contentEncoding = strdup(lineBuffer);
+			break;
+
+		case MAILHEADER_CONTENTDESCRIPTION:
+			if (e->contentDescription)
+				free(e->contentDescription);
+			e->contentDescription = strdup(lineBuffer);
+			
+		default:
+			assert(0);
+	}
 }
 
 /****f* Mail/destroyEnvelope
@@ -165,19 +188,24 @@ void setHeader(envelope *e, int headerType, char *format, ...) {
  ********
  */
 
-void
-destroyEnvelope(envelope *e)
-{
-  assert(e != NULL);
-  if (e->to)
-    free(e->to);
-  if (e->from)
-    free(e->from);
-  if (e->subject)
-    free(e->subject);
-  if (e->bcc)
-    free(e->bcc);
-  free(e);
+void destroyEnvelope(envelope *e) {
+	assert(e != NULL);
+	if (e->to)
+		free(e->to);
+	if (e->from)
+		free(e->from);
+	if (e->subject)
+		free(e->subject);
+	if (e->bcc)
+		free(e->bcc);
+	if (e->contentType)
+		free(e->contentType);
+	if (e->contentEncoding)
+		free(e->contentEncoding);
+	if (e->contentDescription)
+		free(e->contentDescription);
+	
+	free(e);
 }
 
 
@@ -198,65 +226,78 @@ destroyEnvelope(envelope *e)
  ******
  */
 
-int
-eMail(game *aGame, envelope *e, char *fileName)
-{
-  FILE*  mailFile;
-  char    template[32] = "/tmp/galaxyXXXXXX";
-  int      result;
+int eMail(game *aGame, envelope *e, char *fileName) {
+	FILE*  mailFile;
+	char    template[32] = "/tmp/galaxyXXXXXX";
+	int      result;
   
-  pdebug(DFULL, "eMail\n");
+	pdebug(DFULL, "eMail\n");
   
-  assert(fileName != NULL);
-  assert(aGame != NULL);
+	assert(fileName != NULL);
+	assert(aGame != NULL);
   
-  mailFile = fdopen(mkstemp(template),  "w");
-  result = 1;
+	mailFile = fdopen(mkstemp(template),  "w");
+	result = 1;
   
-  assert(e->to);
-  assert(e->subject);
+	assert(e->to);
+	assert(e->subject);
   
-  fprintf(mailFile, "To: %s\n", e->to);
-  fprintf(mailFile, "Subject: %s\n", e->subject);
-  if (e->bcc) 
-    fprintf(mailFile, "BCC: %s\n", e->bcc);
+	fprintf(mailFile, "To: %s\n", e->to);
+	fprintf(mailFile, "Subject: %s\n", e->subject);
+	if (e->bcc) 
+		fprintf(mailFile, "BCC: %s\n", e->bcc);
+	if (e->cc)
+		fprintf(mailFile, "CC: %s\n", e->cc);
+	if (e->contentType)
+		fprintf(mailFile, "Content-Type: %s\n", e->contentType);
+	if (e->contentEncoding)
+		fprintf(mailFile, "Content-tranfer-encoding: %s\n",
+				e->contentEncoding);
+	if (e->contentDescription)
+		fprintf(mailFile, "Content-description: %s\n", e->contentDescription);
+	
 #ifndef WIN32
-  if (e->compress && aGame->serverOptions.compress && aGame->serverOptions.encode) {
-    addMimeHeader(mailFile);
-  }
-  fprintf(mailFile, "\n\n");
-  if (e->compress && aGame->serverOptions.compress && aGame->serverOptions.encode) {
-    char *relative_path; 
-    addMimeText(mailFile);
-    fprintf(mailFile, "Turn report is attached as .zip file.\n\n");
-    relative_path = strstr(fileName, "reports");
-    if (relative_path == NULL) {
-      fprintf(stderr, 
-	      "Reports are not in their standards position\n");
-      relative_path = fileName;
-    }
-    result = ssystem("%s %s.zip %s",
-		     aGame->serverOptions.compress,
-		     fileName,
-		     relative_path);
-    result |= ssystem("%s %s.zip > %s", 
-		      aGame->serverOptions.encode, 
-		      fileName, 
-		      fileName);
-    addMimeZip(mailFile);
-    result |= appendToMail(fileName, mailFile);
-    addMimeEnd(mailFile);
-    result |= ssystem("rm %s.zip", fileName);
-  } else {
-    result = appendToMail(fileName, mailFile);
-  }
+	if (e->compress &&
+		aGame->serverOptions.compress &&
+		aGame->serverOptions.encode) {
+		addMimeHeader(mailFile);
+	}
+	fprintf(mailFile, "\n\n");
+	if (e->compress &&
+		aGame->serverOptions.compress &&
+		aGame->serverOptions.encode) {
+		char *relative_path; 
+		addMimeText(mailFile);
+		fprintf(mailFile, "Turn report is attached as .zip file.\n\n");
+		relative_path = strstr(fileName, "reports");
+		if (relative_path == NULL) {
+			fprintf(stderr, 
+					"Reports are not in their standards position\n");
+			relative_path = fileName;
+		}
+		result = ssystem("%s %s.zip %s",
+						 aGame->serverOptions.compress,
+						 fileName,
+						 relative_path);
+		result |= ssystem("%s %s.zip > %s", 
+						  aGame->serverOptions.encode, 
+						  fileName, 
+						  fileName);
+		addMimeZip(mailFile);
+		result |= appendToMail(fileName, mailFile);
+		addMimeEnd(mailFile);
+		result |= ssystem("rm %s.zip", fileName);
+	}
+	else {
+		result = appendToMail(fileName, mailFile);
+	}
 #endif
-  fclose(mailFile);
+	fclose(mailFile);
 #ifndef WIN32
-  result |= ssystem("%s < %s", aGame->serverOptions.sendmail, template);
-  result |= ssystem("rm %s", template);
+	result |= ssystem("%s < %s", aGame->serverOptions.sendmail, template);
+	result |= ssystem("rm %s", template);
 #endif
-  return result;
+	return result;
 }
 
 

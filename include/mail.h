@@ -26,6 +26,9 @@ typedef struct envelope {
 	char* replyto;
 	char* cc;
 	char* bcc;
+	char* contentType;
+	char* contentEncoding;
+	char* contentDescription;
 } envelope;
 
 /********/
@@ -36,7 +39,14 @@ typedef struct envelope {
  * SOURCE
  */
 
-enum {MAILHEADER_TO = 1, MAILHEADER_FROM, MAILHEADER_SUBJECT, MAILHEADER_BCC};
+enum {MAILHEADER_TO = 1,
+	  MAILHEADER_FROM,
+	  MAILHEADER_SUBJECT,
+	  MAILHEADER_BCC,
+	  MAILHEADER_CONTENTTYPE,
+	  MAILHEADER_CONTENTENCODING,
+	  MAILHEADER_CONTENTDESCRIPTION
+};
 
 /******/
 
