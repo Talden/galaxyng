@@ -2216,7 +2216,7 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
                           strlen( galaxynghome ) + strlen( "/orders//" ) +
                           20 );
     if (final_orders)
-      sprintf( copyFileName, "%s/orders/%s/%s.%d.final", galaxynghome,
+      sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
 	       aGame->name, aPlayer->name, theTurnNumber );
     else
       sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome, aGame->name,

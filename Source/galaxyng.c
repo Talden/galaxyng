@@ -605,7 +605,7 @@ CMD_immediate( int argc, char **argv)
 	    aPlayer = aPlayer->next ) {
 	if (aPlayer->flags & F_DEAD)
 	  continue;
-	ordersfile = createString("%s/orders/%s/%s.%d.final",
+	ordersfile = createString("%s/orders/%s/%s_final.%d",
 				  galaxynghome, argv[2],
 				  aPlayer->name, turn);
 	failed |= access(ordersfile, R_OK);
