@@ -19,7 +19,7 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
   
   result = 1;
   
-  messageName = createString( "%s/NGmessage", tempdir );
+  messageName = createString( "%s/NGmessage_%s_%s", tempdir, aGame->name, from->name );
   
   if (!message_read) {
     message_read = 1;
@@ -69,7 +69,7 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
       fclose( message );
       result = eMail( aGame, anEnvelope, messageName );
       destroyEnvelope( anEnvelope );
-      result |= ssystem( "rm %s", messageName );
+      //result |= ssystem( "rm %s", messageName );
       free( messageName );
     }
     else {
