@@ -205,17 +205,14 @@ LIBS   = -lm</pre>
 			<hr />
 
 			<h2 id="create">Creating a New Game</h2>
-				<p>To create a game use the command:</p>
-<pre>./galaxyng -create &lt;specification file&gt;</pre>
-				<p>The game configuration file specifies the structure of the galaxy: number of home, empty, and stuff planets; size and name of the galaxy; the email address of each of the players; and some game options.</p>
-				<p>You can create a template game configuration file by using the <tt>-template</tt> command.</p>
+				<p>The game configuration file specifies the structure of the galaxy: number of home, empty, and stuff planets; size and name of the galaxy; the email address of each of the players; and some game options.  Create a template game configuration file by using the <tt>-template</tt> command.</p>
 <pre>./galaxyng -template &lt;game name&gt; &lt;number of players&gt;</pre>
-				<p>This creates a file named <tt>&lt;game name&gt;.glx</tt> with default values for all parameters, plus documentation about what each parameter does.  You will have to edit this file to insert the email addresses of the players. For instance, say you have eight players to play in a galaxy game, and want to call the game Orion. You can then create the game as follows:</p>
+				<p>This creates a file named <tt>&lt;game name&gt;.glx</tt> with default values for all parameters, plus documentation about what each parameter does.  Edit this file to insert the email addresses of the players and make any desired changes to the configuration. For example, if you have eight players and you want to call the game Orion, you can create the game as follows:</p>
 <pre>./galaxyng -template Orion 8</pre>
-				<p>Edit the <tt>Orion.glx</tt> and change the dummy email addresses to the real email addresses of the players, then run:</p>
+				<p>Edit <tt>Orion.glx</tt> and change the dummy email addresses to the real email addresses of the players, make changes to configuraiton options if desired, then run:</p>
 <pre>./galaxyng -create Orion.glx</pre>
-				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>orionlayout.txt</tt>:</p>
-<pre>./galaxyng -create Orion.glx  &gt; orionlayout.txt</pre>
+				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>OrionLayout.txt</tt>:</p>
+<pre>./galaxyng -create Orion.glx  &gt; OrionLayout.txt</pre>
 
 			<hr />
 
