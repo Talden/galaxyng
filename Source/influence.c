@@ -191,6 +191,12 @@ draw_maps(game* aGame, enum map_type map_type)
 			strcpy(map_title, "Ship Defense Potential");
 			break;
 #endif
+		case NoInfluenceMap:
+			sprintf(buf, "%s/data/%s/%03d_location.png",
+					galaxynghome, aGame->name, aGame->turn);
+			strcpy(map_title, "Locations Only");
+			break;
+			
 		default:
 			break;
 	}
@@ -286,222 +292,247 @@ draw_maps(game* aGame, enum map_type map_type)
 	}      
 	
 	
-	/* now add up the influence for each player */
-	for (p = aGame->planets; p; p = p->next) {
-		player* owner;
-		
-		owner = p->owner;
-		
-		player_nbr = ptonum(aGame->players, owner) - 1;
-		
-		if (player_nbr < 0 && map_type == EffIndMap)
-			continue;
-		
-		switch(map_type) {
-			case EffIndMap:
-				weight = effectiveIndustry(p->pop, p->ind);
-				influence = factor = 0.9;
-				limit = 0.5;
-				break;
-#if 0
-			case ShipAttMap:
-				weight=addShipAtt(aGame, p);
-				influence = factor = 0.925;
-				limit = 0.1;
-				break;
-				
-			case ShipDefMap:
-				weight=addShipDef(aGame, P);
-				influence = factor = 0.925;
-				limit = 0.1;
-				break;
-#endif
-			default:
-				break;
-		}	
-		
-		x = (int) ((scale * p->x) + 1);
-		y = (int) ((scale * p->y) + 1);
-		
-		idx = 1;
-		while (weight > limit) {
-			weight *= factor;
-			influence *= factor;
+	if (map_type != NoInfluenceMap) {
+		/* now add up the influence for each player */
+		for (p = aGame->planets; p; p = p->next) {
+			player* owner;
 			
-			x0 = 0;
-			y0 = idx;
+			owner = p->owner;
 			
-			df = 1 - idx;
-			d_e = 3;
-			d_se = -2 * idx + 5;
+			player_nbr = ptonum(aGame->players, owner) - 1;
 			
-			do {
-				if (x+x0 < 767 && y + y0 < 767) {
-					x1 = x+x0;
-					y1 = y+y0;
-					if (pi_map[x1][y1].influence == NULL) {
-						/*total_mem += sizeof(float)*nbr_of_players*2;*/
-						pi_map[x1][y1].influence =
-							(float*)calloc(nbr_of_players, sizeof(float));
-						pi_map[x1][y1].factor =
-							(float*)calloc(nbr_of_players, sizeof(float));
-					}
-					pi_map[x1][y1].influence[player_nbr] += weight;
-					pi_map[x1][y1].factor[player_nbr] += influence;
-				}
-				
-				if (x0 && (x-x0 > 1 && y+y0<767)) {
-					x1 = x - x0;
-					y1 = y + y0;
-					if (pi_map[x1][y1].influence == NULL) {
-						/*total_mem += sizeof(float)*nbr_of_players*2;*/
-						pi_map[x1][y1].influence =
-							(float*)calloc(nbr_of_players, sizeof(float));
-						pi_map[x1][y1].factor =
-							(float*)calloc(nbr_of_players, sizeof(float));
-					}
-					pi_map[x1][y1].influence[player_nbr] += weight;
-					pi_map[x1][y1].factor[player_nbr] += influence;
-				}
-				
-				if (y0 && (x+x0 < 767 && y-y0 > 1)) {
-					x1 = x+x0;
-					y1 = y-y0;
-					if (pi_map[x1][y1].influence == NULL) {
-						/*total_mem += sizeof(float)*nbr_of_players*2;*/
-						pi_map[x1][y1].influence =
-							(float*)calloc(nbr_of_players, sizeof(float));
-						pi_map[x1][y1].factor =
-							(float*)calloc(nbr_of_players, sizeof(float));
-					}
-					
-					pi_map[x1][y1].influence[player_nbr] += weight;
-					pi_map[x1][y1].factor[player_nbr] += influence;
-				}
-				
-				if (x0 && y0 && (x-x0>1 && y-y0>1)) {
-					x1 = x - x0;
-					y1 = y - y0;
-					if (pi_map[x1][y1].influence == NULL) {
-						/*total_mem += sizeof(float)*nbr_of_players*2;*/
-						pi_map[x1][y1].influence =
-							(float*)calloc(nbr_of_players, sizeof(float));
-						pi_map[x1][y1].factor =
-							(float*)calloc(nbr_of_players, sizeof(float));
-					}
-					pi_map[x1][y1].influence[player_nbr] += weight;
-					pi_map[x1][y1].factor[player_nbr] += influence;
-				}
-				
-				if (x0 != y0) {
-					if (x+y0<767 && y+x0<767) {
-						x1 = x+y0;
-						y1 = y+x0;
-						if (pi_map[x1][y1].influence == NULL) {
-							/*total_mem += sizeof(float)*nbr_of_players*2;*/
-							pi_map[x1][y1].influence =
-								(float*)calloc(nbr_of_players, sizeof(float));
-							pi_map[x1][y1].factor =
-								(float*)calloc(nbr_of_players, sizeof(float));
-						}
-						
-						pi_map[x1][y1].influence[player_nbr] += weight;
-						pi_map[x1][y1].factor[player_nbr] += influence;
-					}
-					
-					if (x0 && (x+y0<767 && y-x0>1)) {
-						x1 = x+y0;
-						y1 = y-x0;
-						if (pi_map[x1][y1].influence == NULL) {
-							/*total_mem += sizeof(float)*nbr_of_players*2;*/
-							pi_map[x1][y1].influence =
-								(float*)calloc(nbr_of_players, sizeof(float));
-							pi_map[x1][y1].factor =
-								(float*)calloc(nbr_of_players, sizeof(float));
-						}
-						
-						pi_map[x1][y1].influence[player_nbr] += weight;
-						pi_map[x1][y1].factor[player_nbr] += influence;
-					}
-					
-					if (y0 && (x-y0>1 && y+x0<767)) {
-						x1 = x-y0;
-						y1 = y+x0;
-						if (pi_map[x1][y1].influence == NULL) {
-							/*total_mem += sizeof(float)*nbr_of_players*2;*/
-							pi_map[x1][y1].influence =
-								(float*)calloc(nbr_of_players, sizeof(float));
-							pi_map[x1][y1].factor =
-								(float*)calloc(nbr_of_players, sizeof(float));
-						}
-						pi_map[x1][y1].influence[player_nbr] += weight;
-						pi_map[x1][y1].factor[player_nbr] += influence;
-					}
-					
-					if (x0 && y0 && (x-y0>1 && y-x0>1)) {
-						x1 = x-y0;
-						y1 = y-x0;
-						if (pi_map[x1][y1].influence == NULL) {
-							/*total_mem += sizeof(float)*nbr_of_players*2;*/
-							pi_map[x1][y1].influence =
-								(float*)calloc(nbr_of_players, sizeof(float));
-							pi_map[x1][y1].factor =
-								(float*)calloc(nbr_of_players, sizeof(float));
-						}
-						pi_map[x1][y1].influence[player_nbr] += weight;
-						pi_map[x1][y1].factor[player_nbr] += influence;
-					}
-				}
-				
-				if (df < 0) {
-					df += d_e;
-					d_e += 2;
-					d_se += 2;
-				}
-				else {
-					df += d_se;
-					d_e += 2;
-					d_se += 4;
-					y0--;
-				}
-				
-				x0++;
-			} while (x0 < y0);
-			idx++;
-		}
-	}
-	
-	/*fprintf(stderr, "total mem used: %ld\n", total_mem);*/
-	
-	for (i = 1; i < 767; i++) {
-		for (j = 1; j < 767; j++) {
-			int winning_player;
-			float max_weight;
-			
-			max_weight = 0.0;
-			winning_player = -1;
-			for (k = 0; k < nbr_of_players; k++) {
-				if (pi_map[i][j].influence == NULL)
-					continue;
-				
-				if (max_weight < pi_map[i][j].influence[k]) {
-					max_weight = pi_map[i][j].influence[k];
-					winning_player = k;
-					
-					if (pi_map[i][j].factor[k] > 1.0)
-						pi_map[i][j].factor[k] = 1.0;
-				}
-			}
-			
-			if (winning_player == -1)
+			if (player_nbr < 0 && map_type == EffIndMap)
 				continue;
 			
-			r = map_colors[(winning_player%40)+2][0] * pi_map[i][j].factor[winning_player];
-			g = map_colors[(winning_player%40)+2][1] * pi_map[i][j].factor[winning_player];
-			b = map_colors[(winning_player%40)+2][2] * pi_map[i][j].factor[winning_player];
+			switch(map_type) {
+				case EffIndMap:
+					weight = effectiveIndustry(p->pop, p->ind);
+					influence = factor = 0.9;
+					limit = 0.5;
+					break;
+#if 0
+				case ShipAttMap:
+					weight=addShipAtt(aGame, p);
+					influence = factor = 0.925;
+					limit = 0.1;
+					break;
+					
+				case ShipDefMap:
+					weight=addShipDef(aGame, P);
+					influence = factor = 0.925;
+					limit = 0.1;
+					break;
+#endif
+				default:
+					break;
+			}	
 			
-			gdImageSetPixel(map_png, i, j,
-							gdImageColorResolve(map_png, r, g, b));
+			x = (int) ((scale * p->x) + 1);
+			y = (int) ((scale * p->y) + 1);
+			
+			idx = 1;
+			while (weight > limit) {
+				weight *= factor;
+				influence *= factor;
+				
+				x0 = 0;
+				y0 = idx;
+				
+				df = 1 - idx;
+				d_e = 3;
+				d_se = -2 * idx + 5;
+				
+				do {
+					if (x+x0 < 767 && y + y0 < 767) {
+						x1 = x+x0;
+						y1 = y+y0;
+						if (pi_map[x1][y1].influence == NULL) {
+							/*total_mem += sizeof(float)*nbr_of_players*2;*/
+							pi_map[x1][y1].influence =
+								(float*)calloc(nbr_of_players, sizeof(float));
+							pi_map[x1][y1].factor =
+								(float*)calloc(nbr_of_players, sizeof(float));
+						}
+						pi_map[x1][y1].influence[player_nbr] += weight;
+						pi_map[x1][y1].factor[player_nbr] += influence;
+					}
+					
+					if (x0 && (x-x0 > 1 && y+y0<767)) {
+						x1 = x - x0;
+						y1 = y + y0;
+						if (pi_map[x1][y1].influence == NULL) {
+							/*total_mem += sizeof(float)*nbr_of_players*2;*/
+							pi_map[x1][y1].influence =
+								(float*)calloc(nbr_of_players, sizeof(float));
+							pi_map[x1][y1].factor =
+								(float*)calloc(nbr_of_players, sizeof(float));
+						}
+						pi_map[x1][y1].influence[player_nbr] += weight;
+						pi_map[x1][y1].factor[player_nbr] += influence;
+					}
+					
+					if (y0 && (x+x0 < 767 && y-y0 > 1)) {
+						x1 = x+x0;
+						y1 = y-y0;
+						if (pi_map[x1][y1].influence == NULL) {
+							/*total_mem += sizeof(float)*nbr_of_players*2;*/
+							pi_map[x1][y1].influence =
+								(float*)calloc(nbr_of_players, sizeof(float));
+							pi_map[x1][y1].factor =
+								(float*)calloc(nbr_of_players, sizeof(float));
+						}
+						
+						pi_map[x1][y1].influence[player_nbr] += weight;
+						pi_map[x1][y1].factor[player_nbr] += influence;
+					}
+					
+					if (x0 && y0 && (x-x0>1 && y-y0>1)) {
+						x1 = x - x0;
+						y1 = y - y0;
+						if (pi_map[x1][y1].influence == NULL) {
+							/*total_mem += sizeof(float)*nbr_of_players*2;*/
+							pi_map[x1][y1].influence =
+								(float*)calloc(nbr_of_players, sizeof(float));
+							pi_map[x1][y1].factor =
+								(float*)calloc(nbr_of_players, sizeof(float));
+						}
+						pi_map[x1][y1].influence[player_nbr] += weight;
+						pi_map[x1][y1].factor[player_nbr] += influence;
+					}
+					
+					if (x0 != y0) {
+						if (x+y0<767 && y+x0<767) {
+							x1 = x+y0;
+							y1 = y+x0;
+							if (pi_map[x1][y1].influence == NULL) {
+								/*total_mem += sizeof(float)*nbr_of_players*2;*/
+								pi_map[x1][y1].influence =
+									(float*)calloc(nbr_of_players, sizeof(float));
+								pi_map[x1][y1].factor =
+									(float*)calloc(nbr_of_players, sizeof(float));
+							}
+							
+							pi_map[x1][y1].influence[player_nbr] += weight;
+							pi_map[x1][y1].factor[player_nbr] += influence;
+						}
+						
+						if (x0 && (x+y0<767 && y-x0>1)) {
+							x1 = x+y0;
+							y1 = y-x0;
+							if (pi_map[x1][y1].influence == NULL) {
+								/*total_mem += sizeof(float)*nbr_of_players*2;*/
+								pi_map[x1][y1].influence =
+									(float*)calloc(nbr_of_players, sizeof(float));
+								pi_map[x1][y1].factor =
+									(float*)calloc(nbr_of_players, sizeof(float));
+							}
+							
+							pi_map[x1][y1].influence[player_nbr] += weight;
+							pi_map[x1][y1].factor[player_nbr] += influence;
+						}
+						
+						if (y0 && (x-y0>1 && y+x0<767)) {
+							x1 = x-y0;
+							y1 = y+x0;
+							if (pi_map[x1][y1].influence == NULL) {
+								/*total_mem += sizeof(float)*nbr_of_players*2;*/
+								pi_map[x1][y1].influence =
+									(float*)calloc(nbr_of_players, sizeof(float));
+								pi_map[x1][y1].factor =
+									(float*)calloc(nbr_of_players, sizeof(float));
+							}
+							pi_map[x1][y1].influence[player_nbr] += weight;
+							pi_map[x1][y1].factor[player_nbr] += influence;
+						}
+						
+						if (x0 && y0 && (x-y0>1 && y-x0>1)) {
+							x1 = x-y0;
+							y1 = y-x0;
+							if (pi_map[x1][y1].influence == NULL) {
+								/*total_mem += sizeof(float)*nbr_of_players*2;*/
+								pi_map[x1][y1].influence =
+									(float*)calloc(nbr_of_players, sizeof(float));
+								pi_map[x1][y1].factor =
+									(float*)calloc(nbr_of_players, sizeof(float));
+							}
+							pi_map[x1][y1].influence[player_nbr] += weight;
+							pi_map[x1][y1].factor[player_nbr] += influence;
+						}
+					}
+					
+					if (df < 0) {
+						df += d_e;
+						d_e += 2;
+						d_se += 2;
+					}
+					else {
+						df += d_se;
+						d_e += 2;
+						d_se += 4;
+						y0--;
+					}
+					
+					x0++;
+				} while (x0 < y0);
+				idx++;
+			}
+		}
+	
+		/*fprintf(stderr, "total mem used: %ld\n", total_mem);*/
+		
+		for (i = 1; i < 767; i++) {
+			for (j = 1; j < 767; j++) {
+				int winning_player;
+				float max_weight;
+				
+				max_weight = 0.0;
+				winning_player = -1;
+				for (k = 0; k < nbr_of_players; k++) {
+					if (pi_map[i][j].influence == NULL)
+						continue;
+					
+					if (max_weight < pi_map[i][j].influence[k]) {
+						max_weight = pi_map[i][j].influence[k];
+						winning_player = k;
+						
+						if (pi_map[i][j].factor[k] > 1.0)
+							pi_map[i][j].factor[k] = 1.0;
+					}
+				}
+				
+				if (winning_player == -1)
+					continue;
+				
+				r = map_colors[(winning_player%40)+2][0] * pi_map[i][j].factor[winning_player];
+				g = map_colors[(winning_player%40)+2][1] * pi_map[i][j].factor[winning_player];
+				b = map_colors[(winning_player%40)+2][2] * pi_map[i][j].factor[winning_player];
+				
+				gdImageSetPixel(map_png, i, j,
+								gdImageColorResolve(map_png, r, g, b));
+			}
+		}
+	}
+	else {
+		for (p = aGame->planets; p; p = p->next) {
+			player* owner;
+
+			owner = p->owner;
+
+			player_nbr = ptonum(aGame->players, owner) - 1;
+
+			if (player_nbr < 0)
+				continue;
+			
+			x = (int) ((scale * p->x) + 1);
+			y = (int) ((scale * p->y) + 1);
+
+			r = map_colors[(player_nbr%40)+2][0];
+			g = map_colors[(player_nbr%40)+2][1];
+			b = map_colors[(player_nbr%40)+2][2];
+				
+
+			gdImageArc(map_png, x, y, 8, 8, 0, 360,
+					   gdImageColorResolve(map_png, r, g, b));
 		}
 	}
 	for (p = aGame->planets; p; p = p->next) {
