@@ -717,7 +717,7 @@ int mail_TXT_Error( game* aGame, envelope *anEnvelope, char* nationName, int kin
     if ( forecast ) {
         /* OK */
     } else {
-        return EXIT_FAILURE;
+        return TRUE;
     }
 
     setHeader( anEnvelope, MAILHEADER_SUBJECT, "Galaxy HQ, major trouble" );
@@ -737,14 +737,16 @@ int
 CMD_check( int argc, char **argv, int kind )
 {
     char *logName;
-    int result = EXIT_FAILURE;
+    int result = FALSE;
 
     logName = createString( "%s/log/orders_processed.txt", galaxynghome );
     openLog( logName, "a" );
     free( logName );
 
     plogtime( LBRIEF );
-    if ( argc >= 2 ) {
+    if ( argc < 2 ) {
+        result = TRUE;
+    } else {
         envelope *anEnvelope = createEnvelope(  );
         char *returnAddress = getReturnAddress( stdin );
         int   theTurnNumber = getTurnNumber( stdin );
@@ -802,6 +804,8 @@ CMD_check( int argc, char **argv, int kind )
                     nationName, kind, resNumber, theTurnNumber );
         }
     }
+
+    result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
     return result;
 }
 

@@ -9,8 +9,7 @@ ROBORUN     = $(RBT_DIR)/roborun.pl
 
 CC     = gcc
 LIBS   = -lm
-CFLAGS = -g -Wall -pedantic -I$(RBT_DIR) -I$(NG_DIR) -DROBOTESTER
-
+CFLAGS = -g -Wall -pedantic -I$(RBT_DIR) -I$(NG_DIR) -DROBOTESTER -DFS_NEW_FORECAST
 
 #****v* Unittest/RBT_SOURCES
 # FUNCTION
@@ -78,6 +77,11 @@ ngtester : $(OBJECTS)
 	$(CC) $(OBJECTS) -o ngtester $(LIBS)
 
 #****
+
+setup:
+	rm -rf TempData
+	mkdir  TempData
+	mkdir  TempData/log
 
 #****e* Example/test
 # FUNCTION

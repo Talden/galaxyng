@@ -10,11 +10,13 @@ void NG_Test( void )
 {
     char** argv = calloc( 1, sizeof(char *) );
     int    argc = 1;
+    int    result;
+
     logLevel = LNONE;
     SetDirectoryVariables();
 
-    CMD_check( argc, argv, CMD_CHECK_REAL );
-
+    result = CMD_check( argc, argv, CMD_CHECK_REAL );
+    RBT_Assert( result == EXIT_FAILURE );
     free( argv );
 }
 
