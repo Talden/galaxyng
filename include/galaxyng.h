@@ -14,6 +14,7 @@ enum
 };
 
 void SetDirectoryVariables( void );
+int CMD_immediate(int argc, char** argv);
 int CMD_create( int argc, char **argv );
 int CMD_mail0( int argc, char **argv, int kind );
 int CMD_run( int argc, char **argv, int kind );
