@@ -85,6 +85,10 @@ LIBS   = -lm</pre>
 				<p>The following files are created.</p>
 				<table>
 					<tr>
+						<th>File</th>
+						<th>Explanation</th>
+					</tr>
+					<tr>
 						<td><tt>galaxyng</tt></td>
 						<td>The server program.  You use it to create new games, check orders, and run turns.</td>
 					</tr>
@@ -104,6 +108,10 @@ LIBS   = -lm</pre>
 				<p>The installation script tries to figure out the location of all programs needed to run the game, <tt>sendmail</tt> and <tt>formail</tt>.  It also asks you for an email address. The GM status reports go to this address.</p>
 				<p>The installation program also creates a number of directories:</p>
 				<table>
+					<tr>
+						<th>File</th>
+						<th>Explanation</th>
+					</tr>
 					<tr>
 						<td><tt>orders/</tt></td>
 						<td>This is where the players orders are stored. For each game there is a subdirectory. Orders are stored here under the name <var>&lt;nation_name&gt;.&lt;turn_number&gt;</var>.</td>
@@ -132,6 +140,10 @@ LIBS   = -lm</pre>
 				<p>There are three kind of notices available:</p>
 				<table>
 					<tr>
+						<th>File</th>
+						<th>Explanation</th>
+					</tr>
+					<tr>
 						<td><tt>global.bulletin</tt></td>
 						<td>In this you can store information that applies to all your games. You can find an example in the <tt>Doc/</tt> directory.</td>
 					</tr>
@@ -150,13 +162,14 @@ LIBS   = -lm</pre>
 			<h2 id="use">Use</h2>
 				<p>Running a galaxy game consists of steps:</p>
 				<ol>
+					<li>register players,</li>
 					<li>create a new game,</li>
 					<li>mail the turn 0 report,</li>
 					<li>check and store the orders that the players sent in,</li>
 					<li>run a turn,</li>
 					<li>mail the turn reports.</li>
 				</ol>
-				<p>Then repeat steps 3, 4, and 5, until the players request the game be stopped.</p>
+				<p>Then repeat steps 4, 5, and 6 until the players request the game be stopped.</p>
 
 			<hr />
 
@@ -171,7 +184,7 @@ LIBS   = -lm</pre>
 				<p>The specification file specifies the structure of the galaxy, that is the number of home planets, empty planets, stuff planets, the name of the galaxy and the size of the galaxy as well as the the email address of each of the players.</p>
 				<p>You can create a template <tt>.glx</tt> file by using the <tt>-template</tt> command.</p>
 <pre>./galaxyng -template &lt;game name&gt; &lt;number of players&gt;</pre>
-				<p>This creates a <tt>.glx</tt> file with default values for all parameters, plus documentation about what each parameter does.  You will have to edit this file to insert the email addresses of the players. For instance, say you have eight players to play in a galaxy game, and want to call this game Orion. You can then create this game as follows:</p>
+				<p>This creates a <tt>.glx</tt> file with default values for all parameters, plus documentation about what each parameter does.  You will have to edit this file to insert the email addresses of the players. For instance, say you have eight players to play in a galaxy game, and want to call the game Orion. You can then create the game as follows:</p>
 <pre>./galaxyng -template Orion 8</pre>
 				<p>Edit the <tt>Orion.glx</tt> and change the dummy email addresses to the real email addresses of the players, then run:</p>
 <pre>./galaxyng -create Orion.glx</pre>
@@ -354,35 +367,31 @@ LIBS   = -lm</pre>
 			<hr />
 
 			<h2 id="config">Configuration</h2>
-				<p>The server is configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>, whcih overrides the global settings for that particular game. A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Doc/</tt> directory. You can use it to specify the following parameters.  Only the first two are essential to run games.</p>
+				<p>The server is configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>, whcih overrides the global settings for that particular game. A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Doc/</tt> directory. You can use it to specify the following parameters:</p>
 				<table>
 					<tr>
+						<th>Parameter</th>
+						<th>Explanation</th>
+					</tr>
+					<tr>
 						<td><tt>GMemail</tt></td>
-						<td>The address for GM status reports.</td>
+						<td>The GM email address.  If this is not present, the GM report will not be mailed.</td>
 					</tr>
 					<tr>
 						<td><tt>sendmail</tt></td>
-						<td>The command that is used to send mail to the players.</td>
+						<td>The command that is used to send email, usually <tt>{ /usr/sbin/sendmail -t }</tt>.</td>
 					</tr>
 					<tr>
 						<td><tt>compress</tt></td>
-						<td>The command to compress email with, usually <tt>{ /usr/bin/zip }</tt>.</td>
+						<td>The command that is used to compress email, usually <tt>{ /usr/bin/zip }</tt>.</td>
 					</tr>
 					<tr>
 						<td><tt>encode</tt></td>
-						<td>Path to the command to attach a file to an email with, usually <tt>{ /usr/bin/mmencode }</tt>.</td>
+						<td>The command that is used to attach compressed files to email, usually <tt>{ /usr/bin/mmencode }</tt> or <tt>{ /usr/bin/uuencode }</tt>.</td>
 					</tr>
 					<tr>
-						<td><tt>FullBombing</tt></td>
-						<td>Switch to turn on old style galaxy bombing rule.</td>
-					</tr>
-					<tr>
-						<td><tt>DontDropDead</tt></td>
-						<td>Switch, idle players are not dropped from the game.</td>
-					</tr>
-					<tr>
-						<td><tt>SaveReportCopy</tt></td>
-						<td>When running a turn also save a copy of each turn report in <tt>reports/&lt;game name&gt;/</tt>.</td>
+						<td><tt>StartTime</tt></td>
+						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the following option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have had the same effect.)</td>
 					</tr>
 				</table>
 				<p>You can override where the server looks for all its data files by setting the <tt>GALAXYNGHOME</tt> environment variable. If it is not set the server looks in <tt>$HOME/Games/</tt>.</p>
