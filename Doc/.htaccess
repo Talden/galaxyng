@@ -1,0 +1,13 @@
+# redirect old links on galaxyng.sourceforge.net
+Redirect permanent /ManGalaxyNG.html http://galaxyng.sourceforge.net/manual.php
+Redirect permanent /RefManual.html http://galaxyng.sourceforge.net/quickref.php
+Redirect permanent /FAQ.html http://galaxyng.sourceforge.net/faq.php
+
+# redirect old links on galaxyng.com
+Redirect permanent /ng/index.html http://galaxyng.sourceforge.net/
+Redirect permanent /ng/index2.html http://galaxyng.sourceforge.net/
+Redirect permanent /ng/NonM4/FAQ.html http://galaxyng.sourceforge.net/faq.php
+Redirect permanent /ng/NonM4/RefManual.html http://galaxyng.sourceforge.net/quickref.php
+Redirect permanent /ng/example.html http://galaxyng.sourceforge.net/turns.php
+Redirect permanent /ng/hosting.html http://galaxyng.sourceforge.net/server.php
+Redirect permanent /ng/mailing.html http://sourceforge.net/mail/?group_id=48224
