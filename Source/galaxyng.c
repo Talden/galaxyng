@@ -1261,6 +1261,7 @@ CMD_relay( int argc, char **argv )
 					result = 0;
 
 					result |= relayMessage( aGame, raceName, aPlayer );
+					
 					if ( result == 0 ) {
 						setHeader( anEnvelope, MAILHEADER_SUBJECT,
 								   "Galaxy HQ, message sent" );
@@ -1362,9 +1363,9 @@ relayMessage( game *aGame, char *raceName, player *to )
                      aGame->name, to->name, to->pswd );
 
 			for (s = msg; s; s = s->next)
-				fprintf(message, s->str);
+				fprintf(message, "%s\n", s->str);
 
-			fprintf(message, "#END\n");
+			fprintf(message, "\n#END\n");
             fclose( message );
             result = eMail( aGame, anEnvelope, messageName );
             destroyEnvelope( anEnvelope );
