@@ -322,7 +322,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 
 			<h2 id="maps">Influence Maps</h2>
 			
-				<p>Various colorful maps can be created: public, industry, attack, and defence.  You must have <a href="http://www.boutell.com/gd/">GD</a> and <a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> and their development libraries installed to enable this feature.</p>
+				<p>Various colorful maps can be created: public, industry, attack, and defence.  You must have <a href="http://www.freetype.org/">freetype</a>, <a href="http://www.boutell.com/gd/">GD</a>, <a href="http://www.ijg.org/">libjpeg</a> and <a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> and their development libraries installed to enable this feature.</p>
 
 			<hr />
 
