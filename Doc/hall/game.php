@@ -57,7 +57,7 @@ echo "<hr />"
 . "<h2>Scores</h2>"
 . "<table summary=\"Scores in the game\">"
 . "<tr><th></th><th class=\"hallhead\">Player</th><th class=\"hallhead\">Win</th><th class=\"hallhead\">Race</th><th class=\"hallhead\">Pop</th><th class=\"hallhead\">Ind</th><th class=\"hallhead\">eInd</th><th class=\"hallhead\">Tech</th><th class=\"hallhead\">Planets</th><th class=\"hallhead\">Standard<br />Victory<br />Points</th><th class=\"hallhead\">Industry<br />Victory<br />Points</th></tr>";
-$scores = mysql_query("SELECT score.*, player.first, player.last, player.nick FROM score LEFT JOIN player ON score.player=player.id WHERE score.game=$g ORDER BY score.eind DESC, score.tech DESC, score.race ASC") or die("Couldn\'t select scores " . mysql_error());
+$scores = mysql_query("SELECT score.*, player.first, player.last, player.nick FROM score LEFT JOIN player ON score.player=player.id WHERE score.game=$g ORDER BY score.win ASC, score.eind DESC, score.tech DESC, score.race ASC") or die("Couldn\'t select scores " . mysql_error());
 $i=1;
 while ($score = mysql_fetch_array($scores)) {
 	echo "<tr";

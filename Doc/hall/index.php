@@ -73,7 +73,7 @@ while ($player = mysql_fetch_array($players)) {
 $games = mysql_query("SELECT game.id, game.players, SUM(score.eind) AS eind FROM game LEFT JOIN score ON game.id=score.game WHERE score.win='y' GROUP BY game.id");
 while ($game = mysql_fetch_array($games)) {
 // select scores for each game
-	$scores = mysql_query("SELECT player,eind FROM score WHERE game='$game[id]' and win='y' ORDER BY eind DESC");
+	$scores = mysql_query("SELECT player,eind FROM score WHERE game='$game[id]' and win='y' ORDER BY win ASC, eind DESC, tech DESC");
 	$i = 1;
 	while ($score = mysql_fetch_array($scores)) {
 // select the player from playerinfo if player is not null
