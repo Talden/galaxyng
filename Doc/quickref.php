@@ -15,7 +15,7 @@
 	<body>
 		<?php include 'menu.php'; ?>
 		
-		<h1>Quick Reference <a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a></h1>
+		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Quick&nbsp;Reference</h1>
 		
 			<hr />
 			

@@ -15,7 +15,7 @@
 	<body>
 		<?php include 'menu.php'; ?>
 
-		<h1>FAQ <a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a></h1>
+		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;FAQ</h1>
 
 			<hr />
 

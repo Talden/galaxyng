@@ -15,7 +15,7 @@
 	<body>
 		<?php include 'menu.php'; ?>
 	
-		<h1>Why GalaxyNG? <a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a></h1>
+		<h1>&nbsp;<a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Why&nbsp;GalaxyNG?</h1>
 
 			<hr />
 			
