@@ -4,6 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
 
+<!-- $Id$ -->
+
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>Why GalaxyNG?</title>
@@ -15,7 +17,11 @@
 		<h1>Why <a href="/">GalaxyNG</a>?</h1>
 
 			<hr />
-		
+			
+			<p>Frans Slothober's reasons for creating GalaxyNG are presented below.</p>
+			
+			<hr />
+			
 			<p>Galaxy has been around for a while, it's a great, well balanced, and addictive game, but it can be improved since:</p>
 			<ol>
 				<li>The game can be slow, dragging on for more than 60 turns, without coming to a conclusion.</li>
