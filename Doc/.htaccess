@@ -3,6 +3,11 @@ DirectoryIndex index.php index.html index.htm index.cgi
 
 # redirect old links on galaxyng.sourceforge.net
 Redirect permanent /gpl.txt http://www.gnu.org/copyleft/gpl.html
+Redirect permanent /daily8/allfiles.tgz http://galaxyng.sourceforge.net/guides/daily8.tgz
+Redirect permanent /daily8/allfiles.zip http://galaxyng.sourceforge.net/guides/daily8.tgz
+Redirect permanent /daily8/ http://galaxyng.sourceforge.net/guides/
+Redirect permanent /turns.php http://galaxyng.sourceforge.net/guides/
+Redirect permanent /etiquette.php http://galaxyng.sourceforge.net/guides/etiquette.php
 
 # new hall of fame
 Redirect permanent /hall.php http://galaxyng.sourceforge.net/hall/

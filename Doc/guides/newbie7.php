@@ -68,6 +68,10 @@ Trogs, Pedcoyes and Markmen.</p>
 			</ul>
 
 			<p>The End.</p>
+			
+			<p>p.s. A shield ball is a ship which is heavily shielded. The idea is to have enough shielding that other players cannot hit you at all. It allows a single ship say weight 100 to kill an entire fleet that can't hit it. Although you tend to get large turn reports that way. For example I sent a ship to Pedcoyes home world which weighed 37. It was almost entirely shielding. I destroyed over 2000 mass of ships. (The turn report was 1.5 megs I believe) Ironically this was an accident but it was very effective in keeping him out of the last battle and ensuring his loyalty as he had almost no fleet left. Shield balls are easy to destroy if you are prepared and they tend to be high mass which means they cost a lot.</p>
+
+			<p>Another name for them is Raider, but most people tend to escort Raiders to ensure they are a little harder to kill. The shield ball concept is mostly used unescorted because you will generally lose 100% of the escort anyway.</p>
 		
 		<?php include '../footer.php'; ?>
  	</body>

@@ -13,11 +13,9 @@
 
 [&nbsp;<a href="http://galaxyview.sourceforge.net/tools.html">Tools</a>&nbsp;]
 
-<?php if ($_SERVER['PHP_SELF'] == "/turns.php") { ?><span class="bold">[&nbsp;Turn&nbsp;Reports&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/turns.php">Turn&nbsp;Reports</a>&nbsp;]<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/guides/index.php") { ?><span class="bold">[&nbsp;Guides&nbsp;and&nbsp;Reports&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/guides/">Guides&nbsp;and&nbsp;Reports</a>&nbsp;]<?php } ?>
 
 <?php if ($_SERVER['PHP_SELF'] == "/faq.php") { ?><span class="bold">[&nbsp;FAQ&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/faq.php">FAQ</a>&nbsp;]<?php } ?>
-
-<?php if ($_SERVER['PHP_SELF'] == "/etiquette.php") { ?><span class="bold">[&nbsp;Etiquette&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/etiquette.php">Etiquette</a>&nbsp;]<?php } ?>
 
 [&nbsp;<a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">Mailing&nbsp;List</a>&nbsp;]
 
