@@ -12,6 +12,13 @@
 
 /* $Id$ */
 
+/* this function is meant to copy the body of the message into another
+ * file. Note that it is "destructive" in that it won't remember the last
+ * location in the file. Its' initial purpose is to put the body of the
+ * sent mail in the reply to the user upon some sort of failure (request
+ * for a turn in the future, relay to someone that doesn't exist, etc.
+*/
+void            copyEmailBody(FILE *inMail, FILE *outMail);
 void            loadRanTab(FILE * f);
 void            saveRanTab(FILE * f);
 unsigned int    krandom(void);

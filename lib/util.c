@@ -1721,12 +1721,39 @@ freeDefaults(game *aGame)
 }
 
 
-char* rightNow() {
-	static char timestamp[32];
+char*
+rightNow() {
+  static char timestamp[32];
 
-	time_t now = time(NULL);
+  time_t now = time(NULL);
 	
-	strcpy(timestamp, asctime(localtime(&now)));
+  strcpy(timestamp, asctime(localtime(&now)));
+  
+  return timestamp;
+}
 
-	return timestamp;
+
+void
+copyEmailBody(FILE *inMail, FILE *outMail)
+{
+  char buffer[4096];
+
+  rewind(inMail);
+
+  /* read all the header stuff which only goes until the first blank line */
+  while (fgets(buffer, sizeof(char)*4096, inMail)) {
+    if (buffer[0] == '\n')
+      break;
+  }
+
+  /* now copy everything up to the (optional) #end */
+  while (fgets(buffer, sizeof(char)*4096, inMail)) {
+    if (noCaseStrncmp(buffer, "#end", 4) == 0) {
+      fprintf(outMail, "%s", buffer);
+      break;
+    }
+    fprintf(outMail, "%s", buffer);
+  }
+
+  return;
 }
