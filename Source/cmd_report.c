@@ -48,95 +48,98 @@ CMD_report( int argc, char **argv ) {
     resNumber =
       areValidOrders( stdin, &aGame, &raceName, &password,
 		      &final_orders, &theTurnNumber );
-
+    
     reportName = createString("%s/temp_report_copy_%s", tempdir, returnAddress);
     {
       char *ptr = strrchr(reportName, '/')+1;
       while (*ptr) {
-		  if (!isalnum(*ptr))
-			  *ptr = '_';
-		  ptr++;
+	if (!isalnum(*ptr))
+	  *ptr = '_';
+	ptr++;
       }
     }
-
+    
     setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
     setHeader(anEnvelope, MAILHEADER_REPLYTO,
 	      aGame->serverOptions.ReplyTo);
     anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
     anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
-
+    
     report = fopen(reportName, "w");
     
     if ( ( resNumber == RES_TURNRAN ) ||
-		 ( ( resNumber == RES_OK ) &&
-		   ( theTurnNumber == LG_CURRENT_TURN ) ) ) {
-		game *aGame2;
+	 ( ( resNumber == RES_OK ) &&
+	   ( theTurnNumber == LG_CURRENT_TURN ) ) ) {
+      game *aGame2;
       
       if ( theTurnNumber > 0 ) {
-		  aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
+	aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
       }
       else if ( theTurnNumber == LG_CURRENT_TURN ) {
-		  theTurnNumber = aGame->turn;
-		  aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
+	theTurnNumber = aGame->turn;
+	aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
       }
       else {
-		  aGame2 = loadgame( aGame->name, 0 );
+	aGame2 = loadgame( aGame->name, 0 );
       }
       
       if ( aGame2 ) {
-		  player *aPlayer;
-		  int index;
-		  
-		  loadNGConfig( aGame2 );
-		  setHeader( anEnvelope, MAILHEADER_SUBJECT,
-					 "[GNG] %s turn %d report copy for %s",
-					 aGame->name, theTurnNumber, raceName );
-		  if ( theTurnNumber > 0 ) {  /* Rerun the turn */
-			  char *ordersName;
-			  
-			  ordersName =
-				  createString( "%s/orders/%s/%d.all",
-								galaxynghome, aGame2->name,
-								theTurnNumber );
-			  runTurn( aGame2, ordersName );
-			  free( ordersName );
-		  }
-		  /* Translate the current race name into the name used
-			 during the turn that is requested
-		  */
-		  aPlayer =
-			  findElement( player, aGame->players, raceName );
-		  
-		  index = ptonum( aGame->players, aPlayer );
-		  aPlayer = numtop( aGame2->players, index );
-		  
-		  if ( theTurnNumber == 0 )
-			  aPlayer->pswdstate = 1;
-		  highScoreList( aGame2 );
-		  createTurnReport( aGame2, aPlayer, report, 0 );
+	player *aPlayer;
+	int index;
+	
+	loadNGConfig( aGame2 );
+	setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		   "[GNG] %s turn %d report copy for %s",
+		   aGame->name, theTurnNumber, raceName );
+	if ( theTurnNumber > 0 ) {  /* Rerun the turn */
+	  char *ordersName;
+	  
+	  ordersName =
+	    createString( "%s/orders/%s/%d.all",
+			  galaxynghome, aGame2->name,
+			  theTurnNumber );
+	  runTurn( aGame2, ordersName );
+	  free( ordersName );
+	}
+	/* Translate the current race name into the name used
+	   during the turn that is requested
+	*/
+	aPlayer =
+	  findElement( player, aGame->players, raceName );
+	
+	index = ptonum( aGame->players, aPlayer );
+	aPlayer = numtop( aGame2->players, index );
+	
+	if (aPlayer->flags & F_COMPRESS)
+	  anEnvelope->compress = TRUE;
+
+	if ( theTurnNumber == 0 )
+	  aPlayer->pswdstate = 1;
+	highScoreList( aGame2 );
+	createTurnReport( aGame2, aPlayer, report, 0 );
       }
       else {
-		  setHeader( anEnvelope, MAILHEADER_SUBJECT,
-					 "[GNG] %s turn %d report copy for %s",
-					 aGame->name, theTurnNumber, raceName  );
-		  fprintf( report,
-				   "\n\nThe turn you requested is no longer available...\n" );
+	setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		   "[GNG] %s turn %d report copy for %s",
+		   aGame->name, theTurnNumber, raceName  );
+	fprintf( report,
+		 "\n\nThe turn you requested is no longer available...\n" );
       }
     }
     else if ( resNumber == RES_OK ) {
-		setHeader( anEnvelope, MAILHEADER_SUBJECT,
-				   "[GNG] Major Trouble" );
-		fprintf( report,
-				 "You can not request a report for the next turn\n" );
-		fprintf( report,
-				 "or any following turns,"
-				 " I can not see into the future!\n" );
+      setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		 "[GNG] Major Trouble" );
+      fprintf( report,
+	       "You can not request a report for the next turn\n" );
+      fprintf( report,
+	       "or any following turns,"
+	       " I can not see into the future!\n" );
     }
     else {
-		setHeader( anEnvelope, MAILHEADER_SUBJECT,
-				   "[GNG] Major Trouble" );
-		generateErrorMessage( resNumber, aGame, raceName,
-							  theTurnNumber, report );
+      setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		 "[GNG] Major Trouble" );
+      generateErrorMessage( resNumber, aGame, raceName,
+			    theTurnNumber, report );
     }
     
     fclose( report );
