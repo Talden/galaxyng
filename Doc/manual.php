@@ -60,7 +60,7 @@ www_subSection(`shiptypes', `Ship Types')
 <P>Some example ship types are:<P>
 
 <PRE>
-  Name              D    A     W       S       C
+  Name              D    A     W      S      C
   Drone            1.00   0   0.00   0.00   0.00
   Flak             1.00   0   0.00   2.00   0.00
   FastFlak         1.01   0   0.00   1.01   0.00
@@ -80,22 +80,22 @@ www_subSection(`shiptypes', `Ship Types')
 
 <P>Ship types with zero or one attack have a ship mass of drive mass + weapon mass + shield mass + cargo mass.  Each additional attack beyond the first adds 50% of the weapons mass to the ship mass.  For example:</P>
 
-<PRE>
-  Drone            1.00 + 0.00 + 0.00 + 0.00 = 1.00
-  Flak             1.00 + 0.00 + 2.00 + 0.00 = 3.00
-  FastFlak         1.01 + 0.00 + 1.01 + 0.00 = 2.02
-  Fighter          2.48 + 1.20 + 1.27 + 0.00 = 4.95
-  Gunship          4.00 + 2.00 + (1 * 2.00 * .5) + 4.00 + 0.00 = 11.00
-  Destroyer        6.00 + 4.00 + (2 * 4.00 * .5) + 4.00 + 0.00 = 18.00
-  Cruiser         16.50 + 1.50 + (29 * 1.50 * .5) + 9.75 + 0.00 = 49.50
-  BattleCruiser   49.50 + 3.00 + (24 * 3.00 * .5) + 9.50 + 1.00 = 99.00
-  Battleship      33.00 + 25.00 + (2 * 25.00 * .5) + 16.00 + 1.00 = 99.00
-  BattleStation   99.00 + 50.00 + 49.00 + 0.00 = 198.00
-  OrbitalFort      0.00 + 10.00 + (10 * 10.00 * .5) + 39.00 + 0.00 = 99.00
-  SpaceGun         0.00 + 9.90 + 9.90 + 0.00 = 19.80
-  Hauler           2.00 + 0.00 + 0.00 + 1.00 = 3.00
-  Freighter       30.00 + 0.00 + 9.50 + 10.00 = 49.50
-  MegaFreighter  120.00 + 0.00 + 38.43 + 39.57 = 198.00
+<PRE>               D       W     Additional Weapons    S      C      Ship Mass
+  Drone            1.00 +  0.00 +        0          +  0.00 + 0.00  =    1.00
+  Flak             1.00 +  0.00 +        0          +  2.00 + 0.00  =    3.00
+  FastFlak         1.01 +  0.00 +        0          +  1.01 + 0.00  =    2.02
+  Fighter          2.48 +  1.20 +        0          +  1.27 + 0.00  =    4.95
+  Gunship          4.00 +  2.00 + ( 1 *  2.00 * .5) +  4.00 + 0.00  =   11.00
+  Destroyer        6.00 +  4.00 + ( 2 *  4.00 * .5) +  4.00 + 0.00  =   18.00
+  Cruiser         16.50 +  1.50 + (29 *  1.50 * .5) +  9.75 + 0.00  =   49.50
+  BattleCruiser   49.50 +  3.00 + (24 *  3.00 * .5) +  9.50 + 1.00  =   99.00
+  Battleship      33.00 + 25.00 + ( 2 * 25.00 * .5) + 16.00 + 1.00  =   99.00
+  BattleStation   99.00 + 50.00 +        0          + 49.00 + 0.00  =  198.00
+  OrbitalFort      0.00 + 10.00 + (10 * 10.00 * .5) + 39.00 + 0.00  =   99.00
+  SpaceGun         0.00 +  9.90 +        0          +  9.90 + 0.00  =   19.80
+  Hauler           2.00 +  0.00 +        0          +  0.00 + 1.00  =    3.00
+  Freighter       30.00 +  0.00 +        0          +  9.50 + 10.00 =   49.50
+  MegaFreighter  120.00 +  0.00 +        0          + 38.43 + 39.57 =  198.00
 </PRE>
 
 www_subSection(`groups', `Groups')
@@ -133,21 +133,22 @@ www_Section(`speed', `Speed')
 <P>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of 20 times your drive technology.  For example, using the ship types above and assuming drive technology 1.00 carrying no cargo:<P>
 
 <PRE>
-  Drone          20 * 1.00 * (1.00/1.00) = 20.00
-  Flak           20 * 1.00 * (1.00/3.00) =  6.66
-  FastFlak       20 * 1.00 * (1.01/2.02) = 10.00
-  Fighter        20 * 1.00 * (2.48/4.95) = 10.02
-  Gunship        20 * 1.00 * (4.00/11.00) = 7.27
-  Destroyer      20 * 1.00 * (6.00/18.00) = 6.66
-  Cruiser        20 * 1.00 * (16.50/49.50) = 6.66
-  BattleCruiser  20 * 1.00 * (49.50/99.00) = 10.00
-  Battleship     20 * 1.00 * (33.00/99.00) = 6.66
-  BattleStation  20 * 1.00 * (99.00/198.00) = 10.00
-  OrbitalFort    20 * 1.00 * (0.00/99.00) = 0.00
-  SpaceGun       20 * 1.00 * (0.00/19.80) = 0.00
-  Hauler         20 * 1.00 * (2.00/3.00) = 13.33
-  Freighter      20 * 1.00 * (30.00/49.50) = 12.12
-  MegaFreighter  20 * 1.00 * (120.00/198.00) = 12.12
+                 20 * Drive Tech * (Drive Mass / Ship Mass) = Light Years
+  Drone          20 *    1.00    * (    1.00   /   1.00   ) =    20.00
+  Flak           20 *    1.00    * (    1.00   /   3.00   ) =     6.66
+  FastFlak       20 *    1.00    * (    1.01   /   2.02   ) =    10.00
+  Fighter        20 *    1.00    * (    2.48   /   4.95   ) =    10.02
+  Gunship        20 *    1.00    * (    4.00   /  11.00   ) =     7.27
+  Destroyer      20 *    1.00    * (    6.00   /  18.00   ) =     6.66
+  Cruiser        20 *    1.00    * (   16.50   /  49.50   ) =     6.66
+  BattleCruiser  20 *    1.00    * (   49.50   /  99.00   ) =    10.00
+  Battleship     20 *    1.00    * (   33.00   /  99.00   ) =     6.66
+  BattleStation  20 *    1.00    * (   99.00   / 198.00   ) =    10.00
+  OrbitalFort    20 *    1.00    * (    0.00   /  99.00   ) =     0.00
+  SpaceGun       20 *    1.00    * (    0.00   /  19.80   ) =     0.00
+  Hauler         20 *    1.00    * (    2.00   /   3.00   ) =    13.33
+  Freighter      20 *    1.00    * (   30.00   /  49.50   ) =    12.12
+  MegaFreighter  20 *    1.00    * (  120.00   / 198.00   ) =    12.12
 </PRE>
 
 <P>Note that, when fully loaded, cargo ships can be much slower.  For example, assuming drive technology 1.00 and cargo technology 1.00:</P>
@@ -158,9 +159,11 @@ www_Section(`speed', `Speed')
   MegaFreighter  20 * 1.00 * (120.00/(198.00+196.14)) = 6.09
 </PRE>
 
-www_subSection(`incoming', `Incoming Ships')
+www_subSection(`locate', `Locating Ships')
 
-<P>Each race's administrative staff will keep a record of its own ships on planets or in hyperspace.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can only be obtained for ships heading directly toward a detector.  A rough indication of the location of other alien groups is indicated on the ALink(`#ordm', `map'), but their mass, speed and direction of travel are unknown.</P>
+<P>Each race's administrative staff will keep a record of its own ships on planets or in hyperspace.  Planet owners have full knowledge of all ships orbiting their planets.  Players also receive complete reports on ships at planets visited by their own ships.</P>
+
+<P>Locating alien ships in hyperspace is much more problematic.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can only be obtained for ships heading directly toward a detector (i.e. inbound to a planet).  A rough indication of the location of other alien groups is indicated on the ALink(`#ordm', `map'), but their mass, speed and direction of travel are unknown.</P>
 
 www_section(`planets', `Planets')
 
@@ -192,28 +195,27 @@ www_subSection(`produce', `Production')
 
 <P>A planet can research one of the four technologies.  It costs 5,000 production points to increase Drive, Weapons, or Shields technology by one point.  Cargo technology research is 50% cheaper, thus it only takes 2,500 production points to increase the Cargo technology by one point.  Fractional increases are effective immediately (e.g. if you spend 500 production points on research into Weapons, your Weapons technology will go up by one tenth of a point).</P>
 
-<P>A planet can produce spaceships.  The production cost of a ship is equal to its mass times 10.
-</P>
+<P>A planet can produce ships.  The production cost of a ship is equal to its mass times 10.  In addition, one unit of materials is required for every ten units of production.</P>
 
-<P> 
-Example: If your homeplanet was producing Drones, and there was a
-stockpile of raw materials, it would produce 100 per turn.  (If there
-was no stockpile of raw materials, it would produce slightly over 99
-per turn.) However, if it was producing Battleships, it would only
-produce one and one-ninth per turn.  After the first turn, there would
-be one battleship in orbit, and one one-ninth built.  After the second
-turn there would be two battleships in orbit, and one two-ninths
-built.  
-</P>
+<PRE>               Mass  Production  Materials
+  Drone             1.00     10.00       1.00
+  Flak              3.00     30.00       1.00
+  FastFlak          2.02     20.20       2.02
+  Fighter           4.95     49.50       4.95
+  Gunship          11.00    110.00      11.00
+  Destroyer        18.00    180.00      18.00
+  Cruiser          49.50    495.00      49.50
+  BattleCruiser    99.00    990.00      99.00
+  Battleship       99.00    990.00      99.00
+  BattleStation   198.00   1980.00     198.00
+  OrbitalFort      99.00    990.00      99.00
+  SpaceGun         19.80    198.00      19.80
+  Hauler            3.00     30.00       3.00
+  Freighter        49.50    495.00      49.50
+  MegaFreighter   198.00   1980.00     198.00
+</PRE>
 
-<P>Materials are required to build ships or produce capital.  If no materials are available, some production points will be diverted to producing the necessary materials.  For example, suppose you allocate production at the start of the
-game to building spaceships.  Since you start off with no raw material
-stockpiles, raw materials will have to be produced in order to build
-the spaceships.  (To build spaceships requires an amount of raw
-materials equal to the total size of the ships built).  This is
-completely invisible from your point of view, the only effect it will
-have is that spaceship production will be somewhat lower than you
-would otherwise expect.  </P>
+<P>For example: If a planet with 1000.00 production and 10.00 resources with no stockpile of materials was producing Drones, it would produce slightly over 99 per turn.  About 9.9 production would be diverted to producing 99 materials to build the probes.  However, if it was producing Cruisers, it would only produce two per turn.  A planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.5 Cruisers per turn.</P>
 
 www_subSection(`stock', `Stockpiles')
 
