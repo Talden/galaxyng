@@ -11,11 +11,7 @@
 *  CREATION DATE
 *    Feb-2001
 *  COPYRIGHT
-*    This program may be freely distributed, and used to run _free_
-*    games over electronic media.  It may not be sold or used
-*    commercially without prior written permission from me Frans
-*    Slothouber.  fslothouber@acm.org.  In no case may it be used to
-*    run commercial games.
+*    GPL
 *  NOTES
 *  BUGS
 *
@@ -35,6 +31,7 @@
 
 char vcid[128];
 
+#ifndef ROBOTESTER
 int
 main( int argc, char **argv )
 {
@@ -50,7 +47,7 @@ main( int argc, char **argv )
         return EXIT_FAILURE;
     }
 }
-
+#endif
 
 
 void
@@ -116,7 +113,7 @@ wopr_battle( int argc, char **argv )
  */
 
 int
-wopr_parse_scenario( FILE * scenario, game * aGame )
+wopr_parse_scenario( FILE *scenario, game *aGame )
 {
     char *read;
     int reading;
@@ -171,7 +168,7 @@ wopr_parse_scenario( FILE * scenario, game * aGame )
 
 
 int
-parse_type( game * aGame, player * aPlayer )
+parse_type( game *aGame, player *aPlayer )
 {
     char *typeName;
     char *par;
@@ -184,7 +181,8 @@ parse_type( game * aGame, player * aPlayer )
         fprintf( stderr, "No ship type name given.\n" );
         return FALSE;
     }
-    if ( findElement( shiptype, aPlayer->shiptypes, typeName ) != NULL ) {
+    if ( findElement( shiptype, aPlayer->shiptypes, typeName ) != NULL )
+    {
         fprintf( stderr, "Ship type name already in use.\n" );
         return FALSE;
     }
@@ -267,7 +265,7 @@ parse_type( game * aGame, player * aPlayer )
  */
 
 int
-parse_group( game * aGame, player * aPlayer )
+parse_group( game *aGame, player *aPlayer )
 {
     group *aGroup;
     char *typeName;
@@ -290,7 +288,8 @@ parse_group( game * aGame, player * aPlayer )
         return FALSE;
     }
     if ( ( aShiptype = findElement( shiptype, aPlayer->shiptypes, typeName ) )
-         == NULL ) {
+         == NULL )
+    {
         fprintf( stderr, "Ship type name not found\n" );
         return FALSE;
     }
@@ -367,7 +366,7 @@ wopr_createGame(  )
 
 
 void
-wopr_allies( game * aGame, char *playerName1, char *playerName2 )
+wopr_allies( game *aGame, char *playerName1, char *playerName2 )
 {
     player *aPlayer1;
     player *aPlayer2;
@@ -393,7 +392,7 @@ wopr_allies( game * aGame, char *playerName1, char *playerName2 )
  */
 
 player *
-wopr_addPlayer( game * aGame, char *name )
+wopr_addPlayer( game *aGame, char *name )
 {
     player *aPlayer;
 
