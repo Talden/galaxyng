@@ -1211,7 +1211,10 @@ CMD_relay( int argc, char **argv )
         confirmName = createString( "%s/NGconfirm", tempdir );
         if ( ( confirm = GOS_fopen( confirmName, "w" ) ) ) {
             player *aPlayer;
-            char *destination, *returnAddress, *raceName, *password;
+            char* destination;
+			char* returnAddress;
+			char* raceName;
+			char* password;
             int theTurnNumber = LG_CURRENT_TURN;
             envelope *anEnvelope;
 
@@ -1242,10 +1245,15 @@ CMD_relay( int argc, char **argv )
 					 aPlayer;
 					 aPlayer = aPlayer->next) {
 
+					/* skip dead players, they dislike getting email
+					 *about the game :)
+					 */
+					
 					if (aPlayer->flags & F_DEAD)
 						continue;
 					
 					if (mode == SINGLE_PLAYER) {
+						fprintf(stderr, "destination: \"%s\"\n", destination);
 						if (noCaseStrcmp(destination, "GM") == 0) {
 							aPlayer->name = strdup("GM");
 							aPlayer->addr = strdup(aGame->serverOptions.GMemail);
@@ -1263,7 +1271,7 @@ CMD_relay( int argc, char **argv )
 						}
 					}
 
-					
+					fprintf(stderr, "Message from %s\n", returnAddress );
 					plog( LBRIEF, "Message from %s\n", returnAddress );
 					result = 0;
 
@@ -1274,10 +1282,15 @@ CMD_relay( int argc, char **argv )
 								   "Galaxy HQ, message sent" );
 						fprintf( confirm, "Message has been sent to %s.\n",
 								 aPlayer->name );
+						fprintf(stderr, "Message has been sent to %s.\n",
+								 aPlayer->name );
 					} else {
 						setHeader( anEnvelope, MAILHEADER_SUBJECT,
 								   "Galaxy HQ, message not sent" );
 						fprintf( confirm,
+								 "Due to a server error the message was not send!\n"
+								 "Please contact your Game Master.\n" );
+						fprintf(stderr,
 								 "Due to a server error the message was not send!\n"
 								 "Please contact your Game Master.\n" );
 					}
@@ -1290,8 +1303,10 @@ CMD_relay( int argc, char **argv )
 				generateErrorMessage( resNumber, aGame, raceName,
 									  theTurnNumber, confirm );
 			}
+			
 			fprintf( confirm, "\n\n%s\n", vcid );
 			fclose( confirm );
+			fprintf(stderr, "mailing confirmation to \"%s\"\n", anEnvelope->to);
 			result |= eMail( aGame, anEnvelope, confirmName );
 			if ( destination )
 				free( destination );
@@ -1338,7 +1353,7 @@ relayMessage( game *aGame, char *raceName, player *to )
 
 	if (!message_read) {
 		message_read = 1;
-		
+		fprintf(stderr, "Creating message\n");
 		msg = makestrlist("\n-*- Message follows -*-\n\n" );
 
 		for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin );
@@ -1346,12 +1361,14 @@ relayMessage( game *aGame, char *raceName, player *to )
 			  isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin ) ) {
 			if (noCaseStrncmp("#end", lineBuffer, 4) == 0)
 				break;
+			fprintf(stderr, "%s\n", lineBuffer);
 			addList(&msg, makestrlist(lineBuffer));
 		}
 
 	}
 
     if ( to->addr ) {
+		fprintf(stderr, "sending to \"%s\"\n", to->addr);
         if ( ( message = GOS_fopen( messageName, "w" ) ) ) {
 
             anEnvelope = createEnvelope(  );
@@ -1360,12 +1377,16 @@ relayMessage( game *aGame, char *raceName, player *to )
 			if (strstr(raceName, "@") != NULL) {
 				setHeader(anEnvelope, MAILHEADER_SUBJECT,
 						  "Galaxy HQ, message relay GM");
+				fprintf(stderr, "subject: Galaxy HQ, message relay GM");
 			}
 			else {
 				setHeader( anEnvelope, MAILHEADER_SUBJECT,
 						   "Galaxy HQ, message relay %s", raceName );
+			fprintf(stderr, "subject: Galaxy HQ, message relay %s", raceName);
 			}
+			
             plog( LBRIEF, "Message relay, destination %s.\n", to->addr );
+			fprintf(stderr, "Message relay, destination %s.\n", to->addr );
             fprintf( message, "#GALAXY %s %s %s\n",
                      aGame->name, to->name, to->pswd );
 
@@ -2068,8 +2089,10 @@ CMD_ordersdue(int argc, char** argv)
 		fprintf(stderr, "Cannot open game %s\n", argv[2]);
 	}
 
-	if (missing_orders_file)
+	if (missing_orders_file) {
 		free(missing_orders_file);
+		ssystem("rm -f %s", missing_orders_file);
+	}
 
 	if (msg_count) {
 		fclose(gmnote);
