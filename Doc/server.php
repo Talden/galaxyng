@@ -246,6 +246,9 @@ tick 48</pre>
 				<p>Translated it means: if the subject of the message contains the string "order", pipe the message to <tt>formail</tt>. It is case insensitive, so order, NewOrder and ORDERS will all match the condition. A lock file with the name orders.lock is used to prevent the simultaneous execution of the same recipe if two or more messages arrive at the same time.  There are similar entries for the commands to request a copy of a turn report, relay messages to other players and register for games. You will find them in the example procmailrc file at <tt>$HOME/Games/procmailrc</tt>.</p>
 				<p><tt>formail</tt> reformats email messages. When used with the <tt>-rkbt</tt> flags, all mail header lines are thrown away, a <tt>To:</tt> line is generated with the address of person that sent the message, a <tt>Subject:</tt> line is generated, with the original subject prepended with <tt>Re:</tt>, and the body of the message is retained.  This allows the GalaxyNG server to mail forecasts, turn reports and other responses to the person who sent the message.</p>
 				<p><tt>cron</tt> runs programs on a schedule.  You can use cron to send <a href="#due">orders due</a> messages and <a href="#run">run turns</a>.</p>
+				<p><tt>mimedecode</tt> solves some problems with mail formatting in non-ASCII character sets.  You can use it to prefix commands in your .procmail file.  For example:</p>
+<pre>|/usr/bin/mimedecode|/usr/bin/formail -rkbt -s \
+  /home/server/Games/galaxyng -check</pre>
 
 			<hr />
 
