@@ -18,8 +18,8 @@
 				<ol>
 					<li>Introduction
 						<ol>
+							<li>The Galaxy</li>
 							<li>Names</li>
-							<li>War and Alliances</li>
 							<li>Victory and Defeat</li>
 						</ol>
 					</li>
@@ -55,6 +55,7 @@
 					</li>
 					<li>Combat
 						<ol>
+							<li>War and Alliances</li>
 							<li>Conquering Planets</li>
 						</ol>
 					</li>
@@ -93,14 +94,13 @@
 			<h2><a link="intro">Introduction</a></h2>
 				<p>GalaxyNG is a multiplayer game of interstellar war.  Each player is the leader of one race.  The objective of the game is to conquer the galaxy.</p>
 				<p>Players email a GalaxyNG server to <a href="#register">register</a> for games, submit <a href="#orders">orders</a> and receive <a href="#reports">turn reports</a>.  The server automatically processes turns and responds to player email.  Most games run one to five <a href="#turns">turns</a> per week.  The Game Master (GM) maintains the server, selects game options, creates the galaxy, answers player questions and solves problems.</p>
-				<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, fight better and haul more cargo.</p>
-				<p>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods or raw materials represents about 10 million tons.  Each game turn represents about four years of time.</p>
+
+				<h3><a link="galaxy">The Galaxy</a></h3>
+					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, fight better and haul more cargo.</p>
+					<p>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods or raw materials represents about 10 million tons.  Each game turn represents about four years of time.</p>
 
 				<h3><a link="names">Names</a></h3>
 					<p>Races, planets and ship types can be named.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should <a href="#ordc">provide a name</a> by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when <a href="#ordd">designed</a> and can be <a href="#ordt">renamed</a>.  Planets are numbered at the start of the game and can be <a href="#ordn">renamed</a> by their current owner.</p>
-
-				<h3><a link="war">War and Alliances</a></h3>
-					<p>At the start of the game all races are assumed to be at war with all the other races (except in team games).  <a href="#orda">Alliances</a> may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, <a href="#ordw">war</a> may be declared again at the start of any subsequent turn and vice versa.</p>
 
 				<h3><a link="victory">Victory and Defeat</a></h3>
 					<p>The game can be won by a single race or by an alliance of races, depending upon the game settings.  Races are ranked based on the total production of their planets.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</p>
@@ -356,8 +356,11 @@ ships in the following order of priority:  colonists, capital,
 materials and empty transports.  
 </p>
 
-<h2><a link="#combat">Combat</a></h2>
+			<h2><a link="#combat">Combat</a></h2>
 
+				<h3><a link="war">War and Alliances</a></h3>
+					<p>At the start of the game all races are assumed to be at war with all the other races (except in team games).  <a href="#orda">Alliances</a> may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, <a href="#ordw">war</a> may be declared again at the start of any subsequent turn and vice versa.</p>
+					
 <p>
 Ships in hyperspace cannot be attacked but whenever hostile
 warships are present at the same planet a battle will take
