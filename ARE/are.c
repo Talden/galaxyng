@@ -159,6 +159,8 @@ int main(int argc, char **argv)
   if (argc eq 6) {
     int maxNumberOfPlayers, curNumberOfPlayers, maxNumberOfPlanets;
     double totalPlanetSize, maxPlanetSize;
+    int ret;
+    char sys_string[2000];
     
     curNumberOfPlayers   = countPlayersRegistered(argv[1]);
     maxNumberOfPlayers   = atoi(argv[2]);
@@ -176,8 +178,14 @@ int main(int argc, char **argv)
 	  "\n\nMessage from A.R.E (Automatic Registration Engine)\n"
 	  "\n"
 	  "\nGreetings,\n");
-	if (getPlanetSizes(stdin, &planets, totalPlanetSize, 
-			   maxNumberOfPlanets, maxPlanetSize)) {
+	sprintf(sys_string,"/bin/grep %s %s/%s.players > /dev/null",address,galaxynghome,argv[1]);
+	ret = system(sys_string);
+	if (ret==0) {
+	      printf("\nERROR:\n"
+		     "You are already registered for this game\n");
+	      exit(0);
+	}
+	if (getPlanetSizes(stdin, &planets, totalPlanetSize, maxNumberOfPlanets, maxPlanetSize)) {
 	  errorCode =  registerPlayer(
 	    address, planets, argv[1], 
 	    (curNumberOfPlayers < maxNumberOfPlayers) ? T_PLAYER : T_STANDBY);
