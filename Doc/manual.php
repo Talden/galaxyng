@@ -307,6 +307,8 @@ uninhabited planet will be stockpiled until the planet is colonized.</p>
 			<h2 id="prod">Production</h2>
 				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each unit of industry on a planet yields one production unit, and every four units of population over and above industry yields an additional production unit.  The formula is:</p>
 <pre>Production = Industry + (Population - Industry)/4</pre>
+<p>or, put another way:</p>
+<pre>Production = (Industry * .75) + (Population * .25)</pre>
 				<p>For example, a planet with 500.00 population and 500.00 industry has 500.00 production (500 + 0), a planet with 500.00 population and 250.00 industry has 312.50 production (250 + 250/4) and a planet with 500.00 population and 0 industry has 125.00 production (0 + 500/4).</p>
 				<p>A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production per turn, however two planets can produce two things in one turn or one planet can produce two things in two turns.  A planet will continue producing the same thing until it is ordered to change production, thus new production orders are not required for each planet each turn.</p>
 				
