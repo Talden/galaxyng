@@ -13,6 +13,12 @@ o By Ken Weinert (madcoder42)
     engine can't be used with existing templates (.glx files) unless
     you edit it to change "nation_spacing" to "race_spacing"
   + changed the relay command so it will stop at a #END line
+    added the ability to relay to everyone in the game by using the
+    game name as the destination
+  + added a PaxGalactica - GM can specify the number of turns that
+    Races won't be able to declare war on each other
+  + added a new kind of map - "public". it's like location, but
+    without colour coding
 
 Release 6.4.5: January 2004
 o By Ken Weinert (madcoder42)
