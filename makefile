@@ -2,9 +2,9 @@
 # $Id$
 #
 
-Source/galaxyng:
-	cd Source ; make ; cd .. 
-	cd ARE ; make ; cd ..
+all : 
+	make -C Source galaxyng
+	make -C ARE
 
 install: Source/galaxyng
 	./install.sh
