@@ -6,7 +6,7 @@
  ******
  */
 
-int relayMessage( game *aGame, char *raceName, player* from, player* to ) {
+int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
     char* messageName;
 	char* isRead;
     FILE* message;

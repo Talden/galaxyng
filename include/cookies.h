@@ -25,8 +25,9 @@
 #define  COOKIEgamespecification  0xF1AABEEF
 #define  COOKIEnewplayer          0xF1EA5747
 #define  COOKIEgameOpts           0xF2AABEEF
-#define  COOKIEplayerOpts		  0xF2EA5747
+#define  COOKIEplayerOpts	  0xF2EA5747
 #define  COOKIEplanetTemplate     0xF2D4EEDF
+#define  COOKIEemailList          0xF2FAFEED
 
 /******/
 

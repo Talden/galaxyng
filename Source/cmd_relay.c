@@ -17,8 +17,9 @@ int CMD_relay( int argc, char **argv ) {
 	int   resNumber;
 	game* aGame;
 	FILE* confirm;
-	player* toPlayers = NULL;
-	player* gmPlayer;
+	emailList* toPlayers;
+	emailList* listPlayer;
+	
 	player* itPlayer;
 	player* fromPlayer;
 	char* destination;
@@ -105,7 +106,7 @@ int CMD_relay( int argc, char **argv ) {
 		return result;
 	}
 			
-	toPlayers = allocStruct(player);
+	toPlayers = allocStruct(emailList);
 
 	if (noCaseStrcmp(destination, aGame->name) == 0) {
 		/* since we are relaying to the game, then the relay goes to
@@ -126,29 +127,34 @@ int CMD_relay( int argc, char **argv ) {
 			if (itPlayer == fromPlayer)
 				continue;
 			
-			plog(LBRIEF, "adding %s to list of players to send message to.\n", itPlayer->name);
-			addList(&toPlayers, itPlayer);
+			listPlayer = allocStruct(emailList);
+			listPlayer->name = strdup(itPlayer->name);
+			listPlayer->addr = strdup(itPlayer->addr);
+			listPlayer->pswd = strdup(itPlayer->pswd);
+
+			plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
+			addList(&toPlayers, listPlayer);
 		}
 
-		gmPlayer = (player*)malloc(sizeof(player));
-		gmPlayer->name = strdup("GM");
-		gmPlayer->addr = strdup(aGame->serverOptions.GMemail);
-		gmPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
-			plog(LBRIEF, "adding %s to list of players to send message to.\n", gmPlayer->name);
-		addList(&toPlayers, gmPlayer);
+		listPlayer = allocStruct(emailList);
+		listPlayer->name = strdup("GM");
+		listPlayer->addr = strdup(aGame->serverOptions.GMemail);
+		listPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+		plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
+		addList(&toPlayers, listPlayer);
 	}
 	else {
 		/* if we are only sending to a single player, there are two
 		 * possibilities: I've named the GM or I've named a player
 		 */
 		if (noCaseStrcmp(destination, "GM") == 0) {
-		  plog(LBRIEF, "Sending to the GM\n");
-			gmPlayer = (player*)malloc(sizeof(player));
-			gmPlayer->name = strdup("GM");
-			gmPlayer->addr = strdup(aGame->serverOptions.GMemail);
-			gmPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
-			plog(LBRIEF, "adding %s to list of players to send message to.\n", gmPlayer->name);
-			addList(&toPlayers, gmPlayer);
+
+		  listPlayer = allocStruct(emailList);
+		  listPlayer->name = strdup("GM");
+		  listPlayer->addr = strdup(aGame->serverOptions.GMemail);
+		  listPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+		  plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
+		  addList(&toPlayers, listPlayer);
 		}
 		else {
 			if ((itPlayer =
@@ -173,16 +179,21 @@ int CMD_relay( int argc, char **argv ) {
 				return result;
 			}
 
-			plog(LBRIEF, "adding %s to list of players to send message to.\n", itPlayer->name);
-			addList(&toPlayers, itPlayer);
+
+			listPlayer = allocStruct(emailList);
+			listPlayer->name = strdup(itPlayer->name);
+			listPlayer->addr = strdup(itPlayer->addr);
+			listPlayer->pswd = strdup(itPlayer->pswd);
+			plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
+			addList(&toPlayers, listPlayer);
 		}
 	}
 				
 
-	for (itPlayer = toPlayers; itPlayer; itPlayer = itPlayer->next) {
-	  plog(LBRIEF, "relayMessage(aGame, %s, %s, %s)\n", raceName, fromPlayer->name, itPlayer->name);
+	for (listPlayer = toPlayers; listPlayer; listPlayer = listPlayer->next) {
+	  plog(LBRIEF, "relayMessage(aGame, %s, %s, %s)\n", raceName, fromPlayer->name, listPlayer->name);
 
-		result = relayMessage(aGame, raceName, fromPlayer, itPlayer);
+		result = relayMessage(aGame, raceName, fromPlayer, listPlayer);
 					
 		if (result == 0) {
 			setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] message sent");

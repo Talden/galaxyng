@@ -138,6 +138,7 @@ typedef struct list {
  */
 
 #define   findElement(t,l,n) (t *)findElementF((list *)l,n)
+#define   copyElement(t,l,n) (t *)copyElementF((list *)l,n)
 
 /********/
 

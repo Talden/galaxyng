@@ -152,7 +152,6 @@ findElementF(list *aList, char *name)
   return anElement;
 }
 
-
 /****f* List/removeListF
  * NAME
  *   removeListF -

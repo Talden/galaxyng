@@ -684,6 +684,16 @@ typedef struct game {
 
 /*******/
 
+typedef struct emailList {
+  /* basic list structure */
+  struct emailList* next;
+  long              cookie;
+  char*             name;
+  /* end basic list */
+  char*             addr;
+  char*             pswd;
+} emailList;
+
 
 /****d* GameElements/GameFlags
  * NAME
