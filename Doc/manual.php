@@ -168,7 +168,7 @@
 					<p>Inhabited planets are owned by one race at a time (except in the special case of a standoff when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</p>
 
 				<h3 id="size">Size</h3>
-					<p>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), uninhabited development planets (size 200.00 to 1000.00) and uninhabited stuff planets (size 0.01 to 200.00).</p>
+					<p>Planets vary in size from 0.01 to 1000.00 (GMs can create larger planets).  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is usually divided into inhabited planets (home planets), uninhabited development planets (size 200.00 to 1000.00) and uninhabited stuff planets (size 0.01 to 200.00).</p>
 
 				<h3 id="pop">Population</h3>
 					<p>Each inhabited planet has a population, which can never be larger than the planet's size but may be smaller.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  Each planet's population grows by 8% per turn.  Excess population is stockpiled as colonists.  Each unit of colonists represents eight population.</p>
