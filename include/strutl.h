@@ -37,6 +37,7 @@ void     freestrlist(strlist* s);
 void     dumpstrlist(strlist* aStrlist);
 int      noCaseStrncmp(const char *s, const char *t, int n);
 int      noCaseStrcmp(const char *s, const char *t);
+char*    strlwr(char* str);
 
 #endif
 

@@ -2482,20 +2482,26 @@ getDestination( char *subject )
 
     theTurnNumber = LG_CURRENT_TURN;
 
-    for ( c = lineBuffer; *c; c++ )
-      *c = ( char ) tolower( *c );
-    c = strstr( lineBuffer, "relay" );
-    if ( c != NULL ) {
-      getstr( c );
-      c = getstr( 0 );
-      if ( *c != '\0' ) {
-	destination = strdup( c );
-      } else {
-	destination = NULL;
-      }
-    } else {
-      assert( 0 );    /* the word relay was not in the subject */
+    plog(LBRIEF, ">getDestination(%s)\n", subject);
+
+    c = strlwr(strdup(subject));
+      
+    if ((destination = strchr(c, " \t")) == NULL) {
+      plog(LBRIEF, "  no space in subject\n");
+      return NULL;		/* can't be a relay subject */
     }
+
+    *destination = '\0';
+
+    if (strcmp(c, "relay") != 0) {
+      plog(LBRIEF, "  subject does not start with \"relay\"\n");
+      return NULL;		/* can't be a relay subject */
+    }
+
+    destination = strdup(destination+1);
+    free (c);
+
+    plog(LBRIEF, "<getDestination(%s)\n", destination);
 
     return destination;
 }

@@ -274,3 +274,15 @@ noCaseStrncmp(const char *s, const char *t, int n)
 /***********/
 
 
+
+char* strlwr(char* str) {
+  char* ptr = str;
+
+  while (*ptr) {
+    if (isupper(*ptr))
+      *ptr = tolower(*ptr);
+    ptr++;
+  }
+
+  return str;
+}
