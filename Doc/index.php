@@ -19,7 +19,7 @@
 				<p>GalaxyNG games usually have between 10 and 50 players, run 1 to 5 turns per week and last between 2 and 24 months.  Players email orders to a GalaxyNG server and receive text or XML turn reports from the server by email.  Most players use a <a href="http://galaxyview.sourceforge.net/tools.html">turn viewer</a> to display the map and create orders.  Players can design and build ships, colonize and develop planets, research technology and fight battles to conquer the galaxy.</p>
 				<p>New games are announced on the <a href="http://www.badcheese.com/cgi-bin/mailman/listinfo/galaxy">galaxy mailing list</a>.  They can also be found on GalaxyNG server web sites:</p>
 				<ul>
-					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web</a> (aka BadCheese)</li>
+					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a></li>
 				 <li><a href="http://www.refs-home.net/galaxyng/index.php">REF's GalaxyNG Site</a></li>
 				</ul>
 				
