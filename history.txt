@@ -1,7 +1,17 @@
 # $Id$
 
+Release 6-3-1: December 2003
+o By Chris Shaffer (christhecat)
+  + Rewrote all manuals, FAQs and help documents.  Major
+  + changes to /NG/Doc/.
+  +
+  + Updated makefile, which no longer creates the Manuals.
+  + GMs should point to http://galaxyng.sourceforge.net/
+  + now, rather than hosting the manuals and FAQ and such
+  + locally.
+
 Release 6-3-0: September 2003
-o By Ken Weinert
+o By Ken Weinert (madcoder42)
   + both text and xml reports are sent on turn 0
   + new option: TXTReport to turn them off if necessary
   + now forecasts are returned in XML format if that option
@@ -17,7 +27,7 @@ o By Ken Weinert
     attempting to have all engines put out the same dtd.
 
 Release 6-2: July 2003
-o By Ken Weinert
+o By Ken Weinert (madcoder42)
   + fixed bug that could cause the create process to hang
   + added code to ensure each planet is in a unique location
     this also accounts for the fact that planet coords are
@@ -27,7 +37,7 @@ o By Ken Weinert
     might not even compile.
 
 Release 6-1a: April 2003
-o By Ken Weinert
+o By Ken Weinert (madcoder42)
   + Added an option to generate a .png file when the turn is 
     run. This is for GM use only as it shows all planets. It 
     will probably be most useful when first setting up a game
@@ -36,14 +46,14 @@ o By Ken Weinert
     of the game.
 
 Release 6-1: July 2002
-o By Steve Webb
+o By Steve Webb (scum-o)
   + Added gnuplot output
   + Added some command-line fixes to commands that weren't very
     well documented.
   + Fixed the 'fleet recall' bug.
 
 Release 6-0: May 2002
-o By FS
+o By FS (gumpu)
   + Code is GPLed
 
 Release 5-1: March 2002
