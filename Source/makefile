@@ -24,13 +24,12 @@
 #ADDTL_SRCS = influence.c
 #ADDTL_OBJS = influence.o
 
-CFLAGS = -Wall -pedantic -g $(ADDTL_CFLAGS)
-#CFLAGS = -Wall -pedantic -g -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
+CFLAGS = -Wall -pedantic $(ADDTL_CFLAGS)
+#CFLAGS = -Wall -pedantic -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
 LIBS = -lm $(ADDTL_LIBS)
 
 
 CC=gcc
-
 
 SOURCES=loadgame.c savegame.c create.c phase.c battle.c process.c \
         report.c util.c list.c selftest.c report_xml.c mail.c \
