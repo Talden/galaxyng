@@ -21,7 +21,7 @@
 
 [&nbsp;<a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">Mailing&nbsp;List</a>&nbsp;]
 
-<?php if ($_SERVER['PHP_SELF'] == "/hall.php") { ?><span class="bold">[&nbsp;Hall&nbsp;Of&nbsp;Fame&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/hall.php">Hall&nbsp;Of&nbsp;Fame</a>&nbsp;]<?php } ?>
+<?php if ($_SERVER['PHP_SELF'] == "/hall/index.php") { ?><span class="bold">[&nbsp;Hall&nbsp;Of&nbsp;Fame&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/hall/">Hall&nbsp;Of&nbsp;Fame</a>&nbsp;]<?php } ?>
 
 <?php if ($_SERVER['PHP_SELF'] == "/links.php") { ?><span class="bold">[&nbsp;Links&nbsp;]</span><?php } else { ?>[&nbsp;<a href="/links.php">Links</a>&nbsp;]<?php } ?>
 

@@ -6,4 +6,4 @@ You should probably point at the GalaxyNG home page for documentation.
 
 http://galaxyng.sourceforge.net/
 
-If you want to create a local mirror, simply copy these files into an appropriate directory on your web server.  Edit base_url.txt as appropriate.  PHP3+ required.
+If you want to create a local mirror, simply copy these files into an appropriate directory on your web server.  Edit menu.php and footer.php as appropriate.  PHP3+ required.
