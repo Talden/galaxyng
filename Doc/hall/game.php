@@ -98,7 +98,7 @@ echo "</table>";
 
 } //close no scores for this game
 
-<p><a href="/hall/">Hall of Fame</a></p>
+echo "<hr /><p><a href=\"/hall/\">Hall of Fame</a></p>";
 
 // page footer
 include '../footer.php';
