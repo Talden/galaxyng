@@ -2191,31 +2191,36 @@ CMD_ordersdue(int argc, char** argv)
       orders_file = createString("%s/%s.%d", orders_dir,
 				 aplayer->name, aGame->turn+1);
       if (access(orders_file, R_OK) == -1) {
-	env = createEnvelope();
-	env->to = strdup(aplayer->addr);
-	env->from = strdup(aGame->serverOptions.SERVERemail);
-	env->subject = createString("Turn %d of %s is about to run",
-				    aGame->turn+1, argv[2]);
-	if (msg_count == 0) {
-	  fprintf(gmnote, "The following players have not yet "
-		  "submitted orders for turn %d of %s\n",
-		  aGame->turn+1, aGame->name);
-	  
-	  missing_orders_file = createString("%s/data/%s/missing_orders.%d",
-					     galaxynghome, aGame->name,
-					     aGame->turn+1);
-	  mof_fp = fopen(missing_orders_file, "w");
-	  fprintf(mof_fp, "Your orders for turn %d for %s have not been "
-		  "received.\nOrders are due %s. Please send them now.\n",
-		  aGame->turn+1, aGame->name, aGame->serverOptions.due);
-	  fclose(mof_fp);
+	free(orders_file);
+	orders_file = createString("%s/%s_final.%d", orders_dir,
+				   aplayer->name, aGame->turn+1);
+	if (access(orders_file, R_OK) == -1) {
+	  env = createEnvelope();
+	  env->to = strdup(aplayer->addr);
+	  env->from = strdup(aGame->serverOptions.SERVERemail);
+	  env->subject = createString("Turn %d of %s is about to run",
+				      aGame->turn+1, argv[2]);
+	  if (msg_count == 0) {
+	    fprintf(gmnote, "The following players have not yet "
+		    "submitted orders for turn %d of %s\n",
+		    aGame->turn+1, aGame->name);
+	    
+	    missing_orders_file = createString("%s/data/%s/missing_orders.%d",
+					       galaxynghome, aGame->name,
+					       aGame->turn+1);
+	    mof_fp = fopen(missing_orders_file, "w");
+	    fprintf(mof_fp, "Your orders for turn %d for %s have not been "
+		    "received.\nOrders are due %s. Please send them now.\n",
+		    aGame->turn+1, aGame->name, aGame->serverOptions.due);
+	    fclose(mof_fp);
+	  }
+	  fprintf(gmnote, "%s has not turned in orders.\n", aplayer->name);
+	  result |= eMail(aGame, env, missing_orders_file);
+	  destroyEnvelope(env);
+	  msg_count++;
 	}
-	fprintf(gmnote, "%s has not turned in orders.\n", aplayer->name);
-	result |= eMail(aGame, env, missing_orders_file);
-	destroyEnvelope(env);
-	msg_count++;
+	free(orders_file);
       }
-      free(orders_file);
     }
     free(orders_dir);
   }
