@@ -240,8 +240,8 @@ echo "" >> $PROCRC
 echo "# Someone wants to sign up for a game" >> $PROCRC
 echo "# Uncomment the following lines.  Change the gamename and number" >> $PROCRC
 echo "# of players." >> $PROCRC
-echo "# :0: gamename.lock" >> $PROCRC
-echo "# * ^Subject.*Join gamename" >> $PROCRC
+echo "# :0: Jangi.lock" >> $PROCRC
+echo "# * ^Subject.*Join Jangi" >> $PROCRC
 echo "# |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "# An error occured, save the email: " >> $PROCRC
 echo "# :0 e :Jangi-error" >> $PROCRC
@@ -259,8 +259,8 @@ echo "# Someone wants to sign up for a game with custom planet sizes" >> $PROCRC
 echo "# Up to ten players, max 2500 production, max planet size 1000, max planets 5" >> $PROCRC
 echo "# Uncomment the following lines.  Change the gamename and numbers" >> $PROCRC
 echo "# of players." >> $PROCRC
-echo "# :0: gamename.lock" >> $PROCRC
-echo "# * ^Subject.*Join gamename" >> $PROCRC
+echo "# :0: Welland.lock" >> $PROCRC
+echo "# * ^Subject.*Join Welland" >> $PROCRC
 echo "# |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "# An error occured, save the email: " >> $PROCRC
 echo "# :0 e :Welland-error" >> $PROCRC
