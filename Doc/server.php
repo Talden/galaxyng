@@ -43,7 +43,7 @@
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
 procmail; to automatically process in comming orders</pre>
-				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Creating influence maps is the one operation that is memory intensive. Depending on the mumber of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server is large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
+				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Creating influence maps is the one operation that is memory intensive. Depending on the number of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server is large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
 				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs practically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without coming to a conclusion.</p>
 
 			<hr />
@@ -51,7 +51,7 @@ procmail; to automatically process in comming orders</pre>
 			<h2 id="compile">Compilation</h2>
 				<p>To extract the code, run:</p>
 <pre>tar -xvzf galaxy-#.tar.gz</pre>
-				<p>This creates the directory <tt>NG/</tt>. 				
+				<p>This creates the directory <tt>NG/</tt>.</p>
 				<p>Most of the configuration is done after compilation and is handled by the program <tt>NG/install.sh</tt>.  Before compiling the GalaxyNG server you should review <tt>NG/Source/makefile</tt> to make sure it fits your computer's configuration.  The following variables can be configured:</p>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
