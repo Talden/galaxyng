@@ -333,88 +333,88 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 			<h2 id="command">Command Summary</h2>
 				<table summary="Command summary and explanation.">
 					<tr>
-						<th>Command</th>
-						<th>Explanation</th>
+						<th class="top">Command</th>
+						<th class="top">Explanation</th>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -template &lt;game name&gt; &lt;number of players&gt;</tt></td>
-						<td>Create a template specification file.</td>
+						<td class="top"><tt>galaxyng -template &lt;game name&gt; &lt;number of players&gt;</tt></td>
+						<td class="top">Create a template specification file.</td>
 					</tr>
 					<tr>
-						<td><tt>are &lt;game name&gt; &lt;player limit&gt; &lt;total planet size&gt; &lt;maximum planet size&gt; &lt;max. number of planets&gt; &lt; &lt;email&gt;</tt></td>
-						<td>Configure the automatic registration engine.</td>
+						<td class="top"><tt>are &lt;game name&gt; &lt;player limit&gt; &lt;total planet size&gt; &lt;maximum planet size&gt; &lt;max. number of planets&gt; &lt; &lt;email&gt;</tt></td>
+						<td class="top">Configure the automatic registration engine.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -create &lt;game specification file&gt;</tt></td>
-						<td>Create a new game.</td>
+						<td class="top"><tt>galaxyng -create &lt;game specification file&gt;</tt></td>
+						<td class="top">Create a new game.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -mail0 &lt;game name&gt;</tt></td>
-						<td>Create and email the turn 0 reports.</td>
+						<td class="top"><tt>galaxyng -mail0 &lt;game name&gt;</tt></td>
+						<td class="top">Create and email the turn 0 reports.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -dummymail0 &lt;game name&gt;</tt></td>
-						<td>Create the turn 0 reports, but don't email them. You can find them in <tt>reports/&lt;game name&gt;</tt></td>
+						<td class="top"><tt>galaxyng -dummymail0 &lt;game name&gt;</tt></td>
+						<td class="top">Create the turn 0 reports, but don't email them. You can find them in <tt>reports/&lt;game name&gt;</tt></td>
 					</tr>
 					<tr>
-						<td><tt>run_game &lt;game name&gt;</tt></td>
-						<td>Run a game turn.</td>
+						<td class="top"><tt>run_game &lt;game name&gt; [turn number]</tt></td>
+						<td class="top">Run a game turn.  If the turn number is not specified, the next turn will run.  If the turn number is specified and a file named [turn#].all is found, it is used instead of individual player orders files.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -run &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
-						<td>Run a turn, and mail the turn reports, used in combination with run_game.</td>
+						<td class="top"><tt>galaxyng -run &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
+						<td class="top">Run a turn, and mail the turn reports, used in combination with run_game.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -dummyrun &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
-						<td>Run a turn but do not mail the turn reports. Store them in <tt>reports/</tt> instead.</td>
+						<td class="top"><tt>galaxyng -dummyrun &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
+						<td class="top">Run a turn but do not mail the turn reports. Store them in <tt>reports/</tt> instead.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -check &lt;message via stdin&gt;</tt></td>
-						<td>Check orders and mail a forecast, used in combination with procmail.</td>
+						<td class="top"><tt>galaxyng -check &lt;message via stdin&gt;</tt></td>
+						<td class="top">Check orders and mail a forecast, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -dummycheck &lt;message via stdin&gt;</tt></td>
-						<td>Check orders, do not mail a forecast.</td>
+						<td class="top"><tt>galaxyng -dummycheck &lt;message via stdin&gt;</tt></td>
+						<td class="top">Check orders, do not mail a forecast.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -report &lt;message via stdin&gt;</tt></td>
-						<td>Mail a copy of a turn report, used in combination with procmail.</td>
+						<td class="top"><tt>galaxyng -report &lt;message via stdin&gt;</tt></td>
+						<td class="top">Mail a copy of a turn report, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -relay &lt;message via stdin&gt;</tt></td>
-						<td>Relay a message from one player to another player, used in combination with procmail.</td>
+						<td class="top"><tt>galaxyng -relay &lt;message via stdin&gt;</tt></td>
+						<td class="top">Relay a message from one player to another player, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -lastorders &lt;game name&gt; [turn number]</tt></td>
-						<td>List for each player the last turn orders were sent in.</td>
+						<td class="top"><tt>galaxyng -lastorders &lt;game name&gt; [turn number]</tt></td>
+						<td class="top">List for each player the last turn orders were sent in.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -due &lt;game name&gt;</tt></td>
-						<td>Send orders due email to players that haven't turned in orders for the current turn.</td>
+						<td class="top"><tt>galaxyng -due &lt;game name&gt;</tt></td>
+						<td class="top">Send orders due email to players that haven't turned in orders for the current turn.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -players &lt;game name&gt; [turn number]</tt></td>
+						<td class="top"><tt>galaxyng -players &lt;game name&gt; [turn number]</tt></td>
 						<td>List password and address of each player.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -toall &lt;game name&gt;</tt></td>
+						<td class="top"><tt>galaxyng -toall &lt;game name&gt;</tt></td>
 						<td>Create a mail header to mail a message to all players.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -map &lt;game name&gt; [turn number]</tt></td>
+						<td class="top"><tt>galaxyng -map &lt;game name&gt; [turn number]</tt></td>
 						<td>Show an ASCII map of the galaxy.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -influence &lt;game name&gt; [public|industry|attack|defence] [turn number]</tt></td>
-						<td>Produce an influence map of the galaxy.  If no map type or turn number is specified, all maps for the current turn will be generated.  If turn number is specified, map type must also be specified.</td>
+						<td class="top"><tt>galaxyng -influence &lt;game name&gt; [public|industry|attack|defence] [turn number]</tt></td>
+						<td class="top">Produce an influence map of the galaxy.  If no map type or turn number is specified, all maps for the current turn will be generated.  If turn number is specified, map type must also be specified.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -score &lt;game name&gt;</tt></td>
-						<td>Create a high score list in HTML format.</td>
+						<td class="top"><tt>galaxyng -score &lt;game name&gt;</tt></td>
+						<td class="top">Create a high score list in HTML format.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -hall &lt;game name&gt; [turn number]</tt></td>
-						<td>Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to the <a href="/hall/">Hall of Fame maintainer</a>.</td>
+						<td class="top"><tt>galaxyng -hall &lt;game name&gt; [turn number]</tt></td>
+						<td class="top">Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to the <a href="/hall/">Hall of Fame maintainer</a>.</td>
 					</tr>
 				</table>
 

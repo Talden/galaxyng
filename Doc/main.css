@@ -120,6 +120,10 @@ img {
 	margin: 0
 }
 
+.top {
+	vertical-align: top
+}
+
 .hall {
 	padding-right: 10px;
 	padding-left: 10px
