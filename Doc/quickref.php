@@ -90,6 +90,10 @@
 						<td>Scrap</td>
 						<td><tt>&nbsp;<a href="manual.php#ordx">x &lt;group number&gt; [number of ships]</a></tt></td>
 					</tr>
+					<tr>
+						<td>Halt</td>
+						<td><tt>&nbsp;<a href="manual.php#ordh">h &lt;group number&gt;</a></tt></td>
+					</tr>
 				</table>
 				
 			<hr />
@@ -128,6 +132,10 @@
 					<tr>
 						<td>Rename</td>
 						<td><tt>&nbsp;<a href="manual.php#ordt">t &lt;current fleet name&gt; &lt;new fleet name&gt;</a></tt></td>
+					</tr>
+					<tr>
+						<td>Halt</td>
+						<td><tt>&nbsp;<a href="manual.php#ordh">h &lt;fleet name&gt;</a></tt></td>
 					</tr>
 				</table>
 

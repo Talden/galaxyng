@@ -102,39 +102,33 @@
 							<li><a href="#inactive">Inactivity</a></li>
 							<li><a href="#ex">Example Orders</a></li>
 							<li><a href="#form">Order Format</a></li>
-							<li><a href="#ordA">@ [alien race name...]</a></li>
-							<li><a href="#ordE">= &lt;FirstName LastName&gt;</a></li>
-							<li><a href="#orda">a &lt;alien race name&gt;</a></li>
-							<li><a href="#ordb">b &lt;group number&gt; &lt;number of ships&gt;
-							<br />b &lt;group number&gt; FLEET</a></li>
-							<li><a href="#ordc">c &lt;new player race name&gt;</a></li>
-							<li><a href="#ordd">d &lt;name&gt; &lt;drive mass&gt; &lt;attacks&gt; &lt;weapons mass&gt; &lt;shields mass&gt; &lt;cargo mass&gt;
-							<br />d FLEET &lt;fleet name&gt;</a></li>
-							<li><a href="#orde">e &lt;ship type name&gt;
-							<br />e &lt;fleet name&gt;</a></li>
-							<li><a href="#ordf">f &lt;alien race name&gt;</a></li>
-							<li><a href="#ordg">g &lt;group number&gt; [number of ships]</a></li>
-							<li><a href="#ordi">i &lt;group number&gt; &lt;planet name&gt; [number of ships]
-							<br />i &lt;fleet name&gt; &lt;planet name&gt;</a></li>
-							<li><a href="#ordj">j &lt;group number&gt; &lt;fleet name&gt; [number of ships]
-							<br />j &lt;fleet name&gt; &lt;fleet name&gt;</a></li>
-							<li><a href="#ordl">l &lt;group number&gt; &lt;CAP | COL | MAT&gt; [number of ships] [AMOUNT &lt;amount&gt;]</a></li>
-							<li><a href="#ordm">m &lt;x&gt; &lt;y&gt; &lt;extent&gt;</a></li>
-							<li><a href="#ordn">n &lt;current planet name&gt; &lt;new planet name&gt;</a></li>
-							<li><a href="#ordo">o [NO] &lt;anonymous | autounload | battleprotocol | compress | gplus | groupforecast | machinereport | planetforecast | prodtable | routesforecast | shiptypeforecast | sortgroups | txtreport | xmlreport&gt;</a></li>
-							<li><a href="#ordp">p &lt;planet name&gt; &lt;CAP | MAT | DRIVE | WEAPONS | SHIELDS | CARGO | ship type name&gt;</a></li>
-							<li><a href="#ordq">q &lt;player's race name&gt;</a></li>
-							<li><a href="#ordr">r &lt;origin planet name&gt; &lt;CAP | COL | EMP | MAT&gt; [destination planet name]</a></li>
-							<li><a href="#ords">s &lt;group number&gt; &lt;planet name&gt; [number of ships]
-							<br />s &lt;fleet name&gt; &lt;planet name&gt;</a></li>
-							<li><a href="#ordt">t &lt;current ship type name&gt; &lt;new ship type name&gt;
-							<br />t &lt;current fleet name&gt; &lt;new fleet name&gt;</a></li>
-							<li><a href="#ordu">u &lt;group number&gt; [number of ships] [AMOUNT &lt;amount&gt;]</a></li>
-							<li><a href="#ordv">v &lt;planet name&gt;</a></li>
-							<li><a href="#ordw">w &lt;alien race name&gt;</a></li>
-							<li><a href="#ordx">x &lt;group number&gt; [number of ships]</a></li>
-							<li><a href="#ordy">y &lt;new password&gt;</a></li>
-							<li><a href="#ordz">z &lt;new email address&gt;</a></li>
+							<li><a href="#ordA">Send Message</a></li>
+							<li><a href="#ordE">Set Player Name</a></li>
+							<li><a href="#orda">Declare an Alliance</a></li>
+							<li><a href="#ordb">Break from Group or Fleet</a></li>
+							<li><a href="#ordc">Change Race Name</a></li>
+							<li><a href="#ordd">Design a Ship or Fleet</a></li>
+							<li><a href="#orde">Eliminate a Ship Type or Fleet</a></li>
+							<li><a href="#ordf">Find Player Email Address</a></li>
+							<li><a href="#ordg">Upgrade Ships</a></li>
+							<li><a href="#ordh">Recall a Group or Fleet</a></li>
+							<li><a href="#ordi">Intercept Ships</a></li>
+							<li><a href="#ordj">Add a Group to a Fleet or Merge Fleets</a></li>
+							<li><a href="#ordl">Load Cargo</a></li>
+							<li><a href="#ordm">Change ASCII Map</a></li>
+							<li><a href="#ordn">Name a Planet</a></li>
+							<li><a href="#ordo">Set Options</a></li>
+							<li><a href="#ordp">Set Planet Production</a></li>
+							<li><a href="#ordq">Quit</a></li>
+							<li><a href="#ordr">Set a Route</a></li>
+							<li><a href="#ords">Send a Group or Fleet</a></li>
+							<li><a href="#ordt">Rename a Ship Type or Fleet</a></li>
+							<li><a href="#ordu">Unload Cargo</a></li>
+							<li><a href="#ordv">Claim a Planet</a></li>
+							<li><a href="#ordw">Declare War</a></li>
+							<li><a href="#ordx">Scrap Ships</a></li>
+							<li><a href="#ordy">Change Password</a></li>
+							<li><a href="#ordz">Change Email Address</a></li>
 						</ul>
 					</li>
 					<li><a href="#misc">Miscellaneous</a>
@@ -1174,8 +1168,11 @@ I'll never trust you again!
 				<h3 id="ordg">g &lt;group number&gt; [number of ships]</h3>
 					<p><a href="#upgrade">Upgrade</a> a group of ships.</p>
      
-				<h3 id="ordh">h &lt;group&gt;</h3>
-					<p><a href="#move">Reverse</a> the course of a group in hyperspace.</p>
+				<h3 id="ordh">h &lt;group number&gt;
+				<br />h &lt;fleet name&gt;</h3>
+					<p><a href="#move">Reverse</a> the course of a group in hyperspace.
+					<br /><strong>or</strong>
+					<br />Reverse the course of a fleet in hyperspace.</p>
 
 				<h3 id="ordi">i &lt;group number&gt; &lt;planet name&gt; [number of ships]
 				<br />i &lt;fleet name&gt; &lt;planet name&gt;</h3>
