@@ -323,7 +323,9 @@ int registerPlayer(char *address, char *planets, char *gameName, int type)
   }
   
   if ((registerFile = fopen(lineBuffer, "a"))) {
-    fprintf(registerFile, "player %s", address);
+    fprintf(registerFile, "start_player\n");
+    fprintf(registerFile, "email %s\n", address);
+    fprintf(registerFile, "end_player"); 
     if (planets) {
       fprintf(registerFile, " %s", planets);
     } else {
@@ -377,6 +379,7 @@ int countPlayersRegistered(char *gameName)
       count++;
     }
     fclose(registerFile);
+    count /= 3; /* count one player per 3 lines */
   } else { /* Maybe the file does not exist yet */
     if (registerFile = fopen(fileName, "w")) {
       count = 0;
