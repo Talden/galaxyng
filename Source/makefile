@@ -18,7 +18,7 @@
 # then you'll need to have libgd (http://www.boutell.com/gd/)
 # installed with png, jpeg, and freetype support enabled.
 #
-# you will also need to uncomment the following 2 lines
+# you will also need to uncomment the following lines
 #
 #CFLAGS = -Wall -pedantic -g -DDRAW_INFLUENCE_MAP -I.
 #LIBS = -lgd -lpng -lz -ljpeg -lfreetype -lm
@@ -32,6 +32,9 @@
 CFLAGS = -Wall -pedantic -g
 LIBS = -lm
 ADDTL_SRCS=
+
+
+
 
 CC=gcc
 
