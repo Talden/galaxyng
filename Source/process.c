@@ -2236,8 +2236,12 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
 	       aPlayer->name, theTurnNumber );
 
     copyFile = Fopen( copyFileName, "w" );
-    savefprintf( copyFile, "#GALAXY %s %s %s\n",
+    savefprintf( copyFile, "#GALAXY %s %s %s",
                  aGame->name, raceName, password );
+	if (final_orders)
+		savefprintf(copyFile, " FinalOrders");
+	savefprintf(copyFile, "\n");
+	
     getLine( orders );
     for ( ; !feof( orders ) && noCaseStrncmp( "#END", lineBuffer, 4 ); ) {
         savefprintf( copyFile, "%s", lineBuffer );

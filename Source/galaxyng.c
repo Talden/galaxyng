@@ -910,7 +910,7 @@ mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope,
   }
   
   setHeader( anEnvelope, MAILHEADER_SUBJECT,
-	     "Galaxy HQ, %s turn %d %s forecast for %s",
+	     "[GNG] %s turn %d %s forecast for %s",
 	     aGame->name, ( aGame->turn ) + 1, tag, raceName );
   
   /* Create the report */
@@ -952,8 +952,8 @@ mail_TXT_Error( game* aGame, envelope *anEnvelope, char* raceName, int kind,
     return TRUE;
   }
   
-  setHeader( anEnvelope, MAILHEADER_SUBJECT, "Galaxy HQ, major trouble" );
-  plog( LBRIEF, "major trouble %d\n", resNumber );
+  setHeader( anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble" );
+  plog( LBRIEF, "Major Trouble %d\n", resNumber );
   
   generateErrorMessage( resNumber, aGame, raceName, theTurnNumber, forecast );
   fclose( forecast );
@@ -1000,7 +1000,7 @@ CMD_check( int argc, char **argv, int kind )
       
       if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
 	   ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
-	/* They are orders for the comming turn, copy them. */
+	/* They are orders for the coming turn, copy them. */
 	copyOrders( aGame, stdin, raceName, password, aGame->turn + 1 );
 	/* Check them */
 	checkOrders( aGame, raceName );
@@ -1017,7 +1017,7 @@ CMD_check( int argc, char **argv, int kind )
 	/* They are advance orders */
 	copyOrders( aGame, stdin, raceName, password, theTurnNumber );
 	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "Galaxy HQ, %s advance orders received for %s.",
+		   "[GNG] %s advance orders received for %s.",
 		   aGame->name, raceName );
 	plog( LBRIEF, "%s advance orders received for %s.\n",
 	      aGame->name, raceName );
@@ -1110,10 +1110,15 @@ CMD_check( int argc, char **argv, int kind )
 	    return EXIT_FAILURE;
 	  }
 	  
-	  setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		     "Galaxy HQ, %s turn %d XML forecast for %s",
+	  if (final_orders)
+	     setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		     "[GNG] %s turn %d XML FinalOrders forecast for %s",
 		     aGame->name, ( aGame->turn ) + 1, raceName );
-	  
+	  else
+		setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		     "[GNG] %s turn %d XML Orders forecast for %s",
+		     aGame->name, ( aGame->turn ) + 1, raceName );
+
 	  checkOrders( aGame, raceName, forecast, F_XMLREPORT );
 	  
 	  fclose( forecast );
@@ -1153,8 +1158,13 @@ CMD_check( int argc, char **argv, int kind )
 	    copyOrders( aGame, stdin, raceName, password, final_orders,
 			aGame->turn + 1 );
 	  
-	  setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		     "Galaxy HQ, %s turn %d TXT forecast for %s",
+	  if (final_orders)
+	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		     "[GNG] %s turn %d TXT FinalOrders forecast for %s",
+		     aGame->name, ( aGame->turn ) + 1, raceName );
+	  else 
+	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		     "[GNG] %s turn %d TXT Orders forecast for %s",
 		     aGame->name, ( aGame->turn ) + 1, raceName );
 	  
 	  checkOrders( aGame, raceName, forecast, F_TXTREPORT );
@@ -1186,8 +1196,8 @@ CMD_check( int argc, char **argv, int kind )
 				   tempdir, getpid(  ) );
       forecast = GOS_fopen( forecastName, "w" );
       setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		 "Galaxy HQ, major trouble" );
-      plog( LBRIEF, "major trouble %d\n", resNumber );
+		 "[GNG] Major Trouble" );
+      plog( LBRIEF, "Major Trouble %d\n", resNumber );
       
       generateErrorMessage( resNumber, aGame, raceName,
 			    theTurnNumber, forecast );
@@ -1218,7 +1228,7 @@ CMD_check( int argc, char **argv, int kind )
 		    theTurnNumber );
       
       setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		 "Galaxy HQ, %s advance orders received for %s.",
+		 "[GNG] %s advance orders received for %s.",
 		 aGame->name, raceName );
       plog( LBRIEF, "%s advance orders received for %s.\n",
 	    aGame->name, raceName );
@@ -1354,7 +1364,7 @@ CMD_checkFile( int argc, char **argv, int kind )
                     copyOrders( aGame, stream, raceName, password,
                                 ( aGame->turn ) + 1 );
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, %s turn %d forecast for %s",
+                               "[GNG] %s turn %d forecast for %s",
                                aGame->name, ( aGame->turn ) + 1, raceName );
                     plog( LBRIEF, "%s turn %d orders checked for %s.\n",
                           aGame->name, ( aGame->turn ) + 1, raceName );
@@ -1363,7 +1373,7 @@ CMD_checkFile( int argc, char **argv, int kind )
                     copyOrders( aGame, stream, raceName, password,
                                 theTurnNumber );
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, %s advance orders received for %s.",
+                               "[GNG] %s advance orders received for %s.",
                                aGame->name, raceName );
                     plog( LBRIEF, "%s advance orders received for %s.\n",
                           aGame->name, raceName );
@@ -1374,8 +1384,8 @@ CMD_checkFile( int argc, char **argv, int kind )
                 }
             } else {
                 setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                           "Galaxy HQ, major trouble" );
-                plog( LBRIEF, "major trouble %d\n", resNumber );
+                           "[GNG] Major Trouble" );
+                plog( LBRIEF, "Major Trouble %d\n", resNumber );
                 generateErrorMessage( resNumber, aGame, raceName,
                                       theTurnNumber, forecast );
             }
@@ -1526,12 +1536,12 @@ CMD_relay( int argc, char **argv )
 					
 					if ( result == 0 ) {
 						setHeader( anEnvelope, MAILHEADER_SUBJECT,
-								   "Galaxy HQ, message sent" );
+								   "[GNG] message sent" );
 						fprintf( confirm, "Message has been sent to %s.\n",
 								 toPlayer->name );
 					} else {
 						setHeader( anEnvelope, MAILHEADER_SUBJECT,
-								   "Galaxy HQ, message not sent" );
+								   "[GNG] message not sent" );
 						fprintf( confirm,
 								 "Due to a server error the message was not send!\n"
 								 "Please contact your Game Master.\n" );
@@ -1541,7 +1551,7 @@ CMD_relay( int argc, char **argv )
 				}
 			} else {
 				setHeader( anEnvelope, MAILHEADER_SUBJECT,
-						   "Galaxy HQ, major trouble." );
+						   "[GNG] Major Trouble." );
 				generateErrorMessage( resNumber, aGame, raceName,
 									  theTurnNumber, confirm );
 			}
@@ -1557,7 +1567,7 @@ CMD_relay( int argc, char **argv )
 				
 				if ( result == 0 ) {
 					setHeader( anEnvelope, MAILHEADER_SUBJECT,
-							   "Galaxy HQ, message sent" );
+							   "[GNG] message sent" );
 					fprintf( confirm, "Message has been sent to %s.\n",
 							 toPlayer->name );
 				}
@@ -1639,11 +1649,11 @@ relayMessage( game *aGame, char *raceName, player* from, player* to )
 
 			if (strstr(raceName, "@") != NULL) {
 				setHeader(anEnvelope, MAILHEADER_SUBJECT,
-						  "Galaxy HQ, message relay GM");
+						  "[GNG] message relay GM");
 			}
 			else {
 				setHeader( anEnvelope, MAILHEADER_SUBJECT,
-						   "Galaxy HQ, message relay %s", raceName );
+						   "[GNG] message relay %s", raceName );
 			}
 			
             fprintf( message, "#GALAXY %s %s %s\n",
@@ -1869,7 +1879,7 @@ CMD_report( int argc, char **argv )
 
                     loadNGConfig( aGame2 );
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, Copy of turn %d report",
+                               "[GNG] Copy of turn %d report",
                                theTurnNumber );
                     if ( theTurnNumber > 0 ) {  /* Rerun the turn */
                         char *ordersName;
@@ -1895,13 +1905,13 @@ CMD_report( int argc, char **argv )
                     createTurnReport( aGame2, aPlayer, report, 0 );
                 } else {
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, Copy of turn report request." );
+                               "[GNG] Copy of turn report request." );
                     fprintf( report,
                              "\n\nThe turn you requested is no longer available...\n" );
                 }
             } else if ( resNumber == RES_OK ) {
                 setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                           "Galaxy HQ, Major Trouble" );
+                           "[GNG] Major Trouble" );
                 fprintf( report,
                          "You can not request a report for the next turn\n" );
                 fprintf( report,
@@ -1909,7 +1919,7 @@ CMD_report( int argc, char **argv )
                          " I can not see into the future!\n" );
             } else {
                 setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                           "Galaxy HQ, Major Trouble" );
+                           "[GNG] Major Trouble" );
                 generateErrorMessage( resNumber, aGame, raceName,
                                       theTurnNumber, report );
             }
