@@ -1564,15 +1564,12 @@ very likely to win.  </P>
 www_section(`moreinfo', `Links to More Information')
 
 <OL>
-  <LI>ALink(`http://galaxy.pbem.net/NonM4/gettiquite.html', 
-      `http://galaxy.pbem.net/NonM4/gettiquite.html'), 
-      Chris Orr's list of things to do and not to do in Galaxy.</LI>
-  <LI>ALink(`http://galaxy.pbem.net/NonM4/RefManual.html', 
-      `http://galaxy.pbem.net/NonM4/RefManual.html'), 
-      A quick reference manual that lists all orders.
-  <LI>ALink(`http://galaxy.pbem.net/NonM4/FAQ.html', 
-            `http://galaxy.pbem.net/NonM4/FAQ.html'), 
-      Galaxy FAQ.</LI>
+  <LI>ALink(`http://galaxy.pbem.net/NonM4/gettiquite.html',
+      `GalaxyNG Wiki')</LI>
+  <LI>ALink(`http://galaxyng.sourceforge.net/RefManual.html', 
+      `Quick Reference Manual')</li>
+  <LI>ALink(`http://galaxyng.sourceforge.net/FAQ.html', 
+      `GalaxyNG FAQ')</LI>
 </OL>
 
 BodyEnd
