@@ -12,6 +12,10 @@ o By Ken Weinert (madcoder42)
     the GM
   + changed message so that race names specified incorrectly can be
     distinguished from badly formed email (1051567)
+  + fixed bug that player's ships didn't get removed when a player was
+    eliminated by the DropDead process (991269)
+  + fix for bug 1051572 and 1051560 - invalid missing orders report
+    going to GM and due time creeping forward by one interval every turn
 
 Release 6.4.6: February 2004
 o By Chris Shaffer (christhecat) and Bogdan Mincu (mincub)

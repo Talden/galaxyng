@@ -24,7 +24,9 @@ relayMessage(game *aGame, envelope *anEnvelope, char *raceName,
   messageName = createString( "%s/NGmessage_%s_%s", tempdir, aGame->name, from->name );
   
   if (!message_read) {
+    unsigned char  lineBuffer[2 * LINE_BUFFER_SIZE];
     message_read = 1;
+
     msg = makestrlist("\n-*- Message follows -*-\n\n" );
     
     for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin );

@@ -2618,6 +2618,7 @@ removeDeadPlayer( game *aGame )
 	  /* fix for bug 991269 */
 	  freelist(P->groups);
 	  P->groups = NULL;
+
 	  nbrPlanets = 0;
 	  for ( p = aGame->planets; p; p = p->next ) {
 	    if ( p->owner == P ) {
