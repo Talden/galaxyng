@@ -4,7 +4,7 @@
 #*****
 
 RBT_DIR     = /home/galaxyng/robotester-0.0.3/Source
-NG_DIR      = /home/galaxyng/NG/Source
+NG_DIR      = ..
 ROBORUN     = $(RBT_DIR)/roborun.pl
 
 CC     = gcc
@@ -33,7 +33,7 @@ RBT_OBJECTS = ${RBT_SOURCES:.c=.o}
 # SOURCE
 #
 
-TEST_SOURCES = create_suites.c
+TEST_SOURCES = create_suites.c test_wopr.c
 TEST_OBJECTS = ${TEST_SOURCES:.c=.o}
 
 #******
@@ -66,7 +66,9 @@ OBJECTS = $(RBT_OBJECTS) $(TEST_OBJECTS) $(REAL_OBJECTS)
 
 #******
 
-#****e* Example/robotester
+
+
+#****e* Unittest/woprtester
 # FUNCTION
 #   This builds the test application that can run the individual
 #   testcases in the unittest for WOPR.
@@ -78,7 +80,19 @@ woprtester : $(OBJECTS) $(WOPR_OBJECTS)
 
 #*****
 
-# TODO  target for ngtester
+NG_SOURCES = $(NG_DIR)/galaxyng.c
+NG_OBJECTS = ${NG_SOURCES:.c=.o}
+
+#****e* Unittest/ngtester
+# FUNCTION
+#   This builds the test application that can run the individual
+#   testcases in the unittest for GalaxyNG.
+# SOURCE
+
+ngtester : $(OBJECTS) $(NG_OBJECTS)
+	$(CC) $(OBJECTS) $(NG_OBJECTS) -o ngtester $(LIBS)
+
+#****
 
 #****e* Example/test
 # FUNCTION
@@ -94,3 +108,44 @@ clean:
 	-rm -f $(OBJECTS)
 	-rm -f woprtester
 
+
+depend:
+	makedepend -Y"" $(REAL_SOURCES) $(NG_SOURCES) $(WOPR_SOURCES)
+
+# DO NOT DELETE
+
+../loadgame.o: ../loadgame.h ../galaxy.h ../list.h ../util.h
+../savegame.o: ../savegame.h ../galaxy.h ../list.h ../util.h
+../create.o: ../create.h ../galaxy.h ../avl.h ../list.h ../util.h ../report.h
+../create.o: ../loadgame.h ../mail.h ../report_m.h ../report_xml.h
+../create.o: ../savegame.h ../process.h ../phase.h ../battle.h ../selftest.h
+../phase.o: ../galaxy.h ../list.h ../util.h ../phase.h ../loadgame.h
+../phase.o: ../savegame.h
+../battle.o: ../battle.h ../galaxy.h ../list.h ../util.h
+../process.o: ../process.h ../galaxy.h ../list.h ../util.h ../savegame.h
+../process.o: ../loadgame.h ../phase.h ../battle.h ../report.h ../mail.h
+../process.o: ../report_m.h ../report_xml.h ../selftest.h
+../report.o: ../report.h ../galaxy.h ../loadgame.h ../list.h ../util.h
+../report.o: ../mail.h ../report_m.h ../report_xml.h ../create.h ../avl.h
+../util.o: ../util.h ../galaxy.h ../list.h ../create.h ../avl.h ../loadgame.h
+../list.o: ../list.h ../util.h ../galaxy.h
+../selftest.o: ../selftest.h ../galaxy.h ../util.h ../list.h ../create.h
+../selftest.o: ../avl.h ../process.h ../savegame.h ../loadgame.h ../phase.h
+../selftest.o: ../battle.h ../report.h ../mail.h ../report_m.h
+../selftest.o: ../report_xml.h
+../report_xml.o: ../create.h ../galaxy.h ../avl.h ../report_xml.h ../report.h
+../report_xml.o: ../loadgame.h ../list.h ../util.h ../mail.h ../report_m.h
+../mail.o: ../mail.h ../galaxy.h ../util.h ../list.h
+../report_m.o: ../create.h ../galaxy.h ../avl.h ../report_m.h ../list.h
+../report_m.o: ../util.h ../report.h ../loadgame.h ../mail.h ../report_xml.h
+../globals.o: ../galaxy.h
+../avl.o: ../avl.h
+../usage.o: ../galaxy.h
+../galaxyng.o: ../galaxy.h ../util.h ../list.h ../process.h ../savegame.h
+../galaxyng.o: ../loadgame.h ../phase.h ../battle.h ../report.h ../mail.h
+../galaxyng.o: ../report_m.h ../report_xml.h ../selftest.h ../create.h
+../galaxyng.o: ../avl.h
+../wopr.o: ../galaxy.h ../util.h ../list.h ../process.h ../savegame.h
+../wopr.o: ../loadgame.h ../phase.h ../battle.h ../report.h ../mail.h
+../wopr.o: ../report_m.h ../report_xml.h ../selftest.h ../create.h ../avl.h
+../wopr.o: ../wopr.h
