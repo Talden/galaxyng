@@ -1246,13 +1246,20 @@ CMD_relay( int argc, char **argv )
 						continue;
 					
 					if (mode == SINGLE_PLAYER) {
-						aPlayer = findElement( player, aGame->players,
-											   destination );
+						if (noCaseStrcmp(destination, "GM") == 0) {
+							aPlayer->name = strdup("GM");
+							aPlayer->addr = strdup(aGame->serverOptions.GMemail);
+							aPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+						}
+						else {
+							aPlayer = findElement( player, aGame->players,
+												   destination );
 						
 
-						if ( aPlayer == NULL ) {
-							resNumber = RES_DESTINATION;
-							break;
+							if ( aPlayer == NULL ) {
+								resNumber = RES_DESTINATION;
+								break;
+							}
 						}
 					}
 
