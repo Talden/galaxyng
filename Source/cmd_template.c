@@ -90,10 +90,18 @@ int CMD_template( int argc, char **argv ) {
 	    "; You can override the core size for a player by adding the\n"
 	    "; sizes. For instance the following player will get one home\n"
 	    "; planet of size 1600.0\n\n"
-	    "; player player3@itsaddress.somewhere 1600.0\n\n"
+	    "; start_player\n"
+	    "; email race_1@their.address.tld\n"
+	    "; homeworld 1600 83 42\n"
+	    "; end_player\n\n"
 	    "; While the following player gets 3 home planets of sizes\n"
 	    "; 500.0, 100.0, and 1000.0\n\n"
-	    "; player player4@itsaddress.somewhere 500.0 100.0 1000.0\n\n");
+	    "; start_player\n"
+	    "; email race_1@their.address.tld\n"
+	    "; homeworld 500 50 50\n"
+	    "; homeworld 100 45 55\n"
+	    "; homeworld 1000 55 45\n"
+	    "; end_player\n\n");
 
     for (i = 1; i <= numberOfPlayers; i++) {
       fprintf(glxfile, "start_player\nemail race_%d@their.address.tld\n",
