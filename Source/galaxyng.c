@@ -72,48 +72,12 @@
 #include "report.h"
 #include "selftest.h"
 #include "mail.h"
+#include "galaxyng.h"
+
 
 char *galaxyng = "$Id$";
 
 char vcid[128];
-
-/* Should be in galaxy.h */
-
-#define CMD_RUN_REAL    1       /* -run will mail turn reports */
-#define CMD_RUN_DUMMY   2       /* -run will save turn reports to disk */
-#define CMD_CHECK_REAL  1
-#define CMD_CHECK_DUMMY 2
-
-enum
-{
-    CMD_DUMP_MAP = 1, CMD_DUMP_LASTORDERS, CMD_DUMP_PLAYERS,
-    CMD_DUMP_PSCORE, CMD_DUMP_HALL, CMD_DUMP_MAILHEADER,
-    CMD_DUMP_TEAM_INFO, CMD_DUMP_TEAM_REPORT_NAMES, CMD_DUMP_MAP_GNUPLOT
-};
-
-int CMD_create( int argc, char **argv );
-int CMD_mail0( int argc, char **argv, int kind );
-int CMD_run( int argc, char **argv, int kind );
-int CMD_check( int argc, char **argv, int kind );
-#if 0
-int CMD_checkFile( int argc, char **argv, int kind );
-#endif
-int CMD_report( int argc, char **argv );
-int CMD_score( int argc, char **argv );
-int CMD_graph( int argc, char **argv );
-int CMD_dump( int argc, char **argv, int kind );
-int CMD_test( int argc, char **argv );
-int CMD_relay( int argc, char **argv );
-int CMD_template( int argc, char **argv );
-int CMD_selftest(  );
-int CMD_battletest( int argc, char **argv );
-#if defined(DRAW_INFLUENCE_MAP)
-int CMD_influence( int argc, char **argv );
-#endif
-int CMD_ordersdue(int argc, char** argv);
-int checkTime( game *aGame );
-int relayMessage( game *aGame, char *nationName, player *to );
-
 
 /****h* GalaxyNG/CLI
  * FUNCTION
@@ -145,29 +109,7 @@ main( int argc, char **argv )
     sprintf( vcid, "GalaxyNG release-%d-%d, %s.",
              GNG_MAJOR, GNG_MINOR, GNG_DATE );
 
-    /* This should be a function */
-    if ( ( value = getenv( "GALAXYNGHOME" ) ) ) {
-        galaxynghome = strdup( value );
-    } else if ( ( value = getenv( "HOME" ) ) ) {
-        sprintf( lineBuffer, "%s/Games", value );
-        galaxynghome = strdup( lineBuffer );
-    } else {
-        galaxynghome =
-            strdup( "/please/set/your/HOME/or/GALAXYNGHOME/variable" );
-    }
-
-#ifdef WIN32
-    /* This should be a function */
-    if ( ( value = getenv( "TEMP" ) ) ) {
-        tempdir = strdup( value );
-    } else if ( ( value = getenv( "TMP" ) ) ) {
-        tempdir = strdup( value );
-    } else {
-        tempdir = strdup( "c:/temp" );
-    }
-#else
-    tempdir = strdup( "/tmp" );
-#endif
+    SetDirectoryVariables();
 
     if ( ( value = getenv( "GNG_LOG_LEVEL" ) ) ) {
         if ( strcasecmp( value, "full" ) == 0 )
@@ -254,6 +196,37 @@ main( int argc, char **argv )
 
 /******/
 
+/****f* CLI/SetDirectoryVariables
+ * FUNCTION
+ *   Set the values of the tempdir and galaxynghome.
+ * SOURCE
+ */
+void SetDirectoryVariables( void )
+{
+    char *value;
+    if ( ( value = getenv( "GALAXYNGHOME" ) ) ) {
+        galaxynghome = strdup( value );
+    } else if ( ( value = getenv( "HOME" ) ) ) {
+        sprintf( lineBuffer, "%s/Games", value );
+        galaxynghome = strdup( lineBuffer );
+    } else {
+        galaxynghome =
+            strdup( "/please/set/your/HOME/or/GALAXYNGHOME/variable" );
+    }
+#ifdef WIN32
+    if ( ( value = getenv( "TEMP" ) ) ) {
+        tempdir = strdup( value );
+    } else if ( ( value = getenv( "TMP" ) ) ) {
+        tempdir = strdup( value );
+    } else {
+        tempdir = strdup( "c:/temp" );
+    }
+#else
+    tempdir = strdup( "/tmp" );
+#endif
+}
+
+/****/
 
 /****f* CLI/CMD_template
  * NAME
