@@ -15,10 +15,13 @@ o By Ken Weinert (madcoder42)
   + changed the relay command so it will stop at a #END line
     added the ability to relay to everyone in the game by using the
     game name as the destination
+  + added an optional turn number to the score command (#891475)
   + added a PaxGalactica - GM can specify the number of turns that
     Races won't be able to declare war on each other
   + added a new kind of map - "public". it's like location, but
     without colour coding
+  + fixed bug where extra turn report file was getting created with
+    the wrong name (#892931)
 
 Release 6.4.5: January 2004
 o By Ken Weinert (madcoder42)
