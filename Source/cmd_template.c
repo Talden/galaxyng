@@ -96,7 +96,7 @@ int CMD_template( int argc, char **argv ) {
 	    "; player player4@itsaddress.somewhere 500.0 100.0 1000.0\n\n");
 
     for (i = 1; i <= numberOfPlayers; i++) {
-      fprintf(glxfile, "start_player\nemail player%d@itsaddress.somewhere\n",
+      fprintf(glxfile, "start_player\nemail race_%d@their.address.tld\n",
 	      i);
       fprintf(glxfile, "#homeworld 500 50 50\n#homeworld 100 45 55\n"
 	      "#homeworld 1000 55 45\nend_player\n\n");

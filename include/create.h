@@ -20,15 +20,17 @@
  */
 
 typedef struct newplayer {
-  struct newplayer *next;
-  long            cookie;
-  char           *name;
-  char           *addr;
-  char           *pswd;
-  int             numberOfHomePlanets;
-  double         *coreSizes;    /* array of doubles; */
-  int             team;
-  int             done;         /* has been selected in a team game */
+	struct newplayer *next;
+	long            cookie;
+	char           *name;
+	char           *addr;
+	char           *pswd;
+	int             numberOfHomePlanets;
+	double         *coreSizes;    /* array of doubles; */
+	double         *coreXOffset;
+	double		   *coreYOffset;
+	int             team;
+	int             done;         /* has been selected in a team game */
 } newplayer;
 
 /**********/
@@ -83,7 +85,7 @@ void            Add_Empty_Planets(game *aGame, int nplanets,
 
 planet         *Add_Core_Home_Planet(game *aGame, double min_dist,
                                      int *planet_name, player *Player,
-                                     double size);
+                                     double size, double px, double py);
 
 planet         *Add_Circle_Home_Planet(game *aGame, int pnum,
                                        double min_dist, double sphere,
@@ -123,7 +125,8 @@ void
                                        double x, double y,
                                        double size,
                                        double max_radius,
-                                       int *planet_name, player *aPlayer);
+                                       int *planet_name, player *aPlayer,
+									   double px, double py);
 
 void            setTeamAllies(player *firstPlayer);
 
