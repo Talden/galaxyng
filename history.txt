@@ -3,7 +3,8 @@
 Release 6-4-0: December 2003
 o By Chris Shaffer (christhecat)
   + Rewrote all manuals, FAQs and help documents.  Major
-  + changes to /NG/Doc/.
+  + changes to /NG/Doc/.  Removed /WWW/.  Sent Tiger score
+  + information to Hall of Fame maintainer.
   +
   + Updated makefile, which no longer creates the Manuals.
   + GMs should point to http://galaxyng.sourceforge.net/
@@ -240,7 +241,6 @@ o By KW:
   + Added support for xml turn reports.
   + The order parser now recognizes cases parameters have
     a negative value and reports this as an error.
-    
 
 Release 3-8
 o By FS:
@@ -255,7 +255,6 @@ o removed references to "cequal" from the unpackorders.tcl program
 o Improved the entry for the V command in the manual
   Added documentation for the O BattleProtocol and O MachineReport
 o Added a section on the Battle Protocol.
-
 
 Release 3-7b (April 1999)
 o By FS:
@@ -286,10 +285,8 @@ o By CB:  Changes to the machine report.
      Messages section is now :
      <messages "global or personnal" quantity >
 
-
 Release 3-6,  
 o Orders are logged in log/orders_processed.txt
-
 
 Release 3-5,  Jan 1999
 
@@ -302,8 +299,6 @@ o It should now be possible to run more than one game at the same
   time.  So you can start 5 games and let them all run at 23:00 on
   monday and wed and friday.  All temporary files are unique, and
   should therefore no longer generate conflicts.
-
-
 
 Release 3-4
 
@@ -343,17 +338,11 @@ o The G+ reports now correctly show if a group was in
 o The G+ report fleet sections now correctly shows the number
   of groups in a fleet.
 
-
-
-
 Release 3-3b
 
 o The seed of the random number generator is now randomized
   (using time()).  This to avoid that the first battle will
   follow the same pattern each time.
-
-
-
 
 Release 3-3
 
@@ -363,8 +352,6 @@ o Added compression support
   That is the option COMPRESS works now :)
 o Ran all source code through the indent program, the formatting
   of all code is now the same and should be more readable.
-
-
 
 Release-3-2          Nov-1998      
 
@@ -421,9 +408,6 @@ o Cargo technology now only needs 2500 industry points to increase by
 o Added a section to the manual on the number of turns a player is
   allowed to miss and what happens else.
 
-
-
-
 Release-3-1      15-April-1998
 
 o Made the output of -score -html option compatible with all
@@ -431,8 +415,6 @@ o Made the output of -score -html option compatible with all
 o Fixed a 'move phase' bug.  Ships that are within 0.01 ly now are
   considered to have arrived at the planet.  This to avoid funny
   'distance left: 0.00' values in the turn report.
-
-
 
 Release-3-0     13-April-1998
 
@@ -442,20 +424,14 @@ o Added some syntax check to the  D  (design ship) order.
 o Randomized the home planet names. There is now no longer a relation
   between the nation name and home planet numbers.
 
-
-
 Version 2.1i    13-Dec-1997
 
 o Bug fix in the intercept code.  Bug fix thanks to Tommy.
-
-
 
 Version 2.1h    8-Dec-1997
 
 o Bug fix in the joinphase code, ships that had different
   flags were still being joined.  Bug fix thanks to Tommy.
-
-
 
 Version 2.1g    6-Oct-1997
 
@@ -477,13 +453,11 @@ changed it to
 
 to circumvent some curious intel gcc bug.
  
-
 Version 2.1f    25-July-1997
 
 (1) Changed the log levels, the log file should be much smaller now.
 (2) Highscore list now includes the address of players that do no
     play anonymous.
-
 
 Version 2.1e    25-June-1997
 
@@ -492,7 +466,6 @@ Updated the create game code:
 (2) The random number generator is initialized with the return value of time().
 (3) Fixed the bug that caused the score list of turn 1 to be listed as
     that of turn 0.
-
 
 Version 2.1d    
 
