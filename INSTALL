@@ -24,7 +24,7 @@ follow the directions there.
 
 If you want graphical maps, you will also need to have installed
 libgd.a (http://www.boutell.com/gd/), libpng, libz, libjpeg, and
-libfreetype (these dependencies are explained one the libgd page.)
+libfreetype (these dependencies are explained on the libgd page.)
 
 This option uses the GD library, see COPYING_GD for details.
 This option also uses a free truetype font from Larabie Fonts
@@ -80,3 +80,4 @@ or submit a support request:
 
 HAVE FUN!
 ----------------------------------------
+
