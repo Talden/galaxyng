@@ -53,7 +53,7 @@ CMD_report( int argc, char **argv ) {
       areValidOrders( stdin, &aGame, &raceName, &password,
 		      &final_orders, &theTurnNumber );
 
-    reportName = createString("%s/%s", tempdir, returnAddress);
+    reportName = createString("%s/temp_report_copy_%s", tempdir, returnAddress);
     {
       char *ptr = reportName;
       while (*ptr) {
