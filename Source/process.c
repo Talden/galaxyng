@@ -2482,7 +2482,7 @@ getDestination( char *subject )
 
     theTurnNumber = LG_CURRENT_TURN;
 
-    plog(LBRIEF, ">getDestination(%s)\n", subject);
+    /*plog(LBRIEF, ">getDestination(%s)\n", subject);*/
 
     c = strlwr(strdup(subject));
       
@@ -2499,7 +2499,7 @@ getDestination( char *subject )
     destination = strdup(destination);
     free (c);
 
-    plog(LBRIEF, "<getDestination(%s)\n", destination);
+    /*plog(LBRIEF, "<getDestination(%s)\n", destination);*/
 
     return destination;
 }
