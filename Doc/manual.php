@@ -1269,12 +1269,12 @@ Subject: relay &lt;alien race name&gt;
 ...message...
 #END</pre>
 
-					<p>Players should remove their signature if they wish to be anonymous.  Messages should <strong>never</strong> be sent in HTML format, as this will expose the player's password to the message recipient.</p>
+					<p>Players should be sure to end their messages with #END if they want to prevent their email signature from being sent to the recipient.  Messages should <strong>never</strong> be sent in HTML format, as this will expose the player's password to the message recipient.</p>
 					
 					<p>Note that players can also <a href="#ordA">send messages</a> to other races in their turn reports.</p>
 				
 				<h3 id="ascii">Plain ASCII Text</h3>
-					<p>All email to the server must be sent in plain ASCII text.  The server cannot interpret HTML formatted email.  Text+HTML can be used, however HTML messages sent to other players by the server will display the sender's true identity and password to the recipient!  See <a href="http://www.expita.com/nomime.html">Configuring Mail Clients to Send Plain ASCII Text</a> for more information.</p>
+					<p>All email to the server must be sent in plain ASCII text.  The server cannot interpret HTML formatted email.  Multipart Text+HTML email can be used, however HTML messages sent to other players by the server will display the sender's true identity and password to the recipient!  See <a href="http://www.expita.com/nomime.html">Configuring Mail Clients to Send Plain ASCII Text</a> for more information.</p>
 					<p></p>
  		
  		<?php include 'footer.php'; ?>
