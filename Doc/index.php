@@ -24,6 +24,7 @@
 				<ul>
 					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a> (closing soon)</li>
 				 <li><a href="http://www.refs-home.net/galaxyng/index.php">REF's GalaxyNG Site</a></li>
+				 <li><a href="http://www.gioco.net/galaxy/">GalaxyNG GIGA Server</a> (Italian)</li>
 				</ul>
 
 			<hr />
