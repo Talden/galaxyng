@@ -138,18 +138,16 @@ insertListF(list **aList, list* where, list *anElement)
  ******
  */
 
-list           *
-findElementF(list *aList, char *name)
-{
-  list           *anElement;
+list* findElementF(list *aList, char *name) {
+	list           *anElement;
 
-  for (anElement = aList;
-       anElement;
-       anElement = anElement->next) {
-    if (!noCaseStrcmp(anElement->name, name))
-      break;
-  }
-  return anElement;
+	for (anElement = aList;
+		 anElement;
+		 anElement = anElement->next) {
+		if (!noCaseStrcmp(anElement->name, name))
+			break;
+	}
+	return anElement;
 }
 
 
