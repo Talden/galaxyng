@@ -22,6 +22,8 @@ o By Ken Weinert (madcoder42)
     without colour coding
   + fixed bug where extra turn report file was getting created with
     the wrong name (#892931)
+  + added code to replace the sending player's password with '*'
+    characters in relayed messages.
 
 Release 6.4.5: January 2004
 o By Ken Weinert (madcoder42)
