@@ -56,7 +56,6 @@
 
 
 char           *vcreate =
-
     "$Id$";
 
 #include "create.h"
@@ -103,10 +102,11 @@ readGameSpec(FILE * specfile)
   char           *isRead;
   char           *key;
   char           *value;
-  int            team = 0;
+  int             team = 0;
 
   srand((int) time(NULL));
   aGameSpec = allocStruct(gamespecification);
+
   setName(aGameSpec, "TestGame");
   aGameSpec->gameOptions.gameOptions = 0;
   aGameSpec->galaxySize = 200;
@@ -119,7 +119,7 @@ readGameSpec(FILE * specfile)
   aGameSpec->players = NULL;
   aGameSpec->numberOfPlayers = 0;
   aGameSpec->coreSizes = malloc(2 * sizeof(double));
-  aGameSpec->teamGame = FALSE; 
+  aGameSpec->teamGame = FALSE;
   aGameSpec->coreSizes[0] = 1000.0;
   aGameSpec->coreSizes[1] = 400.0;
   aGameSpec->gameOptions.initial_drive = 1.0;
@@ -131,7 +131,8 @@ readGameSpec(FILE * specfile)
        isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, specfile)) {
 
     key = getstr(lineBuffer);
-    printf ("Game options => %d ; key : %s\n", aGameSpec->gameOptions.gameOptions, key);
+    printf("Game options => %ld ; key : %s\n",
+           aGameSpec->gameOptions.gameOptions, key);
 
     if (key[0] != '\0') {
       if (noCaseStrcmp("player", key) == 0) {
@@ -221,7 +222,7 @@ readGameSpec(FILE * specfile)
         setName(aGameSpec, getstr(0));
       }
       else if (noCaseStrcmp("teamgame", key) == 0) {
-        aGameSpec->teamGame = TRUE; 
+        aGameSpec->teamGame = TRUE;
       }
       else if (noCaseStrcmp("core_sizes", key) == 0) {
         int             number;
@@ -238,15 +239,30 @@ readGameSpec(FILE * specfile)
           aGameSpec->coreSizes[number] = atof(value);
         }
       }
-      else if (noCaseStrcmp("initialtechlevels", key) == 0) { /* CB-20010407 ; no verification at all */
-	aGameSpec->gameOptions.initial_drive = atof(getstr(0));      /* seems strtod is not portable */
-	aGameSpec->gameOptions.initial_weapons = atof(getstr(0));
-	aGameSpec->gameOptions.initial_shields = atof(getstr(0));
-	aGameSpec->gameOptions.initial_cargo = atof(getstr(0));
-	if (aGameSpec->gameOptions.initial_drive < 1.0) {aGameSpec->gameOptions.initial_drive = 1.0;}
-	if (aGameSpec->gameOptions.initial_weapons < 1.0) {aGameSpec->gameOptions.initial_weapons = 1.0;}
-	if (aGameSpec->gameOptions.initial_shields < 1.0) {aGameSpec->gameOptions.initial_shields = 1.0;}
-	if (aGameSpec->gameOptions.initial_cargo < 1.0) {aGameSpec->gameOptions.initial_cargo = 1.0;}
+      else if (noCaseStrcmp("initialtechlevels", key) == 0) {   /* CB-20010407 
+                                                                 * ; no
+                                                                 * verification 
+                                                                 * at all */
+        aGameSpec->gameOptions.initial_drive = atof(getstr(0)); /* seems
+                                                                 * strtod
+                                                                 * is not
+                                                                 * portable 
+                                                                 */
+        aGameSpec->gameOptions.initial_weapons = atof(getstr(0));
+        aGameSpec->gameOptions.initial_shields = atof(getstr(0));
+        aGameSpec->gameOptions.initial_cargo = atof(getstr(0));
+        if (aGameSpec->gameOptions.initial_drive < 1.0) {
+          aGameSpec->gameOptions.initial_drive = 1.0;
+        }
+        if (aGameSpec->gameOptions.initial_weapons < 1.0) {
+          aGameSpec->gameOptions.initial_weapons = 1.0;
+        }
+        if (aGameSpec->gameOptions.initial_shields < 1.0) {
+          aGameSpec->gameOptions.initial_shields = 1.0;
+        }
+        if (aGameSpec->gameOptions.initial_cargo < 1.0) {
+          aGameSpec->gameOptions.initial_cargo = 1.0;
+        }
       }
       else if (noCaseStrcmp("fullbombing", key) == 0) {
         aGameSpec->gameOptions.gameOptions |= GAME_NONGBOMBING;
@@ -254,7 +270,12 @@ readGameSpec(FILE * specfile)
       else if (noCaseStrcmp("keepproduction", key) == 0) {
         aGameSpec->gameOptions.gameOptions |= GAME_KEEPPRODUCTION;
       }
-      else if (noCaseStrcmp("createcircle", key) == 0) { /*Don't know if still used ???? CB 20010425*/
+      else if (noCaseStrcmp("createcircle", key) == 0) {        /* Don't
+                                                                 * know if 
+                                                                 * still
+                                                                 * used
+                                                                 * ???? CB 
+                                                                 * 20010425 */
         aGameSpec->gameOptions.gameOptions |= GAME_CREATECIRCLE;
       }
       else if (noCaseStrcmp("dontdropdead", key) == 0) {
@@ -262,11 +283,14 @@ readGameSpec(FILE * specfile)
       }
       else if (noCaseStrcmp("savereportcopy", key) == 0) {
         aGameSpec->gameOptions.gameOptions |= GAME_SAVECOPY;
-      } 
-      else if (noCaseStrcmp("sphericalgalaxy", key) == 0) { /* CB-20010401 ; see galaxy.h */
-	/*	printf ("*==> %ld\n", aGameSpec->gameOptions);*/
-	aGameSpec->gameOptions.gameOptions |= GAME_SPHERICALGALAXY;
-	/*	printf ("*==> %ld\n", aGameSpec->gameOptions);*/
+      }
+      else if (noCaseStrcmp("sphericalgalaxy", key) == 0) {     /* CB-20010401 
+                                                                 * ; see
+                                                                 * galaxy.h 
+                                                                 */
+        /* printf ("*==> %ld\n", aGameSpec->gameOptions); */
+        aGameSpec->gameOptions.gameOptions |= GAME_SPHERICALGALAXY;
+        /* printf ("*==> %ld\n", aGameSpec->gameOptions); */
       }
       else {
         printf("Unknown key %s\n", key);
@@ -292,7 +316,7 @@ printGameSpecs(gamespecification *aGameSpec)
 {
   newplayer      *curNewPlayer;
 
-  /*  aGameSpec->gameOptions = 0; CB-20010407*/
+  /* aGameSpec->gameOptions = 0; CB-20010407 */
   printf("Galaxy:               %s\n", aGameSpec->name);
   if (aGameSpec->teamGame) {
     printf("TeamGame:                 Yes\n");
@@ -303,30 +327,39 @@ printGameSpecs(gamespecification *aGameSpec)
   printf("Size:                     %.0f x %.0f\n",
          aGameSpec->galaxySize, aGameSpec->galaxySize);
 
-  printf("Full bombing     :         %s\n", (aGameSpec->gameOptions.gameOptions & GAME_NONGBOMBING ? "ON" : "OFF"));
-  printf("Keep production  :         %s\n", (aGameSpec->gameOptions.gameOptions & GAME_KEEPPRODUCTION ? "ON" : "OFF"));
-  printf("Drop dead players:         %s\n", (aGameSpec->gameOptions.gameOptions & GAME_NODROP ? "ON" : "OFF"));
-  printf("Save report copy :         %s\n", (aGameSpec->gameOptions.gameOptions & GAME_SAVECOPY ? "ON" : "OFF"));
-  printf("Spherical Galaxy :         %s\n", (aGameSpec->gameOptions.gameOptions & GAME_SPHERICALGALAXY ? "ON" : "OFF"));
+  printf("Full bombing     :         %s\n",
+         (aGameSpec->gameOptions.
+          gameOptions & GAME_NONGBOMBING ? "ON" : "OFF"));
+  printf("Keep production  :         %s\n",
+         (aGameSpec->gameOptions.
+          gameOptions & GAME_KEEPPRODUCTION ? "ON" : "OFF"));
+  printf("Drop dead players:         %s\n",
+         (aGameSpec->gameOptions.
+          gameOptions & GAME_NODROP ? "ON" : "OFF"));
+  printf("Save report copy :         %s\n",
+         (aGameSpec->gameOptions.
+          gameOptions & GAME_SAVECOPY ? "ON" : "OFF"));
+  printf("Spherical Galaxy :         %s\n",
+         (aGameSpec->gameOptions.
+          gameOptions & GAME_SPHERICALGALAXY ? "ON" : "OFF"));
 
   printf("Initial tech levels:\n\
             * Drive:     %5.2f,\n\
             * Weapons:   %5.2f,\n\
             * Shields:   %5.2f,\n\
-            * Cargo:     %5.2f.\n",
-	 aGameSpec->gameOptions.initial_drive,
-	 aGameSpec->gameOptions.initial_weapons,
-	 aGameSpec->gameOptions.initial_shields,
-	 aGameSpec->gameOptions.initial_cargo);
+            * Cargo:     %5.2f.\n", aGameSpec->gameOptions.initial_drive, aGameSpec->gameOptions.initial_weapons, aGameSpec->gameOptions.initial_shields, aGameSpec->gameOptions.initial_cargo);
 
   printf("Nations:                  %d\n", aGameSpec->numberOfPlayers);
   printf("Home planets/nation:      %d\n", aGameSpec->numberOfHomePlanets);
   printf("Spacing nations:          %.1f\n", aGameSpec->minDist);
-  printf("Secondary planet radius:  %.1f\n", aGameSpec->radiusSecondaryPlanets);
-  printf("Empty planets/nation:     %d\n", aGameSpec->numberOfEmptyPlanets);
+  printf("Secondary planet radius:  %.1f\n",
+         aGameSpec->radiusSecondaryPlanets);
+  printf("Empty planets/nation:     %d\n",
+         aGameSpec->numberOfEmptyPlanets);
   printf("Located in within a:      %.1f radius\n",
          aGameSpec->radiusEmptyPlanets);
-  printf("Stuff planets/nation:     %d\n", aGameSpec->numberOfStuffPlanets);
+  printf("Stuff planets/nation:     %d\n",
+         aGameSpec->numberOfStuffPlanets);
 
   for (curNewPlayer = aGameSpec->players;
        curNewPlayer; curNewPlayer = curNewPlayer->next) {
@@ -370,20 +403,23 @@ creategame(gamespecification *aGameSpec)
     setName(aGame, aGameSpec->name);
     aGame->turn = 0;
     aGame->gameOptions.gameOptions = aGameSpec->gameOptions.gameOptions;
-    aGame->gameOptions.initial_drive = aGameSpec->gameOptions.initial_drive;
-    aGame->gameOptions.initial_weapons = aGameSpec->gameOptions.initial_weapons;
-    aGame->gameOptions.initial_shields = aGameSpec->gameOptions.initial_shields;
-    aGame->gameOptions.initial_cargo = aGameSpec->gameOptions.initial_cargo;
+    aGame->gameOptions.initial_drive =
+        aGameSpec->gameOptions.initial_drive;
+    aGame->gameOptions.initial_weapons =
+        aGameSpec->gameOptions.initial_weapons;
+    aGame->gameOptions.initial_shields =
+        aGameSpec->gameOptions.initial_shields;
+    aGame->gameOptions.initial_cargo =
+        aGameSpec->gameOptions.initial_cargo;
 
-    /* Do not change this! planets can be  
-       looked up by number and this function  
-       expects the first planet to have
-       number 1 */
-    planet_name = 1; 
+    /* Do not change this! planets can be looked up by number and this
+     * function expects the first planet to have number 1 */
+    planet_name = 1;
     if (aGameSpec->teamGame) {
       created_ok = createCheckeredLayout(aGameSpec, aGame, planet_name);
-      if (created_ok) setTeamAllies(aGame->players);
-    } 
+      if (created_ok)
+        setTeamAllies(aGame->players);
+    }
     else {
       created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
     }
@@ -393,7 +429,7 @@ creategame(gamespecification *aGameSpec)
       preComputeGroupData(aGame);
       nationStatus(aGame);
       return aGame;
-    } 
+    }
     else {
       freegame(aGame);
       return NULL;
@@ -406,57 +442,60 @@ creategame(gamespecification *aGameSpec)
 
 /********/
 
-int createStandardLayout(
-    gamespecification *aGameSpec,
-    game *aGame,
-    int planet_name)
+int
+createStandardLayout(gamespecification *aGameSpec,
+                     game *aGame, int planet_name)
 {
   newplayer      *aNewPlayer;
 
   aGame->galaxysize = aGameSpec->galaxySize;
 
   for (aNewPlayer = aGameSpec->players;
-      aNewPlayer; aNewPlayer = aNewPlayer->next) {
+       aNewPlayer; aNewPlayer = aNewPlayer->next) {
     planet         *core_planet;
     player         *aPlayer;
+
+    initUniqifyValues();        /* this is so that we can guarantee that
+                                 * no two planets will inhabit the same
+                                 * coordinates */
 
     aPlayer = createPlayer(aGameSpec, aGame, aNewPlayer);
     printf("o Adding player %s\n", aPlayer->name);
     addList(&(aGame->players), aPlayer);
     if ((core_planet =
-          Add_Core_Home_Planet(aGame, aGameSpec->minDist,
-            &planet_name, aPlayer,
-            aNewPlayer->coreSizes[0]))) {
+         Add_Core_Home_Planet(aGame, aGameSpec->minDist,
+                              &planet_name, aPlayer,
+                              aNewPlayer->coreSizes[0]))) {
       double          x, y;
 
       x = core_planet->x;
       y = core_planet->y;
       if (aNewPlayer->numberOfHomePlanets > 1) {
-        int cur_extra_home ;
+        int             cur_extra_home;
+
+	printf("o Adding secondary home planets.\n");
         for (cur_extra_home = 1;
-            cur_extra_home < aNewPlayer->numberOfHomePlanets; 
-            cur_extra_home++) {
-          printf("o Adding secondary home planets.\n");
+             cur_extra_home < aNewPlayer->numberOfHomePlanets;
+             cur_extra_home++) {
           Add_Extra_Home_Planets(aGame, x, y,
-              aNewPlayer->coreSizes[cur_extra_home],
-              aGameSpec->radiusSecondaryPlanets,
-              &planet_name, 
-              aPlayer);
+                                 aNewPlayer->coreSizes[cur_extra_home],
+                                 aGameSpec->radiusSecondaryPlanets,
+                                 &planet_name, aPlayer);
         }
       }
       if (aGameSpec->numberOfEmptyPlanets) {
         Add_Empty_Planets(aGame, aGameSpec->numberOfEmptyPlanets,
-            aGameSpec->radiusEmptyPlanets, x, y,
-            &planet_name, 600.0, 700.0);
+                          aGameSpec->radiusEmptyPlanets, x, y,
+                          &planet_name, 600.0, 700.0);
       }
       if (aGameSpec->numberOfStuffPlanets) {
         Add_Stuff_Planets(aGame,
-            aGameSpec->numberOfStuffPlanets, &planet_name);
+                          aGameSpec->numberOfStuffPlanets, &planet_name);
       }
     }
     else {
       printf("Can't space homeworlds at least %f light years apart.\n",
-          aGameSpec->minDist);
+             aGameSpec->minDist);
       printf("Please try again with a larger sized galaxy.\n");
       return FALSE;
     }
@@ -475,15 +514,15 @@ int createStandardLayout(
  *
  *****/
 
-int createCheckeredLayout(
-    gamespecification *aGameSpec,
-    game *aGame,
-    int planet_name)
+int
+createCheckeredLayout(gamespecification *aGameSpec,
+                      game *aGame, int planet_name)
 {
-  int row;
-  int column;
-  int team;
+  int             row;
+  int             column;
+  int             team;
   player         *aPlayer;
+
   team = 0;
 
   aGame->galaxysize = 10;
@@ -496,79 +535,76 @@ int createCheckeredLayout(
 
   Add_Center_Planet(aGame, &planet_name);
 
-  for (row = 0; 
-      row < aGameSpec->numberOfRows; 
-      row++) {
+  for (row = 0; row < aGameSpec->numberOfRows; row++) {
     team = row & 1;
-    for (column = 0; 
-        column < aGameSpec->numberOfColumns; 
-        column++) {
-      newplayer *aNewPlayer; 
+    for (column = 0; column < aGameSpec->numberOfColumns; column++) {
+      newplayer      *aNewPlayer;
+
       printf("location (%d,%d)\n", row, column);
       if (aNewPlayer &&
-          !(
-            ( (row == 0) && (column == 0) ) ||
-            ( (row == 0) && (column == 7) ) ||
-            ( (row == 7) && (column == 0) ) ||
-            ( (row == 7) && (column == 7) ) ||
-            ( (row == 4) && (column == 3) ) ||
-            ( (row == 4) && (column == 4) ) ||
-            ( (row == 3) && (column == 3) ) ||
-            ( (row == 3) && (column == 4) ) 
-           )  ) {
+          !(((row == 0) && (column == 0)) ||
+            ((row == 0) && (column == 7)) ||
+            ((row == 7) && (column == 0)) ||
+            ((row == 7) && (column == 7)) ||
+            ((row == 4) && (column == 3)) ||
+            ((row == 4) && (column == 4)) ||
+            ((row == 3) && (column == 3)) || ((row == 3) && (column == 4))
+          )) {
         aNewPlayer = getNextTeamPlayer(aGameSpec->players, team);
-        if (!aNewPlayer) { printf("No new player found\n"); }
+        if (!aNewPlayer) {
+          printf("No new player found\n");
+        }
         if (aNewPlayer) {
           player         *aPlayer;
-          int cur_extra_home ;
-          double x;
-          double y;
-          x = 5 + (row + 1) * aGameSpec->minDist - 0.5 * aGameSpec->minDist;
-          y = 5 + (column + 1) * aGameSpec->minDist - 0.5 * aGameSpec->minDist;
+          int             cur_extra_home;
+          double          x;
+          double          y;
+
+          x = 5 + (row + 1) * aGameSpec->minDist -
+              0.5 * aGameSpec->minDist;
+          y = 5 + (column + 1) * aGameSpec->minDist -
+              0.5 * aGameSpec->minDist;
           aPlayer = createPlayer(aGameSpec, aGame, aNewPlayer);
           printf("o Adding player %s\n", aPlayer->name);
           addList(&(aGame->players), aPlayer);
 
           for (cur_extra_home = 0;
-              cur_extra_home < aNewPlayer->numberOfHomePlanets; 
-              cur_extra_home++) {
+               cur_extra_home < aNewPlayer->numberOfHomePlanets;
+               cur_extra_home++) {
             printf("o Adding secondary home planets.\n");
             Add_Extra_Home_Planets(aGame, x, y,
-                aNewPlayer->coreSizes[cur_extra_home],
-                aGameSpec->radiusSecondaryPlanets,
-                &planet_name, 
-                aPlayer);
+                                   aNewPlayer->coreSizes[cur_extra_home],
+                                   aGameSpec->radiusSecondaryPlanets,
+                                   &planet_name, aPlayer);
           }
           if (aGameSpec->numberOfEmptyPlanets) {
             Add_Empty_Planets(aGame, aGameSpec->numberOfEmptyPlanets,
-                aGameSpec->radiusEmptyPlanets, x, y,
-                &planet_name, 600.0, 700.0);
+                              aGameSpec->radiusEmptyPlanets, x, y,
+                              &planet_name, 600.0, 700.0);
           }
         }
       }
       if ((column > 0) && (row > 0)) {
-        double x;
-        double y;
-        x = 5 + row * aGameSpec->minDist ;
-        y = 5 + column * aGameSpec->minDist ;
+        double          x;
+        double          y;
+
+        x = 5 + row * aGameSpec->minDist;
+        y = 5 + column * aGameSpec->minDist;
         Add_Extra_Home_Planets(aGame, x, y, 4000, 3.3, &planet_name, NULL);
       }
       team++;
-      if (team > 1) { 
+      if (team > 1) {
         team = 0;
-      }; 
+      };
     }
   }
 
 
-  for (aPlayer = aGame->players;
-      aPlayer;
-      aPlayer = aPlayer->next) {
+  for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
     if (aGameSpec->numberOfStuffPlanets) {
-      int i;
-      for (i = 0; 
-          i < aGameSpec->numberOfStuffPlanets;
-          i++) {
+      int             i;
+
+      for (i = 0; i < aGameSpec->numberOfStuffPlanets; i++) {
         Add_Team_Stuff_Planets(aGame, aGameSpec, &planet_name);
       }
     }
@@ -576,13 +612,47 @@ int createCheckeredLayout(
   return TRUE;
 }
 
+struct uniq_avl {
+  struct avl      avl;
+  char            key[17];      /* key is "%08d%08d", x*1000000000, y*100
+                                 * -- this gives us room for a 10,000
+                                 * square map */
+};
 
+int
+cmpstr(void *a, void *b)
+{
+  /* printf("cmpstr: %p:%s %p:%s\n", a, ((struct uniq_avl*)a)->key, b,
+   * ((struct uniq_avl*)b)->key); */
+  return strcmp(((struct uniq_avl *) a)->key,
+                ((struct uniq_avl *) b)->key);
+}
 
+static int
+avliter(avl * val)
+{
+  /* this is only used for determining unique location for a planet, so if 
+   * there is one here, return 1 since dups are not allowed */
+  struct uniq_avl *node = (struct uniq_avl *) val;
 
-void Add_Team_Stuff_Planets(
-    game* aGame, 
-    gamespecification* aGameSpec, 
-    int* planet_name)
+  printf("%s is duplicate.\n", node->key);
+
+  return 1;
+}
+
+struct avl_tree unique;
+struct uniq_avl *unode;
+
+void
+initUniqifyValues()
+{
+  unique.compar = cmpstr;
+  unique.root = 0;
+}
+
+void
+Add_Team_Stuff_Planets(game *aGame,
+                       gamespecification *aGameSpec, int *planet_name)
 {
   planet         *aPlanet;
   double          min_dist;
@@ -591,9 +661,7 @@ void Add_Team_Stuff_Planets(
   int             count;
 
   min_dist = aGameSpec->radiusEmptyPlanets;
-  for (is_ok = FALSE, count = 0; 
-      !is_ok && (count < 1000);
-      count++ ) {
+  for (is_ok = FALSE, count = 0; !is_ok && (count < 1000); count++) {
     is_ok = TRUE;
     x = round2(frand(aGame->galaxysize));
     y = round2(frand(aGame->galaxysize));
@@ -601,11 +669,10 @@ void Add_Team_Stuff_Planets(
       is_ok = FALSE;
     if (y < 0 || y >= aGame->galaxysize)
       is_ok = FALSE;
-    for  (aPlanet = aGame->planets;
-        aPlanet;
-        aPlanet = aPlanet->next) {
+    for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
       if (aPlanet->owner) {
-        double dx, dy;
+        double          dx, dy;
+
         dx = aPlanet->x - x;
         dy = aPlanet->y - y;
         if (dx * dx + dy * dy <= min_dist * min_dist) {
@@ -618,47 +685,42 @@ void Add_Team_Stuff_Planets(
   if (count < 1000) {
     aPlanet = addplanet(aGame);
     (*planet_name)++;
-    aPlanet->x = round2(x);
-    aPlanet->y = round2(y);
+    aPlanet->x = x;
+    aPlanet->y = y;
     aPlanet->owner = NULL;
     aPlanet->producing = PR_DRIVE;
     aPlanet->size = 2.0 + frand(170.0);
     aPlanet->resources = round2(pow(2.0, frand2()));
     aPlanet->producing = PR_CAP;
-    printf ("stuff planet added\n");
+    printf("stuff planet added\n");
   }
 }
 
 
-void setTeamAllies(player *firstPlayer)
+void
+setTeamAllies(player *firstPlayer)
 {
-  player *aPlayer;
-  player *ally;
+  player         *aPlayer;
+  player         *ally;
 
-  for (aPlayer = firstPlayer;
-       aPlayer;
-       aPlayer = aPlayer->next) {
-    for (ally = firstPlayer;
-         ally;
-         ally = ally->next) {
+  for (aPlayer = firstPlayer; aPlayer; aPlayer = aPlayer->next) {
+    for (ally = firstPlayer; ally; ally = ally->next) {
       if ((ally != aPlayer) && (ally->team == aPlayer->team)) {
         alliance       *a;
         a = allocStruct(alliance);
+
         a->who = ally;
         addList(&aPlayer->allies, a);
-      } 
+      }
     }
   }
 }
 
 
-newplayer *getNextTeamPlayer(
-                newplayer *aNewPlayer, 
-                int team)
+newplayer      *
+getNextTeamPlayer(newplayer *aNewPlayer, int team)
 {
-  for (;
-       aNewPlayer; 
-       aNewPlayer = aNewPlayer->next) {
+  for (; aNewPlayer; aNewPlayer = aNewPlayer->next) {
     if (!(aNewPlayer->done) && (aNewPlayer->team == team)) {
       aNewPlayer->done = TRUE;
       break;
@@ -689,11 +751,13 @@ createGameDirectories(char *name)
 {
   sprintf(lineBuffer, "%s/data/%s", galaxynghome, name);
   if (GOS_mkdir(lineBuffer, 0700)) {
-    // fprintf(stderr, "Warning a game under that name already exists\n");
-    // fprintf(stderr, "Do you want to continue [y/n]?\n");
-    // scanf("%s", lineBuffer);
-    // if (*lineBuffer != 'y')
-    // return FALSE;
+#if 0
+    fprintf(stderr, "Warning a game under that name already exists\n");
+    fprintf(stderr, "Do you want to continue [y/n]?\n");
+    scanf("%s", lineBuffer);
+    if (*lineBuffer != 'y')
+      return FALSE;
+#endif
   }
   else {
     sprintf(lineBuffer, "%s/reports/%s", galaxynghome, name);
@@ -721,7 +785,8 @@ createGameDirectories(char *name)
  */
 
 player         *
-createPlayer(gamespecification *aGameSpec, game *aGame, newplayer *aNewPlayer)
+createPlayer(gamespecification *aGameSpec, game *aGame,
+             newplayer *aNewPlayer)
 {
   player         *aPlayer;
 
@@ -793,11 +858,41 @@ Add_Stuff_Planets(game *aGame, int stuff_planets, int *planet_name)
   int             cur_planet_nr;
   planet         *p;
 
+  double          new_x, new_y;
+  int             is_ok;
+
   for (cur_planet_nr = 0; cur_planet_nr < stuff_planets; cur_planet_nr++) {
+
+    unode = (struct uniq_avl *) malloc(sizeof(struct uniq_avl));
+
+    for (is_ok = FALSE; !is_ok;) {
+      is_ok = TRUE;
+      new_x = round2(frand(aGame->galaxysize));
+      new_y = round2(frand(aGame->galaxysize));
+      if (new_x < 0 || new_x >= aGame->galaxysize) {
+        is_ok = FALSE;
+        continue;
+      }
+      if (new_y < 0 || new_y >= aGame->galaxysize) {
+        is_ok = FALSE;
+        continue;
+      }
+      sprintf(unode->key, "%08d%08d", (int) (new_x * 100),
+              (int) (new_y * 100));
+      if (avl_search(&unique, (avl *) unode, avliter) == 0) {
+        avl_insert(&unique, (avl *) unode);
+      }
+      else {
+        printf("x, y: %.2f,%.2f  ;; key: %s\n", new_x, new_y, unode->key);
+        is_ok = FALSE;
+        continue;
+      }
+    }
+
     p = addplanet(aGame);
     (*planet_name)++;
-    p->x = round2(frand(aGame->galaxysize));
-    p->y = round2(frand(aGame->galaxysize));
+    p->x = new_x;
+    p->y = new_y;
     p->size = 2.0 + frand(170.0);
     p->resources = round2(pow(2.0, frand2()));
     p->producing = PR_CAP;
@@ -868,9 +963,7 @@ Randomize_Planet_Numbers(game *aGame)
     total_nr_of_planets++;
   }
 
-  for (randomizor = 0; 
-       randomizor < 2000; 
-       randomizor++) {
+  for (randomizor = 0; randomizor < 2000; randomizor++) {
     int             pln1, pln2, nm;
     planet         *p1, *p2;
 
@@ -921,7 +1014,7 @@ Randomize_Planet_Numbers(game *aGame)
  *****
  */
 
-planet*
+planet         *
 Add_Core_Home_Planet(game *aGame,
                      double min_dist, int *planet_name,
                      player *aPlayer, double size)
@@ -932,35 +1025,50 @@ Add_Core_Home_Planet(game *aGame,
   double          x, y, beta, radius;
 
   printf("o Adding main home planet.\n");
-  for (found_location = FALSE, 
-       try = 0; 
-       !found_location; try++) {
+  unode = (struct uniq_avl *) malloc(sizeof(struct uniq_avl));
+  for (found_location = FALSE, try = 0; !found_location; try++) {
     double          dx, dy;
 
     found_location = TRUE;
     beta = frand(360) * (2 * 3.141592654 / 360.0);
     radius = frand(aGame->galaxysize / 2.0 - 4.0);
-    x = radius * cos(beta) + aGame->galaxysize / 2.0;
-    y = radius * sin(beta) + aGame->galaxysize / 2.0;
+    x = round2(radius * cos(beta) + aGame->galaxysize / 2.0);
+    y = round2(radius * sin(beta) + aGame->galaxysize / 2.0);
     assert((x < aGame->galaxysize) && (x > 0));
     assert((y < aGame->galaxysize) && (y > 0));
+    sprintf(unode->key, "%08d%08d", (int) (x * 100), (int) (y * 100));
+    if (avl_search(&unique, (avl *) unode, avliter) == 0) {
+      avl_insert(&unique, (avl *) unode);
+    }
+    else {
+      printf("x, y: %.2f,%.2f  ;; key: %s\n", x, y, unode->key);
+      found_location = FALSE;
+      if (try == 4000)
+        return NULL;
+      continue;
+    }
+
     for (p = aGame->planets; p; p = p->next) {
       if (p->owner) {
         dx = p->x - x;
         dy = p->y - y;
         if (dx * dx + dy * dy <= min_dist * min_dist) {
           found_location = FALSE;
+          if (unique.root)
+            avl_remove(&unique, (avl *) unode);
+
           if (try == 4000) {
             return NULL;
           }
+
         }
       }
     }
   }
   p = addplanet(aGame);
   (*planet_name)++;
-  p->x = round2(x);
-  p->y = round2(y);
+  p->x = x;
+  p->y = y;
   p->owner = aPlayer;
   p->size = size;
   p->resources = 10.0;
@@ -1048,16 +1156,32 @@ Add_Extra_Home_Planets(game *aGame,
   double          new_x, new_y;
   int             is_ok;
 
+  unode = (struct uniq_avl *) malloc(sizeof(struct uniq_avl));
+
   for (is_ok = FALSE; !is_ok;) {
-      is_ok = TRUE;
-      radius = 1.0 + frand(max_radius - 1.0);
-      angle = frand(360.0) * (2 * 3.141592654 / 360.0);
-      new_x = x + sin(angle) * radius;
-      new_y = y + cos(angle) * radius;
-      if (new_x < 0 || new_x >= aGame->galaxysize)
-        is_ok = FALSE;
-      if (new_y < 0 || new_y >= aGame->galaxysize)
-        is_ok = FALSE;
+    is_ok = TRUE;
+    radius = 1.0 + frand(max_radius - 1.0);
+    angle = frand(360.0) * (2 * 3.141592654 / 360.0);
+    new_x = round2(x + sin(angle) * radius);
+    new_y = round2(y + cos(angle) * radius);
+    if (new_x < 0 || new_x >= aGame->galaxysize) {
+      is_ok = FALSE;
+      continue;
+    }
+    if (new_y < 0 || new_y >= aGame->galaxysize) {
+      is_ok = FALSE;
+      continue;
+    }
+    sprintf(unode->key, "%08d%08d", (int) (new_x * 100),
+            (int) (new_y * 100));
+    if (avl_search(&unique, (avl *) unode, avliter) == 0) {
+      avl_insert(&unique, (avl *) unode);
+    }
+    else {
+      printf("x, y: %.2f,%.2f  ;; key: %s\n", new_x, new_y, unode->key);
+      is_ok = FALSE;
+      continue;
+    }
   }
   p = addplanet(aGame);
   (*planet_name)++;
@@ -1082,16 +1206,15 @@ Add_Extra_Home_Planets(game *aGame,
  */
 
 void
-Add_Extra_Circle_Stuff_Planets(
-    game *aGame,
-    int circle_stuff_planets, 
-    double x,
-    double y, 
-    int *planet_name, 
-    int min_dist)
+Add_Extra_Circle_Stuff_Planets(game *aGame,
+                               int circle_stuff_planets,
+                               double x,
+                               double y, int *planet_name, int min_dist)
 {
   int             pno;
   planet         *p;
+
+  unode = (struct uniq_avl *) malloc(sizeof(struct uniq_avl));
 
   for (pno = 0; pno < circle_stuff_planets; pno++) {
     double          radius, angle;
@@ -1102,17 +1225,32 @@ Add_Extra_Circle_Stuff_Planets(
       is_ok = TRUE;
       radius = 1.0 + frand(min_dist);
       angle = frand(360.0) * (2 * 3.141592654 / 360.0);
-      new_x = x + sin(angle) * radius;
-      new_y = y + cos(angle) * radius;
-      if (new_x < 0 || new_x >= aGame->galaxysize)
+      new_x = round2(x + sin(angle) * radius);
+      new_y = round2(y + cos(angle) * radius);
+      if (new_x < 0 || new_x >= aGame->galaxysize) {
         is_ok = FALSE;
-      if (new_y < 0 || new_y >= aGame->galaxysize)
+        continue;
+      }
+      if (new_y < 0 || new_y >= aGame->galaxysize) {
         is_ok = FALSE;
+        continue;
+      }
+      sprintf(unode->key, "%08d%08d", (int) (new_x * 100),
+              (int) (new_y * 100));
+      if (avl_search(&unique, (avl *) unode, avliter) == 0) {
+        avl_insert(&unique, (avl *) unode);
+      }
+      else {
+        printf("x, y: %.2f,%.2f  ;; key: %s\n", new_x, new_y, unode->key);
+        is_ok = FALSE;
+        continue;
+      }
+
     }
     p = addplanet(aGame);
     (*planet_name)++;
-    p->x = round2(new_x);
-    p->y = round2(new_y);
+    p->x = new_x;
+    p->y = new_y;
     p->size = 2.0 + frand(170.0);
     p->resources = round2(pow(2.0, frand2()));
     p->producing = PR_DRIVE;
@@ -1168,56 +1306,81 @@ Add_Empty_Planets(game *aGame,
   printf("o Adding empty planets.\n");
   planet_sizes = alloc(nplanets * sizeof(double));
 
-  for (cur_planet_nr = 0; cur_planet_nr < nplanets; cur_planet_nr++)
+  for (cur_total_size = 0.0, cur_planet_nr = 0; cur_planet_nr < nplanets; cur_planet_nr++) {
     planet_sizes[cur_planet_nr] = frand(MAXPOP - 80) + 80.0;
-
-  /* Adjust the Planet sizes in order to make sure that each players get * *
-   * * * * *  * *  * * about the same total amount */
-
-  for (cur_total_size = 0.0, cur_planet_nr = 0;
-       cur_planet_nr < nplanets; cur_planet_nr++)
     cur_total_size += planet_sizes[cur_planet_nr];
+  }
+
+  /* Adjust the Planet sizes in order to make sure that each players get
+   * about the same total amount */
 
   for (;
        (cur_total_size < nplanets * low_range) ||
        (cur_total_size > nplanets * up_range);) {
-    int   pl_sel;
+    int             pl_sel;
+    float           adj_factor;
 
+    adj_factor = 7.5 + frand(5);
     pl_sel = frand3(nplanets);
-    if (planet_sizes[pl_sel] > 100.0 && planet_sizes[pl_sel] < 980.0) {
-      if (cur_total_size > nplanets * up_range) {
-        (planet_sizes[pl_sel]) -= 10.0;
-        cur_total_size -= 10.0;
-      }
-      else {
-        (planet_sizes[pl_sel]) += 10.0;
-        cur_total_size += 10.0;
-      }
+    if (cur_total_size > nplanets * up_range) {
+      (planet_sizes[pl_sel]) -= adj_factor;
+      cur_total_size -= adj_factor;
     }
+    else {
+      (planet_sizes[pl_sel]) += adj_factor;
+      cur_total_size += adj_factor;
+    }
+
+    if (planet_sizes[pl_sel] < 20.0) {
+      planet_sizes[pl_sel] += adj_factor;
+      cur_total_size += adj_factor;
+    }
+
+    if (planet_sizes[pl_sel] > 980.0) {
+      planet_sizes[pl_sel] -= adj_factor;
+      cur_total_size -= adj_factor;
+    }
+
   }
 
   for (cur_planet_nr = 0, tot_mass = 0.0;
-       cur_planet_nr < nplanets; 
-       cur_planet_nr++) {
+       cur_planet_nr < nplanets; cur_planet_nr++) {
     double          radius, angle;
     double          new_x, new_y;
     int             is_ok;
+
+    unode = (struct uniq_avl *) malloc(sizeof(struct uniq_avl));
 
     for (is_ok = FALSE; !is_ok;) {
       is_ok = TRUE;
       radius = 0.2 + frand(empty_dist - 0.2);
       angle = frand(360.0) * (2 * 3.141592654 / 360.0);
-      new_x = x + sin(angle) * radius;
-      new_y = y + cos(angle) * radius;
-      if (new_x < 0 || new_x >= aGame->galaxysize)
+      new_x = round2(x + sin(angle) * radius);
+      new_y = round2(y + cos(angle) * radius);
+      if (new_x < 0 || new_x >= aGame->galaxysize) {
         is_ok = FALSE;
-      if (new_y < 0 || new_y >= aGame->galaxysize)
+        continue;
+      }
+      if (new_y < 0 || new_y >= aGame->galaxysize) {
         is_ok = FALSE;
+        continue;
+      }
+      sprintf(unode->key, "%08d%08d", (int) (new_x * 100),
+              (int) (new_y * 100));
+      if (avl_search(&unique, (avl *) unode, avliter) == 0) {
+        avl_insert(&unique, (avl *) unode);
+      }
+      else {
+        printf("x, y: %.2f,%.2f  ;; key: %s\n", new_x, new_y, unode->key);
+        is_ok = FALSE;
+        continue;
+      }
+
     }
     p = addplanet(aGame);
     (*planet_name)++;
-    p->x = round2(new_x);
-    p->y = round2(new_y);
+    p->x = new_x;
+    p->y = new_y;
     p->size = planet_sizes[cur_planet_nr];
     p->resources = round2(0.3 + pow(8.0, frand2()));
     p->producing = PR_CAP;
@@ -1261,7 +1424,8 @@ double
 CalcCirclegalaxysize(int num, double dist, double sphere)
 {
 
-  /* Will not actually create a circle, rather a regular polygon with as * *
+  /* Will not actually create a circle, rather a regular polygon with as * 
+   *
    * * * * *  *  * * many */
   /* sides as we have players. Then we calculate diameter and add a few */
   /* lightyears depending on the radius within which we want our empty */
