@@ -18,15 +18,15 @@ m4_include(toc.html)
 
 www_section(`intro', `Introduction')
 
-<P>GalaxyNG is a game of interstellar war for several players.  You are the leader of your race.  You start off by sharing an area of the galaxy with a number of other races and your objective is to become its sole occupant.</P>
+<P>GalaxyNG is a game of interstellar war for several players.  Each player is the leader of one race.  At the start of the game, the galaxy is shared by the races.  The objective of the game is to conquer the galaxy.  The game can be won by a single race or by an alliance of races, depending upon the game settings chosen by the GM.</P>
 
 www_subSection(`tgal', `The Galaxy')
 
-<P>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets (all other astronomical objects are irrelevant to the game and so are ignored).  Each race starts off occupying one (or more, depending on the taste of the GM) planets.  All the other planets, if any, are uninhabited.  It is possible to colonize uninhabited planets and conquer planets inhabited by other races.</P>
+<P>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  All other astronomical objects are irrelevant to the game and so are ignored.  Each race starts off occupying one or more planets.  All the other planets, if any, are uninhabited.  It is possible to colonize uninhabited planets and conquer planets inhabited by other races.</P>
 
 www_subSection(`units', `Units')
 
-<P>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods, raw materials etc.  represents about 10 million tons.  Each game turn represents about four years of time.</P>
+<P>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods or raw materials represents about 10 million tons.  Each game turn represents about four years of time.</P>
 
 www_subSection(`names', `Names')
 
@@ -38,7 +38,7 @@ www_section(`planets', `Planets')
 
 www_subSection(`owner', `Owner')
 
-<p>Inhabited planets are owned by one race at a time (except in the special case of a ALink("#conque", 'standoff')).  Uninhabited planets are not owned by any race.</P>
+<p>Inhabited planets are owned by one race at a time (except in the special case of a ALink("#conque", 'standoff') when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</P>
 
 www_subSection(`size', `Size')
 
@@ -46,15 +46,20 @@ www_subSection(`size', `Size')
 
 www_subSection(`pop', `Population')
 
-<P>Each inhabited planet has a population, which can never be higher than the planet's size but may be lower.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into ALink("#col", 'colonists').</P>
+<P>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with 0 population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into ALink("#col", 'colonists').</P>
 
 www_subSection(`ind', `Industry')
 
+<P>Each inhabited planet has an industry level.  This may not be greater than its population but may be less.  Industry levels may be increased by ALink("#prod", 'producing capital') at the planet or by ALink("#cargo", 'shipping capital') to the planet.</P>
+
+www_subSection(`nr', `Natural Resources')
+
+
+
+www_subSection(`prod', `Production')
+
 <P>
-Each inhabited planet has an industry level.  This may not
-be greater than its population but may be less.  The productive
-capacity of a planet is determined mostly by its industry and
-partly by its population.  Each industry unit on a planet gives
+The productive capacity of a planet is determined mostly by its industry and partly by its population.  Each industry unit on a planet gives
 one production point, and every 4 population units over and
 above industry also give one production point.  So at the start
 of the game you have one planet with industry and population of
