@@ -35,11 +35,11 @@
 					<li><a href="manual.php">Players Manual</a></li>
 					<li><a href="quickref.php">Quick Reference</a></li>
 					<li><a href="faq.php">FAQ</a></li>
-					<li><a href="etiquette.php">Galaxy Etiquette</a></li>
+					<li><a href="guides/etiquette.php">Galaxy Etiquette</a></li>
 					<li><a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a> (Note that it is not completely accurate in all details, as it describes original Galaxy and not GalaxyNG.)</li>
 					<li>Howard Bampton's <a href="http://www.indyramp.com/galaxy/strategy.html">Ship Design in Galaxy and Blind Galaxy</a></li>
 					<li><a href="http://web.archive.org/web/20011005182146/http://www.jacobean.demon.co.uk/galaxy/tips.html">Tim's Galaxy Tips and Tricks</a></li>
-					<li>Jacco van Weert's <a href="http://www.xs4all.nl/~weertj/Galaxy/">Galaxy Military Strategy Guide</a> (You have to read this to be able to survive more than a few turns.)</li>
+					<li>Jacco van Weert's <a href="guides/military.php">Galaxy Military Strategy Guide</a> (You have to read this to be able to survive more than a few turns.)</li>
 				</ul>
 			
 			<hr />

@@ -19,6 +19,7 @@
 		<h2>Guides</h2>
 		
 		<ul>
+			<li><a href="military.php">Galaxy Military Strategy Guide</a> by Jacco van Weert</li>
 			<li><a href="etiquette.php">Galaxy Etiquette (Gettiquette)</a> by Chris Orr</li>
 		</ul>
 		
