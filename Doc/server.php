@@ -362,6 +362,10 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 						<td>List for each player the last turn orders were sent in.</td>
 					</tr>
 					<tr>
+						<td><tt>galaxyng -due &lt;game name&gt;</tt></td>
+						<td>Send orders due email to players that haven't turned in orders for the current turn.</td>
+					</tr>
+					<tr>
 						<td><tt>galaxyng -players &lt;game name&gt; [turn number]</tt></td>
 						<td>List password and address of each player.</td>
 					</tr>
@@ -372,6 +376,10 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 					<tr>
 						<td><tt>galaxyng -map &lt;game name&gt; [turn number]</tt></td>
 						<td>Show a map of the galaxy.</td>
+					</tr>
+					<tr>
+						<td><tt>galaxyng -influence &lt;game name&gt; [turn number]</tt></td>
+						<td>Produce an influence map of the galaxy.</td>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -score &lt;game name&gt;</tt></td>
