@@ -2264,8 +2264,10 @@ areValidOrders( FILE *ordersFile,
                 game **aGame,
                 char **nationName, char **password, int theTurnNumber )
 {
-    int resNumber, foundOrders;
-    char *gameName, *isRead;
+    int   resNumber;
+	int   foundOrders;
+    char* gameName;
+	char* isRead;
 
     gameName = NULL;
 
@@ -2289,28 +2291,37 @@ areValidOrders( FILE *ordersFile,
             player *aPlayer;
 
             loadConfig( *aGame );
-            aPlayer = findElement( player, ( *aGame )->players, *nationName );
 
-            if ( aPlayer ) {
-                if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
-                    if ( ( theTurnNumber >= ( *aGame )->turn + 1 ) ||
-                         ( theTurnNumber eq LG_CURRENT_TURN ) ) {
-                        resNumber = RES_OK;
-                    } else {
-                        resNumber = RES_TURNRAN;
-                    }
-                } else {
-                    resNumber = RES_PASSWORD;
-                }
-            } else {
-                resNumber = RES_PLAYER;
-            }
-        } else {
-            resNumber = RES_NO_GAME;
-        }
-    } else {
-        resNumber = RES_NO_ORDERS;
-    }
+			if (noCaseStrcmp((*aGame)->serverOptions.GMemail, *nationName) == 0) {
+				if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
+					resNumber = RES_OK;
+				}
+			}
+			else {
+				aPlayer = findElement( player, ( *aGame )->players,
+									   *nationName );
+
+				if ( aPlayer ) {
+					if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
+						if ( ( theTurnNumber >= ( *aGame )->turn + 1 ) ||
+							 ( theTurnNumber eq LG_CURRENT_TURN ) ) {
+							resNumber = RES_OK;
+						} else {
+							resNumber = RES_TURNRAN;
+						}
+					} else {
+						resNumber = RES_PASSWORD;
+					}
+				} else {
+					resNumber = RES_PLAYER;
+				}
+			}
+		} else {
+			resNumber = RES_NO_GAME;
+		}
+	} else {
+		resNumber = RES_NO_ORDERS;
+	}
 
     if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
         *aGame = allocStruct( game );
@@ -2320,6 +2331,7 @@ areValidOrders( FILE *ordersFile,
         if ( gameName )
             setName( *aGame, gameName );
     }
+
     return resNumber;
 }
 
