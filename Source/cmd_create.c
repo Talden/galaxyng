@@ -16,41 +16,42 @@
  * SOURCE
  */
 
-int CMD_create( int argc, char **argv ) {
-    gamespecification *gspec;
-    game *aGame;
-    int result;
-    FILE *specfile;
+int
+CMD_create( int argc, char **argv ) {
+  gamespecification *gspec;
+  game *aGame;
+  int result;
+  FILE *specfile;
 
-    result = EXIT_FAILURE;
-    if ( argc == 3 ) {
-        if ( ( specfile = GOS_fopen( argv[2], "r" ) ) ) {
-            gspec = readGameSpec( specfile );
-            fclose( specfile );
-            printGameSpecs( gspec );
-            if ( ( aGame = creategame( gspec ) ) ) {
-                struct fielddef fields;
-
-                fields.destination = stdout;
-                loadNGConfig( aGame );
-                checkIntegrity( aGame );
-                savegame( aGame );
-                reportMap( aGame, aGame->players, &fields );
-                printf( "Number of planets: %d\n",
-                        numberOfElements( aGame->planets ) );
-                result = EXIT_SUCCESS;
-            }
-			else {
-                fprintf( stderr, "Can't create the game\n" );
-            }
-        }
-		else {
-            fprintf( stderr, "Can't open specification file \"%s\"\n",
-                     argv[2] );
-        }
+  result = EXIT_FAILURE;
+  if ( argc == 3 ) {
+    if ( ( specfile = fopen( argv[2], "r" ) ) ) {
+      gspec = readGameSpec( specfile );
+      fclose( specfile );
+      printGameSpecs( gspec );
+      if ( ( aGame = creategame( gspec ) ) ) {
+	struct fielddef fields;
+	
+	fields.destination = stdout;
+	loadNGConfig( aGame );
+	checkIntegrity( aGame );
+	savegame( aGame );
+	reportMap( aGame, aGame->players, &fields );
+	printf( "Number of planets: %d\n",
+		numberOfElements( aGame->planets ) );
+	result = EXIT_SUCCESS;
+      }
+      else {
+	fprintf( stderr, "Can't create the game\n" );
+      }
     }
-	else {
-        usage(  );
+    else {
+      fprintf( stderr, "Can't open specification file \"%s\"\n",
+	       argv[2] );
     }
-    return result;
+  }
+  else {
+    usage(  );
+  }
+  return result;
 }
