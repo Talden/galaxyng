@@ -55,8 +55,8 @@ Be careful with signatures if you want to stay anonymous.
 
 -*- OTHER INFORMATION -*-
 
-For information about GalaxyNG:    http://galaxy.pbem.net/index2.html
-The manual is at:      http://galaxy.pbem.net/NonM4/ManGalaxyNG.html
+For information about GalaxyNG: http://galaxyng.sourceforge.net
+The players manual is at: http://galaxyng.sourceforge.net/manual.php
 
 -*- BUGS and Other Problems -*-
 
@@ -68,6 +68,5 @@ server reads the email that arrives there.
 
 To end a game I need an email from all remaining players, saying they
 agree to end the game.  The result will be entered into the Hall of
-Fame and Shame, and an announcement will be made on galaxy-l@geek.net.
-Email to fslothouber@acm.org.
+Fame and Shame, and an announcement will be made on the galaxy mailing list.
 
