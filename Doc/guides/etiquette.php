@@ -6,16 +6,17 @@
 
 <!-- $Id$ -->
 
+	<?php $title="Galaxy Etiquette (Gettiquette)"; ?>
+
 	<head>
 		<link rel="stylesheet" href="/main.css" />
-		<title>GalaxyNG: Galaxy Etiquette</title>
-		<?php $title="Galaxy Etiquette (Gettiquette)"; ?>
+		<title>GalaxyNG: Galaxy Etiquette (Gettiquette)</title>
 	</head>
 
 	<body>
 		<?php include '../menu.php'; ?>
 		
-			<p>By Chris Orr (used by permission)</p>
+			<p>by Chris Orr</p>
 			
 			<p>This is my short list of things to do and not to do in Galaxy. I try to play this way, and hopefully others do also. If you have a suggestion or comment send it on.</p>
 			
