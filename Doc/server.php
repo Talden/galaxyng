@@ -403,7 +403,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -hall &lt;game name&gt; [turn number]</tt></td>
-						<td>Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to the <a href="http://www.refs-home.net/galaxyng/hof/">Hall of Fame maintainer</a>.</td>
+						<td>Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to the <a href="/hall/">Hall of Fame maintainer</a>.</td>
 					</tr>
 				</table>
 
