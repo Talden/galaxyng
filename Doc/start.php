@@ -55,7 +55,7 @@
 				<hr />
 				
 				<h2>Send anonymous email to other races:</h2>
-					<p>Send an email to the GalaxyNG server with the subject "<tt>relay <em>RaceName</em></tt>". The first line of the message should be "<tt>#GALAXY <em>GameName</em> <em>RaceName</em> <em>Password</em></tt>."  The body of your message <a href="http://galaxyng.sourceforge.net/manual.php">will be relayed</a> to the other player by the server. Remember to chop end your message with "<tt>#END</tt>" to prevent your opponents from reading your signature. Also, if you send your message in HTML or HTML+text, the other player will get a copy of your email address, racename and password - causing all kinds of havoc! Make sure that your email client <a href="http://www.expita.com/nomime.html">sends plain ASCII text only</a>.</p>
+					<p>Send an email to the GalaxyNG server with the subject "<tt>relay <em>RaceName</em></tt>". The first line of the message should be "<tt>#GALAXY <em>GameName</em> <em>RaceName</em> <em>Password</em></tt>."  The body of your message <a href="http://galaxyng.sourceforge.net/manual.php">will be relayed</a> to the other player by the server. Remember to end your message with "<tt>#END</tt>" to prevent your opponents from reading your signature. Also, if you send your message in HTML or HTML+text, the other player will get a copy of your email address, racename and password - causing all kinds of havoc! Make sure that your email client <a href="http://www.expita.com/nomime.html">sends plain ASCII text only</a>.</p>
 					
 				<hr />
 				
