@@ -1,10 +1,24 @@
 #ifndef GNG_GALAXYNG_H
 #define GNG_GALAXYNG_H
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
+
+#include "galaxy.h"
+#include "util.h"
+#include "loadgame.h"
+#include "process.h"
+#include "create.h"
+
 #define CMD_RUN_REAL    1       /* -run will mail turn reports */
 #define CMD_RUN_DUMMY   2       /* -run will save turn reports to disk */
 #define CMD_CHECK_REAL  1
 #define CMD_CHECK_DUMMY 2
+
 
 enum
 {
@@ -37,6 +51,6 @@ int CMD_influence( int argc, char **argv );
 int checkTime( game *aGame );
 int relayMessage( game* aGame, char* nationName, player* from, player* to );
 int CMD_ordersdue(int argc, char** argv);
-
+int CMD_clean(int argc, char** argv);
 
 #endif                          /* GNG_GALAXYNG_H */
