@@ -1,0 +1,38 @@
+$Id$
+
+To install the GalaxyNG server use:
+
+  make
+  make install
+
+or just
+
+  make install
+
+The install script will create all files necessary to run a game on
+your machine. All files will be installed in the directory
+$HOME/Games.
+
+The installer will ask you for your email address. It might also ask
+you for the location of the sendmail command if it can't find it.
+
+If you want to enable WWW highscore lists, make sure you have a
+$(HOME)/public_html or $(HOME)/www directory before you start
+installing. (Or edit Games/run_turn afterwards.)
+
+Much more information can be found in the server manual, use netscape
+index.html.
+
+After installation you might want to:
+
+(1) edit and copy the procmailrc file to enable automatic
+    checking of orders; Copy it to $(HOME)/.procmailrc,
+(2) edit the games.crontab file to enable automatic 
+    running of games, 
+(3) run strip on the executable to save some diskspace.
+
+If you have any questions send them to <rfsber@xs4all.nl>
+
+Have fun,
+Frans.
+
