@@ -14,7 +14,7 @@
 
 	<body>
 	
-		<h1>GalaxyNG Etiquette</h1>
+		<h1><a href="/">GalaxyNG</a> Etiquette</h1>
 
 			<hr />
 		
