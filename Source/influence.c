@@ -93,7 +93,11 @@ draw_maps(game* aGame)
 	scale = 765.0 / aGame->galaxysize;
 	iscale = (int)scale;
 
-	sprintf(font, "%s/influence.ttf", aGame->serverOptions.fontpath);
+	if (aGame->serverOptions.fontpath)
+		sprintf(font, "%s/influence.ttf", aGame->serverOptions.fontpath);
+	else
+		strcpy(font, "./influence.ttf");
+	
 	fprintf(stderr, "font: \"%s\"\n", font);
 	
 	for (mt = FirstMap; mt < NbrMaps; mt++) {
