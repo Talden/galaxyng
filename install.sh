@@ -156,7 +156,7 @@ echo "# MAILDIR=\$HOME/Maildir/" >> $PROCRC
 echo "DEFAULT=\$MAILDIR/mbox" >> $PROCRC
 echo "# For maildir delivery, use:" >> $PROCRC
 echo "# DEFAULT=\$MAILDIR" >> $PROCRC
-echo "LOGFILE=\$MAILDIR/from" >> $PROCRC
+echo "LOGFILE=\$MAILDIR/galaxyng.log" >> $PROCRC
 echo "LOCKFILE=\$HOME/.lockmail" >> $PROCRC
 echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
@@ -273,14 +273,14 @@ if { test -e $RCFILE; } then {
 fi
 echo "; This file is documented in Doc/galaxyngrc" > $RCFILE
 echo "; and http://galaxyng.sourceforge.net/server.php" >> $RCFILE
-echo "sendmail {"$SENDMAIL" -t }" >> $RCFILE
+echo "sendmail { "$SENDMAIL" -t }" >> $RCFILE
 echo "GMemail "$EMAIL >> $RCFILE
 if { test -n $ENCODE ; } then {
-  echo "encode {"$ENCODE " }" >> $RCFILE
+  echo "encode { "$ENCODE " }" >> $RCFILE
 }
 fi
 if { test -n $COMPRESS ; } then {
-  echo "compress {" $COMPRESS " }" >> $RCFILE
+  echo "compress { " $COMPRESS " }" >> $RCFILE
 }
 fi
 
