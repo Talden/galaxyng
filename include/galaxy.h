@@ -623,6 +623,8 @@ typedef struct server {
    char* GMpassword;
    /* Server email */
    char* SERVERemail;
+	/* Server replyto */
+	char* ReplyTo;
    /* the command to compress the body of an email */
    char* compress;
    /* the command to encode the compressed body */

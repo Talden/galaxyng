@@ -48,6 +48,7 @@ envelope* createEnvelope() {
 	assert(e != NULL);
 	e->to = NULL;
 	e->from = NULL;
+	e->replyto = NULL;
 	e->subject = NULL;
 	e->bcc = NULL;
 	e->cc = NULL;
@@ -153,6 +154,12 @@ void setHeader(envelope *e, int headerType, char *format, ...) {
 			e->from = strdup(lineBuffer);
 			break;
 			
+		case MAILHEADER_REPLYTO:
+			if (e->replyto)
+				free(e->replyto);
+			e->replyto = strdup(lineBuffer);
+			break;
+			
 		case MAILHEADER_SUBJECT:
 			if (e->subject)
 				free(e->subject);
@@ -208,6 +215,8 @@ void destroyEnvelope(envelope *e) {
 		free(e->to);
 	if (e->from)
 		free(e->from);
+	if (e->replyto)
+		free(e->replyto);
 	if (e->subject)
 		free(e->subject);
 	if (e->bcc)
@@ -260,7 +269,10 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 
 	fprintf(mailFile, "To: %s\n", e->to);
 	fprintf(mailFile, "Subject: %s\n", e->subject);
-	
+
+	if (e->replyto)
+		fprintf(mailFile, "Reply-To: %s\n", e->replyto);
+
 	if (e->bcc) 
 		fprintf(mailFile, "BCC: %s\n", e->bcc);
 	if (e->cc)
@@ -439,6 +451,7 @@ void gmNotify(char* subject, char* filename, game* aGame) {
 	
 	env->to = strdup(aGame->serverOptions.GMemail);
 	env->from = strdup(aGame->serverOptions.SERVERemail);
+	env->replyto = strdup(aGame->serverOptions.ReplyTo);
 	env->subject = strdup(subject);
 
 	eMail(aGame, env, filename);

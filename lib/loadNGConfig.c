@@ -25,6 +25,7 @@ void readDefaults(game *aGame, FILE * f) {
 	aGame->serverOptions.GMemail = NULL;
 	aGame->serverOptions.GMpassword = NULL;
 	aGame->serverOptions.SERVERemail = NULL;
+	aGame->serverOptions.ReplyTo = NULL;
 	aGame->serverOptions.fontpath = NULL;
 	aGame->serverOptions.due = NULL;
 	aGame->serverOptions.tick_interval = NULL;
@@ -42,6 +43,9 @@ void readDefaults(game *aGame, FILE * f) {
 			}
 			else if (noCaseStrcmp("SERVERemail", key) == 0) {
 				aGame->serverOptions.SERVERemail = strdup(getstr(0));
+			}
+			else if (noCaseStrcmp("ReplyTo", key) == 0) {
+				aGame->serverOptions.ReplyTo = strdup(getstr(0));
 			}
 			else if (noCaseStrcmp("compress", key) == 0) {
 				aGame->serverOptions.compress = strdup(getstr(0));
@@ -87,6 +91,10 @@ void readDefaults(game *aGame, FILE * f) {
     
 	if (aGame->serverOptions.GMemail == NULL)
 		aGame->serverOptions.GMemail =
+			strdup(aGame->serverOptions.SERVERemail);
+	
+	if (aGame->serverOptions.ReplyTo == NULL)
+		aGame->serverOptions.ReplyTo =
 			strdup(aGame->serverOptions.SERVERemail);
 	
 	if (aGame->serverOptions.GMpassword == NULL)
