@@ -306,7 +306,16 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>To see what cron files you have enabled run:</p>
 <pre>crontab -l</pre>
 				<p>An example file can be found at <tt>$HOME/GalaxyNG/games.crontab</tt></p>
-				<p>See the <tt>crontab</tt> and <tt>cron</tt> manual for more information.</p>
+				<p>See the <tt>crontab</tt> and <tt>cron</tt> manuals for more information.</p>
+				<p>You also have the option to run turns when all players indicate they are ready to run the turn.  You do this with the immediate flag, e.g.</p>
+				<pre>./galaxyng -immediate &lt;game name&gt;</pre>
+				<p>This will run a check to see if one of two conditions has been met: a) all players have submitted final orders, or b) the GM specified number of hours has elapsed since the last turn was run.  The key is the tick interval in hours, which should be placed in the .galaxyngrc file as:</p>
+				<pre>&lt;gamename&gt;.tick  &lt;tick interval in hours&gt;</pre>
+				<p>So, for example, this would run a turn if all players have submited final orders or if 48 hours have passed since the previous turn was run:</p>
+				<pre>SpaceInvaders.tick  48</pre>
+				<p>To send final orders, players add a "FinalOrders" to their #galaxy line when submitting their final orders for running the game.  For example:</p>
+				<pre>#GALAXY GameName RaceName Password FinalOrders</pre>
+				<p>If players do not submit final orders, the turn will not run until the time limit has expired.</p>
 
 			<hr />
 

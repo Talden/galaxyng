@@ -1082,6 +1082,9 @@ Subject: orders
 #END</pre>
 
 					<p>The subject should be "orders" and the #GALAXY line should be in the body of the message, not in the subject.  It is very important to type this line correctly, as otherwise all of your orders will be discarded.  Everything before the #GALAXY line or after the #END line in the message is ignored by the server.  Replacement sets of orders may be sent anytime before the turn deadline. The last set of orders received will be used by the server when the turn is run.</p>
+					<p>If the GM chooses, the game can run when all players have submitted their orders or when a certain number of hours have passed since the last turn ran.  To send final orders and indicate you are ready for the turn to run, change the #GALAXY line to read:</p>
+					<pre>#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt; FinalOrders</pre>
+					<p>If all players submit final orders, the turn will run immediately.  If not, it will run when # hours have passed since the previous turn.  For example, the GM could run the turn when all players have submitted final orders or when 48 hours have passed since the previous turn.</p>
      
 				<h3 id="fore">Forecast and Errors</h3>
 					<p>The server sends a forecast and error report to the email address used to send orders.  The forecast is a prediction of the results of the orders sent, assuming no other races exist in the galaxy.  It contains only information about the player's planets and groups, and does not contain information about other races or uninhabited planets.  Errors with the email or with specific orders will be reported to the player so they can be corrected and resent.</p>
