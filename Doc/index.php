@@ -48,7 +48,7 @@
 			<hr />
 
 			<h2>Development</h2>
-				<p>GalaxyNG is a open source project <a href="http://sourceforge.net/projects/galaxyng/">hosted on SourceForge.net</a>.  Assistance, comments, suggestions and chocolate chip cookies are always <a href="http://sourceforge.net/projects/galaxyng/">welcome</a>.</p>
+				<p>GalaxyNG is an open source project <a href="http://sourceforge.net/projects/galaxyng/">hosted on SourceForge.net</a>.  Assistance, comments, suggestions and chocolate chip cookies are always <a href="http://sourceforge.net/projects/galaxyng/">welcome</a>.</p>
 
  		<?php include 'footer.php'; ?>
  	</body>
