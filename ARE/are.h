@@ -2,6 +2,8 @@
 #define ARE_H_
 
 #include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
 #include <ctype.h>
 #include <string.h>
 #include <stdlib.h>
@@ -126,7 +128,7 @@ typedef struct _gameOpts {
 							   sign up */
 	int    maxplayers;		/* no more than this number can sign
 							   up */
-	float  galaxy_size;		/* size of the galaxy */
+	int    galaxy_size;		/* size of the galaxy */
 	float  nation_spacing;	/* how far apart nations must be */
 	int    pax_galactica;		/* number of turns of enforced peace */
 	float  initial_drive;		/* initial tech levels, must be at
@@ -171,6 +173,6 @@ int   getPlanetSizes(FILE *orders, char **planets, double totalPlanetSize,
 		     int maxNumberOfPlanets, double maxPlanetSize);
 char* getReturnAddress(FILE *orders);
 void  badPlanetMessage(char *planets);
-serverOpts* loadConfig(const char* gamename);
+serverOpts* loadAREConfig(const char* gamename);
 
 #endif

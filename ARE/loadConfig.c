@@ -6,6 +6,13 @@
 static void getTechElements(xmlNodePtr tech, gameOpts* go);
 static void getPlanets(xmlNodePtr planets, enum ELEMENT_VALS ev, gameOpts* go);
 static planetTemplate* instantiatePlanet(xmlNodePtr planet);
+static int validatePlanets(FILE* emfFP, gameOpts* go,
+						   planetSpec* ps, char* title);
+
+envelope* env;
+static char* errorMailFile;
+static FILE* emfFP;
+
 
 xmlXPathObjectPtr getNodeSet(xmlDocPtr doc, xmlChar* xpath) {
 	xmlXPathContextPtr context;
@@ -62,11 +69,19 @@ xmlDocPtr getDoc(char* filename) {
 	return doc;
 }
 
-serverOpts* loadConfig(const char* pathname) {
+serverOpts* loadAREConfig(const char* pathname) {
 	serverOpts* so = NULL;		/* the options structure */
 	char*       configName;		/* where the values are kept */
 	xmlDocPtr   doc;			/* root of the xml document */
 	char*       attr;			/* attribute pointer */
+
+	errorMailFile = createString("%s/log/are.%d", galaxynghome, getpid());
+	if ((emfFP = fopen(errorMailFile, "w")) == NULL) {
+		fprintf(stderr,
+				"**FATAL** cannot create \"%s\" for error email.\n",
+				errorMailFile);
+		return NULL;
+	}
 
 	configName = createString("%s/.arerc", pathname);
 
@@ -86,7 +101,7 @@ serverOpts* loadConfig(const char* pathname) {
 		enum ELEMENT_VALS ev;
 		
 		if ((server_node = getNodeSet(doc, (xmlChar*)"/are/server")) == NULL) {
-			fprintf(stderr, "Cannot find server element, exiting.\n");
+			fprintf(emfFP, "Cannot find server element, exiting.\n");
 			return NULL;
 		}
 		so = (serverOpts*)malloc(sizeof(serverOpts));
@@ -124,7 +139,7 @@ serverOpts* loadConfig(const char* pathname) {
 							break;
 
 						case UnknownElement:
-							fprintf(stderr, "Unrecognized element \"%s\", "
+							fprintf(emfFP, "Unrecognized element \"%s\", "
 									"exiting\n", nptr->name);
 							return NULL;
 							break;
@@ -150,13 +165,15 @@ serverOpts* loadConfig(const char* pathname) {
 		xmlNodePtr nptr;
 		enum ELEMENT_VALS ev;
 		xmlXPathObjectPtr game_nodes;
-		int errors = 0;
+		int errors;
+		planetSpec* ps;
 		
 		if ((game_nodes = getNodeSet(doc, (xmlChar*)"/are/game")) == NULL) {
-			fprintf(stderr, "No games defined.\n");
+			fprintf(emfFP, "**INFO** No games defined.\n");
 		}
 
 		for (i = 0; i < game_nodes->nodesetval->nodeNr; i++) {
+			errors = 0;
 			name =
 				xmlGetProp(game_nodes->nodesetval->nodeTab[i],
 						   (xmlChar*)"name");
@@ -214,7 +231,7 @@ serverOpts* loadConfig(const char* pathname) {
 								break;
 
 							case galaxysizeElement:
-								go->galaxy_size = atof(content);
+								go->galaxy_size = atoi(content);
 								break;
 
 							case nationspacingElement:
@@ -237,7 +254,7 @@ serverOpts* loadConfig(const char* pathname) {
 								break;
 								
 							case UnknownElement:
-								fprintf(stderr, "Unrecognized element \"%s\", "
+								fprintf(emfFP, "Unrecognized element \"%s\", "
 										"exiting\n", nptr->name);
 								return NULL;
 								break;
@@ -269,19 +286,114 @@ serverOpts* loadConfig(const char* pathname) {
 				int tmp = go->maxplayers;
 				go->maxplayers = go->minplayers;
 				go->minplayers = tmp;
+				fprintf(emfFP, "**INFO** %s: maxplayers less than "
+						"minplayers, switching\n", go->name);
 			}
 
 			if (go->minplayers <= 0 || go->maxplayers <= 0) {
-				fprintf(stderr, "you must specify a postive number of "
+				fprintf(emfFP, "*ERROR** you must specify a postive number of "
 						"players in game %s\n", go->name);
 				errors++;
 			}
 
+			if (go->galaxy_size <= 0) {
+				int gsize;
+				fprintf(emfFP, "**INFO** %s: incorrect value (%d) for galaxy "
+						"size, setting default galaxy size ",
+						go->name, go->galaxy_size);
+				/* ensure the galaxy size is a multiple of 10 */
+				gsize = (int) (42.0 * ceil(sqrt((double)(go->maxplayers+1))));
+				gsize /= 10;
+				gsize *= 10;
+				go->galaxy_size = gsize;
+				fprintf(emfFP, "(%d).\n", go->galaxy_size);
+			}
+
+			if (go->galaxy_size % 10) {
+				fprintf(emfFP, "**INFO** %s: galaxy must be a multiple of 10, "
+						"adjusting from %d to ", go->name, go->galaxy_size);
+				go->galaxy_size = (go->galaxy_size+5) / 10;
+				go->galaxy_size *= 10;
+				fprintf(emfFP, "%d.\n", go->galaxy_size);
+			}
 			
-			addList(&so->games, go);
+			if (go->nation_spacing <= 0.0) {
+				fprintf(emfFP, "**INFO** %s: incorrect value for nation "
+						"spacing (%.2f), setting to default nation spacing "
+						"(30.0)\n", go->name, go->nation_spacing);
+				go->nation_spacing = 30.0;
+			}
+
+			if (go->pax_galactica < 0) {
+				fprintf(emfFP, "**INFO** %s: incorrect value for Pax Galactica"
+						" (%d), resetting to 0\n", go->name,
+						go->pax_galactica);
+				go->pax_galactica = 0;
+			}
+
+			if (go->initial_drive < 1.0) {
+				fprintf(emfFP, "**INFO** %s: incorrect value for initial drive"
+						" (%.2f), resetting to 1.0\n",
+						go->name, go->initial_drive);
+				go->initial_drive = 1.0;
+			}
+			
+			if (go->initial_weapons < 1.0) {
+				fprintf(emfFP, "**INFO** %s: incorrect value for initial "
+						"weapons (%.2f), resetting to 1.0\n",
+						go->name, go->initial_weapons);
+				go->initial_weapons = 1.0;
+			}
+			
+			if (go->initial_shields < 1.0) {
+				fprintf(emfFP, "**INFO** %s: incorrect value for initial shields "
+						"(%.2f), resetting to 1.0\n",
+						go->name, go->initial_shields);
+				go->initial_shields = 1.0;
+			}
+			
+			if (go->initial_cargo < 1.0) {
+				fprintf(emfFP, "**INFO** %s: incorrect value for initial cargo "
+						"(%.2f), resetting to 1.0\n", go->name, go->initial_cargo);
+				go->initial_cargo = 1.0;
+			}
+
+			ps = &go->home;
+			errors += validatePlanets(emfFP, go, ps, "Home Worlds");
+			ps = &go->dev;
+			errors += validatePlanets(emfFP, go, ps, "Develop Worlds");
+			ps = &go->stuff;
+			errors += validatePlanets(emfFP, go, ps, "Stuff Worlds");
+			ps = &go->asteroid;
+			errors += validatePlanets(emfFP, go, ps, "Asteroids");
+		
+			if (errors) {
+				fprintf(emfFP, "There are errors in game %s, skipping.\n",
+						go->name);
+			}
+			else {
+				addList(&so->games, go);
+			}
+			
 			free(name);
 		}
 	}
+
+	if (ftell(emfFP)) {
+		game* aGame;
+		
+		fclose(emfFP);
+		
+		aGame->name = strdup("ARE Engine");
+		loadNGConfig(aGame);
+		env = createEnvelope();
+		
+		env->to = strdup(aGame->serverOptions.GMemail);
+		env->from = strdup(aGame->serverOptions.SERVERemail);
+		env->subject = createString("ARE Config Problems");
+		eMail(aGame, env, errorMailFile);
+		destroyEnvelope(env);
+	}				
 	xmlCleanupParser();
 	return so;
 }
@@ -299,29 +411,25 @@ static void getTechElements(xmlNodePtr tech, gameOpts* go) {
 				switch(ev) {
 					case driveElement:
 						go->initial_drive = atof(content);
-						if (go->initial_drive < 0.0 ||
-							(go->initial_drive > 0.0 && go->initial_drive < 1.0))
+						if (go->initial_drive < 1.0)
 							go->initial_drive = 1.0;
 						break;
 						
 					case weaponsElement:
 						go->initial_weapons = atof(content);
-						if (go->initial_weapons < 0.0 ||
-							(go->initial_weapons > 0.0 && go->initial_weapons < 1.0))
+						if (go->initial_weapons < 1.0)
 							go->initial_weapons = 1.0;
 						break;
 						
 					case shieldsElement:
 						go->initial_shields = atof(content);
-						if (go->initial_shields < 0.0 ||
-							(go->initial_shields > 0.0 && go->initial_shields < 1.0))
+						if (go->initial_shields < 1.0)
 							go->initial_shields = 1.0;
 						break;
 						
 					case cargoElement:
 						go->initial_cargo = atof(content);
-						if (go->initial_cargo < 0.0 ||
-							(go->initial_cargo > 0.0 && go->initial_cargo < 1.0))
+						if (go->initial_cargo < 1.0)
 							go->initial_cargo = 1.0;
 						break;
 						
@@ -521,6 +629,182 @@ static planetTemplate* instantiatePlanet(xmlNodePtr planet) {
 
 	return pt;
 }
+
+static int validatePlanets(FILE* fp, gameOpts* go,
+						   planetSpec* ps, char* title) {
+	planetTemplate* pt;
+	int errors = 0;
+	int total_count;
+	float total_size;
+	int   homeworlds = !noCaseStrcmp(title, "Home Worlds");
+	fprintf(stderr, "title: \"%s\"  homeworlds: %d\n", title, homeworlds);
+	if (ps->res_min > ps->res_max) {
+		float tmp = ps->res_min;
+		ps->res_min = ps->res_max;
+		ps->res_max = tmp;
+		fprintf(fp, "**INFO** %s: resources reversed, fixing.\n", title);
+	}
+
+	if (ps->res_max > 10.0) {
+		fprintf(fp, "**INFO** %s: maximum allowable resource is 10, "
+				"adjusting.\n", title);
+		ps->res_max = 10.0;
+	}
+
+	if (homeworlds) {
+		ps->res_min = 10.0;
+		ps->res_max = 10.0;
+	}
+	
+	if (ps->size_min > ps->size_max) {
+		float tmp = ps->size_min;
+		ps->size_min = ps->size_max;
+		ps->size_max = tmp;
+		fprintf(fp, "**INFO** %s: sizes reversed, fixing.\n", title);
+	}
+
+	if (ps->size_min == 0.0) {
+		if (homeworlds) {
+			fprintf(fp,
+					"**INFO** %s: HomeWorlds have a minimum size of 100.\n",
+					title);
+			ps->size_min = 100.0;
+		}
+	}
+	
+	if (ps->radius < 0.0) {
+		fprintf(fp, "**INFO** %s radius is negative, reversing the sign.\n",
+				title);
+		ps->radius = -1 * ps->radius;
+	}
+	
+	if (ps->radius > go->galaxy_size) {
+		fprintf(fp, "**INFO** %s radius (%.2f) is larger than galaxy size, "
+				"resetting to %.2f\n", title, ps->radius,
+				(float)go->galaxy_size);
+		ps->radius = (float)go->galaxy_size;
+	}
+
+	if (ps->count_min < 0) {
+		fprintf(fp, "**INFO** %s: planet minium count must be positive, "
+				"reversing.\n", title);
+		ps->count_min *= -1;
+	}
+
+	if (ps->count_max < 0) {
+		fprintf(fp, "**INFO** %s: planet maximum count must be positive, "
+				"reversing.\n", title);
+		ps->count_max *= -1;
+	}
+
+	if (ps->count_min > ps->count_max) {
+		int tmp = ps->count_max;
+		ps->count_max = ps->count_min;
+		ps->count_min = tmp;
+		fprintf(fp, "**INFO** %s: planet count reversed, fixing.\n", title);
+	}
+
+	if (ps->count_max > 0 && ps->radius == 0.0) {
+		fprintf(fp, "**ERROR** %s: radius must be > 0 if more than one planet "
+				"is expected.\n", title);
+		errors++;
+	}
+
+	total_count = 0;
+	total_size = 0.0;
+	
+	for(pt = ps->pt; pt != NULL; pt = pt->next) {
+		total_count++;
+		if (pt->size < 0.0) {
+			fprintf(fp, "**ERROR** planet %s has a negative size.\n",
+					pt->name);
+			errors++;
+		}
+		else 
+			total_size += pt->size;
+
+		if (pt->res < 0.0) {
+			fprintf(fp, "**ERROR** planet %s has a negative resource.\n",
+					pt->name);
+			errors++;
+		}
+
+		if (pt->res < ps->res_min || pt->res > ps->res_max) {
+			if (homeworlds) {
+				fprintf(fp, "**INFO** %s: setting resources to 10.0 for "
+						"planet %s\n", title, pt->name);
+				pt->res = 10.0;
+			}
+			else {
+				fprintf(fp, "**ERROR** %s: planet %s has an out of range "
+						"resource: range: %.2f to %.2f, value: %.2f\n",
+						title, pt->name, ps->res_min, ps->res_max, pt->res);
+				errors++;
+			}
+		}
+
+		if (pt->pop < 0) {
+			fprintf(fp, "**INFO** %s: population on %s is negative, "
+					"reversing sign.\n", title, pt->name);
+			pt->pop *= -1;
+		}
+		
+		if (pt->pop > pt->size) {
+			fprintf(fp, "**INFO** %s: population on %s is greater than size, "
+					"adjusting.\n", title, pt->name);
+			pt->pop = pt->size;
+		}
+
+		if (pt->ind < 0) {
+			fprintf(fp, "**INFO** %s: industry on %s is negative, "
+					"reversing sign.\n", title, pt->name);
+			pt->ind *= -1;
+		}
+		
+		if (pt->ind > pt->size) {
+			fprintf(fp, "**INFO** %s: industry on %s is greater than size, "
+					"adjusting.\n", title, pt->name);
+			pt->ind = pt->size;
+		}
+
+		if (pt->cap < 0) {
+			fprintf(fp, "**INFO** %s: CAP on %s is negative, reversing "
+					"sign.\n", title, pt->name);
+			pt->cap *= -1;
+		}
+
+		if (pt->col < 0) {
+			fprintf(fp, "**INFO** %s: COL on %s is negative, reversing "
+					"sign.\n", title, pt->name);
+			pt->col *= -1;
+		}
+
+		if (pt->mat < 0) {
+			fprintf(fp, "**INFO** %s: MAT on %s is negative, reversing "
+					"sign.\n", title, pt->name);
+			pt->mat *= -1;
+		}
+	}
+	
+	if (total_size > ps->size_total) {
+		fprintf(fp, "**ERROR** %s: you specified planets that add up to %.2f "
+				"in size, the maximum is %2.f\n", title, total_size,
+				ps->size_total);
+		errors++;
+	}
+
+	if (total_count > 0 && total_count != ps->count_max) {
+		fprintf(fp, "**ERROR** %s: you must specify %d default planets if you "
+				"specify any - you only specified %d\n", title, ps->count_max,
+				total_count);
+		errors++;
+	}
+	
+	return errors;
+}
+
+
+
 #if defined(LoadConfigMainNeeded)
 
 static void dump_planets(planetSpec* ps) {
@@ -561,7 +845,7 @@ static void dump_so(serverOpts* so) {
 			   go->sub_fail, go->replyto);
 		printf("    cc: \"%s\"\n    players: %d to %d\n",
 			   go->cc, go->minplayers, go->maxplayers);
-		printf("    galaxy size: %.2f\n    nation spacing: %.2f\n",
+		printf("    galaxy size: %d\n    nation spacing: %.2f\n",
 			   go->galaxy_size, go->nation_spacing);
 		printf("    Pax Galactica: %d\n    initial tech:\n",
 			   go->pax_galactica);
@@ -589,12 +873,26 @@ int
 main (int argc, char *argv[])
 {
 	serverOpts* so;
+	char* value;
+	
+	if ((value = getenv("GALAXYNGHOME"))) {
+		galaxynghome = strdup(value);
+	} else if ((value = getenv("HOME"))) {
+		sprintf(lineBuffer, "%s/Games", value);
+		galaxynghome = strdup(lineBuffer);
+	} else {
+		galaxynghome =
+			strdup("/please/set/your/HOME/or/GALAXYNGHOME/variable");
+	}
+	
 	if (argc == 1)
-		so = loadConfig ("/home/kenw/Games");
+		so = loadAREConfig ("/home/kenw/Games");
 	else
-		so = loadConfig(argv[1]);
+		so = loadAREConfig(argv[1]);
 
 	dump_so(so);
+
+	/*rewrite_rc(so);*/
 	
 	return EXIT_SUCCESS;
 }

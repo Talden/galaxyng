@@ -152,7 +152,7 @@ main(int argc, char *argv[])
   po = (playerOpts*)malloc(sizeof(playerOpts));
 
   /* load the configuration file */
-  so = loadConfig(galaxynghome);
+  so = loadAREConfig(galaxynghome);
 
   env = createEnvelope();
   returnAddress = getReturnAddress(stdin);
@@ -171,7 +171,7 @@ main(int argc, char *argv[])
       raceName = strdup(getstr(NULL));
       password = strdup(getstr(NULL));
 
-      if ((go = findElement(gameOpts, so->go, gameName)) == NULL) {
+      if ((go = findElement(gameOpts, so->games, gameName)) == NULL) {
 	/* return message about not finding game */
 	fprintf(stderr, "Could not find game \"%s\"\n", gameName);
 	exit(EXIT_FAILURE);

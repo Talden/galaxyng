@@ -24,6 +24,7 @@
          exactly that number can join -->
     <minplayers>5</minplayers>
     <maxplayers>5</maxplayers>
+	<galaxysize>123</galaxysize>
     <!-- this section specifies the homeworlds for each player. This
          is the one section the player can override (to some extent.)
          Aside from naming his planets they can set the size. There
@@ -44,6 +45,7 @@
          <min>3</min>
          <max>3</max>
        </count>
+       <radius>8</radius>
     </homeworlds>
     <!-- note that with nothing else defined there is a lot of default
          behaviour here. This is unlikely to happen in reality because
@@ -167,12 +169,6 @@
         <max>10.0</max>
         <avg>1.0</avg>
       </res>
-      <!-- here's an example of an incomplete planet
-           specification. its only purpose is to cache some CAP on a
-           planet for later discovery. -->
-      <planet seq="1">
-        <cap>350.0</cap>
-      </planet>
     </stuff>
     <!-- asteroids are virtually useless - you can't colonize them,
          you can't store anything on them, etc. Basically they are
@@ -191,6 +187,21 @@
         <min>0</min>
         <max>0</max>
       </res>
+      <!-- here's an example of an incomplete planet
+           specification. its only purpose is to cache some CAP on a
+           planet for later discovery. -->
+      <planet seq="1">
+        <cap>350.0</cap>
+      </planet>
+      <planet seq="2"></planet>
+	  <planet seq="3"></planet>
+      <planet seq="4"></planet>
+      <planet seq="5"></planet>
+      <planet seq="6"></planet>
+      <planet seq="7"></planet>
+      <planet seq="8"></planet>
+      <planet seq="9"></planet>
+      <planet seq="10"></planet>
     </asteroids>
     <!-- this sets global peace (the engine won't allow anyone to
          declare war) for the given number of turns -->

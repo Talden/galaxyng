@@ -4,7 +4,7 @@
 XMLINCLUDES = `xml2-config --cflags`
 XMLLIBS = `xml2-config --libs`
 
-CFLAGS = -Wall -pedantic -I../include $(XMLINCLUDES) $(ADDTL_CFLAGS)
+CFLAGS = -g -Wall -pedantic -I../include $(XMLINCLUDES) $(ADDTL_CFLAGS)
 LIBS = -lm -L../lib -lgalaxyng $(XMLLIBS) $(ADDTL_LIBS)
 CC = gcc
 
