@@ -134,9 +134,9 @@ if ($_SERVER['PHP_SELF'] == $self) {
 $self = trim($base) . "credits.php";
 if ($_SERVER['PHP_SELF'] == $self) {
 ?>
-	<span class="bold">[&nbsp;Credits&nbsp;]</span>
+	<span class="bold">[&nbsp;Credits&nbsp;and&nbsp;License&nbsp;]</span>
 <?php } else { ?>
-	[&nbsp;<a href="<?php include 'base_url.txt'; ?>credits.php">Credits</a>&nbsp;]
+	[&nbsp;<a href="<?php include 'base_url.txt'; ?>credits.php">Credits and License</a>&nbsp;]
 <?php } ?>
 
 </p>

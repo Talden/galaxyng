@@ -65,6 +65,12 @@ h1, h2, h3 {
   margin-top: 0.5em
 }
 
+.h1 {
+  font-size: 160%;
+  font-weight: bold;
+  margin: 0
+}
+
 h1 {
   font-size: 160%;
   margin-bottom: 0.5em

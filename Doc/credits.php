@@ -8,8 +8,8 @@
 
 	<head>
 		<link rel="stylesheet" href="main.css" />
-		<title>GalaxyNG Credits</title>
-		<?php $title="Credits"; ?>
+		<title>GalaxyNG Credits and License</title>
+		<?php $title="Credits and License"; ?>
 	</head>
 
 	<body>
