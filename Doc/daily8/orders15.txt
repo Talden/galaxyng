@@ -1,0 +1,43 @@
+#GALAXY Daily8 Farmers ready123
+L 16 CAP
+S 16 Hemp
+G 20
+G 15
+R Corn COL Hemp
+L 19 CAP
+S 19 Hemp
+G 38
+R Grapefruit COL Hemp
+G 4
+G 7
+R Rye COL Hemp
+G 3
+R Grape COL Watermelon
+G 21
+R Peas COL Hemp
+S 10 Corn 10
+S 10 Grapefruit 9
+S 10 Rye 5
+S 10 Carrots 3
+S 10 Grape 3
+S 10 Peas 3
+S 35 Wheat 3
+S 34 Corn
+S 35 Corn
+S 31 Corn
+S 30 Corn
+S 10 Corn
+S 13 Corn
+S 14 Corn
+G 26
+R Carrots COL Hemp
+G 29
+R Wheat COL Hemp
+@ Vegetaborg
+Same old, same old over here.
+
+Seen any battles yet?
+
+Farmer
+@
+#END

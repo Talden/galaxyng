@@ -1,0 +1,976 @@
+
+Bulletins for Galaxy Game Daily8 Turn 27
+
+Daily8 Top 15 of turn 27 which ran on 18:00:02 Mon Mar 10 2003
+
+ # lt  Nation        Pop   dlt    Ind   dlt   eInd   dlt  tech  dlt   #  dlt
+ 1   0 Farmers     11725   591   9245   578   9865   581 11.11 0.45  65   6
+ 2   0 SiliconFun  10766  1039   8341   867   8947   910 13.35 0.69  38   0
+ 3   0 Nation_15   10286   563   7950   912   8534   825  9.76 0.89  33   2
+ 4   0 Outvaders    7389    39   5822   383   6214   297  9.00 0.16  30  13
+ 5   1 Valdorians   7812   266   4396   111   5250   150  6.16 0.00  35   1
+ 6   1 Nation_14    6223   596   4158   465   4674   498  7.44 0.53  23   1
+ 7  -2 Santa_s      3974 -2767   2433 -2506   2818 -2571  8.11 0.01  12 -13
+ 8   0 Tarmangani   2467    11   1890    15   2034    14  7.64 0.12   8   0
+ 9   2 Vegetaborg   2124    10    953     2   1246     4  7.56 0.00   6   0
+10   0 Nation_2      776 -1270    176  -870    326  -970  6.49 0.00   3  -2
+11  -2 NULLoids       26 -1449      4 -1449     10 -1449 10.95 0.00   3  -2
+12   0 Nation_1        0     0      0     0      0     0  5.03 0.00   0   0
+13   0 Nation_3        0     0      0     0      0     0  5.53 0.00   0   0
+14   0 Nation_10       0     0      0     0      0     0  4.32 0.00   0   0
+15   0 Nation_11       0     0      0     0      0     0  4.32 0.00   0   0
+
+***********************************************************************
+  o     o    +   .  +    o       +      +  o       o           o
+    o      -   ______ o    __        +   -  + _   ________   o    +  o
+ o  .         / ____/___ _/ /___ __  ____  __/ | / / ____/         +
+      .*  -  / / __/ __ `/ / __ `/ |/_/ / / /  |/ / / __      +
+   *        / /_/ / /_/ / / /_/ />  </ /_/ / /|  / /_/ / o    -    -
+    .  o    \____/\__,_/_/\__,_/_/|_|\__, /_/ |_/\____/ .    -  o     o
+     *           . +        o       /____/   +   +          -
+ o         o          +       -                    o         -     o
+   .  -        http://www.badcheese.com/~steve/pbm.shtml       +
+***********************************************************************
+
+-*- SENDING ORDERS -*-
+
+Orders should be send to:   steve@badcheese.com
+with a subject line of:     "order" or "orders"
+All orders should start with:
+  #GALAXY <game name> <your nation name> <your password>
+and end with:
+  #END
+
+The game name is case sensitive, so use Jangi and not jangi.  Please
+send in orders in time. Even empty orders will do.  If you miss 2
+turns in a row during the first 12 turns your nation self destructs,
+and that is not a pretty sight.  After turn 12 you can miss 5 turns in
+a row before your nation self-destructs.  If you fail to send in your
+turn0 or turn1 orders, your nation will be reset.  NOTE: It's better
+to send in blank orders, than no orders at all - especially in the
+beginning turns of the game.  The beginning orders are really easy
+anyway, so there's no reason for people to be kicked out of the game
+for any reason other than they weren't serious about playing the game
+in the first place.
+
+You can send in advance orders by adding the turn number to subject
+line. For instance, to send in orders for turn 55, use a subject line
+of "orders 55".  Advance orders are not checked, you only get a
+confirmation that they were stored on disk. Also do _NOT_ change
+your password or your nation name right before sending in advanced orders.
+The engine will then not accept the orders once the advance turn is
+run unless you remember to use your new password in the advance orders
+too.
+
+You can send in orders as many times as you please. The last set of
+valid orders is used when the turn is run.  You should get an almost
+immediate reply to your email. The message contains a report on any
+mistakes you made in your orders and a short forecast about your
+situation in the next turn.  Not everything will be reflected in the
+forecast of course - things like battles and the other players'
+decisions will affect your final turn report when the turns are run.
+
+PLEASE SEND ORDERS AND RELAYS IN PLAINTEXT ONLY!!!  NO HTML!!!
+Instructions for turning off HTML in most mail clients are here:
+http://www.expita.com/nomime.html
+
+-*- GETTING A COPY OF A TURN REPORT -*-
+
+You can get a copy of any of the previous turn reports by sending a
+set of orders that contains just one line:
+  #GALAXY <game name> <your nation name> <your password>
+to steve@badcheese.com with a Subject line of "report <turn#>"
+Use the nation name and password of the last turn, not the
+name and password you had at the turn you request.
+
+-*- ANONYMOUS IN-GAME EMAIL -*-
+
+You can send a anonymous email to another nation by sending a
+message with the following format
+  #GALAXY <game name> <your nation name> <your password>
+  <text of your message>
+  .
+  .
+to steve@badcheese.com with as Subject: relay <destination nation name>
+If you get a message like this you can just hit the reply button
+and write and send the reply. For your convenience the
+#GALAXY... line is included in the message, you probably have
+to remove the "> " your mail program added in front of it.
+Be careful with signatures if you want to stay anonymous.
+
+-*- TIME AND DUE DATES FOR ORDERS -*-
+
+Most turns get run at midnight "Mountain" time or "Colorado" time
+(That's GMT-7 or GMT-6 depending on the "Daylight time") except the
+"Daily" games which are run at 6pm every day.  For turn frequency
+and the official galaxy engine clock, please visit the web page (below).
+
+-*- OTHER INFORMATION -*-
+
+Game Stats:                     http://badcheese.com/~steve/pbm.shtml
+For information about GalaxyNG:       http://galaxyng.sourceforge.net
+The manual is at:    http://galaxyng.sourceforge.net/ManGalaxyNG.html
+
+-*- BUGS and Other Problems -*-
+
+Send bug reports about the server to steve@badcheese.com.
+Send bug reports about the game engine to fslothouber@acm.org.
+
+For all "how do I ..." questions, see the documentation or send them
+to the mailinglist: galaxy@badcheese.com.
+
+-*- ENDING A GAME -*-
+
+To end a game I need an email from all remaining players, saying they
+agree to end the game.  The result will be entered into the Hall of
+Fame and Shame, and an announcement will be made on galaxy@badcheese.com
+mailing list.
+
+    ____        _ __      ____ 
+   / __ \____ _(_) /_  __( __ )
+  / / / / __ `/ / / / / / __  |
+ / /_/ / /_/ / / / /_/ / /_/ / 
+/_____/\__,_/_/_/\__, /\____/  
+                /____/         
+See http://badcheese.com/~steve/index.php?page_title=Galaxy for
+game runtimes and frequency.
+
+
+		Production Status
+Sofar you have:
+  produced a total shipmass of 3141.38
+  lost a total shipmass of     872.13
+
+
+		Real Name
+  Your real name is Chris_Shaffer.
+
+
+End of the Bulletins
+
+	GalaxyNG release-5-0g, March 2001.
+
+		Galaxy Game Daily8 Turn 27 Report for Farmers
+
+
+		Your Options
+
+N                 S  
+Anonymous        ON  
+AutoUnload       ON  
+ProdTable        ON  
+SortGroups       ON  
+GroupForeCast    ON  
+PlanetForeCast   ON  
+ShipTypeForecast ON  
+RoutesForecast   ON  
+Compress         OFF 
+Gplus            OFF 
+MachineReport    OFF 
+BattleProtocol   ON  
+XMLReport        OFF 
+
+ORDERS RECEIVED
+
+> L 73 COL 
+> S 73 Aster ; ETA 3 turns 
+> L 74 COL 
+> S 74 Aster ; ETA 3 turns 
+> L 2 COL 
+> S 2 191 ; ETA 2 turns 
+> L 8 COL 
+> S 8 191 ; ETA 2 turns 
+> L 26 COL 3 
+> S MAX 191 ; ETA 2 turns 
+> L 69 COL 6 
+> S MAX 191 ; ETA 2 turns 
+> L 69 COL 1 
+> S MAX 191 ; ETA 2 turns 
+> L 112 COL 
+> S 112 191 ; ETA 2 turns 
+> L 115 COL 
+> S 115 191 ; ETA 2 turns 
+> L 118 COL 
+> S 118 191 ; ETA 2 turns 
+> L 45 COL 
+> S 45 Daisy ; ETA 2 turns 
+> L 98 COL 
+> S 98 Daisy ; ETA 2 turns 
+> L 10 COL 
+> S 10 181 ; ETA 2 turns 
+> L 11 COL 
+> S 11 181 ; ETA 2 turns 
+> L 77 COL 
+> S 77 181 ; ETA 2 turns 
+> L 80 COL 
+> S 80 181 ; ETA 2 turns 
+> L 50 COL 
+> S 50 Daylilly ; ETA 2 turns 
+> L 84 COL 
+> S 84 Daylilly ; ETA 2 turns 
+> L 95 COL 
+> S 95 Daylilly ; ETA 2 turns 
+> L 47 COL 
+> S 47 Corn 
+> L 56 COL 
+> S 161 68 
+> S 56 191 
+> L 26 COL 1 
+> S MAX 191 ; ETA 2 turns 
+> L 53 COL 1 
+> S MAX 191 ; ETA 2 turns 
+> S 26 Peach 5 
+> S 26 Marigolds 
+> S 27 Marigolds 1 
+> S 27 Lima_Bean 
+> S 53 Lima_Bean 4 
+> S 53 Grape 3 
+> S 53 Rye 
+> S 58 Cabbage 2 
+> S 68 Apple 
+> S 69 Cherry 1 
+> S 69 Corn 12 
+> S 69 Peas 5 
+> S 69 Carrots 
+> S 49 Corn 
+> S 14 Watermelon ; ETA 2 turns 
+> S 38 Watermelon ; ETA 2 turns 
+> S 58 Watermelon 4 ; ETA 2 turns 
+> S 58 Carrots 1 ; ETA 2 turns 
+> S 58 Wheat 4 ; ETA 2 turns 
+> S 58 Hemp ; ETA 2 turns 
+> S 59 Hemp 13 ; ETA 2 turns 
+> S 59 Grapefruit ; ETA 2 turns 
+> S 60 Flax ; ETA 2 turns 
+> S 61 Flax ; ETA 2 turns 
+> S 82 Flax ; ETA 2 turns 
+> S 86 Flax ; ETA 2 turns 
+> S 87 Flax 3 ; ETA 2 turns 
+> S 87 Corn ; ETA 2 turns 
+> P Corn Scarecrow0 
+> P Flax SHIELDS 
+> P Rye Seed 
+> P Carnation Flak1 
+> P Orchid Flak1 
+> P Dogwood Seed 
+> P Violet SHIELDS 
+> P Hemp Flak1 
+> S 89 Corn ; ETA 2 turns 
+> S 90 Corn ; ETA 2 turns 
+> S 92 Corn ; ETA 2 turns 
+> S 94 Corn ; ETA 2 turns 
+> S 103 Corn ; ETA 2 turns 
+> S 106 Corn ; ETA 2 turns 
+> S 108 Corn ; ETA 2 turns 
+> S 117 Corn ; ETA 2 turns 
+> S 122 Corn ; ETA 2 turns 
+> S 124 Corn ; ETA 2 turns 
+> S 127 Corn ; ETA 2 turns 
+> S 137 Corn ; ETA 2 turns 
+> S 139 Corn ; ETA 2 turns 
+> S 131 Dogwood 
+> S 129 Orchid 
+> S 128 Foxglove 
+> S 130 Aster 
+> S 132 Violet 9 
+> S 132 Aster 30 
+> G 132 
+> G 99 
+> G 100 
+> G 101 
+> G 114 
+> G 111 
+> G 97 
+> G 83 
+> G 79 
+> G 76 
+> G 71 
+> G 67 
+> G 52 
+> G 43 
+> G 25 
+> G 24 
+> G 42 
+> G 51 
+> G 66 
+> G 72 
+> G 75 
+> G 78 
+> G 96 
+> G 110 
+> G 113 
+> S 54 Aster 1 
+> S 54 Daffodil 1 
+> N 179 Ivy 
+> N 181 Quinoa 
+> N 190 Soy 
+> N 191 Bluegrass 
+> N 192 St_Augustine_Grass 
+> N 203 Monkey_Grass 
+> N 237 Cattail 
+> N 279 Poison_Ivy 
+> N 281 Moss 
+> N 285 Shitake_Mushroom 
+> N 292 Magnolia 
+> N 306 Poison_Oak 
+> N 307 Grain 
+> N 61 Hops 
+
+MISTAKES
+
+G 51 
+Planet has no remaining industry.
+
+		Status of Players
+
+N              D    W    S    C      P       I     #  R  
+Nation_1     1.00 2.03 1.00 1.00     0.00    0.00  0 War 
+Nation_2     3.08 1.29 1.12 1.00   776.29  176.17  3 War 
+Nation_3     2.53 1.00 1.00 1.00     0.00    0.00  0 War 
+Valdorians   2.79 1.36 1.00 1.00  7812.09 4396.17 35 War 
+SiliconFungi 6.18 3.28 2.88 1.00 10765.95 8340.82 38 War 
+Santa_s      5.11 1.00 1.00 1.00  3973.82 2433.00 12 War 
+NULLoids     5.60 1.83 2.28 1.24    25.74    4.27  3 War 
+Tarmangani   2.92 2.72 1.00 1.00  2466.76 1889.51  8 War 
+Farmers      4.60 2.39 3.13 1.00 11725.34 9245.09 65 -   
+Nation_10    1.32 1.00 1.00 1.00     0.00    0.00  0 War 
+Nation_11    1.32 1.00 1.00 1.00     0.00    0.00  0 War 
+Vegetaborg   2.91 2.65 1.00 1.00  2124.25  953.27  6 War 
+Outvaders    3.63 1.45 2.61 1.31  7389.12 5821.67 30 War 
+Nation_14    3.01 1.94 1.50 1.00  6222.51 4158.33 23 War 
+Nation_15    4.00 2.76 2.00 1.00 10286.18 7949.94 33 War 
+
+		Your Ship Types
+
+N            D    A   W     S     C    Mass Speed  Def  
+Cargo0      1.02  0  0.00  0.00  1.00  2.02 10.10  0.00 
+Cargo1      1.03  0  0.00  0.00  1.00  2.03 10.15  0.00 
+Cargo2      1.06  0  0.00  0.00  1.00  2.06 10.29  0.00 
+Cargo3     69.98  0  0.00  0.00 29.02 99.00 14.14  0.00 
+Rake0      33.00 29  2.00 35.00  1.00 99.00  6.67 23.51 
+Axe0       33.00  3 15.00 35.00  1.00 99.00  6.67 23.51 
+Flak0       1.00  0  0.00  2.00  0.00  3.00  6.67  4.31 
+Scarecrow0  1.00  1  5.00  3.00  0.00  9.00  2.22  4.48 
+Seed        1.00  0  0.00  0.00  0.00  1.00 20.00  0.00 
+Rake1      28.88 40  2.00 15.75  1.00 86.63  6.67 11.06 
+Axe1       27.84  1 35.00 19.66  1.00 83.50  6.67 13.98 
+Axe3        8.92  1 10.00  7.83  0.00 26.75  6.67  8.14 
+Rake2      43.32 25  2.00 16.31  1.00 86.63 10.00 11.45 
+Axe2       41.75  3 12.00 16.75  1.00 83.50 10.00 11.91 
+Flak1       1.00  0  0.00  1.00  0.00  2.00 10.00  2.47 
+Scarecrow1  8.91  1  3.00  5.91  0.00 17.82 10.00  7.03 
+Scarecrow3  2.00  1  4.00  4.70  0.00 10.70  3.74  6.63 
+
+		Nation_2 Ship Types
+
+N       D  A   W    S    C  Mass Speed  Def 
+scout 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+		Nation_3 Ship Types
+
+N   D  A   W    S    C  Mass Speed  Def 
+p 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+		Nation_15 Ship Types
+
+N       D  A   W    S    C  Mass Speed  Def 
+Probe 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+50.00,0.00  200.00,0.00
+--------------------------------------------------------------------------------
+                                                                         o      
+                                                                                
+                                                                                
+                                   *                     *                      
+                                                                                
+               **   *                    *                                   o  
+      .     *                  *                                                
+   .          .  * *                                                        o   
+      . .   .  .*** *               *                                    o      
+   ...    .   ... ** .                                                          
+  .. . ..   *           .*     . .       *            *    .                    
+    ...                       .    .                        o         o         
+. .                      . .      .        *                           o   o o 
+   .           *                        *        * *                            
+                                           *   *                                
+        *                        *            * *   * *                      o  
+ *                    *                                 .o                      
+                                                   **                           
+                        *                                            o          
+                                             o                                  
+                                            o                                   
+                                                                                
+                                         -                          +           
+                            +                         +         +   +   +       
+                         +                                        -  -- --      
+o                                      +  - +                    - ++  - +      
+                                 + ++                        -   - ++ --        
+                           +     + ++                            ---+           
+                         -  +  ++   +                          +-++-        o   
+    ++           -                                           -     +            
+      ++                     +      +                       -                   
+       ++++                                               - -                   
+          +                +                             -                      
+        + +  +                                         --                       
+                                                       -          +             
+             o                                     +  +                         
+o                           +                                                   
+                                                 ++                             
+        +     o                 +                  ++                           
+                                                  +  +                          
+--------------------------------------------------------------------------------
+50.00,150.00  200.00,150.00
+
+		Your Planets
+
+N                     X     Y      S       P       I      R        P        $     M    C      L    
+Peach               74.16 23.86  464.15  464.15  458.13  1.65 CAP          0.00 0.00  6.48  459.63 
+Daisy              133.09 46.93  831.34  238.61  104.64  7.50 CAP          0.00 0.00  0.00  138.13 
+Marigolds           79.58 51.29   99.82   99.82   21.06  0.59 CAP          0.00 0.00  2.43   40.75 
+Lima_Bean           79.61 19.20  501.30  501.30  144.69  1.31 CAP          0.00 0.00  5.71  233.85 
+Apricot            127.00 22.18  140.49   10.26    0.80  0.94 CAP          0.00 0.00  0.00    3.17 
+Aster              139.56 55.38 1000.00  452.97  418.52 10.00 CAP          0.00 0.00  0.00  427.13 
+Foxglove           139.57 53.70  250.00  111.43  111.43 10.00 CAP          6.44 0.00  0.00  111.43 
+Dogwood            141.08 57.58  350.00  110.22  110.22 10.00 Seed        12.96 0.00  0.00  110.22 
+Grape               81.48 34.47  303.52  303.52  303.52  4.19 Weapons      0.00 1.82  3.04  303.52 
+Carnation          148.65 56.43  980.09  308.66  308.66  1.14 Flak1       77.23 0.00  0.00  308.66 
+Daylilly           112.28 58.97  136.54   71.86    0.85  1.42 CAP          0.00 0.00  0.00   18.61 
+Hops                27.06 51.81  986.42    9.50    0.42  3.40 CAP          0.00 0.00  0.00    2.69 
+Dewberry            96.86 67.90   86.44   36.34    2.87  0.68 CAP          0.00 0.00  0.00   11.24 
+Blueberry          108.51 23.91   23.52   21.90    3.23  0.63 CAP          0.00 0.00  0.00    7.89 
+Lime               116.81 13.85   69.25   12.02    0.98  1.25 CAP          0.00 0.00  0.00    3.74 
+94                 152.87 38.54   63.84    8.80    0.00  1.82 CAP          0.00 0.00  0.00    2.20 
+Rye                 84.67 31.11  554.10  554.10  554.10  2.81 Seed         0.00 0.00  5.70  554.10 
+Apple               81.17 19.55  720.05  720.05  611.39  1.62 CAP          0.00 0.00  7.20  638.55 
+Orange              78.38 36.80   19.12   19.12   19.12  1.34 Seed         0.00 0.00  0.19   19.12 
+Brussel_Sprouts     48.12 37.33    4.86    4.86    0.39  0.63 CAP          0.00 0.00  0.05    1.51 
+Artichoke           39.62 38.05  790.23  640.72   25.91  0.43 CAP          0.00 0.00  0.00  179.61 
+Tangerine           66.51 59.31   94.58   94.58    9.16  1.14 CAP          0.00 0.00  1.02   30.52 
+Semolina           118.28 31.65   33.03   10.26    0.83  1.14 CAP          0.00 0.00  0.00    3.19 
+121                  8.26 79.08   95.65    7.53    0.00  0.91 CAP          0.00 0.00  0.00    1.88 
+Tulip              148.52 63.80  596.33  219.05   67.18  2.59 CAP          0.00 0.00  0.00  105.15 
+Cherry              88.97 19.34   66.77   66.77   15.79  0.67 CAP          0.00 0.00  2.10   28.54 
+Watermelon          85.89 33.94  751.21  751.21  751.21  0.43 Cargo1       0.00 0.00  7.51  751.21 
+Pinto_Bean          91.78 61.01   20.43   20.43    1.89  0.57 CAP          0.00 0.00  0.12    6.52 
+151                 28.02 61.22  342.11    8.80    0.00  2.70 CAP          0.00 0.00  0.00    2.20 
+152                 22.26 57.01  756.69    8.80    0.00  0.55 CAP          0.00 0.00  0.00    2.20 
+Corn                83.89 31.50 1000.00 1000.00 1000.00 10.00 Scarecrow0 243.37 0.00 14.30 1000.00 
+Peas                81.62 32.10  250.00  250.00  250.00 10.00 Weapons      0.00 0.87  5.90  250.00 
+Carrots             82.50 30.07  350.00  350.00  350.00 10.00 Weapons      0.00 0.84  7.60  350.00 
+Ivy                 25.53 50.93   76.71    9.50    0.39  1.40 CAP          0.00 0.00  0.00    2.66 
+Wheat               83.47 26.67  271.86  271.86  271.86  7.99 Shields      0.00 1.00  5.96  271.86 
+Quinoa              33.28 38.29  233.52    9.50    0.41  3.15 CAP          0.00 0.00  0.00    2.69 
+Soy                 33.70 51.10 1000.00  110.14    5.00 10.00 CAP          0.00 0.00  0.00   31.28 
+Bluegrass           35.41 53.44  250.00    8.27    0.36 10.00 CAP          0.00 0.00  0.00    2.34 
+St_Augustine_Grass  32.00 50.90  350.00    9.50    0.43 10.00 CAP          0.00 0.00  0.00    2.70 
+Hemp                88.28 30.07  906.68  906.68  906.68  2.15 Flak1        0.00 0.00 18.93  906.68 
+196                 25.02 63.01  794.37    8.80    0.00  0.47 CAP          0.00 0.00  0.00    2.20 
+Rose               147.06 67.23  844.08   74.32   21.57  1.28 CAP          0.00 0.00  0.00   34.76 
+Monkey_Grass        26.21 43.14  863.40    9.50    0.37  1.12 CAP          0.00 0.00  0.00    2.66 
+Oak                126.89 40.48    5.89    5.89    0.52  1.00 CAP          0.00 0.00  0.12    1.86 
+Rhubarb            126.12 50.61  160.38   93.53   10.73  0.84 CAP          0.00 0.00  0.00   31.43 
+Pine                52.34 62.00   30.10   24.03    1.24  0.69 CAP          0.00 0.00  0.00    6.94 
+Dandylion          151.56 59.68  758.72  258.06  198.70  5.80 CAP          0.00 0.00  0.00  213.54 
+Grapefruit          84.58 36.01  851.16  851.16  851.16  5.17 Shields      0.00 0.01 17.26  851.16 
+Flax                86.81 27.36  678.83  678.83  678.83  0.72 Shields      6.02 0.00 13.77  678.83 
+Cattail             31.00 49.37  705.92    9.50    0.35  0.83 CAP          0.00 0.00  0.00    2.64 
+Cabbage             74.21 38.43  127.40  127.40   31.64  1.40 CAP          0.00 0.00  2.72   55.58 
+Broccoli            98.14 41.12   38.27   38.27   14.71  1.75 CAP          0.00 0.00  0.41   20.60 
+271                158.05 14.46  118.77    8.80    0.00  1.49 CAP          0.00 0.00  0.00    2.20 
+Poison_Ivy          31.18 10.52   46.96    9.50    0.38  1.32 CAP          0.00 0.00  0.00    2.66 
+Moss                27.27 48.19  840.39    9.50    0.32  0.51 CAP          0.00 0.00  0.00    2.61 
+Daffodil           146.36 51.85  116.24   12.92   12.92  0.93 CAP          5.77 0.00  0.00   12.92 
+Shitake_Mushroom    29.95 55.36  673.13    9.50    0.36  0.95 CAP          0.00 0.00  0.00    2.65 
+Magnolia           137.59 56.26  465.77  135.82  135.82  5.75 CAP          3.15 0.00  0.00  135.82 
+Lily               131.22 55.32  416.54  153.01  153.01  3.85 CAP          3.93 0.00  0.00  153.01 
+Bluebonnet         142.81 50.13  501.94  170.72  105.02  0.43 CAP          0.00 0.00  0.00  121.44 
+Violet             139.37 56.23  201.13   45.20   45.20  1.39 Shields     36.21 0.00  0.00   45.20 
+Poison_Oak          30.64 11.80   96.94    9.50    0.38  1.20 CAP          0.00 0.00  0.00    2.66 
+Grain               27.66 33.84  138.67    9.50    0.33  0.58 CAP          0.00 0.00  0.00    2.62 
+Nasturtium         112.07 56.67   86.73   10.26    0.73  0.63 CAP          0.00 0.00  0.00    3.12 
+Orchid             139.33 55.31  404.80  148.70  148.70  3.31 Flak1       56.85 0.00  0.00  148.70 
+
+		Ships In Production
+
+N               P       N     U   
+Dogwood    Seed       10.10  2.07 
+Carnation  Flak1      21.75  4.40 
+Rye        Seed       10.36  6.68 
+Orange     Seed       10.75  4.53 
+Watermelon Cargo1     25.02 21.52 
+Corn       Scarecrow0 90.90 87.30 
+Hemp       Flak1      20.93 19.48 
+Orchid     Flak1      20.60 14.67 
+
+		Unidentified Planets
+
+N            X      Y   
+1         145.53 141.86 
+2         145.70 144.83 
+3         147.85 143.21 
+6          91.88 222.99 
+7          80.39 225.80 
+9          58.75 214.28 
+12        172.14 106.54 
+15         79.33 165.86 
+16         89.27 176.56 
+TolHoneth 212.75  51.11 
+22         67.28 118.70 
+23         69.24 120.76 
+24         68.78 119.17 
+NULL25    230.03 108.78 
+NULL26    225.12 118.50 
+28        140.61 217.90 
+29         87.01 171.76 
+30        122.60 221.76 
+32        145.24 146.32 
+34         97.24  92.31 
+35         59.80 110.01 
+37        227.09  71.09 
+38        173.88 130.73 
+39         78.05 163.33 
+40         92.57 163.36 
+42        218.26 174.91 
+46         90.88 231.49 
+47        104.39 113.93 
+48        236.95 156.32 
+49         89.54 169.42 
+NULL50    227.25 102.74 
+Hectate    34.85 195.99 
+NULL55    226.03 123.75 
+56        111.55 163.15 
+Eurus      43.32 209.83 
+60         54.56 227.32 
+62        116.24 200.05 
+63        142.60 140.10 
+Mors       39.40 183.97 
+Morpheus   40.75 182.18 
+Hercules   39.73 185.55 
+67        111.42 220.81 
+70         79.32 226.80 
+71        118.71 114.60 
+Boreas     25.40 186.96 
+73        128.73 205.75 
+NULL74    235.03 114.24 
+76         70.45 126.67 
+77         65.46 144.63 
+78         70.70 233.22 
+80        141.26 203.61 
+Hebe       42.70 199.41 
+84        107.77 162.37 
+85        204.63 178.88 
+86        203.59 178.68 
+87        204.80 179.88 
+88        222.13  79.56 
+89        206.40 186.35 
+90         87.72 160.58 
+93        130.25 206.47 
+NULL96    235.82 113.04 
+98        119.36  98.23 
+Emba      210.36  56.51 
+101       111.12 198.89 
+103       145.15 141.84 
+106       129.70 207.66 
+107       127.86 209.29 
+109       217.68 181.18 
+112       207.73 175.60 
+NULL113   224.76 114.03 
+115        65.17 126.94 
+116       213.43 181.13 
+117       143.50 216.76 
+118       130.10 205.89 
+120        79.15 223.95 
+122        77.28 225.43 
+Hespera    44.96 181.64 
+125        63.05 114.93 
+126       150.25 146.72 
+NULL127   233.44 114.14 
+NULL128   233.41 117.07 
+NULL129   235.54 115.15 
+Iris       54.22 196.99 
+132       177.28 108.93 
+134       100.78 103.86 
+135        66.30 116.52 
+137        78.49 226.15 
+139       211.48 208.48 
+141       113.25  99.96 
+142       177.67  89.94 
+143       187.78  96.71 
+144       124.86  97.03 
+Zephir     29.96 218.01 
+147        17.39 207.84 
+Cherek    207.33  49.86 
+Drenai    208.09  49.05 
+Drasnia   208.08  52.04 
+153       111.35 143.91 
+158        73.37 232.40 
+Nemesis    41.91 192.78 
+160        86.07 163.92 
+161       185.09  87.66 
+163       151.49  89.11 
+Aether     65.98 190.32 
+166       207.89  55.73 
+168        69.15 205.29 
+173       153.04 133.08 
+174       201.57 231.93 
+175       189.97 195.66 
+Nike       48.25 179.91 
+177       148.57 223.20 
+178       128.98 206.46 
+184       129.98 207.65 
+185       174.60 107.54 
+186       206.14 182.25 
+189        80.06 227.87 
+198        90.97 154.45 
+199       221.05 173.89 
+200        74.40 123.90 
+201       227.23  43.57 
+202       192.91 197.28 
+NULL204   236.77 111.70 
+205       112.08 101.97 
+208       108.76 108.37 
+209        94.79 237.62 
+211         5.02 106.89 
+216       200.22 190.83 
+217       222.83 216.53 
+218       129.24 206.87 
+219       145.20 140.47 
+220       208.12 176.74 
+221       112.93 151.67 
+226        61.42 231.25 
+227       113.00 104.97 
+228       178.62  84.69 
+229       171.36  86.61 
+230       163.01 157.63 
+231       205.59 187.10 
+232        93.43 165.20 
+233        94.24 163.24 
+234        94.36 164.05 
+235        64.17 112.66 
+Hygeia     28.39 189.02 
+Ekstra    203.57  42.28 
+241       103.37 106.69 
+Hypnos     42.04 191.63 
+Erinyes    44.26 182.88 
+246       119.05 106.24 
+248         6.59 188.29 
+249       132.96  94.39 
+250       111.36 106.21 
+253       177.04  96.38 
+254       177.55  97.64 
+255       178.72  95.48 
+256       206.30 177.54 
+258       204.77  80.48 
+NULL260   222.53 117.44 
+261       178.33 162.43 
+262       176.69 100.92 
+Eris       43.74 170.96 
+266        58.71 111.59 
+268       209.49 178.66 
+270       101.05 122.39 
+273        11.16 206.24 
+274        79.61 226.61 
+275        78.93 225.61 
+276        80.91 224.80 
+277       178.79 104.90 
+Eos        45.16 188.54 
+280       131.10 152.24 
+282       136.86 151.28 
+284       103.80  89.06 
+287        85.24 166.69 
+288       146.96 132.07 
+289        13.83 181.34 
+N         238.88 118.47 
+291        78.95 227.32 
+Notus      45.98 157.34 
+294       101.78 168.68 
+295       116.04 101.14 
+296       117.47 102.44 
+297       117.53 102.85 
+298        67.34 118.95 
+299       144.18 140.23 
+300       103.47 135.52 
+303        64.97 119.29 
+304        26.10 150.63 
+309       147.20 142.81 
+NULL312   234.49 125.12 
+314       156.26 226.14 
+315       168.35 105.30 
+
+		Uninhabited Planets
+
+N      X      Y      S     R    $    M  
+10   35.63  86.87  59.89 0.57 0.00 0.00 
+11   11.52 111.02                       
+13  208.47  64.46                       
+14  194.38  20.04                       
+17  177.32 101.70                       
+19  163.97  41.69  61.14 1.73 0.00 0.00 
+20  192.69 107.48                       
+27  211.65  41.40                       
+31    7.81 103.75                       
+36   14.30 107.37                       
+41    9.77 143.99                       
+54  196.89  45.09                       
+59   48.34  95.44  57.77 1.44 0.00 0.00 
+68    4.16 116.78 456.46 1.03 0.00 0.00 
+69   24.52 225.70                       
+75    6.22 229.67                       
+81  219.68  56.20                       
+92  205.42  59.61                       
+97  211.74  19.41                       
+99  210.89  57.28                       
+102  33.14 232.21                       
+108 131.93 209.00                       
+138 181.08  70.87                       
+140 192.93  46.98                       
+146 132.55  77.76  80.75 0.92 0.00 0.00 
+154   1.16 229.11                       
+155 193.54  26.99                       
+156 181.31  42.74                       
+157 186.92  31.84                       
+162  77.17 142.76                       
+164  75.28 133.20                       
+167  38.59 228.05                       
+172 188.15   0.01                       
+182  28.41 142.62                       
+183   6.08  99.06                       
+187 128.08 208.30                       
+188 216.04   0.20                       
+193 212.19   5.11                       
+195   1.08  75.75  62.68 0.62 0.00 0.00 
+206 224.51  51.18                       
+210   0.79 110.41                       
+212   5.60 108.46                       
+213   5.98 107.59                       
+224   2.19 114.42                       
+225   2.21 154.38                       
+238 157.41  61.55 160.38 1.83 0.00 0.00 
+242 196.19  58.88                       
+243 129.52 199.15                       
+251  38.90  92.94  40.55 0.69 0.00 0.00 
+252 135.84  72.14 139.58 1.05 0.00 0.00 
+259   5.41 119.46                       
+263 234.36  25.65                       
+264  11.21 106.78                       
+267   4.33 108.52                       
+269  51.68 138.57                       
+272   2.84 108.81                       
+286  34.90 128.80                       
+308 186.76  48.09                       
+313 229.92  34.61                       
+
+		Your Groups
+
+G    #      T       D    W    S    C   T    Q           D           R            O         
+  1  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Peach                                       
+  2  5 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Peach                                       
+  3  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Daisy                                       
+  4 11 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Daisy                                       
+  5  6 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 Daisy              22.57 Hemp               
+  6  5 Cargo1     3.87 0.00 0.00 1.00 COL 1.10 Daisy              25.47 Rye                
+  7  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Marigolds                                   
+  8  1 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Marigolds                                   
+  9  1 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Marigolds                                   
+ 10  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Lima_Bean                                   
+ 11  1 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Lima_Bean                                   
+ 12  4 Cargo0     3.87 0.00 0.00 1.00 -   0.00 Lima_Bean                                   
+ 13  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Apricot                                     
+ 14 31 Flak1      4.60 0.00 1.55 0.00 -   0.00 Aster                                       
+ 15  2 Axe2       4.60 1.59 2.17 1.00 -   0.00 Aster                                       
+ 16 13 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Aster                                       
+ 17  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Aster                                       
+ 18  3 Cargo1     3.87 0.00 0.00 1.00 COL 1.10 Aster              35.11 Corn               
+ 19  6 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 Aster              35.27 Corn               
+ 20  1 Scarecrow3 4.60 1.59 2.17 0.00 -   0.00 Aster              25.62 Rye                
+ 21  1 Axe3       4.60 1.29 1.55 0.00 -   0.00 Foxglove                                    
+ 22  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Foxglove                                    
+ 23  3 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Foxglove                                    
+ 24  1 Scarecrow3 4.60 1.59 2.17 0.00 -   0.00 Foxglove           24.97 Rye                
+ 25  1 Rake2      4.60 1.56 2.10 1.00 -   0.00 Dogwood                                     
+ 26 11 Seed       4.60 0.00 0.00 0.00 -   0.00 Dogwood                                     
+ 27  5 Cargo1     3.39 0.00 0.00 1.00 -   0.00 Grape                                       
+ 28  1 Flak0      4.60 0.00 2.81 0.00 -   0.00 Grape                                       
+ 29  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Grape                                       
+ 30  1 Cargo2     3.39 0.00 0.00 1.00 -   0.00 Grape                                       
+ 31  2 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Grape                                       
+ 32  3 Cargo0     3.87 0.00 0.00 1.00 -   0.00 Grape                                       
+ 33  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Carnation                                   
+ 34 13 Flak1      4.60 0.00 2.81 0.00 -   0.00 Carnation                                   
+ 35  4 Cargo0     3.87 0.00 0.00 1.00 -   0.00 Daylilly                                    
+ 36  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Daylilly                                    
+ 37  3 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Daylilly                                    
+ 38  2 Cargo2     3.39 0.00 0.00 1.00 COL 1.10 Daylilly           14.82 Hemp               
+ 39  6 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 Daylilly           24.91 Apple              
+ 40  2 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 Daylilly           17.98 Wheat              
+ 41  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Hops                                        
+ 42  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Dewberry                                    
+ 43  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Blueberry                                   
+ 44  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Lime                                        
+ 45  1 Seed       4.60 0.00 0.00 0.00 -   0.00 94                                          
+ 46  1 Scarecrow1 4.60 1.29 1.55 0.00 -   0.00 94                                          
+ 47  1 Cargo0     3.87 0.00 0.00 1.00 -   0.00 94                                          
+ 48  2 Flak0      4.60 0.00 2.81 0.00 -   0.00 Rye                                         
+ 49  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Rye                                         
+ 50  5 Cargo0     3.87 0.00 0.00 1.00 -   0.00 Rye                                         
+ 51  2 Scarecrow3 4.60 1.59 2.17 0.00 -   0.00 Rye                                         
+ 52  5 Scarecrow3 4.60 1.94 2.40 0.00 -   0.00 Rye                                         
+ 53 44 Seed       4.60 0.00 0.00 0.00 -   0.00 Rye                                         
+ 54  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Apple                                       
+ 55  6 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Apple                                       
+ 56  2 Flak0      1.00 0.00 1.00 0.00 -   0.00 Orange                                      
+ 57  1 Scarecrow0 2.25 1.44 1.63 0.00 -   0.00 Orange                                      
+ 58  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Brussel_Sprouts                             
+ 59  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Artichoke                                   
+ 60  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Tangerine                                   
+ 61  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Semolina                                    
+ 62  1 Seed       1.40 0.00 0.00 0.00 -   0.00 121                                         
+ 63  1 Cargo1     3.87 0.00 0.00 1.00 -   0.00 121                                         
+ 64  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Tulip                                       
+ 65  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Cherry                                      
+ 66  1 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Cherry                                      
+ 67  2 Flak0      4.60 0.00 2.81 0.00 -   0.00 Watermelon                                  
+ 68  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Watermelon                                  
+ 69 26 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Watermelon                                  
+ 70  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Watermelon         23.56 Aster              
+ 71  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Watermelon         27.25 Hops               
+ 72  4 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Watermelon          7.18 Artichoke          
+ 73  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Pinto_Bean                                  
+ 74  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 151                                         
+ 75  1 Seed       4.60 0.00 0.00 0.00 -   0.00 151                                         
+ 76  1 Seed       4.60 0.00 0.00 0.00 -   0.00 152                                         
+ 77  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 152                                         
+ 78  1 Cargo3     4.60 0.00 0.00 1.00 -   0.00 Corn                                        
+ 79 10 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Corn                                        
+ 80  2 Flak0      4.60 0.00 2.81 0.00 -   0.00 Corn                                        
+ 81  1 Cargo3     4.57 0.00 0.00 1.00 -   0.00 Corn                                        
+ 82 12 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Corn                                        
+ 83  9 Cargo2     3.87 0.00 0.00 1.00 -   0.00 Corn                6.53 Rhubarb            
+ 84  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               24.61 Monkey_Grass       
+ 85  2 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Corn               14.61 Soy                
+ 86  2 Cargo0     3.87 0.00 0.00 1.00 -   0.00 Corn                4.80 Pine               
+ 87  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               18.98 Bluegrass          
+ 88  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               22.50 Poison_Ivy         
+ 89  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               22.54 Poison_Oak         
+ 90  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               22.04 Grain              
+ 91  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               24.79 Moss               
+ 92  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               21.59 Cattail            
+ 93  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               21.16 St_Augustine_Grass 
+ 94  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               19.65 Soy                
+ 95  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Corn               24.75 Shitake_Mushroom   
+ 96  6 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Corn                7.20 Soy                
+ 97  2 Flak0      4.60 0.00 2.81 0.00 -   0.00 Peas                                        
+ 98  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Peas                                        
+ 99  5 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Peas                                        
+100  1 Flak0      4.60 0.00 2.81 0.00 -   0.00 Carrots                                     
+101  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Carrots                                     
+102  5 Cargo1     4.60 0.00 0.00 1.00 -   0.00 Carrots                                     
+103  1 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Carrots             4.34 Artichoke          
+104  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Ivy                                         
+105  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Wheat                                       
+106  4 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Wheat               6.03 Artichoke          
+107  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Quinoa                                      
+108  3 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 Quinoa             24.60 Carrots            
+109  1 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 Quinoa             24.81 Lima_Bean          
+110  4 Cargo1     3.87 0.00 0.00 1.00 COL 1.10 Quinoa             24.64 Lima_Bean          
+111  2 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 Quinoa             23.43 Peas               
+112  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Soy                                         
+113  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Bluegrass                                   
+114  1 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Bluegrass                                   
+115  1 Cargo1     3.87 0.00 0.00 1.00 COL 1.10 Bluegrass          16.13 Cabbage            
+116  1 Cargo0     3.39 0.00 0.00 1.00 COL 1.10 Bluegrass          22.06 Marigolds          
+117  4 Cargo1     3.87 0.00 0.00 1.00 COL 1.10 Bluegrass          23.28 Peach              
+118  8 Cargo1     4.60 0.00 0.00 1.00 COL 1.10 Bluegrass          21.89 Grapefruit         
+119  6 Cargo1     4.60 0.00 0.00 1.00 COL 1.10 Bluegrass          27.36 Flax               
+120  3 Cargo1     4.60 0.00 0.00 1.00 COL 1.10 Bluegrass          19.55 Grape              
+121  6 Cargo1     4.60 0.00 0.00 1.00 COL 1.10 Bluegrass          23.84 Watermelon         
+122  1 Cargo1     4.60 0.00 0.00 1.00 COL 0.91 Bluegrass          21.91 Watermelon         
+123  1 Cargo1     4.60 0.00 0.00 1.00 COL 0.57 Bluegrass          13.38 Grape              
+124  1 Cargo0     3.87 0.00 0.00 1.00 COL 0.57 Bluegrass          15.64 Orange             
+125  1 Seed       4.60 0.00 0.00 0.00 -   0.00 St_Augustine_Grass                          
+126  2 Flak0      4.60 0.00 2.81 0.00 -   0.00 Hemp                                        
+127  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Hemp                                        
+128 99 Flak1      4.60 0.00 2.81 0.00 -   0.00 Hemp                                        
+129  1 Rake2      4.60 2.26 2.81 1.00 -   0.00 Hemp                                        
+130  1 Axe2       4.60 2.26 2.81 1.00 -   0.00 Hemp                                        
+131  3 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Hemp               10.04 Artichoke          
+132 13 Cargo0     3.87 0.00 0.00 1.00 -   0.00 Hemp               10.23 Artichoke          
+133  1 Seed       4.60 0.00 0.00 0.00 -   0.00 196                                         
+134  1 Cargo1     3.39 0.00 0.00 1.00 -   0.00 196                                         
+135  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Rose                                        
+136  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Monkey_Grass                                
+137  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Oak                                         
+138  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Pine                                        
+139  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Dandylion                                   
+140  2 Flak0      4.60 0.00 2.81 0.00 -   0.00 Grapefruit                                  
+141  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Grapefruit                                  
+142 15 Cargo0     3.87 0.00 0.00 1.00 -   0.00 Grapefruit          5.92 Artichoke          
+143  2 Flak0      4.60 0.00 2.81 0.00 -   0.00 Flax                                        
+144  1 Scarecrow0 4.60 2.26 2.81 0.00 -   0.00 Flax                                        
+145  6 Cargo1     3.39 0.00 0.00 1.00 -   0.00 Flax               13.98 Artichoke          
+146  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Flax               14.15 Artichoke          
+147  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Flax               20.40 Quinoa             
+148  1 Cargo0     3.39 0.00 0.00 1.00 -   0.00 Flax               31.42 Ivy                
+149  3 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Flax               18.90 Soy                
+150  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Cattail                                     
+151  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Cabbage                                     
+152  2 Cargo1     3.87 0.00 0.00 1.00 -   0.00 Cabbage                                     
+153  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Broccoli                                    
+154  1 Seed       4.60 0.00 0.00 0.00 -   0.00 271                                         
+155  1 Cargo0     3.87 0.00 0.00 1.00 -   0.00 271                                         
+156  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Poison_Ivy                                  
+157  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Moss                                        
+158  1 Flak1      4.60 0.00 1.55 0.00 -   0.00 Daffodil                                    
+159  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Daffodil                                    
+160  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Shitake_Mushroom                            
+161 53 Flak1      4.60 0.00 2.22 0.00 -   0.00 Magnolia                                    
+162  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Lily                                        
+163  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Bluebonnet                                  
+164  9 Flak1      4.60 0.00 1.55 0.00 -   0.00 Violet                                      
+165  1 Scarecrow3 4.60 1.59 2.17 0.00 -   0.00 Violet             25.80 Rye                
+166  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Poison_Oak                                  
+167  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Grain                                       
+168  1 Seed       1.40 0.00 0.00 0.00 -   0.00 Nasturtium                                  
+169  1 Rake2      4.60 1.51 1.96 1.00 -   0.00 Orchid                                      
+170  1 Seed       4.60 0.00 0.00 0.00 -   0.00 Orchid                                      
+171  6 Flak1      4.60 0.00 2.81 0.00 -   0.00 Orchid                                      
+172  1 Seed       1.40 0.00 0.00 0.00 -   0.00 10                                          
+173  1 Scarecrow1 4.60 1.29 1.55 0.00 -   0.00 19                                          
+174  1 Seed       4.60 0.00 0.00 0.00 -   0.00 19                                          
+175  1 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 19                  2.57 Flax               
+176  1 Seed       4.60 0.00 0.00 0.00 -   0.00 59                                          
+177  1 Seed       1.40 0.00 0.00 0.00 -   0.00 68                                          
+178  1 Seed       4.60 0.00 0.00 0.00 -   0.00 146                                         
+179  1 Seed       1.40 0.00 0.00 0.00 -   0.00 195                                         
+180  1 Cargo0     4.60 0.00 0.00 1.00 COL 1.10 195                 0.15 Grape              
+181  1 Axe3       4.60 1.29 1.55 0.00 -   0.00 238                                         
+182  1 Cargo0     3.87 0.00 0.00 1.00 COL 1.10 238                 2.53 Flax               
+183  1 Seed       1.40 0.00 0.00 0.00 -   0.00 251                                         
+184  1 Seed       4.60 0.00 0.00 0.00 -   0.00 252                                         
+185  1 Scarecrow1 4.60 1.29 1.55 0.00 -   0.00 252                                         
+
+		Nation_2 Groups
+
+#   T     D    W    S    C  T   Q   D 
+1 scout 1.71 0.00 0.00 0.00 - 0.00 59 
+
+		Nation_3 Groups
+
+# T   D    W    S    C  T   Q       D     
+1 p 1.00 0.00 0.00 0.00 - 0.00 Daylilly   
+1 p 1.00 0.00 0.00 0.00 - 0.00 146        
+1 p 1.00 0.00 0.00 0.00 - 0.00 Nasturtium 
+1 p 1.00 0.00 0.00 0.00 - 0.00 Apricot    
+1 p 1.00 0.00 0.00 0.00 - 0.00 Dewberry   
+1 p 1.00 0.00 0.00 0.00 - 0.00 Lime       
+1 p 1.00 0.00 0.00 0.00 - 0.00 Pinto_Bean 
+
+		Nation_15 Groups
+
+#   T     D    W    S    C  T   Q       D     
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 Dewberry   
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 146        
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 Poison_Oak 
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 Nasturtium 
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 Daylilly   
+

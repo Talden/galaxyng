@@ -1,0 +1,170 @@
+#GALAXY Daily8 Farmers rabbit
+L 151 COL
+S 151 295
+L 218 COL
+S 218 295
+L 438 COL
+S 438 295
+L 439 COL
+S 439 295
+L 199 COL
+S 199 141
+L 102 COL
+S 102 Moss
+L 168 COL
+S 168 Moss
+L 175 COL
+S 175 Moss
+L 325 COL
+S 325 Moss
+L 326 COL
+S 326 Moss
+L 12 COL 1
+S MAX 284
+L 98 COL 1
+S MAX 284
+L 6 COL 1
+S MAX Tree
+L 6 COL
+S 6 C163
+L 7 COL 1
+S MAX C163
+L 90 COL
+S 90 Honeydew
+L 91 COL
+S 91 Honeydew
+L 68 COL 1
+S MAX 138
+L 7 CAP 1
+S MAX Rose
+L 68 CAP
+S 68 Rose
+L 71 CAP
+S 71 Rose
+L 72 CAP
+S 72 Rose
+L 76 CAP
+S 76 Rose
+L 78 CAP
+S 78 Rose
+L 87 CAP
+S 87 Rose
+L 98 CAP
+S 98 Rose
+L 181 CAP
+S 181 Rose
+L 185 CAP
+S 185 Rose
+L 12 CAP
+S 12 St_Augustine_Grass
+L 127 CAP
+S 127 Dewberry
+L 55 CAP
+S 55 Daffodil
+L 3 COL
+S 3 295 ; ETA 2 turns
+L 7 COL
+S 7 295 ; ETA 2 turns
+L 9 COL
+S 9 295
+L 26 COL
+S 26 295 ; ETA 2 turns
+L 85 COL 2
+S MAX 125 ; ETA 2 turns
+L 146 COL
+S 146 125 ; ETA 2 turns
+L 164 COL
+S 164 125 ; ETA 2 turns
+L 193 COL
+S 193 125 ; ETA 2 turns
+L 294 COL
+S 294 125 ; ETA 2 turns
+L 30 COL
+S 30 141 ; ETA 2 turns
+L 157 COL
+S 157 141 ; ETA 2 turns
+L 159 COL
+S 159 141 ; ETA 2 turns
+L 299 COL
+S 299 295
+L 297 COL 1
+S MAX Moss
+L 85 COL
+S 85 125 ; ETA 2 turns
+S 14 Marigolds
+S 15 Grape
+S 17 Grape 1
+S 17 Hops
+S 34 Daisy
+S 35 Daisy
+S 36 Daisy
+S 41 98
+S 42 98 3
+S 42 Tangerine 2
+S 42 Pinto_Bean 1
+S 42 144
+S 86 Peach
+S 141 Daisy
+S 142 Daisy
+S 203 Daisy 1
+S 203 Aster
+S 204 Aster
+S 205 Aster
+S 206 Aster
+S 207 Aster 1
+S 207 Foxglove
+S 233 Hops
+S 235 Peach 3
+S 235 Lima_Bean
+S 236 Lima_Bean
+S 237 Hops
+S 244 Apricot 2
+S 244 Foxglove
+S 247 Dogwood 3
+S 247 Carnation
+S 249 Carnation
+S 250 Carnation
+S 257 Carnation
+S 259 Carnation 1
+S 259 Daylilly 1
+S 259 Tulip
+S 281 Hops
+S 297 Hops 1
+S 297 Artichoke
+S 309 Tulip 6
+S 309 144 4
+S 309 Rose 12
+S 309 Rhubarb
+S 310 Rhubarb 2
+S 310 Pine
+S 312 Dandylion
+S 352 Blueberry 1
+S 352 Dandylion
+S 353 Dandylion
+S 356 Dandylion
+S 357 Dandylion 1
+S 357 249
+S 360 Stinkweed
+S 364 Daffodil 2
+S 364 Magnolia 8
+S 364 Lily
+S 378 Orange 1
+S 378 Artichoke
+S 379 Broccoli 1
+S 379 296
+S 384 Rye
+S 385 Cherry 2
+S 385 Watermelon
+S 386 Watermelon
+S 432 296 3
+S 432 Lily
+S 435 Lily 2
+S 435 Bluebonnet
+S 443 Bluegrass
+S 445 Pine
+S 469 Bluebonnet
+S 470 Bluebonnet
+S 471 Bluebonnet
+S 472 Bluebonnet
+S 382 Peach
+#END

@@ -1,0 +1,211 @@
+#GALAXY Daily8 Farmers rabbit
+S 50 13 1 ; ETA 2 turns
+S 50 14 1 ; ETA 2 turns
+S 50 27 1 ; ETA 2 turns
+S 50 54 1 ; ETA 2 turns
+S 50 97 1 ; ETA 2 turns
+S 50 138 1 ; ETA 2 turns
+S 50 140 1 ; ETA 2 turns
+S 50 155 1 ; ETA 2 turns
+S 50 157 1 ; ETA 2 turns
+S 50 172 1 ; ETA 2 turns
+S 50 188 1 ; ETA 2 turns
+S 50 193 1 ; ETA 2 turns
+S 50 206 1 ; ETA 2 turns
+S 50 242 1 ; ETA 2 turns
+S 50 263 1 ; ETA 2 turns
+S 50 308 1 ; ETA 2 turns
+S 50 313 1 ; ETA 2 turns
+L 10 CAP
+S 10 Artichoke
+L 11 CAP
+S 11 Artichoke
+L 34 COL 1
+S MAX 140 ; ETA 2 turns
+L 34 COL 1
+S MAX 242 ; ETA 2 turns
+L 56 COL 1
+S MAX 27 ; ETA 3 turns
+L 56 COL 1
+S MAX 206 ; ETA 4 turns
+L 56 COL 1
+S MAX 81 ; ETA 4 turns
+L 56 COL 1
+S MAX 92 ; ETA 3 turns
+L 56 CAP
+S 56 Poison_Oak
+L 58 COL 1
+S MAX 263 ; ETA 4 turns
+L 58 COL
+S 58 313 ; ETA 4 turns
+L 59 COL
+S 59 54 ; ETA 2 turns
+L 97 CAP
+S 97 Artichoke
+L 103 COL 1
+S MAX 193 ; ETA 3 turns
+L 103 COL
+S 103 188 ; ETA 3 turns
+L 104 COL
+S 104 97 ; ETA 3 turns
+L 129 COL
+S 129 Soy
+L 137 COL 1
+S MAX 172 ; ETA 3 turns
+L 137 COL 1
+S MAX 14 ; ETA 3 turns
+L 137 COL 1
+S MAX 155 ; ETA 3 turns
+L 137 COL
+S 137 138 ; ETA 3 turns
+L 176 CAP
+S 176 Aster
+L 177 COL 1
+S MAX Aster
+L 177 CAP
+S 177 Aster
+S 19 Peach
+S 20 Peach 2
+S 20 Marigolds
+S 28 Lima_Bean
+S 38 Grape
+S 39 Grape
+S 91 Artichoke
+S 132 Corn 3
+S 132 Peas
+S 143 Carrots 3
+S 143 Wheat 2
+S 143 Hemp
+S 185 Hemp
+S 192 Hemp
+R Apple EMP Grapefruit
+R Apricot EMP Grapefruit
+R Artichoke EMP Apple
+R Artichoke COL Allspice
+R Aster EMP Grapefruit
+R Cabbage COL Grain
+R Carrots COL Rose
+R Bluegrass COL Basil
+R Carrots EMP Grapefruit
+R Cherry COL Shitake_Mushroom
+R Corn COL Rose
+R Corn CAP Artichoke
+R Daylilly COL Foxglove
+R Daylilly EMP Grapefruit
+R Grape COL Soy
+R Grapefruit COL Shitake_Mushroom
+R Hemp COL Rose
+R Monkey_Grass EMP Hemp
+R Soy EMP Grapefruit
+R Peach COL Soy
+R Peach CAP Soy
+R Peas COL Soy
+R Peas EMP Grapefruit
+R Rye COL Carnation
+R Rye EMP Grapefruit
+R Tangerine COL Grain
+R Watermelon COL Rose
+R Wheat COL Soy
+R Wheat EMP Corn
+G 3
+G 4
+G 17
+G 18
+G 24
+G 31
+G 34
+G 35
+G 51
+G 53
+G 55
+G 57
+G 66
+G 67
+G 69
+G 76
+G 77
+G 81
+G 82
+G 99
+G 100
+G 101
+G 102
+G 107
+G 108
+G 111
+G 112
+G 116
+G 117
+G 118
+G 119
+G 121
+G 122
+G 124
+G 125
+G 128
+G 130
+G 138
+G 139
+G 153
+G 161
+G 162
+G 174
+P Orchid Flak1
+P Lima_Bean Flak1
+P Dogwood Flak1
+P Dandylion Flak1
+P 166 Cargo0
+P 201 SHIELDS
+G 13
+G 49
+G 46
+G 62
+G 27
+G 1
+G 8
+G 12
+G 60
+G 75
+G 25
+G 30
+G 48
+G 79
+G 106
+G 110
+G 115
+G 136
+G 160
+G 164
+G 22
+G 188
+G 95
+G 151
+G 166
+G 167
+P Wheat Flak1
+P Watermelon Flak1
+P Violet Flak1
+P Rye Flak1
+P Peas Flak1
+P Peach Flak1
+P Orange Flak1
+P Magnolia Flak1
+P Hemp Flak1
+P Grapefruit Flak1
+P Grape Flak1
+P Flax Flak1
+P Ekstra Flak1
+P Daffodil Flak1
+P Carrots Flak1
+P Broccoli Flak1
+P Apple Flak1
+D Pebble 1 1 1 0 0
+P Corn Pebble
+N 166 Curry
+N 201 Cilantro
+S 151 156
+S 95 Cherek
+G 85
+G 86
+S 196 41
+#END

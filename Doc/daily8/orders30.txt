@@ -1,0 +1,132 @@
+#GALAXY Daily8 Farmers rabbit
+L 174 COL
+S 174 Apricot
+S 6 Grape 4
+S 6 Daylilly 1
+S 6 Rye 10
+S 6 Cherry 1
+S 6 Watermelon
+S 8 Watermelon
+S 26 Lima_Bean
+S 41 Peach
+S 43 Peach 3
+S 43 Artichoke 7
+S 43 Tangerine 2
+S 43 Bluegrass
+S 109 Lima_Bean
+S 110 Lima_Bean 2
+S 110 Apple
+S 132 Apple
+S 134 Apple
+S 135 Apple
+S 137 Apple 4
+S 137 Corn
+S 138 Corn
+S 150 Peas 2
+S 150 Carrots 4
+S 150 Wheat 3
+S 150 Bluegrass 1
+S 150 Grapefruit
+S 151 Grapefruit
+S 160 Hemp
+S 165 Hemp
+S 185 Cabbage 1
+S 76 Corn
+S 185 Hemp ; ETA 2 turns
+S 187 Hemp ; ETA 2 turns
+R Lima_Bean COL Monkey_Grass
+R Apple COL Cattail
+R Cherry COL Apricot
+R Daylilly COL Foxglove
+R Daylilly EMP Corn
+R Watermelon COL Allspice
+R Semolina EMP Apple
+R Grapefruit COL Soy
+R Aster EMP Broccoli
+R Daisy EMP Broccoli
+R Peas COL St_Augustine_Grass
+G 119
+R Rye COL Rose
+R Wheat EMP Apple
+R Wheat COL Rose
+R Hemp COL Daisy
+R Broccoli CAP Daylilly
+R Artichoke COL Arrowroot
+R Rhubarb EMP Broccoli
+R Lime COL Apricot
+R Peach COL Ivy
+R Carrots COL St_Augustine_Grass
+R Tangerine COL Basil
+R Corn COL Arrowroot
+R Dewberry COL Nasturtium
+R Nasturtium EMP Broccoli
+R Grape COL Moss
+G 15
+G 52
+G 14
+G 9
+G 47
+G 38
+G 12
+G 64
+G 112
+G 123
+G 182
+G 66
+G 67
+G 68
+G 27
+G 4
+G 2
+G 3
+G 69
+G 90
+G 89
+G 96
+G 171
+G 95
+G 97
+G 84
+G 85
+G 197
+G 81
+G 34
+G 35
+G 59
+G 57
+G 128
+G 127
+G 155
+G 166
+G 39
+G 78
+G 75
+L 62 COL
+S 62 156 1 ; ETA 3 turns
+S 62 157 1 ; ETA 3 turns
+S 62 308 ; ETA 3 turns
+P Lima_Bean CAP
+P Orchid CAP
+P Foxglove CAP
+P Drenai CAP
+P Drasnia CAP
+P Dogwood CAP
+P Carnation CAP
+P Magnolia WEAPONS
+P Broccoli WEAPONS
+P Wheat WEAPONS
+P Watermelon WEAPONS
+P Violet WEAPONS
+P Rye WEAPONS
+P Peas WEAPONS
+P Peach WEAPONS
+P Orange WEAPONS
+P Hemp WEAPONS
+P Grapefruit WEAPONS
+P Grape WEAPONS
+P Flax WEAPONS
+P Ekstra WEAPONS
+P Daffodil WEAPONS
+P Carrots WEAPONS
+P Apple WEAPONS
+#END

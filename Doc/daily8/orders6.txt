@@ -1,0 +1,45 @@
+#GALAXY Daily8 Farmers ready123
+S 10 Corn
+S 1 Wheat
+L 9 COL
+S 9 Grapefruit
+L 4 COL
+S 4 Grapefruit
+L 6 COL 3
+S MAX Grapefruit
+L 6 CAP
+S 6 Grapefruit
+L 7 CAP
+S 7 Grapefruit
+L 8 CAP
+S 8 Grapefruit
+S 11 Peas
+S 13 Carrots
+S 12 Corn 10
+S 12 Wheat 3
+S 12 Carrots
+S 14 Carrots
+D Scarecrow0 1 1 5 3 0.00
+P Corn Scarecrow0
+S 5 Grape 2
+S 5 Rye 2
+S 5 Orange 2 ; ETA 2 turns
+S 5 Watermelon 2
+S 5 Peas 2
+S 5 Carrots 2
+S 5 Wheat 2
+S 5 Hemp 2
+S 5 Grapefruit 2
+S 5 Flax 2
+E Probe
+D Seed 1.00 0 0.00 0.00 0.00
+@ Vegetaborg
+Better watch out. Santa_s took out a Nation_14 homeworld last turn.  Are you next on the list?
+@
+@ Nation_14
+Been nice knowing you.  So long.
+@
+@ Santa_s
+That's right - you - you're the one I'm going to destroy.
+@
+#END

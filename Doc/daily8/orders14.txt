@@ -1,0 +1,52 @@
+#GALAXY Daily8 Farmers ready123
+S 63 110 ; ETA 2 turns
+S 56 114 ; ETA 2 turns
+S 64 215 ; ETA 2 turns
+S 54 195 ; ETA 2 turns
+S 55 121
+S 65 111
+P Rye DRIVE
+P Corn CAP
+S 13 Corn
+S 7 Corn
+O AUTOUNLOAD
+L 25 COL
+S 25 Hemp
+L 24 COL
+S 24 Hemp
+L 18 COL
+S 18 Hemp
+L 19 CAP
+S 19 Hemp
+L 4 COL
+S 4 Hemp
+L 1 CAP
+S 1 Watermelon
+L 38 COL
+S 38 Watermelon
+L 39 CAP
+S 39 Watermelon
+L 11 COL
+S 11 Watermelon
+L 23 COL 3
+S MAX Watermelon
+L 23 CAP
+S 23 Watermelon
+L 22 CAP
+S 22 Hemp
+L 8 COL 3
+S MAX Hemp
+L 8 CAP 1
+S MAX Hemp
+L 30 COL
+S 30 Hemp
+S 8 Corn
+S 32 Corn
+S 12 Grapefruit 8
+S 31 Rye
+S 35 Rye
+S 12 Carrots 4
+S 12 Grape 3
+S 12 Wheat 3
+S 12 Peas
+#END

@@ -1,0 +1,159 @@
+#GALAXY Daily8 Farmers rabbit
+P Ekstra DRIVE
+P Dogwood Flak0
+P Lima_Bean Flak0
+P Drasnia Flak0
+P Drenai Flak0
+P Hemp Flak0
+P Grapefruit Flak0
+P Watermelon Flak0
+P Apple Flak0
+P Flax Flak0
+P Rye Flak0
+P Peach Flak0
+P Carnation Flak0
+P Carrots Flak0
+P Grape Flak0
+P Wheat Flak0
+P Peas Flak0
+P Orchid Flak0
+P Foxglove Flak0
+P Magnolia CAP
+P Lily CAP
+L 72 COL
+S 72 Soy
+L 73 COL
+S 73 Soy
+L 74 COL 5
+S MAX Soy
+L 77 COL
+S 77 Soy
+L 127 COL 2
+S MAX Soy
+L 40 COL 1
+S MAX Daisy
+L 51 COL 1
+S MAX Daisy
+L 162 COL 1
+S MAX Semolina
+L 45 COL
+S 45 Nasturtium
+L 162 CAP 3
+S MAX Daylilly
+L 103 CAP
+S 103 Cabbage
+L 4 COL
+S 4 Aster ; ETA 2 turns
+L 90 COL
+S 90 Aster ; ETA 2 turns
+L 3 COL
+S 3 Soy ; ETA 2 turns
+L 11 COL
+S 11 Soy ; ETA 2 turns
+L 36 COL
+S 36 Soy ; ETA 2 turns
+L 37 COL
+S 37 Soy ; ETA 2 turns
+L 107 COL 4
+S MAX Soy ; ETA 2 turns
+L 107 COL
+S 107 Soy ; ETA 2 turns
+L 111 COL
+S 111 Soy ; ETA 2 turns
+L 115 COL
+S 115 Soy ; ETA 2 turns
+L 159 COL 2
+S MAX Soy ; ETA 2 turns
+L 86 COL 4
+S MAX Daisy ; ETA 2 turns
+L 86 COL
+S 86 Daisy ; ETA 2 turns
+L 136 COL
+S 136 Daisy ; ETA 2 turns
+L 137 COL
+S 137 Daisy ; ETA 2 turns
+L 135 COL
+S 135 Apricot ; ETA 2 turns
+L 151 COL
+S 151 Apricot ; ETA 2 turns
+L 150 COL
+S 150 Rhubarb ; ETA 2 turns
+L 99 CAP
+S 99 Aster ; ETA 2 turns
+L 102 CAP
+S 102 Foxglove ; ETA 2 turns
+L 40 COL 1
+S MAX Aster
+L 164 COL 1
+S MAX Aster
+L 74 COL 1
+S MAX Soy
+L 127 COL
+S 127 Soy
+L 51 COL 1
+S MAX Daisy
+L 46 COL 1
+S MAX Rhubarb
+L 164 CAP 1
+S MAX Peach
+L 1 COL 1
+S MAX Soy ; ETA 2 turns
+L 159 COL
+S 159 Soy ; ETA 2 turns
+S 1 Lima_Bean
+S 6 Daylilly 1
+S 6 Dewberry 1
+S 6 Lime 1
+S 6 Broccoli 4
+S 40 Watermelon
+S 46 Grape
+S 47 Grape
+S 50 Rye
+S 51 Peach
+S 52 Peach
+S 74 Peach
+S 75 Tangerine
+S 124 Artichoke
+S 160 Rye
+S 161 Apple
+S 162 Apple
+S 164 Apple
+S 165 Apple 3
+S 165 Cherry 1
+S 165 Watermelon
+S 173 Artichoke
+S 6 Watermelon 4 ; ETA 2 turns
+S 6 Corn ; ETA 2 turns
+S 7 Corn ; ETA 2 turns
+S 24 Corn ; ETA 2 turns
+S 26 Corn 2 ; ETA 2 turns
+S 26 Peas ; ETA 2 turns
+S 29 Carrots ; ETA 2 turns
+S 33 Wheat ; ETA 2 turns
+S 145 Wheat ; ETA 2 turns
+S 176 Artichoke 5 ; ETA 2 turns
+S 176 Wheat 4 ; ETA 2 turns
+S 176 Hemp ; ETA 2 turns
+S 177 Hemp ; ETA 2 turns
+S 62 Cherek
+S 95 Cherek
+S 20 Cherek
+S 19 Cherek
+S 18 Cherek
+S 22 Cherek
+S 93 Cherek
+S 156 Cherek
+G 88
+G 87
+G 89
+S 100 Marigolds 1 ; ETA 2 turns
+S 100 Daylilly 1 ; ETA 4 turns
+S 100 Dewberry 1 ; ETA 4 turns
+S 100 Blueberry 1 ; ETA 3 turns
+S 100 Brussel_Sprouts 1 ; ETA 4 turns
+S 100 Tangerine 1 ; ETA 4 turns
+S 100 Cherry 1 ; ETA 2 turns
+S 100 Apple 1 ; ETA 2 turns
+S 100 Lima_Bean 1 ; ETA 2 turns
+S 100 Peach 1 ; ETA 2 turns
+#END

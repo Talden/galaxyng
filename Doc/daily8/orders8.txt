@@ -1,0 +1,26 @@
+#GALAXY Daily8 Farmers ready123
+L 18 CAP 10
+S MAX Orange
+L 13 COL
+S 13 Grapefruit
+L 15 COL 3
+S MAX Grapefruit
+L 21 COL
+S 21 Grapefruit
+L 23 COL
+S 23 Rye
+L 15 CAP
+S 15 Grapefruit
+L 16 CAP
+S 16 Grapefruit
+L 18 CAP
+S 18 Grapefruit
+S 3 Wheat 3
+S 3 Carrots
+S 29 Corn 10
+S 28 Peas
+S 29 Carrots
+S 30 Carrots
+S 31 Carrots
+S 24 Corn
+#END

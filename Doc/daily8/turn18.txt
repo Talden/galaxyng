@@ -1,0 +1,771 @@
+
+Bulletins for Galaxy Game Daily8 Turn 18
+
+Daily8 Top 15 of turn 18 which ran on 18:00:02 Tue Feb 25 2003
+
+ # lt  Nation        Pop   dlt    Ind   dlt   eInd   dlt  tech  dlt   #  dlt
+ 1   0 Farmers      5572   358   4868   388   5044   380  7.74 0.52  18   7
+ 2   0 SiliconFun   5467   331   4257   173   4560   212  8.96 0.67  22   0
+ 3   1 NULLoids     4777   208   4320   394   4434   348  7.43 0.28  14   0
+ 4  -1 Vegetaborg   5603   417   3874   150   4306   217  7.00 0.12  22   1
+ 5   1 Nation_15    5166   385   3622   216   4008   258  6.98 0.44  10   1
+ 6  -1 Valdorians   5412   376   3457   121   3946   185  6.16 0.00  19   0
+ 7   1 Nation_3     5329   665   3387   338   3873   420  4.50 0.00  15   0
+ 8  -1 Santa_s      4929   426   3336   144   3734   214  6.35 0.20  20   1
+ 9   0 Nation_2     4571   134   3324   344   3636   291  6.37 0.00  13   0
+10   0 Outvaders    4584   313   2971   228   3374   249  7.39 0.21  14   0
+11   0 Nation_14    3098     5   2921   223   2965   169  5.21 0.19  12  -2
+12   0 Tarmangani   2390     6   1725    17   1891    14  6.56 0.12   8   0
+13   0 Nation_1        0     0      0     0      0     0  5.03 0.00   0   0
+14   0 Nation_10       0     0      0     0      0     0  4.32 0.00   0   0
+15   0 Nation_11       0     0      0     0      0     0  4.32 0.00   0   0
+
+***********************************************************************
+  o     o    +   .  +    o       +      +  o       o           o
+    o      -   ______ o    __        +   -  + _   ________   o    +  o
+ o  .         / ____/___ _/ /___ __  ____  __/ | / / ____/         +
+      .*  -  / / __/ __ `/ / __ `/ |/_/ / / /  |/ / / __      +
+   *        / /_/ / /_/ / / /_/ />  </ /_/ / /|  / /_/ / o    -    -
+    .  o    \____/\__,_/_/\__,_/_/|_|\__, /_/ |_/\____/ .    -  o     o
+     *           . +        o       /____/   +   +          -
+ o         o          +       -                    o         -     o
+   .  -        http://www.badcheese.com/~steve/pbm.shtml       +
+***********************************************************************
+
+-*- SENDING ORDERS -*-
+
+Orders should be send to:   steve@badcheese.com
+with a subject line of:     "order" or "orders"
+All orders should start with:
+  #GALAXY <game name> <your nation name> <your password>
+and end with:
+  #END
+
+The game name is case sensitive, so use Jangi and not jangi.  Please
+send in orders in time. Even empty orders will do.  If you miss 2
+turns in a row during the first 12 turns your nation self destructs,
+and that is not a pretty sight.  After turn 12 you can miss 5 turns in
+a row before your nation self-destructs.  If you fail to send in your
+turn0 or turn1 orders, your nation will be reset.  NOTE: It's better
+to send in blank orders, than no orders at all - especially in the
+beginning turns of the game.  The beginning orders are really easy
+anyway, so there's no reason for people to be kicked out of the game
+for any reason other than they weren't serious about playing the game
+in the first place.
+
+You can send in advance orders by adding the turn number to subject
+line. For instance, to send in orders for turn 55, use a subject line
+of "orders 55".  Advance orders are not checked, you only get a
+confirmation that they were stored on disk. Also do _NOT_ change
+your password or your nation name right before sending in advanced orders.
+The engine will then not accept the orders once the advance turn is
+run unless you remember to use your new password in the advance orders
+too.
+
+You can send in orders as many times as you please. The last set of
+valid orders is used when the turn is run.  You should get an almost
+immediate reply to your email. The message contains a report on any
+mistakes you made in your orders and a short forecast about your
+situation in the next turn.  Not everything will be reflected in the
+forecast of course - things like battles and the other players'
+decisions will affect your final turn report when the turns are run.
+
+PLEASE SEND ORDERS AND RELAYS IN PLAINTEXT ONLY!!!  NO HTML!!!
+Instructions for turning off HTML in most mail clients are here:
+http://www.expita.com/nomime.html
+
+-*- GETTING A COPY OF A TURN REPORT -*-
+
+You can get a copy of any of the previous turn reports by sending a
+set of orders that contains just one line:
+  #GALAXY <game name> <your nation name> <your password>
+to steve@badcheese.com with a Subject line of "report <turn#>"
+Use the nation name and password of the last turn, not the
+name and password you had at the turn you request.
+
+-*- ANONYMOUS IN-GAME EMAIL -*-
+
+You can send a anonymous email to another nation by sending a
+message with the following format
+  #GALAXY <game name> <your nation name> <your password>
+  <text of your message>
+  .
+  .
+to steve@badcheese.com with as Subject: relay <destination nation name>
+If you get a message like this you can just hit the reply button
+and write and send the reply. For your convenience the
+#GALAXY... line is included in the message, you probably have
+to remove the "> " your mail program added in front of it.
+Be careful with signatures if you want to stay anonymous.
+
+-*- TIME AND DUE DATES FOR ORDERS -*-
+
+Most turns get run at midnight "Mountain" time or "Colorado" time
+(That's GMT-7 or GMT-6 depending on the "Daylight time") except the
+"Daily" games which are run at 6pm every day.  For turn frequency
+and the official galaxy engine clock, please visit the web page (below).
+
+-*- OTHER INFORMATION -*-
+
+Game Stats:                     http://badcheese.com/~steve/pbm.shtml
+For information about GalaxyNG:       http://galaxyng.sourceforge.net
+The manual is at:    http://galaxyng.sourceforge.net/ManGalaxyNG.html
+
+-*- BUGS and Other Problems -*-
+
+Send bug reports about the server to steve@badcheese.com.
+Send bug reports about the game engine to fslothouber@acm.org.
+
+For all "how do I ..." questions, see the documentation or send them
+to the mailinglist: galaxy@badcheese.com.
+
+-*- ENDING A GAME -*-
+
+To end a game I need an email from all remaining players, saying they
+agree to end the game.  The result will be entered into the Hall of
+Fame and Shame, and an announcement will be made on galaxy@badcheese.com
+mailing list.
+
+    ____        _ __      ____ 
+   / __ \____ _(_) /_  __( __ )
+  / / / / __ `/ / / / / / __  |
+ / /_/ / /_/ / / / /_/ / /_/ / 
+/_____/\__,_/_/_/\__, /\____/  
+                /____/         
+See http://badcheese.com/~steve/index.php?page_title=Galaxy for
+game runtimes and frequency.
+
+
+		Production Status
+Sofar you have:
+  produced a total shipmass of 1118.42
+  lost a total shipmass of     0.00
+
+
+		Real Name
+  Your real name is Chris_Shaffer.
+
+
+End of the Bulletins
+
+	GalaxyNG release-5-0g, March 2001.
+
+		Galaxy Game Daily8 Turn 18 Report for Farmers
+
+
+PERSONAL Messages for Farmers
+
+-message starts-
+Update from the Vegetaborg: 
+Nothing new to report. 
+-message ends-
+
+		Your Options
+
+N                 S  
+Anonymous        ON  
+AutoUnload       ON  
+ProdTable        ON  
+SortGroups       ON  
+GroupForeCast    ON  
+PlanetForeCast   ON  
+ShipTypeForecast ON  
+RoutesForecast   ON  
+Compress         OFF 
+Gplus            OFF 
+MachineReport    OFF 
+BattleProtocol   ON  
+XMLReport        OFF 
+
+ORDERS RECEIVED
+
+> R Corn CAP 
+> R Grapefruit CAP 
+> R Wheat COL 
+> R Carrots COL 
+> R Rye COL 
+> R Corn COL 
+> R Peas COL 
+> R Grape COL 
+> R Grapefruit COL 
+> L 12 COL 1 
+> S MAX 8 
+> L 12 COL 1 
+> S MAX 257 
+> L 12 COL 
+> S 12 247 
+> L 16 COL 1 
+> S MAX 4 
+> L 16 COL 1 
+> S MAX 18 
+> L 16 COL 1 
+> S MAX 104 
+> L 16 COL 1 
+> S MAX 131 
+> L 16 COL 
+> S 16 Watermelon 
+> L 13 CAP 
+> S 13 Hemp 
+> L 33 CAP 
+> S 33 Hemp 
+> L 34 COL 
+> S 34 Watermelon 
+> L 4 COL 
+> S 4 Watermelon 
+> L 22 COL 
+> S 22 Watermelon 
+> L 3 COL 
+> S 3 Watermelon 
+> L 25 COL 
+> S 25 Watermelon 
+> L 17 COL 
+> S 17 Watermelon 
+> L 9 COL 
+> S 9 Watermelon 
+> S 26 Corn 
+> S 27 Grapefruit 8 
+> S 27 Hemp 7 
+> S 27 Rye 5 
+> S 27 Carrots 4 
+> S 27 Grape 3 
+> S 27 Wheat 3 
+> S 27 Peas 3 
+> S 27 Hemp 
+> S 30 Hemp 4 
+> S 30 Grapefruit 34 
+> S 30 Corn 
+> S 35 Corn 
+> P Carrots SHIELDS 
+> P Peas SHIELDS 
+> P Grape SHIELDS 
+> P Rye SHIELDS 
+> P Wheat SHIELDS 
+> P Grapefruit SHIELDS 
+
+		Status of Players
+
+N              D    W    S    C     P       I     #  R  
+Nation_1     1.00 2.03 1.00 1.00    0.00    0.00  0 War 
+Nation_2     2.96 1.29 1.12 1.00 4570.67 3323.90 13 War 
+Nation_3     1.50 1.00 1.00 1.00 5329.33 3387.05 15 War 
+Valdorians   2.79 1.36 1.00 1.00 5412.07 3457.47 19 War 
+SiliconFungi 4.82 1.00 2.14 1.00 5466.83 4257.22 22 War 
+Santa_s      3.35 1.00 1.00 1.00 4928.52 3335.97 20 War 
+NULLoids     2.08 1.83 2.28 1.24 4777.42 4319.75 14 War 
+Tarmangani   2.47 2.09 1.00 1.00 2389.69 1724.87  8 War 
+Farmers      4.19 1.00 1.55 1.00 5572.39 4868.30 18 -   
+Nation_10    1.32 1.00 1.00 1.00    0.00    0.00  0 War 
+Nation_11    1.32 1.00 1.00 1.00    0.00    0.00  0 War 
+Vegetaborg   2.91 2.09 1.00 1.00 5602.62 3874.45 22 War 
+Outvaders    2.48 1.29 2.61 1.00 4584.20 2970.92 14 War 
+Nation_14    2.21 1.00 1.00 1.00 3097.81 2920.67 12 War 
+Nation_15    1.99 1.99 2.00 1.00 5166.13 3621.62 10 War 
+
+		Your Ship Types
+
+N            D    A   W     S     C    Mass Speed  Def  
+Cargo0      1.02  0  0.00  0.00  1.00  2.02 10.10  0.00 
+Cargo1      1.03  0  0.00  0.00  1.00  2.03 10.15  0.00 
+Cargo2      1.06  0  0.00  0.00  1.00  2.06 10.29  0.00 
+Cargo3     69.98  0  0.00  0.00 29.02 99.00 14.14  0.00 
+Rake0      33.00 29  2.00 35.00  1.00 99.00  6.67 23.51 
+Axe0       33.00  3 15.00 35.00  1.00 99.00  6.67 23.51 
+Flak0       1.00  0  0.00  2.00  0.00  3.00  6.67  4.31 
+Scarecrow0  1.00  1  5.00  3.00  0.00  9.00  2.22  4.48 
+Seed        1.00  0  0.00  0.00  0.00  1.00 20.00  0.00 
+
+		Nation_2 Ship Types
+
+N       D  A   W    S    C  Mass Speed  Def 
+scout 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+		Nation_3 Ship Types
+
+N   D  A   W    S    C  Mass Speed  Def 
+p 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+		Nation_15 Ship Types
+
+N       D  A   W    S    C  Mass Speed  Def 
+Probe 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+30.00,0.00  140.00,0.00
+--------------------------------------------------------------------------------
+                                                                                
+                                                                                
+                                                                                
+o                                                                               
+o                                                                               
+                                                               o                
+                                    *                                           
+                                     *    *                                     
+                                *                        o            o         
+                                      *  *                                      
+                                      *   *                                     
+                                     * *                        o               
+                                     *  *                                       
+  o   o      o                  *  *   *                                        
+                                                 *                    o         
+                                                                                
+                                                                                
+o                                                                         +     
+ oo                                 *                                +          
+   o                                                                           +
+o                                                          o             +    ++
+                          o                                o                    
+                o                           o                                   
+                                                                                
+                                                o                               
+                                                                                
+                                                                            o   
+                                                                                
+                                                                          o     
+                                                                                
+                                                                                
+    o                                                                           
+                                                     o                          
+      o                                         o                               
+             o                                                            o     
+                                                                +   +           
+                                                            + +                 
+                                                   o       +   +                
+                                                     o     ++   +               
+                                                         o                      
+--------------------------------------------------------------------------------
+30.00,110.00  140.00,110.00
+
+		Your Planets
+
+N            X     Y      S       P       I      R      P       $     M    C      L    
+4          74.16 23.86  464.15    8.80    0.00  1.65 CAP       0.00 0.00  0.00    2.20 
+8          79.58 51.29   99.82    8.80    0.00  0.59 CAP       0.00 0.00  0.00    2.20 
+18         79.61 19.20  501.30    8.80    0.00  1.31 CAP       0.00 0.00  0.00    2.20 
+Grape      81.48 34.47  303.52  303.52  303.52  4.19 Shields   0.00 0.00  3.04  303.52 
+Rye        84.67 31.11  554.10  554.10  554.10  2.81 Shields   0.00 0.00  5.66  554.10 
+104        81.17 19.55  720.05    8.80    0.00  1.62 CAP       0.00 0.00  0.00    2.20 
+Orange     78.38 36.80   19.12   19.12   19.12  1.34 Shields   0.00 0.00  0.19   19.12 
+131        88.97 19.34   66.77    8.80    0.00  0.67 CAP       0.00 0.00  0.00    2.20 
+Watermelon 85.89 33.94  751.21  656.12  321.57  0.43 CAP       0.00 0.00  0.00  405.21 
+Corn       83.89 31.50 1000.00 1000.00 1000.00 10.00 CAP     233.82 0.00 10.10 1000.00 
+Peas       81.62 32.10  250.00  250.00  250.00 10.00 Shields   0.70 0.00  2.50  250.00 
+Carrots    82.50 30.07  350.00  350.00  350.00 10.00 Shields   0.00 0.00  3.90  350.00 
+Wheat      83.47 26.67  271.86  271.86  271.86  7.99 Shields   0.00 2.63  2.72  271.86 
+Hemp       88.28 30.07  906.68  906.68  906.68  2.15 CAP      16.53 0.00  7.44  906.68 
+Grapefruit 84.58 36.01  851.16  851.16  851.16  5.17 Shields  37.55 0.00  8.51  851.16 
+Flax       86.81 27.36  678.83  348.25   40.29  0.72 CAP       0.00 0.00  0.00  117.28 
+247        74.21 38.43  127.40    8.80    0.00  1.40 CAP       0.00 0.00  0.00    2.20 
+257        98.14 41.12   38.27    8.80    0.00  1.75 CAP       0.00 0.00  0.00    2.20 
+
+		Unidentified Planets
+
+N            X      Y   
+5         133.09  46.93 
+6          91.88 222.99 
+7          80.39 225.80 
+12        172.14 106.54 
+15         79.33 165.86 
+16         89.27 176.56 
+TolHoneth 212.75  51.11 
+22         67.28 118.70 
+23         69.24 120.76 
+24         68.78 119.17 
+NULL25    230.03 108.78 
+NULL26    225.12 118.50 
+28        140.61 217.90 
+29         87.01 171.76 
+30        122.60 221.76 
+35         59.80 110.01 
+39         78.05 163.33 
+40         92.57 163.36 
+42        218.26 174.91 
+43        139.56  55.38 
+44        139.57  53.70 
+45        141.08  57.58 
+46         90.88 231.49 
+48        236.95 156.32 
+49         89.54 169.42 
+NULL50    227.25 102.74 
+52        148.65  56.43 
+Hectate    34.85 195.99 
+NULL55    226.03 123.75 
+56        111.55 163.15 
+Eurus      43.32 209.83 
+62        116.24 200.05 
+Mors       39.40 183.97 
+Morpheus   40.75 182.18 
+Hercules   39.73 185.55 
+67        111.42 220.81 
+70         79.32 226.80 
+Boreas     25.40 186.96 
+73        128.73 205.75 
+NULL74    235.03 114.24 
+76         70.45 126.67 
+78         70.70 233.22 
+80        141.26 203.61 
+Hebe       42.70 199.41 
+84        107.77 162.37 
+85        204.63 178.88 
+86        203.59 178.68 
+87        204.80 179.88 
+89        206.40 186.35 
+90         87.72 160.58 
+93        130.25 206.47 
+NULL96    235.82 113.04 
+98        119.36  98.23 
+Emba      210.36  56.51 
+101       111.12 198.89 
+106       129.70 207.66 
+107       127.86 209.29 
+108       131.93 209.00 
+109       217.68 181.18 
+112       207.73 175.60 
+NULL113   224.76 114.03 
+115        65.17 126.94 
+116       213.43 181.13 
+117       143.50 216.76 
+118       130.10 205.89 
+120        79.15 223.95 
+122        77.28 225.43 
+123       148.52  63.80 
+Hespera    44.96 181.64 
+125        63.05 114.93 
+NULL127   233.44 114.14 
+NULL128   233.41 117.07 
+NULL129   235.54 115.15 
+Iris       54.22 196.99 
+132       177.28 108.93 
+135        66.30 116.52 
+137        78.49 226.15 
+139       211.48 208.48 
+141       113.25  99.96 
+142       177.67  89.94 
+143       187.78  96.71 
+144       124.86  97.03 
+Zephir     29.96 218.01 
+Cherek    207.33  49.86 
+Drenai    208.09  49.05 
+Drasnia   208.08  52.04 
+153       111.35 143.91 
+158        73.37 232.40 
+Nemesis    41.91 192.78 
+160        86.07 163.92 
+161       185.09  87.66 
+Aether     65.98 190.32 
+166       207.89  55.73 
+175       189.97 195.66 
+Nike       48.25 179.91 
+177       148.57 223.20 
+178       128.98 206.46 
+184       129.98 207.65 
+185       174.60 107.54 
+186       206.14 182.25 
+187       128.08 208.30 
+189        80.06 227.87 
+197       147.06  67.23 
+198        90.97 154.45 
+199       221.05 173.89 
+200        74.40 123.90 
+201       227.23  43.57 
+202       192.91 197.28 
+NULL204   236.77 111.70 
+205       112.08 101.97 
+209        94.79 237.62 
+214       126.12  50.61 
+216       200.22 190.83 
+217       222.83 216.53 
+218       129.24 206.87 
+220       208.12 176.74 
+221       112.93 151.67 
+222       151.56  59.68 
+226        61.42 231.25 
+227       113.00 104.97 
+228       178.62  84.69 
+229       171.36  86.61 
+230       163.01 157.63 
+231       205.59 187.10 
+232        93.43 165.20 
+233        94.24 163.24 
+234        94.36 164.05 
+235        64.17 112.66 
+Hygeia     28.39 189.02 
+Ekstra    203.57  42.28 
+243       129.52 199.15 
+Hypnos     42.04 191.63 
+Erinyes    44.26 182.88 
+246       119.05 106.24 
+250       111.36 106.21 
+253       177.04  96.38 
+254       177.55  97.64 
+255       178.72  95.48 
+256       206.30 177.54 
+NULL260   222.53 117.44 
+261       178.33 162.43 
+262       176.69 100.92 
+Eris       43.74 170.96 
+266        58.71 111.59 
+268       209.49 178.66 
+274        79.61 226.61 
+275        78.93 225.61 
+276        80.91 224.80 
+277       178.79 104.90 
+Eos        45.16 188.54 
+283       146.36  51.85 
+287        85.24 166.69 
+N         238.88 118.47 
+291        78.95 227.32 
+292       137.59  56.26 
+Notus      45.98 157.34 
+294       101.78 168.68 
+295       116.04 101.14 
+296       117.47 102.44 
+297       117.53 102.85 
+298        67.34 118.95 
+300       103.47 135.52 
+301       131.22  55.32 
+302       142.81  50.13 
+303        64.97 119.29 
+305       139.37  56.23 
+311       139.33  55.31 
+NULL312   234.49 125.12 
+315       168.35 105.30 
+
+		Uninhabited Planets
+
+N      X      Y      S     R    $    M  
+1   145.53 141.86                       
+2   145.70 144.83                       
+3   147.85 143.21                       
+9    58.75 214.28                       
+10   35.63  86.87                       
+11   11.52 111.02                       
+13  208.47  64.46                       
+14  194.38  20.04                       
+17  177.32 101.70                       
+19  163.97  41.69                       
+20  192.69 107.48                       
+27  211.65  41.40                       
+31    7.81 103.75 994.05 0.43 0.00 0.00 
+32  145.24 146.32                       
+33  127.00  22.18 140.49 0.94 0.00 0.00 
+34   97.24  92.31                       
+36   14.30 107.37                       
+37  227.09  71.09                       
+38  173.88 130.73                       
+41    9.77 143.99                       
+47  104.39 113.93                       
+54  196.89  45.09                       
+57  112.28  58.97 136.54 1.42 0.00 0.00 
+59   48.34  95.44                       
+60   54.56 227.32                       
+61   27.06  51.81                       
+63  142.60 140.10                       
+68    4.16 116.78                       
+69   24.52 225.70                       
+71  118.71 114.60                       
+75    6.22 229.67                       
+77   65.46 144.63                       
+79   96.86  67.90  86.44 0.68 0.00 0.00 
+81  219.68  56.20                       
+83  108.51  23.91  23.52 0.63 0.00 0.00 
+88  222.13  79.56                       
+91  116.81  13.85  69.25 1.25 0.00 0.00 
+92  205.42  59.61                       
+94  152.87  38.54                       
+97  211.74  19.41                       
+99  210.89  57.28                       
+102  33.14 232.21                       
+103 145.15 141.84                       
+110  48.12  37.33   4.86 0.63 0.00 0.00 
+111  39.62  38.05 790.23 0.43 0.00 0.00 
+114  66.51  59.31  94.58 1.14 0.00 0.00 
+119 118.28  31.65  33.03 1.14 0.00 0.00 
+121   8.26  79.08  95.65 0.91 0.00 0.00 
+126 150.25 146.72                       
+134 100.78 103.86                       
+136  91.78  61.01  20.43 0.57 0.00 0.00 
+138 181.08  70.87                       
+140 192.93  46.98                       
+146 132.55  77.76                       
+147  17.39 207.84                       
+151  28.02  61.22                       
+152  22.26  57.01                       
+154   1.16 229.11                       
+155 193.54  26.99                       
+156 181.31  42.74                       
+157 186.92  31.84                       
+162  77.17 142.76                       
+163 151.49  89.11                       
+164  75.28 133.20                       
+167  38.59 228.05                       
+168  69.15 205.29                       
+172 188.15   0.01                       
+173 153.04 133.08                       
+174 201.57 231.93                       
+179  25.53  50.93                       
+181  33.28  38.29                       
+182  28.41 142.62                       
+183   6.08  99.06                       
+188 216.04   0.20                       
+190  33.70  51.10                       
+191  35.41  53.44                       
+192  32.00  50.90                       
+193 212.19   5.11                       
+195   1.08  75.75  62.68 0.62 0.00 0.00 
+196  25.02  63.01                       
+203  26.21  43.14                       
+206 224.51  51.18                       
+207 126.89  40.48   5.89 1.00 0.00 0.00 
+208 108.76 108.37                       
+210   0.79 110.41                       
+211   5.02 106.89                       
+212   5.60 108.46                       
+213   5.98 107.59                       
+215  52.34  62.00  30.10 0.69 0.00 0.00 
+219 145.20 140.47                       
+224   2.19 114.42                       
+225   2.21 154.38                       
+237  31.00  49.37                       
+238 157.41  61.55                       
+241 103.37 106.69                       
+242 196.19  58.88                       
+248   6.59 188.29                       
+249 132.96  94.39                       
+251  38.90  92.94                       
+252 135.84  72.14                       
+258 204.77  80.48                       
+259   5.41 119.46                       
+263 234.36  25.65                       
+264  11.21 106.78 545.99 0.44 0.00 0.00 
+267   4.33 108.52 614.95 1.79 0.00 0.00 
+269  51.68 138.57                       
+270 101.05 122.39                       
+271 158.05  14.46                       
+272   2.84 108.81                       
+273  11.16 206.24                       
+279  31.18  10.52                       
+280 131.10 152.24                       
+281  27.27  48.19                       
+282 136.86 151.28                       
+284 103.80  89.06                       
+285  29.95  55.36                       
+286  34.90 128.80                       
+288 146.96 132.07                       
+289  13.83 181.34                       
+299 144.18 140.23                       
+304  26.10 150.63                       
+306  30.64  11.80                       
+307  27.66  33.84                       
+308 186.76  48.09                       
+309 147.20 142.81                       
+310 112.07  56.67  86.73 0.63 0.00 0.00 
+313 229.92  34.61                       
+314 156.26 226.14                       
+
+		Your Groups
+
+G   #      T       D    W    S    C  T   Q       D     R O 
+ 1  1 Seed       1.40 0.00 0.00 0.00 - 0.00 4              
+ 2  1 Cargo0     3.39 0.00 0.00 1.00 - 0.00 4              
+ 3  1 Seed       1.40 0.00 0.00 0.00 - 0.00 8              
+ 4  1 Cargo2     3.39 0.00 0.00 1.00 - 0.00 8              
+ 5  1 Seed       1.40 0.00 0.00 0.00 - 0.00 18             
+ 6  1 Cargo0     3.39 0.00 0.00 1.00 - 0.00 18             
+ 7  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Grape          
+ 8  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Grape          
+ 9  3 Cargo1     3.87 0.00 0.00 1.00 - 0.00 Grape          
+10  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Rye            
+11  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Rye            
+12  5 Cargo1     3.87 0.00 0.00 1.00 - 0.00 Rye            
+13  1 Seed       1.40 0.00 0.00 0.00 - 0.00 104            
+14  1 Cargo0     3.39 0.00 0.00 1.00 - 0.00 104            
+15  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Orange         
+16  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Orange         
+17  1 Seed       1.40 0.00 0.00 0.00 - 0.00 131            
+18  1 Cargo0     3.39 0.00 0.00 1.00 - 0.00 131            
+19 16 Cargo0     3.39 0.00 0.00 1.00 - 0.00 Watermelon     
+20 12 Cargo1     3.39 0.00 0.00 1.00 - 0.00 Watermelon     
+21  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Watermelon     
+22  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Watermelon     
+23 40 Cargo0     3.87 0.00 0.00 1.00 - 0.00 Corn           
+24  9 Cargo2     3.87 0.00 0.00 1.00 - 0.00 Corn           
+25  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Corn           
+26  2 Flak0      1.20 0.00 1.00 0.00 - 0.00 Corn           
+27  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Peas           
+28  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Peas           
+29  3 Cargo1     3.87 0.00 0.00 1.00 - 0.00 Peas           
+30  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Carrots        
+31  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Carrots        
+32  4 Cargo1     3.87 0.00 0.00 1.00 - 0.00 Carrots        
+33  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Wheat          
+34  2 Flak0      1.20 0.00 1.00 0.00 - 0.00 Wheat          
+35  3 Cargo1     3.87 0.00 0.00 1.00 - 0.00 Wheat          
+36 20 Cargo1     3.87 0.00 0.00 1.00 - 0.00 Hemp           
+37  1 Cargo3     1.00 0.00 0.00 1.00 - 0.00 Hemp           
+38  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Hemp           
+39  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Hemp           
+40  1 Cargo3     1.60 0.00 0.00 1.00 - 0.00 Hemp           
+41  4 Cargo0     3.87 0.00 0.00 1.00 - 0.00 Hemp           
+42  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Grapefruit     
+43  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Grapefruit     
+44  8 Cargo1     3.87 0.00 0.00 1.00 - 0.00 Grapefruit     
+45 34 Cargo0     3.87 0.00 0.00 1.00 - 0.00 Grapefruit     
+46  2 Flak0      1.00 0.00 1.00 0.00 - 0.00 Flax           
+47  1 Scarecrow0 1.00 1.00 1.00 0.00 - 0.00 Flax           
+48  1 Cargo2     3.39 0.00 0.00 1.00 - 0.00 247            
+49  1 Seed       1.40 0.00 0.00 0.00 - 0.00 247            
+50  1 Seed       1.40 0.00 0.00 0.00 - 0.00 257            
+51  1 Cargo2     3.39 0.00 0.00 1.00 - 0.00 257            
+52  1 Seed       1.40 0.00 0.00 0.00 - 0.00 31             
+53  1 Seed       1.40 0.00 0.00 0.00 - 0.00 33             
+54  1 Seed       1.40 0.00 0.00 0.00 - 0.00 57             
+55  1 Seed       1.40 0.00 0.00 0.00 - 0.00 79             
+56  1 Seed       1.40 0.00 0.00 0.00 - 0.00 83             
+57  1 Seed       1.40 0.00 0.00 0.00 - 0.00 91             
+58  1 Seed       1.40 0.00 0.00 0.00 - 0.00 110            
+59  1 Seed       1.40 0.00 0.00 0.00 - 0.00 111            
+60  1 Seed       1.40 0.00 0.00 0.00 - 0.00 114            
+61  1 Seed       1.40 0.00 0.00 0.00 - 0.00 119            
+62  1 Seed       1.40 0.00 0.00 0.00 - 0.00 121            
+63  1 Seed       1.40 0.00 0.00 0.00 - 0.00 136            
+64  1 Seed       1.40 0.00 0.00 0.00 - 0.00 195            
+65  1 Seed       1.40 0.00 0.00 0.00 - 0.00 207            
+66  1 Seed       1.40 0.00 0.00 0.00 - 0.00 215            
+67  1 Seed       1.40 0.00 0.00 0.00 - 0.00 264            
+68  1 Seed       1.40 0.00 0.00 0.00 - 0.00 267            
+69  1 Seed       1.40 0.00 0.00 0.00 - 0.00 310            
+
+		Fleet Defenders (speed 6.67)
+
+G   #   T     D    W    S    C  T   Q    D  R O 
+70  1 Axe0  1.00 1.00 1.00 1.00 - 0.00 Corn     
+71  1 Rake0 1.00 1.00 1.00 1.00 - 0.00 Corn     
+72 41 Flak0 1.00 0.00 1.00 0.00 - 0.00 Corn     
+73  9 Flak0 1.40 0.00 1.00 0.00 - 0.00 Corn     
+74  9 Flak0 1.60 0.00 1.00 0.00 - 0.00 Corn     
+75  5 Flak0 1.20 0.00 1.00 0.00 - 0.00 Corn     
+
+		Nation_2 Groups
+
+#   T     D    W    S    C  T   Q   D  
+1 scout 2.96 0.00 0.00 0.00 - 0.00 264 
+
+		Nation_3 Groups
+
+# T   D    W    S    C  T   Q   D  
+1 p 1.00 0.00 0.00 0.00 - 0.00 57  
+1 p 1.00 0.00 0.00 0.00 - 0.00 119 
+1 p 1.00 0.00 0.00 0.00 - 0.00 207 
+1 p 1.00 0.00 0.00 0.00 - 0.00 310 
+1 p 1.00 0.00 0.00 0.00 - 0.00 33  
+1 p 1.00 0.00 0.00 0.00 - 0.00 79  
+1 p 1.00 0.00 0.00 0.00 - 0.00 91  
+1 p 1.00 0.00 0.00 0.00 - 0.00 136 
+
+		Nation_15 Groups
+
+#   T     D    W    S    C  T   Q   D  
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 79  
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 83  
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 310 
+1 Probe 1.00 0.00 0.00 0.00 - 0.00 57  
+

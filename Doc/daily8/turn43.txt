@@ -1,0 +1,2288 @@
+
+Bulletins for Galaxy Game Daily8 Turn 43
+
+Daily8 Top 15 of turn 43 which ran on 18:00:02 Tue Apr 01 2003
+
+ # lt  Nation        Pop   dlt    Ind   dlt   eInd   dlt  tech  dlt   #  dlt
+ 1   0 Farmers     43213  3488  33188  1359  35694  1892 33.26 1.45 223  13
+ 2   0 SiliconFun  24597   684  21112   994  21983   916 26.94 0.00  80   0
+ 3   0 The_Grinch   1070 -4057   1012 -2127   1026 -2609 15.64 0.00   6  -9
+ 4   0 Outvaders    1216     3    689    77    821    59  9.39 0.00   3   0
+ 5   0 Valdorians    147     0    114     0    122     0 11.13 0.00   1   0
+ 6   0 Nation_1        0     0      0     0      0     0  5.03 0.00   0   0
+ 7   0 Nation_2        0     0      0     0      0     0  6.49 0.00   0   0
+ 8   0 Nation_3        0     0      0     0      0     0  5.53 0.00   0   0
+ 9   0 Santa_s         0     0      0     0      0     0  8.23 0.00   0   0
+10   0 NULLoids        0     0      0     0      0     0 10.95 0.00   0   0
+11   0 Tarmangani      0     0      0     0      0     0  7.76 0.00   0   0
+12   0 Nation_10       0     0      0     0      0     0  4.32 0.00   0   0
+13   0 Nation_11       0     0      0     0      0     0  4.32 0.00   0   0
+14   0 Vegetaborg      0     0      0     0      0     0  7.56 0.00   0   0
+15   0 Nation_15       0     0      0     0      0     0 14.16 0.00   0   0
+
+***********************************************************************
+  o     o    +   .  +    o       +      +  o       o           o
+    o      -   ______ o    __        +   -  + _   ________   o    +  o
+ o  .         / ____/___ _/ /___ __  ____  __/ | / / ____/         +
+      .*  -  / / __/ __ `/ / __ `/ |/_/ / / /  |/ / / __      +
+   *        / /_/ / /_/ / / /_/ />  </ /_/ / /|  / /_/ / o    -    -
+    .  o    \____/\__,_/_/\__,_/_/|_|\__, /_/ |_/\____/ .    -  o     o
+     *           . +        o       /____/   +   +          -
+ o         o          +       -                    o         -     o
+   .  -        http://www.badcheese.com/~steve/pbm.shtml       +
+***********************************************************************
+
+-*- SENDING ORDERS -*-
+
+Orders should be send to:   steve@badcheese.com
+with a subject line of:     "order" or "orders"
+All orders should start with:
+  #GALAXY <game name> <your nation name> <your password>
+and end with:
+  #END
+
+The game name is case sensitive, so use Jangi and not jangi.  Please
+send in orders in time. Even empty orders will do.  If you miss 2
+turns in a row during the first 12 turns your nation self destructs,
+and that is not a pretty sight.  After turn 12 you can miss 5 turns in
+a row before your nation self-destructs.  If you fail to send in your
+turn0 or turn1 orders, your nation will be reset.  NOTE: It's better
+to send in blank orders, than no orders at all - especially in the
+beginning turns of the game.  The beginning orders are really easy
+anyway, so there's no reason for people to be kicked out of the game
+for any reason other than they weren't serious about playing the game
+in the first place.
+
+You can send in advance orders by adding the turn number to subject
+line. For instance, to send in orders for turn 55, use a subject line
+of "orders 55".  Advance orders are not checked, you only get a
+confirmation that they were stored on disk. Also do _NOT_ change
+your password or your nation name right before sending in advanced orders.
+The engine will then not accept the orders once the advance turn is
+run unless you remember to use your new password in the advance orders
+too.
+
+You can send in orders as many times as you please. The last set of
+valid orders is used when the turn is run.  You should get an almost
+immediate reply to your email. The message contains a report on any
+mistakes you made in your orders and a short forecast about your
+situation in the next turn.  Not everything will be reflected in the
+forecast of course - things like battles and the other players'
+decisions will affect your final turn report when the turns are run.
+
+PLEASE SEND ORDERS AND RELAYS IN PLAINTEXT ONLY!!!  NO HTML!!!
+Instructions for turning off HTML in most mail clients are here:
+http://www.expita.com/nomime.html
+
+-*- GETTING A COPY OF A TURN REPORT -*-
+
+You can get a copy of any of the previous turn reports by sending a
+set of orders that contains just one line:
+  #GALAXY <game name> <your nation name> <your password>
+to steve@badcheese.com with a Subject line of "report <turn#>"
+Use the nation name and password of the last turn, not the
+name and password you had at the turn you request.
+
+-*- ANONYMOUS IN-GAME EMAIL -*-
+
+You can send a anonymous email to another nation by sending a
+message with the following format
+  #GALAXY <game name> <your nation name> <your password>
+  <text of your message>
+  .
+  .
+to steve@badcheese.com with as Subject: relay <destination nation name>
+If you get a message like this you can just hit the reply button
+and write and send the reply. For your convenience the
+#GALAXY... line is included in the message, you probably have
+to remove the "> " your mail program added in front of it.
+Be careful with signatures if you want to stay anonymous.
+
+-*- TIME AND DUE DATES FOR ORDERS -*-
+
+Most turns get run at midnight "Mountain" time or "Colorado" time
+(That's GMT-7 or GMT-6 depending on the "Daylight time") except the
+"Daily" games which are run at 6pm every day.  For turn frequency
+and the official galaxy engine clock, please visit the web page (below).
+
+-*- OTHER INFORMATION -*-
+
+Game Stats:                     http://badcheese.com/~steve/pbm.shtml
+For information about GalaxyNG:       http://galaxyng.sourceforge.net
+The manual is at:    http://galaxyng.sourceforge.net/ManGalaxyNG.html
+
+-*- BUGS and Other Problems -*-
+
+Send bug reports about the server to steve@badcheese.com.
+Send bug reports about the game engine to fslothouber@acm.org.
+
+For all "how do I ..." questions, see the documentation or send them
+to the mailinglist: galaxy@badcheese.com.
+
+-*- ENDING A GAME -*-
+
+To end a game I need an email from all remaining players, saying they
+agree to end the game.  The result will be entered into the Hall of
+Fame and Shame, and an announcement will be made on galaxy@badcheese.com
+mailing list.
+
+    ____        _ __      ____ 
+   / __ \____ _(_) /_  __( __ )
+  / / / / __ `/ / / / / / __  |
+ / /_/ / /_/ / / / /_/ / /_/ / 
+/_____/\__,_/_/_/\__, /\____/  
+                /____/         
+See http://badcheese.com/~steve/index.php?page_title=Galaxy for
+game runtimes and frequency.
+
+
+		Production Status
+Sofar you have:
+  produced a total shipmass of 12532.63
+  lost a total shipmass of     4422.45
+
+
+		Real Name
+  Your real name is Chris_Shaffer.
+
+
+End of the Bulletins
+
+	GalaxyNG release-5-0g, March 2001.
+
+		Galaxy Game Daily8 Turn 43 Report for Farmers
+
+
+		Your Options
+
+N                 S  
+Anonymous        ON  
+AutoUnload       ON  
+ProdTable        ON  
+SortGroups       ON  
+GroupForeCast    ON  
+PlanetForeCast   ON  
+ShipTypeForecast ON  
+RoutesForecast   ON  
+Compress         OFF 
+Gplus            OFF 
+MachineReport    OFF 
+BattleProtocol   ON  
+XMLReport        OFF 
+
+ORDERS RECEIVED
+
+> D Scarecrow9 4.13 1 2.12 2 0.00 
+> L 123 COL 
+> S 375 106 
+> S 123 246 
+> L 148 COL 
+> S 148 246 
+> L 155 COL 
+> S 155 246 
+> L 242 COL 
+> S 242 246 
+> L 268 COL 
+> S 268 246 
+> L 320 COL 
+> S 320 246 
+> L 381 COL 
+> S 381 246 
+> L 464 COL 
+> S 464 246 
+> L 467 COL 
+> S 467 246 
+> L 100 COL 
+> S 100 Moss 
+> L 101 COL 
+> S 101 Moss 
+> L 103 COL 
+> S 103 Moss 
+> L 175 COL 
+> S 175 Moss 
+> L 177 COL 
+> S 177 Moss 
+> L 182 COL 1 
+> S MAX Moss 
+> L 282 COL 4 
+> S MAX Moss 
+> L 95 COL 
+> S 95 141 
+> L 322 COL 
+> S 322 141 
+> L 282 COL 
+> S 282 Monkey_Grass 
+> L 303 COL 
+> S 303 Monkey_Grass 
+> L 307 COL 
+> S 307 Monkey_Grass 
+> L 343 COL 1 
+> S MAX Monkey_Grass 
+> L 83 COL 
+> S 83 Honeydew 
+> L 86 COL 
+> S 86 Honeydew 
+> L 87 COL 5 
+> S MAX Honeydew 
+> L 345 COL 
+> S 345 Honeydew 
+> L 348 COL 
+> S 348 Honeydew 
+> L 349 COL 
+> S 349 Honeydew 
+> L 368 COL 
+> S 368 Honeydew 
+> L 315 COL 18 
+> S MAX 297 
+> L 19 COL 
+> S 19 284 
+> L 339 COL 
+> S 339 284 
+> L 340 COL 
+> S 340 284 
+> L 409 COL 
+> S 409 155 
+> L 182 CAP 
+> S 182 Hops 
+> L 315 CAP 
+> S 315 295 
+> L 64 CAP 
+> S 64 98 
+> L 66 CAP 
+> S 66 98 
+> L 67 CAP 
+> S 67 98 
+> L 74 CAP 
+> S 74 98 
+> L 201 CAP 5 
+> S MAX 98 
+> L 225 CAP 
+> S 225 98 
+> L 447 CAP 
+> S 447 98 
+> L 478 CAP 
+> S 478 98 
+> L 61 CAP 
+> S 61 144 
+> L 65 CAP 
+> S 65 144 
+> L 71 CAP 
+> S 71 144 
+> L 72 CAP 
+> S 72 144 
+> L 347 CAP 
+> S 347 Tree 
+> L 503 CAP 
+> S 503 Tree 
+> L 52 CAP 
+> S 52 Stinkweed 
+> L 128 CAP 
+> S 128 Nasturtium 
+> L 5 COL 
+> S 5 Cherek ; ETA 2 turns 
+> L 7 COL 
+> S 7 Cherek ; ETA 2 turns 
+> L 9 COL 
+> S 9 Cherek ; ETA 2 turns 
+> L 10 COL 
+> S 10 Cherek ; ETA 2 turns 
+> L 11 COL 
+> S 11 Cherek ; ETA 2 turns 
+> L 12 COL 
+> S 12 Cherek ; ETA 2 turns 
+> L 201 COL 
+> S 201 Cherek ; ETA 2 turns 
+> L 429 COL 3 
+> S MAX Cherek ; ETA 2 turns 
+> L 481 COL 
+> S 481 Cherek ; ETA 2 turns 
+> L 485 COL 
+> S 485 Cherek ; ETA 2 turns 
+> L 486 COL 
+> S 486 Cherek ; ETA 2 turns 
+> L 488 COL 
+> S 488 Drasnia ; ETA 2 turns 
+> L 489 COL 
+> S 489 Drasnia ; ETA 2 turns 
+> L 81 COL 
+> S 81 76 ; ETA 2 turns 
+> L 82 COL 
+> S 82 76 ; ETA 2 turns 
+> L 219 COL 
+> S 219 76 ; ETA 2 turns 
+> L 145 COL 
+> S 145 246 ; ETA 2 turns 
+> L 215 COL 
+> S 215 246 ; ETA 2 turns 
+> L 218 COL 
+> S 218 246 ; ETA 2 turns 
+> L 392 COL 
+> S 392 246 ; ETA 2 turns 
+> L 3 COL 
+> S 3 35 ; ETA 2 turns 
+> L 33 COL 
+> S 33 35 ; ETA 2 turns 
+> L 34 COL 
+> S 34 35 ; ETA 2 turns 
+> L 227 COL 
+> S 227 Cherek 
+> L 317 COL 1 
+> S MAX Drasnia 
+> L 429 COL 1 
+> S MAX Drasnia 
+> L 343 COL 1 
+> S MAX 35 
+> L 167 COL 
+> S 167 Moss 
+> L 87 COL 1 
+> S MAX Honeydew 
+> L 87 CAP 
+> S 87 Cherek 
+> L 317 CAP 
+> S 317 246 
+> S 56 Hops 
+> S 88 Daisy 
+> S 98 Marigolds 1 
+> S 98 Hops 
+> S 229 Daisy 7 
+> S 229 Apricot 
+> S 231 Apricot 3 
+> S 231 Aster 
+> S 232 Aster 
+> S 233 Aster 
+> S 234 Aster 
+> S 235 Aster 
+> S 270 Aster 
+> S 318 Aster 1 
+> S 318 Foxglove 5 
+> S 318 Dogwood 6 
+> S 318 Carnation 
+> S 321 Carnation 
+> S 343 Peach 
+> S 421 Hops 
+> S 422 Peach 3 
+> S 422 Lima_Bean 
+> S 424 Grape 2 
+> S 424 Hops 
+> S 429 Carnation 
+> S 432 Carnation 
+> S 433 Carnation 
+> S 452 Carnation 
+> S 453 Carnation 3 
+> S 453 Daylilly 1 
+> S 453 Dewberry 1 
+> S 453 98 
+> S 471 98 
+> S 473 98 
+> S 475 98 3 
+> S 475 Tangerine 
+> G 446 
+> R 160 EMP 
+> R 198 EMP 
+> R 232 EMP 
+> R 233 EMP 
+> R 287 EMP 
+> R 40 EMP 
+> R 90 EMP 
+> R Apple COL 
+> R Apple EMP 
+> R Apricot EMP 
+> R Artichoke EMP 
+> R Aster EMP 
+> R Bluegrass COL 
+> R Bluegrass EMP 
+> R Broccoli CAP 
+> R Cabbage COL 
+> R Carrots COL 
+> R Carrots EMP 
+> R Cherry COL 
+> R Corn CAP 
+> R Corn COL 
+> R Daisy EMP 
+> R Dandylion EMP 
+> R Daylilly COL 
+> R Daylilly EMP 
+> R Dewberry COL 
+> R Dogwood EMP 
+> R Flax COL 
+> R Grape COL 
+> R Grapefruit COL 
+> R Hemp COL 
+> R Lima_Bean COL 
+> R Lime COL 
+> R Lime EMP 
+> R Monkey_Grass EMP 
+> R Nasturtium EMP 
+> R Orchid EMP 
+> R Peach COL 
+> R Peach CAP 
+> R Peas COL 
+> R Peas EMP 
+> R Rhubarb EMP 
+> R Rye COL 
+> R Rye EMP 
+> R Semolina EMP 
+> R Soy EMP 
+> R Tangerine COL 
+> R Watermelon COL 
+> R Watermelon EMP 
+> R Wheat COL 
+> R Wheat EMP 
+> R Magnolia CAP 205 
+> G 456 
+> G 458 
+> G 455 
+> G 450 
+> P 295 CAP 
+> G 153 
+> G 152 
+> G 154 
+> G 150 
+> P 98 CAP 
+> G 150 
+> G 149 
+> S 277 141 
+> S 68 144 
+> S 89 141 
+> S 312 141 
+> S 353 144 
+> S 13 144 
+> S 363 141 
+> S 288 141 ; ETA 2 turns 
+> S 490 141 
+> S 35 141 
+> S 146 141 
+> S 202 141 
+> S 220 144 
+> S 178 144 ; ETA 2 turns 
+> S 163 144 
+> S 350 144 
+> S 443 294 
+> S 441 294 
+> S 442 294 
+> R 189 EMP 90 
+> G 293 
+> S 294 90 
+> S 295 90 
+> S 296 90 
+> G 15 
+> G 14 
+> R 7 CAP 218 
+> S 16 218 
+> S 18 218 
+> S 169 295 
+> G 413 
+> R 275 CAP 49 
+> S 415 49 
+> S 416 49 
+> G 194 
+> R 122 CAP 287 
+> S 197 287 
+> S 185 78 
+> S 189 106 
+> S 187 106 
+> S 525 168 
+> S 476 56 
+> S 412 60 
+> S 245 153 
+> S 188 274 
+> S 170 276 
+> S 139 218 
+> S 133 9 1 
+> S 133 46 1 
+> S 133 67 1 
+> S 133 120 1 
+> S 133 137 1 
+> S 133 158 1 
+> S 133 209 1 
+> S 133 226 1 
+> S 468 7 1 
+> S 468 70 1 
+> S 468 122 1 
+> S 468 189 1 
+> S 468 275 1 
+> S 468 291 1 
+> S 468 6 1 
+> S 107 160 
+> S 109 160 
+> G 106 
+> R 70 CAP 160 
+> P Rose Flak1 
+> G 319 
+> P Cherek Flak1 
+> G 250 
+> P 22 Flak1 
+> G 42 
+> P 35 SHIELDS 
+> G 54 
+> P St_Augustine_Grass Flak1 
+> G 308 
+> G 281 
+> G 280 
+> G 162 
+> G 176 
+> G 174 
+> G 487 
+> G 484 
+> G 346 
+> G 344 
+> G 361 
+> G 362 
+> G 30 
+> G 31 
+> G 32 
+> G 286 
+> G 287 
+> G 142 
+> G 143 
+> G 144 
+> G 198 
+> G 199 
+> G 200 
+> G 216 
+> G 217 
+> G 168 
+> G 186 
+> G 241 
+> G 491 
+> G 55 
+> G 364 
+> G 254 
+> G 251 
+> G 99 
+> G 211 
+> G 327 
+> G 423 
+> G 504 
+> G 316 
+> G 434 
+> G 306 
+> G 161 
+> G 203 
+> G 204 
+> G 374 
+> G 77 
+> G 131 
+> G 132 
+> G 479 
+> G 480 
+> G 445 
+> P Cattail SHIELDS 
+> G 468 
+> G 466 
+> G 465 
+> G 23 
+> G 184 
+> G 183 
+> G 24 
+> G 25 
+> G 221 
+> G 222 
+> G 223 
+> G 226 
+> G 26 
+> G 244 
+> G 247 
+> G 246 
+> G 248 
+> G 259 
+> G 260 
+> G 261 
+> G 262 
+> G 263 
+> G 28 
+> G 267 
+> G 272 
+> G 271 
+> G 29 
+> G 283 
+> G 289 
+> G 291 
+> G 290 
+> G 292 
+> G 309 
+> G 323 
+> G 38 
+> G 324 
+> G 329 
+> G 332 
+> G 331 
+> G 333 
+> G 335 
+> G 336 
+> G 354 
+> G 355 
+> G 356 
+> G 357 
+> G 43 
+> G 358 
+> G 360 
+> G 359 
+> G 45 
+> G 44 
+> G 371 
+> G 372 
+> G 380 
+> G 382 
+> G 384 
+> G 385 
+> G 383 
+> G 387 
+> G 389 
+> G 388 
+> G 393 
+> G 395 
+> G 394 
+> G 396 
+> G 397 
+> G 399 
+> G 398 
+> G 404 
+> G 402 
+> G 401 
+> G 403 
+> G 46 
+> G 47 
+> G 406 
+> G 405 
+> G 407 
+> G 412 
+> G 411 
+> G 431 
+> S 439 295 
+> S 438 295 ; ETA 2 turns 
+> S 437 295 
+> G 440 
+> G 48 
+> G 449 
+> G 469 
+> G 470 
+> G 472 
+> G 474 
+> G 477 
+> G 493 
+> G 49 
+> G 506 
+> G 53 
+> S 57 295 ; ETA 2 turns 
+> G 58 
+> G 59 
+> G 60 
+> G 75 
+> G 76 
+> G 90 
+> G 91 
+> G 365 
+> S 92 295 1 
+> G 92 
+> G 97 
+> G 96 
+> G 105 
+> G 112 
+> G 110 
+> G 111 
+> S 113 295 ; ETA 2 turns 
+> G 114 
+> G 116 
+> G 115 
+> S 117 295 
+> S 118 295 
+> G 119 
+> G 124 
+> G 125 
+> G 129 
+> G 136 
+> G 137 
+> G 138 
+> G 147 
+> G 156 
+> G 157 
+> G 258 
+> G 50 
+> G 51 
+> G 314 
+> G 193 
+> G 257 
+> G 140 
+> G 141 
+> G 126 
+> G 127 
+> G 302 
+> G 305 
+> G 304 
+> G 390 
+> G 391 
+> G 37 
+> G 36 
+> G 171 
+> G 172 
+> G 313 
+> G 240 
+> G 269 
+> G 378 
+> G 379 
+> G 264 
+> G 265 
+> G 213 
+> G 214 
+> S 326 295 ; ETA 2 turns 
+> G 325 
+> G 274 
+> G 273 
+> G 427 
+> G 430 
+> G 428 
+> G 93 
+> G 94 
+> G 120 
+> G 121 
+> G 122 
+> P 70 SHIELDS 
+> P Drasnia SHIELDS 
+> G 256 
+> G 255 
+> P 7 SHIELDS 
+> P 246 SHIELDS 
+> G 376 
+> G 377 
+> G 454 
+> P Monkey_Grass SHIELDS 
+> G 328 
+> P Moss SHIELDS 
+> G 425 
+> S 426 211 
+> P Drenai SHIELDS 
+> G 252 
+> G 253 
+> P 189 SHIELDS 
+> P 303 SHIELDS 
+> G 492 
+> P 122 SHIELDS 
+> P Shitake_Mushroom SHIELDS 
+> G 435 
+> P 205 SHIELDS 
+> P 291 SHIELDS 
+> P 275 SHIELDS 
+> P 287 SHIELDS 
+> P Iris SHIELDS 
+> P 117 SHIELDS 
+> P 101 SHIELDS 
+> P 107 SHIELDS 
+> P 118 SHIELDS 
+> P 36 SHIELDS 
+> P Peach SHIELDS 
+> P TolHoneth Flak1 
+> P 298 Flak1 
+> P 15 Flak1 
+> P Dogwood Flak1 
+> G 73 
+> G 369 
+> G 370 
+> G 159 
+> G 158 
+> G 418 
+> G 69 
+> G 70 
+> G 497 
+> G 498 
+> G 80 
+> G 79 
+> G 228 
+> G 230 
+> G 284 
+> G 373 
+> G 134 
+> G 135 
+> G 20 
+> G 21 
+> G 266 
+> G 104 
+> G 501 
+> G 502 
+> G 330 
+> G 164 
+> G 165 
+> G 166 
+> G 2 
+> G 1 
+> G 279 
+> G 278 
+> G 341 
+> G 342 
+> G 224 
+> G 419 
+> G 420 
+> G 495 
+> G 496 
+> G 337 
+> G 338 
+> G 499 
+> G 500 
+> G 191 
+> G 192 
+> G 408 
+> G 179 
+> G 181 
+> S 180 23 ; ETA 7 turns 
+> G 39 
+> G 41 
+> G 40 
+> G 366 
+> G 367 
+> G 494 
+> G 285 
+> P 227 Flak1 
+> P Wheat Flak1 
+> P Grape Flak1 
+> P Foxglove Scarecrow9 
+> P Bluegrass Scarecrow9 
+> P Hespera Flak1 
+> P 71 Flak1 
+> D Scarecrow8 4.69 1 2.19 2.5 0.00 
+> P Violet Scarecrow8 
+> P Rhubarb Flak1 
+> P Peas Scarecrow9 
+> P 250 Pebble 
+> P 144 SHIELDS 
+> G 243 
+> P 141 SHIELDS 
+> G 236 
+> P Hops SHIELDS 
+> G 102 
+> P Orchid SHIELDS 
+> G 505 
+> S 205 101 
+> S 448 20 
+> S 482 153 
+> S 78 243 
+> S 301 270 
+> S 212 117 1 
+> S 195 287 
+> S 160 106 
+> S 468 101 1 
+> G 212 
+
+MISTAKES
+
+G 246 
+Planet has no remaining industry.
+G 271 
+Planet has no remaining industry.
+G 398 
+Planet has no remaining industry.
+G 407 
+Planet has no remaining industry.
+G 412 
+Group is in hyperspace.
+G 91 
+Planet has no remaining industry.
+G 172 
+Planet has no remaining industry.
+G 122 
+Planet has no remaining industry.
+G 166 
+Planet has no remaining industry.
+
+		Status of Players
+
+N              D     W     S     C      P        I     #    R   
+Nation_1      1.00  2.03  1.00 1.00     0.00     0.00   0 War   
+Nation_2      3.08  1.29  1.12 1.00     0.00     0.00   0 War   
+Nation_3      2.53  1.00  1.00 1.00     0.00     0.00   0 War   
+Valdorians    7.32  1.82  1.00 1.00   147.00   113.84   1 War   
+SiliconFungi  7.79  8.01 10.14 1.00 24597.19 21111.79  80 Peace 
+Santa_s       5.23  1.00  1.00 1.00     0.00     0.00   0 War   
+NULLoids      5.60  1.83  2.28 1.24     0.00     0.00   0 War   
+Tarmangani    2.97  2.79  1.00 1.00     0.00     0.00   0 War   
+Farmers      10.00 10.03 12.23 1.00 43213.40 33187.63 223 -     
+Nation_10     1.32  1.00  1.00 1.00     0.00     0.00   0 War   
+Nation_11     1.32  1.00  1.00 1.00     0.00     0.00   0 War   
+Vegetaborg    2.91  2.65  1.00 1.00     0.00     0.00   0 War   
+Outvaders     3.92  1.45  2.72 1.31  1215.89   689.24   3 Peace 
+The_Grinch    4.15  6.06  4.44 1.00  1070.44  1011.51   6 War   
+Nation_15     5.56  3.50  4.10 1.00     0.00     0.00   0 War   
+
+		Your Ship Types
+
+N            D    A   W     S     C    Mass Speed  Def  
+Cargo0      1.02  0  0.00  0.00  1.00  2.02 10.10  0.00 
+Cargo1      1.03  0  0.00  0.00  1.00  2.03 10.15  0.00 
+Cargo2      1.06  0  0.00  0.00  1.00  2.06 10.29  0.00 
+Cargo3     69.98  0  0.00  0.00 29.02 99.00 14.14  0.00 
+Rake0      33.00 29  2.00 35.00  1.00 99.00  6.67 23.51 
+Axe0       33.00  3 15.00 35.00  1.00 99.00  6.67 23.51 
+Flak0       1.00  0  0.00  2.00  0.00  3.00  6.67  4.31 
+Scarecrow0  1.00  1  5.00  3.00  0.00  9.00  2.22  4.48 
+Seed        1.00  0  0.00  0.00  0.00  1.00 20.00  0.00 
+Rake1      28.88 40  2.00 15.75  1.00 86.63  6.67 11.06 
+Axe1       27.84  1 35.00 19.66  1.00 83.50  6.67 13.98 
+Axe3        8.92  1 10.00  7.83  0.00 26.75  6.67  8.14 
+Rake2      43.32 25  2.00 16.31  1.00 86.63 10.00 11.45 
+Axe2       41.75  3 12.00 16.75  1.00 83.50 10.00 11.91 
+Flak1       1.00  0  0.00  1.00  0.00  2.00 10.00  2.47 
+Scarecrow1  8.91  1  3.00  5.91  0.00 17.82 10.00  7.03 
+Scarecrow3  2.00  1  4.00  4.70  0.00 10.70  3.74  6.63 
+Pebble      1.00  1  1.00  0.00  0.00  2.00 10.00  0.00 
+Rake3      49.50 35  2.00 12.50  1.00 99.00 10.00  8.40 
+Rake4      42.73 57  1.00 12.72  1.00 85.45 10.00  8.97 
+Rake5      41.75 28  2.00 11.75  1.00 83.50 10.00  8.35 
+Rake6      30.48 11  3.00 11.46  1.00 60.94 10.00  9.05 
+Axe4       33.91  1 18.00 14.90  1.00 67.81 10.00 11.35 
+Axe5       29.28  2 10.00 13.28  1.00 58.56 10.00 10.63 
+Axe6       29.80  2 10.00 13.80  1.00 59.60 10.00 10.98 
+Axe7       26.75  2 10.00 10.75  1.00 53.50 10.00  8.86 
+Axe8       23.29  2  8.00 10.28  1.00 46.57 10.00  8.88 
+Scarecrow4  5.47  1  3.00  2.47  0.00 10.94 10.00  3.46 
+Scarecrow5  5.96  1  3.00  2.95  0.00 11.91 10.01  4.01 
+Axe9       44.23  1 29.23 15.00  0.00 88.46 10.00 10.46 
+Axe10      32.40  1 25.00  7.40  0.00 64.80 10.00  5.72 
+Axe13      41.75  1 30.00 11.75  0.00 83.50 10.00  8.35 
+Axe11      31.07  1 24.00  5.87  0.00 60.94 10.20  4.63 
+Axe12      53.41  1 35.00 10.59  0.00 99.00 10.79  7.11 
+Axe14      46.15  1 26.00 14.40  0.00 86.55 10.66 10.12 
+Rake7      33.91 24  2.00  8.90  0.00 67.81 10.00  6.78 
+Rake8      29.80 40  1.00  9.30  0.00 59.60 10.00  7.40 
+Rake9      26.76 12  3.00  7.24  0.00 53.50 10.00  5.97 
+Rake10     23.29 25  1.00 10.28  0.00 46.57 10.00  8.88 
+Cargo4      1.05  0  0.00  0.00  1.00  2.05 10.24  0.00 
+Cargo5      1.08  0  0.00  0.00  1.00  2.08 10.38  0.00 
+Scarecrow6  3.00  1  2.00  4.00  0.00  9.00  6.67  5.98 
+Pick0      49.50  2 20.00 18.50  1.00 99.00 10.00 12.43 
+Pick1      49.50  1 30.00 18.50  1.00 99.00 10.00 12.43 
+Pitchfork0 45.05 50  1.00 18.55  1.00 90.10 10.00 12.86 
+Pitchfork1 43.32 23  2.00 18.31  1.00 86.63 10.00 12.86 
+Pitchfork2 41.75 44  1.00 18.25  1.00 83.50 10.00 12.97 
+Pitchfork3 41.02 21  2.00 18.02  1.00 82.04 10.00 12.89 
+Scarecrow7  5.50  1  3.00  2.50  0.00 11.00 10.00  3.49 
+Scarecrow9  4.13  1  2.12  2.00  0.00  8.25 10.01  3.08 
+Scarecrow8  4.69  1  2.19  2.50  0.00  9.38 10.00  3.68 
+
+		Nation_3 Ship Types
+
+N   D  A   W    S    C  Mass Speed  Def 
+p 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+		Valdorians Ship Types
+
+N           D  A   W    S    C  Mass Speed  Def 
+Probe     1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+221_Def_I 0.00 1 1.43 4.30 0.00 5.73  0.00 7.47 
+
+		SiliconFungi Ship Types
+
+N            D    A   W    S    C   Mass Speed  Def 
+Drudge_I    3.00  0 0.00 0.00 1.00  4.00 15.00 0.00 
+Drone       1.00  0 0.00 0.00 0.00  1.00 20.00 0.00 
+OMine_20    0.00  2 8.00 8.00 0.00 20.00  0.00 9.16 
+LR_Probe    2.00  1 1.00 0.00 0.00  3.00 13.33 0.00 
+ATT_F1      2.50  1 1.50 1.50 0.00  5.50  9.09 2.64 
+ATT_F3     12.25  3 3.00 6.00 0.00 24.25 10.10 6.44 
+ATT_F4     12.25  1 6.00 6.00 0.00 24.25 10.10 6.44 
+OMine_2     0.00  1 1.00 1.00 0.00  2.00  0.00 2.47 
+ATT_Probe   2.00  1 1.00 0.00 0.00  3.00 13.33 0.00 
+OMine_20_2  0.00 23 1.00 8.00 0.00 20.00  0.00 9.16 
+
+		Santa_s Ship Types
+
+N               D  A   W    S    C   Mass Speed  Def 
+Explorer      3.00 1 1.00 0.00 0.00  4.00 15.00 0.00 
+Colonizer_107 7.30 0 0.00 0.00 5.00 12.30 11.87 0.00 
+Spots         2.00 0 0.00 0.00 1.00  3.00 13.33 0.00 
+
+		Outvaders Ship Types
+
+N               D    A   W     S     C   Mass Speed  Def 
+1_0_0_0_0      1.00  0  0.00  0.00 0.00  1.00 20.00 0.00 
+10_10_10_10_0 10.00 10 10.00 10.00 0.00 75.00  2.67 7.37 
+
+		The_Grinch Ship Types
+
+N                   D    A   W     S     C   Mass  Speed  Def  
+Drone              1.00  0  0.00  0.00 0.00   1.00 20.00  0.00 
+Attrition_Fighter  1.39  1  1.00  1.08 0.00   3.46  8.00  2.22 
+Torpedo_Fighter    1.00  1  1.80  2.20 0.00   5.00  4.00  4.00 
+Heavy_Fighter      2.80  1  1.70  2.50 0.00   7.00  8.00  4.06 
+Command_Cruiser   40.00  1 30.00 30.00 0.00 100.00  8.00 20.08 
+Police_Cruiser     7.00  1 11.00 17.00 0.00  35.00  4.00 16.15 
+Police_Corvette    6.60 18  1.00 16.90 0.00  33.00  4.00 16.37 
+Police_Fighter     1.40  1  2.00  2.60 1.00   7.00  4.00  4.22 
+Heavy_Cruiser     40.00  5 10.00 30.00 0.00 100.00  8.00 20.08 
+Escort_Cruiser    20.00 30  1.00 14.50 0.00  50.00  8.00 12.23 
+Chaff              1.00  0  0.00  1.50 0.00   2.50  8.00  3.43 
+Light_Cruiser     20.00  1 15.00 15.00 0.00  50.00  8.00 12.65 
+Aegis_Cruiser     20.00  7  4.00 14.00 0.00  50.00  8.00 11.81 
+Refit_Corvette     7.60  1  4.00 26.40 0.00  38.00  4.00 24.40 
+War_Cruiser       39.60  3 15.00 29.40 0.00  99.00  8.00 19.75 
+Patrol_Cruiser     6.60  1 10.00 16.40 0.00  33.00  4.00 15.89 
+
+		Battle at 221
+
+		Valdorians Groups
+
+#      T       D    W    S    C  T   Q   L 
+ 1 Probe     2.79 0.00 0.00 0.00 - 0.00  1 
+ 1 221_Def_I 0.00 1.63 1.00 0.00 - 0.00  1 
+18 Probe     7.32 0.00 0.00 0.00 - 0.00 18 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+3 Flak1 7.11 0.00 4.50 0.00 - 0.00 3 
+
+		Battle Protocol
+
+
+		Battle at 9
+
+		Your Groups
+
+#    T     D     W    S    C  T   Q  L 
+1 Pebble 10.00 7.81 0.00 0.00 - 0.00 0 
+
+		The_Grinch Groups
+
+#       T         D    W    S    C  T   Q  L 
+1 Heavy_Fighter 2.95 2.17 2.11 0.00 - 0.00 1 
+
+		Battle Protocol
+
+The_Grinch Heavy_Fighter fires on Farmers Pebble : Destroyed
+
+		Battle at 46
+
+		Your Groups
+
+#    T     D     W    S    C  T   Q  L 
+1 Pebble 10.00 7.81 0.00 0.00 - 0.00 0 
+
+		The_Grinch Groups
+
+#       T         D    W    S    C  T   Q  L 
+1 Heavy_Fighter 2.60 1.01 1.50 0.00 - 0.00 1 
+
+		Battle Protocol
+
+Farmers Pebble fires on The_Grinch Heavy_Fighter : Shields
+The_Grinch Heavy_Fighter fires on Farmers Pebble : Destroyed
+
+		Battle at 67
+
+		Your Groups
+
+#    T     D     W    S    C  T   Q  L 
+1 Pebble 10.00 7.81 0.00 0.00 - 0.00 0 
+
+		The_Grinch Groups
+
+#        T         D    W    S    C  T   Q  L 
+1 Police_Fighter 4.15 6.06 4.44 1.00 - 0.00 1 
+
+		Battle Protocol
+
+The_Grinch Police_Fighter fires on Farmers Pebble : Destroyed
+
+		Battle at 106
+
+		Your Groups
+
+#    T     D     W    S    C  T   Q  L 
+1 Axe3    7.11 3.44 4.50 0.00 - 0.00 1 
+1 Seed    7.11 0.00 0.00 0.00 - 0.00 1 
+1 Pebble 10.00 4.34 0.00 0.00 - 0.00 1 
+4 Pebble 10.00 7.81 0.00 0.00 - 0.00 4 
+
+		The_Grinch Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Drone 4.15 0.00 0.00 0.00 - 0.00 0 
+
+		Battle Protocol
+
+Farmers Axe3 fires on The_Grinch Drone : Destroyed
+
+		Battle at 209
+
+		Your Groups
+
+#    T     D     W    S    C  T   Q  L 
+1 Pebble 10.00 7.81 0.00 0.00 - 0.00 0 
+
+		The_Grinch Groups
+
+#         T           D    W    S    C  T   Q  L 
+1 Attrition_Fighter 2.60 1.00 1.00 0.00 - 0.00 1 
+
+		Battle Protocol
+
+The_Grinch Attrition_Fighter fires on Farmers Pebble : Destroyed
+
+		Battle at 221
+
+		Valdorians Groups
+
+#      T       D    W    S    C  T   Q   L 
+ 1 Probe     2.79 0.00 0.00 0.00 - 0.00  1 
+ 1 221_Def_I 0.00 1.63 1.00 0.00 - 0.00  1 
+18 Probe     7.32 0.00 0.00 0.00 - 0.00 18 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+3 Flak1 7.11 0.00 4.50 0.00 - 0.00 3 
+
+		Battle Protocol
+
+
+		Battle at 226
+
+		Your Groups
+
+#    T     D     W    S    C  T   Q  L 
+1 Pebble 10.00 7.81 0.00 0.00 - 0.00 0 
+
+		The_Grinch Groups
+
+#       T         D    W    S    C  T   Q  L 
+1 Heavy_Fighter 2.65 1.19 1.61 0.00 - 0.00 1 
+
+		Battle Protocol
+
+Farmers Pebble fires on The_Grinch Heavy_Fighter : Shields
+The_Grinch Heavy_Fighter fires on Farmers Pebble : Destroyed
+
+		Battle at 274
+
+		Your Groups
+
+#    T     D     W    S    C  T   Q  L 
+1 Pebble  7.11 3.44 0.00 0.00 - 0.00 0 
+1 Seed   10.00 0.00 0.00 0.00 - 0.00 0 
+
+		The_Grinch Groups
+
+#          T          D    W    S    C  T   Q   L  
+  1 Command_Cruiser 4.15 6.06 4.44 0.00 - 0.00   1 
+  3 Escort_Cruiser  4.15 6.06 4.44 0.00 - 0.00   3 
+206 Chaff           4.15 0.00 4.44 0.00 - 0.00 206 
+  3 Police_Cruiser  4.15 5.94 4.44 0.00 - 0.00   3 
+  1 Police_Cruiser  4.15 4.71 4.26 0.00 - 0.00   1 
+  1 Police_Corvette 4.15 5.94 4.44 0.00 - 0.00   1 
+  1 Police_Cruiser  4.15 5.33 4.32 0.00 - 0.00   1 
+  5 Aegis_Cruiser   4.15 6.06 4.44 0.00 - 0.00   5 
+ 17 Drone           2.02 0.00 0.00 0.00 - 0.00  17 
+  2 Refit_Corvette  4.15 5.94 4.44 0.00 - 0.00   2 
+  1 Refit_Corvette  4.15 5.33 4.32 0.00 - 0.00   1 
+  2 Torpedo_Fighter 4.15 6.06 4.44 0.00 - 0.00   2 
+  1 Torpedo_Fighter 4.15 5.33 4.32 0.00 - 0.00   1 
+  1 Heavy_Cruiser   4.15 6.06 4.44 0.00 - 0.00   1 
+  5 Heavy_Fighter   4.15 5.94 4.44 0.00 - 0.00   5 
+  2 Heavy_Fighter   4.15 5.33 4.32 0.00 - 0.00   2 
+114 Drone           2.60 0.00 0.00 0.00 - 0.00 114 
+  2 Heavy_Cruiser   4.15 5.94 4.44 0.00 - 0.00   2 
+  3 Command_Cruiser 4.15 5.94 4.44 0.00 - 0.00   3 
+  4 Light_Cruiser   4.15 5.94 4.44 0.00 - 0.00   4 
+  6 Aegis_Cruiser   4.15 5.94 4.44 0.00 - 0.00   6 
+  1 Escort_Cruiser  4.15 5.94 4.44 0.00 - 0.00   1 
+  2 Torpedo_Fighter 4.15 5.33 4.32 0.00 - 0.00   2 
+447 Drone           4.15 0.00 0.00 0.00 - 0.00 447 
+  2 War_Cruiser     4.15 5.94 4.44 0.00 - 0.00   2 
+  1 Patrol_Cruiser  4.15 5.94 4.44 0.00 - 0.00   1 
+  1 War_Cruiser     4.15 4.71 4.26 0.00 - 0.00   1 
+  1 Heavy_Cruiser   4.15 5.33 4.32 0.00 - 0.00   1 
+  1 War_Cruiser     4.15 5.33 4.32 0.00 - 0.00   1 
+  1 Aegis_Cruiser   4.15 5.33 4.32 0.00 - 0.00   1 
+175 Drone           4.15 0.00 0.00 0.00 - 0.00 175 
+
+		Battle Protocol
+
+The_Grinch Heavy_Fighter fires on Farmers Seed : Destroyed
+The_Grinch Command_Cruiser fires on Farmers Pebble : Destroyed
+
+		Bombings
+
+W            O      N     P       I     P     $     M     C   
+Farmers The_Grinch 218  199.60  46.35 Drone 0.00   0.00  0.00 
+Farmers The_Grinch 106 1000.00 516.16 Drone 0.00   0.00 50.91 
+Farmers The_Grinch 168  139.13  19.24 CAP   0.00   0.00  8.75 
+Farmers The_Grinch 78   517.12  45.66 Drone 0.00   0.00 41.08 
+Farmers The_Grinch 60   123.63  20.83 CAP   0.00   0.00  0.00 
+Farmers The_Grinch 276  350.00 350.00 Drone 0.00   0.00 33.90 
+Farmers The_Grinch 120   98.26   0.90 Drone 0.00   0.00  1.96 
+Farmers The_Grinch 137  982.46 977.49 Drone 0.00 293.58 29.47 
+Farmers The_Grinch 158  651.77 150.72 Drone 0.00   0.00 52.14 
+
+50.00,0.00  200.00,0.00
+--------------------------------------------------------------------------------
+                                                                         *      
+                                                                                
+                                                                                
+                                   *                     *                      
+                                                                                
+               **   *                    *                                   *  
+            *                  *                                                
+                 * *                                                        *   
+                *** *               *                                    *      
+               ** **                                                            
+            *            *               *            *                         
+                                                            *         *         
+                                            *                   .  .    *   * * 
+               *                        *        * *                ...   ...   
+                                           *   *                            .   
+        *                        *            * *   * *                      *  
+ *                    *     .                            *                      
+          .                                        **                           
+        ..              *                                            *          
+                                             *                                  
+                             . .            *               .                   
+             ..                                                                 
+                                                                    +           
+                            *                         *  .      +   +   -       
+                         *                                                      
+*                                     .*    *                      ++    *      
+                                 . **                              ++           
+                           *     * **                              *+           
+                           .*  **   *                          + ++         *   
+    **                                             -               +            
+      **                     *      *                                           
+       ****                                                                     
+          *              . *                                                    
+        * *  *                                                                  
+                                                                  +-            
+             *                                     +  +                         
+*                           *                                                   
+                                           -     ++                             
+        *     *                 *                  ++                           
+         .                                        +  +                          
+--------------------------------------------------------------------------------
+50.00,150.00  200.00,150.00
+
+		Your Planets
+
+N                     X      Y      S       P       I      R        P       $      M      C      L    
+Peach               74.16  23.86  464.15  464.15  464.15  1.65 Shields     0.00    0.28  5.37  464.15 
+Daisy              133.09  46.93  831.34  831.34  831.34  7.50 Pitchfork3  0.58    0.00  9.79  831.34 
+7                   80.39 225.80  946.80  276.09  276.09  1.14 Shields     5.75  282.08  0.00  276.09 
+Marigolds           79.58  51.29   99.82   99.82   99.82  0.59 Weapons     0.91    0.00  1.49   99.82 
+10                  35.63  86.87   59.89   53.99    0.00  0.57 Weapons     0.00    0.00  0.00   13.50 
+11                  11.52 111.02  532.88   11.97    0.00  2.38 Weapons     0.00    0.00  0.00    2.99 
+13                 208.47  64.46   61.94   17.59    3.03  0.92 Weapons     0.00    0.00  0.00    6.67 
+14                 194.38  20.04    5.90    5.90    2.33  1.28 Weapons     0.00    0.00  0.24    3.22 
+15                  79.33 165.86  972.89  306.09   77.65  3.82 Flak1       0.00    0.00  0.00  134.76 
+16                  89.27 176.56  488.74  179.53   72.58  0.59 Weapons     0.00    0.00  0.00   99.31 
+17                 177.32 101.70  442.38   13.96    0.33  0.61 Weapons     0.00    0.00  0.00    3.74 
+Lima_Bean           79.61  19.20  501.30  501.30  501.30  1.31 Flak1       0.00    0.00  7.47  501.30 
+Brush              163.97  41.69   61.14   61.14    8.33  1.73 Weapons     0.00    0.00  0.95   21.53 
+20                 192.69 107.48   28.16   12.93    0.00  0.90 Weapons     0.00    0.00  0.00    3.23 
+TolHoneth          212.75  51.11  562.72  446.26  397.53  2.08 Flak1       0.00 7111.14  0.00  409.71 
+22                  67.28 118.70 1000.00  660.25  596.83 10.00 Flak1       0.00 1982.75  0.00  612.68 
+23                  69.24 120.76  250.00  107.04   74.53 10.00 Weapons     0.00    0.00  0.00   82.66 
+24                  68.78 119.17  350.00   10.12    7.30 10.00 Weapons     0.00    0.00  0.00    8.01 
+27                 211.65  41.40  748.75   17.59    2.88  0.66 Weapons     0.00    0.00  0.00    6.56 
+29                  87.01 171.76  631.88    1.50    0.86  0.67 Weapons     0.00    0.00  0.00    1.02 
+31                   7.81 103.75  994.05   11.97    0.00  0.43 Weapons     0.00    0.00  0.00    2.99 
+Apricot            127.00  22.18  140.49  140.49  140.49  0.94 Weapons     4.72    0.76  6.04  140.49 
+34                  97.24  92.31    6.02    3.25    2.20  1.05 Weapons     0.00    0.00  0.00    2.46 
+35                  59.80 110.01  977.63  422.18  403.35  0.82 Shields     0.00    0.00  0.00  408.06 
+36                  14.30 107.37  187.99    9.50    0.00  5.45 Shields     0.00    0.00  0.00    2.38 
+37                 227.09  71.09    2.77    1.02    1.02  0.69 Weapons     0.81    0.00  0.00    1.02 
+39                  78.05 163.33  161.89   11.30    6.20  1.27 Weapons     0.00    0.00  0.00    7.47 
+40                  92.57 163.36  406.05  127.88   69.38  0.55 Weapons     0.00    0.00  0.00   84.01 
+41                   9.77 143.99  130.33   11.97    0.00  0.55 Weapons     0.00    0.00  0.00    2.99 
+Aster              139.56  55.38 1000.00 1000.00 1000.00 10.00 Pick1       7.83    0.00 29.33 1000.00 
+Foxglove           139.57  53.70  250.00  250.00  250.00 10.00 Scarecrow9  5.22    0.00  8.29  250.00 
+Dogwood            141.08  57.58  350.00  350.00  350.00 10.00 Flak1      52.84    0.00 11.10  350.00 
+47                 104.39 113.93   67.21   28.42   19.39  1.96 Weapons     0.00    0.00  0.00   21.65 
+49                  89.54 169.42  804.97  273.52  148.99  1.71 Pebble      0.00    0.00  0.00  180.12 
+Grape               81.48  34.47  303.52  303.52  303.52  4.19 Flak1       0.00    0.00  3.87  303.52 
+Carnation          148.65  56.43  980.09  980.09  980.09  1.14 Pitchfork0  0.00    0.00  9.80  980.09 
+Hectate             34.85 195.99  592.06  201.37   79.39  5.30 Weapons     0.00    0.00  0.00  109.88 
+54                 196.89  45.09   91.92   12.83    2.30  0.51 Weapons     0.00    0.00  0.00    4.94 
+56                 111.55 163.15    2.74    0.93    0.61  0.59 Weapons     0.00    0.00  0.00    0.69 
+Daylilly           112.28  58.97  136.54  136.54  136.54  1.42 Weapons    17.74    0.82  2.39  136.54 
+59                  48.34  95.44   57.77   57.45    2.26  1.44 Weapons     0.00    0.00  0.00   16.06 
+60                  54.56 227.32  136.27   33.38    7.22  1.28 CAP         0.00    0.00  0.00   13.76 
+Hops                27.06  51.81  986.42  986.42  448.58  3.40 Shields     0.00    0.00 14.19  583.04 
+Mors                39.40 183.97 1000.00   22.96   22.96 10.00 Weapons    90.88    0.00  0.00   22.96 
+Morpheus            40.75 182.18  250.00   71.30   66.41 10.00 CAP         0.00    0.00  0.00   67.63 
+Hercules            39.73 185.55  350.00   96.30   92.23 10.00 CAP         0.00    0.00  0.00   93.25 
+68                   4.16 116.78  456.46   11.97    0.00  1.03 Weapons     0.00    0.00  0.00    2.99 
+69                  24.52 225.70  145.77    2.54    0.54  0.88 Weapons     0.00    0.00  0.00    1.04 
+70                  79.32 226.80  990.15  288.73  288.73  0.62 Shields     8.83  217.94  0.00  288.73 
+71                 118.71 114.60  515.75  278.36  248.65  2.55 Flak1       0.00    0.00  0.00  256.08 
+75                   6.22 229.67    3.30    1.04    0.33  0.79 Weapons     0.00    0.00  0.00    0.51 
+76                  70.45 126.67  677.34   32.33   32.33  0.87 Weapons    29.27    0.00  0.00   32.33 
+77                  65.46 144.63   21.22    1.57    0.76  1.51 Weapons     0.00    0.00  0.00    0.97 
+78                  70.70 233.22  517.12  139.62   17.00  0.43 CAP         0.00    0.00  0.00   47.65 
+Dewberry            96.86  67.90   86.44   86.44   68.09  0.68 Weapons     0.00    0.00  1.49   72.68 
+81                 219.68  56.20  661.91   16.29    2.66  4.84 Weapons     0.00    0.00  0.00    6.07 
+Blueberry          108.51  23.91   23.52   23.52   23.52  0.63 Weapons     2.38    0.00  1.88   23.52 
+84                 107.77 162.37  742.53   11.30    3.03  0.43 Weapons     0.00    0.00  0.00    5.10 
+88                 222.13  79.56    9.23    3.66    3.66  0.60 Weapons     1.76    0.00  0.00    3.66 
+90                  87.72 160.58  616.57  226.26  167.97  5.14 Pebble      0.00    0.00  0.00  182.54 
+Lime               116.81  13.85   69.25   69.25   51.65  1.25 Weapons     0.00    0.00  2.08   56.05 
+92                 205.42  59.61  549.24   17.59    4.25  1.28 Weapons     0.00    0.00  0.00    7.59 
+93                 130.25 206.47  555.48  108.62   37.83  5.03 Weapons     0.00    0.00  0.00   55.52 
+Bluebell           152.87  38.54   63.84   63.84    8.96  1.82 Weapons     0.00    0.00  0.57   22.68 
+Rye                 84.67  31.11  554.10  554.10  554.10  2.81 Flak1       0.00    0.00  5.70  554.10 
+97                 211.74  19.41  164.69   17.59    3.20  1.48 Weapons     0.00    0.00  0.00    6.79 
+98                 119.36  98.23  745.52  745.52  745.52  1.17 CAP         0.10    0.00 13.57  745.52 
+99                 210.89  57.28  982.47   17.59    3.45  6.22 Weapons     0.00    0.00  0.00    6.98 
+Emba               210.36  56.51  980.32  132.09  103.94  0.57 Weapons     0.00    0.00  0.00  110.98 
+101                111.12 198.89   39.81    6.99    2.78  1.65 Shields     0.00    0.00  0.00    3.83 
+102                 33.14 232.21  157.08    8.80    0.00  1.28 CAP         0.00    0.00  0.00    2.20 
+Apple               81.17  19.55  720.05  720.05  720.05  1.62 Flak1       0.67    0.00 27.01  720.05 
+Orange              78.38  36.80   19.12   19.12   19.12  1.34 Weapons     0.00    1.17  0.19   19.12 
+106                129.70 207.66 1000.00  270.00  160.27 10.00 CAP         0.00    0.00  0.00  187.70 
+107                127.86 209.29  250.00    3.90    2.47 10.00 Shields     0.00    0.00  0.00    2.83 
+Brussel_Sprouts     48.12  37.33    4.86    4.86    4.86  0.63 Weapons     0.73    0.00  0.44    4.86 
+Artichoke           39.62  38.05  790.23  790.23  790.23  0.43 Flak1       0.00    0.00 21.42  790.23 
+Tangerine           66.51  59.31   94.58   94.58   94.58  1.14 Weapons    10.80    0.00  1.27   94.58 
+115                 65.17 126.94   98.46   24.59   21.62  2.58 Weapons     0.00    0.00  0.00   22.36 
+117                143.50 216.76   51.19   14.93    9.25  0.78 Shields     0.00    0.00  0.00   10.67 
+118                130.10 205.89  321.49    2.59    1.45  1.87 Shields     0.00    0.00  0.00    1.73 
+Semolina           118.28  31.65   33.03   33.03   33.03  1.14 Weapons     0.00    0.00  1.32   33.03 
+120                 79.15 223.95   98.26   26.53    1.37  2.03 CAP         0.00    0.00  0.00    7.66 
+Asparagus            8.26  79.08   95.65   95.65   18.00  0.91 Weapons     0.00    0.00  2.01   37.42 
+122                 77.28 225.43  524.07  152.82  152.82  1.01 Shields     3.30  186.68  0.00  152.82 
+Tulip              148.52  63.80  596.33  596.33  596.33  2.59 Flak1       0.82    0.00 17.54  596.33 
+Hespera             44.96 181.64  520.21  176.93  154.99  4.18 Flak1       0.00    0.00  0.00  160.48 
+125                 63.05 114.93  976.04  778.20  576.78  7.59 Pebble      0.00    0.00  0.00  627.13 
+Iris                54.22 196.99  142.84   41.65   28.03  0.60 Shields     0.00    0.00  0.00   31.44 
+Cherry              88.97  19.34   66.77   66.77   66.77  0.67 Weapons     0.09    0.00  1.41   66.77 
+Watermelon          85.89  33.94  751.21  751.21  751.21  0.43 Flak1       0.00    0.00 30.40  751.21 
+134                100.78 103.86  116.21   46.10   26.28  0.89 Weapons     0.00    0.00  0.00   31.24 
+135                 66.30 116.52  464.11   15.66    9.97  2.22 Weapons     0.00    0.00  0.00   11.39 
+Pinto_Bean          91.78  61.01   20.43   20.43   20.43  0.57 Weapons     1.63    0.00  0.74   20.43 
+137                 78.49 226.15  982.46  265.26  265.26  1.56 CAP        28.04  244.64  0.00  265.26 
+138                181.08  70.87  115.37  115.37    2.79  0.55 Weapons     0.00    0.00  1.15   30.94 
+Honeydew           192.93  46.98  711.83  499.41    3.24  0.44 Weapons     0.00    0.00  0.00  127.29 
+141                113.25  99.96  917.56  733.10  465.80  5.42 Shields     0.00    0.00  0.00  532.63 
+C143               187.78  96.71  620.64   26.37   23.08  1.88 Weapons     0.00    0.00  0.00   23.90 
+144                124.86  97.03  536.69  536.69  494.62  4.48 Shields     0.00    0.00  7.17  505.14 
+146                132.55  77.76   80.75   80.75    5.32  0.92 Weapons     0.00    0.00  2.42   24.18 
+147                 17.39 207.84  148.26   54.46    6.49  1.08 Weapons     0.00    0.00  0.00   18.48 
+Cherek             207.33  49.86 1000.00  738.04  719.03 10.00 Flak1       0.00    0.00  0.00  723.78 
+Drenai             208.09  49.05  250.00  201.23  197.57 10.00 Shields     0.00    0.00  0.00  198.48 
+Drasnia            208.08  52.04  350.00  279.92  279.92 10.00 Shields     9.03    0.00  0.00  279.92 
+Basil               28.02  61.22  342.11  110.62    2.00  2.70 Weapons     0.00    0.00  0.00   29.15 
+Allspice            22.26  57.01  756.69   33.10    6.11  0.55 Weapons     0.00    0.00  0.00   12.86 
+153                111.35 143.91   88.49   22.62    5.33  0.78 Weapons     0.00    0.00  0.00    9.65 
+154                  1.16 229.11  138.75   27.76    6.03  0.94 Weapons     0.00    0.00  0.00   11.47 
+155                193.54  26.99   32.32   26.39    3.13  1.20 Weapons     0.00    0.00  0.00    8.94 
+Canteloupe         181.31  42.74   82.12   82.12    3.83  1.04 Weapons     0.00    0.00  1.07   23.40 
+Melon              186.92  31.84   89.41   89.41    3.91  1.21 Weapons     0.00    0.00  1.42   25.28 
+158                 73.37 232.40  651.77  175.98   50.15  1.87 CAP         0.00    0.00  0.00   81.60 
+Nemesis             41.91 192.78  686.19  233.39   39.38  0.63 Weapons     0.00    0.00  0.00   87.88 
+160                 86.07 163.92  564.04  177.63   80.45  4.87 Weapons     0.00    0.00  0.00  104.75 
+162                 77.17 142.76  138.90   11.09    0.00  0.69 Weapons     0.00    0.00  0.00    2.77 
+C163               151.49  89.11  152.84  152.84    8.04  1.34 Weapons     0.00    0.00  1.53   44.24 
+164                 75.28 133.20  161.14    0.05    0.01  0.94 Weapons     0.00    0.00  0.00    0.02 
+Curry              207.89  55.73   59.88   59.88   43.72  1.25 Weapons     0.00    1.30  0.55   47.76 
+167                 38.59 228.05  163.10    8.80    0.00  1.16 CAP         0.00    0.00  0.00    2.20 
+168                 69.15 205.29  139.13   37.56    6.71  0.67 CAP         0.00    0.00  0.00   14.42 
+Corn                83.89  31.50 1000.00 1000.00 1000.00 10.00 Pick0       0.00    0.00 83.70 1000.00 
+Peas                81.62  32.10  250.00  250.00  250.00 10.00 Scarecrow9  0.00    0.00 25.60  250.00 
+Carrots             82.50  30.07  350.00  350.00  350.00 10.00 Cargo0      0.00    0.00 16.70  350.00 
+172                188.15   0.01   62.74   17.59    1.69  0.54 Weapons     0.00    0.00  0.00    5.66 
+Ivy                 25.53  50.93   76.71   76.71   34.93  1.40 Weapons     0.00    0.00  3.78   45.37 
+Wheat               83.47  26.67  271.86  271.86  271.86  7.99 Flak1       0.00    0.00 28.22  271.86 
+Quinoa              33.28  38.29  233.52  233.52  233.52  3.15 Flak1      42.25    0.00 19.92  233.52 
+182                 28.41 142.62  164.83   12.93    0.00  0.70 Weapons     0.00    0.00  0.00    3.23 
+183                  6.08  99.06  139.48    6.53    0.05  2.42 Weapons     0.00    0.00  0.00    1.67 
+188                216.04   0.20   18.29   17.59    2.16  1.86 Weapons     0.00    0.00  0.00    6.02 
+189                 80.06 227.87  556.21  162.19  162.19  1.29 Shields     3.50  329.21  0.00  162.19 
+Soy                 33.70  51.10 1000.00 1000.00 1000.00 10.00 Scarecrow7 65.74    0.00 39.10 1000.00 
+Bluegrass           35.41  53.44  250.00  250.00  250.00 10.00 Scarecrow9 22.92    0.00 20.70  250.00 
+St_Augustine_Grass  32.00  50.90  350.00  350.00  350.00 10.00 Flak1      19.23    0.00 23.40  350.00 
+193                212.19   5.11   33.13   17.59    2.84  0.60 Weapons     0.00    0.00  0.00    6.52 
+Hemp                88.28  30.07  906.68  906.68  906.68  2.15 Pitchfork1  0.00    0.00 67.20  906.68 
+Bush                 1.08  75.75   62.68   62.68    7.66  0.62 Weapons     0.00    0.00  1.25   21.41 
+Arrowroot           25.02  63.01  794.37  165.71   10.03  0.47 Weapons     0.00    0.00  0.00   48.95 
+Rose               147.06  67.23  844.08  844.08  844.08  1.28 Flak1       0.00    0.00  8.44  844.08 
+198                 90.97 154.45  158.07   12.21    6.69  1.12 Weapons     0.00    0.00  0.00    8.07 
+200                 74.40 123.90  395.03   32.33   22.95  0.61 Weapons     0.00    0.00  0.00   25.29 
+Cilantro           227.23  43.57    3.99    2.71    2.71  0.93 Weapons     2.21    0.00  0.00    2.71 
+Monkey_Grass        26.21  43.14  863.40  536.95  185.23  1.12 Shields     0.00    0.00  0.00  273.16 
+205                112.08 101.97  782.24  454.24  171.93  4.97 Shields     0.00    0.00  0.00  242.51 
+206                224.51  51.18  128.79   16.29    4.64  1.04 Weapons     0.00    0.00  0.00    7.55 
+Oak                126.89  40.48    5.89    5.89    5.89  1.00 Weapons     0.22    0.00  1.06    5.89 
+208                108.76 108.37  302.64  163.34  148.35  1.80 Weapons     0.00    0.00  0.00  152.10 
+210                  0.79 110.41  645.57   11.97    0.00  1.12 Weapons     0.00    0.00  0.00    2.99 
+211                  5.02 106.89 1000.00  148.66  122.55 10.00 Weapons     0.00    0.00  0.00  129.07 
+212                  5.60 108.46  250.00   11.97    0.00 10.00 Weapons     0.00    0.00  0.00    2.99 
+213                  5.98 107.59  350.00   11.97    0.00 10.00 Weapons     0.00    0.00  0.00    2.99 
+Rhubarb            126.12  50.61  160.38  160.38  160.38  0.84 Flak1      18.63    0.00  3.62  160.38 
+Pine                52.34  62.00   30.10   30.10   26.46  0.69 Weapons     0.00    0.00  0.30   27.37 
+218                129.24 206.87  290.85   53.89   16.68  0.43 CAP         0.00    0.00  0.00   25.98 
+Dandylion          151.56  59.68  758.72  758.72  758.72  5.80 Flak1       5.69    0.00 17.80  758.72 
+Grapefruit          84.58  36.01  851.16  851.16  851.16  5.17 Pitchfork2  0.00    0.00 71.63  851.16 
+224                  2.19 114.42  983.58   11.97    0.00  0.90 Weapons     0.00    0.00  0.00    2.99 
+225                  2.21 154.38   84.95    4.07    0.37  1.97 Weapons     0.00    0.00  0.00    1.29 
+227                113.00 104.97  771.96  357.21  320.73  4.36 Flak1       0.00    0.00  0.00  329.85 
+232                 93.43 165.20 1000.00   22.94   22.94 10.00 Weapons    10.63    0.00  0.00   22.94 
+233                 94.24 163.24  250.00   78.73   78.73 10.00 Weapons    20.72    0.00  0.00   78.73 
+234                 94.36 164.05  350.00    5.90    5.90 10.00 Weapons     8.11    0.00  0.00    5.90 
+235                 64.17 112.66  533.00    3.20    1.53  0.58 Weapons     0.00    0.00  0.00    1.95 
+Flax                86.81  27.36  678.83  678.83  678.83  0.72 Flak1       0.52    0.00 80.58  678.83 
+Cattail             31.00  49.37  705.92  705.92  309.91  0.83 Shields     0.00    0.00 42.36  408.91 
+Tree               157.41  61.55  160.38  160.38  125.46  1.83 Weapons     0.00    0.00  1.60  134.19 
+Hygeia              28.39 189.02  779.62  265.17   47.46  0.46 Weapons     0.00    0.00  0.00  101.89 
+Ekstra             203.57  42.28   85.95   73.18   56.91  0.43 Weapons     0.00    0.94  0.00   60.98 
+241                103.37 106.69  537.74   95.74   56.78  1.24 Weapons     0.00    0.00  0.00   66.52 
+Kentucky_Bluegrass 196.19  58.88  629.49  148.28    1.89  7.23 Weapons     0.00    0.00  0.00   38.49 
+243                129.52 199.15  985.88  162.23   66.30  2.26 Pebble      0.00    0.00  0.00   90.29 
+Hypnos              42.04 191.63  592.35  201.47  131.86  1.97 Weapons     0.00    0.00  0.00  149.26 
+Erinyes             44.26 182.88  499.99  170.06  146.98  1.46 Weapons     0.00    0.00  0.00  152.75 
+246                119.05 106.24  600.61  449.68  262.63  0.54 Shields     0.00    9.47  0.00  309.39 
+Cabbage             74.21  38.43  127.40  127.40  127.40  1.40 Weapons    36.08    0.00 16.74  127.40 
+248                  6.59 188.29  133.27   45.33    4.83  0.60 Weapons     0.00    0.00  0.00   14.96 
+249                132.96  94.39  152.78  152.78   32.12  1.21 Weapons     0.00    0.00  3.48   62.29 
+250                111.36 106.21  551.13  297.46  264.37  5.03 Pebble      0.00    0.00  0.00  272.64 
+251                 38.90  92.94   40.55   40.55    0.00  0.69 Weapons     0.00    0.00  0.40   10.14 
+252                135.84  72.14  139.58  139.58  124.73  1.05 Weapons     0.00    0.00  2.47  128.44 
+Broccoli            98.14  41.12   38.27   38.27   38.27  1.75 Weapons     0.00    0.19  1.29   38.27 
+258                204.77  80.48  109.40   11.77    6.46  0.82 Weapons     0.00    0.00  0.00    7.79 
+259                  5.41 119.46   47.99   21.67    0.29  1.34 Weapons     0.00    0.00  0.00    5.63 
+263                234.36  25.65  116.82   16.29    2.41  0.90 Weapons     0.00    0.00  0.00    5.88 
+264                 11.21 106.78  545.99   11.97    0.00  0.44 Weapons     0.00    0.00  0.00    2.99 
+266                 58.71 111.59  190.81    2.98    2.09  0.45 Weapons     0.00    0.00  0.00    2.31 
+267                  4.33 108.52  614.95   11.97    0.00  1.79 Weapons     0.00    0.00  0.00    2.99 
+269                 51.68 138.57  152.54   24.02    4.18  0.98 Weapons     0.00    0.00  0.00    9.14 
+270                101.05 122.39   27.88   13.93    3.39  0.67 Weapons     0.00    0.00  0.00    6.03 
+Stinkweed          158.05  14.46  118.77  118.77   14.00  1.49 Weapons     0.00    0.00  2.46   40.19 
+272                  2.84 108.81  904.73   11.97    0.00  1.50 Weapons     0.00    0.00  0.00    2.99 
+273                 11.16 206.24   90.93   28.64    3.75  1.04 Weapons     0.00    0.00  0.00    9.97 
+275                 78.93 225.61  250.00   72.90   72.80 10.00 Shields     0.00 1209.49  0.00   72.83 
+276                 80.91 224.80  350.00   94.50   94.50 10.00 CAP        10.16    0.00  0.00   94.50 
+Eos                 45.16 188.54  449.24  152.80   58.32  0.70 Weapons     0.00    0.00  0.00   81.94 
+Poison_Ivy          31.18  10.52   46.96   46.96   19.66  1.32 Weapons     0.00    0.00  3.64   26.48 
+Moss                27.27  48.19  840.39  840.39  197.55  0.51 Shields     0.00    0.00  6.99  358.26 
+Daffodil           146.36  51.85  116.24  116.24   60.51  0.93 Weapons     0.00    0.00  1.16   74.44 
+284                103.80  89.06  147.07  147.07   20.18  0.64 Weapons     0.00    0.00  0.55   51.90 
+Shitake_Mushroom    29.95  55.36  673.13  338.64  121.68  0.95 Shields     0.00    0.00  0.00  175.92 
+286                 34.90 128.80   51.79    0.60    0.06  0.69 Weapons     0.00    0.00  0.00    0.20 
+287                 85.24 166.69  769.49  242.33   42.17  7.85 Shields     0.00    0.00  0.00   92.21 
+289                 13.83 181.34   82.42   21.77    4.26  0.91 Weapons     0.00    0.00  0.00    8.64 
+291                 78.95 227.32  653.54  190.57   90.13  0.84 Shields     0.00  322.44  0.00  115.24 
+Magnolia           137.59  56.26  465.77  465.77  465.77  5.75 Pebble      0.00    0.00 19.15  465.77 
+294                101.78 168.68  346.29  117.93   34.62  3.55 Weapons     0.00    0.00  0.00   55.45 
+295                116.04 101.14 1000.00 1000.00  942.59 10.00 CAP         0.00    0.00 18.23  956.94 
+296                117.47 102.44  250.00  250.00  250.00 10.00 Seed       30.12  935.37  3.40  250.00 
+297                117.53 102.85  350.00  333.31  143.20 10.00 Weapons     0.00    0.00  0.00  190.73 
+298                 67.34 118.95  935.26  487.38  366.15  3.31 Flak1       0.00    0.00  0.00  396.46 
+300                103.47 135.52   16.66    8.32    4.81  1.39 Weapons     0.00    0.00  0.00    5.69 
+Lily               131.22  55.32  416.54  416.54  416.54  3.85 Pebble      0.66    0.00 10.53  416.54 
+Bluebonnet         142.81  50.13  501.94  501.94  501.94  0.43 Flak1       0.00    0.00 16.44  501.94 
+303                 64.97 119.29  756.98  320.14  146.95  0.52 Shields     0.00    0.00  0.00  190.25 
+304                 26.10 150.63  121.31    1.47    1.02  1.84 Weapons     0.00    0.00  0.00    1.13 
+Violet             139.37  56.23  201.13  201.13  201.13  1.39 Scarecrow8  5.64    0.00 10.06  201.13 
+Poison_Oak          30.64  11.80   96.94   96.94   31.44  1.20 Weapons     0.00    0.00  7.43   47.82 
+Grain               27.66  33.84  138.67  138.67   43.39  0.58 Weapons     0.00    0.00  6.10   67.21 
+Scrub              186.76  48.09  117.68  117.68    3.36  0.51 Weapons     0.00    0.00  1.73   31.94 
+Nasturtium         112.07  56.67   86.73   86.73   34.17  0.63 Weapons     0.00    0.00  6.43   47.31 
+Orchid             139.33  55.31  404.80  404.80  404.80  3.31 Shields    25.66    0.00 32.14  404.80 
+313                229.92  34.61   20.66   16.29    3.65  1.79 Weapons     0.00    0.00  0.00    6.81 
+
+		Ships In Production
+
+N                       P        N     U   
+Daisy              Pitchfork3 831.34  0.31 
+15                 Flak1       20.52  6.57 
+Lima_Bean          Flak1       21.53 14.49 
+TolHoneth          Flak1       20.00 18.21 
+22                 Flak1       20.00 12.62 
+Aster              Pick1      999.90  0.62 
+Foxglove           Scarecrow9  83.33 18.56 
+Dogwood            Flak1       20.20  9.02 
+49                 Pebble      21.17 16.59 
+Grape              Flak1       20.48 11.79 
+Carnation          Pitchfork0 980.04  0.50 
+71                 Flak1       20.78 15.99 
+90                 Pebble      20.39 15.00 
+Rye                Flak1       20.71  2.91 
+Apple              Flak1       21.23  7.00 
+Artichoke          Flak1       24.65 24.03 
+Tulip              Flak1       20.77 10.46 
+Hespera            Flak1       20.48 14.57 
+125                Pebble      20.26  6.35 
+Watermelon         Flak1       24.65  5.89 
+Cherek             Flak1       20.20  6.11 
+Corn               Pick0      999.90  0.62 
+Peas               Scarecrow9  83.33 15.84 
+Carrots            Cargo0      20.40  2.89 
+Wheat              Flak1       20.25 17.56 
+Quinoa             Flak1       20.63 18.97 
+Soy                Scarecrow7 111.10  2.02 
+Bluegrass          Scarecrow9  83.33 13.42 
+St_Augustine_Grass Flak1       20.20 10.64 
+Hemp               Pitchfork1 906.59  1.08 
+Rose               Flak1       21.56 13.74 
+Rhubarb            Flak1       22.38 15.84 
+Dandylion          Flak1       20.34  4.67 
+Grapefruit         Pitchfork2 851.15  0.71 
+227                Flak1       20.46  0.08 
+Flax               Flak1       22.78 20.57 
+243                Pebble      20.88  2.65 
+250                Pebble      20.40 16.70 
+Magnolia           Pebble      20.35  1.79 
+296                Seed        10.00  4.77 
+298                Flak1       20.60  5.39 
+Lily               Pebble      20.52 12.88 
+Bluebonnet         Flak1       24.65 15.70 
+Violet             Scarecrow8 100.55 41.09 
+
+		Your Routes
+
+N        $   M C E  
+7        218 - - -  
+70       160 - - -  
+122      287 - - -  
+189      -   - - 90 
+275      49  - - -  
+Magnolia 205 - - -  
+
+		Valdorians Planets
+
+N      X      Y      S      P      I     R    P     $    M    C      L   
+221 112.93 151.67 147.00 147.00 113.84 0.57 Probe 0.00 0.00 25.17 122.13 
+
+		SiliconFungi Planets
+
+N         X      Y      S      P      I     R        P       $     M    C     L   
+6       91.88 222.99 118.17  50.63  11.47  0.76 OMine_2     0.00 0.00 0.00  21.26 
+Eurus   43.32 209.83  81.20  29.83   9.55  0.70 CAP         0.00 0.00 0.00  14.62 
+73     128.73 205.75 706.09 665.67 118.33  4.96 OMine_20_2  0.00 0.00 0.00 255.17 
+80     141.26 203.61 733.01 248.96 174.21  3.51 CAP         0.00 0.00 0.00 192.90 
+108    131.93 209.00 350.00   4.09   4.09 10.00 CAP         1.97 0.00 0.00   4.09 
+Zephir  29.96 218.01 134.22  57.51  33.76  1.19 CAP         0.00 0.00 0.00  39.70 
+Aether  65.98 190.32  87.20  32.03   7.96  0.79 OMine_2     0.00 0.00 0.00  13.98 
+177    148.57 223.20  86.77  12.64   8.74  0.75 CAP         0.00 0.00 0.00   9.72 
+184    129.98 207.65 799.07  38.02  38.02  1.68 CAP        18.29 0.00 0.00  38.02 
+187    128.08 208.30 449.48  54.76  38.36  1.84 CAP         0.00 0.00 0.00  42.46 
+C280   131.10 152.24  13.21   1.59   1.59  1.87 CAP         0.74 0.00 0.00   1.59 
+C282   136.86 151.28 895.59   2.99   2.64  0.44 CAP         0.00 0.00 0.00   2.73 
+Notus   45.98 157.34 125.07  45.94   3.99  0.51 ATT_Probe   0.00 1.05 0.00  14.47 
+314    156.26 226.14  36.46  30.15  28.15  1.37 CAP         0.00 0.00 0.00  28.65 
+
+		Outvaders Planets
+
+N       X      Y      S     P     I     R   P    $    M    C    L   
+C103 145.15 141.84 770.36 40.44 33.65 6.34 CAP 0.00 0.00 0.00 35.35 
+
+		Unidentified Planets
+
+N          X      Y   
+C1      145.53 141.86 
+C2      145.70 144.83 
+C3      147.85 143.21 
+9        58.75 214.28 
+C12     172.14 106.54 
+NULL25  230.03 108.78 
+NULL26  225.12 118.50 
+28      140.61 217.90 
+30      122.60 221.76 
+C32     145.24 146.32 
+C38     173.88 130.73 
+42      218.26 174.91 
+46       90.88 231.49 
+48      236.95 156.32 
+NULL50  227.25 102.74 
+NULL55  226.03 123.75 
+62      116.24 200.05 
+C63     142.60 140.10 
+67      111.42 220.81 
+Boreas   25.40 186.96 
+NULL74  235.03 114.24 
+Hebe     42.70 199.41 
+85      204.63 178.88 
+86      203.59 178.68 
+87      204.80 179.88 
+89      206.40 186.35 
+NULL96  235.82 113.04 
+109     217.68 181.18 
+112     207.73 175.60 
+NULL113 224.76 114.03 
+116     213.43 181.13 
+C126    150.25 146.72 
+NULL127 233.44 114.14 
+NULL128 233.41 117.07 
+NULL129 235.54 115.15 
+C132    177.28 108.93 
+139     211.48 208.48 
+S142    177.67  89.94 
+C161    185.09  87.66 
+C173    153.04 133.08 
+174     201.57 231.93 
+175     189.97 195.66 
+178     128.98 206.46 
+C185    174.60 107.54 
+186     206.14 182.25 
+199     221.05 173.89 
+202     192.91 197.28 
+NULL204 236.77 111.70 
+209      94.79 237.62 
+216     200.22 190.83 
+217     222.83 216.53 
+C219    145.20 140.47 
+220     208.12 176.74 
+226      61.42 231.25 
+S228    178.62  84.69 
+S229    171.36  86.61 
+C230    163.01 157.63 
+231     205.59 187.10 
+S253    177.04  96.38 
+S254    177.55  97.64 
+S255    178.72  95.48 
+256     206.30 177.54 
+NULL260 222.53 117.44 
+261     178.33 162.43 
+S262    176.69 100.92 
+268     209.49 178.66 
+274      79.61 226.61 
+S277    178.79 104.90 
+C288    146.96 132.07 
+N       238.88 118.47 
+C299    144.18 140.23 
+C309    147.20 142.81 
+NULL312 234.49 125.12 
+S315    168.35 105.30 
+
+		Uninhabited Planets
+
+N      X      Y      S     R    $    M  
+Nike 48.25 179.91 279.29 2.38 0.95 0.00 
+Eris 43.74 170.96 984.28 0.56 0.00 0.00 
+
+		Your Groups
+
+G    #       T       D     W    S     C   T    Q           D           R        O     
+  1   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Peach                               
+  2   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Peach                               
+  3   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Peach                               
+  4   3 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Peach                               
+  5   1 Seed        4.60 0.00  0.00 0.00 -   0.00 Daisy                               
+  6   1 Flak0       7.11 0.00  4.50 0.00 -   0.00 Daisy                               
+  7   1 Scarecrow0  7.11 3.44  4.60 0.00 -   0.00 Daisy                               
+  8   1 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Daisy                               
+  9   7 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Daisy                               
+ 10   1 Pitchfork3 10.00 9.49 11.32 1.00 -   0.00 Daisy                               
+ 11   2 Seed       10.00 0.00  0.00 0.00 -   0.00 7                                   
+ 12   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Marigolds                           
+ 13   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Marigolds                           
+ 14   1 Cargo1      6.52 0.00  0.00 1.00 -   0.00 Marigolds                           
+ 15   1 Seed       10.00 0.00  0.00 0.00 -   0.00 10                                  
+ 16   1 Seed        9.88 0.00  0.00 0.00 -   0.00 11                                  
+ 17   1 Seed       10.00 0.00  0.00 0.00 -   0.00 13                                  
+ 18   1 Flak1       7.42 0.00  5.22 0.00 -   0.00 13                                  
+ 19   1 Seed        7.82 0.00  0.00 0.00 -   0.00 14                                  
+ 20   1 Seed       10.00 0.00  0.00 0.00 -   0.00 15                                  
+ 21   6 Flak1      10.00 0.00 11.32 0.00 -   0.00 15                                  
+ 22   1 Seed       10.00 0.00  0.00 0.00 -   0.00 16                                  
+ 23   1 Flak1       8.24 0.00  7.16 0.00 -   0.00 17                                  
+ 24   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Lima_Bean                           
+ 25   5 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Lima_Bean                           
+ 26   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Lima_Bean                           
+ 27   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Lima_Bean                           
+ 28  20 Flak1      10.00 0.00 11.32 0.00 -   0.00 Lima_Bean                           
+ 29   1 Scarecrow1  5.49 2.48  3.04 0.00 -   0.00 Brush                               
+ 30   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Brush                               
+ 31   1 Flak1       8.08 0.00  6.79 0.00 -   0.00 20                                  
+ 32  23 Pebble     10.00 7.81  0.00 0.00 -   0.00 20                                  
+ 33   1 Seed       10.00 0.00  0.00 0.00 -   0.00 TolHoneth                           
+ 34  18 Flak1      10.00 0.00 11.32 0.00 -   0.00 TolHoneth                           
+ 35   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 TolHoneth                           
+ 36   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 22                                  
+ 37  28 Flak1      10.00 0.00 11.32 0.00 -   0.00 22                                  
+ 38   1 Seed       10.00 0.00  0.00 0.00 -   0.00 23                                  
+ 39   1 Scarecrow0  4.60 2.26  2.81 0.00 -   0.00 23                 51.29 Tangerine  
+ 40   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 24                                  
+ 41   1 Scarecrow4  7.56 4.39  5.57 0.00 -   0.00 24                                  
+ 42   1 Seed       10.00 0.00  0.00 0.00 -   0.00 27                                  
+ 43   1 Flak1       7.38 0.00  5.14 0.00 -   0.00 27                                  
+ 44   1 Seed        8.10 0.00  0.00 0.00 -   0.00 29                                  
+ 45   1 Seed        9.88 0.00  0.00 0.00 -   0.00 31                                  
+ 46   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Apricot                             
+ 47   1 Scarecrow4 10.00 9.49 11.32 0.00 -   0.00 Apricot                             
+ 48   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Apricot                             
+ 49   3 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Apricot                             
+ 50   1 Flak1       7.89 0.00  6.34 0.00 -   0.00 34                                  
+ 51   1 Scarecrow5 10.00 9.49 11.32 0.00 -   0.00 35                                  
+ 52   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 35                                  
+ 53   2 Cargo0      7.11 0.00  0.00 1.00 COL 1.10 35                 46.46 Lima_Bean  
+ 54   1 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 35                 46.15 Lima_Bean  
+ 55   4 Cargo0      7.11 0.00  0.00 1.00 COL 1.10 35                 40.85 Peach      
+ 56   1 Seed        6.80 0.00  0.00 0.00 -   0.00 36                                  
+ 57   1 Pebble      7.40 4.05  0.00 0.00 -   0.00 37                                  
+ 58   1 Seed       10.00 0.00  0.00 0.00 -   0.00 39                                  
+ 59   1 Seed        7.37 0.00  0.00 0.00 -   0.00 41                                  
+ 60   9 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Aster                               
+ 61   1 Scarecrow3  7.11 3.44  4.50 0.00 -   0.00 Aster                               
+ 62   1 Flak0       7.11 0.00  4.50 0.00 -   0.00 Aster                               
+ 63   4 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Aster                               
+ 64   1 Cargo5      7.11 0.00  0.00 1.00 -   0.00 Aster                               
+ 65   2 Cargo1      6.52 0.00  0.00 1.00 -   0.00 Aster                               
+ 66   1 Cargo4      7.11 0.00  0.00 1.00 -   0.00 Aster                               
+ 67   1 Pick1      10.00 9.49 11.32 1.00 -   0.00 Aster                               
+ 68   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Foxglove                            
+ 69   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Foxglove                            
+ 70   5 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Foxglove                            
+ 71   2 Scarecrow9 10.00 9.49 11.32 0.00 -   0.00 Foxglove                            
+ 72   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Dogwood                             
+ 73   6 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Dogwood                             
+ 74  14 Flak1      10.00 0.00 11.32 0.00 -   0.00 Dogwood                             
+ 75   1 Seed       10.00 0.00  0.00 0.00 -   0.00 47                                  
+ 76   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 47                                  
+ 77   1 Rake4       8.23 5.50  7.15 1.00 -   0.00 49                                  
+ 78   1 Axe7        8.17 5.04  7.00 1.00 -   0.00 49                                  
+ 79  36 Flak1       7.11 0.00  4.50 0.00 -   0.00 49                                  
+ 80  17 Flak1       7.11 0.00  4.59 0.00 -   0.00 49                                  
+ 81   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 49                                  
+ 82   6 Pebble     10.00 9.49  0.00 0.00 -   0.00 49                                  
+ 83   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Grape                               
+ 84   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Grape                               
+ 85   2 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Grape                               
+ 86  11 Flak1      10.00 0.00 11.32 0.00 -   0.00 Grape                               
+ 87   1 Seed        4.60 0.00  0.00 0.00 -   0.00 Carnation                           
+ 88   1 Scarecrow3  7.11 3.44  4.50 0.00 -   0.00 Carnation                           
+ 89   3 Cargo1      5.74 0.00  0.00 1.00 -   0.00 Carnation                           
+ 90   3 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Carnation                           
+ 91   4 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Carnation                           
+ 92   1 Cargo2      7.11 0.00  0.00 1.00 -   0.00 Carnation                           
+ 93   1 Pitchfork0 10.00 9.49 11.32 1.00 -   0.00 Carnation                           
+ 94   1 Seed        9.30 0.00  0.00 0.00 -   0.00 54                                  
+ 95   1 Scarecrow0  7.11 3.44  4.60 0.00 -   0.00 54                                  
+ 96   1 Pebble      7.11 3.44  0.00 0.00 -   0.00 56                                  
+ 97   1 Seed        7.78 0.00  0.00 0.00 -   0.00 56                                  
+ 98   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Daylilly                            
+ 99   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Daylilly                            
+100   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Daylilly                            
+101   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 59                                  
+102   1 Seed       10.00 0.00  0.00 0.00 -   0.00 59                                  
+103   1 Pebble     10.00 4.34  0.00 0.00 -   0.00 60                                  
+104   1 Seed       10.00 0.00  0.00 0.00 -   0.00 60                                  
+105   1 Cargo0      4.27 0.00  0.00 1.00 -   0.00 Hops                                
+106   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Hops                                
+107   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Hops                                
+108   2 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Hops                                
+109   3 Cargo1      6.52 0.00  0.00 1.00 -   0.00 Hops                                
+110   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 Hops                                
+111   1 Scarecrow6 10.00 7.91  9.61 0.00 -   0.00 Mors                                
+112   2 Seed        7.11 0.00  0.00 0.00 -   0.00 Morpheus                            
+113   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Morpheus                            
+114   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Hercules                            
+115   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Hercules                            
+116   1 Seed        7.37 0.00  0.00 0.00 -   0.00 68                                  
+117   2 Seed       10.00 0.00  0.00 0.00 -   0.00 70                                  
+118   1 Pebble     10.00 9.49  0.00 0.00 -   0.00 71                                  
+119  10 Flak1      10.00 0.00 11.32 0.00 -   0.00 71                                  
+120   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 71                                  
+121   1 Pebble     10.00 4.81  0.00 0.00 -   0.00 75                                  
+122   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 76                                  
+123   1 Seed       10.00 0.00  0.00 0.00 -   0.00 76                                  
+124   1 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 76                 46.06 Grape      
+125   7 Cargo4      7.11 0.00  0.00 1.00 COL 1.10 76                 46.61 Watermelon 
+126   1 Cargo0      7.11 0.00  0.00 1.00 COL 1.10 76                 46.37 Grape      
+127   1 Seed        8.05 0.00  0.00 0.00 -   0.00 77                                  
+128   1 Pebble     10.00 4.34  0.00 0.00 -   0.00 78                                  
+129   1 Seed       10.00 0.00  0.00 0.00 -   0.00 78                                  
+130   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Dewberry                            
+131   1 Pebble      9.18 7.77  0.00 0.00 -   0.00 Dewberry                            
+132   2 Flak1       7.11 0.00  4.59 0.00 -   0.00 Dewberry                            
+133   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Dewberry                            
+134   1 Seed       10.00 0.00  0.00 0.00 -   0.00 81                                  
+135   1 Flak1       7.23 0.00  4.78 0.00 -   0.00 81                                  
+136   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Blueberry                           
+137   1 Scarecrow0  5.82 3.89  4.73 0.00 -   0.00 Blueberry                           
+138   1 Seed       10.00 0.00  0.00 0.00 -   0.00 84                                  
+139   1 Seed       10.00 0.00  0.00 0.00 -   0.00 88                                  
+140   1 Axe2        8.27 5.87  7.24 1.00 -   0.00 90                                  
+141  39 Flak1       7.11 0.00  4.50 0.00 -   0.00 90                                  
+142   1 Rake9       7.11 3.44  4.50 0.00 -   0.00 90                                  
+143  12 Flak1       7.11 0.00  4.59 0.00 -   0.00 90                                  
+144   1 Seed       10.00 0.00  0.00 0.00 -   0.00 90                                  
+145   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 90                                  
+146   7 Pebble     10.00 9.49  0.00 0.00 -   0.00 90                                  
+147   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Lime                                
+148   1 Scarecrow4  9.86 9.21 11.00 0.00 -   0.00 Lime                                
+149   1 Seed       10.00 0.00  0.00 0.00 -   0.00 92                                  
+150   1 Flak1       7.71 0.00  5.92 0.00 -   0.00 92                                  
+151   1 Seed       10.00 0.00  0.00 0.00 -   0.00 93                                  
+152   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Bluebell                            
+153   1 Scarecrow1  5.56 2.58  3.17 0.00 -   0.00 Bluebell                            
+154   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Rye                                 
+155   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Rye                                 
+156   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Rye                                 
+157  24 Flak1      10.00 0.00 11.32 0.00 -   0.00 Rye                                 
+158   1 Seed       10.00 0.00  0.00 0.00 -   0.00 97                                  
+159  11 Cargo0      7.11 0.00  0.00 1.00 -   0.00 98                                  
+160   3 Cargo2      7.11 0.00  0.00 1.00 -   0.00 98                                  
+161   4 Cargo4      7.11 0.00  0.00 1.00 -   0.00 98                                  
+162  14 Cargo1      7.11 0.00  0.00 1.00 -   0.00 98                                  
+163 131 Flak1      10.00 0.00 11.32 0.00 -   0.00 98                                  
+164   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 98                                  
+165   1 Pitchfork0 10.00 9.49 11.32 1.00 -   0.00 98                                  
+166   1 Pick0      10.00 9.49 11.32 1.00 -   0.00 98                                  
+167   1 Pitchfork1 10.00 9.49 11.32 1.00 -   0.00 98                                  
+168   1 Cargo5      7.11 0.00  0.00 1.00 -   0.00 98                                  
+169   1 Seed       10.00 0.00  0.00 0.00 -   0.00 99                                  
+170   1 Flak1       7.52 0.00  5.46 0.00 -   0.00 99                                  
+171   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Emba                                
+172   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 Emba                                
+173  28 Pebble     10.00 7.81  0.00 0.00 -   0.00 101                                 
+174   1 Seed       10.00 0.00  0.00 0.00 -   0.00 101                                 
+175   1 Seed        7.11 0.00  0.00 0.00 -   0.00 102                                 
+176   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 102                                 
+177   1 Cargo4      7.11 0.00  0.00 1.00 COL 1.10 102                48.26 Daylilly   
+178   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Apple                               
+179   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Apple                               
+180  31 Flak1      10.00 0.00 11.32 0.00 -   0.00 Apple                               
+181   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Orange                              
+182   1 Scarecrow0  3.97 2.17  2.68 0.00 -   0.00 Orange                              
+183   1 Flak1       7.11 0.00  4.59 0.00 -   0.00 Orange                              
+184   1 Axe3        7.11 3.44  4.50 0.00 -   0.00 106                                 
+185   1 Seed        7.11 0.00  0.00 0.00 -   0.00 106                                 
+186   1 Pebble     10.00 4.34  0.00 0.00 -   0.00 106                                 
+187   4 Pebble     10.00 7.81  0.00 0.00 -   0.00 106                                 
+188   1 Seed        9.87 0.00  0.00 0.00 -   0.00 107                                 
+189   1 Seed        6.25 0.00  0.00 0.00 -   0.00 Brussel_Sprouts                     
+190   1 Scarecrow0  4.60 2.26  2.81 0.00 -   0.00 Brussel_Sprouts                     
+191   1 Seed        1.40 0.00  0.00 0.00 -   0.00 Artichoke                           
+192   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Artichoke                           
+193   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Artichoke                           
+194  29 Flak1      10.00 0.00 11.32 0.00 -   0.00 Artichoke                           
+195   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Tangerine                           
+196   1 Scarecrow4 10.00 9.49 11.32 0.00 -   0.00 Tangerine                           
+197   1 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Tangerine                           
+198   2 Seed       10.00 0.00  0.00 0.00 -   0.00 115                                 
+199   1 Seed       10.00 0.00  0.00 0.00 -   0.00 117                                 
+200   1 Pebble     10.00 4.34  0.00 0.00 -   0.00 117                                 
+201   1 Seed       10.00 0.00  0.00 0.00 -   0.00 118                                 
+202   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Semolina                            
+203   1 Scarecrow4  8.53 6.41  7.85 0.00 -   0.00 Semolina                            
+204   1 Pebble     10.00 7.81  0.00 0.00 -   0.00 120                                 
+205   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Asparagus                           
+206   2 Seed       10.00 0.00  0.00 0.00 -   0.00 122                                 
+207   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Tulip                               
+208   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Tulip                               
+209   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Tulip                               
+210  25 Flak1      10.00 0.00 11.32 0.00 -   0.00 Tulip                               
+211   7 Flak1      10.00 0.00 11.32 0.00 -   0.00 Hespera                             
+212   1 Seed       10.00 0.00  0.00 0.00 -   0.00 125                                 
+213   8 Cargo1      7.11 0.00  0.00 1.00 -   0.00 125                                 
+214   3 Cargo5      7.11 0.00  0.00 1.00 -   0.00 125                                 
+215   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 125                                 
+216  28 Pebble     10.00 9.49  0.00 0.00 -   0.00 125                                 
+217   2 Seed       10.00 0.00  0.00 0.00 -   0.00 Iris                                
+218   1 Pebble     10.00 9.49  0.00 0.00 -   0.00 Iris                                
+219   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Cherry                              
+220   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Cherry                              
+221   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Watermelon                          
+222   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Watermelon                          
+223  28 Flak1      10.00 0.00 11.32 0.00 -   0.00 Watermelon                          
+224   1 Pebble     10.00 9.49  0.00 0.00 -   0.00 134                                 
+225   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 134                                 
+226   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 135                                 
+227   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Pinto_Bean                          
+228   1 Pebble     10.00 7.81  0.00 0.00 -   0.00 137                                 
+229   1 Seed       10.00 0.00  0.00 0.00 -   0.00 138                                 
+230   9 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Honeydew                            
+231   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Honeydew                            
+232   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Honeydew                            
+233   8 Cargo5      7.11 0.00  0.00 1.00 -   0.00 Honeydew                            
+234   1 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Honeydew                            
+235   7 Cargo4      7.11 0.00  0.00 1.00 -   0.00 Honeydew                            
+236   3 Cargo0      7.11 0.00  0.00 1.00 -   0.00 141                                 
+237   4 Cargo1      7.11 0.00  0.00 1.00 -   0.00 141                                 
+238   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 141                                 
+239   1 Cargo4      7.11 0.00  0.00 1.00 -   0.00 141                                 
+240 129 Flak1      10.00 0.00 11.32 0.00 -   0.00 141                                 
+241   1 Pitchfork0 10.00 7.81 11.32 1.00 -   0.00 141                                 
+242   1 Pick0      10.00 7.81 11.32 1.00 -   0.00 141                                 
+243   1 Pitchfork1 10.00 7.81 11.32 1.00 -   0.00 141                                 
+244  11 Flak1      10.00 0.00 11.32 0.00 -   0.00 141                 0.99 Quinoa     
+245   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 C143                                
+246   5 Cargo1      7.11 0.00  0.00 1.00 -   0.00 144                                 
+247   1 Seed       10.00 0.00  0.00 0.00 -   0.00 144                                 
+248   2 Cargo0      7.11 0.00  0.00 1.00 -   0.00 144                                 
+249   1 Cargo5      7.11 0.00  0.00 1.00 -   0.00 144                                 
+250   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 144                                 
+251   1 Pitchfork3 10.00 7.81 11.32 1.00 -   0.00 144                                 
+252   1 Pick1      10.00 7.81 11.32 1.00 -   0.00 144                                 
+253 102 Flak1      10.00 0.00 11.32 0.00 -   0.00 144                                 
+254   1 Pitchfork2 10.00 7.81 11.32 1.00 -   0.00 144                                 
+255  32 Flak1      10.00 0.00 11.32 0.00 -   0.00 144                 3.66 Artichoke  
+256   1 Seed       10.00 0.00  0.00 0.00 -   0.00 146                                 
+257   2 Flak1       7.11 0.00  4.50 0.00 -   0.00 146                                 
+258   1 Scarecrow4  8.20 5.72  7.07 0.00 -   0.00 146                                 
+259   2 Seed       10.00 0.00  0.00 0.00 -   0.00 147                                 
+260   2 Flak1       7.11 0.00  4.50 0.00 -   0.00 Cherek                              
+261   1 Cargo4      7.11 0.00  0.00 1.00 -   0.00 Cherek                              
+262   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 Cherek                              
+263   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Cherek                              
+264  32 Flak1      10.00 0.00 11.32 0.00 -   0.00 Cherek                              
+265   1 Cargo0      5.74 0.00  0.00 1.00 COL 1.10 Cherek             36.77 Daisy      
+266   1 Cargo1      5.74 0.00  0.00 1.00 COL 1.10 Cherek             36.52 Daisy      
+267   2 Cargo0      7.11 0.00  0.00 1.00 COL 1.10 Cherek             18.03 Bluebonnet 
+268  12 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 Cherek             17.73 Bluebonnet 
+269   6 Cargo0      7.11 0.00  0.00 1.00 COL 1.10 Cherek             13.95 Tulip      
+270   1 Cargo5      7.11 0.00  0.00 1.00 COL 1.10 Cherek             26.00 Daisy      
+271   1 Cargo1      6.52 0.00  0.00 1.00 COL 1.10 Cherek             31.39 Daisy      
+272   6 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 Cherek             29.51 Lily       
+273   2 Cargo4      7.11 0.00  0.00 1.00 COL 1.10 Cherek             26.90 Daisy      
+274   1 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 Cherek             27.50 Daisy      
+275   3 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 Cherek             14.21 Daffodil   
+276   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Drenai                              
+277   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 Drenai                              
+278   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 Drenai                              
+279   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Drasnia                             
+280   4 Flak1      10.00 0.00 11.32 0.00 -   0.00 Drasnia                             
+281   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 Drasnia                             
+282   1 Cargo1      6.52 0.00  0.00 1.00 -   0.00 Drasnia                             
+283   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Drasnia                             
+284   1 Cargo5      7.11 0.00  0.00 1.00 COL 1.10 Drasnia            17.00 Bluebonnet 
+285   2 Cargo4      7.11 0.00  0.00 1.00 COL 1.10 Drasnia            17.90 Bluebonnet 
+286   1 Scarecrow4  8.68 6.73  8.21 0.00 -   0.00 Basil                               
+287   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 Allspice                            
+288   1 Pebble      7.11 3.44  0.00 0.00 -   0.00 153                                 
+289   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 153                                 
+290   1 Seed        7.43 0.00  0.00 0.00 -   0.00 153                                 
+291  20 Pebble     10.00 7.81  0.00 0.00 -   0.00 153                                 
+292   2 Seed       10.00 0.00  0.00 0.00 -   0.00 154                                 
+293   1 Pebble     10.00 9.26  0.00 0.00 -   0.00 154                                 
+294   1 Seed       10.00 0.00  0.00 0.00 -   0.00 155                                 
+295   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 155                                 
+296   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Canteloupe                          
+297   1 Scarecrow0  8.24 5.80  7.22 0.00 -   0.00 Canteloupe                          
+298   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Melon                               
+299   1 Pebble     10.00 7.81  0.00 0.00 -   0.00 158                                 
+300   1 Axe5       10.00 9.49 11.32 1.00 -   0.00 160                                 
+301   1 Rake7       7.11 3.44  4.50 0.00 -   0.00 160                                 
+302  52 Flak1       7.11 0.00  4.59 0.00 -   0.00 160                                 
+303   2 Flak1       7.53 0.00  5.48 0.00 -   0.00 162                                 
+304   1 Seed       10.00 0.00  0.00 0.00 -   0.00 C163                                
+305   1 Seed        4.60 0.00  0.00 0.00 -   0.00 164                                 
+306   1 Seed        7.13 0.00  0.00 0.00 -   0.00 164                                 
+307   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Curry                               
+308   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 Curry                               
+309   2 Seed        7.11 0.00  0.00 0.00 -   0.00 167                                 
+310   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 167                                 
+311   1 Cargo4      7.11 0.00  0.00 1.00 COL 1.10 167                42.24 Daylilly   
+312   1 Pebble      7.11 3.44  0.00 0.00 -   0.00 168                                 
+313   1 Seed       10.00 0.00  0.00 0.00 -   0.00 168                                 
+314   1 Flak0       7.11 0.00  4.50 0.00 -   0.00 Corn                                
+315   1 Scarecrow4  7.11 3.44  4.59 0.00 -   0.00 Corn                                
+316   1 Pick0      10.00 9.49 11.32 1.00 -   0.00 Corn                                
+317   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Peas                                
+318   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Peas                                
+319   2 Scarecrow9 10.00 9.49 11.32 0.00 -   0.00 Peas                                
+320   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Carrots                             
+321   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Carrots                             
+322  14 Cargo0     10.00 0.00  0.00 1.00 -   0.00 Carrots                             
+323   1 Seed        9.93 0.00  0.00 0.00 -   0.00 172                                 
+324   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Ivy                                 
+325   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Wheat                               
+326  10 Flak1      10.00 0.00 11.32 0.00 -   0.00 Wheat                               
+327   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Quinoa                              
+328   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Quinoa                              
+329   8 Flak1      10.00 0.00 11.32 0.00 -   0.00 Quinoa                              
+330   1 Seed        7.59 0.00  0.00 0.00 -   0.00 182                                 
+331   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 183                                 
+332   1 Seed        6.15 0.00  0.00 0.00 -   0.00 183                                 
+333   1 Seed       10.00 0.00  0.00 0.00 -   0.00 188                                 
+334   2 Seed       10.00 0.00  0.00 0.00 -   0.00 189                                 
+335   1 Seed        4.60 0.00  0.00 0.00 -   0.00 Soy                                 
+336   1 Flak0       7.11 0.00  4.50 0.00 -   0.00 Soy                                 
+337   1 Scarecrow0  7.11 3.44  4.60 0.00 -   0.00 Soy                                 
+338   9 Scarecrow7 10.00 9.49 11.32 0.00 -   0.00 Soy                                 
+339   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Bluegrass                           
+340   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Bluegrass                           
+341   1 Scarecrow4 10.00 9.49 11.32 0.00 -   0.00 Bluegrass                           
+342   2 Scarecrow9 10.00 9.49 11.32 0.00 -   0.00 Bluegrass                           
+343   1 Seed       10.00 0.00  0.00 0.00 -   0.00 St_Augustine_Grass                  
+344   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 St_Augustine_Grass                  
+345  14 Flak1      10.00 0.00 11.32 0.00 -   0.00 St_Augustine_Grass                  
+346   1 Seed       10.00 0.00  0.00 0.00 -   0.00 193                                 
+347   1 Flak0       7.11 0.00  4.50 0.00 -   0.00 Hemp                                
+348   1 Scarecrow0  7.11 3.44  4.50 0.00 -   0.00 Hemp                                
+349   1 Pitchfork1 10.00 9.49 11.32 1.00 -   0.00 Hemp                                
+350   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Bush                                
+351   1 Pebble     10.00 9.49  0.00 0.00 -   0.00 Arrowroot                           
+352   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Rose                                
+353   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Rose                                
+354  36 Flak1      10.00 0.00 11.32 0.00 -   0.00 Rose                                
+355   1 Seed       10.00 0.00  0.00 0.00 -   0.00 198                                 
+356   1 Seed       10.00 0.00  0.00 0.00 -   0.00 200                                 
+357   1 Seed        7.11 0.00  0.00 0.00 -   0.00 Cilantro                            
+358   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Monkey_Grass                        
+359   2 Cargo2      7.11 0.00  0.00 1.00 -   0.00 Monkey_Grass                        
+360   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Monkey_Grass                        
+361  13 Cargo0     10.00 0.00  0.00 1.00 -   0.00 Monkey_Grass                        
+362   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Monkey_Grass                        
+363   1 Cargo3     10.00 0.00  0.00 1.00 -   0.00 205                                 
+364   1 Seed       10.00 0.00  0.00 0.00 -   0.00 206                                 
+365   1 Seed        7.29 0.00  0.00 0.00 -   0.00 Oak                                 
+366   2 Flak1      10.00 0.00 11.32 0.00 -   0.00 208                                 
+367   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 208                                 
+368   1 Seed        7.37 0.00  0.00 0.00 -   0.00 210                                 
+369   1 Scarecrow6 10.00 4.34  5.72 0.00 -   0.00 211                                 
+370   1 Seed       10.00 0.00  0.00 0.00 -   0.00 211                                 
+371   1 Seed        7.37 0.00  0.00 0.00 -   0.00 212                                 
+372   1 Seed        7.37 0.00  0.00 0.00 -   0.00 213                                 
+373   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Rhubarb                             
+374   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Rhubarb                             
+375   4 Flak1      10.00 0.00 11.32 0.00 -   0.00 Rhubarb                             
+376   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Pine                                
+377   1 Scarecrow4  8.20 5.72  7.07 0.00 -   0.00 Pine                                
+378   1 Axe2        7.47 4.20  5.35 1.00 -   0.00 218                                 
+379   1 Rake6      10.00 9.49 11.32 1.00 -   0.00 218                                 
+380   1 Axe14       7.11 3.44  4.50 0.00 -   0.00 218                                 
+381   1 Pebble      7.11 3.44  0.00 0.00 -   0.00 218                                 
+382  52 Flak1       7.11 0.00  4.59 0.00 -   0.00 218                                 
+383   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Dandylion                           
+384   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Dandylion                           
+385  35 Flak1      10.00 0.00 11.32 0.00 -   0.00 Dandylion                           
+386   1 Flak0       7.11 0.00  4.50 0.00 -   0.00 Grapefruit                          
+387   1 Scarecrow0  7.11 3.44  4.50 0.00 -   0.00 Grapefruit                          
+388   1 Pitchfork2 10.00 9.49 11.32 1.00 -   0.00 Grapefruit                          
+389   1 Seed        7.37 0.00  0.00 0.00 -   0.00 224                                 
+390   1 Seed        5.82 0.00  0.00 0.00 -   0.00 225                                 
+391   1 Scarecrow4 10.00 9.49 11.32 0.00 -   0.00 227                                 
+392  14 Flak1      10.00 0.00 11.32 0.00 -   0.00 227                                 
+393   1 Seed       10.00 0.00  0.00 0.00 -   0.00 232                                 
+394   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 235                                 
+395   1 Scarecrow5  7.21 3.65  4.74 0.00 -   0.00 235                                 
+396   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Flax                                
+397   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Flax                                
+398  27 Flak1      10.00 0.00 11.32 0.00 -   0.00 Flax                                
+399   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Cattail                             
+400   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Cattail                             
+401   1 Cargo3      7.11 0.00  0.00 1.00 -   0.00 Tree                                
+402   2 Cargo0      5.74 0.00  0.00 1.00 -   0.00 Tree                                
+403   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Tree                                
+404   1 Scarecrow0  9.57 8.59 10.32 0.00 -   0.00 Tree                                
+405   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Ekstra                              
+406   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 Ekstra                              
+407   1 Pebble     10.00 9.49  0.00 0.00 -   0.00 241                                 
+408   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 241                                 
+409   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Kentucky_Bluegrass                  
+410   1 Seed       10.00 0.00  0.00 0.00 -   0.00 243                                 
+411   8 Pebble     10.00 7.81  0.00 0.00 -   0.00 243                                 
+412   4 Pebble     10.00 9.49  0.00 0.00 -   0.00 243                                 
+413   1 Cargo1      5.74 0.00  0.00 1.00 -   0.00 246                                 
+414   1 Cargo1      6.52 0.00  0.00 1.00 -   0.00 246                                 
+415  15 Cargo0      7.11 0.00  0.00 1.00 -   0.00 246                                 
+416   4 Cargo1      7.11 0.00  0.00 1.00 -   0.00 246                                 
+417   1 Cargo5      7.11 0.00  0.00 1.00 -   0.00 246                                 
+418   1 Cargo4      7.11 0.00  0.00 1.00 -   0.00 246                                 
+419   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 246                                 
+420   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 246                                 
+421   5 Cargo5      7.11 0.00  0.00 1.00 COL 1.10 246                34.33 Rye        
+422   8 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 246                32.75 Watermelon 
+423   1 Cargo1      5.74 0.00  0.00 1.00 COL 1.10 246                30.62 Broccoli   
+424   2 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 246                45.16 Cherry     
+425   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Cabbage                             
+426   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Cabbage                             
+427   4 Seed       10.00 0.00  0.00 0.00 -   0.00 248                                 
+428   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 249                                 
+429  10 Pebble     10.00 9.49  0.00 0.00 -   0.00 250                                 
+430   1 Scarecrow4 10.00 9.49 11.32 0.00 -   0.00 250                                 
+431   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 250                                 
+432   1 Seed       10.00 0.00  0.00 0.00 -   0.00 251                                 
+433   1 Seed       10.00 0.00  0.00 0.00 -   0.00 252                                 
+434   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 252                                 
+435   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 252                                 
+436   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Broccoli                            
+437   1 Scarecrow4  8.83 7.05  8.56 0.00 -   0.00 Broccoli                            
+438   1 Seed        8.97 0.00  0.00 0.00 -   0.00 258                                 
+439   1 Pebble      7.84 4.97  0.00 0.00 -   0.00 259                                 
+440   1 Seed       10.00 0.00  0.00 0.00 -   0.00 259                                 
+441   1 Seed       10.00 0.00  0.00 0.00 -   0.00 263                                 
+442   1 Seed       10.00 0.00  0.00 0.00 -   0.00 264                                 
+443   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 266                                 
+444   1 Scarecrow5  7.23 3.69  4.78 0.00 -   0.00 266                                 
+445   1 Seed       10.00 0.00  0.00 0.00 -   0.00 267                                 
+446   1 Pebble      7.24 3.71  0.00 0.00 -   0.00 269                                 
+447   2 Seed       10.00 0.00  0.00 0.00 -   0.00 269                                 
+448   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 269                                 
+449   1 Pebble      8.01 5.32  0.00 0.00 -   0.00 270                                 
+450   1 Seed       10.00 0.00  0.00 0.00 -   0.00 270                                 
+451   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 270                                 
+452   9 Scarecrow7 10.00 7.81 11.32 0.00 -   0.00 270                                 
+453   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Stinkweed                           
+454   2 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Stinkweed                           
+455   1 Seed       10.00 0.00  0.00 0.00 -   0.00 272                                 
+456   2 Seed       10.00 0.00  0.00 0.00 -   0.00 273                                 
+457   2 Seed       10.00 0.00  0.00 0.00 -   0.00 275                                 
+458   1 Seed       10.00 0.00  0.00 0.00 -   0.00 276                                 
+459   1 Pebble     10.00 4.34  0.00 0.00 -   0.00 276                                 
+460   2 Seed       10.00 0.00  0.00 0.00 -   0.00 Eos                                 
+461   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Poison_Ivy                          
+462   1 Scarecrow0  8.27 5.87  7.30 0.00 -   0.00 Poison_Ivy                          
+463   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Moss                                
+464   1 Cargo1      5.74 0.00  0.00 1.00 -   0.00 Moss                                
+465   4 Cargo0      4.27 0.00  0.00 1.00 -   0.00 Moss                                
+466   7 Cargo0      7.11 0.00  0.00 1.00 -   0.00 Moss                                
+467   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Moss                                
+468   3 Cargo2      7.11 0.00  0.00 1.00 -   0.00 Moss                                
+469   4 Cargo0     10.00 0.00  0.00 1.00 -   0.00 Moss                                
+470   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Daffodil                            
+471   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 Daffodil                            
+472   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Daffodil                            
+473   1 Cargo2      7.11 0.00  0.00 1.00 -   0.00 284                                 
+474   1 Cargo0      7.11 0.00  0.00 1.00 -   0.00 284                                 
+475   1 Flak1      10.00 0.00 11.32 0.00 -   0.00 284                                 
+476   2 Cargo1      7.11 0.00  0.00 1.00 -   0.00 284                                 
+477   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Shitake_Mushroom                    
+478   1 Scarecrow4 10.00 9.49 11.32 0.00 -   0.00 Shitake_Mushroom                    
+479   1 Pebble      7.11 3.44  0.00 0.00 -   0.00 286                                 
+480   1 Rake3       8.66 6.45  8.16 1.00 -   0.00 287                                 
+481   1 Axe12       7.11 3.44  4.50 0.00 -   0.00 287                                 
+482  52 Flak1       7.11 0.00  4.50 0.00 -   0.00 287                                 
+483   4 Seed        9.17 0.00  0.00 0.00 -   0.00 289                                 
+484   2 Seed       10.00 0.00  0.00 0.00 -   0.00 291                                 
+485   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Magnolia                            
+486  10 Pebble     10.00 9.49  0.00 0.00 -   0.00 Magnolia                            
+487   1 Axe11       7.11 3.44  4.50 0.00 -   0.00 294                                 
+488   1 Rake8       7.11 3.44  4.50 0.00 -   0.00 294                                 
+489   1 Seed       10.00 0.00  0.00 0.00 -   0.00 294                                 
+490  52 Flak1       7.11 0.00  4.59 0.00 -   0.00 294                                 
+491   6 Cargo0      7.11 0.00  0.00 1.00 -   0.00 295                                 
+492   9 Cargo1      7.11 0.00  0.00 1.00 -   0.00 295                                 
+493 130 Flak1      10.00 0.00 11.32 0.00 -   0.00 295                                 
+494   1 Pebble      7.11 3.44  0.00 0.00 -   0.00 295                                 
+495   2 Seed        4.60 0.00  0.00 0.00 -   0.00 295                                 
+496   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 295                                 
+497   3 Seed        7.11 0.00  0.00 0.00 -   0.00 295                                 
+498   1 Cargo4      7.11 0.00  0.00 1.00 -   0.00 295                                 
+499   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 295                                 
+500   1 Seed       10.00 0.00  0.00 0.00 -   0.00 295                                 
+501   1 Pitchfork3 10.00 9.49 11.32 1.00 -   0.00 295                                 
+502   1 Pick1      10.00 9.49 11.32 1.00 -   0.00 295                                 
+503   1 Pitchfork2 10.00 9.49 11.32 1.00 -   0.00 295                                 
+504   2 Flak1       7.11 0.00  4.50 0.00 -   0.00 295                43.94 37         
+505   1 Flak1       7.11 0.00  4.50 0.00 -   0.00 295                14.62 286        
+506   2 Seed        7.11 0.00  0.00 0.00 -   0.00 295                26.86 75         
+507   1 Flak1       7.11 0.00  4.59 0.00 -   0.00 295                54.11 Cilantro   
+508   1 Pebble     10.00 9.49  0.00 0.00 -   0.00 296                                 
+509   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 296                                 
+510  38 Seed       10.00 0.00  0.00 0.00 -   0.00 296                                 
+511   1 Seed       10.00 0.00  0.00 0.00 -   0.00 297                                 
+512   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 297                                 
+513  18 Cargo1      7.11 0.00  0.00 1.00 -   0.00 297                                 
+514   1 Seed       10.00 0.00  0.00 0.00 -   0.00 298                                 
+515   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 298                                 
+516  17 Flak1      10.00 0.00 11.32 0.00 -   0.00 298                                 
+517   1 Seed       10.00 0.00  0.00 0.00 -   0.00 300                                 
+518   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Lily                                
+519   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Lily                                
+520  17 Pebble     10.00 9.49  0.00 0.00 -   0.00 Lily                                
+521   1 Seed        4.60 0.00  0.00 0.00 -   0.00 Bluebonnet                          
+522   1 Flak0      10.00 0.00 11.32 0.00 -   0.00 Bluebonnet                          
+523   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Bluebonnet                          
+524  18 Flak1      10.00 0.00 11.32 0.00 -   0.00 Bluebonnet                          
+525   1 Seed       10.00 0.00  0.00 0.00 -   0.00 303                                 
+526   1 Scarecrow6 10.00 9.49 11.32 0.00 -   0.00 303                                 
+527   1 Seed        8.21 0.00  0.00 0.00 -   0.00 304                                 
+528   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Violet                              
+529   1 Scarecrow8 10.00 9.49 11.32 0.00 -   0.00 Violet                              
+530   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Poison_Oak                          
+531   1 Scarecrow0  9.44 8.32 10.02 0.00 -   0.00 Poison_Oak                          
+532   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Grain                               
+533   1 Scarecrow0 10.00 9.49 11.32 0.00 -   0.00 Grain                               
+534   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Scrub                               
+535   1 Scarecrow0  8.57 6.49  7.99 0.00 -   0.00 Scrub                               
+536   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Nasturtium                          
+537   1 Pebble     10.00 9.49  0.00 0.00 -   0.00 Nasturtium                          
+538   1 Cargo1      7.11 0.00  0.00 1.00 -   0.00 Nasturtium                          
+539   1 Seed       10.00 0.00  0.00 0.00 -   0.00 Orchid                              
+540   1 Scarecrow3 10.00 9.49 11.32 0.00 -   0.00 Orchid                              
+541   1 Seed       10.00 0.00  0.00 0.00 -   0.00 313                                 
+542   1 Seed       10.00 0.00  0.00 0.00 -   0.00 6                                   
+543   1 Seed        7.11 0.00  0.00 0.00 -   0.00 Eurus                               
+544   1 Seed        7.11 0.00  0.00 0.00 -   0.00 73                                  
+545   1 Seed        7.11 0.00  0.00 0.00 -   0.00 80                                  
+546   1 Seed        7.11 0.00  0.00 0.00 -   0.00 C103                                
+547   1 Seed        7.11 0.00  0.00 0.00 -   0.00 108                                 
+548   1 Seed        7.11 0.00  0.00 0.00 -   0.00 Zephir                              
+549   1 Seed        7.11 0.00  0.00 0.00 -   0.00 Aether                              
+550   1 Seed        7.11 0.00  0.00 0.00 -   0.00 177                                 
+551   1 Seed        7.11 0.00  0.00 0.00 -   0.00 184                                 
+552   1 Seed        7.11 0.00  0.00 0.00 -   0.00 187                                 
+553   3 Flak1       7.11 0.00  4.50 0.00 -   0.00 221                                 
+554   1 Seed        7.11 0.00  0.00 0.00 -   0.00 C280                                
+555   1 Seed        7.11 0.00  0.00 0.00 -   0.00 C282                                
+556   1 Seed        7.11 0.00  0.00 0.00 -   0.00 Notus                               
+557   1 Seed        7.11 0.00  0.00 0.00 -   0.00 314                                 
+558   1 Seed        7.11 0.00  0.00 0.00 -   0.00 Nike                                
+559   1 Cargo1      7.11 0.00  0.00 1.00 COL 1.10 Nike               10.56 Rhubarb    
+560   1 Seed        7.11 0.00  0.00 0.00 -   0.00 Eris                                
+561   1 Cargo1      5.74 0.00  0.00 1.00 COL 1.10 Eris               33.07 Rose       
+
+		Nation_3 Groups
+
+# T   D    W    S    C  T   Q   D  
+1 p 1.00 0.00 0.00 0.00 - 0.00 172 
+1 p 1.00 0.00 0.00 0.00 - 0.00 14  
+
+		Valdorians Groups
+
+#      T       D    W    S    C  T   Q   D  
+ 1 Probe     1.00 0.00 0.00 0.00 - 0.00 182 
+ 1 Probe     1.00 0.00 0.00 0.00 - 0.00 41  
+ 1 Probe     2.79 0.00 0.00 0.00 - 0.00 221 
+ 1 221_Def_I 0.00 1.63 1.00 0.00 - 0.00 221 
+29 Probe     7.32 0.00 0.00 0.00 - 0.00 221 
+
+		SiliconFungi Groups
+
+#       T       D    W    S     C  T   Q      D    
+ 7 Drudge_I   6.18 0.00  0.00 1.00 - 0.00 Nike     
+13 Drudge_I   6.18 0.00  0.00 1.00 - 0.00 80       
+ 2 ATT_F1     6.18 3.28  2.88 0.00 - 0.00 Eurus    
+67 Drone      6.18 0.00  0.00 0.00 - 0.00 Nike     
+ 1 ATT_F1     6.18 3.28  2.91 0.00 - 0.00 73       
+ 1 ATT_F1     6.18 3.28  3.61 0.00 - 0.00 177      
+27 Drone      6.18 0.00  0.00 0.00 - 0.00 Hercules 
+ 1 ATT_F4     6.18 4.62  4.64 0.00 - 0.00 Morpheus 
+ 2 Drone      6.18 0.00  0.00 0.00 - 0.00 73       
+ 1 Drone      6.18 0.00  0.00 0.00 - 0.00 107      
+ 1 Drone      6.18 0.00  0.00 0.00 - 0.00 118      
+ 1 ATT_F3     6.18 4.62  4.64 0.00 - 0.00 117      
+ 1 ATT_F3     6.18 4.62  4.64 0.00 - 0.00 Hercules 
+ 8 Drone      6.39 0.00  0.00 0.00 - 0.00 Hercules 
+ 1 LR_Probe   6.39 4.62  0.00 0.00 - 0.00 Hercules 
+70 Drone      7.79 0.00  0.00 0.00 - 0.00 73       
+ 1 LR_Probe   6.39 4.62  0.00 0.00 - 0.00 Eris     
+ 1 LR_Probe   6.39 4.62  0.00 0.00 - 0.00 Morpheus 
+ 3 ATT_F4     6.18 4.62  4.64 0.00 - 0.00 Nike     
+ 1 ATT_F4     6.18 4.62  4.64 0.00 - 0.00 Eris     
+25 Drone      6.39 0.00  0.00 0.00 - 0.00 Nike     
+10 Drone      6.39 0.00  0.00 0.00 - 0.00 Eris     
+10 Drone      6.39 0.00  0.00 0.00 - 0.00 Morpheus 
+10 LR_Probe   6.39 4.62  0.00 0.00 - 0.00 Nike     
+ 1 Drone      6.18 0.00  0.00 0.00 - 0.00 17       
+ 1 OMine_2    0.00 8.01  6.08 0.00 - 0.00 Zephir   
+ 1 Drudge_I   6.18 0.00  0.00 1.00 - 0.00 17       
+ 1 OMine_2    0.00 8.01  8.13 0.00 - 0.00 Zephir   
+ 1 OMine_20   0.00 8.01 10.14 0.00 - 0.00 73       
+ 2 OMine_2    0.00 8.01 10.14 0.00 - 0.00 Zephir   
+ 1 OMine_2    0.00 8.01 10.14 0.00 - 0.00 Notus    
+ 1 OMine_20_2 0.00 8.01 10.14 0.00 - 0.00 73       
+
+		Santa_s Groups
+
+#       T         D    W    S    C   T    Q   D  
+1 Explorer      1.00 1.00 0.00 0.00 -   0.00 314 
+1 Colonizer_107 2.85 0.00 0.00 1.00 COL 7.50 188 
+2 Spots         5.23 0.00 0.00 1.00 COL 0.87 11  
+
+		Outvaders Groups
+
+#       T         D    W    S    C  T   Q    D  
+1 1_0_0_0_0     1.00 0.00 0.00 0.00 - 0.00 17   
+1 1_0_0_0_0     1.00 0.00 0.00 0.00 - 0.00 20   
+2 10_10_10_10_0 3.23 1.45 2.61 0.00 - 0.00 C103 
+2 10_10_10_10_0 3.35 1.45 2.61 0.00 - 0.00 C103 
+2 10_10_10_10_0 3.63 1.45 2.61 0.00 - 0.00 20   
+2 10_10_10_10_0 3.84 1.45 2.61 0.00 - 0.00 20   
+

@@ -1,0 +1,326 @@
+#GALAXY Daily8 Farmers rabbit
+L 228 COL 1
+S MAX 20 ; ETA 2 turns
+L 228 COL 1
+S MAX 17
+L 118 COL
+S 118 Cattail
+L 120 COL
+S 120 Cattail
+L 123 COL 3
+S MAX Cattail
+L 211 COL 13
+S MAX Cattail
+L 209 COL 1
+S MAX 41 ; ETA 3 turns
+L 209 COL 1
+S MAX 182 ; ETA 2 turns
+L 209 COL
+S 209 Cattail
+L 218 COL 3
+S MAX Cattail
+L 8 COL 7
+S MAX Magnolia
+L 30 COL
+S 30 Magnolia
+L 36 COL
+S 36 Magnolia
+L 37 COL
+S 37 Magnolia
+L 60 COL
+S 60 295
+L 228 COL
+S 228 295
+L 230 COL 11
+S MAX 295
+L 230 COL 1
+S MAX 295
+L 40 COL
+S 40 Dogwood
+L 54 COL
+S 54 Dogwood
+L 56 COL 3
+S MAX Dogwood
+L 56 COL 1
+S MAX Foxglove
+L 133 COL 3
+S MAX 144
+L 133 COL 1
+S MAX 144
+L 1 COL
+S 1 Grain
+L 56 COL
+S 56 Violet
+L 131 COL
+S 131 Violet
+L 327 COL 3
+S MAX Violet
+L 10 COL 1
+S MAX 284
+L 10 CAP
+S 10 Soy
+L 12 CAP
+S 12 Soy
+L 42 CAP
+S 42 Carnation
+L 187 CAP
+S 187 Cherek
+L 188 CAP
+S 188 Cherek
+L 15 CAP 4
+S MAX Tangerine
+L 143 CAP
+S 143 Nasturtium
+L 15 CAP
+S 15 Lime
+L 4 COL
+S 4 Cattail ; ETA 2 turns
+L 17 COL 2
+S MAX Cattail ; ETA 2 turns
+L 100 COL
+S 100 125 ; ETA 2 turns
+L 51 COL 1
+S MAX 10 ; ETA 2 turns
+L 51 COL 1
+S MAX 251 ; ETA 2 turns
+L 51 COL 1
+S MAX 31 ; ETA 3 turns
+L 51 COL
+S 51 264 ; ETA 2 turns
+L 101 COL
+S 101 125 ; ETA 2 turns
+L 189 COL
+S 189 125 ; ETA 2 turns
+L 191 COL
+S 191 125 ; ETA 2 turns
+L 192 COL
+S 192 125 ; ETA 2 turns
+L 17 COL
+S 17 Hops ; ETA 2 turns
+L 107 COL
+S 107 Hops ; ETA 2 turns
+L 109 COL
+S 109 Hops ; ETA 2 turns
+L 123 COL 1
+S MAX Cattail
+L 211 COL 1
+S MAX Cattail
+L 218 COL 1
+S MAX Cattail
+L 8 COL 1
+S MAX Magnolia
+L 93 COL
+S 93 Magnolia
+L 329 COL 1
+S MAX 295
+S 8 Peach
+S 123 Peach
+S 125 Peach 1
+S 125 Daisy
+S 133 Daisy 5
+S 133 Apricot 1
+S 133 Aster
+S 135 Aster
+S 136 Aster
+S 139 Aster
+S 164 Carnation
+S 166 Aster
+S 167 Aster
+S 211 Lima_Bean
+S 213 Lima_Bean
+S 218 Artichoke
+S 230 Carnation 7
+S 230 Daylilly 1
+S 230 Rye 9
+S 230 Semolina
+S 307 Lima_Bean
+S 327 Hemp
+S 329 Lima_Bean
+S 331 Lima_Bean
+S 332 Rose
+S 210 Apple
+P Aster Scarecrow0
+L 146 COL 1
+S MAX 11 ; ETA 3 turns
+L 146 COL 1
+S MAX 213 ; ETA 3 turns
+L 146 COL 1
+S MAX 212 ; ETA 3 turns
+L 146 COL 1
+S MAX 267 ; ETA 3 turns
+L 146 COL 1
+S MAX 272 ; ETA 3 turns
+L 146 COL
+S 146 210 ; ETA 2 turns
+L 225 COL 1
+S MAX 224 ; ETA 3 turns
+L 225 COL 1
+S MAX 68 ; ETA 3 turns
+L 225 COL
+S 225 259 ; ETA 3 turns
+D Cargo4 1.05 0 0.00 0.00 1.00
+P Flax Cargo4
+P Artichoke WEAPONS
+P Grapefruit SHIELDS
+P Watermelon WEAPONS
+P Hemp SHIELDS
+P Apple CAP
+P Corn Scarecrow0
+S 174 Arrowroot
+S 85 88 1 ; ETA 2 turns
+S 85 37 1 ; ETA 2 turns
+S 157 153 ; ETA 2 turns
+S 75 258 ; ETA 4 turns
+S 203 Canteloupe 1
+P Rye SHIELDS
+P Lima_Bean WEAPONS
+P Peach SHIELDS
+P Lily WEAPONS
+P Carrots SHIELDS
+P Grape WEAPONS
+P Wheat SHIELDS
+P Peas WEAPONS
+P Foxglove SHIELDS
+P Apricot WEAPONS
+P Daylilly SHIELDS
+P Cabbage WEAPONS
+P Marigolds SHIELDS
+P Cherry WEAPONS
+P Broccoli SHIELDS
+P Pinto_Bean WEAPONS
+P Orange SHIELDS
+P 76 WEAPONS
+P Brussel_Sprouts SHIELDS
+P Cilantro WEAPONS
+P Ekstra SHIELDS
+P 296 Seed
+S 199 259 1
+S 199 286 1
+P Drasnia CAP
+P Cherek SHIELDS
+P 125 WEAPONS
+P 205 Seed
+P 298 WEAPONS
+P 141 Seed
+P 241 WEAPONS
+S 315 246
+S 84 246
+S 155 98
+S 81 98
+S 256 22
+S 80 22
+S 154 22 73
+I 83 134
+I 236 134
+I 82 134
+I 153 134
+I 237 134
+I 326 134
+I 45 134
+I 61 134
+I 66 134
+S 238 198
+S 313 233
+S 334 232
+S 156 40
+S 176 90
+S 254 198
+S 253 Dewberry
+S 244 225
+I 77 134 1
+I 78 134
+I 309 134 88
+I 311 134
+I 310 134
+S 309 246 100
+S 309 98 100
+S 309 22
+S 85 Pinto_Bean 1
+I 85 Pinto_Bean 1
+S 85 134
+S 203 C163 1
+S 203 Rhubarb 1
+S 203 Tree 1
+S 154 233 44
+S 154 232
+S 255 232 37
+S 255 40
+S 235 90 44
+S 235 198
+S 321 233 1
+S 321 232
+S 335 40
+S 177 90
+S 318 Dewberry
+S 285 Dewberry
+S 279 Dewberry
+S 278 Dewberry
+S 272 Dewberry ; ETA 2 turns
+S 271 Dewberry ; ETA 2 turns
+S 261 Dewberry
+S 252 Dewberry
+S 226 Dewberry
+S 196 Dewberry
+S 193 Dewberry
+S 171 Dewberry ; ETA 2 turns
+S 147 Dewberry
+S 121 Dewberry
+S 110 Dewberry
+S 102 Dewberry
+S 52 Dewberry
+S 33 Dewberry
+S 31 Dewberry
+S 20 Dewberry
+S 79 Mors 1
+S 79 Morpheus 1
+S 79 Hercules 1
+S 79 Hespera 1
+S 79 Aether 1
+S 79 Nike 1
+S 79 Erinyes 1
+S 79 Eris 1
+S 79 Eos 1
+S 239 Boreas 1
+S 239 Iris 1
+S 239 Nemesis 1
+S 239 Hygeia 1
+S 239 Hypnos 1
+S 245 Hectate 1
+S 245 Hebe 1
+S 245 168 1
+S 314 9 1
+S 314 Eurus 1
+S 314 289 1
+S 336 248 1
+S 336 273 1
+S 363 Zephir 1
+S 363 147 1
+S 199 15 1
+S 199 39 1
+S 199 49 1
+S 199 56 1
+S 199 84 1
+S 199 160 1
+S 199 221 1
+S 199 287 1
+S 199 294 1
+S 199 162 1
+S 361 16
+S 362 29
+S 353 167
+S 364 101
+S 358 62
+S 346 243
+S 348 80
+S 357 118
+S 356 73
+S 347 93
+S 351 178
+P 295 CAP
+S 203 Dewberry
+I 77 134
+S 5 Corn 1
+S 5 205 1 ; ETA 2 turns
+S 5 227 1 ; ETA 2 turns
+S 5 250 1 ; ETA 2 turns
+#END

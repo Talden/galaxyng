@@ -1,0 +1,47 @@
+#GALAXY Daily8 Farmers ready123
+L 20 COL
+S 20 Hemp
+L 38 COL
+S 38 Hemp
+L 29 COL
+S 29 Hemp
+L 33 COL
+S 33 Hemp
+L 26 COL 3
+S MAX Hemp
+L 21 CAP
+S 21 Rye
+L 22 CAP
+S 22 Rye
+L 23 CAP
+S 23 Rye
+L 26 CAP
+S 26 Rye
+L 30 CAP
+S 30 Rye
+S 1 Corn 10
+P Peas DRIVE
+P Grapefruit CAP
+P Corn CAP
+S 2 Grapefruit
+S 11 Corn
+S 12 Peas
+S 1 Grapefruit
+S 5 Grapefruit
+S 7 Carrots
+S 6 Wheat
+S 10 Peas
+@ Vegetaborg
+All quiet here as well.
+
+Farmer
+@
+O BATTLEPROTOCOL
+S 52 196 ; ETA 2 turns
+S 60 151
+S 57 285
+S 56 61
+S 50 181
+S 51 307
+S 58 237
+#END

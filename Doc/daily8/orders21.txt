@@ -1,0 +1,98 @@
+#GALAXY Daily8 Farmers rabbit
+L 27 COL
+S 27 Peach
+L 32 COL
+S 32 Peach
+L 28 CAP
+S 28 Flax
+L 46 COL
+S 46 Peach
+L 48 COL
+S 48 Peach
+L 51 COL
+S 51 Peach
+L 25 COL
+S 25 Peach
+L 57 COL
+S 57 Lima_Bean
+L 10 COL
+S 10 Lima_Bean
+L 13 COL
+S 13 Lima_Bean
+L 39 COL
+S 39 Peach
+L 8 COL
+S 8 Lima_Bean
+L 42 COL
+S 42 Lima_Bean
+L 35 COL
+S 35 Lima_Bean
+L 31 CAP
+S 31 Flax
+S 15 Corn
+S 5 Corn
+S 4 Hemp 9
+S 4 Grapefruit
+S 18 Watermelon 8
+S 18 Flax
+S 16 Flax 4
+S 16 Apple 7
+S 16 Rye
+S 53 Rye 1
+S 53 Carrots 4
+S 53 Wheat 3
+S 53 Grape 3
+S 53 Peas 3
+S 53 Orange 1
+S 53 Corn
+S 56 Corn
+S 59 214
+S 60 214
+S 61 214
+S 63 214
+S 64 214
+S 65 214
+S 52 Broccoli
+S 9 Broccoli
+S 40 Broccoli
+S 26 Broccoli
+S 43 Broccoli
+S 47 Broccoli
+S 14 Broccoli
+S 36 5 1
+S 36 43 1
+S 36 44 1
+S 36 45 1
+S 36 52 1
+S 36 123 1
+S 36 197 1
+S 36 222 1
+S 36 283 1
+S 36 292 1
+S 36 301 1
+S 36 302 1
+S 36 305 1
+S 36 311 1
+S 36 19 1
+S 36 94 1
+S 36 146 1
+S 36 238 1
+S 36 252 1
+S 36 271 1
+S 36 181 1
+S 36 190 1
+S 36 191 1
+S 36 279 1
+S 36 306 1
+S 21 34 1
+S 21 59 1
+S 21 284 1
+S 66 183
+S 81 36
+S 82 272
+P Rye Flak1
+R Corn CAP
+T Scarecrow1 Axe3
+T Scarecrow2 Scarecrow1
+M 118 38 35
+#END

@@ -1,0 +1,38 @@
+#GALAXY Daily8 Farmers ready123
+S 58 267
+S 59 264
+S 57 31
+G 36
+G 3
+G 20
+G 12
+G 14
+G 13
+G 6
+G 17
+G 23
+G 26
+R Grapefruit CAP Hemp
+R Grapefruit COL Flax
+R Grape COL Flax
+R Peas COL Flax
+R Corn COL Flax
+R Corn CAP Hemp
+R Rye COL Flax
+R Carrots COL Flax
+R Wheat COL Flax
+= "Chris Shaffer"
+S 11 Corn 2
+S 11 Orange
+S 27 Corn
+S 28 Corn 4
+S 28 Grapefruit 8
+S 28 Rye
+S 29 Carrots 3
+S 29 Grape 3
+S 29 Wheat 3
+S 29 Peas
+S 30 Corn
+S 33 Grapefruit
+P Grapefruit CAP
+#END

@@ -1,0 +1,28 @@
+#GALAXY Daily8 Farmers ready123
+L 3 CAP 40
+S MAX Wheat
+L 3 COL 3
+S MAX Grapefruit
+L 3 CAP
+S 3 Grapefruit
+L 4 CAP
+S 4 Grapefruit
+L 5 CAP
+S 5 Grapefruit
+L 1 COL
+S 1 Grapefruit
+L 6 COL
+S 6 Grapefruit
+S 7 Peas
+S 9 Carrots
+S 8 Corn 10
+S 8 Carrots
+S 10 Carrots
+P Corn Rake0
+S 11 Carrots
+@ SiliconFungi
+Hey!  I was in first place!
+
+Farmer
+@
+#END

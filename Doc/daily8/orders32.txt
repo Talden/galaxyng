@@ -1,0 +1,174 @@
+#GALAXY Daily8 Farmers rabbit
+S 5 Pinto_Bean
+S 88 Dogwood 8
+S 88 Arrowroot 1
+S 155 Artichoke
+S 154 Artichoke
+S 207 Dandylion
+S 14 Pinto_Bean
+S 19 Pinto_Bean
+S 27 Pinto_Bean
+S 32 Pinto_Bean
+S 49 Pinto_Bean
+S 54 Pinto_Bean
+S 72 Pinto_Bean
+S 92 Pinto_Bean
+S 96 Pinto_Bean
+S 101 Pinto_Bean
+S 120 Pinto_Bean
+S 140 Pinto_Bean
+S 146 Pinto_Bean
+S 149 Pinto_Bean
+S 161 Pinto_Bean
+S 172 Pinto_Bean
+S 176 Pinto_Bean
+S 184 Pinto_Bean
+S 47 Dogwood 1 ; ETA 3 turns
+S 47 Carnation 1 ; ETA 3 turns
+S 47 Tulip 1 ; ETA 3 turns
+S 47 Dandylion 1 ; ETA 3 turns
+S 47 Magnolia 1 ; ETA 3 turns
+S 47 Lily 1 ; ETA 2 turns
+S 47 Orchid ; ETA 3 turns
+S 24 Tulip
+G 75
+G 74
+S 158 Cherek
+S 88 Pinto_Bean
+S 48 Pinto_Bean 26
+L 7 COL 1
+S MAX 13 ; ETA 2 turns
+L 7 COL
+S 7 99 ; ETA 2 turns
+L 61 COL 7
+S MAX Arrowroot
+L 9 COL
+S 9 Nasturtium
+L 30 COL
+S 30 Nasturtium
+L 87 COL 2
+S MAX Nasturtium
+L 12 COL
+S 12 Apricot
+L 53 COL
+S 53 Apricot
+L 87 COL 2
+S MAX Apricot
+L 3 COL
+S 3 Poison_Oak
+L 4 COL
+S 4 Poison_Oak
+L 87 CAP
+S 87 Artichoke
+L 91 COL
+S 91 Carnation ; ETA 2 turns
+L 95 COL
+S 95 Carnation ; ETA 2 turns
+L 100 COL
+S 100 Carnation ; ETA 2 turns
+L 114 COL
+S 114 Carnation ; ETA 2 turns
+L 117 COL
+S 117 Carnation ; ETA 2 turns
+L 118 COL
+S 118 Carnation ; ETA 2 turns
+L 119 COL
+S 119 Carnation ; ETA 2 turns
+L 141 COL
+S 141 Carnation ; ETA 2 turns
+L 142 COL 22
+S MAX Carnation ; ETA 2 turns
+L 142 COL
+S 142 Dandylion ; ETA 2 turns
+L 145 COL 1
+S MAX Dandylion
+L 145 COL 1
+S MAX Orchid
+L 61 COL 1
+S MAX Arrowroot
+L 31 COL
+S 31 Nasturtium
+S 20 Daisy
+S 23 Daisy
+S 61 Peach
+S 62 Peach 1
+S 62 Marigolds 2
+S 62 Lima_Bean
+S 80 Lima_Bean
+S 81 Lima_Bean
+S 83 Lima_Bean 3
+S 83 Grape 2
+S 83 Rye
+S 84 Rye 4
+S 84 Apple
+S 98 Apple 4
+S 98 Orange 1
+S 98 Artichoke
+S 103 Dewberry 1
+S 103 Artichoke
+S 105 Artichoke 2
+S 105 Watermelon
+S 113 Watermelon 2
+S 113 Pinto_Bean 1
+S 113 Corn
+S 123 Corn 5
+S 123 Peas 2
+S 123 Carrots
+S 124 Daisy
+S 126 Daylilly 1
+S 126 Lime 1
+S 126 Hemp
+S 134 Wheat 2
+S 134 Bluegrass 4
+S 134 Hemp
+S 136 Hemp
+S 145 Hemp
+S 150 Hemp
+S 151 Hemp
+S 156 Grapefruit
+S 165 Grapefruit
+S 166 Grapefruit
+S 178 Grapefruit
+S 180 Grapefruit
+S 181 Grapefruit
+S 152 Grapefruit ; ETA 2 turns
+S 59 Corn
+S 147 Aster 1 ; ETA 2 turns
+S 143 Bluebonnet 1 ; ETA 2 turns
+S 115 Daisy 1 ; ETA 2 turns
+S 89 Soy 1 ; ETA 2 turns
+S 86 Bluegrass 1 ; ETA 2 turns
+S 70 Artichoke 1
+S 55 Tulip 1 ; ETA 3 turns
+S 45 Lima_Bean 1
+P Dandylion CAP
+P Orchid CAP
+P Magnolia CAP
+P Dogwood CAP
+P Violet CAP
+D Rake3 49.50 35 2.00 12.50 1.00
+P Corn Rake3
+P Hemp Rake2
+D Rake4 42.73 57 1.00 12.72 1.00
+P Aster Rake4
+D Rake5 41.75 28 2.00 11.75 1.00
+P Grapefruit Rake5
+D Rake6 30.48 11 3 11.46 1.00
+P Watermelon Rake6
+D Axe4 33.91 1 18.00 14.90 1.00
+P Apple Axe4
+D Axe5 29.28 2 10.00 13.28 1.00
+P Artichoke Axe5
+D Axe6 29.8 2 10.00 13.8 1.00
+P Flax Axe6
+D Axe7 26.75 2 10.00 10.75 1.00
+P Rye Axe7
+D Axe8 23.29 2 8 10.28 1.00
+P Lima_Bean Axe8
+D Scarecrow4 5.47 1 3 2.47 0.00
+P Peach Scarecrow4
+D Scarecrow5 5.96 1 3 2.95 0.00
+P Daisy Scarecrow5
+P Carnation Flak1
+A SiliconFungi
+#END

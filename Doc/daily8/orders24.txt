@@ -1,0 +1,123 @@
+#GALAXY Daily8 Farmers rabbit
+L 69 COL 1
+S MAX 238 ; ETA 4 turns
+L 69 COL 1
+S MAX 271 ; ETA 3 turns
+L 69 COL 1
+S MAX 94 ; ETA 3 turns
+L 69 COL 1
+S MAX 19 ; ETA 4 turns
+L 17 COL
+S 17 195 ; ETA 4 turns
+L 73 COL
+S 73 121 ; ETA 3 turns
+L 37 COL 1
+S MAX 136
+L 40 COL
+S 40 Rhubarb ; ETA 2 turns
+L 43 CAP
+S 43 Apple
+L 44 CAP
+S 44 Apple
+L 4 COL
+S 4 190 ; ETA 2 turns
+L 16 COL 1
+S MAX 190 ; ETA 2 turns
+L 37 COL 5
+S MAX 190 ; ETA 2 turns
+L 37 COL 1
+S MAX 190 ; ETA 2 turns
+L 8 COL
+S 8 111 ; ETA 2 turns
+L 24 COL
+S 24 111 ; ETA 2 turns
+L 27 COL
+S 27 111 ; ETA 2 turns
+L 47 COL
+S 47 111 ; ETA 2 turns
+L 51 COL
+S 51 111 ; ETA 2 turns
+L 52 COL
+S 52 111 ; ETA 2 turns
+L 55 COL 2
+S MAX 111 ; ETA 2 turns
+L 55 COL
+S 55 111 ; ETA 2 turns
+L 59 COL
+S 59 111 ; ETA 2 turns
+L 60 COL
+S 60 111 ; ETA 2 turns
+L 66 COL
+S 66 111 ; ETA 2 turns
+L 67 COL
+S 67 111 ; ETA 2 turns
+L 69 COL 2
+S MAX 111 ; ETA 2 turns
+L 69 COL 1
+S MAX 91
+L 16 COL
+S 16 190 ; ETA 2 turns
+S 20 Grape
+S 37 Peach 3
+S 37 Lima_Bean 4
+S 37 Grape 1
+S 37 Rye 5
+S 37 Apple 7
+S 37 Corn
+S 39 Watermelon
+S 69 Watermelon 5
+S 69 Corn
+S 1 Corn
+S 3 Corn
+S 79 10 ; ETA 2 turns
+S 130 251 ; ETA 2 turns
+S 136 224
+S 63 238
+S 76 94
+S 13 19
+S 77 252
+S 30 Lily 1
+S 30 222 1
+S 30 302 1
+S 30 44
+R Corn CAP
+R Daisy EMP
+S 75 45
+G 11
+G 12
+S 68 119
+S 61 119
+S 56 119
+S 53 119
+S 48 119
+S 25 119
+S 18 119
+R 43 EMP 52
+S 9 283 1
+S 9 52 50
+S 9 45 97
+S 10 45
+P Grapefruit WEAPONS
+P Daisy CAP
+P Lily CAP
+P Orchid CAP
+P Rose CAP
+P Tulip CAP
+P Violet CAP
+P Hemp SHIELDS
+P Wheat SHIELDS
+P Peas WEAPONS
+D Scarecrow3 2 1 4.00 4.7 0.00
+P Rye Scarecrow3
+P Grape WEAPONS
+P Carrots WEAPONS
+R Orange COL
+N 136 Pinto_Bean
+N 222 Dandylion
+N 283 Daffodil
+N 302 Bluebonnet
+N 43 Aster
+N 44 Foxglove
+N 79 Dewberry
+M 50 0 150
+#END

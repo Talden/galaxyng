@@ -1,0 +1,82 @@
+#GALAXY Daily8 Farmers rabbit
+S 27 Rye 2
+S 27 Carrots 4
+S 27 Grape 3
+S 27 Wheat 2
+S 27 Peas 2
+L 53 COL 5
+S MAX Apple
+L 28 COL
+S 28 Apple
+L 44 COL
+S 44 Apple
+L 48 COL
+S 48 Apple
+L 53 COL
+S 53 Lima_Bean
+L 52 COL 1
+S MAX Lima_Bean
+L 10 COL
+S 10 Lima_Bean
+L 37 COL
+S 37 Lima_Bean
+L 6 COL
+S 6 Lima_Bean
+L 33 COL 3
+S MAX Lima_Bean
+L 33 CAP
+S 33 Flax
+L 41 COL
+S 41 Lima_Bean
+L 27 CAP
+S 27 Flax
+S 22 Corn
+S 25 Corn
+S 12 Corn
+S 16 Corn
+S 14 Hemp 8
+S 14 Grapefruit
+S 13 Grapefruit 4
+S 13 Watermelon 7
+S 13 Flax 6
+S 13 Rye
+B 76 FLEET
+B 75 FLEET
+B 74 FLEET
+S 76 Broccoli
+S 75 Broccoli
+S 49 Broccoli
+S 45 Broccoli
+S 40 Broccoli
+S 38 Broccoli
+S 34 Broccoli
+S 7 Broccoli
+S 11 Broccoli
+G 74
+R Corn CAP Broccoli
+D Rake2 43.32 25 2.00 16.31 1.00
+P Hemp Rake2
+D Axe2 41.75 3 12.00 16.75 1.00
+P Grapefruit Axe2
+D Flak1 1 0 0 1 0
+P Watermelon Flak1
+P Carrots Flak1
+P Grape Flak1
+P Wheat Flak1
+P Peas Seed
+D Scarecrow2 8.91 1 3 5.91 0.00
+P Rye Scarecrow2
+@ Vegetaborg
+Looks like your war against Valdorians didn't go quite as planned.
+
+Nothing new to report from my end.
+
+Farmer
+@
+L 21 COL
+S 21 Apple
+L 26 COL 6
+S MAX Apple
+L 26 CAP
+S 26 Flax
+#END

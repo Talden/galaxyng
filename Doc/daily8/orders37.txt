@@ -1,0 +1,359 @@
+#GALAXY Daily8 Farmers rabbit
+S 86 22 100
+D Cargo5 1.08 0 0.00 0.00 1.00
+S 109 162 2
+A Outvaders
+S 339 154
+S 329 75
+S 337 69
+S 153 304 1
+S 153 9 1
+S 153 15 1
+S 153 39 1
+S 153 Hectate 1
+S 153 Eurus 1
+S 153 Morpheus 1
+S 153 Hercules 1
+S 153 Boreas 1
+S 153 Hebe 1
+S 153 101 1
+S 153 106 1
+S 153 107 1
+S 153 108 1
+S 153 Hespera 1
+S 153 Iris 1
+S 153 Nemesis 1
+S 153 Aether 1
+S 153 168 1
+S 153 Nike 1
+S 153 184 1
+S 153 187 1
+S 153 218 1
+S 153 221 1
+S 239 Mors
+R 232 EMP Mors
+G 238
+S 95 Mors
+G 94
+R 90 EMP Mors
+S 216 Mors
+G 217
+R 198 EMP Mors
+V Mors
+L 66 COL
+S 66 296
+L 321 COL
+S 321 296
+L 51 COL 1
+S MAX 98
+L 292 COL 2
+S MAX 98
+L 292 COL 1
+S MAX 98
+L 50 COL
+S 50 144
+L 215 COL
+S 215 144
+L 7 COL
+S 7 Daffodil
+L 8 COL
+S 8 Daffodil
+L 30 COL
+S 30 Daffodil
+L 42 COL
+S 42 Daffodil
+L 58 COL
+S 58 Daffodil
+L 62 COL 1
+S MAX Daffodil
+L 62 COL 5
+S MAX Violet
+L 122 COL
+S 122 Hops
+L 127 COL 1
+S MAX Hops
+L 199 COL
+S 199 Hops
+L 206 COL
+S 206 Hops
+L 207 COL
+S 207 Hops
+L 245 COL
+S 245 Hops
+L 62 COL
+S 62 249
+L 4 COL
+S 4 Grain
+L 182 CAP
+S 182 92
+S 150 76
+L 127 CAP
+S 127 Soy
+L 244 CAP 5
+S MAX Rhubarb
+L 3 COL
+S 3 296 ; ETA 2 turns
+L 16 COL 14
+S MAX 296 ; ETA 2 turns
+L 16 COL 4
+S MAX 98 ; ETA 2 turns
+L 105 COL
+S 105 98 ; ETA 2 turns
+L 211 COL
+S 211 98 ; ETA 2 turns
+L 244 COL
+S 244 98 ; ETA 2 turns
+L 112 CAP
+S 112 98 ; ETA 2 turns
+L 51 COL 1
+S MAX 296
+L 61 COL
+S 61 Curry
+L 96 COL 1
+S MAX Daffodil
+L 202 COL
+S 202 235
+L 16 COL 1
+S MAX Hops
+L 247 COL 1
+S MAX Hops
+L 131 COL
+S 131 Stinkweed
+L 16 CAP 1
+S MAX Soy
+S 14 Daisy
+S 16 Peach
+S 17 Peach
+S 20 Peach 1
+S 20 Daisy
+S 51 Daisy
+S 53 Daisy 1
+S 53 Apricot 1
+S 53 Aster
+S 96 Lima_Bean
+S 156 Aster
+S 162 Aster
+S 163 Aster
+S 247 Lima_Bean
+S 248 Lima_Bean 14
+S 248 Grape 2
+S 248 Dewberry 1
+S 248 Rye 9
+S 248 Apple
+S 249 Artichoke
+S 250 Apple
+S 251 Artichoke
+S 285 Aster
+S 292 Aster 2
+S 292 Foxglove 1
+S 292 Dogwood 1
+S 292 Carnation 9
+S 292 Daylilly 1
+S 292 Apple
+S 293 Tulip
+S 295 Tulip
+S 296 Apple
+S 297 Tulip 3
+S 297 Rose 7
+S 297 Rhubarb
+S 299 Dandylion 13
+S 299 Broccoli
+S 312 Apple 1
+S 312 Cherry
+S 313 Watermelon
+S 314 Watermelon
+S 316 Artichoke
+S 107 22
+S 108 22
+S 109 22
+V 22
+S 39 47
+S 41 47
+S 45 47
+S 37 47
+S 34 47
+S 43 47
+S 44 47
+S 46 47
+I 38 134
+I 85 134
+I 83 134
+S 86 47
+S 40 47
+S 258 294
+S 259 294
+S 260 294
+S 185 Artichoke 1 ; ETA 3 turns
+S 185 Quinoa 1 ; ETA 4 turns
+S 185 Soy 1 ; ETA 4 turns
+S 185 St_Augustine_Grass 1 ; ETA 4 turns
+S 185 Monkey_Grass 1 ; ETA 4 turns
+S 185 Cattail 1 ; ETA 4 turns
+S 185 Cabbage 1
+S 185 Poison_Ivy 1 ; ETA 4 turns
+S 185 Moss 1 ; ETA 4 turns
+S 185 Poison_Oak 1 ; ETA 4 turns
+S 185 Grain 1 ; ETA 4 turns
+S 120 Soy
+S 47 Daisy 1
+S 47 54 1 ; ETA 4 turns
+S 47 Honeydew 1 ; ETA 4 turns
+S 47 Canteloupe 1 ; ETA 3 turns
+S 47 Rose 1
+S 47 Rhubarb 1
+S 47 Tree 1 ; ETA 2 turns
+S 47 252 1 ; ETA 2 turns
+S 47 Daffodil 1
+S 47 Bluebonnet 1
+S 47 Scrub 1 ; ETA 4 turns
+P Corn DRIVE
+P Aster DRIVE
+P Carnation DRIVE
+P Hemp DRIVE
+P Grapefruit DRIVE
+P Daisy DRIVE
+P Artichoke DRIVE
+P Dandylion DRIVE
+P Watermelon DRIVE
+P Apple DRIVE
+P Flax DRIVE
+P Rye DRIVE
+P Tulip DRIVE
+P Lima_Bean DRIVE
+P Peach DRIVE
+P Lily DRIVE
+P Orchid DRIVE
+P Carrots DRIVE
+P Grape DRIVE
+P Wheat DRIVE
+P Peas DRIVE
+P Foxglove DRIVE
+P Apricot DRIVE
+P Daylilly DRIVE
+P Cabbage DRIVE
+P Marigolds DRIVE
+P Tangerine DRIVE
+P Cherry DRIVE
+P Broccoli DRIVE
+P Pinto_Bean DRIVE
+P Orange DRIVE
+P Oak DRIVE
+P Brussel_Sprouts DRIVE
+P Cilantro DRIVE
+P Soy CAP
+P Bluebonnet CAP
+P 295 CAP
+P Magnolia CAP
+P Dogwood CAP
+P Rose CAP
+P Bluegrass CAP
+P 35 CAP
+P TolHoneth CAP
+P Quinoa CAP
+P St_Augustine_Grass CAP
+P Rhubarb CAP
+P Violet CAP
+P Hops CAP
+P 90 CAP
+P Cattail CAP
+P 303 CAP
+P 211 CAP
+P Moss CAP
+P 23 CAP
+P Monkey_Grass CAP
+P Dewberry CAP
+P Shitake_Mushroom CAP
+P Lime CAP
+P Ivy CAP
+P 249 CAP
+P Nasturtium CAP
+P Poison_Oak CAP
+P Pine CAP
+P Grain CAP
+P 200 CAP
+P Semolina CAP
+P 47 CAP
+P 284 CAP
+P Poison_Ivy CAP
+P Asparagus CAP
+P Stinkweed CAP
+P 135 CAP
+P Tree CAP
+P Bluebell CAP
+P 198 CAP
+P Bush CAP
+P C163 CAP
+P 24 CAP
+P Brush CAP
+P Allspice CAP
+P 258 CAP
+P 153 CAP
+P 146 CAP
+P 300 CAP
+P Arrowroot CAP
+P 269 CAP
+P 270 CAP
+P Melon CAP
+P Canteloupe CAP
+P 34 CAP
+P 266 CAP
+P Scrub CAP
+P 99 CAP
+P Honeydew CAP
+P Basil CAP
+P 59 CAP
+P 188 CAP
+P 97 CAP
+P 92 CAP
+P 155 CAP
+P 13 CAP
+P 27 CAP
+P 193 CAP
+P 138 CAP
+P 172 CAP
+P 81 CAP
+P 313 CAP
+P 14 CAP
+P 304 CAP
+P 54 CAP
+P 206 CAP
+P 263 CAP
+P 77 CAP
+P Kentucky_Bluegrass CAP
+P 252 CAP
+P 225 CAP
+P 286 CAP
+P 183 CAP
+P 164 CAP
+P 17 CAP
+P 235 CAP
+P Blueberry CAP
+P 115 CAP
+P Daffodil CAP
+P 141 SHIELDS
+P C143 WEAPONS
+P Ekstra SHIELDS
+P 298 WEAPONS
+P 232 WEAPONS
+P 246 SHIELDS
+P Emba SHIELDS
+P 144 CAP
+P 208 SHIELDS
+P Drasnia WEAPONS
+P 297 SHIELDS
+P 125 CAP
+P 250 WEAPONS
+P 71 SHIELDS
+P Drenai DRIVE
+P 76 SHIELDS
+P 241 SHIELDS
+P 227 SHIELDS
+P 98 CAP
+P Cherek Cargo5
+S 262 205
+S 31 134 1
+S 298 162 1
+S 31 162
+S 190 22
+S 87 22
+#END

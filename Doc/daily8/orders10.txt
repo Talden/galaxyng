@@ -1,0 +1,59 @@
+#GALAXY Daily8 Farmers ready123
+L 15 COL
+S 15 Grape
+L 16 COL
+S 16 Grape
+L 33 COL 4
+S MAX Rye
+L 23 COL 4
+S MAX Rye
+L 27 COL
+S 27 Rye
+L 18 COL 3
+S MAX Rye
+L 23 CAP
+S 23 Grape
+L 26 CAP
+S 26 Grape
+L 18 CAP
+S 18 Grape
+L 20 CAP 3
+S MAX Grapefruit
+L 20 CAP
+S 20 Grape
+P Grapefruit Cargo1
+P Corn Cargo3
+S 2 Carrots
+S 9 Wheat
+S 1 Peas
+S 6 Carrots
+S 33 Peas
+S 5 Carrots
+S 22 4 1
+S 22 8 1
+S 22 18 1
+S 22 33 1 ; ETA 2 turns
+S 22 57 1 ; ETA 2 turns
+S 22 79 1 ; ETA 2 turns
+S 22 83 1 ; ETA 2 turns
+S 22 91 1 ; ETA 2 turns
+S 22 104 1
+S 22 110 1 ; ETA 2 turns
+S 22 111 1 ; ETA 2 turns
+S 22 114 1 ; ETA 2 turns
+S 22 119 1 ; ETA 2 turns
+S 22 131 1
+S 22 136 1 ; ETA 2 turns
+S 22 190 1 ; ETA 2 turns
+S 22 191 1 ; ETA 2 turns
+S 22 192 1 ; ETA 2 turns
+S 22 207 1 ; ETA 2 turns
+S 22 215 1 ; ETA 2 turns
+S 22 247 1
+S 22 257 1
+S 22 279 1 ; ETA 2 turns
+S 22 306 1 ; ETA 2 turns
+S 22 310 ; ETA 2 turns
+P Peas CAP
+S 30 Corn
+#END

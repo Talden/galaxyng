@@ -1,0 +1,14 @@
+#GALAXY Daily8 Nation_9 P362290416
+Y ready123
+C Farmers
+M 30 0 110
+D Cargo0 1.02 0 0.00 0.00 1.00
+D Cargo1 1.03 0 0.00 0.00 1.00
+D Cargo2 1.06 0 0.00 0.00 1.00
+P 169 Cargo0
+P 171 Cargo1
+P 170 Cargo2
+N 169 Corn
+N 171 Carrots
+N 170 Peas
+#END

@@ -1,0 +1,45 @@
+#GALAXY Daily8 Farmers ready123
+L 2 COL
+S 2 180
+L 4 COL
+S 4 180
+L 3 CAP
+S 3 180
+L 5 CAP
+S 5 180
+L 1 COL 6
+S MAX 180
+L 1 COL 4
+S MAX 223
+S 7 Carrots 4
+S 7 Peas
+S 6 Peas
+S 8 Peas
+S 1 Peas 29
+N 180 Wheat
+N 95 Rye
+N 236 Flax
+N 194 Hemp
+N 133 Watermelon
+N 223 Grapefruit
+N 51 Grape
+N 105 Orange
+@ Tarmangani
+Howdy,
+
+Always nice to see someone willing to take the time to name themselves and their planets.
+
+Seems Nation_3, a race lacking in imagination, is between us.  Interested in future collaboration on that front?
+
+Farmer
+@
+@ Santa_s
+Better watch out, better not shout, better not cry, I'm telling you why.
+Santa Claus ain't winning this war.
+
+You're on my hitlist.  Coming to get you soon....
+@
+D Rake 33 29 2 35 1
+D Axe 33.00 3 15.00 35.00 1.00
+P Corn Axe
+#END

@@ -1,0 +1,38 @@
+#GALAXY Daily8 Farmers ready123
+L 2 COL 2
+S MAX 105
+L 2 COL 1
+S MAX 51
+L 1 COL 1
+S MAX 51
+L 1 COL 2
+S MAX 223
+L 1 COL 2
+S MAX 133
+L 1 COL 2
+S MAX 95
+L 1 COL 2
+S MAX 194
+L 3 COL 2
+S MAX 180
+L 3 COL 2
+S MAX 236
+L 1 COL 1
+S MAX 236
+S 1 Peas 29
+S 3 Peas 9
+P Peas CAP
+D Cargo3 69.98 0 0.00 0.00 29.02
+P Corn Cargo3
+P Carrots CAP
+#END
+turns
+S 13 257 1 ; ETA ? turns
+S 13 104 ; ETA ? turns
+S 1 Peas 23
+S 3 Peas 9
+P Peas CAP
+D Cargo98 72.29 0 0.00 0.00 26.71
+P Corn Cargo98
+P Carrots CAP
+#END
