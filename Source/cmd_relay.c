@@ -65,7 +65,7 @@ int CMD_relay( int argc, char **argv ) {
 				resNumber = RES_NODESTINATION;
 			}
 			
-			if ( resNumber == RES_OK ) {
+			if ( resNumber == RES_OK || resNumber == RES_NO_TURN_NBR) {
 				if (noCaseStrcmp(destination, aGame->name) == 0) {
 					mode = ALL_PLAYERS;
 				}
