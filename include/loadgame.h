@@ -11,7 +11,7 @@
                                  * loadgame * will * load  *  * * the *
                                  * current turn */
 
-void            loadConfig(game *aGame);
+void            loadNGConfig(game *aGame);
 void            readDefaults(game *aGame, FILE * f);
 void            freeDefaults(game *aGame);
 

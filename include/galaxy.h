@@ -733,4 +733,6 @@ extern char    *vsavegame;
 extern char    *vloadgame;
 extern int      nbrProducts;
 
+void loadNGConfig(game* aGame);
+
 #endif                          /* GNG_GALAXY_H */
