@@ -1040,7 +1040,7 @@ reportBattles(game *aGame, player *P, fielddef *fields)
           shot           *s;
 
 	  if (b->protocol->cur > 5000 && fields->destination != stdout) {
-	    return;
+		continue;
 	  }
           fprintf(fields->destination, "\n\t\tBattle Protocol\n\n");
           s = b->protocol->shots;
