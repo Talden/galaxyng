@@ -170,7 +170,7 @@ void            addListF(list **aList, list *anElement);
 void            insertListF(list **aList, list* anchor, list *anElement);
 list           *findElementF(list *aList, char *name);
 void            removeListF(list **aList, list *anElement);
-void            setNameF(list *anElement, char *name);
+void            setNameF(list *anElement, const char *name);
 int             numberOfElementsF(list *aList);
 int             ptonum(void *base, void *target);
 void           *numtop(void *base, int n);
