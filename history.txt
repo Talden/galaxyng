@@ -4,8 +4,10 @@ Release 6.4.5: January 2005
 o By Ken Weinert (madcoder42)
   + changed CMD_create to load the config file to fix the problem
     of not finding fonts during initial map creation in this phase
-  + laid groundwork for a -influence command to allow separate map
-    creation
+  + added the -influence command to generate influence maps without
+    running a turn.
+  + changed the method of allocating memory to reduce the impact of
+    map generation
   + XML reporting temporarily turned off as the C command would cause
     TXT reports to be not be created and copies of orders were lost
 
