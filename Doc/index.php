@@ -6,41 +6,33 @@
 
 	<head>
 		<link rel=stylesheet href="main.css" />
-		<title>GalaxyNG Documentation</title>
+		<title>GalaxyNG Manuals</title>
 	</head>
 
 	<body>
-		<h1>Galaxy Next Generation Documentation</h1>
-		<p>For release-5.1</p>
+		<h1>Galaxy Next Generation Manuals</h1>
+		<p>For release 5.1<br />
+		<a href="credits.php">Credits</a></p>
 
-		<h2>Authors</h2>
-		<dl>
-			<dt>Galaxy NG Code</dt>
-				<dd>Frans Slothouber</dd>
-				<dd>Ken Weinert</dd>
-				<dd>Christophe Barbier</dd>
-				<dd>Jacco van Weert</dd>
-				<dd>Tommy Lindqvist</dd>
-				<dd>Rogerio Fung</dd>
-			<dt>Original Version of Galaxy Code</dt>
-				<dd>Russell Wallace</dd>
-				<dd>Tim Myers</dd>
-				<dd>Robert Stone</dd>
-				<dd>Mayan Moudgill</dd>
-				<dd>Graeme Griffiths</dd>
-				<dd>K Pankhurst</dd>
-		</dl>
-
-<H2>Table of Contents</H2>
-<OL>
- <LI><A href="Doc/server.html">Server Manual</a></LI>
- <LI><A href="Doc/ManGalaxyNG.html">Player's Manual</a></LI>
- <LI><A href="Doc/FAQ.html">FAQ</a></LI>
- <LI><A href="Doc/house_rules.txt">Example house rules</A></LI>
- <LI><A href="Doc/globab.bulletin">Example Global Bulletin</A></LI>
- <LI><A href="Doc/galaxyngrc">Example Configuration (galaxyngrc) file</A></LI>
-</OL>
-</BODY>
+		<ul>
+ 			<li><a href="manual.php">Player's Manual</a></li>
+ 			<li><a href="faq.php">FAQ</a></li>
+ 			<li><a href="quickref.php">Orders Quick Reference</a></li>
+		 <li><a href="server.php">Server Manual</a>
+		 		<ul>
+				 <li><a href="house_rules.txt">Example House Rules</a></li>
+				 <li><a href="globab.bulletin">Example Global Bulletin</a></li>
+ 					<li><a href="galaxyngrc">Example Server Configuration File</a></li>
+ 					<li><a href="example.glx">Example Game Configuration File</a></li>
+ 					<li><a href="intro.txt">Example Game Introduction Text</a></li>
+ 					<li><a href="hosting_a_team_game.txt">How to Host a Team Game</a></li>
+ 				</ul>
+ 			</li>
+ 		</ul>
+ 		
+ 		<?php include 'footer.php'; ?>
+ 	</body>
+</html>
 
 
 
