@@ -343,8 +343,11 @@ loadgame(char *gameName, int whichTurn)
 		P->massproduced = getReadFloat();
 		P->lastorders = getReadInt();
 		P->flags = getReadLong();
-		P->flags |= ~F_XMLREPORT;
 
+		plog(LBRIEF, "Player flags: %ld\n", P->flags);
+		P->flags |= ~F_XMLREPORT;
+		plog(LBRIEF, "Player flags: %ld\n", P->flags);
+		
 		pdebug(DFULL, "Load Game : Ship Types\n");
 
 		getLine(turnFile);
