@@ -60,13 +60,12 @@ int CMD_relay( int argc, char **argv ) {
 								&final_orders, &theTurnNumber );
 
 	plog(LBRIEF, ">CMD_relay(from: \"%s\"  to: \"%s\"), "
-	     "confirmation in \"%s\"\n", anEnvelope->from, destination,
+	     "confirmation in \"%s\"\n", anEnvelope->to, destination,
 	     confirmName);
 
-	/* it's ok to not have a turn number on a relay */
-	setHeader(anEnvelope, MAILHEADER_TO, "%s", anEnvelope->from);
 	setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.GMemail);
 
+	/* it's ok to not have a turn number on a relay */
 	if (resNumber != RES_OK && resNumber != RES_NO_TURN_NBR) {
 		setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
 		generateErrorMessage(resNumber, aGame, raceName,
