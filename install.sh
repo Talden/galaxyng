@@ -166,7 +166,7 @@ echo "* ^Subject:.*GM Report" >> $PROCRC
 echo "GM" >> $PROCRC
 echo "# Some IMAP servers prefix mailbox names with a '.'  For example:" >> $PROCRC
 echo "# .GM" >> $PROCRC
-echo "# Combining this will maildir delivery would yield:" >> $PROCRC
+echo "# Combining this with maildir delivery would yield:" >> $PROCRC
 echo "# .GM/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Don't reply to anything from a mail daemon, but store it" >> $PROCRC
@@ -174,6 +174,7 @@ echo "# in a folder called postmaster." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^FROM_MAILER" >> $PROCRC
 echo "postmaster" >> $PROCRC
+echo "# .postmaster" >> $PROCRC
 echo "# .postmaster/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# The following prevents mail loops. These happen when the server" >> $PROCRC
@@ -182,7 +183,8 @@ echo "# Mail loops usually annoy the heck out of sysadmins." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^Subject:.*(orders checked|copy of turn|major trouble|orders received|message sent)" >> $PROCRC
 echo "checkedorders" >> $PROCRC
-echo "# ./checkedorders" >> $PROCRC
+echo "# .checkedorders" >> $PROCRC
+echo "# .checkedorders/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone sent-in orders, check them.." >> $PROCRC
 echo ":0 rw :turno" >> $PROCRC
