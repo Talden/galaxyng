@@ -1235,7 +1235,14 @@ CMD_relay( int argc, char **argv )
                 areValidOrders( stdin, &aGame, &raceName,
                                 &password, theTurnNumber );
 
-			fromPlayer = findElement(player, aGame->players, raceName);
+			if (noCaseStrcmp(raceName, "GM") == 0) {
+				fromPlayer = (player*)malloc(sizeof (player));
+				fromPlayer->name = strdup("GM");
+				fromPlayer->addr = strdup(aGame->serverOptions.GMemail);
+				fromPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+			}
+			else 
+				fromPlayer = findElement(player, aGame->players, raceName);
 			
             if ( destination == NULL ) {
                 resNumber = RES_NODESTINATION;
