@@ -218,7 +218,7 @@ if [ -e $PROCRC ]; then
   echo "  Writing the new version to $PROCRC"
 fi
 
-echo "PATH=\$HOME/bin:$HOME/galaxyng:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
+echo "PATH=\$HOME/bin:$GALAXY_HOME:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
 echo "#" >> $PROCRC
 echo "# Make sure that your mail directory exists!" >> $PROCRC
 echo "MAILDIR=\$HOME/Mail" >> $PROCRC
