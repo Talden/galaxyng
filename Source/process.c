@@ -1212,7 +1212,8 @@ l_order( game *aGame, player *P, strlist **s )
     if ( y / numberOfShips < AMOUNTMIN ) {
         mistake( P, ERROR, *s,
                  "Not enough cargo available on \"%s\" to"
-                 " load at least %f per ship.", p->name, AMOUNTMIN );
+                 " load at least %f per ship (%f per ship available, %f / %d).",
+				 p->name, AMOUNTMIN, y / numberOfShips, y, numberOfShips );
         return;
     }
     if ( y < x ) {
