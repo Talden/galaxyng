@@ -104,7 +104,10 @@ int CMD_template( int argc, char **argv ) {
 	    "; You can enforce global peace just by putting in the number\n"
 	    "; of turns you want to disallow players to declare war\n"
 	    "; on each other. For example, Peace 20 means players cannot\n"
-	    "; declare war until turn 21. Uncomment the next line if you\n"
+	    "; declare war until turn 21. (Note that players can load cargo\n"
+	    "; at other players planets. If you do not wish to allow this\n"
+	    "; you must make it a house rule. It cannot be prevented by the\n"
+	    "; GalaxyNG server program.) Uncomment the next line if you\n"
 	    "; want this option.\n\n"
 	    ";Peace 20\n\n");
 		
