@@ -165,7 +165,6 @@ int name_rows;
 	
 	int  nbr_of_players, nbr_of_colors;
 	int  x1, y1;  /* temporary coordinates */
-	int  ticks;
 	
 	/*long total_mem = 0;*/
 	nbr_of_colors = sizeof(map_colors) / (sizeof(int)*4);
@@ -178,7 +177,7 @@ int name_rows;
 	else
 		strcpy(font, "./influence.ttf");
 
-name_rows = nbr_of_players / 4 + ((nbr_of_players % 4) != 0);
+	name_rows = nbr_of_players / 4 + ((nbr_of_players % 4) != 0);
 	switch(map_type) {
 		case EffIndMap:
 			sprintf(buf, "%s/data/%s/effind_%d.png",
@@ -209,7 +208,7 @@ name_rows = nbr_of_players / 4 + ((nbr_of_players % 4) != 0);
 			sprintf(buf, "%s/data/%s/public_%d.png",
 					galaxynghome, aGame->name, aGame->turn);
 			strcpy(map_title, "Overview");
-name_rows = 0;
+			name_rows = 0;
 			break;
 
 		default:
@@ -218,8 +217,8 @@ name_rows = 0;
 	
 	mapfile = GOS_fopen(buf, "wb");
 	
-map_height = 902 + (name_rows+1)*17+2;
-map_png = gdImageCreateTrueColor(902, map_height);
+	map_height = 902 + (name_rows+1)*17+2;
+	map_png = gdImageCreateTrueColor(902, map_height);
 	
 	for (i = 0; i < nbr_of_colors; i++) {
 		map_colors[i][3] = gdImageColorAllocate(map_png, map_colors[i][0],
@@ -233,11 +232,7 @@ map_png = gdImageCreateTrueColor(902, map_height);
 	gdImageRectangle(map_png, 0, 0, 901, map_height-1, white);
 	gdImageRectangle(map_png, 0, 901, 902, 902, white);
 	gdImageLine(map_png, 0, map_height-1, map_height-1, map_height-1, white);
-gdImageLine(map_png, 0, 919, map_height-1, 919, white);
-
-printf("map_height: %d, name_rows: %d\n", map_height, name_rows);
-
-
+	gdImageLine(map_png, 0, 919, map_height-1, 919, white);
 
 	sprintf(buf, "Map Size: %d", (int)aGame->galaxysize);
 	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
@@ -254,20 +249,21 @@ printf("map_height: %d, name_rows: %d\n", map_height, name_rows);
 					914, 5+(10*i*scale) + brect[4], 908, white);
 	}
 
-strcpy(buf, "(10 LY)");
-gdImageStringFT(map_png, NULL, white, font, 12.0, 0.,
-7+brect[4]+10*scale, 916, buf);
-{int dist_used = 9 + brect[4] + 10*scale;
+	strcpy(buf, "(10 LY)");
+	gdImageStringFT(map_png, NULL, white, font, 12.0, 0.,
+					7+brect[4]+10*scale, 916, buf);
+	{int dist_used = 9 + brect[4] + 10*scale;
 	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
 						  12., 0., 0, 0, buf);
 	if (err)
 		fprintf(stderr, "%s\n", err);
 
-gdImageLine(map_png, dist_used + brect[4], 919, dist_used+brect[4], 902, white);
-gdImageLine(map_png, 902 - (dist_used + brect[4]), 919, 902 - (dist_used+brect[4]), 902, white);
-sprintf(buf, "Turn: %d", aGame->turn);
-gdImageStringFT(map_png, NULL, white, font, 12.0, 0., 904 - (dist_used+brect[4]), 916, buf); 
-}
+	gdImageLine(map_png, dist_used + brect[4], 919, dist_used+brect[4], 902, white);
+	gdImageLine(map_png, 902 - (dist_used + brect[4]), 919, 902 - (dist_used+brect[4]), 902, white);
+	sprintf(buf, "Turn: %d", aGame->turn);
+	gdImageStringFT(map_png, NULL, white, font, 12.0, 0., 904 - (dist_used+brect[4]), 916, buf); 
+	}
+	
 	sprintf(buf, "%s: %s", aGame->name, map_title);
 	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
 						  12., 0., 0, 0, buf);
@@ -277,8 +273,6 @@ gdImageStringFT(map_png, NULL, white, font, 12.0, 0., 904 - (dist_used+brect[4])
 	gdImageStringFT(map_png, NULL, white, font, 12., 0.,
 					451 - (brect[4] / 2), 916, buf);
 
-	/* try something different - this method turns out to be
-	 * *very* memory intensive */
 	/* set  up variables to hold the influence, one float for each
 	 * player. We'll combine at the end
 	 */
@@ -293,21 +287,27 @@ gdImageStringFT(map_png, NULL, white, font, 12.0, 0., 904 - (dist_used+brect[4])
 		}
 	}
 
-	if (map_type != PublicMap) {
+	if (name_rows) {
+		int row;
 		/* draw the player names in the key */
 		i = 3;                        /* nations off by 3 due to
 									   * black/white/ship color */
 		j = 0;
+		row = 0;
 		for (P = aGame->players; P; P = P->next) {
 			if (i == nbr_of_colors) {
 				i = 3;
-				j++;
 			}
 			
-			err = gdImageStringFT(map_png, NULL, map_colors[i][3], font, 10.,
-								  0., 770 + (j*128), 3 + ((i - 2) * 15), P->name);
+			err = gdImageStringFT(map_png, NULL, map_colors[i][3], font, 12.,
+								  0., 3 + (j*225), 933 + (row * 16), P->name);
 			if (err)
 				fprintf(stderr, "%s\n", err);
+			j++;
+			if (j == 4) {
+				j = 0;
+				row++;
+			}
 			i++;
 		}      
 	}
