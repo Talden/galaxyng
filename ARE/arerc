@@ -1,0 +1,83 @@
+<are version="1.0">
+  <email>
+     <from>Registration Engine &lt;server@gesserit.net&gt;</from>
+     <subject>Enrollment Reply</subject>
+     <replyto>server-gm@gesserit.net</replyto>
+     <cc></cc>
+  </email>
+  <game name="Jangi">
+    <from>Jangi Registration Engine &lt;server@gesserit.net&gt;</from>
+    <subject type="success">Successful Jangi Registration</subject>
+    <subject type="failure">Jangi Registration Problem</subject>
+    <replyto>server-jangi@gesserit.net</replyto>
+    <playerlimit>25</playerlimit>
+    <totalplanetsize>2000.0</totalplanetsize>
+    <maxplanetsize>1000.0</maxplanetsize>
+    <maxplanets>5</maxplanets>
+    <size>450.0</size>
+    <nation_spacing>30</nation_spacing>
+    <core_sizes planetcount="3">
+      <planet seq="1">1000</planet>
+      <planet seq="2">250</planet>
+      <planet seq="3">350</planet>
+    </core_sizes>
+    <empty_planets>
+      <count>6</count>
+      <radius>15</radius>
+    </empty_planets>
+    <stuff_planets>8</stuff_planets>
+    <paxgalactica>20</paxgalactica>
+    <initial_tech_levels>
+      <drive>1</drive>
+      <weapons>1</weapons>
+      <shields>1</shields>
+      <cargo>1</cargo>
+    </initial_tech_levels>
+    <full_bombing />
+    <keep_production />
+    <dont_drop_dead />
+    <save_report_copy />
+    <spherical_galaxy />
+    <players count="1" />
+	<player>
+	    <name>ChaccaCor</name>
+	    <realname>Ken Weinert</realname>
+	    <map>
+		<x>40</x>
+		<y>40</y>
+		<size>100</size>
+	    </map>
+	    <password>cantguessme</password>
+	    <planets count="3">
+		<planet>
+		    <name>HomeWorld</name>
+		    <size>1000.0</size>
+		</planet>
+		<planet>
+		    <name>Colony1</name>
+		    <size>600.0</size>
+		</planet>
+		<planet>
+		    <name>Colony2</name>
+		    <size>400.0</size>
+		</planet>
+	    </planets>
+	    <options>
+		<textreport />
+		<xmlreport />
+		<anonymous />
+		<autounload />
+		<battleprotocol />
+		<compress />
+		<gplus />
+		<groupforecast />
+		<machinereport />
+		<planetforecast />
+		<prodtable />
+		<routesforecast />
+		<shiptypeforecast />
+		<sortgroups />
+	    </options>
+	</player>
+    </game>
+</are>
