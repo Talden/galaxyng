@@ -41,6 +41,7 @@
 							<li>Groups</li>
 							<li>Fleets</li>
 							<li>Technology</li>
+							<li>Ship Mass</li>
 							<li>Movement
 							<li>Speed</li>
 							<li>Locating Ships</li>
@@ -101,8 +102,8 @@
 				<p>Players email a GalaxyNG server to <a href="#register">register</a> for games, submit <a href="#orders">orders</a> and receive <a href="#reports">turn reports</a>.  The server automatically processes turns and responds to player email.  Most games run one to five <a href="#turns">turns</a> per week.  The Game Master (GM) maintains the server, selects game options, creates the galaxy, answers player questions and solves problems.</p>
 
 				<h3><a link="galaxy">The Galaxy</a></h3>
-					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, fight better and haul more cargo.</p>
-					<p>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents ten million people and each game unit of goods or raw materials represents about ten million tons.  Each game turn represents about four years of time.</p>
+					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo, conduct warfare and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, haul more cargo and fight better.</p>
+					<p>Distances are measured in light-years.  Each unit of population represents ten million people and each unit of goods or raw materials represents about ten million tons.  Each turn represents about four years of time.</p>
 
 				<h3><a link="names">Names</a></h3>
 					<p>Races, planets and ship types can be named.  Names may be no more than twenty characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should <a href="#ordc">provide a name</a> by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when <a href="#ordd">designed</a> and can be <a href="#ordt">renamed</a>.  Planets are numbered at the start of the game and can be <a href="#ordn">renamed</a> by their current owner.</p>
@@ -116,36 +117,22 @@
 					<p>Planets are located in the galaxy by X and Y coordinates.  Planets have seven characteristics: owner, size, population, industry, resources, production and stockpiles.</p>
 
 				<h3><a link="owner">Owner</a></h3>
-					<p>Inhabited planets are owned by one race at a time (except in the special case of a <a href="#combat">standoff</a> when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</p>
+					<p>Inhabited planets are owned by one race at a time (except in the special case of a standoff when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</p>
 
 				<h3><a link="size">Size</a></h3>
 					<p>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), uninhabited development planets (size 200.00 to 1000.00) and uninhabited stuff planets (size 0.01 to 200.00).</p>
 
 				<h3><a link="pop">Population</a></h3>
-					<p>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into colonists.  These are people automatically stored in containers in deep freeze.  Every eight extra population units are converted into one unit of colonists.</p>
+					<p>Each inhabited planet has a population, which can never be larger than the planet's size but may be smaller.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  Each planet's population grows by 8% each turn.</p>
 
 				<h3><a link="ind">Industry</a></h3>
-					<p>Each inhabited planet has industry, which may be lower than the planet's population but may not be greater.  If population exceed industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be produced at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</p>
+					<p>Each inhabited planet has industry, which can never be larger than the planet's population but may be smaller.  If population exceed industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be <a href="#ordp">produced</a> at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</p>
 
 				<h3><a link="res">Resources</a></h3>
-					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in resources can easily produce materials such as sheet steel, copper wire and plastics.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00, with the average being 1.00.  The resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 resources will produce 5.00 units of materials per point of production, while a planet with 0.10 resources would only produce 0.10 units of materials.  Materials are necessary to produce ships and capital.  Each planet may have a stockpile of materials and if present this will be used.  If no stockpile exists, some production points will be diverted to producing materials.</p>
+					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in resources can easily <a href="#ordp">produce</a> materials such as sheet steel, copper wire and plastics.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00, with the average being 1.00.  The resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 resources will produce 5.00 units of materials per point of production, while a planet with 0.10 resources would only produce 0.10 units of materials per point of production.  Materials are necessary to build ships and produce capital.</p>
 
 				<h3><a link="stock">Stockpiles</a></h3>
-					<p>When colonists from a planet's stockpile are shipped to other planets
-which still have room for population growth, they are automatically
-thawed out and added to the planet's population.  This is how
-uninhabited planets are colonized.  (Note that colonist production is
-completely automatic, and consumes no production points.)</p>
-
-					<p>A planet's industry level is increased by the production of
-capital goods.  These represent things like machine tools, computers
-and transport vehicles.  To produce one unit of capital requires 5
-production points and 1 unit of raw materials.  If the planet's
-industry level is below its population it will then be increased by
-one unit.  Otherwise the capital units will be stockpiled.  If shipped
-to a planet whose industry level is below its population, that
-planet's industry level will be increased.  This is useful for quickly
-building up the economy of a colony planet.</p>
+					<p>Each planet may have stockpiles of colonists, capital and materials.  Population increases beyond the planet's size are converted into colonists.  Eight population units are converted into one unit of colonists.  These are people automatically stored in containers in deep freeze.  Excess units of capital and materials are stockpiled at a one-to-one ratio.  Stockpiles may be saved for later use or transported to other planets by cargo ships.</p>
 
 
 
@@ -153,18 +140,8 @@ building up the economy of a colony planet.</p>
 				<p>Ships are organized into groups and fleets which are used for exploration, scouting, attack, defence and cargo transport.  Ships have the following characteristics: ship type (name, drive mass, attacks, weapons mass, shields mass, cargo mass and ship mass), group number, fleet name, drive technology, weapons technology, shields technology, cargo technology, cargo carried type, cargo carried mass, destination planet, and distance to destination planet.  Ships can be <a href="#ordp">built</a> at planets.</p>
 
 				<h3><a link="shiptypes">Ship Types</a></h3>
-					<p>Each player can <a href="#ordd">design</a> ship types, which are unique to that player, by specifying:</p>
-					<ul>
-						<li>Name - ship type</li>
-						<li>Drive mass - the power of the hyperdrive engines</li>
-						<li>Attacks - the number of guns</li>
-						<li>Weapons mass - the strength of the gun(s)</li>
-						<li>Shields mass - the power of the shields generator</li>
-						<li>Cargo mass - the size of the cargo bay</li>
-					</ul>
-					<p>Drive mass, weapons mass, shields mass, and cargo mass must equal zero or be equal to or greater than one.  Thus, drive mass 0.00 and 1.50 are allowed but drive mass 0.75 is not.  Attacks must be an integer.</p>
-					<p>Some example ship types are:<p>
-					<pre>  Name              D    A     W      S      C
+					<p>Each player can <a href="#ordd">design</a> ship types, which are unique to that player, by specifying: name, drive mass (the power of the hyperdrive engines), attacks (the number of guns), weapons mass (the strength of the guns), shields mass (the power of the shields generator), and cargo mass (the size of the cargo bay).  Drive mass, weapons mass, shields mass, and cargo mass must equal zero or be equal to or greater than one.  Thus, drive mass 0.00 and 1.50 are allowed but drive mass 0.75 is not.  Attacks must be an integer.  Some example ship types are:<p>
+					<pre>                    D    A     W      S      C
   Drone            1.00   0   0.00   0.00   0.00
   Flak             1.00   0   0.00   2.00   0.00
   FastFlak         1.01   0   0.00   1.01   0.00
@@ -180,23 +157,6 @@ building up the economy of a colony planet.</p>
   Hauler           2.00   0   0.00   0.00   1.00
   Freighter       30.00   0   0.00   9.50  10.00
   MegaFreighter  120.00   0   0.00  38.43  39.57</pre>
-					<p>Ship types with zero or one attack have a ship mass of drive mass + weapon mass + shield mass + cargo mass.  Each additional attack beyond the first adds 50% of the weapons mass to the ship mass.  For example:</p>
-					<pre>                    D       W     Additional Weapons    S      C      Ship Mass
-  Drone            1.00 +  0.00 +        0          +  0.00 + 0.00  =    1.00
-  Flak             1.00 +  0.00 +        0          +  2.00 + 0.00  =    3.00
-  FastFlak         1.01 +  0.00 +        0          +  1.01 + 0.00  =    2.02
-  Fighter          2.48 +  1.20 +        0          +  1.27 + 0.00  =    4.95
-  Gunship          4.00 +  2.00 + ( 1 *  2.00 * .5) +  4.00 + 0.00  =   11.00
-  Destroyer        6.00 +  4.00 + ( 2 *  4.00 * .5) +  4.00 + 0.00  =   18.00
-  Cruiser         16.50 +  1.50 + (29 *  1.50 * .5) +  9.75 + 0.00  =   49.50
-  BattleCruiser   49.50 +  3.00 + (24 *  3.00 * .5) +  9.50 + 1.00  =   99.00
-  Battleship      33.00 + 25.00 + ( 2 * 25.00 * .5) + 16.00 + 1.00  =   99.00
-  BattleStation   99.00 + 50.00 +        0          + 49.00 + 0.00  =  198.00
-  OrbitalFort      0.00 + 10.00 + (10 * 10.00 * .5) + 39.00 + 0.00  =   99.00
-  SpaceGun         0.00 +  9.90 +        0          +  9.90 + 0.00  =   19.80
-  Hauler           2.00 +  0.00 +        0          +  0.00 + 1.00  =    3.00
-  Freighter       30.00 +  0.00 +        0          +  9.50 + 10.00 =   49.50
-  MegaFreighter  120.00 +  0.00 +        0          + 38.43 + 39.57 =  198.00</pre>
 
 				<h3><a link="groups">Groups</a></h3>
 					<p>A race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</p>
@@ -212,92 +172,76 @@ building up the economy of a colony planet.</p>
 				<h3><a link="tech">Technology</a></h3>
 					<p>Technology determines the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to conduct <a href="#ordp">research</a>.</p>
 					<p>A ship with drive technology 4.00 is twice as fast as an equivalent ship with drive technology 2.00, a ship with weapons technology 1.50 has a 50% more powerful attack than the same ship with weapons technology 1.00, and so forth.  Ships without a component are considered to have a matching technology of zero.  For example, a ship with weapons mass zero is consdered to have weapons technology zero.</p>
+  
+  			<h3>Ship Mass</h3>
+					<p>Ship types with zero or one attack have a ship mass of drive mass + weapon mass + shield mass + cargo mass.  Each additional attack beyond the first adds 50% of the weapons mass to the ship mass.  For example:</p>
+					<pre>                    D   +     W   +    Additional    +     S   +   C   =  Ship
+                                        Attacks                           Mass
+  Drone            1.00 +    0.00 +        0         +    0.00 +  0.00 =   1.00
+  Flak             1.00 +    0.00 +        0         +    2.00 +  0.00 =   3.00
+  FastFlak         1.01 +    0.00 +        0         +    1.01 +  0.00 =   2.02
+  Fighter          2.48 +    1.20 +        0         +    1.27 +  0.00 =   4.95
+  Gunship          4.00 +    2.00 + ( 1 *  2.00 / 2) +    4.00 +  0.00 =  11.00
+  Destroyer        6.00 +    4.00 + ( 2 *  4.00 / 2) +    4.00 +  0.00 =  18.00
+  Cruiser         16.50 +    1.50 + (29 *  1.50 / 2) +    9.75 +  0.00 =  49.50
+  BattleCruiser   49.50 +    3.00 + (24 *  3.00 / 2) +    9.50 +  1.00 =  99.00
+  Battleship      33.00 +   25.00 + ( 2 * 25.00 / 2) +   16.00 +  1.00 =  99.00
+  BattleStation   99.00 +   50.00 +        0         +   49.00 +  0.00 = 198.00
+  OrbitalFort      0.00 +   10.00 + (10 * 10.00 / 2) +   39.00 +  0.00 =  99.00
+  SpaceGun         0.00 +    9.90 +        0         +    9.90 +  0.00 =  19.80
+  Hauler           2.00 +    0.00 +        0         +    0.00 +  1.00 =   3.00
+  Freighter       30.00 +    0.00 +        0         +    9.50 + 10.00 =  49.50
+  MegaFreighter  120.00 +    0.00 +        0         +   38.43 + 39.57 = 198.00</pre>
+  
 
 				<h3><a link="move">Movement</a></h3>
 					<p>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  <a href="#ords">Send</a>, <a href="#ordi">intercept</a> and <a href="#ordh">reverse</a> orders can be issued to groups and fleets to move them between planets.</p>
 
 				<h3><a link="speed">Speed</a></h3>
-					<p>Ships move a number of light years per turn according to the following formula:  Light years travelled = 20 * drive technology level * (drive mass / (ship mass + cargo carried mass)).</p>
-					<p>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of twenty times your drive technology.  For example, using the ship types above and assuming drive technology 1.00 carrying no cargo:<p>
-					<pre>                 20 * Drive Tech * (Drive Mass / Ship Mass) = Light Years
-  Drone          20 *    1.00    * (    1.00   /   1.00   ) =    20.00
-  Flak           20 *    1.00    * (    1.00   /   3.00   ) =     6.66
-  FastFlak       20 *    1.00    * (    1.01   /   2.02   ) =    10.00
-  Fighter        20 *    1.00    * (    2.48   /   4.95   ) =    10.02
-  Gunship        20 *    1.00    * (    4.00   /  11.00   ) =     7.27
-  Destroyer      20 *    1.00    * (    6.00   /  18.00   ) =     6.66
-  Cruiser        20 *    1.00    * (   16.50   /  49.50   ) =     6.66
-  BattleCruiser  20 *    1.00    * (   49.50   /  99.00   ) =    10.00
-  Battleship     20 *    1.00    * (   33.00   /  99.00   ) =     6.66
-  BattleStation  20 *    1.00    * (   99.00   / 198.00   ) =    10.00
-  OrbitalFort    20 *    1.00    * (    0.00   /  99.00   ) =     0.00
-  SpaceGun       20 *    1.00    * (    0.00   /  19.80   ) =     0.00
-  Hauler         20 *    1.00    * (    2.00   /   3.00   ) =    13.33
-  Freighter      20 *    1.00    * (   30.00   /  49.50   ) =    12.12
-  MegaFreighter  20 *    1.00    * (  120.00   / 198.00   ) =    12.12</pre>
-					<p>Note that, when fully loaded, cargo ships can be much slower.  For example, assuming drive technology 1.00 and cargo technology 1.00:</p>
-					<pre>  Hauler         20 * 1.00 * (2.00/(3.00+1.10)) = 9.75
-  Freighter      20 * 1.00 * (30.00/(49.50+20.00)) = 8.63
-  MegaFreighter  20 * 1.00 * (120.00/(198.00+196.14)) = 6.09
-					</pre>
+					<p>Ships move a number of light years per turn according to the following formula:  Speed = 20 * drive technology * (drive mass / (ship mass + effective cargo carried mass)).</p>
+					<p>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of twenty times your drive technology.  For example, using the ship types above and assuming drive technology 1.00:<p>
+					<pre>                 20 * Drive * (  Drive / (   Ship +   Effective   )) = Speed
+                       Tech       Mass       Mass   Cargo Carried
+  Drone          20 *  1.00 * (   1.00 / (   1.00 +      0.00     )) = 20.00
+  Flak           20 *  1.00 * (   1.00 / (   3.00 +      0.00     )) =  6.66
+  FastFlak       20 *  1.00 * (   1.01 / (   2.02 +      0.00     )) = 10.00
+  Fighter        20 *  1.00 * (   2.48 / (   4.95 +      0.00     )) = 10.02
+  Gunship        20 *  1.00 * (   4.00 / (  11.00 +      0.00     )) =  7.27
+  Destroyer      20 *  1.00 * (   6.00 / (  18.00 +      0.00     )) =  6.66
+  Cruiser        20 *  1.00 * (  16.50 / (  49.50 +      0.00     )) =  6.66
+  BattleCruiser  20 *  1.00 * (  49.50 / (  99.00 +      0.00     )) = 10.00
+  Battleship     20 *  1.00 * (  33.00 / (  99.00 +      0.00     )) =  6.66
+  BattleStation  20 *  1.00 * (  99.00 / ( 198.00 +      0.00     )) = 10.00
+  OrbitalFort    20 *  1.00 * (   0.00 / (  99.00 +      0.00     )) =  0.00
+  SpaceGun       20 *  1.00 * (   0.00 / (  19.80 +      0.00     )) =  0.00
+  Hauler         20 *  1.00 * (   2.00 / (   3.00 +      0.00     )) = 13.33
+  Freighter      20 *  1.00 * (  30.00 / (  49.50 +      0.00     )) = 12.12
+  MegaFreighter  20 *  1.00 * ( 120.00 / ( 198.00 +      0.00     )) = 12.12</pre>
+					<p>Note that, when fully loaded, cargo ships can be much slower.  For example:</p>
+					<pre>  BattleCruiser  20 *  1.00 * (  49.50 / (  99.00 +      1.10     )) =  9.79
+  Battleship     20 *  1.00 * (  33.00 / (  99.00 +      1.10     )) =  6.52
+  Hauler         20 *  1.00 * (   2.00 / (   3.00 +      1.10     )) =  9.75
+  Freighter      20 *  1.00 * (  30.00 / (  49.50 +     20.00     )) =  8.63
+  MegaFreighter  20 *  1.00 * ( 120.00 / ( 198.00 +    196.14     )) =  6.09</pre>
 
 				<h3><a link="locate">Locating Ships</a></h3>
 					<p>Each race's administrative staff will keep a record of its own ships on planets or in hyperspace.  Planet owners have full knowledge of all ships orbiting their planets.  Players also receive complete reports on ships at planets visited by their own ships.</p>
 					<p>Locating alien ships in hyperspace is much more problematic.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can be obtained for ships heading directly toward a detector (i.e. inbound to a planet).  A rough indication of the location of other alien groups is indicated on the <a href="#ordm">map</a>, but their mass, speed and direction of travel are unknown.</p>
 
 				<h3><a link="#cargo">Cargo</a></h3>
+					<p>Cargo ships can <a href="#ordl">load</a> stockpiles of colonists, capital and materials to <a href="#ords">transport</a> them to other planets where they can be <a href="#ordu">unloaded</a>.  The base amount of cargo a ship can carry is determined by the following formula: base cargo = cargo mass + cargo mass^2/10.  Thus, at cargo technology 1.00, some examples would be:</p>
 
-<p> 
-The amount of cargo a ship can carry is determined by the
-following formula: 
-</p>
+					<pre>                 Cargo + Cargo Mass^2/10 =  Base Cargo
+                  Mass                        Carried
+  BattleCruiser   1.00 +       0.10      =      1.10
+  Battleship      1.00 +       0.10      =      1.10
+  Hauler          1.00 +       0.10      =      1.10
+  Freighter      10.00 +      10.00      =     20.00
+  MegaFreighter  39.57 +     156.57      =    196.14</pre>
 
-<PRE>
-	cargo-technology * (cargo-number + cargo-number^2/10)
-</PRE>
+<p>Cargo technology increases the amount of cargo that a ship can carry.  Thus, a Hauler with cargo technology 2.00 can carry 2.20 units of cargo and a Freighter with cargo technology 3.00 can carry 60.00 units of cargo.  This does not slow down the ships, as the cargo carried is divided by the cargo technology to obtain the effective cargo carried.  Thus, at cargo technology 3.00, a Freighter carrying 60.00 units of cargo has an effective cargo carried of 20.00, while the same Freighter carrying 35.00 units of cargo has an effective cargo carried of 11.66.</p>
 
-<p>
-where "cargo-technology" means the cargo technology at which
-the ship was built, and "cargo-number" is determined in the ship
-design.  
-</p>
 
-<p>
-So, at cargo technology level 1, some examples would be:
-</p>
-
-<TABLE >
-<TR><TH>Cargo Number</TH><TH>Amount Carried</TH></TR>
-<TR><TD>1</TD><TD>1.1</TD></TR>
-<TR><TD>5</TD><TD>7.5</TD></TR>
-<TR><TD>10</TD><TD>20</TD></TR>
-<TR><TD>50</TD><TD>300</TD></TR>
-<TR><TD>100</TD><TD>1100</TD></TR>
-</TABLE>
-
-<p>
-At cargo technology level 2, these quantities would be
-doubled, and so on.  Note that large freighters can carry very
-large quantities of cargo, but if fully loaded are likely to be
-slow (e.g.  a fully loaded Megafreighter at drive and cargo
-technology 1 would have a speed of only 1.22 light years per
-turn). 
-</p>
-
-<p>
-The slow speed of heavily loaded ships can be alleviated by
-higher levels of cargo technology, however.  At tech level 2,
-the mass of any cargo loaded onto a ship is only considered to
-be half as much as normal, for purposes of calculating ship
-speed and shields dilution (see "Combat" below).  At tech level
-3, the mass is divided by 3 and so on.  So, a Freighter from the
-example ship types can carry 20 units of cargo at tech level 1.
-At tech level 2, it could carry 40 units, but these would only
-slow it down as much as 20 units at tech level 1; thus, a tech
-level 2 freighter loaded with 40 units of raw materials can
-travel as fast (assuming the same drive technology) as a tech
-level 1 freighter loaded with 20 units.  
-</p>
 
 <p>
 A ship may only carry one type of cargo at one time.  The
@@ -305,6 +249,12 @@ possible types are raw materials, capital and colonists.  Cargo
 may be loaded onto a ship at a planet where it is available.
 Cargo may be unloaded onto any planet.  
 </p>
+
+					<p>When colonists from a planet's stockpile are shipped to other planets
+which still have room for population growth, they are automatically
+thawed out and added to the planet's population.  This is how
+uninhabited planets are colonized.  (Note that colonist production is
+completely automatic, and consumes no production points.)</p>
 
 <h3><a link="#routes">Routes</a></h3>
 
@@ -338,8 +288,18 @@ materials and empty transports.
 				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every four points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 industry and 500.00 population has 500.00 production points, while a planet with 250.00 industry and 500.00 population has 312.50 production points.  A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production each turn.</p>
 				
 				<h3>Materials</h3>
+					<p>Each planet may have a stockpile of materials and if present this will be used.  If no stockpile exists, some production points will be diverted to producing materials.</p>
 				
 				<h3>Capital</h3>
+					<p>A planet's industry level is increased by the production of
+capital goods.  These represent things like machine tools, computers
+and transport vehicles.  To produce one unit of capital requires 5
+production points and 1 unit of raw materials.  If the planet's
+industry level is below its population it will then be increased by
+one unit.  Otherwise the capital units will be stockpiled.  If shipped
+to a planet whose industry level is below its population, that
+planet's industry level will be increased.  This is useful for quickly
+building up the economy of a colony planet.</p>
 				
 				<h3>Technology</h3>
 					<p>A planet can research one of the four technologies each turn.  It costs 5,000 production points to increase Drive, Weapons, or Shields technology by one point and 2,500 production points to increase Cargo technology by one point.  Fractional increases are effective immediately (e.g. if you spend 500 production points on research into Weapons, your Weapons technology will go up by one tenth of a point).</p>
