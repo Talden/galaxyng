@@ -40,8 +40,8 @@ int CMD_immediate( int argc, char **argv) {
 	char*       notifyFileName;
 	char        command_line[1024];
 	char*       modifier;
-	char*       mofAllName; /* missing orders file name */
-	char*       mofFinalName;
+	char*       mofAllName = NULL; /* missing orders file name */
+	char*       mofFinalName = NULL;
 	
 	result = EXIT_FAILURE;		/* assume it's all going to go bad -
 								 * mainly because we we do a lot more
@@ -92,6 +92,7 @@ int CMD_immediate( int argc, char **argv) {
 			
 		sprintf(command_line, "%s/run_game %s >> %s/log/%s",
 				galaxynghome, argv[2], galaxynghome, argv[2]);
+		plog(LPART, "command line: \"%s\"\n", command_line);
 		return ssystem(command_line);
 	}
 	
@@ -234,13 +235,21 @@ int CMD_immediate( int argc, char **argv) {
 		}
 	}
 
-	unlink(mofAllName);
-	unlink(mofFinalName);
-	free(mofAllName);
-	free(mofFinalName);
+	if (mofAllName != NULL) {
+		unlink(mofAllName);
+		free(mofAllName);
+	}
+
+	if (mofFinalName != NULL) {
+		unlink(mofFinalName);
+		free(mofFinalName);
+	}
 	
 	/* if there were any missing orders and we need to email the GM,
 	 * then do so */
+	plog(LPART, "%d active players, %d orders received",
+		 actvPlayers, nbrOrders);
+	
 	if (nbrOrders != actvPlayers) {
 		if (gmNote != NULL) {
 			envelope* env = createEnvelope();
