@@ -21,16 +21,16 @@
 #
 # you will also need to uncomment the following lines
 #
-CFLAGS = -Wall -pedantic -g -DDRAW_INFLUENCE_MAP -I.
-LIBS = -lgd -lpng -lz -ljpeg -lfreetype -lm
-ADDTL_SRCS = influence.c
-ADDTL_OBJS = influence.o
+#CFLAGS = -Wall -pedantic -g -DDRAW_INFLUENCE_MAP -I.
+#LIBS = -lgd -lpng -lz -ljpeg -lfreetype -lm
+#ADDTL_SRCS = influence.c
+#ADDTL_OBJS = influence.o
 #
 # and comment these lines
 #
-#CFLAGS = -Wall -pedantic -g
-#LIBS = -lm
-#ADDTL_SRCS=
+CFLAGS = -Wall -pedantic -g
+LIBS = -lm
+ADDTL_SRCS=
 
 
 CC=gcc
