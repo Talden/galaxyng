@@ -146,7 +146,7 @@ CMD_report( int argc, char **argv ) {
 		
 		generateErrorMessage( resNumber, aGame, raceName,
 							  theTurnNumber, report );
-		//copyEmailBody();
+		/*copyEmailBody();*/
     }
     
     fclose( report );

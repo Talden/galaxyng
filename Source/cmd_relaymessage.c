@@ -24,7 +24,7 @@ relayMessage(game *aGame, envelope *anEnvelope, char *raceName,
   messageName = createString( "%s/NGmessage_%s_%s", tempdir, aGame->name, from->name );
   
   if (!message_read) {
-    unsigned char  lineBuffer[2 * LINE_BUFFER_SIZE];
+    char  lineBuffer[2 * LINE_BUFFER_SIZE];
     message_read = 1;
 
     msg = makestrlist("\n-*- Message follows -*-\n\n" );
@@ -70,7 +70,7 @@ relayMessage(game *aGame, envelope *anEnvelope, char *raceName,
       fprintf(message, "\n\n");
       fclose( message );
       result = eMail( aGame, anEnvelope, messageName );
-      //result |= ssystem( "rm %s", messageName );
+      result |= ssystem( "rm %s", messageName );
       free( messageName );
     }
     else {

@@ -369,7 +369,7 @@ int eMail(game *aGame, envelope *e, char *fileName) {
     strcat(command, tmpBuf);
   }
   result |= ssystem("%s < %s", command, template);
-  //result |= ssystem("rm %s", template);
+  result |= ssystem("rm %s", template);
 #endif
   return result;
 }
