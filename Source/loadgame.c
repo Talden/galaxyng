@@ -545,6 +545,7 @@ readDefaults(game *aGame, FILE * f)
 	aGame->serverOptions.compress = NULL;
 	aGame->serverOptions.GMemail = NULL;
 	aGame->serverOptions.fontpath = NULL;
+	aGame->serverOptions.due = NULL;
 	
 	for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
 		 isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
@@ -569,11 +570,17 @@ readDefaults(game *aGame, FILE * f)
 			else if (noCaseStrcmp("fontpath", key) == 0) {
 				aGame->serverOptions.fontpath = strdup(getstr(0));
 			}
+			else if (noCaseStrcmp("due", key) == 0) {
+				aGame->serverOptions.due = strdup(getstr(0));
+			}
 			else {
 				printf("Unknown key %s\n", key);
 			}
 		}
 	}
+
+	if (aGame->serverOptions.due == NULL)
+		aGame->serverOptions.due = strdup("soon");
 }
 
 void

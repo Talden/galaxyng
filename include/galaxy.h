@@ -718,6 +718,8 @@ typedef struct server {
 	 char* encode;
 	/* the directory where the fonts are located */
 	 char* fontpath;
+	 /* this is used for the -due command */
+	 char* due;
 } server;
 
 /*******/

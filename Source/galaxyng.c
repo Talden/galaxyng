@@ -1982,9 +1982,9 @@ CMD_ordersdue(int argc, char** argv)
 										   galaxynghome, aGame->name,
 										   aGame->turn+1);
 		mof_fp = fopen(missing_orders_file, "w");
-		fprintf(mof_fp, "Turn %d for %s is less than 24 hours away and you\n"
-				"have not yet submitted orders. Please send them now.\n",
-				aGame->turn+1, aGame->name);
+		fprintf(mof_fp, "Your orders for turn %d for %s have not been "
+				"received.\nOrders are due %s. Please send them now.\n",
+				aGame->turn+1, aGame->name, aGame->serverOptions.due);
 		fclose(mof_fp);
 		result |= eMail(aGame, env, missing_orders_file);
 		free(missing_orders_file);

@@ -18,6 +18,16 @@
 GMemail galaxyng@localdomain
 
 ;
+; A GM password - this is only used for the -relay command so the GM
+; can use the same mechanism as the player for send messages
+; Since this password is in the clear, IT IS *STRONGLY* RECOMMENDED
+; THAT YOU *NOT* USE YOUR SERVER LOGIN PASSWORD
+;
+
+GMpassword mypassword
+
+
+;
 ; The command used to send an turn report. The turn report is piped into
 ; the command. Use { } around the command if it contains any spaces.
 ; 
@@ -43,3 +53,10 @@ compress { /usr/bin/zip }
 ; it should be set to the directory that galaxyng is
 ; installed in
 fontpath { /home/galaxyng/Games }
+
+
+;
+; the following option is used for the -due command
+; it will be substituted into the message sent out to the players
+;
+due { in 4 hours }
