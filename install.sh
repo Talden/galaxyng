@@ -242,9 +242,9 @@ if { test -e $RCFILE; } then {
   echo "  Writing the new version to "  $RCFILE;
 }
 fi
-echo "; This file is documented in Doc/galaxyngrc" > $RCFILE
-echo "; and http://galaxyng.sourceforge.net/server.php" > $RCFILE
-echo "sendmail {"$SENDMAIL" -t }" > $RCFILE
+echo "; This file is documented in Doc/galaxyngrc" >> $RCFILE
+echo "; and http://galaxyng.sourceforge.net/server.php" >> $RCFILE
+echo "sendmail {"$SENDMAIL" -t }" >> $RCFILE
 echo "GMemail "$EMAIL >> $RCFILE
 if { test -n $ENCODE ; } then {
   echo "encode {"$ENCODE " }" >> $RCFILE
@@ -267,7 +267,7 @@ if { test -e $NG; } then {
   NG=$GALAXY_HOME/galaxyng.new;
   echo "  Writing the new version to "  $NG;
   echo "  _Test_ this new version and if it works according to your needs"
-  echo "  copy it to "i $NG;
+  echo "  copy it to " $GALAXY_HOME; "/galaxyng"
 }
 fi
 strip $NG
