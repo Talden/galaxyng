@@ -130,7 +130,6 @@ readGameSpec(FILE * specfile)
 	  key = getstr(lineBuffer);
 
 	  if (key[0] != '\0') {
-		  printf("processing \"%s\"\n", key);
 		  if (noCaseStrcmp("start_player", key) == 0) {
 			  newplayer *aNewPlayer;
 			  char       raceName[20];
@@ -187,8 +186,10 @@ readGameSpec(FILE * specfile)
 						  aNewPlayer->coreXOffset[i] = atof(value);
 					  if ((value = getstr(0)) != NULL)
 						  aNewPlayer->coreYOffset[i] = atof(value);
+#if 0
 					  printf("%2d) %.2f %.2f %.2f\n", i, aNewPlayer->coreSizes[i],
 							 aNewPlayer->coreXOffset[i], aNewPlayer->coreYOffset[i]);
+#endif					  
 				  }
 			  }
 
