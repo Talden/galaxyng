@@ -262,7 +262,6 @@ loadgame(char *gameName, int whichTurn)
   int             turnrevision;
 
   pdebug(DFULL, "Load Game\n");
-  plog(LBRIEF, "Loading game %s\n", gameName);
 
   aGame = allocStruct(game);
 
@@ -283,7 +282,6 @@ loadgame(char *gameName, int whichTurn)
   
   sprintf(lineBuffer, "%s/data/%s/%d.new", galaxynghome, aGame->name,
 	  turn);
-  plog(LBRIEF, "loading game from \"%s\"\n", lineBuffer);
   turnFile = fopen(lineBuffer, "r");
   aGame->turn = turn;
   

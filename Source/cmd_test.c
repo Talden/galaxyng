@@ -13,19 +13,15 @@ int CMD_test( int argc, char **argv ) {
     int result;
     int turn;
 
-    printf( "Loading game...\n" );
     turn = LG_CURRENT_TURN;
 
     if ( ( aGame = loadgame( argv[2], LG_CURRENT_TURN ) ) ) {
         checkIntegrity( aGame );
         dumpPlanets( aGame->planets );
         dumpPlayers( aGame->players );
-        printf( "Game is OK\n" );
         result = EXIT_SUCCESS;
     }
 	else {
-        printf( "Game is NOT OK\n" );   /* This is wrong! the game did not
-										 * load.. it still might be ok! */
         result = EXIT_FAILURE;
     }
 	
