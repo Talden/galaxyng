@@ -17,7 +17,7 @@ int CMD_relay( int argc, char **argv ) {
 	int   resNumber;
 	game* aGame;
 	FILE* confirm;
-	player* toPlayers;
+	player* toPlayers = NULL;
 	player* gmPlayer;
 	player* itPlayer;
 	player* fromPlayer;
@@ -111,6 +111,7 @@ int CMD_relay( int argc, char **argv ) {
 		/* since we are relaying to the game, then the relay goes to
 		 * all players and the GM
 		 */
+	  plog(LBRIEF, "  relaying to all players since destination is the same as the game name\n");
 		for (itPlayer = aGame->players; itPlayer; itPlayer = itPlayer->next) {
 			/* skip dead players, they dislike getting email about the game :)
 			 */
@@ -125,6 +126,7 @@ int CMD_relay( int argc, char **argv ) {
 			if (itPlayer == fromPlayer)
 				continue;
 			
+			plog(LBRIEF, "adding %s to list of players to send message to.\n", itPlayer->name);
 			addList(&toPlayers, itPlayer);
 		}
 
@@ -132,6 +134,7 @@ int CMD_relay( int argc, char **argv ) {
 		gmPlayer->name = strdup("GM");
 		gmPlayer->addr = strdup(aGame->serverOptions.GMemail);
 		gmPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+			plog(LBRIEF, "adding %s to list of players to send message to.\n", gmPlayer->name);
 		addList(&toPlayers, gmPlayer);
 	}
 	else {
@@ -139,10 +142,12 @@ int CMD_relay( int argc, char **argv ) {
 		 * possibilities: I've named the GM or I've named a player
 		 */
 		if (noCaseStrcmp(destination, "GM") == 0) {
+		  plog(LBRIEF, "Sending to the GM\n");
 			gmPlayer = (player*)malloc(sizeof(player));
 			gmPlayer->name = strdup("GM");
 			gmPlayer->addr = strdup(aGame->serverOptions.GMemail);
 			gmPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+			plog(LBRIEF, "adding %s to list of players to send message to.\n", gmPlayer->name);
 			addList(&toPlayers, gmPlayer);
 		}
 		else {
@@ -168,6 +173,7 @@ int CMD_relay( int argc, char **argv ) {
 				return result;
 			}
 
+			plog(LBRIEF, "adding %s to list of players to send message to.\n", itPlayer->name);
 			addList(&toPlayers, itPlayer);
 		}
 	}
