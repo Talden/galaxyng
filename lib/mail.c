@@ -255,12 +255,14 @@ void destroyEnvelope(envelope *e) {
 
 int eMail(game *aGame, envelope *e, char *fileName) {
   FILE*  mailFile;
-  char   template[32] = "/tmp/galaxyXXXXXX";
+  char   template[128];
   int    result;
   char   command[4096];
 
   pdebug(DFULL, "eMail\n");
-  
+ 
+  sprintf(template, "%s/galaxyXXXXXX", tempdir);
+ 
   assert(fileName != NULL);
   assert(aGame != NULL);
   
@@ -349,7 +351,7 @@ int eMail(game *aGame, envelope *e, char *fileName) {
     strcat(command, tmpBuf);
   }
   result |= ssystem("%s < %s", command, template);
-  result |= ssystem("rm %s", template);
+  //result |= ssystem("rm %s", template);
 #endif
   return result;
 }
