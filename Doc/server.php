@@ -39,8 +39,7 @@
  			
  			<h2 id="intro">Introduction</h2>
  			
-				<p>The two basic items to host a game are a Linux box and an internet connection. All tools necessary to compile the server and automatically run a game are present in the current slackware distribution of Linux. And GalaxyNG should compile and run right out of the box on a Linux box.</p>
-				<p>To see if you can use it on another system, here's a checklist of the sofware needed:</p>
+				<p>The two basic items to host a game are a Linux box and an internet connection. GalaxyNG should compile and run right out of the box on Linux. To see if you can use it on another system, here's a checklist of the sofware needed:</p>
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
 procmail; to automatically process in comming orders</pre>
