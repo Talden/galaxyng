@@ -545,9 +545,6 @@ readDefaults(game *aGame, FILE * f)
       if (noCaseStrcmp("GMemail", key) == 0) {
         aGame->serverOptions.GMemail = strdup(getstr(0));
       }
-      else if (noCaseStrcmp("mutt", key) == 0) {
-        aGame->serverOptions.mutt = strdup(getstr(0));
-      }
       else if (noCaseStrcmp("compress", key) == 0) {
         aGame->serverOptions.compress = strdup(getstr(0));
       }
@@ -572,7 +569,6 @@ freeDefaults(game *aGame)
 {
   free(aGame->serverOptions.sendmail);
   free(aGame->serverOptions.encode);
-  free(aGame->serverOptions.mutt);
   free(aGame->serverOptions.compress);
   free(aGame->serverOptions.GMemail);
 }
