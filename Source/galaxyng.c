@@ -1179,11 +1179,15 @@ CMD_checkFile( int argc, char **argv, int kind )
  ******
  */
 
+#define SINGLE_PLAYER 0
+#define ALL_PLAYERS   1
+
 int
 CMD_relay( int argc, char **argv )
 {
     int result;
     char *logName;
+	int mode;
 
     result = EXIT_FAILURE;
     logName = createString( "%s/log/orders_processed.txt", galaxynghome );
@@ -1219,55 +1223,75 @@ CMD_relay( int argc, char **argv )
             }
 
             if ( resNumber == RES_OK ) {
-                aPlayer = findElement( player, aGame->players, destination );
+				if (noCaseStrcmp(destination, aGame->name) == 0) {
+					mode = ALL_PLAYERS;
+				}
+				else {
+					mode = SINGLE_PLAYER;
+				}
+				
+				for (aPlayer = aGame->players;
+					 aPlayer;
+					 aPlayer = aPlayer->next) {
 
-                if ( aPlayer == NULL ) {
-                    resNumber = RES_DESTINATION;
-                }
-            }
-            plog( LBRIEF, "Message from %s\n", returnAddress );
-            result = 0;
-            if ( resNumber == RES_OK ) {
-                result |= relayMessage( aGame, raceName, aPlayer );
-                if ( result == 0 ) {
-                    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, message sent" );
-                    fprintf( confirm, "Message has been sent to %s.\n",
-                             aPlayer->name );
-                } else {
-                    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, message not sent" );
-                    fprintf( confirm,
-                             "Due to a server error the message was not send!\n"
-                             "Please contact your Game Master.\n" );
-                }
-            } else {
-                setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                           "Galaxy HQ, major trouble." );
-                generateErrorMessage( resNumber, aGame, raceName,
-                                      theTurnNumber, confirm );
-            }
-            fprintf( confirm, "\n\n%s\n", vcid );
-            fclose( confirm );
-            result |= eMail( aGame, anEnvelope, confirmName );
-            if ( destination )
-                free( destination );
-            if ( raceName )
-                free( raceName );
-            if ( password )
-                free( password );
-            destroyEnvelope( anEnvelope );
-            result |= ssystem( "rm %s", confirmName );
-            result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
-        } else {
-            fprintf( stderr, "Can't open \"%s\".\n", confirmName );
-        }
-        free( confirmName );
-    } else {
-        usage(  );
-    }
-    closeLog(  );
-    return result;
+					if (mode == SINGLE_PLAYER) {
+						aPlayer = findElement( player, aGame->players,
+											   destination );
+						
+
+						if ( aPlayer == NULL ) {
+							resNumber = RES_DESTINATION;
+							break;
+						}
+					}
+
+					
+					plog( LBRIEF, "Message from %s\n", returnAddress );
+					result = 0;
+
+					result |= relayMessage( aGame, raceName, aPlayer );
+					if ( result == 0 ) {
+						setHeader( anEnvelope, MAILHEADER_SUBJECT,
+								   "Galaxy HQ, message sent" );
+						fprintf( confirm, "Message has been sent to %s.\n",
+								 aPlayer->name );
+					} else {
+						setHeader( anEnvelope, MAILHEADER_SUBJECT,
+								   "Galaxy HQ, message not sent" );
+						fprintf( confirm,
+								 "Due to a server error the message was not send!\n"
+								 "Please contact your Game Master.\n" );
+					}
+					if (mode == SINGLE_PLAYER)
+						break;
+				}
+			} else {
+				setHeader( anEnvelope, MAILHEADER_SUBJECT,
+						   "Galaxy HQ, major trouble." );
+				generateErrorMessage( resNumber, aGame, raceName,
+									  theTurnNumber, confirm );
+			}
+			fprintf( confirm, "\n\n%s\n", vcid );
+			fclose( confirm );
+			result |= eMail( aGame, anEnvelope, confirmName );
+			if ( destination )
+				free( destination );
+			if ( raceName )
+				free( raceName );
+			if ( password )
+				free( password );
+			destroyEnvelope( anEnvelope );
+			result |= ssystem( "rm %s", confirmName );
+			result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
+		} else {
+			fprintf( stderr, "Can't open \"%s\".\n", confirmName );
+		}
+		free( confirmName );
+	} else {
+		usage(  );
+	}
+	closeLog(  );
+	return result;
 }
 
 
