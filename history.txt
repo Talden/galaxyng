@@ -1,6 +1,6 @@
 # $Id$
 
-Release 6-1: May 2002
+Release 6-1: July 2002
 o By Steve Webb
   + Added gnuplot output
   + Added some command-line fixes to commands that weren't very
