@@ -39,7 +39,7 @@
 					<li><a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a> (Note that it is not completely accurate in all details, as it describes original Galaxy and not GalaxyNG.)</li>
 					<li>Howard Bampton's <a href="http://www.indyramp.com/galaxy/strategy.html">Ship Design in Galaxy and Blind Galaxy</a></li>
 					<li><a href="http://web.archive.org/web/20011005182146/http://www.jacobean.demon.co.uk/galaxy/tips.html">Tim's Galaxy Tips and Tricks</a></li>
-					<li>Jacco van Weert's Galaxy Military Strategy Guide <a href="http://web.archive.org/web/20010216194758/www.jacobean.demon.co.uk/galaxy/galstrat1.html">Part 1</a> |<a href="http://web.archive.org/web/20010216194758/www.jacobean.demon.co.uk/galaxy/galstrat2.html">Part 2</a> |<a href="http://web.archive.org/web/20010216194758/www.jacobean.demon.co.uk/galaxy/galstrat3.html">Part 3</a> |<a href="http://web.archive.org/web/20010216194758/www.jacobean.demon.co.uk/galaxy/galstrat4.html">Part 4</a> (You have to read this to be able to survive more than a few turns.)</li>
+					<li>Jacco van Weert's <a href="http://www.xs4all.nl/~weertj/Galaxy/">Galaxy Military Strategy Guide</a> (You have to read this to be able to survive more than a few turns.)</li>
 				</ul>
 			
 			<hr />
