@@ -283,5 +283,9 @@ if [ -f Source/cranberr.ttf ]; then
 	cp Source/cranberr.ttf $GALAXY_HOME
 fi
 
+if [ -f Source/angostur.ttf ]; then
+	cp Source/angostur.ttf $GALAXY_HOME
+fi
+
 echo "Installation completed."
 
