@@ -262,7 +262,7 @@ loadgame(char *gameName, int whichTurn)
   int             turnrevision;
 
   pdebug(DFULL, "Load Game\n");
-  plog(LPART, "Loading game %s\n", gameName);
+  plog(LBRIEF, "Loading game %s\n", gameName);
 
   aGame = allocStruct(game);
 
@@ -283,10 +283,11 @@ loadgame(char *gameName, int whichTurn)
   
   sprintf(lineBuffer, "%s/data/%s/%d.new", galaxynghome, aGame->name,
 	  turn);
-  turnFile = GOS_fopen(lineBuffer, "r");
+  plog(LBRIEF, "loading game from \"%s\"\n", lineBuffer);
+  turnFile = fopen(lineBuffer, "r");
   aGame->turn = turn;
   
-  if (turnFile eq NULL)
+  if (turnFile == NULL)
     return FALSE;
   
   getReadVersion(&turnversion, &turnrevision);

@@ -187,7 +187,7 @@ CMD_relay( int argc, char **argv )
       addList(&toPlayers, listPlayer);
     }
   }
-  
+ 
   
   for (listPlayer = toPlayers; listPlayer; listPlayer = listPlayer->next) {
     
