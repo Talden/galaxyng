@@ -273,7 +273,7 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
         break;
       default:
         setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy Game %s Turn %d Report for %s",
+                  "Galaxy Game %s Turn %d Text Report for %s",
                   aGame->name, aGame->turn, aPlayer->name);
       }
       createTurnReport(aGame, aPlayer, turnreport, kind);
