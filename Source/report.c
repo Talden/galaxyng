@@ -1041,6 +1041,12 @@ reportBattles(game *aGame, player *P, fielddef *fields)
 
           fprintf(fields->destination, "\n\t\tBattle Protocol\n\n");
           s = b->protocol->shots;
+	  if (b->protocol->cur > 5000 && fields->destination != stdout) {
+	    fprintf(fields->destination, "This battle is too large to mail. "
+		    "If your GM supports web reports you can retrieve the "
+		    "entire battle through that means\n");
+	    return;
+	  }
           for (i = 0; i < b->protocol->cur; i++) {
             fprintf(fields->destination, "%s %s fires on %s %s : ",
                     s[i].attacker->name, s[i].atype->name,
