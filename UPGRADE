@@ -2,10 +2,26 @@
 
 How to upgrade your existing games:
 
+==== UPGRADE To release-6.4.6 ===============
+
+If you want the graphical maps, edit
+NG/Source/makefile
+
+cd NG; make; make install
+This will create the following files in Games/
+run_game.new, are.new, galaxyng.new, procmailrc.new,
+and .galaxyngrc.new
+
+Carefully review run_game.new, procmailrc.new and
+.galaxyngrc.new, all of which have changed significantly.  
+
+Note that old template files (.glx) will not work with the
+new galaxyng unless you change "nation" to "race".
+
 ==== UPGRADE To release-6.4.2 ================
 
 Compile galaxyng and copy it to your Games/ directory.  You
-may want to review NG/galaxyngrc and NG/procmailrc which have
+may want to review NG/.galaxyngrc and NG/procmailrc which have
 been updated and are better documented.  If you are running a
 mirror of the GalaxyNG web site, you should copy the contents
 of NG/Doc to your web site and verify that base_url.txt is

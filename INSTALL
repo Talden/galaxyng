@@ -52,7 +52,7 @@ $HOME/Games.
 The installer will ask you for your email address. It might also ask
 you for the location of the sendmail command if it can not find it.
 
-If you want to enable web highscore lists, make sure you have a
+If you want to enable web score lists, make sure you have a
 $(HOME)/public_html or $(HOME)/www directory before you start
 installing. (Or edit Games/run_game afterwards.)
 
@@ -64,7 +64,7 @@ After installation you might want to:
 
 (1) edit and copy the procmailrc file to enable automatic
     checking of orders; Copy it to $(HOME)/.procmailrc,
-(2) edit the games.crontab file to enable automatic 
+(2) edit the games.crontab file and run crontab to enable automatic 
     running of games
 
 SUPPORT

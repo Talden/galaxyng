@@ -6,7 +6,7 @@
 <p><?php
 $self = trim($base) . "index.php";
 if ($_SERVER['PHP_SELF'] == $self) {
-?>GalaxyNG 6.4<?php } else { ?><a href="<?php include 'base_url.txt'; ?>">GalaxyNG 6.4</a><?php } ?>	| <?php
+?>GalaxyNG 6.6<?php } else { ?><a href="<?php include 'base_url.txt'; ?>">GalaxyNG 6.6</a><?php } ?>	| <?php
 $self = trim($base) . "credits.php";
 if ($_SERVER['PHP_SELF'] == $self) {
 ?>Credits and License<?php } else { ?><a href="<?php include 'base_url.txt'; ?>credits.php">Credits and License</a><?php } ?></p>
