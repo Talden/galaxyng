@@ -129,17 +129,18 @@ CMD_report( int argc, char **argv ) {
     else if ( resNumber == RES_OK ) {
       setHeader( anEnvelope, MAILHEADER_SUBJECT,
 		 "[GNG] Major Trouble" );
-      fprintf( report,
-	       "You can not request a report for the next turn\n" );
-      fprintf( report,
-	       "or any following turns,"
-	       " I can not see into the future!\n" );
+      fprintf(report, "You can't request a %s report for turn %d.\n\n",
+	      aGame->name, theTurnNumber);
+      fprintf(report, "Turn %d hasn't happened yet. While I'm a good "
+	      "(some say great) server, I can't predict the future for "
+	      "you.\n\n", theTurnNumber);
     }
     else {
       setHeader( anEnvelope, MAILHEADER_SUBJECT,
 		 "[GNG] Major Trouble" );
       generateErrorMessage( resNumber, aGame, raceName,
 			    theTurnNumber, report );
+      //copyEmailBody();
     }
     
     fclose( report );
@@ -149,9 +150,9 @@ CMD_report( int argc, char **argv ) {
     result |= ssystem( "rm %s", reportName );
     result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
     if ( raceName )
-		free( raceName );
+      free( raceName );
     if ( password )
-		free( password );
+      free( password );
   }
   
   closeLog(  );
