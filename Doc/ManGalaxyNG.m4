@@ -11,14 +11,8 @@ ATitle(`GalaxyNG User Manual')
 ASection(`Rules for Galaxy Next Generation release-5-1a (Oct 2001)')
 
 <P>
-Based on the rules for Galaxy V3.52: Copyright 1991-1992 by Russell
-Wallace, Copyright 1993 the Galaxy PBeM Development Group.
+Written by Frans Slothouber and edited by Chris Shaffer.  Based on the rules for Galaxy V3.52: Copyright 1991-1992 by Russell Wallace, Copyright 1993 the Galaxy PBeM Development Group.
 </P>
-
-<P>
-Maintained by Frans Slothouber (rfsber@xs4all.nl)
-</P>
-
 
 www_section(`toc', `Table of Contents')
 
@@ -27,53 +21,28 @@ m4_include(toc.html)
 www_section(`intr', `Introduction')
 
 <P>
-Galaxy is a game of interstellar war for several players.  You are
-the leader of your race.  You start off by sharing an area of the
-galaxy with a number of other races and your objective is to become
-its sole occupant.  You should provide a name by which your race will be
-known e.g.  Mutant_Camels, Zzyaxians etc - if you have not done this you 
-will simply be known as Nation_5 or whatever.  See "Orders" for how to
-change your race name.
+Galaxy is a game of interstellar war for several players.  You are the leader of your race.  You start off by sharing an area of the galaxy with a number of other races and your objective is to become its sole occupant.  You should ALink(`#ordc', `provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you have not done this you will simply be known as Nation_5 or whatever.
 </P>
 
 
 www_section(`tgal', `The Galaxy')
 
 <P>
-The area of the galaxy in which the game is played is a
-square area (for the sake of simplicity the third dimension is
-ignored) which contains a number of habitable planets (all other
-astronomical objects are irrelevant to the game and so are
-ignored).  Each race starts off occupying one (or more,
-depending on the taste of the GM) planets.  All the other
-planets, if any, are uninhabited.  It is possible to colonize
-uninhabited planets and conquer planets inhabited by other races.
+The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets (all other astronomical objects are irrelevant to the game and so are ignored).  Each race starts off occupying one (or more, depending on the taste of the GM) planets.  All the other planets, if any, are uninhabited.  It is possible to colonize uninhabited planets and conquer planets inhabited by other races.
 </P>
 
 
 www_subSection(`units', `Units')
 
 <P>
-Game units relate to real units as follows:  Distances are
-measured in light-years.  Each game unit of population
-represents 10 million people and each game unit of goods, raw
-materials etc.  represents about 10 million tons.  Each game
-turn represents about four years of time.  
+Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods, raw materials etc.  represents about 10 million tons.  Each game turn represents about four years of time.  
 </P>
 
 
 www_subSection(`names', `Names')
 
 <P>
-As well as the various races, other things in the game which
-have names are ship types and planets.  Names for all three
-things may be no more than 20 characters (a character is a
-letter, digit, or underscore).  Ship types are given names by
-their designer.  All planets only have numbers for names at the
-start of the game.  When you colonize a planet you can change
-its name.  You may want to change your home planet name(s)
-immediately to something more exciting e.g.  from "112" to
-"Zzyax_Prime". (See the ALink(`#ordc', `C command').)
+As well as the various races, other things in the game which have names are ship types and planets.  Names for all three things may be no more than 20 characters (a character is a letter, digit, or underscore).  Ship types are given names by their ALink(`#ordd', `designer').  All planets only have numbers for names at the start of the game.  When you colonize a planet you can ALink(`#ordn', `change its name').  You may want to change your home planet name(s) to something more exciting e.g.  from "112" to "Zzyax_Prime".
 </P>
 
 
@@ -249,7 +218,7 @@ Gunship has a mass of 11).
 </P>
 
 <P> 
-Example: If your homeworld was producing Drones, and there was a
+Example: If your homeplanet was producing Drones, and there was a
 stockpile of raw materials, it would produce 100 per turn.  (If there
 was no stockpile of raw materials, it would produce slightly over 99
 per turn.) However, if it was producing Battleships, it would only
@@ -665,7 +634,7 @@ spaces in the name.  Examples of correct order lines:
 <PRE>
   Send 100 "Zzyax Prime"
   send 100 zzyax_prime
-  s 100 "zzyax prime"	; Attack the Zzyaxian homeworld
+  s 100 "zzyax prime"	; Attack the Zzyaxian homeplanet
 </PRE>
 
 <P>
@@ -674,7 +643,7 @@ Examples of incorrect order lines:
 
 <PRE>
   Send 100 Zzyax Prime
-  s 100 "zzyax prime"	Attack the Zzyaxian homeworld
+  s 100 "zzyax prime"	Attack the Zzyaxian homeplanet
 </PRE>
 
 <P>The following sections show what orders are available.</P>
@@ -968,7 +937,7 @@ www_subSection(`ordp', `P &lt;planet&gt; &lt;product&gt;')
 
 <P> Set production for a planet.  Every time you change production,
 production that was in progress is lost.  So if you built a mass 400
-ship at you home world, and decide to stop after 2 turns, you loose
+ship at you home planet, and decide to stop after 2 turns, you loose
 2000 production points.  The following products can be produced: </P>
 <TABLE > <TR><TD>CAP</TD><TD> Capital</TD></TR>
 <TR><TD>MAT</TD><TD> Materials</TD></TR> <TR><TD>DRIVE</TD><TD> Drive
@@ -1411,7 +1380,7 @@ the next one of those ships. It will be displayed as follows: </P>
 www_subSection(`reproute', `Your Routes')
 
 <P> This is a list of the routes from those of your planets which have
-routes defined. For each planet, the destination world is listed for
+routes defined. For each planet, the destination planet is listed for
 the following commodities: </P>
 
 <ol>
@@ -1530,7 +1499,7 @@ www_section(`hints', `Hints and Tips')
 
 <P> In the early stages of the game, there will be plenty of planets
 to spare so there will be little need to fight for territory; however,
-you should ensure that your homeworld is defended against sneak
+you should ensure that your homeplanet is defended against sneak
 attacks by xenophobic aliens. You will need to devote your efforts to
 exploration, building up colonies, researching technology, and
 contacting other races with a view to forming alliances.  </P>
@@ -1545,7 +1514,7 @@ ships to enemy planets to spy on them.  </P>
 probably means that one or more of your planets is under attack, and
 your first priority should be to ensure that you have an adequate
 defense. For each incoming group, divide the Distance by Speed to find
-out how many turns the group will take to reach its target world. Look
+out how many turns the group will take to reach its target planet. Look
 at the Total Mass figure - the bigger this is, the greater the
 potential threat. Of course you don't know whether a very large group
 is a huge battleship or a fleet of small fighters or anything in
@@ -1564,7 +1533,7 @@ very likely to win.  </P>
 www_section(`moreinfo', `Links to More Information')
 
 <OL>
-  <LI>ALink(`http://galaxy.pbem.net/NonM4/gettiquite.html',
+  <LI>ALink(`http://badcheese.com/~steve/phpwiki/index.php/GalaxyPlay',
       `GalaxyNG Wiki')</LI>
   <LI>ALink(`http://galaxyng.sourceforge.net/RefManual.html', 
       `Quick Reference Manual')</li>
