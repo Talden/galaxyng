@@ -286,7 +286,7 @@ fi
 
 if [ -f Source/angostur.ttf ]; then
 	cp Source/angostur.ttf $GALAXY_HOME
+	cp Source/angostur.ttf $GALAXY_HOME/influence.ttf
 fi
-
 echo "Installation completed."
 
