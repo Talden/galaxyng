@@ -262,7 +262,7 @@ numtop(void *base, int n)
  ******
  */
 
-void setNameF(list *anElement, char *name)
+void setNameF(list *anElement, const char *name)
 {
   free(anElement->name);
   anElement->name = strdup(name);
