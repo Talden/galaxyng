@@ -49,18 +49,19 @@
 							<li><a href="#routes">Routes</a></li>
 						</ol>
 					</li>
-					<li>Production
+					<li><a href="#prod">Production</a>
 						<ol>
-							<li>Materials</li>
-							<li>Capital</li>
-							<li>Technology</li>
-							<li>Ships</li>
+							<li><a href="#mat">Materials</a></li>
+							<li><a href="#cap">Capital</a></li>
+							<li><a href="#tres">Technology Research</a></li>
+							<li><a href="#build">Ship Building</a></li>
 						</ol>
 					</li>
-					<li>Combat
+					<li><a href="#com">Combat</a>
 						<ol>
-							<li>War and Alliances</li>
-							<li>Conquering Planets</li>
+							<li><a href="#war">War and Alliances</a></li>
+							<li><a href="#bat">Battles</a>
+							<li><a href="#bomb">Bombing Planets</a></li>
 						</ol>
 					</li>
 					<li>Orders
@@ -103,7 +104,7 @@
 
 				<h3><a name="galaxy">The Galaxy</a></h3>
 					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Each race starts off occupying one or more planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo, conduct warfare and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, haul more cargo and fight better.</p>
-					<p>Distances are measured in light-years.  Each unit of population represents ten million people and each unit of goods or raw materials represents about ten million tons.  Each turn represents about four years of time.</p>
+					<p>Distances are measured in light-years.  Each unit of population represents ten million people and each unit of capital or materials represents about ten million tons.  Each turn represents about four years of time.</p>
 
 				<h3><a name="names">Names</a></h3>
 					<p>Races, planets and ship types can be named.  Names may be no more than twenty characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should <a href="#ordc">provide a name</a> by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when <a href="#ordd">designed</a> and can be <a href="#ordt">renamed</a>.  Planets are numbered at the start of the game and can be <a href="#ordn">renamed</a> by their current owner.</p>
@@ -123,16 +124,16 @@
 					<p>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), uninhabited development planets (size 200.00 to 1000.00) and uninhabited stuff planets (size 0.01 to 200.00).</p>
 
 				<h3><a name="pop">Population</a></h3>
-					<p>Each inhabited planet has a population, which can never be larger than the planet's size but may be smaller.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  Each planet's population grows by 8% each turn.</p>
+					<p>Each inhabited planet has a population, which can never be larger than the planet's size but may be smaller.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  Each planet's population grows by 8% per turn.  Excess population is stockpiled as colonists.</p>
 
 				<h3><a name="ind">Industry</a></h3>
-					<p>Each inhabited planet has industry, which can never be larger than the planet's population but may be smaller.  If population exceed industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be <a href="#ordp">produced</a> at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</p>
+					<p>Each inhabited planet has industry, which can never be larger than the planet's population but may be smaller.  If population exceed industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be <a href="#ordp">produced</a> at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 capital left (because population grows by 8% per turn).</p>
 
 				<h3><a name="res">Resources</a></h3>
-					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in resources can easily <a href="#ordp">produce</a> materials such as sheet steel, copper wire and plastics.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00, with the average being 1.00.  The resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 resources will produce 5.00 units of materials per point of production, while a planet with 0.10 resources would only produce 0.10 units of materials per point of production.  Materials are necessary to build ships and produce capital.</p>
+					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00, with the average being 1.00.  Planets high in resources can easily <a href="#ordp">produce</a> materials such as sheet steel, copper wire and plastics.  Materials are necessary to build ships and produce capital.</p>
 
 				<h3><a name="stock">Stockpiles</a></h3>
-					<p>Each planet may have stockpiles of colonists, capital and materials.  Population increases beyond the planet's size are converted into colonists.  Eight population units are converted into one unit of colonists.  These are people automatically stored in containers in deep freeze.  Excess units of capital and materials are stockpiled at a one-to-one ratio.  Stockpiles may be saved for later use or transported to other planets by cargo ships.</p>
+					<p>Each planet may have stockpiles of colonists, capital and materials.  Population increases beyond the planet's size are converted into colonists.  Eight population are converted into one colonist.  These are people automatically stored in containers in deep freeze.  Excess capital and materials are stockpiled at a one-to-one ratio.  Stockpiles may be saved for later use or transported to other planets by cargo ships.</p>
 
 
 
@@ -197,7 +198,8 @@
 					<p>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  <a href="#ords">Send</a>, <a href="#ordi">intercept</a> and <a href="#ordh">reverse</a> orders can be issued to groups and fleets to move them between planets.</p>
 
 				<h3><a name="speed">Speed</a></h3>
-					<p>Ships move a number of light years per turn according to the following formula:  Speed = 20 * drive technology * (drive mass / (ship mass + effective cargo carried mass)).</p>
+					<p>Ships move a number of light years per turn according to the following formula:</p>
+					<pre>  Speed = 20 * drive technology * (drive mass / (ship mass + effective cargo carried mass)).</pre>
 					<p>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of twenty times your drive technology.  For example, using the ship types above and assuming drive technology 1.00:<p>
 					<pre>                 20 * Drive * (  Drive / (   Ship +   Effective   )) = Speed
                        Tech       Mass       Mass   Cargo Carried
@@ -229,7 +231,6 @@
 
 				<h3><a name="cargo">Cargo</a></h3>
 					<p>Cargo ships can <a href="#ordl">load</a> stockpiles of colonists, capital and materials to <a href="#ords">transport</a> them to other planets where they can be <a href="#ordu">unloaded</a>.  Each ship may only carry one type of cargo at a time.  The base amount of cargo a ship can carry is determined by the following formula: base cargo = cargo mass + cargo mass^2/10.  Thus, at cargo technology 1.00, some examples would be:</p>
-
 					<pre>                 Cargo + Cargo Mass^2/10 =  Base Cargo
                   Mass                        Carried
   BattleCruiser   1.00 +       0.10      =      1.10
@@ -237,43 +238,34 @@
   Hauler          1.00 +       0.10      =      1.10
   Freighter      10.00 +      10.00      =     20.00
   MegaFreighter  39.57 +     156.57      =    196.14</pre>
-
-       <p>Cargo technology increases the amount of cargo that a ship can carry.  Thus, a Hauler with cargo technology 2.00 can carry 2.20 units of cargo and a Freighter with cargo technology 3.00 can carry 60.00 units of cargo.  This does not slow down the ships, as the cargo carried is divided by the cargo technology to obtain the effective cargo carried.  Thus, at cargo technology 3.00, a Freighter carrying 60.00 units of cargo has an effective cargo carried of 20.00, while the same Freighter carrying 35.00 units of cargo has an effective cargo carried of 11.66.</p>
+       <p>Cargo technology increases the amount of cargo that a ship can carry.  Thus, a Hauler with cargo technology 2.00 can carry 2.20 cargo and a Freighter with cargo technology 3.00 can carry 60.00 cargo.  This does not slow down the ships, as the cargo carried is divided by the cargo technology to obtain the effective cargo carried.  Thus, at cargo technology 3.00, a Freighter carrying 60.00 cargo has an effective cargo carried of 20.00, while the same Freighter carrying 35.00 cargo has an effective cargo carried of 11.66.</p>
 
      <h3><a name="routes">Routes</a></h3>
 
-      <p>Colonists, capital, materials, and empty routes can be <a href="#ordr">established</a> between planets.  Each planet can be the origin for only one route of each type.  A planet can be the destination of an unlimited number of routes.  For example, colonists routes can be set from planets 105, 82 and 243 to planet 56, however planet 105 cannot simultaneously have a colonist route to planet 97.  Players may only establish routes from their own planets, however any planet may be the destination of a route.</p>
-      
+      <p>Colonists, capital, materials, and empty routes can be <a href="#ordr">established</a> between planets.  Each planet can be the origin for only one route of each type.  A planet can be the destination of an unlimited number of routes.  For example, colonists routes can be set from planets 105, 82 and 243 to planet 56 but planet 105 cannot simultaneously have a colonists route to planet 97.  Players may only establish routes from their own planets, however any planet may be the destination of a route.</p>      
       <p>Cargo ships that are not in fleets and have not been ordered to <a href="#ordl">load</a>, <a href="#ordu">unload</a> or <a href="#ords">travel</a> between planets will automatically follow routes.  They will load cargos, travel to destination planets, and unload cargos.  Cargo ships that are already loaded will also follow routes.</p>
-      
-      <p>Routes are assigned cargo ships in the following order of priority: colonists, capital, materials and empty.  Ships are used to full capacity, if not entirely efficiently as ships are assigned in order of group number.  For example, planet 105 has colonists and capital routes to planet 56, an empty route to planet 74, forty cargo ships with 2.00 capacity each, 10.00 colonists and 31.00 capital.  Five cargo ships will carry colonists to planet 56, sixteen cargo ships will carry capital to planet 56 and the remaining nineteen cargo ships will travel empty to planet 74.  However, if there is an additional cargo ship with capacity 40.00 and a lower group number than the 2.00 capacity ships, it will be used to carry 10.00 colonists to planet 56.  If it has a higher group number, it will travel empty to planet 74.</p>
-      
-      <p>All ships, regardless of origin planet, that arrive at a destination planet for a route will be unloaded if they carry the appropriate cargo.  Unloading at the end of routes ignores the status of the <a href="#ordo">autounload</a> option.</p>
+      <p>Routes are assigned to cargo ships in the following order of priority: colonists, capital, materials and empty.  Ships are used in order by group number to full capacity, if possible.  For example, planet 105 has colonists and capital routes to planet 56, an empty route to planet 74, forty cargo ships with 2.00 capacity each, 10.00 colonists and 31.00 capital.  Five cargo ships will carry colonists to planet 56, sixteen cargo ships will carry capital to planet 56 and the remaining nineteen cargo ships will travel empty to planet 74.  However, if there is an additional cargo ship with capacity 40.00 and a lower group number than the 2.00 capacity ships, it will be used to carry 10.00 colonists to planet 56.  If it has a higher group number, it will travel empty to planet 74.</p>
+      <p>All ships, regardless of origin planet, that arrive at a destination planet for a route will be unloaded if they carry the appropriate cargo.  Unloading at route destinations ignores the status of the <a href="#ordo">autounload</a> option.</p>
       
       
 
-			<h2><a name="produce">Production</a></h2>
-				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every four points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 population and 500.00 industry has 500.00 production points (500), a planet with 500.00 population and 250.00 industry has 312.50 production points (250 + (500-250/4)) and a planet with 500.00 population and 0 industry has 125 production points (0 + 500/4).  A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production each turn.</p>
+			<h2><a name="prod">Production</a></h2>
+				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every four points of population over and above industry yields an additional production point.  The formula is:</p>
+				<pre>  Production = Industry + (Population - Industry)/4</pre>
+				
+				<p>For example, a planet with 500.00 population and 500.00 industry has 500.00 production points (500 + 0), a planet with 500.00 population and 250.00 industry has 312.50 production points (250 + 250/4) and a planet with 500.00 population and 0 industry has 125.00 production points (0 + 500/4).  A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production each turn.</p>
 				
 				<h3><a name="mat">Materials</a></h3>
-					<p>A planet produces materials in </p>
+					<p>Materials production is determined by the resources values of the planet, which equals the number of materials that will be produced per point of production devoted to the task.  For example, a planet with 5.00 resources and 100.00 production will produce 500.00 materials, while a planet with 0.10 resources would only produce 10.00 materials.</p>
 				
 				<h3><a name="cap">Capital</a></h3>
-					<p>A planet's industry level is increased by the production of
-capital goods.  These represent things like machine tools, computers
-and transport vehicles.  To produce one unit of capital requires 5
-production points and 1 unit of raw materials.  If the planet's
-industry level is below its population it will then be increased by
-one unit.  Otherwise the capital units will be stockpiled.  If shipped
-to a planet whose industry level is below its population, that
-planet's industry level will be increased.  This is useful for quickly
-building up the economy of a colony planet.</p>
+					<p>Producing 1.00 capital requires 5.00 production points and 1.00 materials.  If the planet does not have a stockpile of materials, some production will automatically be diverted to producing materials.  For example, a planet with 1000.00 production and a stockpile of 200.00 materials will produce 200.00 capital.  With no stockpile of materials and 10.00 resources, 196.08 capital will be produced.  With 0.10 resources, the planet will produce 66.67 capital.</p>
 				
-				<h3><a name="tech">Technology</h3>
-					<p>A planet can research one of the four technologies each turn.  It costs 5,000 production points to increase Drive, Weapons, or Shields technology by one point and 2,500 production points to increase Cargo technology by one point.  Fractional increases are effective immediately (e.g. if you spend 500 production points on research into Weapons, your Weapons technology will go up by one tenth of a point).</p>
+				<h3><a name="tres">Technology</h3>
+					<p>A planet can research one of the four technologies each turn.  It costs 5,000.00 production points to increase Drive, Weapons, or Shields technology by one point and 2,500.00 production points to increase Cargo technology by one point.  Fractional increases are effective immediately: if you spend 500.00 production points on research into Weapons, your Weapons technology will go up by 0.10.</p>
 					
-				<h3>Ships</h3>
-					<p>A planet can produce one type of ships each turn.  The production cost of a ship is equal to its mass times ten.  In addition, one unit of materials is required for every ten units of production.</p>
+				<h3><a name="build">Ship Building</a></h3>
+					<p>A planet can produce one type of ships each turn.  The production cost of a ship is equal to its mass times ten.  In addition, one unit of materials is required for every ten units of production.  If the planet does not have a stockpile of materials, some production will automatically be diverted to producing materials.</p>
 					<pre>                    Mass  Production  Materials
   Drone             1.00     10.00       1.00
   Flak              3.00     30.00       1.00
@@ -290,85 +282,34 @@ building up the economy of a colony planet.</p>
   Hauler            3.00     30.00       3.00
   Freighter        49.50    495.00      49.50
   MegaFreighter   198.00   1980.00     198.00	</pre>
-					<p>For example: If a planet with 1000.00 production and 10.00 resources with no stockpile of materials was producing Drones, it would produce 99.01 per turn.  About 9.90 production would be diverted to producing 99.01 materials to build the probes.  However, if it was producing Cruisers, it would only produce 2.00 per turn.  A planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.50 Cruisers per turn.</p>
+					<p>For example: If a planet with 1000.00 production and 10.00 resources with no stockpile of materials was producing Drones, it would produce 99.01 per turn.  About 9.90 production would be diverted to producing 99.01 materials to build the Drones.  The same planet with 0.10 resources would only produce 50.00 Drones per turn.</p>
+					<p>Excess ship production is carried forward into the next turn.  If the planet continues producing the same ship type, the fractional production is added to the current turn production.  For example, a planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.50 Cruisers per turn.  One Cruiser would be produced on the first turn and two Cruisers would be produced on the second turn.  If the planet's production is changed, the extra ship production is lost and any materials produced on the previous turn are added to the planet's stockpiles.</p>
 
 
 
-			<h2><a name="#combat">Combat</a></h2>
+			<h2><a name="#com">Combat</a></h2>
 
 				<h3><a name="war">War and Alliances</a></h3>
 					<p>At the start of the game all races are assumed to be at war with all the other races (except in team games).  <a href="#orda">Alliances</a> may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, <a href="#ordw">war</a> may be declared again at the start of any subsequent turn and vice versa.</p>
+
+				<h3><a name="bat">Battles</a></h3>
+				 <p>Battles occur whenever a ship with weapons encounters an enemy ship at a planet.  Ships in hyperspace cannot participate in battles.  In each battle round, randomly select a ship from all surviving ships that have not yet attacked (note that if a ship is destroyed before it gets a chance to fire it will not attack).  For each gun on the ship, randomly select a surviving enemy ship and fire a shot.  Repeat until all ships have fired.  Battle rounds continue until the battle is either a draw or a win.  A battle is a draw if all remaining ships are invulnerable to enemy attacks.  A battle is won if all remaining ships belong to races that are allied with each other.</p>
+				 <p>Attack and defence strengths are calculated using the following forumlae:</p>
+				 <pre>  attack strength = (weapons mass * weapons technology)
+  defence strength = ((shields mass * shields technology) / (ship mass + effective cargo carried mass)^(1/3) * 30^(1/3).</pre>
+      <p>If a shot is successful, the enemy ship is destroyed.  The attack forumula is:</p>
+      <pre>  p[kill] = (log[4](attack strength / defence strength) + 1) / 2</pre>
+      <p>The numbers are calculated so that if a ship design 10 1 10 10 0 fires at an identical ship, it will have a 50% chance of destroying the target.  If the effective attack is four times as strong, the attack will always succeed.  If the effective defense is four times as strong, the attack will always fail.</p>
+
+				<h3><a name="bomb">Bombing Planets</a></h3>
 					
-<p>
-Ships in hyperspace cannot be attacked but whenever hostile
-warships are present at the same planet a battle will take
-place.  This proceeds as follows:  
-A battle consists of a number of rounds.
-In each round the following steps are repeated until all ships have fired.
-<OL>
-<li>Randomly select a ship (attacker) from all the surviving ships that  
-    have not fired yet.</li>
-<li>For each gun on the ship:
-  <OL><li>Randomly select a ship (target) from all the ships of the enemies 
-          of the owner of the ship that is about to fire.</li>
-      <li>Let the attacker fire on the target</li>
-  </OL>
-</li>
-</OL>
-</p>
-<p>
-Note that if a ship gets destroyed before it gets a chance to fire it will
-not fire.
-</p>
 
-<p>Battle rounds continue until the battle is either a draw or a win.
-A battle is a draw if:</p>
-<OL>
-<li>there there are two or more players left that are at war with 
-    eachother.</li>  
-<li>One or more players have armed ships left, but  
-    none of these ships have guns big enough to penetrate the shields of
-    the ships of their enemies. (see below)</li>
-</OL> 
-<p>A battle is won if:</p>
-<OL>
-<li>One or more players with ships are left.</li>
-<li>All the players that are left are at peace with eachother.</li>
-</OL>
-</p>
 
-<p> The success of an attacker firing on a target is calculated as follows: 
-The power of
-the attack is equal to the Weapons number multiplied by the Weapons
-tech level.  The power of the defense is equal to the Shields number
-multiplied by the Shields tech level and divided by the diameter of
-the target ship.  (A ship's diameter depends on the cube root of its
-total mass).  This is because a large ship's shields will have a larger
-area to protect and so be diluted and, other things equal, weaker.  A
-ship with numbers 8 1 8 8 0 will have only 4 times the effective
-shields strength of one with numbers 1 1 1 1 0, even though it has 8
-times the Shields number.  (It might arguably be more realistic to
-dilute shields as the 2/3 power of the ship mass, but this would make
-large ships too vulnerable.)  </p>
 
-<p> Note that any cargo carried adds to the total mass for purposes of
-shields strength calculation, as the shields generator must protect the
-cargo as well as the ship.  Thus, the "total mass" of the ship for
-purposes of calculating shields strength is the same as the "total
-mass" for purposes of calculating speed.  (This means that a freighter
-loaded with a given amount of cargo will have its shields strength
-diluted less if it has higher cargo technology.)  </p>
 
-<p> The numbers are calculated so that if a ship with numbers 10 1 10
-10 0 fires at an identical ship, it will have a 50% chance of
-destroying the target.  If the effective attack is four times as
-strong, the attack will always succeed.  If the effective defense is
-four times as strong, the attack will always fail.  The exact formula
-is: </p>
 
 <PRE>
-  Eff_Weapons = Weapons_Mass * Weapons Tech
-  Eff_Shields  = Shields_Mass * Shields Tech / mass^(1/3) * 30^(1/3)
+
                     
   p[kill] = (log[4](Eff_Weapons / Eff_Shields) + 1) / 2
          
