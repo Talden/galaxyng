@@ -114,9 +114,9 @@ RUN_GAME=$GALAXY_HOME/run_game
 echo "o Creating" $RUN_GAME
 #echo "  This command is used to run a turn."
 if { test -e $RUN_GAME; } then {
-  echo "  Found an existing version of " $RUN_GAME;
-  RUN_GAME=$GALAXY_HOME/run_game.new;
-  echo "  Writing the new version to "  $RUN_GAME;
+  echo "  Found an existing version of " $RUN_GAME
+  RUN_GAME=$GALAXY_HOME/run_game.new
+  echo "  Writing the new version to "  $RUN_GAME
 }
 fi
 
@@ -125,86 +125,110 @@ cat Util/run_game.header >> $RUN_GAME
 echo "BASE="$GALAXY_HOME >> $RUN_GAME
 echo "WWWHOME="$WWW >> $RUN_GAME
 echo "GALAXYNGHOME="$GALAXY_HOME >> $RUN_GAME
-echo "declare -x GDFONTPATH=/home/server/Games" >> $RUN_GAME
+echo "declare -x GDFONTPATH="$GALAXY_HOME"/Games" >> $RUN_GAME
 cat Util/run_game.tail >> $RUN_GAME
 chmod +x $RUN_GAME
+
+# =========================================================
+#  Try to find the formail command
+# =========================================================
+
+PROCRC=$GALAXY_HOME/procmailrc
+
+FORMAIL=none
+echo "o Trying to locate the formail command..." 
+# Check the usual locations
+for NAME in /usr/bin /usr/sbin /sbin /bin ; do
+#  echo "  Checking: " $NAME
+  if { test -x $NAME/formail ; } then {  
+    FORMAIL=$NAME/formail ;
+  } 
+  fi 
+done
+# If it was not found, try which...
+if { test $FORMAIL = none; } then {
+	FORMAIL=`which formail`
+}
+fi
+# If it was not found, ask the user...
+if { test $FORMAIL = none; } then {
+  echo "  I can't seem to find the formail command."
+  echo "  This may mean you don't have procmail installed."
+  echo "  Please enter the full path for formail:"
+  read FORMAIL
+}
+fi
+echo "  The full path for formail is" $FORMAIL
 
 # =========================================================
 #              Create .procmailrc file
 # =========================================================
 
-PROCRC=$GALAXY_HOME/procmailrc
-FORMAIL=`which formail`
 echo "o Creating" $PROCRC
-#echo "  You can use this file in combination with procmail"
-#echo "  to automatically check incoming orders."
-#echo "  To use it copy it to " $HOME " as "$HOME"/.procmailrc"
+echo "  You can use this file in combination with procmail"
+echo "  to automatically check incoming orders."
+echo "  To use it copy it to "$HOME" as "$HOME"/.procmailrc"
+echo "  Note that is "$HOME"/-dot-procmailrc"
 if { test -e $PROCRC; } then {
-  echo "  Found an existing version of " $PROCRC;
+  echo "  Found an existing version of " $PROCRC
   PROCRC=$GALAXY_HOME/procmailrc.new
-  echo "  Writing the new version to "  $PROCRC;
+  echo "  Writing the new version to "  $PROCRC
 }
 fi
 
 echo "PATH=\$HOME/bin:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
-echo "# Make sure that this exists!" >> $PROCRC
+echo "#" >> $PROCRC
+echo "# Make sure that your mail directory exists!" >> $PROCRC
 echo "MAILDIR=\$HOME/Mail" >> $PROCRC
-echo "# For maildir delivery (used by some mail servers instead of mbox delivery):" >> $PROCRC
-echo "# Comment out the above line and uncomment this line:" >> $PROCRC
-echo "# MAILDIR=\$HOME/Maildir" >> $PROCRC
+echo "" >> $PROCRC
 echo "DEFAULT=\$MAILDIR/mbox" >> $PROCRC
 echo "# For maildir delivery, mailboxes end in a /, so comment out the above" >> $PROCRC
 echo "# line and use this instead:" >> $PROCRC
 echo "# DEFAULT=\$MAILDIR/" >> $PROCRC
+echo "" >> $PROCRC
 echo "LOGFILE=\$MAILDIR/galaxyng.log" >> $PROCRC
 echo "LOCKFILE=\$HOME/.lockmail" >> $PROCRC
 echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
 echo "" >> $PROCRC
-echo "# Store GM reports in a folder called galaxyng-gmreport." >> $PROCRC
+echo "# Store GM reports in a folder called gmreport." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^Subject:.*GM Report" >> $PROCRC
-echo "galaxyng-gmreport" >> $PROCRC
+echo "gmreport" >> $PROCRC
 echo "# Some IMAP servers prefix mailbox names with a '.'  For example:" >> $PROCRC
-echo "# .galaxyng-gmreport" >> $PROCRC
+echo "# .gmreport" >> $PROCRC
 echo "# Combining this with maildir delivery would yield:" >> $PROCRC
-echo "# .galaxyng-gmreport/" >> $PROCRC
+echo "# .gmreport/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Don't reply to anything from a mail daemon, but store it" >> $PROCRC
 echo "# in a folder called postmaster." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^FROM_MAILER" >> $PROCRC
-echo "galaxyng-postmaster" >> $PROCRC
-echo "# .galaxyng-postmaster" >> $PROCRC
-echo "# .galaxyng-postmaster/" >> $PROCRC
+echo "postmaster" >> $PROCRC
+echo "# .postmaster" >> $PROCRC
+echo "# .postmaster/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# The following prevents mail loops. These happen when the server" >> $PROCRC
 echo "# starts replying to its own messages or messages from another server." >> $PROCRC
 echo "# Mail loops usually annoy the heck out of sysadmins." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^Subject:.*(orders checked|copy of turn|major trouble|orders received|message sent|report for)" >> $PROCRC
-echo "galaxyng-loops" >> $PROCRC
-echo "# .galaxyng-loops" >> $PROCRC
-echo "# .galaxyng-loops/" >> $PROCRC
+echo "loops" >> $PROCRC
+echo "# .loops" >> $PROCRC
+echo "# .loops/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Received a message with the word order in the subject:" >> $PROCRC
 echo ":0" >> $PROCRC
 echo "* ^Subject:.*order" >> $PROCRC
 echo "{" >> $PROCRC
-echo "  :0 rw:order" >> $PROCRC
+echo "  :0crw:order" >> $PROCRC
 echo "  # Check the orders and send a forecast or an error message:" >> $PROCRC
 echo "  |"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -check" >> $PROCRC
-echo "  # An error message was sent, save the orders: " >> $PROCRC
-echo "  :0 e :order-error" >> $PROCRC
-echo "  galaxyng-order-error" >> $PROCRC
-echo "  # .galaxyng-order-error" >> $PROCRC
-echo "  # .galaxyng-order-error/" >> $PROCRC
-echo "  # Normally, only orders that generate errors are saved.  If you want" >> $PROCRC
-echo "  # to save all orders, uncomment the following recipe:" >> $PROCRC
-echo "  # :0 E :order-good" >> $PROCRC
-echo "  # galaxyng-order-good" >> $PROCRC
-echo "  # .galaxyng-order-good" >> $PROCRC
-echo "  # .galaxyng-order-good/" >> $PROCRC
+echo "  :0:orders" >> $PROCRC
+echo "  # Save a copy of the orders message" >> $PROCRC
+echo "  orders" >> $PROCRC
+echo "  # .orders" >> $PROCRC
+echo "  # .orders/" >> $PROCRC
 echo "}" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Received a message with the word report in the subject:" >> $PROCRC
@@ -212,85 +236,60 @@ echo ":0" >> $PROCRC
 echo "* ^Subject:.*report" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  # Send a turn report or an error message: " >> $PROCRC
-echo "  :0 rw :report" >> $PROCRC
+echo "  :0crw:report" >> $PROCRC
 echo "  |"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -report" >> $PROCRC
-echo "  # An error message was sent, save the email: " >> $PROCRC
-echo "  :0 e :report-error" >> $PROCRC
-echo "  galaxyng-report-error" >> $PROCRC
-echo "  # .galaxyng-report-error" >> $PROCRC
-echo "  # .galaxyng-report-error/" >> $PROCRC
-echo "  # Normally, only report requests that generate errors are saved.  If" >> $PROCRC
-echo "  # you want to save all report requests, uncomment the following recipe:" >> $PROCRC
-echo "  # :0 E :report-good" >> $PROCRC
-echo "  # galaxyng-report-good" >> $PROCRC
-echo "  # .galaxyng-report-good" >> $PROCRC
-echo "  # .galaxyng-report-good/" >> $PROCRC
+echo "  :0:reports" >> $PROCRC
+echo "  # Save a copy of the report request" >> $PROCRC
+echo "  reports" >> $PROCRC
+echo "  # .reports" >> $PROCRC
+echo "  # .reports/" >> $PROCRC
 echo "}" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone wants to relay a message to another player." >> $PROCRC
 echo ":0" >> $PROCRC
 echo "* ^Subject:.*relay" >> $PROCRC
 echo "{" >> $PROCRC
-echo "  :0 rw :turno" >> $PROCRC
+echo "  :0crw:relay" >> $PROCRC
+echo "  # Relay the message and send a confirmation or error report to the player" >> $PROCRC
 echo "  |"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -relay" >> $PROCRC
-echo "  # An error message was sent, save the email: " >> $PROCRC
-echo "  :0 e :relay-error" >> $PROCRC
-echo "  galaxyng-relay-error" >> $PROCRC
-echo "  # .galaxyng-relay-error" >> $PROCRC
-echo "  # .galaxyng-relay-error/" >> $PROCRC
-echo "  # Normally, only relays messages that generate errors are saved.  If" >> $PROCRC
-echo "  # you want to save all relay messages, uncomment the following recipe:" >> $PROCRC
-echo "  # :0 E :relay-good" >> $PROCRC
-echo "  # galaxyng-relay-good" >> $PROCRC
-echo "  # .galaxyng-relay-good" >> $PROCRC
-echo "  # .galaxyng-relay-good/" >> $PROCRC
+echo "  :0:relays" >> $PROCRC
+echo "  # Save a copy of the relay request" >> $PROCRC
+echo "  relays" >> $PROCRC
+echo "  # .relays" >> $PROCRC
+echo "  # .relays/" >> $PROCRC
 echo "}" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone wants to sign up for a game" >> $PROCRC
-echo "# Uncomment the following lines.  Change the gamename and number" >> $PROCRC
-echo "# of players." >> $PROCRC
-echo "# :0" >> $PROCRC
-echo "# * ^Subject.*Join Jangi" >> $PROCRC
-echo "# {" >> $PROCRC
-echo "  # :0: Jangi.lock" >> $PROCRC
-echo "  # |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 0 0 0 | /usr/sbin/sendmail -t" >> $PROCRC
-echo "  # An error occured, save the email: " >> $PROCRC
-echo "  # :0 e :Jangi-error" >> $PROCRC
-echo "  # galaxyng-Jangi-error" >> $PROCRC
-echo "  # .galaxyng-Jangi-error" >> $PROCRC
-echo "  # .galaxyng-Jangi-error/" >> $PROCRC
-echo "  # Normally, only signup requests that generate errors are saved.  If" >> $PROCRC
-echo "  # you want to save all signup requests, uncomment the following recipe:" >> $PROCRC
-echo "  # :0 E :Jangi-good" >> $PROCRC
-echo "  # galaxyng-Jangi-good" >> $PROCRC
-echo "  # .galaxyng-Jangi-good" >> $PROCRC
-echo "  # .galaxyng-Jangi-good/" >> $PROCRC
-echo "# }" >> $PROCRC
+echo "# Don't forget to change the gamename and number of players" >> $PROCRC
+echo ":0" >> $PROCRC
+echo "* ^Subject.*Join Jangi" >> $PROCRC
+echo "{" >> $PROCRC
+echo "  :0c:Jangi" >> $PROCRC
+echo "  |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 0 0 0 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "  :0:JangiJoin" >> $PROCRC
+echo "  # Save a copy of the registration request" >> $PROCRC
+echo "  Jangi" >> $PROCRC
+echo "  # .Jangi" >> $PROCRC
+echo "  # .Jangi/" >> $PROCRC
+echo "}" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone wants to sign up for a game with custom planet sizes" >> $PROCRC
 echo "# Up to ten players, max 2500 production, max planet size 1000, max planets 5" >> $PROCRC
-echo "# Uncomment the following lines.  Change the gamename and numbers" >> $PROCRC
-echo "# of players." >> $PROCRC
-echo "# :0" >> $PROCRC
-echo "# * ^Subject.*Join Welland" >> $PROCRC
-echo "# {" >> $PROCRC
-echo "  # :0: Welland.lock" >> $PROCRC
-echo "  # |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
-echo "  # An error occured, save the email: " >> $PROCRC
-echo "  # :0 e :Welland-error" >> $PROCRC
-echo "  # galaxyng-Welland-error" >> $PROCRC
-echo "  # .galaxyng-Welland-error" >> $PROCRC
-echo "  # .galaxyng-Welland-error/" >> $PROCRC
-echo "  # Normally, only signup requests that generate errors are saved.  If" >> $PROCRC
-echo "  # you want to save all signup requests, uncomment the following recipe:" >> $PROCRC
-echo "  # :0 E :Welland-good" >> $PROCRC
-echo "  # galaxyng-Welland-good" >> $PROCRC
-echo "  # .galaxyng-Welland-good" >> $PROCRC
-echo "  # .galaxyng-Welland-good/" >> $PROCRC
-echo "# }" >> $PROCRC
+echo "# Don't forget to change the gamename, planet sizes, and number of players." >> $PROCRC
+echo ":0" >> $PROCRC
+echo "* ^Subject.*Join Welland" >> $PROCRC
+echo "{" >> $PROCRC
+echo "  :0c:Welland" >> $PROCRC
+echo "  |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "  :0:WellandJoin" >> $PROCRC
+echo "  # Save a copy of the registration request" >> $PROCRC
+echo "  Welland" >> $PROCRC
+echo "  # .Welland" >> $PROCRC
+echo "  # .Welland/" >> $PROCRC
+echo "}" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Anything else, or messages that causes the engine to fail" >> $PROCRC
-echo "# are stored in the default mailbox." >> $PROCRC
+echo "# are stored in the default mailbox which was set at the top of this file." >> $PROCRC
 
 # =========================================================
 #              Create crontab file
@@ -298,6 +297,8 @@ echo "# are stored in the default mailbox." >> $PROCRC
 
 CRONT=$GALAXY_HOME/games.crontab
 echo "o Creating" $CRONT
+echo "  Edit it and run crontab"
+echo "    games.crontab"
 if { test -e $CRONT; } then {
   echo "  Found an existing version of " $CRONT;
   CRONT=$GALAXY_HOME/games.crontab.new;
@@ -317,6 +318,10 @@ echo "15 21 * * 5 " $RUN_GAME "Orion" >> $CRONT
 #              Create a .galaxyngrc file
 # =========================================================
 
+echo "o Creating" $RCFILE
+echo "  This file contains basic configuration information for the server."
+echo "  You can edit it by hand.  It will be created at " $GALAXY_HOME "/.galaxyngrc"
+echo "  Note that is " $GALAXY_HOME "/-dot-galaxyngrc"
 RCFILE=$GALAXY_HOME/.galaxyngrc
 COMPRESS=`which zip`
 ENCODE=`which mmencode`
@@ -328,11 +333,10 @@ if { test -z $ENCODE ; } then {
   ENCODE=`which uuencode`
 }
 fi
-echo "o Creating" $RCFILE
 if { test -e $RCFILE; } then {
-  echo "  Found an existing version of " $RCFILE;
-  RCFILE=$GALAXY_HOME/.galaxyngrc.new;
-  echo "  Writing the new version to "  $RCFILE;
+  echo "  Found an existing version of " $RCFILE
+  RCFILE=$GALAXY_HOME/.galaxyngrc.new
+  echo "  Writing the new version to "  $RCFILE
 }
 fi
 echo "; This file is documented in Doc/galaxyngrc" > $RCFILE
@@ -347,7 +351,7 @@ if { test -n $COMPRESS ; } then {
   echo "compress { " $COMPRESS " }" >> $RCFILE
 }
 fi
-echo "fontpath { " $GALAXYNGHOME " }" >> $RCFILE
+echo "fontpath { " $GALAXY_HOME " }" >> $RCFILE
 
 
 # =========================================================
