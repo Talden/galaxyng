@@ -62,8 +62,8 @@
  *
  *   The entry in the .procmailrc file to accept 25 players for the
  *   game Jangi.  Players can specify a maximum of 5 planets, of which
- *   the total size should now exceed 2000.0. Each single planet
- *   should be no larger that 1000.0
+ *   the total size should not exceed 2000.0. Each single planet
+ *   should be no larger than 1000.0
  *
  *     GALAXYNGHOME=$HOME/Games
  *
