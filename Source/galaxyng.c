@@ -82,6 +82,9 @@ char *galaxyng = "$Id$";
 
 char vcid[128];
 
+void cleanDeadPlayers( game *aGame );
+int  CMD_clean(int argc, char* argv[]);
+
 /****h* GalaxyNG/CLI
  * FUNCTION
  *   Function for the command line interface of GalaxyNG.
@@ -129,6 +132,8 @@ main( int argc, char **argv )
 
     if ( argc <= 1 ) {
         usage(  );
+	} else if ( strstr( argv[1], "clean") ) {
+		result = CMD_clean(argc, argv);
     } else if ( strstr( argv[1], "immediate") ) {
       result = CMD_immediate(argc, argv);
     } else if ( strstr( argv[1], "create" ) ) {
@@ -487,11 +492,11 @@ CMD_run( int argc, char **argv, int kind )
                                      gameOptions & GAME_SAVECOPY ) {
                                     saveTurnReport( aGame, aPlayer,
                                                     F_XMLREPORT );
-                                } else {
-                                    saveTurnReport( aGame, aPlayer,
-                                                    F_XMLREPORT );
                                 }
-                            }
+                            } else {
+								saveTurnReport( aGame, aPlayer,
+												F_XMLREPORT );
+							}
                         }
 
                         if ( aPlayer->flags & F_MACHINEREPORT ) {
@@ -503,11 +508,11 @@ CMD_run( int argc, char **argv, int kind )
                                      gameOptions & GAME_SAVECOPY ) {
                                     saveTurnReport( aGame, aPlayer,
                                                     F_MACHINEREPORT );
-                                } else {
-                                    saveTurnReport( aGame, aPlayer,
-                                                    F_MACHINEREPORT );
                                 }
-                            }
+							} else {
+								saveTurnReport( aGame, aPlayer,
+												F_MACHINEREPORT );
+							}
                         }
                     }
                     savegame( aGame );
@@ -552,6 +557,31 @@ CMD_run( int argc, char **argv, int kind )
 
 /*********/
 
+int CMD_clean(int argc, char **argv) {
+    int result;
+
+	game *aGame;
+	int turn;
+	char *logName;
+
+    result = EXIT_FAILURE;
+	logName = createString( "%s/log/%s", galaxynghome, argv[2] );
+	openLog( logName, "w" );
+	free( logName );
+
+	plogtime( LPART );
+	plog( LPART, "Trying to clean Game \"%s\".\n", argv[2] );
+
+	aGame = NULL;
+	turn = LG_CURRENT_TURN;
+	
+	if ( ( aGame = loadgame( argv[2], turn ) ) ) {
+		loadConfig( aGame );
+		cleanDeadPlayers(aGame);
+	}
+
+	return EXIT_SUCCESS;
+}
 
 /****f* CLI/CMD_immediate
  * NAME
@@ -689,7 +719,8 @@ CMD_immediate( int argc, char **argv)
 			
 			if (!failed) {
 				plog(LPART, "All orders in, running game\n");
-			}      
+			}
+			
 			closeLog(  );
 			freegame( aGame );
 			plog(LPART, "elapsed_time: %ld   interval: %ld  due: %ld\n",
@@ -1383,162 +1414,164 @@ CMD_checkFile( int argc, char **argv, int kind )
 int
 CMD_relay( int argc, char **argv )
 {
-  int result;
-  char *logName;
-  int mode;
-  
-  result = EXIT_FAILURE;
-  logName = createString( "%s/log/orders_processed.txt", galaxynghome );
-  openLog( logName, "a" );
-  free( logName );
-  plogtime( LBRIEF );
-  if ( argc >= 2 ) {
-    char *confirmName;
-    int resNumber;
-    game *aGame;
-    FILE *confirm;
-    
-    confirmName = createString( "%s/NGconfirm", tempdir );
-    if ( ( confirm = GOS_fopen( confirmName, "w" ) ) ) {
-      player* toPlayer;
-      player* fromPlayer;
-      char* destination;
-      char* returnAddress;
-      char* raceName;
-      char* password;
-      char* final_orders;
-      int theTurnNumber = LG_CURRENT_TURN;
-      envelope *anEnvelope;
-      
-      anEnvelope = createEnvelope(  );
-      returnAddress = getReturnAddress( stdin );
-      setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
-      destination = getDestination( stdin );
-      raceName = NULL;
-      password = NULL;
-      final_orders = NULL;
-      aGame = NULL;
-      resNumber =
-	areValidOrders( stdin, &aGame, &raceName,
-			&password, &final_orders, theTurnNumber );
-      
-      if (noCaseStrcmp(raceName, "GM") == 0) {
-	fromPlayer = (player*)malloc(sizeof (player));
-	fromPlayer->name = strdup("GM");
-	fromPlayer->addr = strdup(aGame->serverOptions.GMemail);
-	fromPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
-      }
-      else 
-	fromPlayer = findElement(player, aGame->players, raceName);
-      
-      if ( destination == NULL ) {
-	resNumber = RES_NODESTINATION;
-      }
-      
-      if ( resNumber == RES_OK ) {
-	if (noCaseStrcmp(destination, aGame->name) == 0) {
-	  mode = ALL_PLAYERS;
-	}
-	else {
-	  mode = SINGLE_PLAYER;
-	}
+	int result;
+	char *logName;
+	int mode;
 	
-	for (toPlayer = aGame->players;
-	     toPlayer;
-	     toPlayer = toPlayer->next) {
-	  
-	  /* skip dead players, they dislike getting email
-	   *about the game :)
-	   */
-	  
-	  if (toPlayer->flags & F_DEAD)
-	    continue;
-	  
-	  if (mode == SINGLE_PLAYER) {
-	    if (noCaseStrcmp(destination, "GM") == 0) {
-	      toPlayer = (player*)malloc(sizeof(player));
-	      toPlayer->name = strdup("GM");
-	      toPlayer->addr = strdup(aGame->serverOptions.GMemail);
-	      toPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
-	    }
-	    else {
-	      toPlayer = findElement( player, aGame->players,
-				      destination );
-	      
-	      
-	      if ( toPlayer == NULL ) {
-		resNumber = RES_DESTINATION;
-		break;
-	      }
-	    }
-	  }
-	  
-	  result = 0;
-	  
-	  result |= relayMessage( aGame, raceName,
-				  fromPlayer, toPlayer );
-	  
-	  if ( result == 0 ) {
-	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		       "Galaxy HQ, message sent" );
-	    fprintf( confirm, "Message has been sent to %s.\n",
-		     toPlayer->name );
-	  } else {
-	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		       "Galaxy HQ, message not sent" );
-	    fprintf( confirm,
-		     "Due to a server error the message was not send!\n"
-		     "Please contact your Game Master.\n" );
-	  }
-	  if (mode == SINGLE_PLAYER)
-	    break;
+	result = EXIT_FAILURE;
+	logName = createString( "%s/log/orders_processed.txt", galaxynghome );
+	openLog( logName, "a" );
+	free( logName );
+	plogtime( LBRIEF );
+	if ( argc >= 2 ) {
+		char *confirmName;
+		int resNumber;
+		game *aGame;
+		FILE *confirm;
+		
+		confirmName = createString( "%s/NGconfirm", tempdir );
+		if ( ( confirm = GOS_fopen( confirmName, "w" ) ) ) {
+			player* toPlayer;
+			player* fromPlayer;
+			char* destination;
+			char* returnAddress;
+			char* raceName;
+			char* password;
+			char* final_orders;
+			int theTurnNumber = LG_CURRENT_TURN;
+			envelope *anEnvelope;
+			
+			anEnvelope = createEnvelope(  );
+			returnAddress = getReturnAddress( stdin );
+			setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
+			destination = getDestination( stdin );
+			raceName = NULL;
+			password = NULL;
+			final_orders = NULL;
+			aGame = NULL;
+			resNumber = areValidOrders( stdin, &aGame, &raceName,
+										&password, &final_orders,
+										theTurnNumber );
+			
+			fprintf(confirm, "Relay for game \"%s\"\n", aGame->name);
+			
+			if (noCaseStrcmp(raceName, "GM") == 0) {
+				fromPlayer = (player*)malloc(sizeof (player));
+				fromPlayer->name = strdup("GM");
+				fromPlayer->addr = strdup(aGame->serverOptions.GMemail);
+				fromPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+			}
+			else 
+				fromPlayer = findElement(player, aGame->players, raceName);
+			
+			if ( destination == NULL ) {
+				resNumber = RES_NODESTINATION;
+			}
+			
+			if ( resNumber == RES_OK ) {
+				if (noCaseStrcmp(destination, aGame->name) == 0) {
+					mode = ALL_PLAYERS;
+				}
+				else {
+					mode = SINGLE_PLAYER;
+				}
+				
+				for (toPlayer = aGame->players;
+					 toPlayer;
+					 toPlayer = toPlayer->next) {
+					
+					/* skip dead players, they dislike getting email
+					 *about the game :)
+					 */
+					
+					if (toPlayer->flags & F_DEAD)
+						continue;
+					
+					if (mode == SINGLE_PLAYER) {
+						if (noCaseStrcmp(destination, "GM") == 0) {
+							toPlayer = (player*)malloc(sizeof(player));
+							toPlayer->name = strdup("GM");
+							toPlayer->addr = strdup(aGame->serverOptions.GMemail);
+							toPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+						}
+						else {
+							toPlayer = findElement( player, aGame->players,
+													destination );
+							
+							
+							if ( toPlayer == NULL ) {
+								resNumber = RES_DESTINATION;
+								break;
+							}
+						}
+					}
+					
+					result = 0;
+					
+					result |= relayMessage( aGame, raceName,
+											fromPlayer, toPlayer );
+					
+					if ( result == 0 ) {
+						setHeader( anEnvelope, MAILHEADER_SUBJECT,
+								   "Galaxy HQ, message sent" );
+						fprintf( confirm, "Message has been sent to %s.\n",
+								 toPlayer->name );
+					} else {
+						setHeader( anEnvelope, MAILHEADER_SUBJECT,
+								   "Galaxy HQ, message not sent" );
+						fprintf( confirm,
+								 "Due to a server error the message was not send!\n"
+								 "Please contact your Game Master.\n" );
+					}
+					if (mode == SINGLE_PLAYER)
+						break;
+				}
+			} else {
+				setHeader( anEnvelope, MAILHEADER_SUBJECT,
+						   "Galaxy HQ, major trouble." );
+				generateErrorMessage( resNumber, aGame, raceName,
+									  theTurnNumber, confirm );
+			}
+			
+			if (mode == ALL_PLAYERS) {
+				toPlayer = (player*)malloc(sizeof(player));
+				toPlayer->name = strdup("GM");
+				toPlayer->addr = strdup(aGame->serverOptions.GMemail);
+				toPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
+				
+				result |= relayMessage( aGame, raceName,
+										fromPlayer, toPlayer );
+				
+				if ( result == 0 ) {
+					setHeader( anEnvelope, MAILHEADER_SUBJECT,
+							   "Galaxy HQ, message sent" );
+					fprintf( confirm, "Message has been sent to %s.\n",
+							 toPlayer->name );
+				}
+				free(toPlayer);
+			}
+			
+			fprintf( confirm, "\n\n%s\n", vcid );
+			fclose( confirm );
+			result |= eMail( aGame, anEnvelope, confirmName );
+			if ( destination )
+				free( destination );
+			if ( raceName )
+				free( raceName );
+			if ( password )
+				free( password );
+			destroyEnvelope( anEnvelope );
+			result |= ssystem( "rm %s", confirmName );
+			result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
+		} else {
+			fprintf( stderr, "Can't open \"%s\".\n", confirmName );
+		}
+		free( confirmName );
+	} else {
+		usage(  );
 	}
-      } else {
-	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "Galaxy HQ, major trouble." );
-	generateErrorMessage( resNumber, aGame, raceName,
-			      theTurnNumber, confirm );
-      }
-      
-      if (mode == ALL_PLAYERS) {
-	toPlayer = (player*)malloc(sizeof(player));
-	toPlayer->name = strdup("GM");
-	toPlayer->addr = strdup(aGame->serverOptions.GMemail);
-	toPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
-
-	result |= relayMessage( aGame, raceName,
-				fromPlayer, toPlayer );
-	  
-	if ( result == 0 ) {
-	  setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		     "Galaxy HQ, message sent" );
-	  fprintf( confirm, "Message has been sent to %s.\n",
-		   toPlayer->name );
-	}
-	free(toPlayer);
-      }
- 
-      fprintf( confirm, "\n\n%s\n", vcid );
-      fclose( confirm );
-      result |= eMail( aGame, anEnvelope, confirmName );
-      if ( destination )
-	free( destination );
-      if ( raceName )
-	free( raceName );
-      if ( password )
-	free( password );
-      destroyEnvelope( anEnvelope );
-      result |= ssystem( "rm %s", confirmName );
-      result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
-    } else {
-      fprintf( stderr, "Can't open \"%s\".\n", confirmName );
-    }
-    free( confirmName );
-  } else {
-    usage(  );
-  }
-  closeLog(  );
-  return result;
+	closeLog(  );
+	return result;
 }
 
 
