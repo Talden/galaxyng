@@ -191,12 +191,12 @@ int CMD_relay( int argc, char **argv ) {
     result = relayMessage(aGame, raceName, fromPlayer, listPlayer);
     
     if (result == 0) {
-      setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] message sent");
+      setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] %s message sent to %s", aGame->name, listPlayer->name);
       fprintf(confirm, "Message has been sent to %s.\n", listPlayer->name);
     }
     else {
       setHeader(anEnvelope, MAILHEADER_SUBJECT,
-		"[GNG] message not sent");
+		"[GNG] %s message not sent to %s", aGame->name, listPlayer->name);
       fprintf(confirm, "Due to a server error the message was not "
 	      "sent to %s!\nPlease contact your Game Master.\n",
 	      listPlayer->name);

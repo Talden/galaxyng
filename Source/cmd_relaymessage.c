@@ -52,20 +52,20 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
       
       if (strstr(raceName, "@") != NULL) {
 	setHeader(anEnvelope, MAILHEADER_SUBJECT,
-		  "[GNG] message relay GM");
+		  "[GNG] %s message relay GM", aGame->name);
       }
       else {
 	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "[GNG] message relay %s", raceName );
+		   "[GNG] %s message relay %s", aGame->name, raceName );
       }
       
-      fprintf( message, "#GALAXY %s %s %s\n",
+      fprintf( message, "#galaxy %s %s %s\n",
 	       aGame->name, to->name, to->pswd );
       
       for (s = msg; s; s = s->next)
 	fprintf(message, "%s\n", s->str);
       
-      fprintf(message, "\n#END\n");
+      fprintf(message, "\n#end\n");
       fclose( message );
       result = eMail( aGame, anEnvelope, messageName );
       destroyEnvelope( anEnvelope );
