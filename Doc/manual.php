@@ -153,7 +153,7 @@
 					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Planets are used to build ships, conduct technology research, produce capital or produce materials.  Ships explore the galaxy, colonize uninhabited planets, haul cargo, conduct warfare and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, haul more cargo and fight better.</p>
 					
 				<h3 id="players">Players</h3>
-					<p>Each player is the leader of one race.  Players can communicate by sending <a href="#ordA">messages</a> or <a href="#email">email</a> to each other.  Players are <a href="#ordo">anonymous</a> but can choose to reveal their identities to other players.  Players can  provide their <a href="#ordE">real name</a> to the GM for inclusion in the Hall of Fame without breaking their anonymity.</p>
+					<p>Each player is the leader of one race.  Players can communicate by sending <a href="#ordA">messages</a> or <a href="#email">email</a> to each other.  Players are <a href="#ordo">anonymous</a> but can choose to reveal their identities to other players.  Players can  provide their <a href="#ordE">real name</a> to the GM for inclusion in the <a href="http://www.badcheese.com/~steve/hof/hofweb/">Hall of Fame</a> without breaking their anonymity.</p>
 
 				<h3 id="victory">Victory and Defeat</h3>
 					<p>The game can be won by a single race or by an alliance of races, depending upon the game settings.  Races are ranked based on the total production of their planets.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</p>
@@ -420,7 +420,7 @@ Subject: report &lt;turn number&gt;
 #GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt;</pre>
 
 				<h3 id="repbul">Bulletins</h3>
-					<p>The bulletins are provided by the GM.  They usually include a ranked list of races, announcements about the game, holiday notices and other server updates, server instructions, GM contact information, Hall of Fame information, and more.</p>
+					<p>The bulletins are provided by the GM.  They usually include a ranked list of races, announcements about the game, holiday notices and other server updates, server instructions, GM contact information, and more.</p>
 
 				<h3 id="repglo">Global Messages</h3>
 					<p>All global messages are reported, including those sent by the player.</p>
@@ -567,7 +567,7 @@ I'll never trust you again!
 @</pre>
 
 				<h3 id="ordE">= &lt;FirstName LastName&gt;</h3>
-					<p>Set the player's <a href="#players">real name</a> for use in the Hall of Fame.</p>
+					<p>Set the player's <a href="#players">real name</a> for use in the <a href="http://www.badcheese.com/~steve/hof/hofweb/">Hall of Fame</a>.</p>
 
 				<h3 id="orda">a &lt;alien race name&gt;</h3>
 					<p>Declare an <a href="#war">alliance</a> with another race.</p>
