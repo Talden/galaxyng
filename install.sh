@@ -150,7 +150,7 @@ echo "# Make sure that this exists!" >> $PROCRC
 echo "MAILDIR=\$HOME/Mail" >> $PROCRC
 echo "# For maildir delivery (used by some mail servers instead of mbox delivery)" >> $PROCRC
 echo "# mailbox names should be followed by a /.  Replace the above line with:" >> $PROCRC
-echo "# MAILDIR=\$HOME/Maildir/" >> PROCRC
+echo "# MAILDIR=\$HOME/Maildir/" >> $PROCRC
 echo "DEFAULT=\$MAILDIR/mbox" >> $PROCRC
 echo "# For maildir delivery, use:" >> $PROCRC
 echo "# DEFAULT=\$MAILDIR" >> $PROCRC
@@ -242,7 +242,7 @@ if { test -e $RCFILE; } then {
   echo "  Writing the new version to "  $RCFILE;
 }
 fi
-echo "; This file is documented in Doc/galaxyngrc" >> $RCFILE
+echo "; This file is documented in Doc/galaxyngrc" > $RCFILE
 echo "; and http://galaxyng.sourceforge.net/server.php" >> $RCFILE
 echo "sendmail {"$SENDMAIL" -t }" >> $RCFILE
 echo "GMemail "$EMAIL >> $RCFILE
