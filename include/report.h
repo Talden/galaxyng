@@ -125,6 +125,8 @@ void GreportGroup(planet *planets, player *P, group *g, int n,
 
 void reportMap(game *aGame, player *P, fielddef *fields);
 
+void reportMap_gnuplot(game *aGame, player *P, fielddef *fields);
+
 void reportGlobalMessages(strlist *messages, fielddef *fields);
 
 void reportMessages(player *P, fielddef *fields);

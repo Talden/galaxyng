@@ -2345,6 +2345,56 @@ reportOptions(game *aGame, player *P, fielddef *fields)
 }
 
 
+/****f* Report/reportMap_gnuplot
+ * NAME
+ *   reportMap_gnuplot --
+ * AUTHOR: Steven Webb (steve@badcheese.com)
+ ******
+ */
+
+void
+reportMap_gnuplot(game *aGame, player *P, fielddef *fields)
+{
+  player         *P2;
+  group          *g;
+  planet         *p;
+  mapdimensions   mapDim;
+
+  mapDim.x1 = P->mx;
+  mapDim.x2 = P->mx + P->msize;
+  mapDim.y1 = P->my;
+  mapDim.y2 = P->my + P->msize;
+
+  // png
+
+  fprintf(fields->destination, "set output 'plot.png'\n");
+  fprintf(fields->destination, "set term png color small\n");
+  fprintf(fields->destination, "set nokey\n");
+  fprintf(fields->destination, "set grid x y\n");
+  fprintf(fields->destination, "set size 1.7,1.7\n");
+  fprintf(fields->destination, "set xrange [%.2f:%.2f]\n", mapDim.x1, mapDim.x2);
+  fprintf(fields->destination, "set yrange [%.2f:%.2f]\n", mapDim.y2, mapDim.y1);
+
+  memset(map, ' ', sizeof map);
+
+//  Not needed for now - just debugging stuff.
+//  for (p = aGame->planets; p; p = p->next)
+//	  fprintf(fields->destination, "set label \" %s\" at %.2f, %.2f\n",p->name,p->x,p->y);
+
+  fprintf(fields->destination, "plot '-','-' index 0:1\n");
+  for (p = aGame->planets; p; p = p->next)
+	  fprintf(fields->destination, "%.2f %.2f\n",p->x,p->y);
+  fprintf(fields->destination, "e\n");
+  
+  for (P2 = aGame->players; P2; P2 = P2->next)
+    if (P2 != P)
+      for (g = P2->groups; g; g = g->next)
+        if (groupLocation(aGame,g) == NULL)
+	  fprintf(fields->destination, "%.2f %.2f\n",groupx(aGame, g),groupy(aGame, g));
+  fprintf(fields->destination, "e\n");
+}
+
+
 /****f* Report/reportMap
  * NAME
  *   reportMap --

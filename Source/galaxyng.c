@@ -80,7 +80,7 @@ char           *vcid = "GalaxyNG release-6-0, May 2002.";
 enum {
   CMD_DUMP_MAP = 1, CMD_DUMP_LASTORDERS, CMD_DUMP_PLAYERS,
   CMD_DUMP_PSCORE, CMD_DUMP_HALL, CMD_DUMP_MAILHEADER,
-  CMD_DUMP_TEAM_INFO, CMD_DUMP_TEAM_REPORT_NAMES
+  CMD_DUMP_TEAM_INFO, CMD_DUMP_TEAM_REPORT_NAMES, CMD_DUMP_MAP_GNUPLOT
 };
 
 int             CMD_create(int argc, char **argv);
@@ -1370,6 +1370,13 @@ CMD_dump(int argc, char **argv, int kind)
           reportMap(aGame, aDummyPlayer, &fields);
           break;
         }
+      case CMD_DUMP_MAP_GNUPLOT:{
+          aDummyPlayer = allocStruct(player);
+          setName(aDummyPlayer, "DummyDummy");
+          aDummyPlayer->msize = aGame->galaxysize;
+          reportMap_gnuplot(aGame, aDummyPlayer, &fields);
+          break;
+        }
       case CMD_DUMP_LASTORDERS:{
           reportLastOrders(aGame->players, &fields);
           break;
@@ -1592,6 +1599,7 @@ usage()
          "   -teaminfo   <game name> <turn> <team number>\n"
          "   -graph      <game name> [turn]\n"
          "   -map        <game name> [turn]\n"
+         "   -gnuplot    <game name> [turn]\n"
          "\nExplanation:\n"
          " -template   - create a template .glx file for use with -create.\n"
          " -create     - create a new game.\n"
