@@ -4,8 +4,9 @@ DocStart
 AHeader(`GalaxyNG User Manual')
 BodyStart
 m4_include(`mannavigator.m4')m4_dnl
+<!-- $Id$ -->
 
-ATitle(`GalaxyNG User Manual')
+ATitle(`GalaxyNG Manual')
 
 ASection(`Rules for Galaxy Next Generation release-5-1a (Oct 2001)')
 
@@ -27,11 +28,11 @@ www_section(`intro', `Introduction')
 
 www_subSection(`names', `Names')
 
-<P>You should ALink(`#ordc', `provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you do not do this you will simply be known as Race_5 or whatever.  You can also provide names for ship types and planets.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Ship types are given names by their ALink(`#ordd', `designer').  Planets are numbered at the start of the game.  You may want to ALink(`#ordn', `change your home planet name(s)') to something more exciting e.g. from "112" to "Zzyax_Prime".</P>
+<P>Races, planets and ship types can be named.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should ALink(`#ordc', `provide a name') by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when ALink(`#ordd', `designed') and can be ALink(`#ordt', `renamed').  Planets have numbers for names at the start of the game and can be ALink(`#ordn', `changed') by their current owner.</P>
 
 www_subSection(`war', `War and Alliances')
 
-<P>At the start of the game you are assumed to be at war with all the other races (except in team games).  You may ALink(`#orda', `declare an alliance') with another race at the beginning of any turn.  This means that your ships will not initiate combat with ships belonging to that race, nor bomb their planets.  However, you don't know whether another race is at war with you unless you encounter some of its warships!  (Of course you could always ask the Zzyaxians player and take his word for it...)  Your ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts your warships at no disadvantage in combat).  Having declared an alliance, you may ALink(`#ordw', `declare war') again at the start of any subsequent turn and vice versa.</P>
+<P>At the start of the game all races are assumed to be at war with all the other races (except in team games).  ALink(`#orda', `Alliances') may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, ALink(`#ordw', `war') may be declared again at the start of any subsequent turn and vice versa.</P>
 
 www_subSection(`victory', `Victory and Defeat')
 
@@ -124,15 +125,19 @@ www_subSection(`fleets', `Fleets')
 
 www_section(`tech', `Technology')
 
-<P>Technology levels determine the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology levels can be increased by ordering planets to conduct ALink(`#ordp', `research').</P>
+<P>Technology determines the effectiveness of ships.  There are four technologies: drive, weapons, shields and cargo.  Each race begins the game with 1.00 levels in each technology.  Technology can be increased by ordering planets to conduct ALink(`#ordp', `research').</P>
 
-<P>A ship with drive technology 2.00 is twice as fast as an equivalent ship with drive technology 1.00, a ship with weapons technology 3.00 has a 50% more powerful attack than the same ship with weapons technology 2.00, and so forth.  Ships without a component are considered to have a matching technology level of 0.  For example, a ship with weapons mass 0 is consdered to have weapons technology 0.</P>
+<P>A ship with drive technology 4.00 is twice as fast as an equivalent ship with drive technology 2.00, a ship with weapons technology 1.50 has a 50% more powerful attack than the same ship with weapons technology 1.00, and so forth.  Ships without a component are considered to have a matching technology of 0.  For example, a ship with weapons mass 0 is consdered to have weapons technology 0.</P>
 
 www_Section(`move', `Movement')
 
-<P>Ships are equipped with hyperspace drives which allow them to move between planets.  Ships with a drive mass of zero remain forever at the planet where they were built.  Ships move a number of light years per turn according to the following formula:  Light years travelled = 20 * drive technology level * (drive mass / (ship mass + cargo carried mass)).</P>
+<P>Ships are equipped with hyperspace drives, except ships with a drive mass of zero remain which remain forever at the planet where they were built.  ALink(`#ords', `Send') and ALink(`#ordi', `intercept') orders can be issued to groups and fleets to move them between planets.</P>
 
-<P>Note that unless your drive technology level is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of 20 times your drive technology level.  For example, assuming drive technology level 1.00 carrying no cargo:<P>
+www_Section(`speed', `Speed')
+
+<P>Ships move a number of light years per turn according to the following formula:  Light years travelled = 20 * drive technology level * (drive mass / (ship mass + cargo carried mass)).</P>
+
+<P>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of 20 times your drive technology.  For example, assuming drive technology 1.00 carrying no cargo:<P>
 
 <PRE>
   Drone          20 * 1.00 * (1.00/1.00) = 20.00
@@ -152,28 +157,17 @@ www_Section(`move', `Movement')
   MegaFreighter  20 * 1.00 * (120.00/198.00) = 12.12
 </PRE>
 
-<P> 
-Hyperspace travel is only possible from one concentration of mass
-to another, i.e. from one star system to another. A ship can only
-travel at maximum speed in hyperspace. When a ship enters hyperspace,
-no time passes for the ship or those on board; a ship in hyperspace
-cannot turn around, change course, or be attacked.  
-</P>
+www_Section(`travel', `Travel')
+
+<P>Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace cannot change course, or participate in combat.  Ships sent on very long journeys may be ordered to ALink(`#ordh', `reverse') course.</P>
 
 www_subSection(`incoming', `Incoming Ships')
 
-<P> 
-Detection of ships in hyperspace is a difficult business.  Of
-course, your administrative staff will keep a record of your ships, so
-you will always know where they are.  However, the equipment to
-accurately detect the position of alien ships in hyperspace requires a
-large staff to operate and maintain, only works from a centre of mass,
-and can only track ships heading to or from that centre of mass.  In
-practical terms, this means you will only receive a report of groups
-of alien ships heading towards one of your planets (all of which are
-assumed to have hyperspace detectors), though a rough indication of
-the location of other ships on the map will also be given.  
-</P>
+<P>Detection of ships in hyperspace is a difficult business.  Of course, your administrative staff will keep a record of your ships, so you will always know where they are.  However, the equipment to accurately detect the position of alien ships in hyperspace requires a large staff to operate and maintain.</P>
+
+<P>Accurate readings can only be obtained for ships heading toward one of your planets.</P>
+
+<P>A rough indication of the location of other alien groups will be indicated on the ALink(`#ordm', `map'), but you will not know their speed or direction of travel.</P>
 
 www_section(`planets', `Planets')
 
