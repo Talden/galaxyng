@@ -599,15 +599,3 @@ readDefaults(game *aGame, FILE * f)
 			strdup(aGame->serverOptions.GMemail);
 }
 
-void
-freeDefaults(game *aGame)
-{
-  free(aGame->serverOptions.sendmail);
-  free(aGame->serverOptions.encode);
-  free(aGame->serverOptions.compress);
-  free(aGame->serverOptions.GMemail);
-  free(aGame->serverOptions.GMpassword);
-  free(aGame->serverOptions.SERVERemail);
-  free(aGame->serverOptions.fontpath);
-  free(aGame->serverOptions.due);
-}
