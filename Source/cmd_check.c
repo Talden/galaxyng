@@ -180,10 +180,12 @@ int CMD_check( int argc, char **argv, int kind ) {
     int resNumber = areValidOrders( stdin, &aGame, &raceName,
 				    &password, &final_orders, &theTurnNumber );
     plog( LBRIEF, "game %s\n", aGame->name );
+
+    setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.SERVERemail);
     
     setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
     setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
-    anEnvelope->from_address = strdup(aGame->serverOptions.ReplyTo);
+    anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
     anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
 
     if ( resNumber == RES_OK ) {
@@ -275,10 +277,12 @@ int CMD_check( int argc, char **argv, int kind ) {
 				&password, &final_orders, &theTurnNumber );
     plog( LBRIEF, "game %s\n", aGame->name );
     
+    setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.SERVERemail);
+    
     setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
     setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
     anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
-    anEnvelope->from_address = strdup(aGame->serverOptions.ReplyTo);
+    anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
 
     if ( resNumber == RES_OK) {
       aPlayer = findElement( player, aGame->players, raceName );

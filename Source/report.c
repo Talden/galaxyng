@@ -123,14 +123,23 @@ mailGMReport(game *aGame, char *gameName)
     anEnvelope = createEnvelope();
     setHeader(anEnvelope, MAILHEADER_TO, "%s",
               aGame->serverOptions.GMemail);
+    /*
     anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
     anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
+    */
     setHeader(anEnvelope, MAILHEADER_SUBJECT,
               "[GNG] %s turn %d text report for GM", gameName,
               aGame->turn);
     setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+    
+    /* I'm changing these so the server emails to the GM, not the
+     * GM to himself.
     anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
     anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
+     */
+
+    anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+    anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
 
     fileName = createString("%s/%s_GM", tempdir, gameName);
     if ((gmreport = fopen(fileName, "w"))) {

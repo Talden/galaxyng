@@ -17,6 +17,14 @@
 void createMailToAllHeader(game *aGame) {
   player* aPlayer;
   int state;
+
+  if (aGame->serverOptions.SERVERemail) {
+    if (aGame->serverOptions.SERVERname) { 
+      printf("From: %s <%s>\n", aGame->serverOptions.SERVERname, aGame->serverOptions.SERVERemail);
+    } else {
+      printf("From: %s\n", aGame->serverOptions.SERVERemail);
+    }
+  }
   
   printf("To: %s\nBCC: ", aGame->serverOptions.GMemail); 
   for (aPlayer = aGame->players, state = 0;
@@ -217,6 +225,10 @@ void destroyEnvelope(envelope *e) {
     free(e->to);
   if (e->from)
     free(e->from);
+  if (e->from_address)
+    free(e->from_address);
+  if (e->from_name)
+    free(e->from_name);
   if (e->replyto)
     free(e->replyto);
   if (e->subject)
@@ -271,6 +283,12 @@ int eMail(game *aGame, envelope *e, char *fileName) {
   
   assert(e->to);
   assert(e->subject);
+
+  if (e->from_address && e->from_name) { 
+    fprintf(mailFile, "From: %s <%s>\n", e->from_name, e->from_address);
+  } else if (e->from) {
+    fprintf(mailFile, "From: %s\n", e->from);
+  }
   
   fprintf(mailFile, "To: %s\n", e->to);
   fprintf(mailFile, "Subject: %s\n", e->subject);
