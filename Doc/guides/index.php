@@ -19,8 +19,11 @@
 		<h2>Guides</h2>
 		
 			<ul>
+				<li><a href="beginner.php">Beginner's Guide to Galaxy</a> by Greg Lindahl</li>
 				<li><a href="military.php">Galaxy Military Strategy Guide</a> by Jacco van Weert</li>
 				<li><a href="etiquette.php">Galaxy Etiquette (Gettiquette)</a> by Chris Orr</li>
+				<li><a href="http://www.indyramp.com/galaxy/strategy.html">Ship Design in Galaxy and Blind Galaxy</a> by Howard Bampton</li>
+				<li><a href="http://web.archive.org/web/20011005182146/http://www.jacobean.demon.co.uk/galaxy/tips.html">Tim's Galaxy Tips and Tricks</a> by Tim Hughes</li>
 			</ul>
 		
 		<hr />

@@ -77,8 +77,6 @@ h2 {
   font-style: italic
 }
 
-}
-
 h3 {
   font-size: 120%
 }
@@ -111,6 +109,11 @@ img {
 
 .left {
 	text-align: left
+}
+
+.note {
+	font-style: italic;
+	font-size: 80%
 }
 
 .nomargin {
