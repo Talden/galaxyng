@@ -10,44 +10,43 @@ ATitle(`GalaxyNG User Manual')
 
 ASection(`Rules for Galaxy Next Generation release-5-1a (Oct 2001)')
 
-<P>
-Written by Frans Slothouber and edited by Chris Shaffer.  Based on the rules for Galaxy V3.52: Copyright 1991-1992 by Russell Wallace, Copyright 1993 the Galaxy PBeM Development Group.
-</P>
+<P>Written by Frans Slothouber (gumpu) and edited by Chris Shaffer (christhecat).  Based on the rules for Galaxy V3.52: Copyright 1991-1992 by Russell Wallace, Copyright 1993 the Galaxy PBeM Development Group.</P>
 
 www_section(`toc', `Table of Contents')
 
 m4_include(toc.html)
 
-www_section(`intr', `Introduction')
+www_section(`intro', `Introduction')
 
-<P>
-Galaxy is a game of interstellar war for several players.  You are the leader of your race.  You start off by sharing an area of the galaxy with a number of other races and your objective is to become its sole occupant.  You should ALink(`#ordc', `provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you have not done this you will simply be known as Nation_5 or whatever.
-</P>
+<P>GalaxyNG is a game of interstellar war for several players.  You are the leader of your race.  You start off by sharing an area of the galaxy with a number of other races and your objective is to become its sole occupant.</P>
 
+www_subSection(`tgal', `The Galaxy')
 
-www_section(`tgal', `The Galaxy')
-
-<P>
-The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets (all other astronomical objects are irrelevant to the game and so are ignored).  Each race starts off occupying one (or more, depending on the taste of the GM) planets.  All the other planets, if any, are uninhabited.  It is possible to colonize uninhabited planets and conquer planets inhabited by other races.
-</P>
-
+<P>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets (all other astronomical objects are irrelevant to the game and so are ignored).  Each race starts off occupying one (or more, depending on the taste of the GM) planets.  All the other planets, if any, are uninhabited.  It is possible to colonize uninhabited planets and conquer planets inhabited by other races.</P>
 
 www_subSection(`units', `Units')
 
-<P>
-Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods, raw materials etc.  represents about 10 million tons.  Each game turn represents about four years of time.  
-</P>
-
+<P>Game units relate to real units as follows:  Distances are measured in light-years.  Each game unit of population represents 10 million people and each game unit of goods, raw materials etc.  represents about 10 million tons.  Each game turn represents about four years of time.</P>
 
 www_subSection(`names', `Names')
 
-<P>
-As well as the various races, other things in the game which have names are ship types and planets.  Names for all three things may be no more than 20 characters (a character is a letter, digit, or underscore).  Ship types are given names by their ALink(`#ordd', `designer').  All planets only have numbers for names at the start of the game.  When you colonize a planet you can ALink(`#ordn', `change its name').  You may want to change your home planet name(s) to something more exciting e.g.  from "112" to "Zzyax_Prime".
-</P>
-
-
+<P>You should ALink(`#ordc', `provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you have not done this you will simply be known as Race_5 or whatever.  As well as the various races, other things in the game which have names are ship types and planets.  Names for all three things may be no more than 20 characters (a character is a letter, digit, or underscore).  Ship types are given names by their ALink(`#ordd', `designer').  All planets only have numbers for names at the start of the game.  When you colonize a planet you can ALink(`#ordn', `change its name').  You may want to change your home planet name(s) to something more exciting e.g.  from "112" to "Zzyax_Prime".</P>
 
 www_section(`planets', `Planets')
+
+<P>Planets have seven characteristics: owner, size, population, industry, resources, production and stockpiles.</P>
+
+www_subSection(`owner', `Owner')
+
+<p>Inhabited planets are owned by one race at a time (except in the special case of a ALink("#conque", 'standoff')).  Uninhabited planets are not owned by any race.</P>
+
+www_subSection(`size', `Size')
+
+<P>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), development planets (size 200.00 to 1000.00) and stuff planets (size 0.01 to 200.00).</P>
+
+www_subSection(`pop', `Population')
+
+<P>Each inhabited planet has a population, which can never be higher than the planet's size but may be lower.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into ALink("#col", 'colonists').</P>
 
 www_subSection(`ind', `Industry')
 
@@ -106,19 +105,10 @@ materials and ship them to the other planets.  </P>
 
 
 
-www_subSection(`pop', `Population')
-
-<P> Each planet has a Size attribute which can be anything from 0 to
-1,000.  This is related not only to the planet's physical size but
-also to how much of it is mountains, desert or oceans, how suitable
-the climate is for agriculture etc.  The planet's population can never
-be higher than its Size but may be lower.  Your starting planet's size
-and population are both 1,000.  A planet's population increases by 8%
-every turn.  Population increases beyond the planet's size are
-converted into colonists.  </P>
 
 
-www_subSection(`colo', `Colonists')
+
+www_subSection(`col', `Colonists')
 
 <P> Population increases beyond a planet's size are converted into
 colonists.  These are people stored in containers in deep freeze.
