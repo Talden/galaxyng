@@ -15,23 +15,21 @@
 
 #
 # Influence mapping:
-# if you want to have a .png map generated when a turn is processed
-# then you'll need to have libgd (http://www.boutell.com/gd/)
-# installed with png, jpeg, and freetype support enabled.
+# if you want to have a .png map generated when the -influence 
+# command is used, then you'll need to have libgd 
+# (http://www.boutell.com/gd/) installed with png, jpeg, and 
+# freetype support enabled.
 #
 # you will also need to uncomment the following lines
 #
-#CFLAGS = -Wall -pedantic -g -DDRAW_INFLUENCE_MAP -I.
-#LIBS = -lgd -lpng -lz -ljpeg -lfreetype -lm
-#ADDTL_SRCS = influence.c
-#ADDTL_OBJS = influence.o
-#
-# and comment these lines
-#
-CFLAGS = -Wall -pedantic -g 
-#CFLAGS = -Wall -pedantic -g -DFS_NEW_FORECAST
-LIBS = -lm
-ADDTL_SRCS=
+ADDTL_CFLAGS = -DDRAW_INFLUENCE_MAP -I.
+ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype
+ADDTL_SRCS = influence.c
+ADDTL_OBJS = influence.o
+
+CFLAGS = -Wall -pedantic -g $(ADDTL_CFLAGS)
+#CFLAGS = -Wall -pedantic -g -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
+LIBS = -lm $(ADDTL_LIBS)
 
 
 CC=gcc
