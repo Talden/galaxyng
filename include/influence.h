@@ -15,7 +15,7 @@ enum map_type {
 	EffIndMap=0,
 	ShipAttMap,
 	ShipDefMap,
-	NoInfluenceMap,
+	LocationMap,
 	NbrMaps
 };
 

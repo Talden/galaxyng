@@ -53,8 +53,8 @@ CMD_influence(int argc, char* argv[])
 	else if (strcasecmp(type, "defend") == 0) {
 		map_type = ShipDefMap;
 	}
-	else if (strcasecmp(type, "plain") == 0) {
-		map_type = NoInfluenceMap;
+	else if (strcasecmp(type, "location") == 0) {
+		map_type = LocationMap;
 	}
 	else {
 		usage();
@@ -191,7 +191,7 @@ draw_maps(game* aGame, enum map_type map_type)
 			strcpy(map_title, "Ship Defense Potential");
 			break;
 #endif
-		case NoInfluenceMap:
+		case LocationMap:
 			sprintf(buf, "%s/data/%s/%03d_location.png",
 					galaxynghome, aGame->name, aGame->turn);
 			strcpy(map_title, "Locations Only");
@@ -292,7 +292,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	}      
 	
 	
-	if (map_type != NoInfluenceMap) {
+	if (map_type != LocationMap) {
 		/* now add up the influence for each player */
 		for (p = aGame->planets; p; p = p->next) {
 			player* owner;
