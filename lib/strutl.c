@@ -133,23 +133,26 @@ getstr( char *s )
  * SOURCE
  */
 
-strlist *
-makestrlist( char *ns )
-{
-    strlist *s;
-    strlist *cur;
+strlist* makestrlist(char* ns) {
+    strlist* s;
+    strlist* cur;
 
-    char *ptr;
-    char *tmp;
-
-    tmp = strdup( ns );
-
+	char* tmp;
+    char* sPtr;
+	char* ePtr;
+	char* sep;
+	
     cur = NULL;
 
-    ptr = strtok( tmp, "\r\n" );
-    if ( ptr == NULL )
-        return NULL;
+	sPtr = tmp = strdup(ns);
+    sep = ePtr = strpbrk(sPtr, "\n\r");
 
+	if (ePtr == NULL) {
+		cur = (strlist*)allocStruct(strlist);
+		cur->str = tmp;
+		return cur;
+	}
+	
     do {
         if ( cur ) {
             cur->next = ( strlist * ) allocStruct( strlist );
@@ -157,9 +160,22 @@ makestrlist( char *ns )
         } else
             s = cur = ( strlist * ) allocStruct( strlist );
 
-        cur->str = strdup( ptr );
-    } while ( ( ptr = strtok( NULL, "\n\r" ) ) != NULL );
+		*ePtr = '\0';
 
+        cur->str = strdup( sPtr );
+
+		if (*sep == '\n' && *(ePtr+1) == '\r')
+			sPtr = ePtr + 2;
+		else
+			sPtr = ePtr + 1;
+    } while ((sep = ePtr = strpbrk(sPtr, "\n\r")) != NULL);
+
+	if (*sPtr != '\0') {
+		cur->next = ( strlist * ) allocStruct( strlist );
+		cur = cur->next;
+		cur->str = strdup(sPtr);
+	}
+		
     free( tmp );
 
     return s;
