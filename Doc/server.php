@@ -25,11 +25,11 @@
 					<li><a href="#files">Files and Directories</a></li>
 					<li><a href="#config">Configuration</a></li>
 					<li><a href="#use">Use</a></li>
-					<li><a href="#register">Game Registration</a></li>
+					<li><a href="#util">Utilities</a></li>
+					<li><a href="#are">Automatic Registration Engine</a></li>
 					<li><a href="#create">Creating a New Game</a></li>
 					<li><a href="#mail">Mailing the Turn 0 Reports</a></li>
  					<li><a href="#process">Processing Orders</a></li>
-					<li><a href="#auto">Auto Checking Orders</a></li>
 					<li><a href="#run">Running Turns</a></li>
 					<li><a href="#command">Command Summary</a></li>
 					<li><a href="#ex">Example Files</a></li>
@@ -44,8 +44,8 @@
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
 procmail; to automatically process in comming orders</pre>
-				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory, and even runs on a 2 MB Amiga. Depending on the mumber of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
-				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time, and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
+				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Depending on the mumber of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
+				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
 
 			<hr />
  			
@@ -86,11 +86,11 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>Games/run_game</tt></td>
-						<td>A shell script to run a game.  It is used in combination with cron, and allows you to automatically run turns at specified times.</td>
+						<td>A shell script to run a game.  It is used in combination with cron and allows you to automatically run turns at specified times.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/procmailrc</tt></td>
-						<td>An example .procmailrc file. This contains the commands to automatically process incoming orders and other email received by the server. Edit it with your own local settings and copy it to <tt>$HOME/.procmail</tt>.</td>
+						<td>An example .procmailrc file. This contains the commands to automatically process game registrations, incoming orders and other email received by the server.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/.galaxyngrc</tt></td>
@@ -121,7 +121,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>Games/log/</tt></td>
-						<td>Contains log files that contain information on processed orders, and game runs.</td>
+						<td>Contains log files that contain information on processed orders and game runs.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/statistics/</tt></td>
@@ -179,11 +179,11 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>StartTime</tt></td>
-						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the following option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have the same effect.)</td>
+						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the StartTime option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have the same effect.)</td>
 					</tr>
 				</table>
 
-			<hr />
+			<hr />												
 
 			<h2 id="use">Use</h2>
 				<p>Running a galaxy game consists of steps:</p>
@@ -199,8 +199,32 @@ LIBS   = -lm</pre>
 
 			<hr />
 
-			<h2 id="register">Game Registration</h2>
-				<p>Game registration is handled by the Automatic Registration Engine (ARE), which is invoked by procmail.  See the files in /ARE for more details.  You will need to manually configure the ARE.</p>
+			<h2 id="util">Utilities</h2>
+				<p>Registering players, checking orders and running turns are, of course, very cumbersome processes that are best automated with <tt><a href="http://www.procmail.org/">procmail</a></tt>, <tt><a href="http://www.wlug.org.nz/formail(1)">formail</a></tt> and <tt><a href="http://www.wlug.org.nz/cron(8)">cron</a></tt>.</p>
+				<p>If you have never used <tt>procmail</tt> before, read the <a href="http://www.ii.com/internet/robots/procmail/qs/">Procmail Quick Start</a> and review the example <tt>.procmailrc</tt> in <tt>$HOME/Games/procmailrc</tt> carefully.  If procmail is misconfigured, <em>you could lose or bounce your email</em>.  <tt>Procmail</tt> can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.  The Procmail Quick Start also discusses <a href="http://www.ii.com/internet/robots/procmail/qs/#maildirDetails">maildir delivery</a> and <a href="http://www.ii.com/internet/robots/procmail/qs/#qmail">qmail</a>.</p>
+				<p>Each entry in <tt>.procmailrc</tt> defines a recipe that tells what has to be done to a message and under what condition. The recipe for order messages is:</p>
+<pre>:0 rw :orders
+* ^Subject:.*order
+|/usr/bin/formail -rkbt -s $HOME/Games/galaxyng -check</pre>
+				<p>Translated it means: if the subject of the message contains the string "order", pipe the message to <tt>formail</tt>. It is case insensitive, so order, NewOrder and ORDERS will all match the condistion. A lock file with the name orders.lock is used to prevent the simultaneous execution of the same recipe if two or more message that arrive at the same time.  There are similar entries for the commands to request a copy of a turn report, relay messages to other players and register for games. You will find them in the example procmailrc file at <tt>$HOME/Games/procmailrc</tt>.</p>
+				<p><tt>formail</tt> reformats email messages. When used with the <tt>-rkbt</tt> flags, all mail header lines are thrown away, a <tt>To:</tt> line is generated with the address of person that sent the message, a <tt>Subject:</tt> line is generated, with the original subject prepended with <tt>Re:</tt>, and the body of the message is retained.  This allows the GalaxyNG server to mail forecasts, turn reports and other responses to the person who sent the message.</p>
+
+			<hr />
+
+			<h2 id="are">Automatic Registration Engine</h2>
+				<p>The Automatic Registration Engine (ARE) is invoked by procmail to respond to emails from players signing up for games.  For example, to allow up to 25 players to sign up for a game named Jangi, use this procmail recipe:</p>
+<pre>:0 rw :Jangi.lock
+* ^Subject.*Join Jangi
+|/usr/bin/formail -rkbt -s $GALAXYNGHOME/are Jangi 25 | /usr/sbin/sendmail -t</pre>
+				<p>Up to 25 people could register for Jangi by sending an email to the server with the subject "Join Jangi."</p>
+				<p>You can also let players specify the number and sizes of their homeworlds, with these parameters: <tt>&lt;total planet size&gt; &lt;maximum planet size&gt; &lt;maximum number of planets&gt;</tt>. For example, to allow 10 players to sign up for a game named Welland with 2,500 production on up to 5 planets, with no planet larger than 1,000 production, use this procmail recipe:</p>
+<pre>:0 rw :Welland.lock
+* ^Subject.*Join Welland
+|/usr/bin/formail -rkbt -s $GALAXYNGHOME/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t</pre>
+				<p>Players can request planet sizes by adding this line to their registration email:</p>
+<pre>#PLANETS lt;size of planet 1&gt; &lt;size of planet 2&gt; ... &lt;size of planet n&gt;
+e.g. #PLANETS 1000 500 500 250 250</pre>
+				<p>The server will send error messages to players who submit requests for planets that do not match the criteria specified in the <tt>.procmail</tt> recipe.</p>
 
 			<hr />
 
@@ -233,44 +257,6 @@ LIBS   = -lm</pre>
 <pre>./galaxyng -check &lt; &lt;file with orders&gt;</pre>
 				<p>The file with orders has to be a properly formatted email message, with a To: field and a Subject: field with the word "orders" in it.</p>
 				<p>The orders are stored in the directory <tt>orders/&lt;game name&gt;</tt> and the program sends a forecast to the player. A log file is kept of all orders that are checked. It can be found at <tt>$HOME/Games/log/orders_processed.txt</tt>.</p>
-
-			<hr />
-
-			<h2 id="auto">Auto Checking Orders</h2>
-				<p>Checking orders by hand is of course a very cumbersome process that is best automated with <tt>procmail</tt> and <tt>formail</tt>. They are programs that can reformat and process incoming emails.</p>
-				<p>If you have never used <tt>procmail</tt> before, read the man pages, and then use the example procmailrc installed in <tt>$HOME/Games/procmailrc</tt>.</p>
-				<p>Procmail can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.</p>
-				<p>Each entry in a <tt>.procmailrc</tt> defines a recipe that tells what has to be done to a message and under what condition. The recipe for order messages looks as follows.</p>
-<pre>:0 rw :turno
-* ^Subject:.*order
-|/usr/bin/formail -rkbt -s $HOME/Games/galaxyng -check</pre>
-				<p>Translated it means: if the subject of the message contains the word "order", pipe the message to <tt>formail</tt>. The condition is case insensitive, so Order, or ORDER also works. A lock file with the name turno.lock is used to prevent the simultaneous execution of the same recipe if two or more message that arrive at the same time.</p>
-				<p><tt>formail</tt> reformats the message. All mail header lines are thrown away. A <tt>To:</tt> line is generated with the address of person that sent the message. A <tt>Subject:</tt> line is generated, with the original subject prepended with <tt>Re:</tt>. This together with the body of the message is fed to the GalaxyNG server to run the check command.</p>
-				<p>The server will analyze the orders in the body, and send a reply to the person that sent the message.</p>
-				<p>There are similar entries for the commands to request a copy of a turn report and relay messages to other players. You will find them in <tt>Games/procmailrc</tt>.</p>
-				<p>If you want to keep a copy of the orders players send in, you can use the following entry:</p>
-<pre># Someone sent in orders, check them
-:0
-* ^Subject:.*order
-{
-	:0 c
-	$HOME/mail/orders
-	:0 rw:order.lock
-	|/usr/bin/formail -rkbt -s /home/gng/Games/galaxyng -check
-}
-
-</pre>
-				<p>Do not use:</p>
-<pre># Someone sent-in orders, check them
-:0 rw :order.lock
-* ^Subject:.*order
-{
-	:0 c
-	$HOME/mail/orders
-	:0
-	|/usr/bin/formail -rkbt -s /home/gng/Games/galaxyng -check
-}</pre>
-				<p>In this case procmail ignores the lock file, and it can happen that when two players send in orders shortly after each other the orders of the first player are overwritten.</p>
 
 			<hr />
 
@@ -309,6 +295,10 @@ LIBS   = -lm</pre>
 					<tr>
 						<td><tt>galaxyng -template &lt;game name&gt; &lt;number of players&gt;</tt></td>
 						<td>Create a template specification file.</td>
+					</tr>
+					<tr>
+						<td><tt>are &lt;game name&gt; &lt;player limit&gt; &lt;total planet size&gt; &lt;maximum planet size&gt; &lt;max. number of planets&gt; &lt; &lt;email&gt;</tt></td>
+						<td>Configure the automatic registration engine.</td>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -create &lt;game specification file&gt;</tt></td>
