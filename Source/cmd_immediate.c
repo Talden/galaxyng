@@ -26,6 +26,7 @@ CMD_immediate( int argc, char **argv) {
   long        elapsedTime;	/* how much time has elapsed since
 				 * last orders */
   long        dueTime;		/* when is this tick due to run */
+  time_t      now;
   long        tickTime;		/* how long is the interval between ticks */
   int         msgCount = 0;	/* count of msgs sent to players */
   char       *gmBody;		/* name of file for GM messages */
@@ -81,7 +82,13 @@ CMD_immediate( int argc, char **argv) {
   nextTurn = createString("%s/data/%s/next_turn", galaxynghome, argv[2]);
   stat(nextTurn, &buf);
   /* this is how much time has elapsed since then, in seconds */
-  elapsedTime = ((time(NULL) - buf.st_mtime) / 15) *15;
+  now = time(NULL);
+
+  /* fix for bug 1051572 and 1051560
+   * the problem was that it takes a few seconds for the next_turn
+   * file to get updated so the time would slowly creep forward
+   */
+  elapsedTime = ((now - now % 60) - (buf.st_mtime - buf.st_mtime % 60));
   free(nextTurn);
   
   /* time, in seconds, between game ticks */
@@ -272,6 +279,7 @@ CMD_immediate( int argc, char **argv) {
     freegame( aGame );
     return EXIT_SUCCESS;
   }
+
   
   freegame( aGame );
   
