@@ -1907,6 +1907,14 @@ runTurn( game *aGame, char *ordersFileName )
     char *password;
     FILE *ordersFile;
 
+	char* rm_notify;
+
+	rm_notify = createString("/bin/rm -f %s/orders/%s/*.notify",
+							 galaxynghome, aGame->name);
+	/*printf("executing \"%s\"\n", rm_notify);*/
+	ssystem(rm_notify);
+	free(rm_notify);
+			
     plog( LPART, "Reading orders from file %s\n", ordersFileName );
 
     ordersFile = Fopen( ordersFileName, "r" );

@@ -453,12 +453,14 @@ CMD_run( int argc, char **argv, int kind )
             player *aPlayer;
 
             loadConfig( aGame );
+
             if ( checkTime( aGame ) || ( kind == CMD_RUN_DUMMY ) ) {
                 checkIntegrity( aGame );
 
                 if ( runTurn( aGame, argv[3] ) ) {
                     highScoreList( aGame );
                     result = 0;
+					
                     for ( aPlayer = aGame->players; aPlayer;
                           aPlayer = aPlayer->next ) {
                         if ( aPlayer->flags & F_TXTREPORT ) {
@@ -573,80 +575,143 @@ CMD_run( int argc, char **argv, int kind )
 int
 CMD_immediate( int argc, char **argv)
 {
-  struct stat buf;
-  int         result;
-  long        elapsed_time;
+	struct stat buf;
+	int         result;
+	long        elapsed_time;
+	long        due_time;
+	long        tick_time;
+	int         msg_count = 0;
+	char* gmbody;
+	FILE* gmnote;
+	
+	result = EXIT_FAILURE;
+	if ( argc == 3 ) {
+		game *aGame;
+		int turn;
+		char* logName;
+		char* next_turn;
+		logName = createString( "%s/log/%s.imm", galaxynghome, argv[2] );
+		openLog( logName, "w" );
+		free( logName );
+		
+		plogtime( LPART );
+		plog( LPART, "Checking to see if game can be run now.\n");
+		
+		aGame = NULL;
+		turn = LG_CURRENT_TURN;
+		/* less than GM determined time, see if all orders are in */
+		if ( ( aGame = loadgame( argv[2], turn ) ) ) {
+			player* aPlayer;
+			char* ordersfile;
+			int   failed = 0;
+      
+			loadConfig( aGame );
+      
+			next_turn =
+				createString("%s/data/%s/next_turn", galaxynghome, argv[2]);
+			stat(next_turn, &buf);
+			elapsed_time = time(NULL) - buf.st_mtime;
+			free(next_turn);
 
-  result = EXIT_FAILURE;
-  if ( argc == 3 ) {
-    game *aGame;
-    int turn;
-    char* logName;
-    char* next_turn;
-    logName = createString( "%s/log/%s", galaxynghome, argv[2] );
-    openLog( logName, "w" );
-    free( logName );
-    
-    plogtime( LPART );
-    plog( LPART, "Checking to see if Game \"%s\" can be run now.\n",
-	  argv[2] );
-    
-    aGame = NULL;
-    turn = LG_CURRENT_TURN;
-    /* less than GM determined time, see if all orders are in */
-    if ( ( aGame = loadgame( argv[2], turn ) ) ) {
-      player* aPlayer;
-      char* ordersfile;
-      int   failed = 0;
-      
-      loadConfig( aGame );
-      
-      for ( aPlayer = aGame->players; aPlayer;
-	    aPlayer = aPlayer->next ) {
-	if (aPlayer->flags & F_DEAD)
-	  continue;
-	ordersfile = createString("%s/orders/%s/%s_final.%d",
-				  galaxynghome, argv[2],
-				  aPlayer->name, turn);
-	failed |= access(ordersfile, R_OK);
-	free(ordersfile);
-	if (failed) {
-	  plog( LPART, "Not all orders in, skipping tick.\n");
-	  break;
+			tick_time = 3600 * atol(aGame->serverOptions.tick_interval);
+			due_time = 3600 * (atol(aGame->serverOptions.tick_interval) -
+							   atol(aGame->serverOptions.due));
+			
+			gmbody = createString("%s/orders_due_%s", tempdir, aGame->name);
+			gmnote = GOS_fopen(gmbody, "w");
+			
+			for ( aPlayer = aGame->players; aPlayer;
+				  aPlayer = aPlayer->next ) {
+				int no_orders;
+				if (aPlayer->flags & F_DEAD)
+					continue;
+				ordersfile = createString("%s/orders/%s/%s_final.%d",
+										  galaxynghome, argv[2],
+										  aPlayer->name, aGame->turn+1);
+				no_orders = access(ordersfile, R_OK);
+				if (no_orders) {
+					char* notify_file;
+					failed = 1;
+					if (elapsed_time > due_time) {
+						notify_file = createString("%s/orders/%s/%s_%d.notify",
+												   galaxynghome, argv[2],
+												   aPlayer->name, aGame->turn+1);
+						if (access(notify_file, R_OK)) {
+							envelope* env;
+							FILE* fp = fopen(notify_file, "w");
+							char* missing_orders_file;
+							
+							fprintf(fp, "notified\n");
+							fclose(fp);
+
+							env = createEnvelope();
+							env->to = strdup(aPlayer->addr);
+							env->from =
+								strdup(aGame->serverOptions.SERVERemail);
+							env->subject =
+								createString("Turn %d of %s is about to run",
+											 aGame->turn+1, argv[2]);
+							if (msg_count == 0) {
+								FILE* mof_fp;
+								fprintf(gmnote, "The following players have "
+										"not yet submitted orders for turn %d "
+										"of %s\n",
+										aGame->turn+1, aGame->name);
+						
+								missing_orders_file =
+									createString("%s/data/%s/missing_"
+												 "orders.%d",
+												 galaxynghome, aGame->name,
+												 aGame->turn+1);
+								mof_fp = fopen(missing_orders_file, "w");
+								fprintf(mof_fp, "Your orders for turn %d for "
+										"%s have not been received.\nOrders "
+										"are due in %s hours. Please send "
+										"them now.\n",
+										aGame->turn+1, aGame->name,
+										aGame->serverOptions.due);
+								fclose(mof_fp);
+							}
+							fprintf(gmnote, "%s has not turned in orders.\n",
+									aPlayer->name);
+							result |= eMail(aGame, env, missing_orders_file);
+							destroyEnvelope(env);
+							msg_count++;
+						}
+					}
+				}
+			}
+		
+			if (failed) {
+				plog( LPART, "Not all orders in, skipping tick.\n");
+			}
+			
+			
+			if (!failed) {
+				plog(LPART, "All orders in, running game\n");
+			}      
+			closeLog(  );
+			freegame( aGame );
+			plog(LPART, "elapsed_time: %ld   interval: %ld  due: %ld\n",
+				 elapsed_time, tick_time, due_time);
+			
+			if (!failed || elapsed_time > tick_time) {
+				char command_line[1024];
+				sprintf(command_line, "%s/run_game %s >> %s/log/%s",
+						galaxynghome, argv[2], galaxynghome, argv[2]);
+				ssystem(command_line);
+			}
+		}
+		else {
+			plog( LBRIEF, "Game \"%s\" does not exist.\n", argv[2] );
+			fprintf( stderr, "Game \"%s\" does not exist.\n", argv[2] );
+		}
 	}
-      }
-      
-      next_turn =
-	createString("%s/data/%s/next_turn", galaxynghome, argv[2]);
-      stat(next_turn, &buf);
-      elapsed_time = time(NULL) - buf.st_mtime;
-      
-      if (!failed)
-	plog(LPART, "All orders in, running game\n");
-      
-      closeLog(  );
-      freegame( aGame );
-      plog(LPART, "elapsed_time: %ld   interval: %ld\n",
-	   elapsed_time, 3600 * atol(aGame->serverOptions.tick_interval));
-
-      if (!failed ||
-	  elapsed_time < 3600 * atol(aGame->serverOptions.tick_interval)) {
-	char command_line[1024];
-	sprintf(command_line, "%s/run_game %s >> %s/log/%s",
-		galaxynghome, argv[2], galaxynghome, argv[2]);
-	ssystem(command_line);
-      }
-    }
-    else {
-      plog( LBRIEF, "Game \"%s\" does not exist.\n", argv[2] );
-      fprintf( stderr, "Game \"%s\" does not exist.\n", argv[2] );
-    }
-  }
-  else {
-    usage(  );
-  }
-  closeLog(  );
-  return result;
+	else {
+		usage(  );
+	}
+	closeLog(  );
+	return result;
 }
 
 /*********/
@@ -2177,92 +2242,91 @@ CMD_battletest( int argc, char **argv )
 int
 CMD_ordersdue(int argc, char** argv)
 {
-  FILE* gmnote;
-  FILE* mof_fp;
-
-  char* gmbody;
+	FILE* gmnote;
+	FILE* mof_fp;
 	
-  game* aGame;
-  player* aplayer;
-  envelope* env;
-  char* missing_orders_file = NULL;
-  char* orders_dir;
-  char* orders_file;
-  int result;
-  int msg_count = 0;
-  
-  result = EXIT_FAILURE;
-  
-  if (argc < 3) {
-    usage();
-  }
-  else if ((aGame = loadgame(argv[2], LG_CURRENT_TURN)) != NULL) {
-    loadConfig( aGame );
-    gmbody = createString("%s/orders_due_%s", tempdir, aGame->name);
-    gmnote = GOS_fopen(gmbody, "w");
-    
-    orders_dir = createString("%s/orders/%s/", galaxynghome, aGame->name);
-    for (aplayer = aGame->players; aplayer; aplayer = aplayer->next) {
-      if (aplayer->flags & F_DEAD)
-	continue;
-      
-      orders_file = createString("%s/%s.%d", orders_dir,
-				 aplayer->name, aGame->turn+1);
-      if (access(orders_file, R_OK) == -1) {
-	free(orders_file);
-	orders_file = createString("%s/%s_final.%d", orders_dir,
-				   aplayer->name, aGame->turn+1);
-	if (access(orders_file, R_OK) == -1) {
-	  env = createEnvelope();
-	  env->to = strdup(aplayer->addr);
-	  env->from = strdup(aGame->serverOptions.SERVERemail);
-	  env->subject = createString("Turn %d of %s is about to run",
-				      aGame->turn+1, argv[2]);
-	  if (msg_count == 0) {
-	    fprintf(gmnote, "The following players have not yet "
-		    "submitted orders for turn %d of %s\n",
-		    aGame->turn+1, aGame->name);
-	    
-	    missing_orders_file = createString("%s/data/%s/missing_orders.%d",
-					       galaxynghome, aGame->name,
-					       aGame->turn+1);
-	    mof_fp = fopen(missing_orders_file, "w");
-	    fprintf(mof_fp, "Your orders for turn %d for %s have not been "
-		    "received.\nOrders are due %s. Please send them now.\n",
-		    aGame->turn+1, aGame->name, aGame->serverOptions.due);
-	    fclose(mof_fp);
-	  }
-	  fprintf(gmnote, "%s has not turned in orders.\n", aplayer->name);
-	  result |= eMail(aGame, env, missing_orders_file);
-	  destroyEnvelope(env);
-	  msg_count++;
+	char* gmbody;
+	
+	game* aGame;
+	player* aplayer;
+	envelope* env;
+	char* missing_orders_file = NULL;
+	char* orders_dir;
+	char* orders_file;
+	int result;
+	int msg_count = 0;
+	
+	result = EXIT_FAILURE;
+	
+	if (argc < 3) {
+		usage();
 	}
-	free(orders_file);
-      }
-    }
-    free(orders_dir);
-  }
-  else {
-    fprintf(stderr, "Cannot open game %s\n", argv[2]);
-  }
-  
-  if (missing_orders_file) {
-    free(missing_orders_file);
-    ssystem("rm -f %s", missing_orders_file);
-  }
-  
-  if (msg_count) {
-    fclose(gmnote);
-    env = createEnvelope();
-    env->to = strdup(aGame->serverOptions.GMemail);
-    env->from = strdup(aGame->serverOptions.SERVERemail);
-    env->subject = createString("Turn %d of %s is about to run",
-				aGame->turn+1, aGame->name);
-    result |= eMail(aGame, env, gmbody);
-    
-    destroyEnvelope(env);
-  }
-  
-  
-  return result;
+	else if ((aGame = loadgame(argv[2], LG_CURRENT_TURN)) != NULL) {
+		loadConfig( aGame );
+		gmbody = createString("%s/orders_due_%s", tempdir, aGame->name);
+		gmnote = GOS_fopen(gmbody, "w");
+		
+		orders_dir = createString("%s/orders/%s/", galaxynghome, aGame->name);
+		for (aplayer = aGame->players; aplayer; aplayer = aplayer->next) {
+			if (aplayer->flags & F_DEAD)
+				continue;
+			
+			orders_file = createString("%s/%s.%d", orders_dir,
+									   aplayer->name, aGame->turn+1);
+			if (access(orders_file, R_OK) == -1) {
+				free(orders_file);
+				orders_file = createString("%s/%s_final.%d", orders_dir,
+										   aplayer->name, aGame->turn+1);
+				if (access(orders_file, R_OK) == -1) {
+					env = createEnvelope();
+					env->to = strdup(aplayer->addr);
+					env->from = strdup(aGame->serverOptions.SERVERemail);
+					env->subject = createString("Turn %d of %s is about to run",
+												aGame->turn+1, argv[2]);
+					if (msg_count == 0) {
+						fprintf(gmnote, "The following players have not yet "
+								"submitted orders for turn %d of %s\n",
+								aGame->turn+1, aGame->name);
+						
+						missing_orders_file = createString("%s/data/%s/missing_orders.%d",
+														   galaxynghome, aGame->name,
+														   aGame->turn+1);
+						mof_fp = fopen(missing_orders_file, "w");
+						fprintf(mof_fp, "Your orders for turn %d for %s have not been "
+								"received.\nOrders are due in %s hours. Please send them now.\n",
+								aGame->turn+1, aGame->name, aGame->serverOptions.due);
+						fclose(mof_fp);
+					}
+					fprintf(gmnote, "%s has not turned in orders.\n", aplayer->name);
+					result |= eMail(aGame, env, missing_orders_file);
+					destroyEnvelope(env);
+					msg_count++;
+				}
+				free(orders_file);
+			}
+		}
+		free(orders_dir);
+	}
+	else {
+		fprintf(stderr, "Cannot open game %s\n", argv[2]);
+	}
+	
+	if (missing_orders_file) {
+		free(missing_orders_file);
+		ssystem("rm -f %s", missing_orders_file);
+	}
+	
+	if (msg_count) {
+		fclose(gmnote);
+		env = createEnvelope();
+		env->to = strdup(aGame->serverOptions.GMemail);
+		env->from = strdup(aGame->serverOptions.SERVERemail);
+		env->subject = createString("Turn %d of %s is about to run",
+									aGame->turn+1, aGame->name);
+		result |= eMail(aGame, env, gmbody);
+		
+		destroyEnvelope(env);
+	}
+
+	return result;
 }
