@@ -1309,8 +1309,11 @@ relayMessage( game *aGame, char *raceName, player *to )
             for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin );
                   isRead;
                   isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin ) ) {
+				if (noCaseStrcmp("#end", lineBuffer) == 0)
+					break;
                 fputs( lineBuffer, message );
             }
+			fprintf(message, "#END\n");
             fclose( message );
             result = eMail( aGame, anEnvelope, messageName );
             destroyEnvelope( anEnvelope );
