@@ -1213,9 +1213,11 @@ CMD_relay( int argc, char **argv )
             resNumber =
                 areValidOrders( stdin, &aGame, &nationName,
                                 &password, theTurnNumber );
+
             if ( destination == NULL ) {
                 resNumber = RES_NODESTINATION;
             }
+
             if ( resNumber == RES_OK ) {
                 aPlayer = findElement( player, aGame->players, destination );
 
@@ -1292,8 +1294,14 @@ relayMessage( game *aGame, char *nationName, player *to )
             anEnvelope = createEnvelope(  );
 
             setHeader( anEnvelope, MAILHEADER_TO, "%s", to->addr );
-            setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                       "Galaxy HQ, message relay %s", nationName );
+			if (strstr(nationName, "@") != NULL) {
+				setHeader(anEnvelope, MAILHEADER_SUBJECT,
+						  "Galaxy HQ, message relay GM");
+			}
+			else {
+				setHeader( anEnvelope, MAILHEADER_SUBJECT,
+						   "Galaxy HQ, message relay %s", nationName );
+			}
             plog( LBRIEF, "Message relay, destination %s.\n", to->addr );
             fprintf( message, "#GALAXY %s %s %s\n",
                      aGame->name, to->name, to->pswd );
