@@ -1,7 +1,7 @@
 <!-- begin footer.php -->
 <!-- $Id$ -->
 <hr />
-<p><a href="index.php">GalaxyNG 6.3.1</a>
+<p><a href="index.php">GalaxyNG 6.4.0</a>
 <br /><a href="credits.php">Credits and License</a></p>
 <p><?php echo $title; ?>
 <br /><?php echo "Last modified " . date( "F d, Y", getlastmod() ); ?>
