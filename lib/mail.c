@@ -318,11 +318,11 @@ int eMail(game *aGame, envelope *e, char *fileName) {
     strcpy(encoded_name, fileName);
     if ((ptr = strrchr(encoded_name, '.')) != NULL)
 	*ptr = '_';
-    result = ssystem("%s %s %s",
+    result = ssystem("%s %s %s > /dev/null 2>&1",
 		     aGame->serverOptions.compress,
 		     zipped_name,
 		     relative_path);
-    result |= ssystem("%s < %s > %s", 
+    result |= ssystem("%s < %s > %s 2> /dev/null", 
 		      aGame->serverOptions.encode, 
 		      zipped_name, 
 		      encoded_name);
