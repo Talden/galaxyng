@@ -42,17 +42,17 @@
 				<p>The two basic items to host a game are a Linux box and an internet connection. GalaxyNG should compile and run right out of the box on Linux. This software is required:</p>
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
-procmail; to automatically process incoming orders</pre>
-				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Depending on the mumber of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
-				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
+procmail; to automatically process in comming orders</pre>
+				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Creating influence maps is the one operation that is memory intensive. Depending on the mumber of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server is large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
+				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs practically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without coming to a conclusion.</p>
 
 			<hr />
  			
 			<h2 id="compile">Compilation</h2>
 				<p>To extract the code, run:</p>
 <pre>tar -xvzf galaxy-#.tar.gz</pre>
-				<p>This creates the directory <tt>NG/</tt>.</p>		
-				<p>Most of the configuration is done after compilation and is handled by the program <tt>NG/install.sh</tt>.  Before compiling the GalaxyNG server you should review <tt>NG/Source/makefile</tt> to make sure it fit your computer's configuration.  The following variables can be configured:</p>
+				<p>This creates the directory <tt>NG/</tt>. 				
+				<p>Most of the configuration is done after compilation and is handled by the program <tt>NG/install.sh</tt>.  Before compiling the GalaxyNG server you should review <tt>NG/Source/makefile</tt> to make sure it fits your computer's configuration.  The following variables can be configured:</p>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
 LIBS   = -lm</pre>
@@ -108,7 +108,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>Games/orders/</tt></td>
-						<td>Players' orders are stored in a subdirectory for each game, with the name <tt>&lt;nation_name&gt;.&lt;turn_number&gt;</tt>.</td>
+						<td>Players' orders are stored in a subdirectory for each game, with the name <tt>&lt;race_name&gt;.&lt;turn_number&gt;</tt>.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/forecasts/</tt></td>
@@ -154,6 +154,7 @@ LIBS   = -lm</pre>
 			<hr />
 
 			<h2 id="config">Configuration</h2>
+
 				<p>The server is configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>, whcih overrides the global settings for that particular game. A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Doc/</tt> directory. You can use it to specify the following parameters:</p>
 				<table summary="List of configuration parameters and explanations.">
 					<tr>
@@ -163,6 +164,14 @@ LIBS   = -lm</pre>
 					<tr>
 						<td><tt>GMemail</tt></td>
 						<td>The GM email address.  If this is not present, the GM report will not be mailed.</td>
+					</tr>
+					<tr>
+						<td><tt>GMpassword</tt></td>
+						<td>The GM password - this password is <b>only</b> used for relaying messages to players. <b>DO NOT USE A VALUABLE PASSWORD</b> No attempt is made to secure it.</td>
+					</tr>
+					<tr>
+						<td><tt>SERVERemail</tt></td>
+						<td>The server email address.  If this is not present, the GM email will be used.</td>
 					</tr>
 					<tr>
 						<td><tt>sendmail</tt></td>
@@ -205,7 +214,7 @@ LIBS   = -lm</pre>
 <pre>:0 rw :orders
 * ^Subject:.*order
 |/usr/bin/formail -rkbt -s $HOME/Games/galaxyng -check</pre>
-				<p>Translated it means: if the subject of the message contains the string "order", pipe the message to <tt>formail</tt>. It is case insensitive, so order, NewOrder and ORDERS will all match the condistion. A lock file with the name orders.lock is used to prevent the simultaneous execution of the same recipe if two or more messages arrive at the same time.  There are similar entries for the commands to request a copy of a turn report, relay messages to other players and register for games. You will find them in the example procmailrc file at <tt>$HOME/Games/procmailrc</tt>.</p>
+				<p>Translated it means: if the subject of the message contains the string "order", pipe the message to <tt>formail</tt>. It is case insensitive, so order, NewOrder and ORDERS will all match the condition. A lock file with the name orders.lock is used to prevent the simultaneous execution of the same recipe if two or more messages arrive at the same time.  There are similar entries for the commands to request a copy of a turn report, relay messages to other players and register for games. You will find them in the example procmailrc file at <tt>$HOME/Games/procmailrc</tt>.</p>
 				<p><tt>formail</tt> reformats email messages. When used with the <tt>-rkbt</tt> flags, all mail header lines are thrown away, a <tt>To:</tt> line is generated with the address of person that sent the message, a <tt>Subject:</tt> line is generated, with the original subject prepended with <tt>Re:</tt>, and the body of the message is retained.  This allows the GalaxyNG server to mail forecasts, turn reports and other responses to the person who sent the message.</p>
 				<p><tt>cron</tt> runs programs on a schedule.  You can use cron to send <a href="#due">orders due</a> messages and <a href="#run">run turns</a>.</p>
 
