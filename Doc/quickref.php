@@ -9,6 +9,7 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Quick Reference</title>
+		<?php $title="GalaxyNG Quick Reference"; ?>
 	</head>
 
 	<body>

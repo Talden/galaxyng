@@ -9,6 +9,7 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Players' Manual</title>
+		<?php $title="GalaxyNG Players' Manual"; ?>
 	</head>
 
 	<body>

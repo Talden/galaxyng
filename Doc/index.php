@@ -9,6 +9,7 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG</title>
+		<?php $title="GalaxyNG"; ?>
 	</head>
 
 	<body>
@@ -21,7 +22,7 @@
 				<p>GalaxyNG games usually have between 10 and 50 players, run 1 to 5 turns per week and last between 2 and 24 months.  Players email orders to a GalaxyNG server and receive text or XML forecasts and turn reports from the server by email.  Most players use a <a href="http://galaxyview.sourceforge.net/tools.html">turn viewer</a> to display the map and create orders.  Players can design and build ships, colonize and develop planets, research technology and fight battles to conquer the galaxy.  Winners are listed in the <a href="http://www.badcheese.com/~steve/hof/hofweb/">Hall of Fame</a>.</p>
 				<p>New games are announced on the <a href="http://www.badcheese.com/cgi-bin/mailman/listinfo/galaxy">galaxy mailing list</a>.  They can also be found on GalaxyNG server web sites:</p>
 				<ul>
-					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a></li>
+					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a> (closing soon)</li>
 				 <li><a href="http://www.refs-home.net/galaxyng/index.php">REF's GalaxyNG Site</a></li>
 				</ul>
 
@@ -35,7 +36,12 @@
  					<li><a href="quickref.php">Quick Reference</a></li>
 					<li><a href="server.php">Server Manual</a>	</li>
 				</ul>
- 		
+
+			<hr />
+
+			<h2>Development</h2>
+				<p>GalaxyNG is a open source project <a href="http://sourceforge.net/projects/galaxyng/">hosted on SourceForge.net</a>.  Assistance, comments, suggestions and chocolate chip cookies are always <a href="http://sourceforge.net/projects/galaxyng/">welcome</a>.</p>
+
  		<?php include 'footer.php'; ?>
  	</body>
 </html>

@@ -7,6 +7,7 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Credits</title>
+		<?php $title="GalaxyNG Credits"; ?>
 	</head>
 
 	<body>
