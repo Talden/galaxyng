@@ -33,6 +33,7 @@ sendmail {/usr/sbin/sendmail -t }
 ; and output should go to standard output.
 ;
 
-; encode { /usr/bin/uuencode }
 encode { /usr/bin/mmencode }
+; encode { /usr/bin/mimencode }
+; encode { /usr/bin/uuencode }
 compress { /usr/bin/zip }

@@ -168,7 +168,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>encode</tt></td>
-						<td>The command that is used to attach compressed files to email, usually <tt>{ /usr/bin/mmencode }</tt> or <tt>{ /usr/bin/uuencode }</tt>.</td>
+						<td>The command that is used to attach compressed files to email, usually <tt>{ /usr/bin/mmencode }</tt> or or <tt>{ /usr/bin/mimencode }</tt> or <tt>{ /usr/bin/uuencode }</tt>.</td>
 					</tr>
 					<tr>
 						<td><tt>StartTime</tt></td>
