@@ -47,7 +47,7 @@
 					<li>Each player will have a number of growth planets within a certain radius of their homeworlds.</li>
 					<li>There will be a number of stuff planets scattered around the galaxy.</li>
 				</ul>
-				<p>Thus, a seven player game advertised with homeworlds 1,000, 500, 250; 10 growth planets 30LY radius; 25 stuff planets and minimum 40LY distance between homeworlds will have the following configuration:</p>
+				<p>Thus, a seven player game advertised with homeworlds 1,000, 500, 250; 10 growth planets 40LY radius; 25 stuff planets and minimum 40LY distance between homeworlds will have the following configuration:</p>
 				<ul>
 					<li>Each player will have 3 homeworlds with sizes 1,000, 500 and 250 that are at least 40 light years from the other players' homeworlds.</li>
 					<li>There will be 10 growth planets within a 30 light years of each player's homeworlds (total 70 growth planets clustered around homeworlds).</li>
