@@ -657,10 +657,19 @@ CMD_immediate( int argc, char **argv)
 				int no_orders;
 				if (aPlayer->flags & F_DEAD)
 					continue;
-				ordersfile = createString("%s/orders/%s/%s_final.%d",
+					ordersfile = createString("%s/orders/%s/%s_final.%d",
 										  galaxynghome, argv[2],
 										  aPlayer->name, aGame->turn+1);
+				
 				no_orders = access(ordersfile, R_OK);
+				if (no_orders) {
+					free(ordersfile);
+					ordersfile = createString("%s/orders/%s/%s.%d",
+										  galaxynghome, argv[2],
+										  aPlayer->name, aGame->turn+1);
+					no_orders = access(ordersfile, R_OK);	
+				}
+				
 				if (no_orders) {
 					char* notify_file;
 					failed = 1;
