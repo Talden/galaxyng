@@ -544,6 +544,7 @@ readDefaults(game *aGame, FILE * f)
 	aGame->serverOptions.encode = NULL;
 	aGame->serverOptions.compress = NULL;
 	aGame->serverOptions.GMemail = NULL;
+	aGame->serverOptions.GMpassword = NULL;
 	aGame->serverOptions.fontpath = NULL;
 	aGame->serverOptions.due = NULL;
 	
@@ -554,6 +555,9 @@ readDefaults(game *aGame, FILE * f)
 		if (key[0] != '\0') {
 			if (noCaseStrcmp("GMemail", key) == 0) {
 				aGame->serverOptions.GMemail = strdup(getstr(0));
+			}
+			if (noCaseStrcmp("GMpassword", key) == 0) {
+				aGame->serverOptions.GMpassword = strdup(getstr(0));
 			}
 			else if (noCaseStrcmp("compress", key) == 0) {
 				aGame->serverOptions.compress = strdup(getstr(0));
@@ -590,5 +594,7 @@ freeDefaults(game *aGame)
   free(aGame->serverOptions.encode);
   free(aGame->serverOptions.compress);
   free(aGame->serverOptions.GMemail);
+  free(aGame->serverOptions.GMpassword);
   free(aGame->serverOptions.fontpath);
+  free(aGame->serverOptions.due);
 }
