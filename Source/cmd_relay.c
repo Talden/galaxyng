@@ -187,7 +187,7 @@ int CMD_relay( int argc, char **argv ) {
 		}
 	}
 
-	dumpList("players to be emailed to", (list*)toPlayers, NULL);
+	dumpList("players to be emailed to", (list*)toPlayers);
 
 	for (listPlayer = toPlayers; listPlayer; listPlayer = listPlayer->next) {
 	  plog(LBRIEF, "relayMessage(aGame, %s, %s, %s)\n", raceName, fromPlayer->name, listPlayer->name);

@@ -175,6 +175,6 @@ void            setNameF(list *anElement, const char *name);
 int             numberOfElementsF(list *aList);
 int             ptonum(void *base, void *target);
 void           *numtop(void *base, int n);
-void            dumpList(char* label, list* aList, void callback(void *));
+void            dumpList(char* label, list* aList);
 
 #endif				/* GNG_LIST_H */
