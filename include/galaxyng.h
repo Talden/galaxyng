@@ -49,7 +49,8 @@ int CMD_battletest( int argc, char **argv );
 int CMD_influence( int argc, char **argv );
 #endif
 int checkTime( game *aGame );
-int relayMessage( game* aGame, char* nationName, player* from, emailList* to );
+int relayMessage(game *aGame, envelope *anEnvelope, char *nationName,
+		 player *from, emailList *to );
 int CMD_ordersdue(int argc, char** argv);
 int CMD_clean(int argc, char** argv);
 

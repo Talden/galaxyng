@@ -6,12 +6,14 @@
  ******
  */
 
-int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
-  char* messageName;
-  char* isRead;
-  FILE* message;
+int
+relayMessage(game *aGame, envelope *anEnvelope, char *raceName,
+	     player* from, emailList* to )
+{
+  char *messageName;
+  char *isRead;
+  FILE *message;
   
-  envelope *anEnvelope;
   int result;
   static int message_read = 0;
   static strlist* msg;
@@ -42,8 +44,6 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
   
   if ( to->addr ) {
     if ( ( message = fopen( messageName, "w" ) ) ) {
-      
-      anEnvelope = createEnvelope(  );
       
       setHeader( anEnvelope, MAILHEADER_TO, "%s", to->addr );
       setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);

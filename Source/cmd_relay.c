@@ -191,7 +191,7 @@ CMD_relay( int argc, char **argv )
   
   for (listPlayer = toPlayers; listPlayer; listPlayer = listPlayer->next) {
     
-    result = relayMessage(aGame, raceName, fromPlayer, listPlayer);
+    result = relayMessage(aGame, anEnvelope, raceName, fromPlayer, listPlayer);
     
     if (result == 0) {
       setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] %s message sent to %s", aGame->name, listPlayer->name);
