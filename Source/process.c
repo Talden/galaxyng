@@ -95,9 +95,6 @@ orderinfo phase3orders[] = {
 
 
 /* WIN32 */
-char *string_mail_subject = "subject:"; /* Dutch: onderwerp: */
-char *string_mail_to = "to:";   /* Dutch: aan: */
-char *string_mail_from = "from:";       /* Dutch: van: */
 
 /****f* Process/mistake
  * NAME
@@ -2460,35 +2457,6 @@ getDestination( FILE *orders )
     return destination;
 }
 
-
-/****f* Process/getReturnAddress
- * NAME
- *   getReturnAddress
- * FUNCTION
- *   Extract the return address from a players email.
- ******
- */
-
-char *
-getReturnAddress( FILE *orders )
-{
-    char *isRead;
-    char *c;
-
-    for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, orders );
-          isRead; isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, orders ) ) {
-        /* WIN32 */
-        if ( noCaseStrncmp( string_mail_to, lineBuffer, 3 ) == 0 )
-            break;
-    }
-    assert( isRead != NULL );
-    for ( c = lineBuffer; *c; c++ ) {
-        if ( *c == '\n' )
-            *c = '\0';
-    }
-
-    return strdup( lineBuffer + 3 );
-}
 
 
 
