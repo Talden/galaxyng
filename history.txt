@@ -1,6 +1,6 @@
 # $Id$
 
-Release 6-3-1: December 2003
+Release 6-4-0: December 2003
 o By Chris Shaffer (christhecat)
   + Rewrote all manuals, FAQs and help documents.  Major
   + changes to /NG/Doc/.
