@@ -6,4 +6,9 @@
 --space-after-for
 --space-after-parentheses
 --no-space-after-function-call-names
-
+-T batstat -T mapdimensions -T list -T strlist -T player 
+-T fleetname -T shiptype -T planet -T group -T alliance 
+-T participant -T shot -T bprotocol -T battle -T bombing 
+-T planet_claim -T option -T orderinfo -T fielddef -T game 
+-T envelope -T newplayer -T gamespecification 
+-T FILE
