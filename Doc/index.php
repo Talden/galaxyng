@@ -11,8 +11,6 @@
 
 	<body>
 		<h1>Galaxy Next Generation Manuals</h1>
-		<p>For release 5.1<br />
-		<a href="credits.php">Credits</a></p>
 
 		<ul>
  			<li><a href="manual.php">Player's Manual</a></li>
