@@ -274,7 +274,7 @@ int CMD_check( int argc, char **argv, int kind ) {
 		
 		setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
 		
-		if ( resNumber == RES_OK || resNumber == RES_NO_TURN_NBR) {
+		if ( resNumber == RES_OK) {
 			aPlayer = findElement( player, aGame->players, raceName );
 			aPlayer->orders = NULL;
 			
