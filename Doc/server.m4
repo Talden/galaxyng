@@ -151,7 +151,7 @@ status reports go to this address.</P>
     <TD>In this you can store information that applies to a 
         particular game.</TD>
 </TR>
-<TR><TD><VAR>&lt;game name&gt;.&lt;turn number&gt;</VAR><TT>.info</TT></TD>
+<TR><TD><VAR>&lt;game name&gt;.&lt;turn number&gt;</VAR><TT>.notice</TT></TD>
     <TD>In this you can store information that applies to a 
         particular turn of a game.</TD>
 </TR>
