@@ -9,7 +9,7 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Etiquette</title>
-		<?php $title="GalaxyNG Credits"; ?>
+		<?php $title="GalaxyNG Etiquette"; ?>
 	</head>
 
 	<body>

@@ -8,12 +8,12 @@
 
 	<head>
 		<link rel="stylesheet" href="main.css" />
-		<title>Galaxy Variants</title>
-		<?php $title="Galaxy Variants"; ?>
+		<title>GalaxyNG Variants</title>
+		<?php $title="GalaxyNG Variants"; ?>
 	</head>
 
 	<body>
-		<h1>Galaxy Variants</h1>
+		<h1><a href="/">GalaxyNG</a> Variants</h1>
 			<p>Updates or corrections?  Contact <a href="http://sourceforge.net/users/christhecat/">christhecat</a>.</p>
 		
 			<h2>Galaxy</h2>
