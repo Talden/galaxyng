@@ -20,7 +20,7 @@ echo
 
 if { test ! -d $GALAXY_HOME; } then {
   echo "Creating "$GALAXY_HOME;
-  mkdir $GALAXY_HOME;
+  mkdir -p $GALAXY_HOME;
 }
 fi
 for NAME in log orders notices data reports statistics forecasts ; do
@@ -121,7 +121,6 @@ cat Util/run_game.header >> $RUN_GAME
 echo "BASE="$GALAXY_HOME >> $RUN_GAME
 echo "WWWHOME="$WWW >> $RUN_GAME
 echo "GALAXYNGHOME="$GALAXY_HOME >> $RUN_GAME
-echo "GDFONTDIR="$GALAXY_HOME >> $RUN_GAME
 cat Util/run_game.tail >> $RUN_GAME
 chmod +x $RUN_GAME
 
@@ -250,8 +249,11 @@ if { test -e $NG; } then {
   echo "  copy it to "i $NG;
 }
 fi
-cp Source/galaxyng $NG
 strip $NG
-cp Source/cranberr.ttf $GALAXY_HOME
+cp Source/galaxyng $NG
+if [ -f Source/cranberr.ttf ]; then
+	cp Source/cranberr.ttf $GALAXY_HOME
+fi
+
 echo "Installation completed."
 
