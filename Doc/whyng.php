@@ -26,6 +26,8 @@
 				<li>The code contains core-dump-producing bugs, and is hard to maintain.</li>
 			</ol>
 			<p>Galaxy Next Generation tries to solve these problems.</p>
+			
+			<hr />
 
 			<h2>1.1 Code Rewrite</h2>
 				<p>About 70 percent of the orginal Galaxy code was rewritten. This solved a number of bugs that cause the code to core dump. The code is still a bit of a mess though. Someday someone with a lot of spare time should completely rewrite it in C++ :)</p>
