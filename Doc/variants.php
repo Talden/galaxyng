@@ -13,7 +13,9 @@
 	</head>
 
 	<body>
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a><br>Variants</h1>
+		<?php include 'menu.php'; ?>
+		
+		<h1>Variants <a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a></h1>
 			<p>Updates or corrections?  Contact <a href="http://sourceforge.net/users/christhecat/">christhecat</a>.</p>
 		
 			<h2>Galaxy</h2>

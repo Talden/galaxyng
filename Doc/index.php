@@ -7,12 +7,15 @@
 <!-- $Id$ -->
 
 	<head>
+		<meta name="description" content="Galaxy Next Generation, GalaxyNG, pbem, interstellar wargame, computer game, strategy wargame, galaxy pbem game">
+		<meta name="keywords" content="Galaxy Next Generation, GalaxyNG, pbem, interstellar wargame, computer game, strategy wargame, galaxy pbem game">
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG</title>
 		<?php $title="GalaxyNG"; ?>
 	</head>
 
 	<body>
+		<?php include 'menu.php'; ?>
 		<h1><img src="galaxyng.png" alt="GalaxyNG" /></h1>
 
 			<hr />

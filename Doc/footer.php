@@ -1,8 +1,9 @@
+
 <!-- begin footer.php -->
 <!-- $Id$ -->
 <hr />
-<p><a href="index.php">GalaxyNG 6.4</a>
-<br /><a href="credits.php">Credits and License</a></p>
+<p><a href="<?php include 'base_url.txt'; ?>">GalaxyNG 6.4</a>
+<br /><a href="<?php include 'base_url.txt'; ?>credits.php">Credits and License</a></p>
 <p><?php echo $title; ?>
 <br /><?php echo "Last modified " . date( "F d, Y", getlastmod() ); ?>
 <br /><?php echo "http://galaxyng.sourceforge.net$_SERVER[PHP_SELF]"; ?></p>

@@ -1,8 +1,8 @@
 body { 
   margin-top: 1em;
   margin-bottom: 1em;
-  margin-left: 2.5em;
-  margin-right: 2.5em;
+  margin-left: .5em;
+  margin-right: .5em;
   font-family: serif;
   color: #99CC80;
   background-color: #000000;
@@ -23,8 +23,8 @@ A:active {
 }
 
 p, form {
-  font-family:serif;
-  font-size:medium; 
+  font-family: serif;
+  font-size: medium; 
 }
 
 p, li {
@@ -43,8 +43,8 @@ ul {
 
 li {
   margin-bottom: 0.2em;
-  font-family:serif;
-  font-size:medium; 
+  font-family: serif;
+  font-size: medium; 
 }
 
 H1, H2, H3 {
@@ -104,25 +104,29 @@ ADDRESS {
 }
 
 h1 {
-  font-size:xx-large;
-  font-weight:bold;
-  text-align:right;
-  margin-right:36px;
+  font-size: xx-large;
+  font-weight: bold;
+  text-align: right;
+  margin-right: 36px;
   margin-top: 0.5em; 
   margin-bottom: 0.5em;
 }
 
 h2 {
-  font-size:x-large;
-  font-weight:bold;
+  font-size: x-large;
+  font-weight: bold;
 }
 
 h3 {
-  font-size:large;
-  font-style:italic;
+  font-size: large;
+  font-style: italic;
 }
 img {
 	border: 0;
 }
 
+p.menu {
+	margin-left: 0;
+	font-size: small;
+}
 	

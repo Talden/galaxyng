@@ -13,7 +13,9 @@
 	</head>
 
 	<body>
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a><br>Server Manual</h1>
+		<?php include 'menu.php'; ?>
+		
+		<h1>Server Manual <a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a></h1>
 
 			<hr />
 
