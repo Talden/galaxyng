@@ -4,7 +4,7 @@ void
 q_order( game *aGame, player *P, strlist **s )
 {
 
-    DBUG_ENTER("q_order" );
+    DBUG_ENTER( "q_order" );
 
     if ( findElement( player, aGame->players, getstr( 0 ) ) != P )
     {
@@ -14,4 +14,3 @@ q_order( game *aGame, player *P, strlist **s )
     P->flags |= F_DEAD;
     DBUG_VOID_RETURN;
 }
-

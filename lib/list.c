@@ -1,7 +1,4 @@
 #include "list.h"
-#include <stdlib.h>
-#include <string.h>
-#include <assert.h>
 
 /****h* GalaxyNG/List
  * NAME
@@ -279,7 +276,7 @@ dumpList(char* label, list* aList, void* callback(void*))
 }
 
 void*
-allocStructF(unsigned int n, long cookie)
+allocStructF(unsigned int n, unsigned long cookie)
 {
   list           *p;
   

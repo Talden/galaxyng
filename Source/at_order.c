@@ -34,7 +34,8 @@ at_order( game *aGame, player *p, strlist **s )
     if ( ns[0] ) {
         /* find named player */
         for ( plist = NULL; ns[0]; ns = getstr( 0 ) ) {
-            if ( ( p2 = findElement( player, aGame->players, ns ) ) ) {
+            if ( ( p2 = findElement( player, aGame->players, ns ) ) )
+            {
                 a = allocStruct( alliance );
 
                 a->who = p2;

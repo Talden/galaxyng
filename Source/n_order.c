@@ -6,7 +6,7 @@ n_order( game *aGame, player *P, strlist **s )
     planet *p;
     char *ns;
 
-    DBUG_ENTER("n_order");
+    DBUG_ENTER( "n_order" );
 
     ns = getstr( 0 );
     p = findElement( planet, aGame->planets, ns );
@@ -41,4 +41,3 @@ n_order( game *aGame, player *P, strlist **s )
 
     DBUG_VOID_RETURN;
 }
-

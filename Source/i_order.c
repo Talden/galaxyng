@@ -8,7 +8,7 @@ i_order( game *aGame, player *P, strlist **s )
     fleetname *inFleet;
     char *ns;
 
-    DBUG_ENTER("i_order");
+    DBUG_ENTER( "i_order" );
 
     ns = getstr( 0 );
 
@@ -108,4 +108,3 @@ i_order( game *aGame, player *P, strlist **s )
     }
     DBUG_VOID_RETURN;
 }
-

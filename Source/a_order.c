@@ -12,7 +12,7 @@ a_order( game *aGame, player *P, strlist **s )
     player *P2;                 /* player to find */
     alliance *a;                /* existing alliance */
 
-    DBUG_ENTER("a_order");
+    DBUG_ENTER( "a_order" );
 
     /* find the named player */
     P2 = findElement( player, aGame->players, getstr( 0 ) );
@@ -25,7 +25,7 @@ a_order( game *aGame, player *P, strlist **s )
     /* is the player already part of the alliance? */
     for ( a = P->allies; a; a = a->next ) {
         if ( a->who == P2 ) {
-	    DBUG_VOID_RETURN;
+            DBUG_VOID_RETURN;
         }
     }
 

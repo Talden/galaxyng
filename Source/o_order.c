@@ -7,7 +7,7 @@ o_order( game *aGame, player *P, strlist **s )
     int state;
     option *curOption;
 
-    DBUG_ENTER("o_order");
+    DBUG_ENTER( "o_order" );
 
     ns = getstr( 0 );
     state = TRUE;
@@ -33,4 +33,3 @@ o_order( game *aGame, player *P, strlist **s )
     DBUG_VOID_RETURN;
 
 }
-

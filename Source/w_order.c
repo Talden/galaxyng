@@ -12,7 +12,7 @@ w_order( game *aGame, player *P, strlist **s )
     player *P2;
     alliance *a;
 
-    DBUG_ENTER("w_order");
+    DBUG_ENTER( "w_order" );
 
     if ( aGame->turn < aGame->gameOptions.galactic_peace ) {
         mistake( P, ERROR, *s, "Galactic Peace enforced until turn %d.",
@@ -37,4 +37,3 @@ w_order( game *aGame, player *P, strlist **s )
 }
 
 /***** END w_order *****/
-

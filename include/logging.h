@@ -38,8 +38,8 @@ enum LogLevels {LNONE, LBRIEF, LPART, LFULL};
 
 void pdebug(enum DebugLevels level, char *format, ...);
 void plog(enum LogLevels level, char *format, ...);
-void plogtime(enum LogLevels level);
-int  openLog(char* filename, char* mode);
+void plogtime(enum LogLevels level, const char* tag);
+int  openLog(char* mode, char* format, ...);
 void closeLog(void);
 enum LogLevels setLogLevel(enum LogLevels level);
 enum DebugLevels setDebugLevel(enum DebugLevels level);

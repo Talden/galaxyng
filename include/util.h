@@ -49,7 +49,6 @@ double          groupy(game *aGame, group *g);
 void            freebattles(game *aGame);
 void            freemessages(void);
 void            freegame(game *aGame);
-double          effectiveIndustry(double pop, double ind);
 
 void            dumpGame(void);
 void            dumpPlanets(planet *aPlanet);
@@ -73,7 +72,7 @@ double          typeDefense(shiptype *t);
 double          groupDefense(group *g);
 double          groupAttack(group *g);
 
-void           *allocStructF(unsigned int n, long cookie);
+void           *allocStructF(unsigned int n, unsigned long cookie);
 
 planet         *findPlanet(game *aGame, char *name);
 
@@ -88,5 +87,6 @@ void            raceStatus(game *aGame);
 double          effectiveIndustry(double pop, double ind);
 double          addShipAtt(game* aGame, planet* p);
 char*           rightNow(void);
+int epsilon(double val1, double val2, double diff);
 
 #endif                          /* GNG_UTIL_H */

@@ -11,7 +11,7 @@ s_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     char *ns;
 
-    DBUG_ENTER("s_order" );
+    DBUG_ENTER( "s_order" );
 
     ns = getstr( 0 );
     plog( LFULL, "ns: %s\n", ns );
@@ -97,6 +97,5 @@ s_order( game *aGame, player *P, strlist **s )
 
     g->thefleet = 0;
     send( aGame, g, p );
-        DBUG_VOID_RETURN;
+    DBUG_VOID_RETURN;
 }
-

@@ -5,7 +5,7 @@ y_order( game *aGame, player *P, strlist **s )
 {
     char *ns;
 
-    DBUG_ENTER("y_order");
+    DBUG_ENTER( "y_order" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -18,4 +18,3 @@ y_order( game *aGame, player *P, strlist **s )
     P->pswdstate = 1;
     DBUG_VOID_RETURN;
 }
-

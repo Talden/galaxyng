@@ -11,8 +11,8 @@ v_order( game *aGame, player *P, strlist **s )
 {
     planet *p;
     planet_claim *pclaim;
-    /*303-452-3685*/
-    DBUG_ENTER("v_order");
+    /*303-452-3685 */
+    DBUG_ENTER( "v_order" );
 
     p = findPlanet( aGame, getstr( 0 ) );
     if ( !p ) {

@@ -18,7 +18,7 @@ h_order( game *aGame, player *P, strlist **s )
     fleetname *fl;              /* or fleet */
     char *ns;                   /* general pointer */
 
-    DBUG_ENTER("h_order");
+    DBUG_ENTER( "h_order" );
 
     ns = getstr( 0 );           /* get group number or fleet name */
     g = findgroup( P, ns );
@@ -76,5 +76,3 @@ h_order( game *aGame, player *P, strlist **s )
 
     DBUG_VOID_RETURN;
 }
-
-

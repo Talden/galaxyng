@@ -40,12 +40,26 @@
  * Will move to another file later on
  */
 
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <math.h>
+
 #include "strutl.h"
 #include "cookies.h"
 #include "logging.h"
+#include "avl.h"
 
-#define _GNU_SOURCE
-#include <stdio.h>
+#if 0
+/* it seems as if on a gentoo linux system that has both string.h and
+   strings.h there are prototypes in both that I need and including
+   them both doesn't work. For that reason, and until I get an
+   automake working for this program, I'm including string.h and
+   defining the prototypes for the other needed functions here. This
+   is not ideal, but I don't know any other way around it atm.
+*/
+
+char* strdup(const char*);
+#endif
 
 #define   NAMESIZE     21       /* Maximum length of a name */
 #define   MAXPOP       1000.0
@@ -733,7 +747,6 @@ extern char* string_mail_from;
 extern FILE    *turnFile;
 extern struct option options[];
 
-extern char    *vcreate;
 extern char    vcid[];
 extern char    *vprocess;
 extern char    *vphase;
@@ -743,7 +756,6 @@ extern char    *vsavegame;
 extern char    *vloadgame;
 extern int      nbrProducts;
 
-void loadNGConfig(game* aGame);
 int spcLockFile(const char* lfpath);
 
 #endif                          /* GNG_GALAXY_H */

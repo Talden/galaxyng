@@ -15,21 +15,21 @@
  */
 
 void readDefaults(game *aGame, FILE * f) {
-	char* isRead;			/* to check for EOF */
-	char* key;					/* the key part of the name/value pair */
+  char* isRead;			/* to check for EOF */
+  char* key;		     /* the key part of the name/value pair */
 	
-	/* initialize values */
-	aGame->serverOptions.sendmail = NULL;
-	aGame->serverOptions.encode = NULL;
-	aGame->serverOptions.compress = NULL;
-	aGame->serverOptions.GMemail = NULL;
-	aGame->serverOptions.GMpassword = NULL;
-	aGame->serverOptions.SERVERemail = NULL;
-	aGame->serverOptions.fontpath = NULL;
-	aGame->serverOptions.due = NULL;
-	aGame->serverOptions.tick_interval = NULL;
-	
-	for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
+  /* initialize values */
+  aGame->serverOptions.sendmail = NULL;
+  aGame->serverOptions.encode = NULL;
+  aGame->serverOptions.compress = NULL;
+  aGame->serverOptions.GMemail = NULL;
+  aGame->serverOptions.GMpassword = NULL;
+  aGame->serverOptions.SERVERemail = NULL;
+  aGame->serverOptions.fontpath = NULL;
+  aGame->serverOptions.due = NULL;
+  aGame->serverOptions.tick_interval = NULL;
+  
+  for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
 		 isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
 		
 		key = getstr(lineBuffer);

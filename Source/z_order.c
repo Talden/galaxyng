@@ -5,7 +5,7 @@ z_order( game *aGame, player *P, strlist **s )
 {
     char *ns;
 
-    DBUG_ENTER("z_order" );
+    DBUG_ENTER( "z_order" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -15,7 +15,5 @@ z_order( game *aGame, player *P, strlist **s )
     if ( P->addr )
         free( P->addr );
     P->addr = strdup( ns );
-        DBUG_VOID_RETURN;
+    DBUG_VOID_RETURN;
 }
-
-

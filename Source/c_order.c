@@ -14,7 +14,7 @@ c_order( game *aGame, player *P, strlist **s )
     char *c;                    /* loop variable */
     int i;                      /* loop variable */
 
-    DBUG_ENTER("c_order");
+    DBUG_ENTER( "c_order" );
 
     /* find name, chop off any non a-n chars */
     ns = getstr( 0 );

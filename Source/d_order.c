@@ -17,7 +17,7 @@ d_order( game *aGame, player *P, strlist **s )
     int i;
     int underDefined;
 
-    DBUG_ENTER("d_order");
+    DBUG_ENTER( "d_order" );
 
     /* get design name, check for validity */
     ns = getstr( 0 );

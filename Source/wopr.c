@@ -289,8 +289,7 @@ parse_group( game *aGame, player *aPlayer )
         return FALSE;
     }
     if ( ( aShiptype = findElement( shiptype, aPlayer->shiptypes, typeName ) )
-         == NULL )
-    {
+         == NULL ) {
         fprintf( stderr, "Ship type name not found\n" );
         return FALSE;
     }
@@ -417,4 +416,3 @@ WOPR_addPlayer( game *aGame, char *name )
     addList( &( aGame->players ), aPlayer );
     return aPlayer;
 }
-

@@ -7,7 +7,7 @@ p_order( game *aGame, player *P, strlist **s )
     planet *p;
     shiptype *t;
 
-    DBUG_ENTER("p_order" );
+    DBUG_ENTER( "p_order" );
 
     p = findPlanet( aGame, getstr( 0 ) );
     if ( !p ) {
@@ -55,4 +55,3 @@ p_order( game *aGame, player *P, strlist **s )
 
     DBUG_VOID_RETURN;
 }
-

@@ -16,7 +16,7 @@ e_order( game *aGame, player *P, strlist **s )
     planet *p;                  /* planet ship/fleet is orbiting */
     char *ns;                   /* retrieving parameters */
 
-    DBUG_ENTER("e_order");
+    DBUG_ENTER( "e_order" );
 
     /* see if this is a fleet or ship type */
     ns = getstr( 0 );
@@ -81,4 +81,3 @@ e_order( game *aGame, player *P, strlist **s )
 }
 
 /******/
-

@@ -7,8 +7,7 @@
 #include <math.h>
 #include <time.h>
 
-char           *vreport =
-    "$Id$";
+char *vreport = "$Id$";
 
 /****h* GalaxyNG/Report 
  * NAME
@@ -42,7 +41,7 @@ char           *vreport =
  * SOURCE
  */
 
-char            formatBuffer[FORMATBUFFERSIZE];
+char formatBuffer[FORMATBUFFERSIZE];
 
 /********/
 
@@ -64,32 +63,30 @@ char            formatBuffer[FORMATBUFFERSIZE];
  */
 
 void
-highScoreList(game *aGame)
+highScoreList( game *aGame )
 {
-  FILE           *reportFile;
-  game           *prevTurn;
-  char           *fileName;
+    FILE *reportFile;
+    game *prevTurn;
+    char *fileName;
 
-  assert(aGame != NULL);
+    assert( aGame != NULL );
 
-  pdebug(DFULL, "highScoreList\n");
-  fileName =
-      createString("%s/notices/%s.score", galaxynghome, aGame->name);
-  if ((reportFile = GOS_fopen(fileName, "w"))) {
-    if ((prevTurn = loadgame(aGame->name, aGame->turn - 1))) {
-      score(prevTurn, aGame, 0, reportFile);
-      freegame(prevTurn);
+    pdebug( DFULL, "highScoreList\n" );
+    fileName =
+        createString( "%s/notices/%s.score", galaxynghome, aGame->name );
+    if ( ( reportFile = GOS_fopen( fileName, "w" ) ) ) {
+        if ( ( prevTurn = loadgame( aGame->name, aGame->turn - 1 ) ) ) {
+            score( prevTurn, aGame, 0, reportFile );
+            freegame( prevTurn );
+        } else {
+            fprintf( stderr, "Can't open game \"%s\", turn %d\n", aGame->name,
+                     aGame->turn - 1 );
+        }
+        fclose( reportFile );
+    } else {
+        fprintf( stderr, "Can't open %s\n", fileName );
     }
-    else {
-      fprintf(stderr, "Can't open game \"%s\", turn %d\n", aGame->name,
-              aGame->turn - 1);
-    }
-    fclose(reportFile);
-  }
-  else {
-    fprintf(stderr, "Can't open %s\n", fileName);
-  }
-  free(fileName);
+    free( fileName );
 }
 
 
@@ -110,40 +107,38 @@ highScoreList(game *aGame)
  */
 
 void
-mailGMReport(game *aGame, char *gameName)
+mailGMReport( game *aGame, char *gameName )
 {
-  char           *fileName;
-  FILE           *gmreport;
-  envelope       *anEnvelope;
+    char *fileName;
+    FILE *gmreport;
+    envelope *anEnvelope;
 
-  assert(aGame != NULL);
+    assert( aGame != NULL );
 
-  if (aGame->serverOptions.GMemail) {
-    if (!aGame)
-      aGame = createDummyGame();
-    anEnvelope = createEnvelope();
-    setHeader(anEnvelope, MAILHEADER_TO, "%s",
-              aGame->serverOptions.GMemail);
-    setHeader(anEnvelope, MAILHEADER_SUBJECT,
-              "GM Report Turn %d for Galaxy Game %s", aGame->turn,
-              gameName);
-    fileName = createString("%s/%s_GM", tempdir, gameName);
-    if ((gmreport = GOS_fopen(fileName, "w"))) {
-      createGMReport(aGame, gameName, gmreport);
-      fclose(gmreport);
-      eMail(aGame, anEnvelope, fileName);
-      ssystem("rm %s", fileName);
+    if ( aGame->serverOptions.GMemail ) {
+        if ( !aGame )
+            aGame = createDummyGame(  );
+        anEnvelope = createEnvelope(  );
+        setHeader( anEnvelope, MAILHEADER_TO, "%s",
+                   aGame->serverOptions.GMemail );
+        setHeader( anEnvelope, MAILHEADER_SUBJECT,
+                   "GM Report Turn %d for Galaxy Game %s", aGame->turn,
+                   gameName );
+        fileName = createString( "%s/%s_GM", tempdir, gameName );
+        if ( ( gmreport = GOS_fopen( fileName, "w" ) ) ) {
+            createGMReport( aGame, gameName, gmreport );
+            fclose( gmreport );
+            eMail( aGame, anEnvelope, fileName );
+            ssystem( "rm %s", fileName );
+        } else {
+            fprintf( stderr, "Can't open \"%s\".\n", fileName );
+        }
+        destroyEnvelope( anEnvelope );
+        free( fileName );
+    } else {
+        plog( LBRIEF,
+              "No email address of GM set, so no GM report is mailed.\n" );
     }
-    else {
-      fprintf(stderr, "Can't open \"%s\".\n", fileName);
-    }
-    destroyEnvelope(anEnvelope);
-    free(fileName);
-  }
-  else {
-    plog(LBRIEF,
-         "No email address of GM set, so no GM report is mailed.\n");
-  }
 }
 
 
@@ -158,17 +153,17 @@ mailGMReport(game *aGame, char *gameName)
  *******
  */
 
-game           *
-createDummyGame(void)
+game *
+createDummyGame( void )
 {
-  game           *aGame;
+    game *aGame;
 
-  aGame = allocStruct(game);
+    aGame = allocStruct( game );
 
-  setName(aGame, "UnknownGame");
-  loadNGConfig(aGame);
+    setName( aGame, "UnknownGame" );
+    loadNGConfig( aGame );
 
-  return aGame;
+    return aGame;
 }
 
 
@@ -184,31 +179,31 @@ createDummyGame(void)
  */
 
 void
-createGMReport(game *aGame, char *gameName, FILE * gmreport)
+createGMReport( game *aGame, char *gameName, FILE *gmreport )
 {
-  char           *fileName;
-  struct fielddef fields;
-  player         *aDummyPlayer;
+    char *fileName;
+    struct fielddef fields;
+    player *aDummyPlayer;
 
 
-  fileName = createString("%s/notices/%s.score", galaxynghome, gameName);
-  appendToFile(fileName, gmreport);
-  free(fileName);
-  fileName = createString("%s/log/%s", galaxynghome, gameName);
-  appendToFile(fileName, gmreport);
-  free(fileName);
+    fileName = createString( "%s/notices/%s.score", galaxynghome, gameName );
+    appendToFile( fileName, gmreport );
+    free( fileName );
+    fileName = createString( "%s/log/%s", galaxynghome, gameName );
+    appendToFile( fileName, gmreport );
+    free( fileName );
 
-  fields.destination = gmreport;
-  reportPlayers(aGame->players, &fields);
-  reportRaceProduction(aGame->players, &fields);
-  reportLastOrders(aGame->players, &fields);
-  reportGlobalMessages(aGame->messages, &fields);
-  reportGMBombings(aGame, &fields);
-  aDummyPlayer = allocStruct(player);
+    fields.destination = gmreport;
+    reportPlayers( aGame->players, &fields );
+    reportRaceProduction( aGame->players, &fields );
+    reportLastOrders( aGame->players, &fields );
+    reportGlobalMessages( aGame->messages, &fields );
+    reportGMBombings( aGame, &fields );
+    aDummyPlayer = allocStruct( player );
 
-  setName(aDummyPlayer, "DummyDummy");
-  aDummyPlayer->msize = aGame->galaxysize;
-  reportMap(aGame, aDummyPlayer, &fields);
+    setName( aDummyPlayer, "DummyDummy" );
+    aDummyPlayer->msize = aGame->galaxysize;
+    reportMap( aGame, aDummyPlayer, &fields );
 }
 
 
@@ -224,76 +219,76 @@ createGMReport(game *aGame, char *gameName, FILE * gmreport)
  */
 
 int
-mailTurnReport(game *aGame, player *aPlayer, long kind)
+mailTurnReport( game *aGame, player *aPlayer, long kind )
 {
-  char           *fileName;
-  char            ext[4];
-  FILE           *turnreport;
-  int             result;
+    char *fileName;
+    char ext[4];
+    FILE *turnreport;
+    int result;
 
-  pdebug(DFULL, "mailTurnReport\n");
+    pdebug( DFULL, "mailTurnReport\n" );
 
-  result = 1;
-  if ((aPlayer->flags & F_DEAD) == 0) {
-    switch(kind) {
-    case F_XMLREPORT:
-      strcpy(ext, "xml");
-      break;
+    result = 1;
+    if ( ( aPlayer->flags & F_DEAD ) == 0 ) {
+        switch ( kind ) {
+        case F_XMLREPORT:
+            strcpy( ext, "xml" );
+            break;
 
-    case F_MACHINEREPORT:
-      strcpy(ext, "mch");
-      break;
+        case F_MACHINEREPORT:
+            strcpy( ext, "mch" );
+            break;
 
-    default:
-      strcpy(ext, "txt");
-      break;
-    }
+        default:
+            strcpy( ext, "txt" );
+            break;
+        }
 
-    fileName = createString("%s/reports/%s/%s_%d.%s",
-                            galaxynghome,
-                            aGame->name, aPlayer->name, aGame->turn, ext);
-    if ((turnreport = GOS_fopen(fileName, "w"))) {
-      envelope       *anEnvelope;
+        fileName = createString( "%s/reports/%s/%s_%d.%s",
+                                 galaxynghome,
+                                 aGame->name, aPlayer->name, aGame->turn,
+                                 ext );
+        if ( ( turnreport = GOS_fopen( fileName, "w" ) ) ) {
+            envelope *anEnvelope;
 
-      anEnvelope = createEnvelope();
-      if (aPlayer->flags & F_COMPRESS) {
-        anEnvelope->compress = TRUE;
-      }
-      setHeader(anEnvelope, MAILHEADER_TO, "%s", aPlayer->addr);
-      switch (kind) {
-      case F_XMLREPORT:
-        setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy Game %s Turn %d XML Report for %s",
-                  aGame->name, aGame->turn, aPlayer->name);
-        break;
-      case F_MACHINEREPORT:
-        setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy Game %s Turn %d Machine Report for %s",
-                  aGame->name, aGame->turn, aPlayer->name);
-        break;
-      default:
-        setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy Game %s Turn %d Text Report for %s",
-                  aGame->name, aGame->turn, aPlayer->name);
-      }
-      createTurnReport(aGame, aPlayer, turnreport, kind);
-      fclose(turnreport);
-      result = eMail(aGame, anEnvelope, fileName);
-      destroyEnvelope(anEnvelope);
+            anEnvelope = createEnvelope(  );
+            if ( aPlayer->flags & F_COMPRESS ) {
+                anEnvelope->compress = TRUE;
+            }
+            setHeader( anEnvelope, MAILHEADER_TO, "%s", aPlayer->addr );
+            switch ( kind ) {
+            case F_XMLREPORT:
+                setHeader( anEnvelope, MAILHEADER_SUBJECT,
+                           "Galaxy Game %s Turn %d XML Report for %s",
+                           aGame->name, aGame->turn, aPlayer->name );
+                break;
+            case F_MACHINEREPORT:
+                setHeader( anEnvelope, MAILHEADER_SUBJECT,
+                           "Galaxy Game %s Turn %d Machine Report for %s",
+                           aGame->name, aGame->turn, aPlayer->name );
+                break;
+            default:
+                setHeader( anEnvelope, MAILHEADER_SUBJECT,
+                           "Galaxy Game %s Turn %d Text Report for %s",
+                           aGame->name, aGame->turn, aPlayer->name );
+            }
+            createTurnReport( aGame, aPlayer, turnreport, kind );
+            fclose( turnreport );
+            result = eMail( aGame, anEnvelope, fileName );
+            destroyEnvelope( anEnvelope );
 #if 0
 #ifdef WIN32
-      result |= ssystem("del %s", fileName);
+            result |= ssystem( "del %s", fileName );
 #else
-      result |= ssystem("rm %s", fileName);
+            result |= ssystem( "rm %s", fileName );
 #endif
 #endif
+        } else {
+            fprintf( stderr, "Can't open %s\n", fileName );
+        }
+        free( fileName );
     }
-    else {
-      fprintf(stderr, "Can't open %s\n", fileName);
-    }
-    free(fileName);
-  }
-  return result;
+    return result;
 }
 
 
@@ -306,35 +301,34 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
  */
 
 void
-saveTurnReport(game *aGame, player *aPlayer, long kind)
+saveTurnReport( game *aGame, player *aPlayer, long kind )
 {
-  FILE           *turnreport;
-  char           *fileName;
+    FILE *turnreport;
+    char *fileName;
 
-  switch (kind) {
-  case F_XMLREPORT:
-    fileName = createString("%s/reports/%s/%s_%d.xml",
-                            galaxynghome, aGame->name, aPlayer->name,
-                            aGame->turn);
-    break;
-  case F_MACHINEREPORT:
-    fileName = createString("%s/reports/%s/%s_%d.m",
-                            galaxynghome, aGame->name, aPlayer->name,
-                            aGame->turn);
-    break;
-  default:
-    fileName = createString("%s/reports/%s/%s_%d.txt",
-                            galaxynghome, aGame->name, aPlayer->name,
-                            aGame->turn);
-  }
-  if ((turnreport = GOS_fopen(fileName, "w"))) {
-    createTurnReport(aGame, aPlayer, turnreport, kind);
-    fclose(turnreport);
-  }
-  else {
-    fprintf(stderr, "Can't open %s\n", fileName);
-  }
-  free(fileName);
+    switch ( kind ) {
+    case F_XMLREPORT:
+        fileName = createString( "%s/reports/%s/%s_%d.xml",
+                                 galaxynghome, aGame->name, aPlayer->name,
+                                 aGame->turn );
+        break;
+    case F_MACHINEREPORT:
+        fileName = createString( "%s/reports/%s/%s_%d.m",
+                                 galaxynghome, aGame->name, aPlayer->name,
+                                 aGame->turn );
+        break;
+    default:
+        fileName = createString( "%s/reports/%s/%s_%d.txt",
+                                 galaxynghome, aGame->name, aPlayer->name,
+                                 aGame->turn );
+    }
+    if ( ( turnreport = GOS_fopen( fileName, "w" ) ) ) {
+        createTurnReport( aGame, aPlayer, turnreport, kind );
+        fclose( turnreport );
+    } else {
+        fprintf( stderr, "Can't open %s\n", fileName );
+    }
+    free( fileName );
 }
 
 
@@ -348,57 +342,56 @@ saveTurnReport(game *aGame, player *aPlayer, long kind)
  */
 
 void
-createTurnReport(game *aGame, player *aPlayer, FILE * reportfile,
-                 long kind)
+createTurnReport( game *aGame, player *aPlayer, FILE *reportfile, long kind )
 {
-  char           *fileName;
+    char *fileName;
 
-  fprintf(reportfile, "Bulletins for Galaxy Game %s Turn %d\n\n",
-          aGame->name, aGame->turn);
-  fileName =
-      createString("%s/notices/%s.score", galaxynghome, aGame->name);
-  appendToFile(fileName, reportfile);
-  free(fileName);
-  fileName = createString("%s/notices/global.bulletin", galaxynghome);
-  appendToFile(fileName, reportfile);
-  free(fileName);
-  fileName = createString("%s/notices/%s.info", galaxynghome, aGame->name);
-  appendToFile(fileName, reportfile);
-  free(fileName);
-  fileName = createString("%s/notices/%s.%d.notice",
-                          galaxynghome, aGame->name, aGame->turn);
-  appendToFile(fileName, reportfile);
-  free(fileName);
+    fprintf( reportfile, "Bulletins for Galaxy Game %s Turn %d\n\n",
+             aGame->name, aGame->turn );
+    fileName =
+        createString( "%s/notices/%s.score", galaxynghome, aGame->name );
+    appendToFile( fileName, reportfile );
+    free( fileName );
+    fileName = createString( "%s/notices/global.bulletin", galaxynghome );
+    appendToFile( fileName, reportfile );
+    free( fileName );
+    fileName =
+        createString( "%s/notices/%s.info", galaxynghome, aGame->name );
+    appendToFile( fileName, reportfile );
+    free( fileName );
+    fileName = createString( "%s/notices/%s.%d.notice",
+                             galaxynghome, aGame->name, aGame->turn );
+    appendToFile( fileName, reportfile );
+    free( fileName );
 
-  fprintf(reportfile, "\n\n\t\tProduction Status\n");
-  fprintf(reportfile, "Sofar you have:\n");
-  fprintf(reportfile, "  produced a total shipmass of %.2f\n",
-          aPlayer->massproduced);
-  fprintf(reportfile, "  lost a total shipmass of     %.2f\n",
-          aPlayer->masslost);
+    fprintf( reportfile, "\n\n\t\tProduction Status\n" );
+    fprintf( reportfile, "Sofar you have:\n" );
+    fprintf( reportfile, "  produced a total shipmass of %.2f\n",
+             aPlayer->massproduced );
+    fprintf( reportfile, "  lost a total shipmass of     %.2f\n",
+             aPlayer->masslost );
 
-  fprintf(reportfile, "\n\n\t\tReal Name\n");
-  if (aPlayer->realName[0]) {
-    fprintf(reportfile, "  Your real name is %s.\n", aPlayer->realName);
-  }
-  else {
-    fprintf(reportfile, "  Your real name is unknown.\n"
-            "  Use the '=' order to set it.\n");
-  }
-  fprintf(reportfile, "\n\nEnd of the Bulletins\n\n");
-
+    fprintf( reportfile, "\n\n\t\tReal Name\n" );
+    if ( aPlayer->realName[0] ) {
+        fprintf( reportfile, "  Your real name is %s.\n", aPlayer->realName );
+    } else {
+        fprintf( reportfile, "  Your real name is unknown.\n"
+                 "  Use the '=' order to set it.\n" );
+    }
+    fprintf( reportfile, "\n\nEnd of the Bulletins\n\n" );
 
 
-  switch (kind) {
-  case F_XMLREPORT:
-    report_xml(aGame, aPlayer, reportfile, Report);
-    break;
-  case F_MACHINEREPORT:
-    report_m(aPlayer, aGame, reportfile);
-    break;
-  default:
-    report(aGame, aPlayer, reportfile);
-  }
+
+    switch ( kind ) {
+    case F_XMLREPORT:
+        report_xml( aGame, aPlayer, reportfile, Report );
+        break;
+    case F_MACHINEREPORT:
+        report_m( aPlayer, aGame, reportfile );
+        break;
+    default:
+        report( aGame, aPlayer, reportfile );
+    }
 }
 
 
@@ -414,19 +407,19 @@ createTurnReport(game *aGame, player *aPlayer, FILE * reportfile,
  */
 
 void
-appendToFile(char *fileName, FILE * report)
+appendToFile( char *fileName, FILE *report )
 {
-  FILE           *f;
-  char           *isRead;
+    FILE *f;
+    char *isRead;
 
-  f = GOS_fopen(fileName, "r");
-  if (f) {
-    for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
-         isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
-      fputs(lineBuffer, report);
+    f = GOS_fopen( fileName, "r" );
+    if ( f ) {
+        for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, f );
+              isRead; isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, f ) ) {
+            fputs( lineBuffer, report );
+        }
+        fclose( f );
     }
-    fclose(f);
-  }
 }
 
 
@@ -447,94 +440,98 @@ appendToFile(char *fileName, FILE * report)
  */
 
 void
-score(game *g1, game *g2, int html, FILE * dest)
+score( game *g1, game *g2, int html, FILE *dest )
 {
-  int             numberOfPlayers;
-  int             number;
-  time_t          ttp;
-  char            timeBuffer[255];
+    int numberOfPlayers;
+    int number;
+    time_t ttp;
+    char timeBuffer[255];
 
-  raceStatus(g1);
-  raceStatus(g2);
-  rateRaces(g2->players);
-  rateRaces(g1->players);
-  numberOfPlayers = numberOfElements(g2->players);
+    raceStatus( g1 );
+    raceStatus( g2 );
+    rateRaces( g2->players );
+    rateRaces( g1->players );
+    numberOfPlayers = numberOfElements( g2->players );
 
-  if (html) {
-    fprintf(dest, "<HTML>\n");
-    fprintf(dest, "<BODY bgcolor=\"#000000\" text=\"#FFFFff\""
-            " link=\"#00aaff\" vlink=\"#aaaaff\" alink=\"#33ff33\">");
-    fprintf(dest, "<STRONG>%s Top %d of turn %d</STRONG>\n<PRE>\n",
-            g2->name, numberOfPlayers, g2->turn);
-  }
-  else {
-    fprintf(dest, "%s Top %d of turn %d which ran on ",
-            g2->name, numberOfPlayers, g2->turn);
-  }
-
-  time(&ttp);
-  strftime(timeBuffer, 255, "%H:%M:%S %a %b %d %Y\n", localtime(&ttp));
-  fprintf(dest, "%s\n", timeBuffer);
-  fprintf(dest, " # lt  Race          Pop   dlt    Ind   dlt   eInd"
-          "   dlt  tech  dlt   #  dlt\n");
-
-  for (number = 1; number <= numberOfPlayers; number++) {
-    player         *curPlayer, *prevPlayer;
-
-    for (curPlayer = g2->players, prevPlayer = g1->players;
-         curPlayer && prevPlayer;
-         curPlayer = curPlayer->next, prevPlayer = prevPlayer->next) {
-      if (curPlayer->rating eq number) {
-        double          deltaTech, sumTech;
-        int             delta;
-
-        sumTech = (curPlayer->drive + curPlayer->weapons +
-                   curPlayer->shields + curPlayer->cargo);
-        deltaTech = (curPlayer->drive + curPlayer->weapons +
-                     curPlayer->shields + curPlayer->cargo) -
-            (prevPlayer->drive + prevPlayer->weapons +
-             prevPlayer->shields + prevPlayer->cargo);
-        fprintf(dest, "%2d ", number);
-
-        delta = prevPlayer->rating - number;
-
-        fprintf(dest, "%3d ", delta);
-
-        fprintf(dest, "%-10.10s", curPlayer->name);
-
-        fprintf(dest, "%7.0f", curPlayer->totPop);
-        fprintf(dest, "%6.0f", curPlayer->totPop - prevPlayer->totPop);
-        fprintf(dest, "%7.0f", curPlayer->totInd);
-        fprintf(dest, "%6.0f", curPlayer->totInd - prevPlayer->totInd);
-        fprintf(dest, "%7.0f", effectiveIndustry(curPlayer->totPop,
-                                                 curPlayer->totInd));
-        fprintf(dest, "%6.0f", effectiveIndustry(curPlayer->totPop,
-                                                 curPlayer->totInd) -
-                effectiveIndustry(prevPlayer->totPop, prevPlayer->totInd));
-        fprintf(dest, "%6.2f", sumTech);
-        fprintf(dest, "%5.2f", deltaTech);
-        fprintf(dest, "%4d", curPlayer->numberOfPlanets);
-        fprintf(dest, "%4d\n", curPlayer->numberOfPlanets -
-                prevPlayer->numberOfPlanets);
-      }
+    if ( html ) {
+        fprintf( dest, "<HTML>\n" );
+        fprintf( dest, "<BODY bgcolor=\"#000000\" text=\"#FFFFff\""
+                 " link=\"#00aaff\" vlink=\"#aaaaff\" alink=\"#33ff33\">" );
+        fprintf( dest, "<STRONG>%s Top %d of turn %d</STRONG>\n<PRE>\n",
+                 g2->name, numberOfPlayers, g2->turn );
+    } else {
+        fprintf( dest, "%s Top %d of turn %d which ran on ",
+                 g2->name, numberOfPlayers, g2->turn );
     }
-  }
-  if (html) {
-    fprintf(dest, "</PRE>\n");
-    fprintf(dest, "<H3>Legend</H3><UL>\n");
-    fprintf(dest, "<LI> # - position\n");
-    fprintf(dest, "<LI> lt - change from previous turn\n");
-    fprintf(dest, "<LI> Pop - population\n");
-    fprintf(dest, "<LI> Ind - Industry\n");
-    fprintf(dest, "<LI> eInd - Effective Industry\n");
-    fprintf(dest, "<LI> tech - Sum of the technology levels\n");
-    fprintf(dest, "<LI> # - number of planets\n");
-    fprintf(dest, "<LI> dlt - change as compared to the previous turn\n");
-    fprintf(dest, "</UL>\n</BODY>\n</HTML>\n");
-  }
-  else {
-    fprintf(dest, "\n");
-  }
+
+    time( &ttp );
+    strftime( timeBuffer, 255, "%H:%M:%S %a %b %d %Y\n", localtime( &ttp ) );
+    fprintf( dest, "%s\n", timeBuffer );
+    fprintf( dest, " # lt  Race          Pop   dlt    Ind   dlt   eInd"
+             "   dlt  tech  dlt   #  dlt\n" );
+
+    for ( number = 1; number <= numberOfPlayers; number++ ) {
+        player *curPlayer, *prevPlayer;
+
+        for ( curPlayer = g2->players, prevPlayer = g1->players;
+              curPlayer && prevPlayer;
+              curPlayer = curPlayer->next, prevPlayer = prevPlayer->next ) {
+            if ( curPlayer->rating eq number ) {
+                double deltaTech, sumTech;
+                int delta;
+
+                sumTech = ( curPlayer->drive + curPlayer->weapons +
+                            curPlayer->shields + curPlayer->cargo );
+                deltaTech = ( curPlayer->drive + curPlayer->weapons +
+                              curPlayer->shields + curPlayer->cargo ) -
+                    ( prevPlayer->drive + prevPlayer->weapons +
+                      prevPlayer->shields + prevPlayer->cargo );
+                fprintf( dest, "%2d ", number );
+
+                delta = prevPlayer->rating - number;
+
+                fprintf( dest, "%3d ", delta );
+
+                fprintf( dest, "%-10.10s", curPlayer->name );
+
+                fprintf( dest, "%7.0f", curPlayer->totPop );
+                fprintf( dest, "%6.0f",
+                         curPlayer->totPop - prevPlayer->totPop );
+                fprintf( dest, "%7.0f", curPlayer->totInd );
+                fprintf( dest, "%6.0f",
+                         curPlayer->totInd - prevPlayer->totInd );
+                fprintf( dest, "%7.0f",
+                         effectiveIndustry( curPlayer->totPop,
+                                            curPlayer->totInd ) );
+                fprintf( dest, "%6.0f",
+                         effectiveIndustry( curPlayer->totPop,
+                                            curPlayer->totInd ) -
+                         effectiveIndustry( prevPlayer->totPop,
+                                            prevPlayer->totInd ) );
+                fprintf( dest, "%6.2f", sumTech );
+                fprintf( dest, "%5.2f", deltaTech );
+                fprintf( dest, "%4d", curPlayer->numberOfPlanets );
+                fprintf( dest, "%4d\n", curPlayer->numberOfPlanets -
+                         prevPlayer->numberOfPlanets );
+            }
+        }
+    }
+    if ( html ) {
+        fprintf( dest, "</PRE>\n" );
+        fprintf( dest, "<H3>Legend</H3><UL>\n" );
+        fprintf( dest, "<LI> # - position\n" );
+        fprintf( dest, "<LI> lt - change from previous turn\n" );
+        fprintf( dest, "<LI> Pop - population\n" );
+        fprintf( dest, "<LI> Ind - Industry\n" );
+        fprintf( dest, "<LI> eInd - Effective Industry\n" );
+        fprintf( dest, "<LI> tech - Sum of the technology levels\n" );
+        fprintf( dest, "<LI> # - number of planets\n" );
+        fprintf( dest,
+                 "<LI> dlt - change as compared to the previous turn\n" );
+        fprintf( dest, "</UL>\n</BODY>\n</HTML>\n" );
+    } else {
+        fprintf( dest, "\n" );
+    }
 }
 
 
@@ -551,37 +548,38 @@ score(game *g1, game *g2, int html, FILE * dest)
  */
 
 void
-rateRaces(player *playerList)
+rateRaces( player *playerList )
 {
-  player         *curPlayer;
-  int             number;
+    player *curPlayer;
+    int number;
 
-  for (curPlayer = playerList; curPlayer; curPlayer = curPlayer->next) {
-    curPlayer->flags &= ~F_SORTED;
-  }
-
-  for (number = numberOfElements(playerList); number; number--) {
-    player         *lastPlayer;
-    double          minEffInd;
-
-    minEffInd = 1E20;
-    lastPlayer = NULL;
-    for (curPlayer = playerList; curPlayer; curPlayer = curPlayer->next) {
-      if (!(curPlayer->flags & F_SORTED)) {
-        double          effInd;
-
-        effInd = effectiveIndustry(curPlayer->totPop, curPlayer->totInd);
-        if (effInd <= minEffInd) {
-          curPlayer->rating = number;
-          curPlayer->flags |= F_SORTED;
-          if (lastPlayer)
-            lastPlayer->flags &= ~F_SORTED;
-          lastPlayer = curPlayer;
-          minEffInd = effInd;
-        }
-      }
+    for ( curPlayer = playerList; curPlayer; curPlayer = curPlayer->next ) {
+        curPlayer->flags &= ~F_SORTED;
     }
-  }
+
+    for ( number = numberOfElements( playerList ); number; number-- ) {
+        player *lastPlayer;
+        double minEffInd;
+
+        minEffInd = 1E20;
+        lastPlayer = NULL;
+        for ( curPlayer = playerList; curPlayer; curPlayer = curPlayer->next ) {
+            if ( !( curPlayer->flags & F_SORTED ) ) {
+                double effInd;
+
+                effInd =
+                    effectiveIndustry( curPlayer->totPop, curPlayer->totInd );
+                if ( effInd <= minEffInd ) {
+                    curPlayer->rating = number;
+                    curPlayer->flags |= F_SORTED;
+                    if ( lastPlayer )
+                        lastPlayer->flags &= ~F_SORTED;
+                    lastPlayer = curPlayer;
+                    minEffInd = effInd;
+                }
+            }
+        }
+    }
 }
 
 
@@ -593,7 +591,8 @@ rateRaces(player *playerList)
  */
 
 #if FS_NEW_FORECAST
-void reportForecast( game *aGame, char *raceName, FILE *forecast )
+void
+reportForecast( game *aGame, char *raceName, FILE *forecast )
 {
     struct fielddef fields;
     player *aPlayer;
@@ -638,68 +637,66 @@ void reportForecast( game *aGame, char *raceName, FILE *forecast )
  */
 
 void
-report(game *aGame, player *P, FILE * report)
+report( game *aGame, player *P, FILE *report )
 {
-  struct fielddef fields;
+    struct fielddef fields;
 
-  pdebug(DFULL, "report\n");
+    pdebug( DFULL, "report\n" );
 
-  fields.destination = report;
+    fields.destination = report;
 
-  if (P->flags & F_GPLUS) {
-    fprintf(fields.destination,
-            "         %s Report for Galaxy PLUS %s Turn %d\n",
-            P->name, aGame->name, aGame->turn);
-    fprintf(fields.destination,
-            "                Galaxy PLUS version 1.0-NG-GPLUS-Emulator\n\n");
-    fprintf(fields.destination,
-            "                Size: %.0f  Planets: %d  Players: %d\n\n",
-            2 * aGame->galaxysize, numberOfElements(aGame->planets),
-            numberOfElements(aGame->players));
-  }
-  else {
-    fprintf(fields.destination, "\t%s\n\n", vcid);
-    fprintf(fields.destination,
-            "\t\tGalaxy Game %s Turn %d Report for %s\n\n",
-            aGame->name, aGame->turn, P->name);
-  }
+    if ( P->flags & F_GPLUS ) {
+        fprintf( fields.destination,
+                 "         %s Report for Galaxy PLUS %s Turn %d\n",
+                 P->name, aGame->name, aGame->turn );
+        fprintf( fields.destination,
+                 "                Galaxy PLUS version 1.0-NG-GPLUS-Emulator\n\n" );
+        fprintf( fields.destination,
+                 "                Size: %.0f  Planets: %d  Players: %d\n\n",
+                 2 * aGame->galaxysize, numberOfElements( aGame->planets ),
+                 numberOfElements( aGame->players ) );
+    } else {
+        fprintf( fields.destination, "\t%s\n\n", vcid );
+        fprintf( fields.destination,
+                 "\t\tGalaxy Game %s Turn %d Report for %s\n\n",
+                 aGame->name, aGame->turn, P->name );
+    }
 
-  if (P->pswdstate eq 1) {
-    fprintf(fields.destination,
-            "\n\nPassword for player %s set to %s\n", P->name, P->pswd);
-    fprintf(fields.destination,
-            "First line of your orders should now be:\n");
-    fprintf(fields.destination, "#GALAXY %s %s %s\n", aGame->name, P->name,
-            P->pswd);
-  }
-  reportGlobalMessages(aGame->messages, &fields);
-  reportMessages(P, &fields);
-  reportGameOptions(aGame, &fields);    /* CB-20010401 ; see galaxy.h */
-  reportOptions(aGame, P, &fields);
-  reportOrders(P, &fields);
-  reportMistakes(P, &fields);
-  raceStatus(aGame);
-  reportStatus(aGame->players, P, &fields);
-  reportYourShipTypes(P, &fields);
-  reportShipTypes(aGame, P, &fields);
-  reportBattles(aGame, P, &fields);
-  reportBombings(aGame, P, &fields);
-  reportMap(aGame, P, &fields);
-  reportIncoming(aGame, P, &fields);
-  reportYourPlanets(aGame->planets, P, &fields);
-  reportProdTable(aGame->planets, P, &fields);
-  reportRoutes(aGame->planets, P, &fields);
-  reportPlanetsSeen(aGame, P, &fields);
-  reportUnidentifiedPlanets(aGame->planets, P, &fields);
-  reportUninhabitedPlanets(aGame->planets, P, &fields);
-  reportYourGroups(aGame->planets, P, &fields);
-  if (P->flags & F_GPLUS) {
-    GreportFleets(aGame->planets, P, &fields);
-  }
-  else {
-    reportFleets(P, &fields);
-  }
-  reportGroupsSeen(aGame, P, &fields);
+    if ( P->pswdstate eq 1 ) {
+        fprintf( fields.destination,
+                 "\n\nPassword for player %s set to %s\n", P->name, P->pswd );
+        fprintf( fields.destination,
+                 "First line of your orders should now be:\n" );
+        fprintf( fields.destination, "#GALAXY %s %s %s\n", aGame->name,
+                 P->name, P->pswd );
+    }
+    reportGlobalMessages( aGame->messages, &fields );
+    reportMessages( P, &fields );
+    reportGameOptions( aGame, &fields );        /* CB-20010401 ; see galaxy.h */
+    reportOptions( aGame, P, &fields );
+    reportOrders( P, &fields );
+    reportMistakes( P, &fields );
+    raceStatus( aGame );
+    reportStatus( aGame->players, P, &fields );
+    reportYourShipTypes( P, &fields );
+    reportShipTypes( aGame, P, &fields );
+    reportBattles( aGame, P, &fields );
+    reportBombings( aGame, P, &fields );
+    reportMap( aGame, P, &fields );
+    reportIncoming( aGame, P, &fields );
+    reportYourPlanets( aGame->planets, P, &fields );
+    reportProdTable( aGame->planets, P, &fields );
+    reportRoutes( aGame->planets, P, &fields );
+    reportPlanetsSeen( aGame, P, &fields );
+    reportUnidentifiedPlanets( aGame->planets, P, &fields );
+    reportUninhabitedPlanets( aGame->planets, P, &fields );
+    reportYourGroups( aGame->planets, P, &fields );
+    if ( P->flags & F_GPLUS ) {
+        GreportFleets( aGame->planets, P, &fields );
+    } else {
+        reportFleets( P, &fields );
+    }
+    reportGroupsSeen( aGame, P, &fields );
 }
 
 /*****/
@@ -712,16 +709,16 @@ report(game *aGame, player *P, FILE * report)
  */
 
 void
-reportGlobalMessages(strlist *messages, fielddef *fields)
+reportGlobalMessages( strlist *messages, fielddef *fields )
 {
-  if (messages) {
-    strlist        *s;
+    if ( messages ) {
+        strlist *s;
 
-    fprintf(fields->destination, "\nGLOBAL Messages\n\n");
-    for (s = messages; s; s = s->next) {
-      fprintf(fields->destination, "%s\n", s->str);
+        fprintf( fields->destination, "\nGLOBAL Messages\n\n" );
+        for ( s = messages; s; s = s->next ) {
+            fprintf( fields->destination, "%s\n", s->str );
+        }
     }
-  }
 }
 
 /****f* Report/reportMessages
@@ -732,17 +729,17 @@ reportGlobalMessages(strlist *messages, fielddef *fields)
 
 
 void
-reportMessages(player *P, fielddef *fields)
+reportMessages( player *P, fielddef *fields )
 {
-  if (P->messages) {
-    strlist        *s;
+    if ( P->messages ) {
+        strlist *s;
 
-    fprintf(fields->destination, "\nPERSONAL Messages for %s\n\n",
-            P->name);
-    for (s = P->messages; s; s = s->next) {
-      fprintf(fields->destination, "%s\n", s->str);
+        fprintf( fields->destination, "\nPERSONAL Messages for %s\n\n",
+                 P->name );
+        for ( s = P->messages; s; s = s->next ) {
+            fprintf( fields->destination, "%s\n", s->str );
+        }
     }
-  }
 }
 
 
@@ -753,30 +750,32 @@ reportMessages(player *P, fielddef *fields)
  */
 
 void
-reportOrders(player *P, fielddef *fields)
+reportOrders( player *P, fielddef *fields )
 {
-    if (P->orders) {
-        strlist        *s;
+    if ( P->orders ) {
+        strlist *s;
 
-        fprintf(fields->destination, "\nORDERS RECEIVED\n\n");
-        for (s = P->orders; s; s = s->next) {
-            if (*(s->str) == '+') {
-                switch(*((s->str)+1)) {
-                    case 'I':
-                        fprintf(fields->destination, ">   INFO: %s\n", (s->str)+3);
-                        break;
+        fprintf( fields->destination, "\nORDERS RECEIVED\n\n" );
+        for ( s = P->orders; s; s = s->next ) {
+            if ( *( s->str ) == '+' ) {
+                switch ( *( ( s->str ) + 1 ) ) {
+                case 'I':
+                    fprintf( fields->destination, ">   INFO: %s\n",
+                             ( s->str ) + 3 );
+                    break;
 
-                    case 'W':
-                        fprintf(fields->destination, ">   WARNING: %s\n", (s->str)+3);
-                        break;
+                case 'W':
+                    fprintf( fields->destination, ">   WARNING: %s\n",
+                             ( s->str ) + 3 );
+                    break;
 
-                    case 'E':
-                        fprintf(fields->destination, ">   ERROR: %s\n", (s->str)+3);
-                        break;
+                case 'E':
+                    fprintf( fields->destination, ">   ERROR: %s\n",
+                             ( s->str ) + 3 );
+                    break;
                 }
-            }
-            else {
-                fprintf(fields->destination, "> %s\n", s->str);
+            } else {
+                fprintf( fields->destination, "> %s\n", s->str );
             }
         }
     }
@@ -790,17 +789,17 @@ reportOrders(player *P, fielddef *fields)
  */
 
 void
-reportMistakes(player *P, fielddef *fields)
+reportMistakes( player *P, fielddef *fields )
 {
-  if (P->mistakes) {
-    strlist        *s;
+    if ( P->mistakes ) {
+        strlist *s;
 
-    s = P->mistakes;
-    fprintf(fields->destination, "\nMISTAKES\n\n");
-    for (s = P->mistakes; s; s = s->next) {
-      fprintf(fields->destination, "%s\n", s->str);
+        s = P->mistakes;
+        fprintf( fields->destination, "\nMISTAKES\n\n" );
+        for ( s = P->mistakes; s; s = s->next ) {
+            fprintf( fields->destination, "%s\n", s->str );
+        }
     }
-  }
 }
 
 
@@ -811,33 +810,33 @@ reportMistakes(player *P, fielddef *fields)
  */
 
 void
-reportStatus(player *players, player *P, fielddef *fields)
+reportStatus( player *players, player *P, fielddef *fields )
 {
-  player         *P2;
-  int             state;
+    player *P2;
+    int state;
 
-  fprintf(fields->destination, "\n\t\tStatus of Players\n\n");
+    fprintf( fields->destination, "\n\t\tStatus of Players\n\n" );
 
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("N D W S C P I # R", "lcccccccc", fields);
-    for (P2 = players; P2; P2 = P2->next) {
-      formatString(P2->name, fields);
-      formatFloat(P2->drive, fields);
-      formatFloat(P2->weapons, fields);
-      formatFloat(P2->shields, fields);
-      formatFloat(P2->cargo, fields);
-      formatFloat(P2->totPop, fields);
-      formatFloat(P2->totInd, fields);
-      formatInteger(P2->numberOfPlanets, fields);
-      if (P2 != P)
-        formatString((atwar(P, P2) ? "War" : "Peace"), fields);
-      else
-        formatString("-", fields);
-      formatReturn(fields);
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "N D W S C P I # R", "lcccccccc", fields );
+        for ( P2 = players; P2; P2 = P2->next ) {
+            formatString( P2->name, fields );
+            formatFloat( P2->drive, fields );
+            formatFloat( P2->weapons, fields );
+            formatFloat( P2->shields, fields );
+            formatFloat( P2->cargo, fields );
+            formatFloat( P2->totPop, fields );
+            formatFloat( P2->totInd, fields );
+            formatInteger( P2->numberOfPlanets, fields );
+            if ( P2 != P )
+                formatString( ( atwar( P, P2 ) ? "War" : "Peace" ), fields );
+            else
+                formatString( "-", fields );
+            formatReturn( fields );
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
@@ -848,33 +847,32 @@ reportStatus(player *players, player *P, fielddef *fields)
  */
 
 void
-reportYourShipTypes(player *P, fielddef *fields)
+reportYourShipTypes( player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  if (P->shiptypes) {
-    fprintf(fields->destination, "\n\t\tYour Ship Types\n\n");
-    formatReset(fields);
-    for (state = 0; state < 2; state++) {
-      shiptype       *t;
+    if ( P->shiptypes ) {
+        fprintf( fields->destination, "\n\t\tYour Ship Types\n\n" );
+        formatReset( fields );
+        for ( state = 0; state < 2; state++ ) {
+            shiptype *t;
 
-      if (P->flags & F_GPLUS) {
-        formatLabels("N D A W S C M", "lcccccc", fields);
-      }
-      else {
-        formatLabels("N D A W S C Mass Speed Def", "lcccccccc", fields);
-      }
-      for (t = P->shiptypes; t; t = t->next) {
-        if (P->flags & F_GPLUS) {
-          GreportShipType(t, fields);
+            if ( P->flags & F_GPLUS ) {
+                formatLabels( "N D A W S C M", "lcccccc", fields );
+            } else {
+                formatLabels( "N D A W S C Mass Speed Def", "lcccccccc",
+                              fields );
+            }
+            for ( t = P->shiptypes; t; t = t->next ) {
+                if ( P->flags & F_GPLUS ) {
+                    GreportShipType( t, fields );
+                } else {
+                    reportShipType( t, fields );
+                }
+            }
+            formatPrint( fields );
         }
-        else {
-          reportShipType(t, fields);
-        }
-      }
-      formatPrint(fields);
     }
-  }
 }
 
 
@@ -885,42 +883,41 @@ reportYourShipTypes(player *P, fielddef *fields)
  */
 
 void
-reportShipTypes(game *aGame, player *P, fielddef *fields)
+reportShipTypes( game *aGame, player *P, fielddef *fields )
 {
-  int             state;
-  player         *P2;
+    int state;
+    player *P2;
 
-  for (P2 = aGame->players; P2; P2 = P2->next) {
-    shiptype       *t;
+    for ( P2 = aGame->players; P2; P2 = P2->next ) {
+        shiptype *t;
 
-    if (P2 != P) {
-      if (visibleShipTypes(aGame, P2, P)) {
-        fprintf(fields->destination, "\n\t\t%s Ship Types\n\n", P2->name);
+        if ( P2 != P ) {
+            if ( visibleShipTypes( aGame, P2, P ) ) {
+                fprintf( fields->destination, "\n\t\t%s Ship Types\n\n",
+                         P2->name );
 
-        formatReset(fields);
-        for (state = 0; state < 2; state++) {
-          if (P->flags & F_GPLUS) {
-            formatLabels("N D A W S C M", "lcccccc", fields);
-          }
-          else {
-            formatLabels("N D A W S C Mass Speed Def",
-                         "lcccccccc", fields);
-          }
-          for (t = P2->shiptypes; t; t = t->next) {
-            if (t->flag) {
-              if (P->flags & F_GPLUS) {
-                GreportShipType(t, fields);
-              }
-              else {
-                reportShipType(t, fields);
-              }
+                formatReset( fields );
+                for ( state = 0; state < 2; state++ ) {
+                    if ( P->flags & F_GPLUS ) {
+                        formatLabels( "N D A W S C M", "lcccccc", fields );
+                    } else {
+                        formatLabels( "N D A W S C Mass Speed Def",
+                                      "lcccccccc", fields );
+                    }
+                    for ( t = P2->shiptypes; t; t = t->next ) {
+                        if ( t->flag ) {
+                            if ( P->flags & F_GPLUS ) {
+                                GreportShipType( t, fields );
+                            } else {
+                                reportShipType( t, fields );
+                            }
+                        }
+                    }
+                    formatPrint( fields );
+                }
             }
-          }
-          formatPrint(fields);
         }
-      }
     }
-  }
 }
 
 
@@ -931,18 +928,18 @@ reportShipTypes(game *aGame, player *P, fielddef *fields)
  */
 
 void
-reportShipType(shiptype *t, fielddef *fields)
+reportShipType( shiptype *t, fielddef *fields )
 {
-  formatString(t->name, fields);
-  formatFloat(t->drive, fields);
-  formatInteger(t->attacks, fields);
-  formatFloat(t->weapons, fields);
-  formatFloat(t->shields, fields);
-  formatFloat(t->cargo, fields);
-  formatFloat(typemass(t), fields);
-  formatFloat(typeSpeed(t), fields);
-  formatFloat(typeDefense(t), fields);
-  formatReturn(fields);
+    formatString( t->name, fields );
+    formatFloat( t->drive, fields );
+    formatInteger( t->attacks, fields );
+    formatFloat( t->weapons, fields );
+    formatFloat( t->shields, fields );
+    formatFloat( t->cargo, fields );
+    formatFloat( typemass( t ), fields );
+    formatFloat( typeSpeed( t ), fields );
+    formatFloat( typeDefense( t ), fields );
+    formatReturn( fields );
 }
 
 /****f* Report/GreportShipType
@@ -952,16 +949,16 @@ reportShipType(shiptype *t, fielddef *fields)
  */
 
 void
-GreportShipType(shiptype *t, fielddef *fields)
+GreportShipType( shiptype *t, fielddef *fields )
 {
-  formatString(t->name, fields);
-  formatFloat(t->drive, fields);
-  formatInteger(t->attacks, fields);
-  formatFloat(t->weapons, fields);
-  formatFloat(t->shields, fields);
-  formatFloat(t->cargo, fields);
-  formatFloat(typemass(t), fields);
-  formatReturn(fields);
+    formatString( t->name, fields );
+    formatFloat( t->drive, fields );
+    formatInteger( t->attacks, fields );
+    formatFloat( t->weapons, fields );
+    formatFloat( t->shields, fields );
+    formatFloat( t->cargo, fields );
+    formatFloat( typemass( t ), fields );
+    formatReturn( fields );
 }
 
 /****f* Report/reportBattles
@@ -971,74 +968,80 @@ GreportShipType(shiptype *t, fielddef *fields)
  */
 
 void
-reportBattles(game *aGame, player *P, fielddef *fields)
+reportBattles( game *aGame, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  if (aGame->battles) {
-    battle         *b;
+    if ( aGame->battles ) {
+        battle *b;
 
-    for (b = aGame->battles; b; b = b->next) {
-      participant    *r;
+        for ( b = aGame->battles; b; b = b->next ) {
+            participant *r;
 
-      for (r = b->participants; r; r = r->next)
-        if (r->who eq P)
-          break;
-      if (r) {
-        if (P->flags & F_GPLUS) {
-          fprintf(fields->destination, "\n\t\tBattle at (#%d) %s\n",
-                  ptonum(aGame->planets, b->where), b->where->name);
-        }
-        else {
-          fprintf(fields->destination, "\n\t\tBattle at %s\n",
-                  b->where->name);
-        }
-        for (r = b->participants; r; r = r->next) {
-          player         *P2;
+            for ( r = b->participants; r; r = r->next )
+                if ( r->who eq P )
+                    break;
+            if ( r ) {
+                if ( P->flags & F_GPLUS ) {
+                    fprintf( fields->destination,
+                             "\n\t\tBattle at (#%d) %s\n",
+                             ptonum( aGame->planets, b->where ),
+                             b->where->name );
+                } else {
+                    fprintf( fields->destination, "\n\t\tBattle at %s\n",
+                             b->where->name );
+                }
+                for ( r = b->participants; r; r = r->next ) {
+                    player *P2;
 
-          P2 = r->who;
-          if (P2 != P)
-            fprintf(fields->destination, "\n\t\t%s Groups\n\n", P2->name);
-          else
-            fprintf(fields->destination, "\n\t\tYour Groups\n\n");
-          formatReset(fields);
-          for (state = 0; state < 2; state++) {
-            group          *g;
+                    P2 = r->who;
+                    if ( P2 != P )
+                        fprintf( fields->destination, "\n\t\t%s Groups\n\n",
+                                 P2->name );
+                    else
+                        fprintf( fields->destination,
+                                 "\n\t\tYour Groups\n\n" );
+                    formatReset( fields );
+                    for ( state = 0; state < 2; state++ ) {
+                        group *g;
 
-            formatLabels("# T D W S C T Q L", "lcccccccc", fields);
-            for (g = r->groups; g; g = g->next) {
-              if (P->flags & F_GPLUS) {
-                GreportGroup(aGame->planets, P, g, 0,
-                             fields, G_MODE_BATTLE, b->phase);
-              }
-              else {
-                reportGroup(g, 0, fields, G_MODE_BATTLE);
-              }
+                        formatLabels( "# T D W S C T Q L", "lcccccccc",
+                                      fields );
+                        for ( g = r->groups; g; g = g->next ) {
+                            if ( P->flags & F_GPLUS ) {
+                                GreportGroup( aGame->planets, P, g, 0,
+                                              fields, G_MODE_BATTLE,
+                                              b->phase );
+                            } else {
+                                reportGroup( g, 0, fields, G_MODE_BATTLE );
+                            }
+                        }
+                        formatPrint( fields );
+                    }
+                }
+                if ( ( P->flags & F_BATTLEPROTOCOL )
+                     || ( P->flags & F_GPLUS ) ) {
+                    int i;
+                    shot *s;
+
+                    fprintf( fields->destination,
+                             "\n\t\tBattle Protocol\n\n" );
+                    s = b->protocol->shots;
+                    for ( i = 0; i < b->protocol->cur; i++ ) {
+                        fprintf( fields->destination,
+                                 "%s %s fires on %s %s : ",
+                                 s[i].attacker->name, s[i].atype->name,
+                                 s[i].target->name, s[i].ttype->name );
+                        if ( s[i].result ) {
+                            fprintf( fields->destination, "Destroyed\n" );
+                        } else {
+                            fprintf( fields->destination, "Shields\n" );
+                        }
+                    }
+                }
             }
-            formatPrint(fields);
-          }
         }
-        if ((P->flags & F_BATTLEPROTOCOL) || (P->flags & F_GPLUS)) {
-          int             i;
-          shot           *s;
-
-          fprintf(fields->destination, "\n\t\tBattle Protocol\n\n");
-          s = b->protocol->shots;
-          for (i = 0; i < b->protocol->cur; i++) {
-            fprintf(fields->destination, "%s %s fires on %s %s : ",
-                    s[i].attacker->name, s[i].atype->name,
-                    s[i].target->name, s[i].ttype->name);
-            if (s[i].result) {
-              fprintf(fields->destination, "Destroyed\n");
-            }
-            else {
-              fprintf(fields->destination, "Shields\n");
-            }
-          }
-        }
-      }
     }
-  }
 }
 
 
@@ -1049,54 +1052,55 @@ reportBattles(game *aGame, player *P, fielddef *fields)
  */
 
 void
-reportBombings(game *aGame, player *P, fielddef *fields)
+reportBombings( game *aGame, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  if (canseeBombing(aGame, P)) {
-    fprintf(fields->destination, "\n\t\tBombings\n\n");
-    formatReset(fields);
-    for (state = 0; state < 2; state++) {
-      bombing        *B;
-      alliance       *a;
+    if ( canseeBombing( aGame, P ) ) {
+        fprintf( fields->destination, "\n\t\tBombings\n\n" );
+        formatReset( fields );
+        for ( state = 0; state < 2; state++ ) {
+            bombing *B;
+            alliance *a;
 
-      if (P->flags & F_GPLUS) {
-        formatLabels("W O # N P I P $ M C A R", "lccccccccccc", fields);
-      }
-      else {
-        formatLabels("W O N P I P $ M C", "lcccccccc", fields);
-      }
+            if ( P->flags & F_GPLUS ) {
+                formatLabels( "W O # N P I P $ M C A R", "lccccccccccc",
+                              fields );
+            } else {
+                formatLabels( "W O N P I P $ M C", "lcccccccc", fields );
+            }
 
-      for (B = aGame->bombings; B; B = B->next) {
-        for (a = B->viewers; a; a = a->next)
-          if (a->who eq P)
-            break;
-        if (a) {
-          formatString(B->who->name, fields);
-          formatString(B->owner->name, fields);
-          if (P->flags & F_GPLUS) {
-            formatInteger(ptonum(aGame->planets, B->where), fields);
-          }
-          formatString(B->name, fields);
-          formatFloat(B->pop, fields);
-          formatFloat(B->ind, fields);
-          if (B->producing eq PR_SHIP)
-            formatString(B->producingshiptype->name, fields);
-          else
-            formatString(productname[B->producing], fields);
-          formatFloat(B->cap, fields);
-          formatFloat(B->mat, fields);
-          formatFloat(B->col, fields);
-          if (P->flags & F_GPLUS) {
-            formatFloat(1.0, fields);
-            formatString("Whiped", fields);
-          }
-          formatReturn(fields);
+            for ( B = aGame->bombings; B; B = B->next ) {
+                for ( a = B->viewers; a; a = a->next )
+                    if ( a->who eq P )
+                        break;
+                if ( a ) {
+                    formatString( B->who->name, fields );
+                    formatString( B->owner->name, fields );
+                    if ( P->flags & F_GPLUS ) {
+                        formatInteger( ptonum( aGame->planets, B->where ),
+                                       fields );
+                    }
+                    formatString( B->name, fields );
+                    formatFloat( B->pop, fields );
+                    formatFloat( B->ind, fields );
+                    if ( B->producing eq PR_SHIP )
+                        formatString( B->producingshiptype->name, fields );
+                    else
+                        formatString( productname[B->producing], fields );
+                    formatFloat( B->cap, fields );
+                    formatFloat( B->mat, fields );
+                    formatFloat( B->col, fields );
+                    if ( P->flags & F_GPLUS ) {
+                        formatFloat( 1.0, fields );
+                        formatString( "Whiped", fields );
+                    }
+                    formatReturn( fields );
+                }
+            }
+            formatPrint( fields );
         }
-      }
-      formatPrint(fields);
     }
-  }
 }
 
 /****f* Report/reportIncoming
@@ -1106,59 +1110,62 @@ reportBombings(game *aGame, player *P, fielddef *fields)
  */
 
 void
-reportIncoming(game *aGame, player *P, fielddef *fields)
+reportIncoming( game *aGame, player *P, fielddef *fields )
 {
-  int             state;
-  int             incomming;
-  player         *P2;
+    int state;
+    int incomming;
+    player *P2;
 
-  incomming = FALSE;
-  for (P2 = aGame->players; P2 && !incomming; P2 = P2->next) {
-    if (P2 != P) {
-      group          *g;
+    incomming = FALSE;
+    for ( P2 = aGame->players; P2 && !incomming; P2 = P2->next ) {
+        if ( P2 != P ) {
+            group *g;
 
-      for (g = P2->groups; g && !incomming; g = g->next) {
-        if (g->dist && g->where->owner eq P) {
-          incomming = TRUE;
-        }
-      }
-    }
-  }
-  if (incomming) {
-    fprintf(fields->destination, "\n\t\tIncoming Groups\n\n");
-    formatReset(fields);
-    for (state = 0; state < 2; state++) {
-      formatLabels("O D R S M", "lcccc", fields);
-      for (P2 = aGame->players; P2; P2 = P2->next) {
-        if (P2 != P) {
-          group          *g;
-
-          for (g = P2->groups; g; g = g->next) {
-            if (g->dist && g->where->owner eq P) {
-              if (P->flags & F_GPLUS) {
-                GformatInteger(ptonum(aGame->planets, g->from), fields);
-                formatString(g->where->name, fields);
-                /* GformatInteger(ptonum(planets, g->where), fields); */
-              }
-              else {
-                formatString(g->from->name, fields);
-                formatString(g->where->name, fields);
-              }
-              formatFloat(g->dist, fields);
-              if (g->thefleet)
-                formatFloat(g->thefleet->fleetspeed, fields);
-              else
-                formatFloat(g->type->drive * g->drive *
-                            DRIVEMAGIC / shipmass(g), fields);
-              formatFloat(shipmass(g) * g->ships, fields);
-              formatReturn(fields);
+            for ( g = P2->groups; g && !incomming; g = g->next ) {
+                if ( g->dist > 0.0 && g->where->owner eq P ) {
+                    incomming = TRUE;
+                }
             }
-          }
         }
-      }
-      formatPrint(fields);
     }
-  }
+    if ( incomming ) {
+        fprintf( fields->destination, "\n\t\tIncoming Groups\n\n" );
+        formatReset( fields );
+        for ( state = 0; state < 2; state++ ) {
+            formatLabels( "O D R S M", "lcccc", fields );
+            for ( P2 = aGame->players; P2; P2 = P2->next ) {
+                if ( P2 != P ) {
+                    group *g;
+
+                    for ( g = P2->groups; g; g = g->next ) {
+                        if ( g->dist > 0.0 && g->where->owner eq P ) {
+                            if ( P->flags & F_GPLUS ) {
+                                GformatInteger( ptonum
+                                                ( aGame->planets, g->from ),
+                                                fields );
+                                formatString( g->where->name, fields );
+                                /* GformatInteger(ptonum(planets, g->where), fields); */
+                            } else {
+                                formatString( g->from->name, fields );
+                                formatString( g->where->name, fields );
+                            }
+                            formatFloat( g->dist, fields );
+                            if ( g->thefleet )
+                                formatFloat( g->thefleet->fleetspeed,
+                                             fields );
+                            else
+                                formatFloat( g->type->drive * g->drive *
+                                             DRIVEMAGIC / shipmass( g ),
+                                             fields );
+                            formatFloat( shipmass( g ) * g->ships, fields );
+                            formatReturn( fields );
+                        }
+                    }
+                }
+            }
+            formatPrint( fields );
+        }
+    }
 }
 
 
@@ -1169,35 +1176,34 @@ reportIncoming(game *aGame, player *P, fielddef *fields)
  */
 
 void
-reportYourPlanets(planet *planets, player *P, fielddef *fields)
+reportYourPlanets( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  fprintf(fields->destination, "\n\t\tYour Planets\n\n");
+    fprintf( fields->destination, "\n\t\tYour Planets\n\n" );
 
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    planet         *p;
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        planet *p;
 
-    if (P->flags & F_GPLUS) {
-      formatLabels("# X Y N S P I R P $ M C L", "lcccccccccccc", fields);
-    }
-    else {
-      formatLabels("N X Y S P I R P $ M C L", "lccccccccccc", fields);
-    }
-    for (p = planets; p; p = p->next) {
-      if (p->owner eq P) {
-        if (P->flags & F_GPLUS) {
-          GreportPlanet(planets, p, fields);
+        if ( P->flags & F_GPLUS ) {
+            formatLabels( "# X Y N S P I R P $ M C L", "lcccccccccccc",
+                          fields );
+        } else {
+            formatLabels( "N X Y S P I R P $ M C L", "lccccccccccc", fields );
         }
-        else {
-          reportPlanet(p, fields);
+        for ( p = planets; p; p = p->next ) {
+            if ( p->owner eq P ) {
+                if ( P->flags & F_GPLUS ) {
+                    GreportPlanet( planets, p, fields );
+                } else {
+                    reportPlanet( p, fields );
+                }
+                formatReturn( fields );
+            }
         }
-        formatReturn(fields);
-      }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 /****f* Report/reportProdTable
@@ -1207,43 +1213,41 @@ reportYourPlanets(planet *planets, player *P, fielddef *fields)
  */
 
 void
-reportProdTable(planet *planets, player *P, fielddef *fields)
+reportProdTable( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
-  int             hasproduction;
-  planet         *p;
+    int state;
+    int hasproduction;
+    planet *p;
 
-  hasproduction = FALSE;
-  for (p = planets; p; p = p->next) {
-    if (p->owner eq P && p->producing eq PR_SHIP) {
-      hasproduction = TRUE;
-      break;
-    }
-  }
-
-  if ((P->flags & F_PRODTABLE) && hasproduction) {
-    fprintf(fields->destination, "\n\t\tShips In Production\n\n");
-    formatReset(fields);
-    for (state = 0; state < 2; state++) {
-      if (P->flags & F_GPLUS) {
-        formatLabels("# N S C P L", "lccccc", fields);
-      }
-      else {
-        formatLabels("N P N U", "lccc", fields);
-      }
-      for (p = planets; p; p = p->next) {
-        if (p->owner eq P) {
-          if (P->flags & F_GPLUS) {
-            GreportProduction(planets, p, fields);
-          }
-          else {
-            reportProduction(p, fields);
-          }
+    hasproduction = FALSE;
+    for ( p = planets; p; p = p->next ) {
+        if ( p->owner eq P && p->producing eq PR_SHIP ) {
+            hasproduction = TRUE;
+            break;
         }
-      }
-      formatPrint(fields);
     }
-  }
+
+    if ( ( P->flags & F_PRODTABLE ) && hasproduction ) {
+        fprintf( fields->destination, "\n\t\tShips In Production\n\n" );
+        formatReset( fields );
+        for ( state = 0; state < 2; state++ ) {
+            if ( P->flags & F_GPLUS ) {
+                formatLabels( "# N S C P L", "lccccc", fields );
+            } else {
+                formatLabels( "N P N U", "lccc", fields );
+            }
+            for ( p = planets; p; p = p->next ) {
+                if ( p->owner eq P ) {
+                    if ( P->flags & F_GPLUS ) {
+                        GreportProduction( planets, p, fields );
+                    } else {
+                        reportProduction( p, fields );
+                    }
+                }
+            }
+            formatPrint( fields );
+        }
+    }
 }
 
 /****f* Report/GreportProduction
@@ -1253,26 +1257,26 @@ reportProdTable(planet *planets, player *P, fielddef *fields)
  */
 
 void
-GreportProduction(planet *planets, planet *p, fielddef *fields)
+GreportProduction( planet *planets, planet *p, fielddef *fields )
 {
-  double          mass;
-  double          theshipmass;
-  double          prog;
+    double mass;
+    double theshipmass;
+    double prog;
 
-  if (p->producing eq PR_SHIP) {
-    formatInteger(ptonum(planets, p), fields);
-    formatString(p->name, fields);
-    formatString(p->producingshiptype->name, fields);
-    theshipmass = typemass(p->producingshiptype);
-    mass = theshipmass * INDPERSHIP;
-    prog = p->inprogress;
-    if (theshipmass > p->mat)
-      mass += (theshipmass - p->mat) / p->resources;
-    formatFloat(mass, fields);
-    formatFloat(prog, fields);
-    formatFloat(effectiveIndustry(p->pop, p->ind), fields);
-    formatReturn(fields);
-  }
+    if ( p->producing eq PR_SHIP ) {
+        formatInteger( ptonum( planets, p ), fields );
+        formatString( p->name, fields );
+        formatString( p->producingshiptype->name, fields );
+        theshipmass = typemass( p->producingshiptype );
+        mass = theshipmass * INDPERSHIP;
+        prog = p->inprogress;
+        if ( theshipmass > p->mat )
+            mass += ( theshipmass - p->mat ) / p->resources;
+        formatFloat( mass, fields );
+        formatFloat( prog, fields );
+        formatFloat( effectiveIndustry( p->pop, p->ind ), fields );
+        formatReturn( fields );
+    }
 }
 
 
@@ -1283,24 +1287,24 @@ GreportProduction(planet *planets, planet *p, fielddef *fields)
  */
 
 void
-reportProduction(planet *p, fielddef *fields)
+reportProduction( planet *p, fielddef *fields )
 {
-  double          mass;
-  double          theshipmass;
-  double          prog;
+    double mass;
+    double theshipmass;
+    double prog;
 
-  if (p->producing eq PR_SHIP) {
-    formatString(p->name, fields);
-    formatString(p->producingshiptype->name, fields);
-    theshipmass = typemass(p->producingshiptype);
-    mass = theshipmass * INDPERSHIP;
-    prog = p->inprogress;
-    if (theshipmass > p->mat)
-      mass += (theshipmass - p->mat) / p->resources;
-    formatFloat(mass, fields);
-    formatFloat(prog, fields);
-    formatReturn(fields);
-  }
+    if ( p->producing eq PR_SHIP ) {
+        formatString( p->name, fields );
+        formatString( p->producingshiptype->name, fields );
+        theshipmass = typemass( p->producingshiptype );
+        mass = theshipmass * INDPERSHIP;
+        prog = p->inprogress;
+        if ( theshipmass > p->mat )
+            mass += ( theshipmass - p->mat ) / p->resources;
+        formatFloat( mass, fields );
+        formatFloat( prog, fields );
+        formatReturn( fields );
+    }
 }
 
 
@@ -1313,45 +1317,45 @@ reportProduction(planet *p, fielddef *fields)
 
 
 void
-reportRoutes(planet *planets, player *P, fielddef *fields)
+reportRoutes( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
-  int             hasroutes;
-  planet         *p;
+    int state;
+    int hasroutes;
+    planet *p;
 
-  hasroutes = FALSE;
-  for (p = planets; p; p = p->next) {
-    if (p->owner eq P && (p->routes[0] || p->routes[1] ||
-                          p->routes[2] || p->routes[3])) {
-      hasroutes = TRUE;
-      break;
-    }
-  }
-
-  if (hasroutes) {
-    fprintf(fields->destination, "\n\t\tYour Routes\n\n");
-    formatReset(fields);
-    for (state = 0; state < 2; state++) {
-
-      formatLabels("N $ M C E", "lllll", fields);
-      for (p = planets; p; p = p->next) {
-        if (p->owner eq P && (p->routes[0] || p->routes[1] ||
-                              p->routes[2] || p->routes[3])) {
-          int             i;
-
-          formatString(p->name, fields);
-          for (i = 0; i != MAXCARGO; i++) {
-            if (p->routes[i])
-              formatString(p->routes[i]->name, fields);
-            else
-              formatString("-", fields);
-          }
-          formatReturn(fields);
+    hasroutes = FALSE;
+    for ( p = planets; p; p = p->next ) {
+        if ( p->owner eq P && ( p->routes[0] || p->routes[1] ||
+                                p->routes[2] || p->routes[3] ) ) {
+            hasroutes = TRUE;
+            break;
         }
-      }
-      formatPrint(fields);
     }
-  }
+
+    if ( hasroutes ) {
+        fprintf( fields->destination, "\n\t\tYour Routes\n\n" );
+        formatReset( fields );
+        for ( state = 0; state < 2; state++ ) {
+
+            formatLabels( "N $ M C E", "lllll", fields );
+            for ( p = planets; p; p = p->next ) {
+                if ( p->owner eq P && ( p->routes[0] || p->routes[1] ||
+                                        p->routes[2] || p->routes[3] ) ) {
+                    int i;
+
+                    formatString( p->name, fields );
+                    for ( i = 0; i != MAXCARGO; i++ ) {
+                        if ( p->routes[i] )
+                            formatString( p->routes[i]->name, fields );
+                        else
+                            formatString( "-", fields );
+                    }
+                    formatReturn( fields );
+                }
+            }
+            formatPrint( fields );
+        }
+    }
 }
 
 /****f* Report/reportPlanetsSeen
@@ -1361,53 +1365,52 @@ reportRoutes(planet *planets, player *P, fielddef *fields)
  */
 
 void
-reportPlanetsSeen(game *aGame, player *P, fielddef *fields)
+reportPlanetsSeen( game *aGame, player *P, fielddef *fields )
 {
-  int             state;
-  player         *P2;
+    int state;
+    player *P2;
 
-  for (P2 = aGame->players; P2; P2 = P2->next) {
-    if (P2 != P) {
-      planet         *p;
-      int             cansee;
+    for ( P2 = aGame->players; P2; P2 = P2->next ) {
+        if ( P2 != P ) {
+            planet *p;
+            int cansee;
 
-      cansee = FALSE;
-      for (p = aGame->planets; p; p = p->next) {
-        if (p->owner eq P2 && canseeplanet(P, p)) {
-          cansee = TRUE;
-          break;
-        }
-      }
-      if (cansee) {
-        fprintf(fields->destination, "\n\t\t%s Planets\n\n", P2->name);
-        formatReset(fields);
-        for (state = 0; state < 2; state++) {
-          planet         *p;
-
-          if (P->flags & F_GPLUS) {
-            formatLabels("# X Y N S P I R P $ M C L",
-                         "lcccccccccccc", fields);
-          }
-          else {
-            formatLabels("N X Y S P I R P $ M C L",
-                         "lccccccccccc", fields);
-          }
-          for (p = aGame->planets; p; p = p->next) {
-            if (p->owner eq P2 && canseeplanet(P, p)) {
-              if (P->flags & F_GPLUS) {
-                GreportPlanet(aGame->planets, p, fields);
-              }
-              else {
-                reportPlanet(p, fields);
-              }
-              formatReturn(fields);
+            cansee = FALSE;
+            for ( p = aGame->planets; p; p = p->next ) {
+                if ( p->owner eq P2 && canseeplanet( P, p ) ) {
+                    cansee = TRUE;
+                    break;
+                }
             }
-          }
-          formatPrint(fields);
+            if ( cansee ) {
+                fprintf( fields->destination, "\n\t\t%s Planets\n\n",
+                         P2->name );
+                formatReset( fields );
+                for ( state = 0; state < 2; state++ ) {
+                    planet *p;
+
+                    if ( P->flags & F_GPLUS ) {
+                        formatLabels( "# X Y N S P I R P $ M C L",
+                                      "lcccccccccccc", fields );
+                    } else {
+                        formatLabels( "N X Y S P I R P $ M C L",
+                                      "lccccccccccc", fields );
+                    }
+                    for ( p = aGame->planets; p; p = p->next ) {
+                        if ( p->owner eq P2 && canseeplanet( P, p ) ) {
+                            if ( P->flags & F_GPLUS ) {
+                                GreportPlanet( aGame->planets, p, fields );
+                            } else {
+                                reportPlanet( p, fields );
+                            }
+                            formatReturn( fields );
+                        }
+                    }
+                    formatPrint( fields );
+                }
+            }
         }
-      }
     }
-  }
 }
 
 /****f* Report/reportUnidentifiedPlanets
@@ -1418,36 +1421,34 @@ reportPlanetsSeen(game *aGame, player *P, fielddef *fields)
 
 
 void
-reportUnidentifiedPlanets(planet *planets, player *P, fielddef *fields)
+reportUnidentifiedPlanets( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  fprintf(fields->destination, "\n\t\tUnidentified Planets\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    planet         *p;
+    fprintf( fields->destination, "\n\t\tUnidentified Planets\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        planet *p;
 
-    if (P->flags & F_GPLUS) {
-      formatLabels("# X Y", "lcc", fields);
-    }
-    else {
-      formatLabels("N X Y", "lcc", fields);
-    }
-    for (p = planets; p; p = p->next) {
-      if (isunidentified(P, p)) {
-        if (P->flags & F_GPLUS) {
-          formatInteger(ptonum(planets, p), fields);
+        if ( P->flags & F_GPLUS ) {
+            formatLabels( "# X Y", "lcc", fields );
+        } else {
+            formatLabels( "N X Y", "lcc", fields );
         }
-        else {
-          formatString(p->name, fields);
+        for ( p = planets; p; p = p->next ) {
+            if ( isunidentified( P, p ) ) {
+                if ( P->flags & F_GPLUS ) {
+                    formatInteger( ptonum( planets, p ), fields );
+                } else {
+                    formatString( p->name, fields );
+                }
+                formatFloat( p->x, fields );
+                formatFloat( p->y, fields );
+                formatReturn( fields );
+            }
         }
-        formatFloat(p->x, fields);
-        formatFloat(p->y, fields);
-        formatReturn(fields);
-      }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 /****f* Report/reportUninhabitedPlanets
@@ -1457,60 +1458,56 @@ reportUnidentifiedPlanets(planet *planets, player *P, fielddef *fields)
  */
 
 void
-reportUninhabitedPlanets(planet *planets, player *P, fielddef *fields)
+reportUninhabitedPlanets( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  fprintf(fields->destination, "\n\t\tUninhabited Planets\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    planet         *p;
+    fprintf( fields->destination, "\n\t\tUninhabited Planets\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        planet *p;
 
-    if (P->flags & F_GPLUS) {
-      formatLabels("# X Y N S R $ M", "lccccccc", fields);
-    }
-    else {
-      formatLabels("N X Y S R $ M", "lcccccc", fields);
-    }
+        if ( P->flags & F_GPLUS ) {
+            formatLabels( "# X Y N S R $ M", "lccccccc", fields );
+        } else {
+            formatLabels( "N X Y S R $ M", "lcccccc", fields );
+        }
 
-    for (p = planets; p; p = p->next) {
-      if (isuninhabited(P, p)) {
-        if (P->flags & F_GPLUS) {
-          formatInteger(ptonum(planets, p), fields);
+        for ( p = planets; p; p = p->next ) {
+            if ( isuninhabited( P, p ) ) {
+                if ( P->flags & F_GPLUS ) {
+                    formatInteger( ptonum( planets, p ), fields );
+                } else {
+                    formatString( p->name, fields );
+                }
+                formatFloat( p->x, fields );
+                formatFloat( p->y, fields );
+                if ( P->flags & F_GPLUS ) {
+                    formatString( p->name, fields );
+                }
+                if ( canseeplanet( P, p ) ) {
+                    formatFloat( p->size, fields );
+                    formatFloat( p->resources, fields );
+                    formatFloat( p->cap, fields );
+                    formatFloat( p->mat, fields );
+                } else {
+                    if ( P->flags & F_GPLUS ) {
+                        formatString( "0", fields );
+                        formatString( "0", fields );
+                        formatString( "0", fields );
+                        formatString( "0", fields );
+                    } else {
+                        formatString( "", fields );
+                        formatString( "", fields );
+                        formatString( "", fields );
+                        formatString( "", fields );
+                    }
+                }
+                formatReturn( fields );
+            }
         }
-        else {
-          formatString(p->name, fields);
-        }
-        formatFloat(p->x, fields);
-        formatFloat(p->y, fields);
-        if (P->flags & F_GPLUS) {
-          formatString(p->name, fields);
-        }
-        if (canseeplanet(P, p)) {
-          formatFloat(p->size, fields);
-          formatFloat(p->resources, fields);
-          formatFloat(p->cap, fields);
-          formatFloat(p->mat, fields);
-        }
-        else {
-          if (P->flags & F_GPLUS) {
-            formatString("0", fields);
-            formatString("0", fields);
-            formatString("0", fields);
-            formatString("0", fields);
-          }
-          else {
-            formatString("", fields);
-            formatString("", fields);
-            formatString("", fields);
-            formatString("", fields);
-          }
-        }
-        formatReturn(fields);
-      }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
@@ -1521,117 +1518,117 @@ reportUninhabitedPlanets(planet *planets, player *P, fielddef *fields)
  */
 
 void
-reportYourGroups(planet *planets, player *P, fielddef *fields)
+reportYourGroups( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  if (P->groups) {
-    fprintf(fields->destination, "\n\t\tYour Groups\n\n");
-    formatReset(fields);
-    for (state = 0; state < 2; state++) {
-      group          *g;
-      planet         *p;
+    if ( P->groups ) {
+        fprintf( fields->destination, "\n\t\tYour Groups\n\n" );
+        formatReset( fields );
+        for ( state = 0; state < 2; state++ ) {
+            group *g;
+            planet *p;
 
-      if (P->flags & F_GPLUS) {
-        formatLabels("G # T D W S C T Q D F R P M L S",
-                     "lccccccccccccccc", fields);
-      }
-      else {
-        formatLabels("G # T D W S C T Q D R O", "lccccccccccc", fields);
-      }
-      for (p = planets; p; p = p->next) {
-        if (p->owner eq P) {
-          for (g = P->groups; g; g = g->next) {
-            if (!g->thefleet || (P->flags & F_GPLUS)) {
-              if (g->location eq p) {
-                if (P->flags & F_GPLUS) {
-                  GreportGroup(planets, P, g, g->number,
-                               fields, G_MODE_OWN, 0);
-                }
-                else {
-                  reportGroup(g, g->number, fields, G_MODE_OWN);
-                }
-              }
+            if ( P->flags & F_GPLUS ) {
+                formatLabels( "G # T D W S C T Q D F R P M L S",
+                              "lccccccccccccccc", fields );
+            } else {
+                formatLabels( "G # T D W S C T Q D R O", "lccccccccccc",
+                              fields );
             }
-          }
-          for (g = P->groups; g; g = g->next) {
-            if (!g->thefleet || (P->flags & F_GPLUS)) {
-              if (!g->location && g->where eq p) {
-                if (P->flags & F_GPLUS) {
-                  GreportGroup(planets, P, g, g->number,
-                               fields, G_MODE_OWN, 0);
+            for ( p = planets; p; p = p->next ) {
+                if ( p->owner eq P ) {
+                    for ( g = P->groups; g; g = g->next ) {
+                        if ( !g->thefleet || ( P->flags & F_GPLUS ) ) {
+                            if ( g->location eq p ) {
+                                if ( P->flags & F_GPLUS ) {
+                                    GreportGroup( planets, P, g, g->number,
+                                                  fields, G_MODE_OWN, 0 );
+                                } else {
+                                    reportGroup( g, g->number, fields,
+                                                 G_MODE_OWN );
+                                }
+                            }
+                        }
+                    }
+                    for ( g = P->groups; g; g = g->next ) {
+                        if ( !g->thefleet || ( P->flags & F_GPLUS ) ) {
+                            if ( !g->location && g->where eq p ) {
+                                if ( P->flags & F_GPLUS ) {
+                                    GreportGroup( planets, P, g, g->number,
+                                                  fields, G_MODE_OWN, 0 );
+                                } else {
+                                    reportGroup( g, g->number, fields,
+                                                 G_MODE_OWN );
+                                }
+                            }
+                        }
+                    }
                 }
-                else {
-                  reportGroup(g, g->number, fields, G_MODE_OWN);
-                }
-              }
             }
-          }
+            for ( p = planets; p; p = p->next ) {
+                if ( p->owner && p->owner != P ) {
+                    for ( g = P->groups; g; g = g->next ) {
+                        if ( !g->thefleet || ( P->flags & F_GPLUS ) ) {
+                            if ( g->location eq p ) {
+                                if ( P->flags & F_GPLUS ) {
+                                    GreportGroup( planets, P, g, g->number,
+                                                  fields, G_MODE_OWN, 0 );
+                                } else {
+                                    reportGroup( g, g->number, fields,
+                                                 G_MODE_OWN );
+                                }
+                            }
+                        }
+                    }
+                    for ( g = P->groups; g; g = g->next ) {
+                        if ( !g->thefleet || ( P->flags & F_GPLUS ) ) {
+                            if ( !g->location && g->where eq p ) {
+                                if ( P->flags & F_GPLUS ) {
+                                    GreportGroup( planets, P, g, g->number,
+                                                  fields, G_MODE_OWN, 0 );
+                                } else {
+                                    reportGroup( g, g->number, fields,
+                                                 G_MODE_OWN );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            for ( p = planets; p; p = p->next ) {
+                if ( !p->owner ) {
+                    for ( g = P->groups; g; g = g->next ) {
+                        if ( !g->thefleet || ( P->flags & F_GPLUS ) ) {
+                            if ( g->location eq p ) {
+                                if ( P->flags & F_GPLUS ) {
+                                    GreportGroup( planets, P, g, g->number,
+                                                  fields, G_MODE_OWN, 0 );
+                                } else {
+                                    reportGroup( g, g->number, fields,
+                                                 G_MODE_OWN );
+                                }
+                            }
+                        }
+                    }
+                    for ( g = P->groups; g; g = g->next ) {
+                        if ( !g->thefleet || ( P->flags & F_GPLUS ) ) {
+                            if ( !g->location && g->where eq p ) {
+                                if ( P->flags & F_GPLUS ) {
+                                    GreportGroup( planets, P, g, g->number,
+                                                  fields, G_MODE_OWN, 0 );
+                                } else {
+                                    reportGroup( g, g->number, fields,
+                                                 G_MODE_OWN );
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            formatPrint( fields );
         }
-      }
-      for (p = planets; p; p = p->next) {
-        if (p->owner && p->owner != P) {
-          for (g = P->groups; g; g = g->next) {
-            if (!g->thefleet || (P->flags & F_GPLUS)) {
-              if (g->location eq p) {
-                if (P->flags & F_GPLUS) {
-                  GreportGroup(planets, P, g, g->number,
-                               fields, G_MODE_OWN, 0);
-                }
-                else {
-                  reportGroup(g, g->number, fields, G_MODE_OWN);
-                }
-              }
-            }
-          }
-          for (g = P->groups; g; g = g->next) {
-            if (!g->thefleet || (P->flags & F_GPLUS)) {
-              if (!g->location && g->where eq p) {
-                if (P->flags & F_GPLUS) {
-                  GreportGroup(planets, P, g, g->number,
-                               fields, G_MODE_OWN, 0);
-                }
-                else {
-                  reportGroup(g, g->number, fields, G_MODE_OWN);
-                }
-              }
-            }
-          }
-        }
-      }
-      for (p = planets; p; p = p->next) {
-        if (!p->owner) {
-          for (g = P->groups; g; g = g->next) {
-            if (!g->thefleet || (P->flags & F_GPLUS)) {
-              if (g->location eq p) {
-                if (P->flags & F_GPLUS) {
-                  GreportGroup(planets, P, g, g->number,
-                               fields, G_MODE_OWN, 0);
-                }
-                else {
-                  reportGroup(g, g->number, fields, G_MODE_OWN);
-                }
-              }
-            }
-          }
-          for (g = P->groups; g; g = g->next) {
-            if (!g->thefleet || (P->flags & F_GPLUS)) {
-              if (!g->location && g->where eq p) {
-                if (P->flags & F_GPLUS) {
-                  GreportGroup(planets, P, g, g->number,
-                               fields, G_MODE_OWN, 0);
-                }
-                else {
-                  reportGroup(g, g->number, fields, G_MODE_OWN);
-                }
-              }
-            }
-          }
-        }
-      }
-      formatPrint(fields);
     }
-  }
 }
 
 /****f* Report/GreportFleets
@@ -1641,56 +1638,53 @@ reportYourGroups(planet *planets, player *P, fielddef *fields)
  */
 
 void
-GreportFleets(planet *planets, player *P, fielddef *fields)
+GreportFleets( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  if (P->fleetnames) {
-    fleetname      *fl;
+    if ( P->fleetnames ) {
+        fleetname *fl;
 
-    fprintf(fields->destination, "\n\t\tYour Fleets\n\n");
-    formatReset(fields);
-    for (state = 0; state < 2; state++) {
-      int             i;
+        fprintf( fields->destination, "\n\t\tYour Fleets\n\n" );
+        formatReset( fields );
+        for ( state = 0; state < 2; state++ ) {
+            int i;
 
-      formatLabels("# N G D F R P", "lccccccc", fields);
-      for (i = 1, fl = P->fleetnames; fl; fl = fl->next, i++) {
-        group          *g;
+            formatLabels( "# N G D F R P", "lccccccc", fields );
+            for ( i = 1, fl = P->fleetnames; fl; fl = fl->next, i++ ) {
+                group *g;
 
-        for (g = P->groups; g; g = g->next) {
-          if (g->thefleet eq fl)
-            break;
-        };
-        formatInteger(i, fields);
-        formatString(fl->name, fields);
-        formatInteger(numOfGroupsInFleet(fl, P->groups), fields);
-        if (g) {
-          if (canseeplanet(P, g->where)) {
-            formatString(g->where->name, fields);
-          }
-          else {
-            GformatInteger(ptonum(planets, g->where), fields);
-          }
-          if (g->dist) {
-            formatString(g->from->name, fields);
-            formatFloat(g->dist, fields);
-          }
-          else {
-            formatString("-", fields);
-            formatString("-", fields);
-          }
+                for ( g = P->groups; g; g = g->next ) {
+                    if ( g->thefleet eq fl )
+                        break;
+                };
+                formatInteger( i, fields );
+                formatString( fl->name, fields );
+                formatInteger( numOfGroupsInFleet( fl, P->groups ), fields );
+                if ( g ) {
+                    if ( canseeplanet( P, g->where ) ) {
+                        formatString( g->where->name, fields );
+                    } else {
+                        GformatInteger( ptonum( planets, g->where ), fields );
+                    }
+                    if ( g->dist > 0.0 ) {
+                        formatString( g->from->name, fields );
+                        formatFloat( g->dist, fields );
+                    } else {
+                        formatString( "-", fields );
+                        formatString( "-", fields );
+                    }
+                } else {
+                    formatString( "BUG!", fields );
+                    formatString( "BUG!", fields );
+                    formatString( "BUG!", fields );
+                }
+                formatFloat( fl->fleetspeed, fields );
+                formatReturn( fields );
+            }
+            formatPrint( fields );
         }
-        else {
-          formatString("BUG!", fields);
-          formatString("BUG!", fields);
-          formatString("BUG!", fields);
-        }
-        formatFloat(fl->fleetspeed, fields);
-        formatReturn(fields);
-      }
-      formatPrint(fields);
     }
-  }
 }
 
 /****f* Report/reportFleets
@@ -1700,29 +1694,31 @@ GreportFleets(planet *planets, player *P, fielddef *fields)
  */
 
 void
-reportFleets(player *P, fielddef *fields)
+reportFleets( player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  if (P->fleetnames) {
-    fleetname      *fl;
+    if ( P->fleetnames ) {
+        fleetname *fl;
 
-    for (fl = P->fleetnames; fl; fl = fl->next) {
-      fprintf(fields->destination,
-              "\n\t\tFleet %s (speed %.2f)\n\n", fl->name, fl->fleetspeed);
-      formatReset(fields);
-      for (state = 0; state < 2; state++) {
-        group          *g;
+        for ( fl = P->fleetnames; fl; fl = fl->next ) {
+            fprintf( fields->destination,
+                     "\n\t\tFleet %s (speed %.2f)\n\n", fl->name,
+                     fl->fleetspeed );
+            formatReset( fields );
+            for ( state = 0; state < 2; state++ ) {
+                group *g;
 
-        formatLabels("G # T D W S C T Q D R O", "lccccccccccc", fields);
-        for (g = P->groups; g; g = g->next) {
-          if (g->thefleet eq fl)
-            reportGroup(g, g->number, fields, G_MODE_OWN);
+                formatLabels( "G # T D W S C T Q D R O", "lccccccccccc",
+                              fields );
+                for ( g = P->groups; g; g = g->next ) {
+                    if ( g->thefleet eq fl )
+                        reportGroup( g, g->number, fields, G_MODE_OWN );
+                }
+                formatPrint( fields );
+            }
         }
-        formatPrint(fields);
-      }
     }
-  }
 }
 
 /****f* Report/reportGroupsSeen
@@ -1732,51 +1728,52 @@ reportFleets(player *P, fielddef *fields)
  */
 
 void
-reportGroupsSeen(game *aGame, player *P, fielddef *fields)
+reportGroupsSeen( game *aGame, player *P, fielddef *fields )
 {
-  int             state;
-  player         *P2;
+    int state;
+    player *P2;
 
-  for (P2 = aGame->players; P2; P2 = P2->next) {
-    if (P2 != P) {
-      int             cansee;
-      group          *g;
+    for ( P2 = aGame->players; P2; P2 = P2->next ) {
+        if ( P2 != P ) {
+            int cansee;
+            group *g;
 
-      cansee = FALSE;
-      for (g = P2->groups; g; g = g->next) {
-        if (canseegroup(P, g)) {
-          cansee = TRUE;
-          break;
-        }
-      }
-      if (cansee) {
-        fprintf(fields->destination, "\n\t\t%s Groups\n\n", P2->name);
-        formatReset(fields);
-        for (state = 0; state < 2; state++) {
-          group          *g;
-
-          if (P->flags & F_GPLUS) {
-            formatLabels("# T D W S C T Q D P M", "lcccccccccc", fields);
-          }
-          else {
-            formatLabels("# T D W S C T Q D", "lcccccccc", fields);
-          }
-          for (g = P2->groups; g; g = g->next) {
-            if (canseegroup(P, g)) {
-              if (P->flags & F_GPLUS) {
-                GreportGroup(aGame->planets, P, g, 0,
-                             fields, G_MODE_ALIEN, 0);
-              }
-              else {
-                reportGroup(g, 0, fields, G_MODE_ALIEN);
-              }
+            cansee = FALSE;
+            for ( g = P2->groups; g; g = g->next ) {
+                if ( canseegroup( P, g ) ) {
+                    cansee = TRUE;
+                    break;
+                }
             }
-          }
-          formatPrint(fields);
+            if ( cansee ) {
+                fprintf( fields->destination, "\n\t\t%s Groups\n\n",
+                         P2->name );
+                formatReset( fields );
+                for ( state = 0; state < 2; state++ ) {
+                    group *g;
+
+                    if ( P->flags & F_GPLUS ) {
+                        formatLabels( "# T D W S C T Q D P M", "lcccccccccc",
+                                      fields );
+                    } else {
+                        formatLabels( "# T D W S C T Q D", "lcccccccc",
+                                      fields );
+                    }
+                    for ( g = P2->groups; g; g = g->next ) {
+                        if ( canseegroup( P, g ) ) {
+                            if ( P->flags & F_GPLUS ) {
+                                GreportGroup( aGame->planets, P, g, 0,
+                                              fields, G_MODE_ALIEN, 0 );
+                            } else {
+                                reportGroup( g, 0, fields, G_MODE_ALIEN );
+                            }
+                        }
+                    }
+                    formatPrint( fields );
+                }
+            }
         }
-      }
     }
-  }
 }
 
 /****f* Report/reportGroup
@@ -1786,41 +1783,40 @@ reportGroupsSeen(game *aGame, player *P, fielddef *fields)
  */
 
 void
-reportGroup(group *g, int n, fielddef *fields, int mode)
+reportGroup( group *g, int n, fielddef *fields, int mode )
 {
-  static char    *loadtypename[] = {
-    "CAP",
-    "MAT",
-    "COL",
-    "-",
-  };
+    static char *loadtypename[] = {
+        "CAP",
+        "MAT",
+        "COL",
+        "-",
+    };
 
-  if (mode eq G_MODE_OWN)
-    formatInteger(n, fields);
-  formatInteger(g->ships, fields);
-  formatString(g->type->name, fields);
-  formatFloat(g->drive, fields);
-  formatFloat(g->weapons, fields);
-  formatFloat(g->shields, fields);
-  formatFloat(g->cargo, fields);
-  formatString(loadtypename[g->loadtype], fields);
-  formatFloat(g->load, fields);
-  if (mode != G_MODE_BATTLE)
-    formatString(g->where->name, fields);
-  if (mode eq G_MODE_OWN) {
-    if (g->dist) {
-      formatFloat(g->dist, fields);
-      formatString(g->from->name, fields);
+    if ( mode eq G_MODE_OWN )
+        formatInteger( n, fields );
+    formatInteger( g->ships, fields );
+    formatString( g->type->name, fields );
+    formatFloat( g->drive, fields );
+    formatFloat( g->weapons, fields );
+    formatFloat( g->shields, fields );
+    formatFloat( g->cargo, fields );
+    formatString( loadtypename[g->loadtype], fields );
+    formatFloat( g->load, fields );
+    if ( mode != G_MODE_BATTLE )
+        formatString( g->where->name, fields );
+    if ( mode eq G_MODE_OWN ) {
+        if ( g->dist > 0.0 ) {
+            formatFloat( g->dist, fields );
+            formatString( g->from->name, fields );
+        } else {
+            formatString( "", fields );
+            formatString( "", fields );
+        }
     }
-    else {
-      formatString("", fields);
-      formatString("", fields);
-    }
-  }
-  if (mode eq G_MODE_BATTLE)
-    formatInteger(g->left, fields);
+    if ( mode eq G_MODE_BATTLE )
+        formatInteger( g->left, fields );
 
-  formatReturn(fields);
+    formatReturn( fields );
 }
 
 
@@ -1831,69 +1827,64 @@ reportGroup(group *g, int n, fielddef *fields, int mode)
  */
 
 void
-GreportGroup(planet *planets, player *P, group *g, int n,
-             fielddef *fields, int mode, int phase)
+GreportGroup( planet *planets, player *P, group *g, int n,
+              fielddef *fields, int mode, int phase )
 {
-  static char    *loadtypename[] = {
-    "CAP", "MAT", "COL", "-"
-  };
+    static char *loadtypename[] = {
+        "CAP", "MAT", "COL", "-"
+    };
 
-  if (mode eq G_MODE_OWN)
-    formatInteger(n, fields);
-  formatInteger(g->ships, fields);
-  formatString(g->type->name, fields);
-  formatFloat(g->drive, fields);
-  formatFloat(g->weapons, fields);
-  formatFloat(g->shields, fields);
-  formatFloat(g->cargo, fields);
-  formatString(loadtypename[g->loadtype], fields);
-  formatFloat(g->load, fields);
-  if (mode != G_MODE_BATTLE) {
-    if (canseeplanet(P, g->where)) {
-      formatString(g->where->name, fields);
+    if ( mode eq G_MODE_OWN )
+        formatInteger( n, fields );
+    formatInteger( g->ships, fields );
+    formatString( g->type->name, fields );
+    formatFloat( g->drive, fields );
+    formatFloat( g->weapons, fields );
+    formatFloat( g->shields, fields );
+    formatFloat( g->cargo, fields );
+    formatString( loadtypename[g->loadtype], fields );
+    formatFloat( g->load, fields );
+    if ( mode != G_MODE_BATTLE ) {
+        if ( canseeplanet( P, g->where ) ) {
+            formatString( g->where->name, fields );
+        } else {
+            GformatInteger( ptonum( planets, g->where ), fields );
+        }
     }
-    else {
-      GformatInteger(ptonum(planets, g->where), fields);
+    if ( mode eq G_MODE_OWN ) {
+        if ( g->dist > 0.0 ) {
+            formatString( g->from->name, fields );
+            formatFloat( g->dist, fields );
+        } else {
+            formatString( "-", fields );
+            formatString( "-", fields );
+        }
+        formatFloat( groupSpeed( g ), fields );
+        formatFloat( shipmass( g ), fields );
+        if ( !g->thefleet ) {
+            formatString( "-", fields );
+        } else {
+            formatString( g->thefleet->name, fields );
+        }
+        if ( g->dist > 0.0 ) {
+            formatString( "In_Space", fields );
+        } else {
+            formatString( "In_Orbit", fields );
+        }
     }
-  }
-  if (mode eq G_MODE_OWN) {
-    if (g->dist) {
-      formatString(g->from->name, fields);
-      formatFloat(g->dist, fields);
+    if ( mode eq G_MODE_ALIEN ) {
+        formatFloat( groupSpeed( g ), fields );
+        formatFloat( shipmass( g ), fields );
     }
-    else {
-      formatString("-", fields);
-      formatString("-", fields);
+    if ( mode eq G_MODE_BATTLE ) {
+        formatInteger( g->left, fields );
+        if ( g->flags & phase ) {
+            formatString( "In_Battle", fields );
+        } else {
+            formatString( "Out_Battle", fields );
+        }
     }
-    formatFloat(groupSpeed(g), fields);
-    formatFloat(shipmass(g), fields);
-    if (!g->thefleet) {
-      formatString("-", fields);
-    }
-    else {
-      formatString(g->thefleet->name, fields);
-    }
-    if (g->dist) {
-      formatString("In_Space", fields);
-    }
-    else {
-      formatString("In_Orbit", fields);
-    }
-  }
-  if (mode eq G_MODE_ALIEN) {
-    formatFloat(groupSpeed(g), fields);
-    formatFloat(shipmass(g), fields);
-  }
-  if (mode eq G_MODE_BATTLE) {
-    formatInteger(g->left, fields);
-    if (g->flags & phase) {
-      formatString("In_Battle", fields);
-    }
-    else {
-      formatString("Out_Battle", fields);
-    }
-  }
-  formatReturn(fields);
+    formatReturn( fields );
 }
 
 
@@ -1907,24 +1898,24 @@ GreportGroup(planet *planets, player *P, group *g, int n,
  */
 
 void
-reportPlanet(planet *p, fielddef *fields)
+reportPlanet( planet *p, fielddef *fields )
 {
 
-  formatString(p->name, fields);
-  formatFloat(p->x, fields);
-  formatFloat(p->y, fields);
-  formatFloat(p->size, fields);
-  formatFloat(p->pop, fields);
-  formatFloat(p->ind, fields);
-  formatFloat(p->resources, fields);
-  if (p->producing eq PR_SHIP)
-    formatString(p->producingshiptype->name, fields);
-  else
-    formatString(productname[p->producing], fields);
-  formatFloat(p->cap, fields);
-  formatFloat(p->mat, fields);
-  formatFloat(p->col, fields);
-  formatFloat(effectiveIndustry(p->pop, p->ind), fields);
+    formatString( p->name, fields );
+    formatFloat( p->x, fields );
+    formatFloat( p->y, fields );
+    formatFloat( p->size, fields );
+    formatFloat( p->pop, fields );
+    formatFloat( p->ind, fields );
+    formatFloat( p->resources, fields );
+    if ( p->producing eq PR_SHIP )
+        formatString( p->producingshiptype->name, fields );
+    else
+        formatString( productname[p->producing], fields );
+    formatFloat( p->cap, fields );
+    formatFloat( p->mat, fields );
+    formatFloat( p->col, fields );
+    formatFloat( effectiveIndustry( p->pop, p->ind ), fields );
 }
 
 
@@ -1935,24 +1926,24 @@ reportPlanet(planet *p, fielddef *fields)
  */
 
 void
-GreportPlanet(planet *planets, planet *p, fielddef *fields)
+GreportPlanet( planet *planets, planet *p, fielddef *fields )
 {
-  formatInteger(ptonum(planets, p), fields);
-  formatFloat(p->x, fields);
-  formatFloat(p->y, fields);
-  formatString(p->name, fields);
-  formatFloat(p->size, fields);
-  formatFloat(p->pop, fields);
-  formatFloat(p->ind, fields);
-  formatFloat(p->resources, fields);
-  if (p->producing eq PR_SHIP)
-    formatString(p->producingshiptype->name, fields);
-  else
-    formatString(productname[p->producing], fields);
-  formatFloat(p->cap, fields);
-  formatFloat(p->mat, fields);
-  formatFloat(p->col, fields);
-  formatFloat(effectiveIndustry(p->pop, p->ind), fields);
+    formatInteger( ptonum( planets, p ), fields );
+    formatFloat( p->x, fields );
+    formatFloat( p->y, fields );
+    formatString( p->name, fields );
+    formatFloat( p->size, fields );
+    formatFloat( p->pop, fields );
+    formatFloat( p->ind, fields );
+    formatFloat( p->resources, fields );
+    if ( p->producing eq PR_SHIP )
+        formatString( p->producingshiptype->name, fields );
+    else
+        formatString( productname[p->producing], fields );
+    formatFloat( p->cap, fields );
+    formatFloat( p->mat, fields );
+    formatFloat( p->col, fields );
+    formatFloat( effectiveIndustry( p->pop, p->ind ), fields );
 }
 
 
@@ -1963,22 +1954,22 @@ GreportPlanet(planet *planets, planet *p, fielddef *fields)
  */
 
 int
-canseeBombing(game *aGame, player *P)
+canseeBombing( game *aGame, player *P )
 {
-  int             cansee;
-  bombing        *B;
-  alliance       *a;
+    int cansee;
+    bombing *B;
+    alliance *a;
 
-  cansee = FALSE;
+    cansee = FALSE;
 
-  for (B = aGame->bombings; B; B = B->next) {
-    for (a = B->viewers; a; a = a->next)
-      if (a->who eq P) {
-        cansee = TRUE;
-        break;
-      }
-  }
-  return cansee;
+    for ( B = aGame->bombings; B; B = B->next ) {
+        for ( a = B->viewers; a; a = a->next )
+            if ( a->who eq P ) {
+                cansee = TRUE;
+                break;
+            }
+    }
+    return cansee;
 }
 
 /****f* Report/visibleShipTypes
@@ -1989,62 +1980,63 @@ canseeBombing(game *aGame, player *P)
 
 
 int
-visibleShipTypes(game *aGame, player *P2, player *P)
+visibleShipTypes( game *aGame, player *P2, player *P )
 {
-  planet         *p;
-  shiptype       *t;
-  battle         *b;
-  participant    *r;
-  bombing        *B;
-  group          *g;
-  alliance       *a;
-  int             status;
+    planet *p;
+    shiptype *t;
+    battle *b;
+    participant *r;
+    bombing *B;
+    group *g;
+    alliance *a;
+    int status;
 
-  for (t = P2->shiptypes; t; t = t->next)
-    t->flag = 0;
-  for (b = aGame->battles; b; b = b->next) {
-    for (r = b->participants; r; r = r->next) {
-      if (r->who eq P)
-        break;
-    }
-    if (r) {
-      for (r = b->participants; r; r = r->next) {
-        if (r->who eq P2)
-          break;
-      }
-      if (r) {
-        for (g = r->groups; g; g = g->next) {
-          g->type->flag = 1;
+    for ( t = P2->shiptypes; t; t = t->next )
+        t->flag = 0;
+    for ( b = aGame->battles; b; b = b->next ) {
+        for ( r = b->participants; r; r = r->next ) {
+            if ( r->who eq P )
+                break;
         }
-      }
+        if ( r ) {
+            for ( r = b->participants; r; r = r->next ) {
+                if ( r->who eq P2 )
+                    break;
+            }
+            if ( r ) {
+                for ( g = r->groups; g; g = g->next ) {
+                    g->type->flag = 1;
+                }
+            }
+        }
     }
-  }
-  for (g = P2->groups; g; g = g->next) {
-    if (canseegroup(P, g))
-      g->type->flag = 1;
-  }
-  for (p = aGame->planets; p; p = p->next) {
-    if (p->owner eq P2 && p->producing eq PR_SHIP && canseeplanet(P, p)) {
-      p->producingshiptype->flag = 1;
+    for ( g = P2->groups; g; g = g->next ) {
+        if ( canseegroup( P, g ) )
+            g->type->flag = 1;
     }
-  }
-  for (B = aGame->bombings; B; B = B->next) {
-    for (a = B->viewers; a; a = a->next) {
-      if (a->who eq P)
-        break;
+    for ( p = aGame->planets; p; p = p->next ) {
+        if ( p->owner eq P2 && p->producing eq PR_SHIP
+             && canseeplanet( P, p ) ) {
+            p->producingshiptype->flag = 1;
+        }
     }
-    if (a && B->producing eq PR_SHIP) {
-      B->producingshiptype->flag = 1;
+    for ( B = aGame->bombings; B; B = B->next ) {
+        for ( a = B->viewers; a; a = a->next ) {
+            if ( a->who eq P )
+                break;
+        }
+        if ( a && B->producing eq PR_SHIP ) {
+            B->producingshiptype->flag = 1;
+        }
     }
-  }
-  status = FALSE;
-  for (t = P2->shiptypes; t; t = t->next) {
-    if (t->flag) {
-      status = TRUE;
-      break;
+    status = FALSE;
+    for ( t = P2->shiptypes; t; t = t->next ) {
+        if ( t->flag ) {
+            status = TRUE;
+            break;
+        }
     }
-  }
-  return status;
+    return status;
 }
 
 /****f* Report/formatLabels
@@ -2054,24 +2046,24 @@ visibleShipTypes(game *aGame, player *P2, player *P)
  */
 
 void
-formatLabels(char *labels, char *align, fielddef *fields)
+formatLabels( char *labels, char *align, fielddef *fields )
 {
-  char           *ns;
+    char *ns;
 
-  for (ns = getstr(labels); *ns && *align; ns = getstr(0), align++) {
-    switch (*align) {
-    case 'l':
-      formatStringMode(ns, fields, M_ALIGN_LEFT);
-      break;
-    case 'r':
-      formatStringMode(ns, fields, M_ALIGN_RIGHT);
-      break;
-    case 'c':
-      formatStringMode(ns, fields, M_ALIGN_CENTER);
-      break;
+    for ( ns = getstr( labels ); *ns && *align; ns = getstr( 0 ), align++ ) {
+        switch ( *align ) {
+        case 'l':
+            formatStringMode( ns, fields, M_ALIGN_LEFT );
+            break;
+        case 'r':
+            formatStringMode( ns, fields, M_ALIGN_RIGHT );
+            break;
+        case 'c':
+            formatStringMode( ns, fields, M_ALIGN_CENTER );
+            break;
+        }
     }
-  }
-  formatReturn(fields);
+    formatReturn( fields );
 }
 
 
@@ -2082,9 +2074,9 @@ formatLabels(char *labels, char *align, fielddef *fields)
  */
 
 void
-formatPrint(fielddef *fields)
+formatPrint( fielddef *fields )
 {
-  fields->format = FALSE;
+    fields->format = FALSE;
 }
 
 /****f* Report/formatReset
@@ -2094,14 +2086,14 @@ formatPrint(fielddef *fields)
  */
 
 void
-formatReset(fielddef *fields)
+formatReset( fielddef *fields )
 {
-  int             fieldNumber;
+    int fieldNumber;
 
-  fields->format = TRUE;
-  fields->fieldNumber = 0;
-  for (fieldNumber = 0; fieldNumber < MAXNOFIELDS; fieldNumber++)
-    fields->fieldSizes[fieldNumber] = 0;
+    fields->format = TRUE;
+    fields->fieldNumber = 0;
+    for ( fieldNumber = 0; fieldNumber < MAXNOFIELDS; fieldNumber++ )
+        fields->fieldSizes[fieldNumber] = 0;
 }
 
 /****f* Report/storeLength
@@ -2111,13 +2103,13 @@ formatReset(fielddef *fields)
  */
 
 void
-storeLength(fielddef *fields, int length)
+storeLength( fielddef *fields, int length )
 {
-  if (length > fields->fieldSizes[fields->fieldNumber]) {
-    fields->fieldSizes[fields->fieldNumber] = length;
-  }
-  fields->fieldNumber++;
-  assert(fields->fieldNumber < MAXNOFIELDS);
+    if ( length > fields->fieldSizes[fields->fieldNumber] ) {
+        fields->fieldSizes[fields->fieldNumber] = length;
+    }
+    fields->fieldNumber++;
+    assert( fields->fieldNumber < MAXNOFIELDS );
 }
 
 /****f* Report/formatChar
@@ -2127,15 +2119,14 @@ storeLength(fielddef *fields, int length)
  */
 
 void
-formatChar(char c, fielddef *fields, int mode)
+formatChar( char c, fielddef *fields, int mode )
 {
-  sprintf(formatBuffer, "%c", c);
-  if (fields->format) {
-    storeLength(fields, strlen(formatBuffer));
-  }
-  else {
-    dumpItem(fields, mode);
-  }
+    sprintf( formatBuffer, "%c", c );
+    if ( fields->format ) {
+        storeLength( fields, ( signed ) strlen( formatBuffer ) );
+    } else {
+        dumpItem( fields, mode );
+    }
 }
 
 /****f* Report/formatStringMode
@@ -2145,15 +2136,14 @@ formatChar(char c, fielddef *fields, int mode)
  */
 
 void
-formatStringMode(char *s, fielddef *fields, int mode)
+formatStringMode( char *s, fielddef *fields, int mode )
 {
-  sprintf(formatBuffer, "%s", s);
-  if (fields->format) {
-    storeLength(fields, strlen(formatBuffer));
-  }
-  else {
-    dumpItem(fields, mode);
-  }
+    sprintf( formatBuffer, "%s", s );
+    if ( fields->format ) {
+        storeLength( fields, ( signed ) strlen( formatBuffer ) );
+    } else {
+        dumpItem( fields, mode );
+    }
 }
 
 /****f* Report/formatString
@@ -2163,15 +2153,14 @@ formatStringMode(char *s, fielddef *fields, int mode)
  */
 
 void
-formatString(char *s, fielddef *fields)
+formatString( char *s, fielddef *fields )
 {
-  sprintf(formatBuffer, "%s", s);
-  if (fields->format) {
-    storeLength(fields, strlen(formatBuffer));
-  }
-  else {
-    dumpItem(fields, M_ALIGN_LEFT);
-  }
+    sprintf( formatBuffer, "%s", s );
+    if ( fields->format ) {
+        storeLength( fields, ( signed ) strlen( formatBuffer ) );
+    } else {
+        dumpItem( fields, M_ALIGN_LEFT );
+    }
 }
 
 /****f* Report/formatStringCenter
@@ -2182,15 +2171,14 @@ formatString(char *s, fielddef *fields)
 
 
 void
-formatStringCenter(char *s, fielddef *fields)
+formatStringCenter( char *s, fielddef *fields )
 {
-  sprintf(formatBuffer, "%s", s);
-  if (fields->format) {
-    storeLength(fields, strlen(formatBuffer));
-  }
-  else {
-    dumpItem(fields, M_ALIGN_CENTER);
-  }
+    sprintf( formatBuffer, "%s", s );
+    if ( fields->format ) {
+        storeLength( fields, ( signed ) strlen( formatBuffer ) );
+    } else {
+        dumpItem( fields, M_ALIGN_CENTER );
+    }
 }
 
 /****f* Report/formatFloat
@@ -2201,15 +2189,14 @@ formatStringCenter(char *s, fielddef *fields)
 
 
 void
-formatFloat(double g, fielddef *fields)
+formatFloat( double g, fielddef *fields )
 {
-  sprintf(formatBuffer, "%.2f", g);
-  if (fields->format) {
-    storeLength(fields, strlen(formatBuffer));
-  }
-  else {
-    dumpItem(fields, M_ALIGN_RIGHT);
-  }
+    sprintf( formatBuffer, "%.2f", g );
+    if ( fields->format ) {
+        storeLength( fields, ( signed ) strlen( formatBuffer ) );
+    } else {
+        dumpItem( fields, M_ALIGN_RIGHT );
+    }
 }
 
 
@@ -2220,9 +2207,9 @@ formatFloat(double g, fielddef *fields)
  */
 
 void
-formatInteger(int i, fielddef *fields)
+formatInteger( int i, fielddef *fields )
 {
-  BformatInteger(i, fields, "%d");
+    BformatInteger( i, fields, "%d" );
 }
 
 
@@ -2233,9 +2220,9 @@ formatInteger(int i, fielddef *fields)
  */
 
 void
-GformatInteger(int i, fielddef *fields)
+GformatInteger( int i, fielddef *fields )
 {
-  BformatInteger(i, fields, "#%d");
+    BformatInteger( i, fields, "#%d" );
 }
 
 
@@ -2246,15 +2233,14 @@ GformatInteger(int i, fielddef *fields)
  */
 
 void
-BformatInteger(int i, fielddef *fields, char *form)
+BformatInteger( int i, fielddef *fields, char *form )
 {
-  sprintf(formatBuffer, form, i);
-  if (fields->format) {
-    storeLength(fields, strlen(formatBuffer));
-  }
-  else {
-    dumpItem(fields, M_ALIGN_RIGHT);
-  }
+    sprintf( formatBuffer, form, i );
+    if ( fields->format ) {
+        storeLength( fields, ( signed ) strlen( formatBuffer ) );
+    } else {
+        dumpItem( fields, M_ALIGN_RIGHT );
+    }
 }
 
 /****f* Report/formatReturn
@@ -2264,12 +2250,12 @@ BformatInteger(int i, fielddef *fields, char *form)
  */
 
 void
-formatReturn(fielddef *fields)
+formatReturn( fielddef *fields )
 {
-  fields->fieldNumber = 0;
-  if (!fields->format) {
-    fprintf(fields->destination, "\n");
-  }
+    fields->fieldNumber = 0;
+    if ( !fields->format ) {
+        fprintf( fields->destination, "\n" );
+    }
 }
 
 
@@ -2280,49 +2266,49 @@ formatReturn(fielddef *fields)
  */
 
 void
-dumpItem(fielddef *fields, int mode)
+dumpItem( fielddef *fields, int mode )
 {
-  int             length;
-  int             diff;
+    int length;
+    int diff;
 
-  length = strlen(formatBuffer);
-  assert(length <= fields->fieldSizes[fields->fieldNumber]);
-  diff = fields->fieldSizes[fields->fieldNumber] - length;
-  switch (mode) {
-  case M_ALIGN_LEFT:
-    {
-      fprintf(fields->destination, "%s", formatBuffer);
-      for (; diff > 0; diff--)
-        fprintf(fields->destination, " ");
-      fprintf(fields->destination, " ");
-      break;
-    }
-  case M_ALIGN_RIGHT:
-    {
-      for (; diff > 0; diff--)
-        fprintf(fields->destination, " ");
-      fprintf(fields->destination, "%s", formatBuffer);
-      fprintf(fields->destination, " ");
-      break;
+    length = strlen( formatBuffer );
+    assert( length <= fields->fieldSizes[fields->fieldNumber] );
+    diff = fields->fieldSizes[fields->fieldNumber] - length;
+    switch ( mode ) {
+    case M_ALIGN_LEFT:
+        {
+            fprintf( fields->destination, "%s", formatBuffer );
+            for ( ; diff > 0; diff-- )
+                fprintf( fields->destination, " " );
+            fprintf( fields->destination, " " );
+            break;
+        }
+    case M_ALIGN_RIGHT:
+        {
+            for ( ; diff > 0; diff-- )
+                fprintf( fields->destination, " " );
+            fprintf( fields->destination, "%s", formatBuffer );
+            fprintf( fields->destination, " " );
+            break;
 
-    }
-  case M_ALIGN_CENTER:
-    {
-      int             diff1;
+        }
+    case M_ALIGN_CENTER:
+        {
+            int diff1;
 
-      diff1 = diff / 2;
-      diff = diff - diff / 2;
-      for (; diff > 0; diff--)
-        fprintf(fields->destination, " ");
-      fprintf(fields->destination, "%s", formatBuffer);
-      for (; diff1 > 0; diff1--)
-        fprintf(fields->destination, " ");
-      fprintf(fields->destination, " ");
-      break;
+            diff1 = diff / 2;
+            diff = diff - diff / 2;
+            for ( ; diff > 0; diff-- )
+                fprintf( fields->destination, " " );
+            fprintf( fields->destination, "%s", formatBuffer );
+            for ( ; diff1 > 0; diff1-- )
+                fprintf( fields->destination, " " );
+            fprintf( fields->destination, " " );
+            break;
+        }
     }
-  }
-  fields->fieldNumber++;
-  assert(fields->fieldNumber < MAXNOFIELDS);
+    fields->fieldNumber++;
+    assert( fields->fieldNumber < MAXNOFIELDS );
 }
 
 /****f* Report/reportGameOptions
@@ -2332,65 +2318,61 @@ dumpItem(fielddef *fields, int mode)
  */
 
 void
-reportGameOptions(game *aGame, fielddef *fields)
+reportGameOptions( game *aGame, fielddef *fields )
 {                               /* CB-20010401 ; see galaxy.h */
-  int             state;
+    int state;
 
-  fprintf(fields->destination, "\n\t\tGame Options\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("N S", "lc", fields);
+    fprintf( fields->destination, "\n\t\tGame Options\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "N S", "lc", fields );
 
-    formatString("Full bombing", fields);
-    if (aGame->gameOptions.gameOptions & GAME_NONGBOMBING) {
-      formatString("ON", fields);
-    }
-    else {
-      formatString("OFF", fields);
-    }
-    formatReturn(fields);
+        formatString( "Full bombing", fields );
+        if ( aGame->gameOptions.gameOptions & GAME_NONGBOMBING ) {
+            formatString( "ON", fields );
+        } else {
+            formatString( "OFF", fields );
+        }
+        formatReturn( fields );
 
-    formatString("Keep production", fields);
-    if (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION) {
-      formatString("ON", fields);
-    }
-    else {
-      formatString("OFF", fields);
-    }
-    formatReturn(fields);
+        formatString( "Keep production", fields );
+        if ( aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION ) {
+            formatString( "ON", fields );
+        } else {
+            formatString( "OFF", fields );
+        }
+        formatReturn( fields );
 
-    formatString("Drop idle players", fields);
-    if (aGame->gameOptions.gameOptions & GAME_NODROP) {
-      formatString("OFF", fields);
-    }
-    else {
-      formatString("ON", fields);
-    }
-    formatReturn(fields);
+        formatString( "Drop idle players", fields );
+        if ( aGame->gameOptions.gameOptions & GAME_NODROP ) {
+            formatString( "OFF", fields );
+        } else {
+            formatString( "ON", fields );
+        }
+        formatReturn( fields );
 
-    formatString("Spherical Galaxy", fields);
-    if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) {
-      formatString("ON", fields);
+        formatString( "Spherical Galaxy", fields );
+        if ( aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY ) {
+            formatString( "ON", fields );
+        } else {
+            formatString( "OFF", fields );
+        }
+        formatReturn( fields );
+
+        formatPrint( fields );
+
     }
-    else {
-      formatString("OFF", fields);
+
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatString( "InitialTechLevels", fields );
+        formatFloat( aGame->gameOptions.initial_drive, fields );
+        formatFloat( aGame->gameOptions.initial_weapons, fields );
+        formatFloat( aGame->gameOptions.initial_shields, fields );
+        formatFloat( aGame->gameOptions.initial_cargo, fields );
+        formatReturn( fields );
+        formatPrint( fields );
     }
-    formatReturn(fields);
-
-    formatPrint(fields);
-
-  }
-
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatString("InitialTechLevels", fields);
-    formatFloat(aGame->gameOptions.initial_drive, fields);
-    formatFloat(aGame->gameOptions.initial_weapons, fields);
-    formatFloat(aGame->gameOptions.initial_shields, fields);
-    formatFloat(aGame->gameOptions.initial_cargo, fields);
-    formatReturn(fields);
-    formatPrint(fields);
-  }
 }
 
 /****f* Report/reportOptions
@@ -2400,27 +2382,27 @@ reportGameOptions(game *aGame, fielddef *fields)
  */
 
 void
-reportOptions(game *aGame, player *P, fielddef *fields)
+reportOptions( game *aGame, player *P, fielddef *fields )
 {
-  int             state;
-  option         *curOption;
+    int state;
+    option *curOption;
 
-  fprintf(fields->destination, "\n\t\tYour Options\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("N S", "lc", fields);
-    {
-      for (curOption = options; curOption->optionName; curOption++) {
-        formatString(curOption->optionName, fields);
-        if (P->flags & curOption->optionMask)
-          formatString("ON", fields);
-        else
-          formatString("OFF", fields);
-        formatReturn(fields);
-      }
+    fprintf( fields->destination, "\n\t\tYour Options\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "N S", "lc", fields );
+        {
+            for ( curOption = options; curOption->optionName; curOption++ ) {
+                formatString( curOption->optionName, fields );
+                if ( P->flags & curOption->optionMask )
+                    formatString( "ON", fields );
+                else
+                    formatString( "OFF", fields );
+                formatReturn( fields );
+            }
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
@@ -2432,48 +2414,48 @@ reportOptions(game *aGame, player *P, fielddef *fields)
  */
 
 void
-reportMap_gnuplot(game *aGame, player *P, fielddef *fields)
+reportMap_gnuplot( game *aGame, player *P, fielddef *fields )
 {
-  player         *P2;
-  group          *g;
-  planet         *p;
-  mapdimensions   mapDim;
+    player *P2;
+    group *g;
+    planet *p;
+    mapdimensions mapDim;
 
-  mapDim.x1 = P->mx;
-  mapDim.x2 = P->mx + P->msize;
-  mapDim.y1 = P->my;
-  mapDim.y2 = P->my + P->msize;
+    mapDim.x1 = P->mx;
+    mapDim.x2 = P->mx + P->msize;
+    mapDim.y1 = P->my;
+    mapDim.y2 = P->my + P->msize;
 
-  /* png */
+    /* png */
 
-  fprintf(fields->destination, "set output 'plot.png'\n");
-  fprintf(fields->destination, "set term png color small\n");
-  fprintf(fields->destination, "set nokey\n");
-  fprintf(fields->destination, "set grid x y\n");
-  fprintf(fields->destination, "set size 1.7,1.7\n");
-  fprintf(fields->destination, "set xrange [%.2f:%.2f]\n", mapDim.x1,
-          mapDim.x2);
-  fprintf(fields->destination, "set yrange [%.2f:%.2f]\n", mapDim.y2,
-          mapDim.y1);
+    fprintf( fields->destination, "set output 'plot.png'\n" );
+    fprintf( fields->destination, "set term png color small\n" );
+    fprintf( fields->destination, "set nokey\n" );
+    fprintf( fields->destination, "set grid x y\n" );
+    fprintf( fields->destination, "set size 1.7,1.7\n" );
+    fprintf( fields->destination, "set xrange [%.2f:%.2f]\n", mapDim.x1,
+             mapDim.x2 );
+    fprintf( fields->destination, "set yrange [%.2f:%.2f]\n", mapDim.y2,
+             mapDim.y1 );
 
-  memset(map, ' ', sizeof map);
+    memset( map, ' ', sizeof map );
 
-  /* Not needed for now - just debugging stuff. for (p = aGame->planets;
-   * p; p = p->next) fprintf(fields->destination, "set label \" %s\" at
-   * %.2f, %.2f\n",p->name,p->x,p->y); */
+    /* Not needed for now - just debugging stuff. for (p = aGame->planets;
+     * p; p = p->next) fprintf(fields->destination, "set label \" %s\" at
+     * %.2f, %.2f\n",p->name,p->x,p->y); */
 
-  fprintf(fields->destination, "plot '-','-' index 0:1\n");
-  for (p = aGame->planets; p; p = p->next)
-    fprintf(fields->destination, "%.2f %.2f\n", p->x, p->y);
-  fprintf(fields->destination, "e\n");
+    fprintf( fields->destination, "plot '-','-' index 0:1\n" );
+    for ( p = aGame->planets; p; p = p->next )
+        fprintf( fields->destination, "%.2f %.2f\n", p->x, p->y );
+    fprintf( fields->destination, "e\n" );
 
-  for (P2 = aGame->players; P2; P2 = P2->next)
-    if (P2 != P)
-      for (g = P2->groups; g; g = g->next)
-        if (groupLocation(aGame, g) == NULL)
-          fprintf(fields->destination, "%.2f %.2f\n", groupx(aGame, g),
-                  groupy(aGame, g));
-  fprintf(fields->destination, "e\n");
+    for ( P2 = aGame->players; P2; P2 = P2->next )
+        if ( P2 != P )
+            for ( g = P2->groups; g; g = g->next )
+                if ( groupLocation( aGame, g ) == NULL )
+                    fprintf( fields->destination, "%.2f %.2f\n",
+                             groupx( aGame, g ), groupy( aGame, g ) );
+    fprintf( fields->destination, "e\n" );
 }
 
 
@@ -2484,65 +2466,66 @@ reportMap_gnuplot(game *aGame, player *P, fielddef *fields)
  */
 
 void
-reportMap(game *aGame, player *P, fielddef *fields)
+reportMap( game *aGame, player *P, fielddef *fields )
 {
-	player         *P2;
-	int             i, j;
-	group          *g;
-	planet         *p;
-	mapdimensions   mapDim;
-	
-	mapDim.x1 = P->mx;
-	mapDim.x2 = P->mx + P->msize;
-	mapDim.y1 = P->my;
-	mapDim.y2 = P->my + P->msize;
-	
-	
-	fprintf(fields->destination, "\n%.2f,%.2f  ", mapDim.x1, mapDim.y1);
-	fprintf(fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y1);
-	
-	for (i = 0; i != MAPWIDTH; i++)
-		fprintf(fields->destination, "-");
-	fprintf(fields->destination, "\n");
-	
-	memset(map, ' ', sizeof map);
-	
-	for (p = aGame->planets; p; p = p->next)
-		if (!p->owner)
-			putmap(&mapDim, p->x, p->y, 'o');
-	
-	for (p = aGame->planets; p; p = p->next)
-		if (p->owner && p->owner != P)
-			putmap(&mapDim, p->x, p->y, '+');
-	
-	for (p = aGame->planets; p; p = p->next)
-		if (p->owner eq P)
-			putmap(&mapDim, p->x, p->y, '*');
-	
-	for (g = P->groups; g; g = g->next)
-		if (groupLocation(aGame, g) == NULL)
-			putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '.');
-	
-	for (P2 = aGame->players; P2; P2 = P2->next)
-		if (P2 != P)
-			for (g = P2->groups; g; g = g->next)
-				if (groupLocation(aGame, g) == NULL)
-					putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '-');
-	
-	for (i = 0; i != MAPHEIGHT; i++) {
-		for (j = 0; j != MAPWIDTH; j++) {
-			fprintf(fields->destination, "%c", map[j][i]);
-		}
-		fprintf(fields->destination, "\n");
-	}
-	
-	for (i = 0; i != MAPWIDTH; i++)
-		fprintf(fields->destination, "-");
-	fprintf(fields->destination, "\n");
-	
-	
-	fprintf(fields->destination, "%.2f,%.2f  ", mapDim.x1, mapDim.y2);
-	fprintf(fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y2);
+    player *P2;
+    int i, j;
+    group *g;
+    planet *p;
+    mapdimensions mapDim;
+
+    mapDim.x1 = P->mx;
+    mapDim.x2 = P->mx + P->msize;
+    mapDim.y1 = P->my;
+    mapDim.y2 = P->my + P->msize;
+
+
+    fprintf( fields->destination, "\n%.2f,%.2f  ", mapDim.x1, mapDim.y1 );
+    fprintf( fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y1 );
+
+    for ( i = 0; i != MAPWIDTH; i++ )
+        fprintf( fields->destination, "-" );
+    fprintf( fields->destination, "\n" );
+
+    memset( map, ' ', sizeof map );
+
+    for ( p = aGame->planets; p; p = p->next )
+        if ( !p->owner )
+            putmap( &mapDim, p->x, p->y, 'o' );
+
+    for ( p = aGame->planets; p; p = p->next )
+        if ( p->owner && p->owner != P )
+            putmap( &mapDim, p->x, p->y, '+' );
+
+    for ( p = aGame->planets; p; p = p->next )
+        if ( p->owner eq P )
+            putmap( &mapDim, p->x, p->y, '*' );
+
+    for ( g = P->groups; g; g = g->next )
+        if ( groupLocation( aGame, g ) == NULL )
+            putmap( &mapDim, groupx( aGame, g ), groupy( aGame, g ), '.' );
+
+    for ( P2 = aGame->players; P2; P2 = P2->next )
+        if ( P2 != P )
+            for ( g = P2->groups; g; g = g->next )
+                if ( groupLocation( aGame, g ) == NULL )
+                    putmap( &mapDim, groupx( aGame, g ), groupy( aGame, g ),
+                            '-' );
+
+    for ( i = 0; i != MAPHEIGHT; i++ ) {
+        for ( j = 0; j != MAPWIDTH; j++ ) {
+            fprintf( fields->destination, "%c", map[j][i] );
+        }
+        fprintf( fields->destination, "\n" );
+    }
+
+    for ( i = 0; i != MAPWIDTH; i++ )
+        fprintf( fields->destination, "-" );
+    fprintf( fields->destination, "\n" );
+
+
+    fprintf( fields->destination, "%.2f,%.2f  ", mapDim.x1, mapDim.y2 );
+    fprintf( fields->destination, "%.2f,%.2f\n", mapDim.x2, mapDim.y2 );
 }
 
 
@@ -2554,16 +2537,16 @@ reportMap(game *aGame, player *P, fielddef *fields)
 
 
 void
-tagVisiblePlanets(planet *planets, player *P)
+tagVisiblePlanets( planet *planets, player *P )
 {
-  planet         *aPlanet;
+    planet *aPlanet;
 
-  for (aPlanet = planets; aPlanet; aPlanet = aPlanet->next) {
-    if ((aPlanet->owner eq P) || canseeplanet(P, aPlanet))
-      aPlanet->flags |= PL_VISPREVTURN;
-    else
-      aPlanet->flags &= ~PL_VISPREVTURN;
-  }
+    for ( aPlanet = planets; aPlanet; aPlanet = aPlanet->next ) {
+        if ( ( aPlanet->owner eq P ) || canseeplanet( P, aPlanet ) )
+            aPlanet->flags |= PL_VISPREVTURN;
+        else
+            aPlanet->flags &= ~PL_VISPREVTURN;
+    }
 }
 
 
@@ -2574,37 +2557,37 @@ tagVisiblePlanets(planet *planets, player *P)
  */
 
 void
-yourStatusForecast(planet *planets, player *P, fielddef *fields)
+yourStatusForecast( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
-  planet         *p;
+    int state;
+    planet *p;
 
-  for (p = planets; p; p = p->next) {
-    if (p->owner eq P) {
-      if (!(p->flags & PL_VISPREVTURN)) {
-        P->totInd -= p->ind;
-        P->totPop -= p->pop;
-      }
+    for ( p = planets; p; p = p->next ) {
+        if ( p->owner eq P ) {
+            if ( !( p->flags & PL_VISPREVTURN ) ) {
+                P->totInd -= p->ind;
+                P->totPop -= p->pop;
+            }
+        }
     }
-  }
 
-  fprintf(fields->destination, "\n\t\tYour Status\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
+    fprintf( fields->destination, "\n\t\tYour Status\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
 
-    formatLabels("N D W S C P I # R", "lcccccccc", fields);
-    formatString(P->name, fields);
-    formatFloat(P->drive, fields);
-    formatFloat(P->weapons, fields);
-    formatFloat(P->shields, fields);
-    formatFloat(P->cargo, fields);
-    formatFloat(P->totPop, fields);
-    formatFloat(P->totInd, fields);
-    formatInteger(P->numberOfPlanets, fields);
-    formatString((atwar(P, P) ? "War" : "Peace"), fields);
-    formatReturn(fields);
-    formatPrint(fields);
-  }
+        formatLabels( "N D W S C P I # R", "lcccccccc", fields );
+        formatString( P->name, fields );
+        formatFloat( P->drive, fields );
+        formatFloat( P->weapons, fields );
+        formatFloat( P->shields, fields );
+        formatFloat( P->cargo, fields );
+        formatFloat( P->totPop, fields );
+        formatFloat( P->totInd, fields );
+        formatInteger( P->numberOfPlanets, fields );
+        formatString( ( atwar( P, P ) ? "War" : "Peace" ), fields );
+        formatReturn( fields );
+        formatPrint( fields );
+    }
 }
 
 /****f* GalaxyNG/yourPlanetsForecast
@@ -2618,50 +2601,49 @@ yourStatusForecast(planet *planets, player *P, fielddef *fields)
  */
 
 void
-yourPlanetsForecast(planet *planets, player *P, fielddef *fields)
+yourPlanetsForecast( planet *planets, player *P, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  fprintf(fields->destination, "\n\t\tYour Planets\n\n");
+    fprintf( fields->destination, "\n\t\tYour Planets\n\n" );
 
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    planet         *p;
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        planet *p;
 
-    formatLabels("N X Y S P I R P $ M C", "lcccccccccc", fields);
-    for (p = planets; p; p = p->next) {
-      if (p->owner eq P) {
-        formatString(p->name, fields);
-        formatFloat(p->x, fields);
-        formatFloat(p->y, fields);
-        if (p->flags & PL_VISPREVTURN) {
-          formatFloat(p->size, fields);
-          formatFloat(p->pop, fields);
-          formatFloat(p->ind, fields);
-          formatFloat(p->resources, fields);
-          if (p->producing eq PR_SHIP)
-            formatString(p->producingshiptype->name, fields);
-          else
-            formatString(productname[p->producing], fields);
-          formatFloat(p->cap, fields);
-          formatFloat(p->mat, fields);
-          formatFloat(p->col, fields);
+        formatLabels( "N X Y S P I R P $ M C", "lcccccccccc", fields );
+        for ( p = planets; p; p = p->next ) {
+            if ( p->owner eq P ) {
+                formatString( p->name, fields );
+                formatFloat( p->x, fields );
+                formatFloat( p->y, fields );
+                if ( p->flags & PL_VISPREVTURN ) {
+                    formatFloat( p->size, fields );
+                    formatFloat( p->pop, fields );
+                    formatFloat( p->ind, fields );
+                    formatFloat( p->resources, fields );
+                    if ( p->producing eq PR_SHIP )
+                        formatString( p->producingshiptype->name, fields );
+                    else
+                        formatString( productname[p->producing], fields );
+                    formatFloat( p->cap, fields );
+                    formatFloat( p->mat, fields );
+                    formatFloat( p->col, fields );
+                } else {
+                    formatStringCenter( "?", fields );
+                    formatStringCenter( "?", fields );
+                    formatStringCenter( "?", fields );
+                    formatStringCenter( "?", fields );
+                    formatString( productname[PR_CAP], fields );
+                    formatStringCenter( "?", fields );
+                    formatStringCenter( "?", fields );
+                    formatStringCenter( "?", fields );
+                }
+                formatReturn( fields );
+            }
         }
-        else {
-          formatStringCenter("?", fields);
-          formatStringCenter("?", fields);
-          formatStringCenter("?", fields);
-          formatStringCenter("?", fields);
-          formatString(productname[PR_CAP], fields);
-          formatStringCenter("?", fields);
-          formatStringCenter("?", fields);
-          formatStringCenter("?", fields);
-        }
-        formatReturn(fields);
-      }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
@@ -2672,30 +2654,30 @@ yourPlanetsForecast(planet *planets, player *P, fielddef *fields)
  */
 
 void
-reportHall(game *aGame, fielddef *fields)
+reportHall( game *aGame, fielddef *fields )
 {
-  int             state;
-  player         *aPlayer;
+    int state;
+    player *aPlayer;
 
-  raceStatus(aGame);
+    raceStatus( aGame );
 
-  fprintf(fields->destination, "\n\t\tHall Of Fame Info %s\n\n",
-          aGame->name);
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Real_Name Address EffInd", "llll", fields);
-    for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-      if (!(aPlayer->flags & F_DEAD)) {
-        formatString(aPlayer->name, fields);
-        formatString(aPlayer->realName, fields);
-        formatString(aPlayer->addr, fields);
-        formatFloat(effectiveIndustry(aPlayer->totPop, aPlayer->totInd),
-                    fields);
-        formatReturn(fields);
-      }
+    fprintf( fields->destination, "\n\t\tHall Of Fame Info %s\n\n",
+             aGame->name );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Real_Name Address EffInd", "llll", fields );
+        for ( aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next ) {
+            if ( !( aPlayer->flags & F_DEAD ) ) {
+                formatString( aPlayer->name, fields );
+                formatString( aPlayer->realName, fields );
+                formatString( aPlayer->addr, fields );
+                formatFloat( effectiveIndustry
+                             ( aPlayer->totPop, aPlayer->totInd ), fields );
+                formatReturn( fields );
+            }
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
@@ -2706,153 +2688,154 @@ reportHall(game *aGame, fielddef *fields)
  ****/
 
 void
-reportTeam(game *aGame, fielddef *fields, int team)
+reportTeam( game *aGame, fielddef *fields, int team )
 {
-  int             state;
-  player         *aPlayer;
-  double          tot_eff_ind = 0.0;
-  double          tot_massproduced = 0.0;
-  double          tot_masslost = 0.0;
-  double          tot_delta = 0.0;
+    int state;
+    player *aPlayer;
+    double tot_eff_ind = 0.0;
+    double tot_massproduced = 0.0;
+    double tot_masslost = 0.0;
+    double tot_delta = 0.0;
 
-  raceStatus(aGame);
+    raceStatus( aGame );
 
-  fprintf(fields->destination,
-          "\n\t\tTeam Leader Status Report for Game %s\n\n", aGame->name);
+    fprintf( fields->destination,
+             "\n\t\tTeam Leader Status Report for Game %s\n\n", aGame->name );
 
-  fprintf(fields->destination, "\n\t\tTeam Address Info\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Address Password Last_Orders", "lllll", fields);
-    for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-      if (!(aPlayer->flags & F_DEAD) && (aPlayer->team == team)) {
-        formatString(aPlayer->name, fields);
-        formatString(aPlayer->addr, fields);
-        formatString(aPlayer->pswd, fields);
-        formatInteger(aPlayer->lastorders, fields);
-        formatReturn(fields);
-      }
+    fprintf( fields->destination, "\n\t\tTeam Address Info\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Address Password Last_Orders", "lllll", fields );
+        for ( aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next ) {
+            if ( !( aPlayer->flags & F_DEAD ) && ( aPlayer->team == team ) ) {
+                formatString( aPlayer->name, fields );
+                formatString( aPlayer->addr, fields );
+                formatString( aPlayer->pswd, fields );
+                formatInteger( aPlayer->lastorders, fields );
+                formatReturn( fields );
+            }
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 
-  fprintf(fields->destination, "\n\t\tTeam Ship Production Info\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Eff_Ind Produced Lost Delta", "lrrrr", fields);
-    tot_eff_ind = 0.0;
-    tot_massproduced = 0.0;
-    tot_masslost = 0.0;
-    tot_delta = 0.0;
-    for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-      if (!(aPlayer->flags & F_DEAD) && (aPlayer->team == team)) {
-        formatString(aPlayer->name, fields);
-        formatFloat(effectiveIndustry(aPlayer->totPop, aPlayer->totInd),
-                    fields);
-        formatFloat(aPlayer->massproduced, fields);
-        formatFloat(aPlayer->masslost, fields);
-        formatFloat(aPlayer->massproduced - aPlayer->masslost, fields);
-        formatReturn(fields);
-        tot_eff_ind += effectiveIndustry(aPlayer->totPop, aPlayer->totInd);
-        tot_massproduced += aPlayer->massproduced;
-        tot_masslost += aPlayer->masslost;
-        tot_delta += aPlayer->massproduced - aPlayer->masslost;
-      }
+    fprintf( fields->destination, "\n\t\tTeam Ship Production Info\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Eff_Ind Produced Lost Delta", "lrrrr", fields );
+        tot_eff_ind = 0.0;
+        tot_massproduced = 0.0;
+        tot_masslost = 0.0;
+        tot_delta = 0.0;
+        for ( aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next ) {
+            if ( !( aPlayer->flags & F_DEAD ) && ( aPlayer->team == team ) ) {
+                formatString( aPlayer->name, fields );
+                formatFloat( effectiveIndustry
+                             ( aPlayer->totPop, aPlayer->totInd ), fields );
+                formatFloat( aPlayer->massproduced, fields );
+                formatFloat( aPlayer->masslost, fields );
+                formatFloat( aPlayer->massproduced - aPlayer->masslost,
+                             fields );
+                formatReturn( fields );
+                tot_eff_ind +=
+                    effectiveIndustry( aPlayer->totPop, aPlayer->totInd );
+                tot_massproduced += aPlayer->massproduced;
+                tot_masslost += aPlayer->masslost;
+                tot_delta += aPlayer->massproduced - aPlayer->masslost;
+            }
+        }
+        formatString( "Total", fields );
+        formatFloat( tot_eff_ind, fields );
+        formatFloat( tot_massproduced, fields );
+        formatFloat( tot_masslost, fields );
+        formatFloat( tot_delta, fields );
+        formatReturn( fields );
+        formatPrint( fields );
     }
-    formatString("Total", fields);
-    formatFloat(tot_eff_ind, fields);
-    formatFloat(tot_massproduced, fields);
-    formatFloat(tot_masslost, fields);
-    formatFloat(tot_delta, fields);
-    formatReturn(fields);
-    formatPrint(fields);
-  }
 
 
-  fprintf(fields->destination, "\n\t\tTeam Technology Info\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Drive Weapons Shields Cargo", "lrrrr", fields);
-    for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-      if (!(aPlayer->flags & F_DEAD) && (aPlayer->team == team)) {
-        formatString(aPlayer->name, fields);
-        formatFloat(aPlayer->drive, fields);
-        formatFloat(aPlayer->weapons, fields);
-        formatFloat(aPlayer->shields, fields);
-        formatFloat(aPlayer->cargo, fields);
-        formatReturn(fields);
-      }
+    fprintf( fields->destination, "\n\t\tTeam Technology Info\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Drive Weapons Shields Cargo", "lrrrr", fields );
+        for ( aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next ) {
+            if ( !( aPlayer->flags & F_DEAD ) && ( aPlayer->team == team ) ) {
+                formatString( aPlayer->name, fields );
+                formatFloat( aPlayer->drive, fields );
+                formatFloat( aPlayer->weapons, fields );
+                formatFloat( aPlayer->shields, fields );
+                formatFloat( aPlayer->cargo, fields );
+                formatReturn( fields );
+            }
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
 void
-reportPlayers(player *players, fielddef *fields)
+reportPlayers( player *players, fielddef *fields )
 {
-  int             state;
-  player         *aPlayer;
+    int state;
+    player *aPlayer;
 
-  fprintf(fields->destination, "\n\t\tPlayer Info\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Password Address Status", "llll", fields);
-    for (aPlayer = players; aPlayer; aPlayer = aPlayer->next) {
-      formatString(aPlayer->name, fields);
-      formatString(aPlayer->pswd, fields);
-      formatString(aPlayer->addr, fields);
-      if (aPlayer->flags & F_DEAD) {
-        formatString("inactive", fields);
-      }
-      else {
-        formatString("active", fields);
-      }
-      formatReturn(fields);
+    fprintf( fields->destination, "\n\t\tPlayer Info\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Password Address Status", "llll", fields );
+        for ( aPlayer = players; aPlayer; aPlayer = aPlayer->next ) {
+            formatString( aPlayer->name, fields );
+            formatString( aPlayer->pswd, fields );
+            formatString( aPlayer->addr, fields );
+            if ( aPlayer->flags & F_DEAD ) {
+                formatString( "inactive", fields );
+            } else {
+                formatString( "active", fields );
+            }
+            formatReturn( fields );
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 void
-reportRaceProduction(player *players, fielddef *fields)
+reportRaceProduction( player *players, fielddef *fields )
 {
-  int             state;
-  player         *aPlayer;
+    int state;
+    player *aPlayer;
 
-  fprintf(fields->destination, "\n\t\tRace Production Info\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Produced Lost Delta", "llll", fields);
-    for (aPlayer = players; aPlayer; aPlayer = aPlayer->next) {
-      formatString(aPlayer->name, fields);
-      formatFloat(aPlayer->massproduced, fields);
-      formatFloat(aPlayer->masslost, fields);
-      formatFloat(aPlayer->massproduced - aPlayer->masslost, fields);
-      formatReturn(fields);
+    fprintf( fields->destination, "\n\t\tRace Production Info\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Produced Lost Delta", "llll", fields );
+        for ( aPlayer = players; aPlayer; aPlayer = aPlayer->next ) {
+            formatString( aPlayer->name, fields );
+            formatFloat( aPlayer->massproduced, fields );
+            formatFloat( aPlayer->masslost, fields );
+            formatFloat( aPlayer->massproduced - aPlayer->masslost, fields );
+            formatReturn( fields );
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
 void
-reportLastOrders(player *players, fielddef *fields)
+reportLastOrders( player *players, fielddef *fields )
 {
-  int             state;
-  player         *aPlayer;
+    int state;
+    player *aPlayer;
 
-  fprintf(fields->destination, "\n\t\tLast Orders\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Turn", "lc", fields);
-    for (aPlayer = players; aPlayer; aPlayer = aPlayer->next) {
-      formatString(aPlayer->name, fields);
-      formatInteger(aPlayer->lastorders, fields);
-      formatReturn(fields);
+    fprintf( fields->destination, "\n\t\tLast Orders\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Turn", "lc", fields );
+        for ( aPlayer = players; aPlayer; aPlayer = aPlayer->next ) {
+            formatString( aPlayer->name, fields );
+            formatInteger( aPlayer->lastorders, fields );
+            formatReturn( fields );
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
@@ -2867,33 +2850,33 @@ reportLastOrders(player *players, fielddef *fields)
  */
 
 void
-reportGMBombings(game *aGame, fielddef *fields)
+reportGMBombings( game *aGame, fielddef *fields )
 {
-  int             state;
+    int state;
 
-  fprintf(fields->destination, "\n\t\tBombings\n\n");
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    bombing        *B;
+    fprintf( fields->destination, "\n\t\tBombings\n\n" );
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        bombing *B;
 
-    formatLabels("W O N P I P $ M C", "lcccccccc", fields);
-    for (B = aGame->bombings; B; B = B->next) {
-      formatString(B->who->name, fields);
-      formatString(B->owner->name, fields);
-      formatString(B->name, fields);
-      formatFloat(B->pop, fields);
-      formatFloat(B->ind, fields);
-      if (B->producing eq PR_SHIP)
-        formatString(B->producingshiptype->name, fields);
-      else
-        formatString(productname[B->producing], fields);
-      formatFloat(B->cap, fields);
-      formatFloat(B->mat, fields);
-      formatFloat(B->col, fields);
-      formatReturn(fields);
+        formatLabels( "W O N P I P $ M C", "lcccccccc", fields );
+        for ( B = aGame->bombings; B; B = B->next ) {
+            formatString( B->who->name, fields );
+            formatString( B->owner->name, fields );
+            formatString( B->name, fields );
+            formatFloat( B->pop, fields );
+            formatFloat( B->ind, fields );
+            if ( B->producing eq PR_SHIP )
+                formatString( B->producingshiptype->name, fields );
+            else
+                formatString( productname[B->producing], fields );
+            formatFloat( B->cap, fields );
+            formatFloat( B->mat, fields );
+            formatFloat( B->col, fields );
+            formatReturn( fields );
+        }
+        formatPrint( fields );
     }
-    formatPrint(fields);
-  }
 }
 
 
@@ -2901,76 +2884,75 @@ reportGMBombings(game *aGame, fielddef *fields)
 
 
 double
-percent(double tot, double f)
+percent( double tot, double f )
 {
-  return (f / tot) * 100.0;
+    return ( f / tot ) * 100.0;
 }
 
 
 void
-scorePercent(game *g1, fielddef *fields)
+scorePercent( game *g1, fielddef *fields )
 {
-  int             numberOfPlayers;
-  int             number;
-  int             state;
-  player         *aPlayer;
-  int             totNumberOfPlanets;
-  double          totPop, totInd, totEInd;
+    int numberOfPlayers;
+    int number;
+    int state;
+    player *aPlayer;
+    int totNumberOfPlanets;
+    double totPop, totInd, totEInd;
 
-  totNumberOfPlanets = numberOfElements(g1->planets);
-  raceStatus(g1);
-  rateRaces(g1->players);
-  numberOfPlayers = numberOfElements(g1->players);
-  fprintf(fields->destination, "\n\t\tRace Status with PercentsXXX\n\n");
+    totNumberOfPlanets = numberOfElements( g1->planets );
+    raceStatus( g1 );
+    rateRaces( g1->players );
+    numberOfPlayers = numberOfElements( g1->players );
+    fprintf( fields->destination, "\n\t\tRace Status with PercentsXXX\n\n" );
 
-  totPop = 0.0;
-  totInd = 0.0;
-  totEInd = 0.0;
-  for (aPlayer = g1->players; aPlayer; aPlayer = aPlayer->next) {
-    totPop += aPlayer->totPop;
-    totInd += aPlayer->totInd;
-    totEInd += effectiveIndustry(aPlayer->totPop, aPlayer->totInd);
-  }
-
-  formatReset(fields);
-  for (state = 0; state < 2; state++) {
-    formatLabels("Race Pop pcnt Ind pcnt EInd pcnt Planets pcnt",
-                 "lcccccccc", fields);
-    for (number = 1; number <= numberOfPlayers; number++) {
-      for (aPlayer = g1->players; aPlayer; aPlayer = aPlayer->next) {
-        if (aPlayer->rating eq number) {
-          formatString(aPlayer->name, fields);
-          formatFloat(aPlayer->totPop, fields);
-          formatFloat(percent(totPop, aPlayer->totPop), fields);
-          formatFloat(aPlayer->totInd, fields);
-          formatFloat(percent(totInd, aPlayer->totInd), fields);
-          formatFloat(effectiveIndustry(aPlayer->totPop, aPlayer->totInd),
-                      fields);
-          formatFloat(percent(totEInd, effectiveIndustry(aPlayer->totPop,
-                                                         aPlayer->totInd)),
-                      fields);
-          formatInteger(aPlayer->numberOfPlanets, fields);
-          formatFloat(percent((double) totNumberOfPlanets,
-                              (double) aPlayer->numberOfPlanets), fields);
-          formatReturn(fields);
-        }
-      }
+    totPop = 0.0;
+    totInd = 0.0;
+    totEInd = 0.0;
+    for ( aPlayer = g1->players; aPlayer; aPlayer = aPlayer->next ) {
+        totPop += aPlayer->totPop;
+        totInd += aPlayer->totInd;
+        totEInd += effectiveIndustry( aPlayer->totPop, aPlayer->totInd );
     }
-    formatString("Total", fields);
-    formatFloat(totPop, fields);
-    formatFloat(100.0, fields);
-    formatFloat(totInd, fields);
-    formatFloat(100.0, fields);
-    formatFloat(totEInd, fields);
-    formatFloat(100.0, fields);
-    formatInteger(totNumberOfPlanets, fields);
-    formatFloat(0.0, fields);
-    formatReturn(fields);
-    formatPrint(fields);
-  }
+
+    formatReset( fields );
+    for ( state = 0; state < 2; state++ ) {
+        formatLabels( "Race Pop pcnt Ind pcnt EInd pcnt Planets pcnt",
+                      "lcccccccc", fields );
+        for ( number = 1; number <= numberOfPlayers; number++ ) {
+            for ( aPlayer = g1->players; aPlayer; aPlayer = aPlayer->next ) {
+                if ( aPlayer->rating eq number ) {
+                    formatString( aPlayer->name, fields );
+                    formatFloat( aPlayer->totPop, fields );
+                    formatFloat( percent( totPop, aPlayer->totPop ), fields );
+                    formatFloat( aPlayer->totInd, fields );
+                    formatFloat( percent( totInd, aPlayer->totInd ), fields );
+                    formatFloat( effectiveIndustry
+                                 ( aPlayer->totPop, aPlayer->totInd ),
+                                 fields );
+                    formatFloat( percent
+                                 ( totEInd,
+                                   effectiveIndustry( aPlayer->totPop,
+                                                      aPlayer->totInd ) ),
+                                 fields );
+                    formatInteger( aPlayer->numberOfPlanets, fields );
+                    formatFloat( percent( ( double ) totNumberOfPlanets,
+                                          ( double ) aPlayer->
+                                          numberOfPlanets ), fields );
+                    formatReturn( fields );
+                }
+            }
+        }
+        formatString( "Total", fields );
+        formatFloat( totPop, fields );
+        formatFloat( 100.0, fields );
+        formatFloat( totInd, fields );
+        formatFloat( 100.0, fields );
+        formatFloat( totEInd, fields );
+        formatFloat( 100.0, fields );
+        formatInteger( totNumberOfPlanets, fields );
+        formatFloat( 0.0, fields );
+        formatReturn( fields );
+        formatPrint( fields );
+    }
 }
-
-
-
-
-

@@ -1,3 +1,6 @@
+#if !defined(REPORT_XML_H)
+#define REPORT_XML_H
+
 #include "galaxy.h"
 #include "report.h"
 #include "list.h"
@@ -30,3 +33,4 @@ void            rGS_XML(game* aGame, player *P);
 void            rPD_XML(planet *p);
 void            rEN_XML(void);
 
+#endif

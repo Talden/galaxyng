@@ -13,7 +13,7 @@ eq_order( game *aGame, player *P, strlist **s )
 {
     char *ns;                   /* name string */
 
-    DBUG_ENTER("eq_order");
+    DBUG_ENTER( "eq_order" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {

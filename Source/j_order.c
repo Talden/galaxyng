@@ -15,7 +15,7 @@ j_order( game *aGame, player *P, strlist **s )
     int i;
     int j;
 
-    DBUG_ENTER("j_order");
+    DBUG_ENTER( "j_order" );
 
     ns = getstr( 0 );
     g = findgroup( P, ns );
@@ -129,4 +129,3 @@ j_order( game *aGame, player *P, strlist **s )
 
     DBUG_VOID_RETURN;
 }
-

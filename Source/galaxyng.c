@@ -52,33 +52,11 @@
  **********
  */
 
-#include <math.h>
-#include <stdlib.h>
-#include <assert.h>
-#include <string.h>
-#include <time.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <unistd.h>
-
-#ifdef WIN32
-    /* Empty */
-#else
-#include <unistd.h>
-#endif
-#include "galaxy.h"
-#include "util.h"
-#include "process.h"
-#include "create.h"
-#include "loadgame.h"
-#include "savegame.h"
-#include "report.h"
-#include "selftest.h"
-#include "mail.h"
 #include "galaxyng.h"
 
 
-char *galaxyng = "$Id$";
+char *galaxyng =
+    "$Id$";
 
 char vcid[128];
 
@@ -108,32 +86,32 @@ main( int argc, char **argv )
     /* Some initializations */
     resetErnie( 197162622 );
 
-    setLogLevel(LBRIEF);
+    setLogLevel( LBRIEF );
 
     sprintf( vcid, "GalaxyNG release-%d-%d, %s.",
              GNG_MAJOR, GNG_MINOR, GNG_DATE );
 
-    SetDirectoryVariables();
+    SetDirectoryVariables(  );
 
     if ( ( value = getenv( "GNG_LOG_LEVEL" ) ) ) {
         if ( strcasecmp( value, "full" ) == 0 )
-            setLogLevel(LFULL);
+            setLogLevel( LFULL );
         else if ( strcasecmp( value, "part" ) == 0 )
-            setLogLevel(LPART);
+            setLogLevel( LPART );
         else if ( strcasecmp( value, "brief" ) == 0 )
-            setLogLevel(LBRIEF);
+            setLogLevel( LBRIEF );
         else if ( strcasecmp( value, "none" ) == 0 )
-            setLogLevel(LNONE);
+            setLogLevel( LNONE );
         else
-            setLogLevel(LBRIEF);
+            setLogLevel( LBRIEF );
     }
 
     if ( argc <= 1 ) {
         usage(  );
-	} else if ( strstr( argv[1], "clean") ) {
-		result = CMD_clean(argc, argv);
-    } else if ( strstr( argv[1], "immediate") ) {
-      result = CMD_immediate(argc, argv);
+    } else if ( strstr( argv[1], "clean" ) ) {
+        result = CMD_clean( argc, argv );
+    } else if ( strstr( argv[1], "immediate" ) ) {
+        result = CMD_immediate( argc, argv );
     } else if ( strstr( argv[1], "create" ) ) {
         result = CMD_create( argc, argv );
     } else if ( strstr( argv[1], "dummymail0" ) ) {
@@ -178,10 +156,9 @@ main( int argc, char **argv )
         result = CMD_influence( argc, argv );
     }
 #endif
-	else if ( strstr( argv[1], "due" ) ) {
-		result = CMD_ordersdue( argc, argv);
-	}
-    else if ( strstr( argv[1], "map" ) ) {
+    else if ( strstr( argv[1], "due" ) ) {
+        result = CMD_ordersdue( argc, argv );
+    } else if ( strstr( argv[1], "map" ) ) {
         result = CMD_dump( argc, argv, CMD_DUMP_MAP );
     } else if ( strstr( argv[1], "hall" ) ) {
         result = CMD_dump( argc, argv, CMD_DUMP_HALL );

@@ -8,7 +8,7 @@ x_order( game *aGame, player *P, strlist **s )
     int i;
     int j;
 
-    DBUG_ENTER("x_order");
+    DBUG_ENTER( "x_order" );
 
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
@@ -55,4 +55,3 @@ x_order( game *aGame, player *P, strlist **s )
     g->ships = 0;
     DBUG_VOID_RETURN;
 }
-

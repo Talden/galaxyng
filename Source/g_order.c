@@ -19,7 +19,7 @@ g_order( game *aGame, player *P, strlist **s )
     char *ns;
     int i;
 
-    DBUG_ENTER("g_order");
+    DBUG_ENTER( "g_order" );
 
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {

@@ -44,13 +44,14 @@ struct _orderinfo {
  */
 
 enum ResCodes {
-	RES_OK,						/* no error */
+	RES_OK,			/* no error */
 	RES_NO_ORDERS,				/* missing orders */
 	RES_ERR_GALAXY,				/* no #GALAXY line */
 	RES_NO_GAME,				/* can't find the game name */
 	RES_PASSWORD,				/* password mismatch */
 	RES_PLAYER,					/* player name doesn't exist */
 	RES_TURNRAN,				/* orders sent in for a turnt that ran */
+	RES_TURNFUTURE,		/* turn is in the future */
 	RES_DESTINATION,			/* can't find the race sending email to */
 	RES_NODESTINATION,
 	RES_NO_TURN_NBR,			/* missing turn number */
@@ -153,5 +154,8 @@ void
                                      game *aGame,
                                      char *raceName,
                                      int theTurnNumber, FILE * forecast);
+
+void cleanDeadPlayers( game *aGame );
+
 
 #endif                          /* GNG_PROCESS_H */

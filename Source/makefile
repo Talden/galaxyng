@@ -35,7 +35,7 @@
 # (http://www.boutell.com/gd/) installed with png, jpeg, and 
 # freetype support enabled and uncomment the following lines:
 ADDTL_CFLAGS = -DDRAW_INFLUENCE_MAP
-ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype
+ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype -ldbug
 ADDTL_SRCS = influence.c
 ADDTL_OBJS = influence.o
 #
@@ -44,10 +44,16 @@ ADDTL_OBJS = influence.o
 #
 
 
-CFLAGS = -g -Wall -pedantic -I../include -I$(HOME)/include $(ADDTL_CFLAGS)
-#CFLAGS = -Wall -pedantic -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
-LIBS = -L$(HOME)/lib -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
+CFLAGS = -Wall -pedantic -I../include -I$(HOME)/include $(ADDTL_CFLAGS)
+CFLAGS += -fdelete-null-pointer-checks -std=gnu99 -D__USE_GNU
+CFLAGS += -pipe -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2
+CFLAGS += -Wmissing-declarations -Wmissing-format-attribute -Wnested-externs
+CFLAGS += -Wredundant-decls -Wstrict-prototypes -Wunreachable-code
 
+#CFLAGS = -Wall -pedantic -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
+
+
+LIBS = -L$(HOME)/lib -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
 
 CC=gcc
 
@@ -57,6 +63,11 @@ GNG_SRCS=galaxyng.c loadgame.c savegame.c create.c phase.c battle.c \
 	cmd_check.c cmd_relay.c cmd_relaymessage.c cmd_create.c cmd_mail0.c \
 	cmd_clean.c cmd_report.c cmd_score.c cmd_graph.c cmd_dump.c \
 	cmd_test.c cmd_selftest.c cmd_battletest.c cmd_ordersdue.c \
+	at_order.c eq_order.c a_order.c b_order.c c_order.c d_order.c \
+	e_order.c f_order.c g_order.c h_order.c i_order.c j_order.c \
+	l_order.c m_order.c n_order.c o_order.c p_order.c q_order.c \
+	r_order.c s_order.c t_order.c u_order.c v_order.c w_order.c \
+	x_order.c y_order.c z_order.c \
 	$(ADDTL_SOURCES)
 
 GNG_OBJS=$(GNG_SRCS:.c=.o)

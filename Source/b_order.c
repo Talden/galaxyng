@@ -14,7 +14,7 @@ b_order( game *aGame, player *P, strlist **s )
     int i;                      /* int value for number of ships */
     char *ns;                   /* char value for number of ships */
 
-    DBUG_ENTER("b_order");
+    DBUG_ENTER( "b_order" );
 
     /* find the named group */
     g = findgroup( P, getstr( 0 ) );

@@ -15,7 +15,7 @@ u_order( game *aGame, player *P, strlist **s )
     double amount;
     char *ns;
 
-    DBUG_ENTER("u_order");
+    DBUG_ENTER( "u_order" );
 
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {

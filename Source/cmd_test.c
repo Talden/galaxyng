@@ -8,7 +8,9 @@
  ******
  */
 
-int CMD_test( int argc, char **argv ) {
+int
+CMD_test( int argc, char **argv )
+{
     game *aGame;
     int result;
     int turn;
@@ -22,12 +24,11 @@ int CMD_test( int argc, char **argv ) {
         dumpPlayers( aGame->players );
         printf( "Game is OK\n" );
         result = EXIT_SUCCESS;
-    }
-	else {
+    } else {
         printf( "Game is NOT OK\n" );   /* This is wrong! the game did not
-										 * load.. it still might be ok! */
+                                         * load.. it still might be ok! */
         result = EXIT_FAILURE;
     }
-	
+
     return result;
 }

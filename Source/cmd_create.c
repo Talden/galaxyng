@@ -16,7 +16,9 @@
  * SOURCE
  */
 
-int CMD_create( int argc, char **argv ) {
+int
+CMD_create( int argc, char **argv )
+{
     gamespecification *gspec;
     game *aGame;
     int result;
@@ -39,17 +41,14 @@ int CMD_create( int argc, char **argv ) {
                 printf( "Number of planets: %d\n",
                         numberOfElements( aGame->planets ) );
                 result = EXIT_SUCCESS;
-            }
-			else {
+            } else {
                 fprintf( stderr, "Can't create the game\n" );
             }
-        }
-		else {
+        } else {
             fprintf( stderr, "Can't open specification file \"%s\"\n",
                      argv[2] );
         }
-    }
-	else {
+    } else {
         usage(  );
     }
     return result;

@@ -11,7 +11,7 @@ f_order( game *aGame, player *P, strlist **s )
 {
     player *P2;                 /* player requested */
 
-    DBUG_ENTER("f_order");
+    DBUG_ENTER( "f_order" );
 
     P2 = findElement( player, aGame->players, getstr( 0 ) );
 

@@ -8,7 +8,7 @@ r_order( game *aGame, player *P, strlist **s )
     planet *p2;
     int i;
 
-    DBUG_ENTER("r_order" );
+    DBUG_ENTER( "r_order" );
 
     ns = getstr( 0 );
     p = findPlanet( aGame, ns );
@@ -38,5 +38,5 @@ r_order( game *aGame, player *P, strlist **s )
     }
     p->routes[i] = p2;
 
-            DBUG_VOID_RETURN;
+    DBUG_VOID_RETURN;
 }

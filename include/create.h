@@ -3,15 +3,18 @@
 
 /* $Id$ */
 
-#include "galaxy.h"
-#include "avl.h"
-#include <fcntl.h>
+#include <time.h>
+#include <math.h>
+#include <stdlib.h>
+#include <assert.h>
+#include <string.h>
 
-#ifdef WIN32
-/* #include <varargs.h> */
-#include <stdarg.h>
-#include <stdio.h>
-#endif
+#include "galaxy.h"
+#include "list.h"
+#include "util.h"
+#include "report.h"
+#include "savegame.h"
+#include "process.h"
 
 /****s* Create/newplayer
  * NAME
@@ -69,6 +72,9 @@ int             createGameDirectories(char *name);
 
 player         *createPlayer(gamespecification *aGameSpec, game *aGame,
                              newplayer *aNewPlayer);
+
+int createDistributedLayout(gamespecification *aGameSpec,
+			    game *aGame, int planet_name);
 
 gamespecification *readGameSpec(FILE * specfile);
 

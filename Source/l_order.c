@@ -24,7 +24,7 @@ l_order( game *aGame, player *P, strlist **s )
 
     amountFlag = FALSE;
 
-    DBUG_ENTER("l_order");
+    DBUG_ENTER( "l_order" );
 
     g = findgroup( P, getstr( 0 ) );
 
@@ -205,4 +205,3 @@ l_order( game *aGame, player *P, strlist **s )
 }
 
 /***** End l_order ******/
-

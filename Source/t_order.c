@@ -7,7 +7,7 @@ t_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     shiptype *t;
 
-    DBUG_ENTER("t_order");
+    DBUG_ENTER( "t_order" );
 
     ns = getstr( 0 );
     t = findElement( shiptype, P->shiptypes, ns );

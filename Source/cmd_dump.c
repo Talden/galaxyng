@@ -27,7 +27,9 @@
  * SOURCE
  */
 
-int CMD_dump( int argc, char **argv, int kind ) {
+int
+CMD_dump( int argc, char **argv, int kind )
+{
     game *aGame;
     int result;
     int turn;
@@ -37,11 +39,10 @@ int CMD_dump( int argc, char **argv, int kind ) {
     if ( argc >= 3 ) {
         if ( argc == 3 ) {
             turn = LG_CURRENT_TURN;
-        }
-		else {
+        } else {
             turn = atoi( argv[3] );
         }
-		
+
         if ( ( aGame = loadgame( argv[2], turn ) ) ) {
             player *aDummyPlayer;
             struct fielddef fields;
@@ -50,63 +51,62 @@ int CMD_dump( int argc, char **argv, int kind ) {
 
             loadNGConfig( aGame );
             switch ( kind ) {
-				case CMD_DUMP_MAP: {
+            case CMD_DUMP_MAP:{
 
-					aDummyPlayer = allocStruct( player );
-					
-					setName( aDummyPlayer, "DummyDummy" );
-					aDummyPlayer->msize = aGame->galaxysize;
-					reportMap( aGame, aDummyPlayer, &fields );
-				}
-					break;
-					
-				case CMD_DUMP_MAP_GNUPLOT:{
                     aDummyPlayer = allocStruct( player );
-					
+
+                    setName( aDummyPlayer, "DummyDummy" );
+                    aDummyPlayer->msize = aGame->galaxysize;
+                    reportMap( aGame, aDummyPlayer, &fields );
+                }
+                break;
+
+            case CMD_DUMP_MAP_GNUPLOT:{
+                    aDummyPlayer = allocStruct( player );
+
                     setName( aDummyPlayer, "DummyDummy" );
                     aDummyPlayer->msize = aGame->galaxysize;
                     reportMap_gnuplot( aGame, aDummyPlayer, &fields );
                 }
-                    break;
-					
-				case CMD_DUMP_LASTORDERS:{
+                break;
+
+            case CMD_DUMP_LASTORDERS:{
                     reportLastOrders( aGame->players, &fields );
                 }
-                    break;
+                break;
 
-				case CMD_DUMP_PLAYERS:{
+            case CMD_DUMP_PLAYERS:{
                     reportPlayers( aGame->players, &fields );
                 }
-                    break;
+                break;
 
-				case CMD_DUMP_PSCORE:{
+            case CMD_DUMP_PSCORE:{
                     scorePercent( aGame, &fields );
                 }
-                    break;
+                break;
 
-				case CMD_DUMP_HALL:{
+            case CMD_DUMP_HALL:{
                     reportHall( aGame, &fields );
                 }
-                    break;
-					
-				case CMD_DUMP_MAILHEADER:{
+                break;
+
+            case CMD_DUMP_MAILHEADER:{
                     createMailToAllHeader( aGame );
                 }
-                    break;
+                break;
 
-				case CMD_DUMP_TEAM_INFO:{
+            case CMD_DUMP_TEAM_INFO:{
                     if ( argc == 5 ) {
                         team = atoi( argv[4] );
                         reportTeam( aGame, &fields, team );
-                    }
-					else {
+                    } else {
                         fprintf( stderr,
                                  "You have to specify a team number.\n" );
                     }
                 }
-                    break;
+                break;
 
-				case CMD_DUMP_TEAM_REPORT_NAMES:{
+            case CMD_DUMP_TEAM_REPORT_NAMES:{
                     if ( argc == 5 ) {
                         player *aPlayer;
 
@@ -118,26 +118,22 @@ int CMD_dump( int argc, char **argv, int kind ) {
                                         aPlayer->name, aGame->turn );
                             }
                         }
-                    }
-					else {
+                    } else {
                         fprintf( stderr,
                                  "You have to specify a team number.\n" );
                     }
                 }
-                    break;
+                break;
             }
-			
+
             result = EXIT_SUCCESS;
             freegame( aGame );
-        }
-		else {
+        } else {
             fprintf( stderr, "Could not load game \"%s\".\n", argv[2] );
         }
-    }
-	else {
+    } else {
         usage(  );
     }
 
     return result;
 }
-
