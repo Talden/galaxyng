@@ -38,8 +38,8 @@
 				<ol>
 					<li value="5" id="5">Do send messages in character, don't lie out of character. I always bracket my "in character" messages with "START MESSAGE...END MESSAGE" so people will know it is not ME that is blustering, threatening, and spreading disinformation. I am most definitely not like that in real life, so I like people to know when it is me and when it is Price Throatcrusher of the 
 Bloodletters.</li>
-					<li id="6">Do spread disinformation, but be careful. This can be useful with enemies, but don't do it much with allies, and definitely not with end-game allies. Do it too much and no one will believe anything you say anyhow. (see <a href="#5">#6</a>)</li>
-					<li id="7">Do use the mailing lists to banter. It keeps the game lively and interesting. Publish "newsletters" that goad and belittle your opponents, or over-emphasize your victories. This is a good place for a bit of disinformation. (See <a href="#6">#7</a> and <a href="#9">#9</a>)</li>
+					<li id="6">Do spread disinformation, but be careful. This can be useful with enemies, but don't do it much with allies, and definitely not with end-game allies. Do it too much and no one will believe anything you say anyhow. (see <a href="#5">#5</a>)</li>
+					<li id="7">Do use the mailing lists to banter. It keeps the game lively and interesting. Publish "newsletters" that goad and belittle your opponents, or over-emphasize your victories. This is a good place for a bit of disinformation. (See <a href="#6">#6</a> and <a href="#9">#9</a>)</li>
 				</ol>
 
 			<hr />
