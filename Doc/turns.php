@@ -14,18 +14,20 @@
 
 	<body>
 		<?php include 'menu.php'; ?>
+		
+		<p>Below are sample turn reports and orders from several games.  These can be used to test <a href="http://galaxyview.sourceforge.net/tools.html">turn viewers</a> and to learn more about the game.</p>
 			
-			<h2>Text</h2>
-			
-			<ul>
-				<li><a href="clash/">Clash</a></li>
-				<li><a href="daily8/">Daily8</a></li>
-				<li><a href="deathzone/">DeathZone</a></li>
-			</ul>
-			
-			<hr />
-			
-			<h2>XML</h2>
+		<h2>Text</h2>
+		
+		<ul>
+			<li><a href="clash/">Clash</a></li>
+			<li><a href="daily8/">Daily8</a></li>
+			<li><a href="deathzone/">DeathZone</a></li>
+		</ul>
+		
+		<hr />
+		
+		<h2>XML</h2>
 			
 			<p>Beginning with version 6.3, GalaxyNG can send XML reports, which are used by some turn viewers.  XML samples will be available soon.</p>
 

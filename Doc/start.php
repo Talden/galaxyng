@@ -27,7 +27,7 @@
 			<hr />
 			
 			<h2>Get a turn viewer:</h2>
-				<p>To display the map and create orders, download a <a href="http://galaxyview.sourceforge.net/tools.html">turn viewer</a>. Galaxyview and MkGal are popular turn viewers.  Download some <a href="turns.php">sample turn reports</a> so you can experiment with the turn viewer.</p>
+				<p>To display the map and create orders, download a <a href="http://galaxyview.sourceforge.net/tools.html">turn viewer</a>. Galaxyview and MkGal are popular turn viewers.  Download some <a href="turns.php">turn reports and orders</a> so you can experiment with the turn viewer.</p>
 			
 			<hr />
 			
