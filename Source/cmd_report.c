@@ -52,15 +52,15 @@ CMD_report( int argc, char **argv ) {
     
     reportName = createString("%s/temp_report_copy_%d_%s",
 							  tempdir, theTurnNumber, returnAddress);
-	plog(LBRIEF, "Report is in \"%s\"\n", reportName);
     {
       char *ptr = strrchr(reportName, '/')+1;
       while (*ptr) {
-		  if (!isalnum(*ptr))
+		  if (!isalnum(*ptr) || isspace(*ptr))
 			  *ptr = '_';
 		  ptr++;
       }
     }
+	plog(LBRIEF, "Report is in \"%s\"\n", reportName);
     
     setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
     setHeader(anEnvelope, MAILHEADER_REPLYTO,
