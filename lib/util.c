@@ -1717,3 +1717,14 @@ freeDefaults(game *aGame)
   free(aGame->serverOptions.fontpath);
   free(aGame->serverOptions.due);
 }
+
+
+char* rightNow() {
+	static char timestamp[32];
+
+	time_t now = time(NULL);
+	
+	strcpy(timestamp, asctime(localtime(&now)));
+
+	return timestamp;
+}

@@ -87,5 +87,6 @@ group          *findgroup(player *P, char *s);
 void            raceStatus(game *aGame);
 double          effectiveIndustry(double pop, double ind);
 double          addShipAtt(game* aGame, planet* p);
+char*           rightNow(void);
 
 #endif                          /* GNG_UTIL_H */
