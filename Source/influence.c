@@ -320,7 +320,6 @@ draw_maps(game* aGame)
 		for (p = aGame->planets; p; p = p->next) {
 			x = (int) ((scale * p->x) + 1);
 			y = (int) ((scale * p->y) + 1);
-			//gdImageSetPixel(map_png, x, y, white);
 			gdImageArc(map_png, x, y, 2, 2, 0, 360, white);
 		}
 		gdImagePng(map_png, mapfile);
