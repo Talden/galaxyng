@@ -306,13 +306,13 @@ if { test -e $CRONT; } then {
 }
 fi
 echo "# This is an example crontab file. It would run the game " > $CRONT
-echo "# Orion on Monday, Wednesday, and Friday at 21:15 (9:15pm)" >> $CRONT
+echo "# Jangi on Monday, Wednesday, and Friday at 21:15 (9:15pm)" >> $CRONT
+echo "# and the game Welland on Tuesday and Friday at 08:00 (8:00am)" > $CRONT
 echo "# To use it, type" >> $CRONT
 echo "#   crontab games.crontab" >> $CRONT 
 echo "#" >> $CRONT
-echo "15 21 * * 1 " $RUN_GAME "Orion" >> $CRONT
-echo "15 21 * * 3 " $RUN_GAME "Orion" >> $CRONT
-echo "15 21 * * 5 " $RUN_GAME "Orion" >> $CRONT
+echo "15 21 * * 1,3,5 " $RUN_GAME "Jangi" >> $CRONT
+echo "0 8 * * 2,5 " $RUN_GAME "Welland" >> $CRONT
 
 # =========================================================
 #              Create a .galaxyngrc file
