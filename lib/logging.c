@@ -108,6 +108,25 @@ enum DebugLevels setDebugLevel(enum DebugLevels level)
     return lastLevel;
 }
 
+/****f* logging/setLogLevel
+ * NAME
+ *   setLogLevel -- set the system logging level
+ * SYNOPSIS
+ *   enum LogLevels setLogLevel(enum LogLevels level)
+ * FUNCTION
+ *   set the system logging level
+ * SOURCE
+ */
+
+enum LogLevels setLogLevel(enum LogLevels level)
+{
+    enum LogLevels lastLevel = logLevel;
+
+    logLevel = level;
+
+    return lastLevel;
+}
+
 
 /****f* logging/openLog
  * NAME
@@ -118,11 +137,11 @@ enum DebugLevels setDebugLevel(enum DebugLevels level)
  */
 
 int
-openLog(char *name)
+openLog(char *name, char* mode)
 {
     if (logFile)
 	fclose(logFile);
-    if ((logFile = fopen(name, "w")) == NULL) {
+    if ((logFile = fopen(name, mode)) == NULL) {
 	fprintf(stderr, "Could not open log file %s\n", name);
 	return 1;
     }
