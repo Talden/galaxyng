@@ -27,12 +27,12 @@
 					<li><a href="#use">Use</a></li>
 					<li><a href="#create">Creating a New Game</a></li>
 					<li><a href="#mail">Mailing the Turn 0 Reports</a></li>
- 					<li><a href="process">Processing Orders</a></li>
-					<li><a href="auto">Auto Checking</a></li>
-					<li><a href="run">Running Turns</a></li>
-					<li><a href="command">Command Summary</a></li>
-					<li><a href="config">Configuration</a></li>
-					<li><a href="host">Hosting Team Games</a></li>
+ 					<li><a href="#process">Processing Orders</a></li>
+					<li><a href="#auto">Auto Checking</a></li>
+					<li><a href="#run">Running Turns</a></li>
+					<li><a href="#command">Command Summary</a></li>
+					<li><a href="#config">Configuration</a></li>
+					<li><a href="#host">Hosting Team Games</a></li>
 				</ul>
  				
  			<hr />
@@ -64,7 +64,7 @@ procmail; to automatically process in comming orders</pre>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
 LIBS   = -lm</pre>
-				<p>The above settings are valid for most Unix systems that have <tt>GCC</tt> installed. It should compile without changes on a Linux box. (Has been tested on a Debian, Slackware, SuSE, and Redhat system).  Do not add any optimization options otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
+				<p>The above settings are valid for most Unix systems that have <tt>GCC</tt> installed. It has been tested on Debian, Slackware, SuSE, and RedHat systems and should compile without changes on most Linux boxes.  Do not add any optimization options otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
 				<p>To compile the code just type</p>
 <pre>make</pre>
 				<p>in the top level directory <tt>GalaxyNG/</tt>, this creates the executable <tt>Source/galaxyng</tt>.</p> 
@@ -234,7 +234,7 @@ LIBS   = -lm</pre>
 				<p>When it is time to run a turn you do this with:</p>
 <pre>./run_game &lt;game name&gt;</pre>
 				<p>This shell script collects all orders in one file, runs the turn based on these orders, and then sends out all the turn reports to the players.  It also creates high-score lists in HTML and places it in your <tt>$HOME/public_html</tt> directory, if you have one.  You can edit the script and add other commands that need to be run for each turn.</p>
-				<p>After each turn you are send a GM status report. It tells you whether the turn ran successfully. It is especially handy if the server runs on some remote computer. It also contains information on the status of all nations in the game, a list of all bombings and a map. That way you can follow the game.</p>
+				<p>After each turn you are sent a GM status report. It tells you whether the turn ran successfully. It is especially handy if the server runs on some remote computer. It also contains information on the status of all nations in the game, a list of all bombings and a map. That way you can follow the game.</p>
 				<p>If for some reason there was a problem with a turn, you can rerun it by executing:</p>
 <pre>./run_game &lt;game name&gt; &lt;turn&gt;</pre>
 				<p>The game will be rerun and new turn reports are sent to the players.  This only works for turns that already ran.</p>
@@ -341,15 +341,14 @@ LIBS   = -lm</pre>
 					<tr>
 						<td><tt>hall</tt></td>
 						<td><tt>&lt;game name&gt; [turn number]</tt></td>
-						<td>Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to fslothouber@acm.org.</td>
+						<td>Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to the <a href="http://www.refs-home.net/galaxyng/hof/">Hall of Fame maintainer</a>.</td>
 					</tr>
 				</table>
 
 			<hr />
 
 			<h2 id="config">Configuration</h2>
-				<p>The server can be configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>. You can use this to override settings for a particular game.
-An example <tt>.galaxyngrc</tt> file is generated when you install the game.  A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Docs/</tt> directory. You can use it to specify the following parameters.  Only the first two are essential to run games.</p>
+				<p>The server is configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>, whcih overrides the global settings for that particular game. A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Doc/</tt> directory. You can use it to specify the following parameters.  Only the first two are essential to run games.</p>
 				<table>
 					<tr>
 						<td><tt>GMemail</tt></td>
@@ -380,7 +379,7 @@ An example <tt>.galaxyngrc</tt> file is generated when you install the game.  A 
 						<td>When running a turn also save a copy of each turn report in <tt>reports/&lt;game name&gt;/</tt>.</td>
 					</tr>
 				</table>
-				<p>You can override where the server looks for all its data files by setting the <tt>GALAXYNGHOME</tt> variable. If it is not set the server looks in <tt>$HOME/Games/</tt>.</p>
+				<p>You can override where the server looks for all its data files by setting the <tt>GALAXYNGHOME</tt> environment variable. If it is not set the server looks in <tt>$HOME/Games/</tt>.</p>
 
 			<hr />
 
