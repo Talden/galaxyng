@@ -58,7 +58,7 @@ startElement (void *userData, const char *name, const char **atts)
 	go->playerlimit = 0;
 	go->maxplanetsize = 0.0;
 	go->totalplanetsize = 0.0;
-	go->maxnbrplanets = 0;
+	go->maxplanets = 0;
 	setName(go,atts[1]);
 	context = game;
     }
@@ -74,9 +74,9 @@ startElement (void *userData, const char *name, const char **atts)
     	tagContext = 1;
 	curElement = (char**)&go->maxplanetsize;
     }
-    else if (noCaseStrcmp(name, "maxnbrplanets") == 0) {
+    else if (noCaseStrcmp(name, "maxplanets") == 0) {
     	tagContext = 1;
-	curElement = (char**)&go->maxnbrplanets;
+	curElement = (char**)&go->maxplanets;
     }
     else
 	printf("unrecognized element %s\n", name);
@@ -124,8 +124,8 @@ contentData(void* userData, const char* text, int len)
 	else if (curElement == (char**)&go->maxplanetsize) {
 	    go->maxplanetsize = atof(ltext);
 	}
-	else if (curElement == (char**)&go->maxnbrplanets) {
-	    go->maxnbrplanets = atoi(ltext);
+	else if (curElement == (char**)&go->maxplanets) {
+	    go->maxplanets = atoi(ltext);
 	}
     }
     else {
@@ -149,7 +149,7 @@ dumpGameOptData(void* data)
     fprintf(stderr, "  playerlimit: %d\n", go->playerlimit);
     fprintf(stderr, "  totalplanetsize: %f\n", go->totalplanetsize);
     fprintf(stderr, "  maxplanetsize: %f\n", go->maxplanetsize);
-    fprintf(stderr, "  maxnbrplanets: %d\n", go->maxnbrplanets);
+    fprintf(stderr, "  maxplanets: %d\n", go->maxplanets);
 }
 
 serverOpts*
