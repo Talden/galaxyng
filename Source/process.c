@@ -2486,19 +2486,14 @@ getDestination( char *subject )
 
     c = strlwr(strdup(subject));
       
-    if ((destination = strchr(c, " \t")) == NULL) {
-      plog(LBRIEF, "  no space in subject\n");
+    if ((destination = strstr(c, "relay")) == NULL) {
+      plog(LBRIEF, "  subject does not have \"relay\" in it\n");
       return NULL;		/* can't be a relay subject */
     }
+    else
+      destination += 5;
 
-    *destination = '\0';
-
-    if (strcmp(c, "relay") != 0) {
-      plog(LBRIEF, "  subject does not start with \"relay\"\n");
-      return NULL;		/* can't be a relay subject */
-    }
-
-    destination = strdup(destination+1);
+    destination = strdup(destination);
     free (c);
 
     plog(LBRIEF, "<getDestination(%s)\n", destination);
