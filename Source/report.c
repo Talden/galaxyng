@@ -676,7 +676,7 @@ report(game *aGame, player *P, FILE * report)
             "\n\nPassword for player %s set to %s\n", P->name, P->pswd);
     fprintf(fields.destination,
             "First line of your orders should now be:\n");
-    fprintf(fields.destination, "#GALAXY %s %s %s\n", aGame->name, P->name,
+    fprintf(fields.destination, "#galaxy %s %s %s TurnNumber [FinalOrders]\n", aGame->name, P->name,
             P->pswd);
   }
   reportGlobalMessages(aGame->messages, &fields);
