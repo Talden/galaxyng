@@ -200,6 +200,8 @@ int CMD_relay( int argc, char **argv ) {
 	if (password)
 		free(password);
 	destroyEnvelope(anEnvelope);
+	plog(LBRIEF, "confirmName: \"%s\"\n", confirmName);
+
 	result |= ssystem("rm %s", confirmName);
 	result = result ? EXIT_FAILURE : EXIT_SUCCESS;
 
