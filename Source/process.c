@@ -2757,67 +2757,67 @@ preComputeGroupData( game *aGame )
  */
 
 void generateErrorMessage( int resNumber, game *aGame,
-						   char *raceName, int theTurnNumber,
-						   FILE *forecast ) {
-    switch ( resNumber ) {
-		case RES_NO_ORDERS:
-			fprintf(forecast, "O Wise Leader, your mail did not contain any "
-					"orders.\nRemember orders start with\n\n"
-					 "#GALAXY GameName RaceName Password TurnNumber "
-					 "[FinalOrders]\n\nand end with\n\n#END\n" );
-			break;
-
-		case RES_ERR_GALAXY:
-			fprintf(forecast, "O Wise Leader, you must supply your race name "
-					 "and galaxy name.\n Remember orders start with,\n\n"
-					 "#GALAXY GameName RaceName Password TurnNumber "
-					 "[FinalOrders]\n\nand end with\n\n#END\n");
-			break;
-
-		case RES_NO_GAME:
-			fprintf(forecast, "O Wise Leader, there is no galaxy called %s.\n"
-					 "This probably means that you mispelled the galaxy name "
-					 "in your orders\n", aGame->name );
-			break;
-			
-		case RES_PASSWORD:
-			fprintf(forecast, "O Wise Leader, the password you gave is "
-					 "incorrect.\n" );
-			break;
-			
-		case RES_PLAYER:
-			fprintf(forecast, "O Wise Leader there is no race called %s.\n"
-					 "This probably means that you mispelled your "
-					 "race name.\n", raceName );
-			break;
-			
-		case RES_TURNRAN:
-			fprintf(forecast, "O Wise Leader, you sent in orders for turn %d "
-					"but that turn already ran.\nThe next turn is %d.",
-					theTurnNumber, aGame->turn+1);
-			break;
-			
-		case RES_DESTINATION:
-			fprintf(forecast, "O Wise Leader, the recipient of the message "
-					"you sent does not exist.\n" );
-			break;
-			
-		case RES_NODESTINATION:
-			fprintf(forecast, "O Wise Leader, you failed to give a "
-					"destination for your message.\n" );
-			break;
-
-		case RES_NO_TURN_NBR:
-			fprintf(forecast, "O Wise Leader, you didn't specify a turn "
-					"number.\nRemember that orders start with\n\n"
-					 "#GALAXY GameName RaceName Password TurnNumber "
-					 "[FinalOrders]\n\n"
-					 "and end with\n\n#END\n");
-			break;
-    }
-    fprintf( forecast,
-             "\nYour orders have been discarded!\n"
-             "Please correct the mistake and retransmit your orders.\n" );
+			   char *raceName, int theTurnNumber,
+			   FILE *forecast ) {
+  switch ( resNumber ) {
+  case RES_NO_ORDERS:
+    fprintf(forecast, "O Wise Leader, your mail did not contain any "
+	    "orders.\nRemember orders start with\n\n"
+	    "#GALAXY GameName RaceName Password TurnNumber "
+	    "[FinalOrders]\n\nand end with\n\n#END\n" );
+    break;
+    
+  case RES_ERR_GALAXY:
+    fprintf(forecast, "O Wise Leader, you must supply your race name "
+	    "and galaxy name.\n Remember orders start with,\n\n"
+	    "#GALAXY GameName RaceName Password TurnNumber "
+	    "[FinalOrders]\n\nand end with\n\n#END\n");
+    break;
+    
+  case RES_NO_GAME:
+    fprintf(forecast, "O Wise Leader, there is no galaxy called %s.\n"
+	    "This probably means that you mispelled the galaxy name "
+	    "in your orders\n", aGame->name );
+    break;
+    
+  case RES_PASSWORD:
+    fprintf(forecast, "O Wise Leader, the password you gave is "
+	    "incorrect.\n" );
+    break;
+    
+  case RES_PLAYER:
+    fprintf(forecast, "O Wise Leader there is no race called %s.\n"
+	    "This probably means that you mispelled your "
+	    "race name.\n", raceName );
+    break;
+    
+  case RES_TURNRAN:
+    fprintf(forecast, "O Wise Leader, you sent in orders for turn %d "
+	    "but that turn already ran.\nThe next turn is %d.",
+	    theTurnNumber, aGame->turn+1);
+    break;
+    
+  case RES_DESTINATION:
+    fprintf(forecast, "O Wise Leader, the recipient of the message "
+	    "you sent does not exist.\n" );
+    break;
+    
+  case RES_NODESTINATION:
+    fprintf(forecast, "O Wise Leader, you failed to give a "
+	    "destination for your message.\n" );
+    break;
+    
+  case RES_NO_TURN_NBR:
+    fprintf(forecast, "O Wise Leader, you didn't specify a turn "
+	    "number.\nRemember that orders start with\n\n"
+	    "#GALAXY GameName RaceName Password TurnNumber "
+	    "[FinalOrders]\n\n"
+	    "and end with\n\n#END\n");
+    break;
+  }
+  fprintf( forecast,
+	   "\nYour orders have been discarded!\n"
+	   "Please correct the mistake and retransmit your orders.\n" );
 }
 
 /***********/

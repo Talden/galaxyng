@@ -64,16 +64,6 @@ int CMD_relay( int argc, char **argv ) {
   
   setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.GMemail);
   
-  /* it's ok to not have a turn number on a relay */
-  if (resNumber != RES_OK && resNumber != RES_NO_TURN_NBR) {
-    setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
-    generateErrorMessage(resNumber, aGame, raceName,
-			 theTurnNumber, confirm);
-    plog(LBRIEF, "relay: error %d\n", resNumber);
-    result |= eMail(aGame, anEnvelope, confirmName);
-    return result;
-  }
-  
   fprintf(confirm, "Relay for game \"%s\"\n", aGame->name);
   
   /* we need to make a list of recipients */
@@ -90,6 +80,8 @@ int CMD_relay( int argc, char **argv ) {
     setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
     generateErrorMessage(RES_PLAYER, aGame, raceName,
 			 theTurnNumber, confirm);
+    fprintf(confirm, "\n\n%s\n", vcid);
+    fclose(confirm);
     result |= eMail(aGame, anEnvelope, confirmName);
     plog(LBRIEF, "cmd_relay: can't tell who mail is from.\n");
     return result;
@@ -99,6 +91,8 @@ int CMD_relay( int argc, char **argv ) {
     setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
     generateErrorMessage(RES_NODESTINATION, aGame, raceName,
 			 theTurnNumber, confirm);
+    fprintf(confirm, "\n\n%s\n", vcid);
+    fclose(confirm);
     result |= eMail(aGame, anEnvelope, confirmName);
     plog(LBRIEF, "cmd_relay: can't tell who mail is to.\n");
     return result;
@@ -158,6 +152,8 @@ int CMD_relay( int argc, char **argv ) {
 		  "[GNG] Major Trouble");
 	generateErrorMessage(RES_NODESTINATION, aGame, raceName,
 			     theTurnNumber, confirm);
+	fprintf(confirm, "\n\n%s\n", vcid);
+	fclose(confirm);
 	result |= eMail(aGame, anEnvelope, confirmName);
 	plog(LBRIEF, "can't find player mail is directed to.\n");
 	return result;
@@ -169,6 +165,8 @@ int CMD_relay( int argc, char **argv ) {
 		  "[GNG] Major Trouble");
 	generateErrorMessage(RES_DEAD_PLAYER, aGame, raceName,
 			     theTurnNumber, confirm);
+	fprintf(confirm, "\n\n%s\n", vcid);
+	fclose(confirm);
 	result |= eMail(aGame, anEnvelope, confirmName);
 	plog(LBRIEF, "cmd_relay: relay is to a dead player.\n");
 	return result;
