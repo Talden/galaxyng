@@ -1178,6 +1178,7 @@ CMD_create(int argc, char **argv)
 				struct fielddef fields;
 				
 				fields.destination = stdout;
+				loadConfig(aGame);
 				checkIntegrity(aGame);
 				savegame(aGame);
 				reportMap(aGame, aGame->players, &fields);
