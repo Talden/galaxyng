@@ -2596,6 +2596,7 @@ removeDeadPlayer( game *aGame )
       idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
 	allowedOrderGap + 1;
       plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
+      fprintf(stderr, "Player %s idle turns %d\n", P->name, idleTurns );
       if ( idleTurns != 0 ) {
 	if ( idleTurns < allowedOrderGap ) {
 	  int gap = allowedOrderGap - idleTurns;
@@ -2611,14 +2612,11 @@ removeDeadPlayer( game *aGame )
 *** wish to continue playing." ) );
 	} else if ( idleTurns > allowedOrderGap ) {
 	  planet *p;
-	  group  *g;
 
 	  P->flags |= F_DEAD;
 	  
 	  /* fix for bug 991269 */
-	  for (g = P->groups; g; g = g->next) {
-	    remList(&P->groups, g);
-	  }
+	  freelist(P->groups);
 	  P->groups = NULL;
 	  nbrPlanets = 0;
 	  for ( p = aGame->planets; p; p = p->next ) {
