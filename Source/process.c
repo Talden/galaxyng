@@ -18,6 +18,8 @@
 
 extern int nbrProducts;
 
+void cleanDeadPlayers( game *aGame );
+
 char *vprocess = "$Id$";
 
 void forecast_xml( game *aGame, player *aPlayer, FILE *forecast );
