@@ -4,11 +4,13 @@
 <ul>
 	<li><a href="http://galaxy.gesserit.net/">Nine Lives GalaxyNG Server</a>
 		<ul>
+			<li><a href="http://galaxy.gesserit.net/Cat/">Cat</a></li>
 			<li><a href="http://galaxy.gesserit.net/Caterwaul/">Caterwaul</a></li>
 			<li><a href="http://galaxy.gesserit.net/CatNap/">CatNap</a></li>
-			<li><a href="http://galaxy.gesserit.net/Meow6/">Meow6</a></li>
+			<li><a href="http://galaxy.gesserit.net/Cheetah/">Cheetah</a></li>
+			<li><a href="http://galaxy.gesserit.net/Distance/">Distance</a></li>
 			<li><a href="http://galaxy.gesserit.net/Meow7/">Meow7</a></li>
-			<li><a href="http://galaxy.gesserit.net/Morat1/">Morat1</a></li>
+			<li><a href="http://galaxy.gesserit.net/tournament.php">Nine Lives GalaxyNG Tournament</a>: <a href="http://galaxy.gesserit.net/t2/">t2</a>, <a href="http://galaxy.gesserit.net/t3/">t3</a>, <a href="http://galaxy.gesserit.net/t5/">t5</a>, <a href="http://galaxy.gesserit.net/t12/">t12</a></p></li>
 			<li><a href="http://galaxy.gesserit.net/Newcomer1/">Newcomer1</a></li>
 			<li><a href="http://galaxy.gesserit.net/Newcomer2/">Newcomer2</a></li>
 			<li><a href="http://galaxy.gesserit.net/Newcomer3/">Newcomer3</a></li>
@@ -31,7 +33,7 @@
 	</li>
 	<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a>
 		<ul>
-			<li><a href="http://www.badcheese.com/~steve/Conqueror2/hitlist.html">Conqueror2</a> | <a href="http://www.badcheese.com/~steve/Conqueror2/plot.png">Conqueror2 map</a> | <a href="http://www.badcheese.com/~steve/Conqueror2/graph.html">Conqueror2 graph</a></li>
+			<li><a href="http://www.badcheese.com/~steve/BadcheeseFinalDaily/hitlist.html">BadcheeseFinalDaily</a> | <a href="http://www.badcheese.com/~steve/BadcheeseFinalDaily/plot.png">BadcheeseFinalDaily map</a> | <a href="http://www.badcheese.com/~steve/BadcheeseFinalDaily/graph.html">BadcheeseFinalDaily graph</a></li>
 			<li><a href="http://www.badcheese.com/~steve/Hardattack/hitlist.html">Hardattack</a> | <a href="http://www.badcheese.com/~steve/Hardattack/plot.png">Hardattack map</a> | <a href="http://www.badcheese.com/~steve/Hardattack/graph.html">Hardattack graph</a></li>
 			<li><a href="http://www.badcheese.com/~steve/Highlander1/hitlist.html">Highlander1</a> | <a href="http://www.badcheese.com/~steve/Highlander1/plot.png">Highlander1 map</a> | <a href="http://www.badcheese.com/~steve/Highlander1/graph.html">Highlander1 graph</a></li>
 		</ul>
