@@ -1309,7 +1309,7 @@ relayMessage( game *aGame, char *raceName, player *to )
             for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin );
                   isRead;
                   isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin ) ) {
-				if (noCaseStrcmp("#end", lineBuffer) == 0)
+				if (noCaseStrncmp("#end", lineBuffer, 4) == 0)
 					break;
                 fputs( lineBuffer, message );
             }
