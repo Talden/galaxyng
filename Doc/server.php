@@ -11,7 +11,14 @@ ATitle(`GalaxyNG Server Manual For release-5-0g')
 
 <P>By Frans Slothouber (rfsber@xs4all.nl)</P>
 <P>Last update March 2001</P>
-
+				<ul>
+					<li><a href="house_rules.txt">Example House Rules</a></li>
+					<li><a href="globab.bulletin">Example Global Bulletin</a></li>
+					<li><a href="galaxyngrc">Example Server Configuration File</a></li>
+					<li><a href="example.glx">Example Game Configuration File</a></li>
+ 					<li><a href="intro.txt">Example Game Introduction Text</a></li>
+ 					<li><a href="hosting_a_team_game.txt">How to Host a Team Game</a></li>
+ 				</ul>
 
 www_section(`toc', `Table of Contents')
 

@@ -12,10 +12,9 @@
 	</head>
 
 	<body>
-		<h1>GalaxyNG Quick Reference</h1>
-			<table>
+		<h1><a href="index.php">GalaxyNG</a> Quick Reference</h1>
 
-				
+			<table>
 				
 				<tr><th colspan="2">Planet Orders</th></tr>
 					<tr><td>Produce</td><td>&nbsp;<a href="manual.php#ordp">p &lt;planet name&gt; &lt;CAP | MAT | DRIVE | WEAPONS | SHIELDS | CARGO | ship type name&gt;</a></td></tr>
@@ -23,14 +22,10 @@
 					<tr><td>Victory</td><td>&nbsp;<a href="manual.php#ordv">v &lt;planet name&gt;</a></td></tr>
 					<tr><td>Rename</td><td>&nbsp;<a href="manual.php#ordn">n &lt;current planet name&gt; &lt;new planet name&gt;</a></td></tr>
 			
-				
-				
 				<tr><th colspan="2">Ship Type Orders</th></tr>
 					<tr><td>Design</td><td>&nbsp;<a href="manual.php#ordd">d &lt;name&gt; &lt;drive mass&gt; &lt;attacks&gt; &lt;weapons mass&gt; &lt;shields mass&gt; &lt;cargo mass&gt;</a></td></tr>
 					<tr><td>Rename</td><td>&nbsp;<a href="manual.php#ordt">t &lt;current ship type name&gt; &lt;new ship type name&gt;</a></td></tr>
 					<tr><td>Eliminate</td><td>&nbsp;<a href="manual.php#orde">e &lt;ship type name&gt;</a></td></tr>
-					
-					
 					
 				<tr><th colspan="2">Group Orders</th></tr>
 					<tr><td>Send</td><td>&nbsp;<a href="manual.php#ords">s &lt;group number&gt; &lt;planet name&gt; [number of ships]</a></td></tr>
@@ -41,8 +36,6 @@
 					<tr><td>Break off</td><td>&nbsp;<a href="manual.php#ordb">b &lt;group number&gt; &lt;number of ships&gt;</a></td></tr>
 					<tr><td>Scrap</td><td>&nbsp;<a href="manual.php#ordx">x &lt;group number&gt; [number of ships]</a></td></tr>
 					
-				
-				
 				<tr><th colspan="2">Fleet Orders</th></tr>
 					<tr><td>Send</td><td>&nbsp;<a href="manual.php#ords">s &lt;fleet name&gt; &lt;planet name&gt;</a></td></tr>
 					<tr><td>Intercept</td><td>&nbsp;<a href="manual.php#ordi">i &lt;fleet name&gt; &lt;planet name&gt;</a></td></tr>
@@ -52,8 +45,6 @@
 					<tr><td>Eliminate</td><td>&nbsp;<a href="manual.php#orde">e &lt;fleet name&gt;</a></td></tr>
 					<tr><td>Merge</td><td>&nbsp;<a href="manual.php#ordj">j &lt;fleet name&gt; &lt;fleet name&gt;</a></td></tr>
 					<tr><td>Rename</td><td>&nbsp;<a href="manual.php#ordt">t &lt;current fleet name&gt; &lt;new fleet name&gt;</a></td></tr>
-					
-				
 				
 				<tr><th colspan="2">Player Orders</th></tr>
 					<tr><td>Player</td><td>&nbsp;<a href="manual.php#ordE">= &lt;FirstName LastName&gt;</a></td></tr>
@@ -63,8 +54,6 @@
 					<tr><td>Password</td><td>&nbsp;<a href="manual.php#ordy">y &lt;new password&gt;</a></td></tr>
 					<tr><td>Email</td><td>&nbsp;<a href="manual.php#ordz">z &lt;new email address&gt;</a></td></tr>
 					<tr><td>Quit</td><td>&nbsp;<a href="manual.php#ordq">q &lt;player's race name&gt;</a></td></tr>
-					
-				
 				
 				<tr><th colspan="2">Race Orders</th></tr>
 					<tr><td>Message</td><td>&nbsp;<a href="manual.php#ordA">@ [alien race name...]</a></td></tr>

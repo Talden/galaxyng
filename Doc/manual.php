@@ -12,7 +12,7 @@
 	</head>
 
 	<body>
-		<h1>GalaxyNG Players' Manual</h1>
+		<h1><a href="index.php">GalaxyNG</a> Players' Manual</h1>
 
 
 
@@ -150,7 +150,7 @@
 				<p>Players email a GalaxyNG server to register for games, submit orders and receive turn reports.  The server automatically processes turns and responds to player email.  Most games run one to five turns per week and can last from a few months to a year or more.  The Game Master (GM) maintains the server, selects game options, creates the galaxy, answers player questions and solves problems.</p>
 
 				<h3 id="galaxy">The Galaxy</h3>
-					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets which can build ships, conduct technology research, produce capital or produce materials.  Ships are used to explore, colonize uninhabited planets, haul cargo, conduct warfare and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, haul more cargo and fight better.</p>	
+					<p>The area of the galaxy in which the game is played is a square (for the sake of simplicity the third dimension is ignored) which contains a number of habitable planets.  Planets are used to build ships, conduct technology research, produce capital or produce materials.  Ships explore the galaxy, colonize uninhabited planets, haul cargo, conduct warfare and conquer planets inhabited by other races.  Technology improvements allow ships to fly faster and farther, haul more cargo and fight better.</p>
 					
 				<h3 id="players">Players</h3>
 					<p>Each player is the leader of one race.  Players can communicate by sending <a href="#ordA">messages</a> or <a href="#email">email</a> to each other.  Players are <a href="#ordo">anonymous</a> but can choose to reveal their identities to other players.  Players can  provide their <a href="#ordE">real name</a> to the GM for inclusion in the Hall of Fame without breaking their anonymity.</p>
@@ -162,8 +162,8 @@
 					<p>Races, planets, ship types and fleets can be named.  Names may be no more than twenty characters (a character is a letter, digit, or underscore) and may not include spaces.  Names must be unique.  For example, a race cannot have the same name as a fleet.  Each player should <a href="#ordc">provide a name</a> by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when <a href="#ordd">designed</a> and can be <a href="#ordt">renamed</a>.  Planets are numbered at the start of the game and can be <a href="#ordn">renamed</a> by their current owner.</p>
 					
 				<h3 id="units">Units of Measure</h3>
-					<p>Distances are measured in light-years.  Each unit of population represents ten million people and each unit of capital or materials represents about ten million tons.  Each turn represents about four years of time.</p>
-					<p>The game engine stores numbers in double precision format but <strong>truncates</strong> values reported to players to two decimal places.  For example, drive technology 2.4389 will be reported as 2.43 and a ship designed with shields mass 18.11999999 will be reported as shields mass 18.11.  Note that galaxy size, planetary coordinates and planetary resources are the exceptions - a planet reported at 138.44,43.29 with 4.30 resources is actually at that location and will not be found at 138.4426,43.28934 with 4.3032 resources.  Negative numbers are not used in GalaxyNG.</p>
+					<p>Distances are measured in light-years.  Each unit of population represents ten million people and each unit of capital or materials represents ten million tons.  Each turn represents about four years of time.</p>
+					<p>The game engine stores numbers in double precision format but <strong>truncates</strong> values reported to players to two decimal places.  For example, drive technology 2.4389 will be reported as 2.43 and a ship designed with shields mass 18.11999999 will be reported as shields mass 18.11.  Note that galaxy size, planet coordinates and resources are the exceptions - a planet reported at 138.44,43.29 with 4.30 resources is actually at that location and will not be found at 138.4426,43.28934 with 4.3032 resources.  Negative numbers are not used in GalaxyNG.</p>
 
 			<hr />
 
@@ -313,8 +313,8 @@ uninhabited planet will be stockpiled until the planet is colonized.</p>
 			<h2 id="prod">Production</h2>
 				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each unit of industry on a planet yields one production unit, and every four units of population over and above industry yields an additional production unit.  The formula is:</p>
 <pre>Production = Industry + (Population - Industry)/4</pre>
-				
-				<p>For example, a planet with 500.00 population and 500.00 industry has 500.00 production (500 + 0), a planet with 500.00 population and 250.00 industry has 312.50 production (250 + 250/4) and a planet with 500.00 population and 0 industry has 125.00 production (0 + 500/4).  A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production each turn.</p>
+				<p>For example, a planet with 500.00 population and 500.00 industry has 500.00 production (500 + 0), a planet with 500.00 population and 250.00 industry has 312.50 production (250 + 250/4) and a planet with 500.00 population and 0 industry has 125.00 production (0 + 500/4).</p>
+				<p>A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production per turn, however two planets can produce two things in one turn or one planet can produce two things in two turns.  A planet will continue producing the same thing until it is ordered to change production, thus new production orders are not required for each planet each turn.</p>
 				
 				<h3 id="mat">Materials</h3>
 					<p>Materials production is determined by the resources values of the planet, which equals the number of materials that will be produced per point of production devoted to the task.  For example, a planet with 5.00 resources and 100.00 production will produce 500.00 materials, while a planet with 0.10 resources would only produce 10.00 materials.</p>
@@ -323,7 +323,7 @@ uninhabited planet will be stockpiled until the planet is colonized.</p>
 					<p>Producing 1.00 capital requires 5.00 production and 1.00 materials.  If the planet does not have a stockpile of materials, some production will automatically be diverted to producing materials.  For example, a planet with 1000.00 production and a stockpile of 200.00 materials will produce 200.00 capital.  With no stockpile of materials and 10.00 resources, 196.08 capital will be produced.  With 0.10 resources, the planet will produce 66.67 capital.</p>
 				
 				<h3 id="tres">Technology</h3>
-					<p>A planet can research one of the four technologies each turn.  It costs 5,000.00 production to increase drive, weapons, or shields technology by one point and 2,500.00 production to increase cargo technology by one point.  Fractional increases are effective immediately: if you spend 500.00 production on research into Weapons, your weapons technology will go up by 0.10.</p>
+					<p>A planet can research one of the four technologies each turn.  It costs 5,000.00 production to increase drive, weapons, or shields technology by one point and 2,500.00 production to increase cargo technology by one point.  Fractional increases are effective immediately: if you spend 500.00 production on research into Weapons, your weapons technology will go up by 0.10.  Research takes effect on the following turn and applies to all new and upgraded ships, regardless of which planet conducted the research.</p>
 
 				<h3 id="build">Ship Building</h3>
 					<p>A planet can produce one type of ships each turn.  The production cost of a ship is equal to its ship mass times ten.  In addition, one unit of materials is required for every ten units of production.  If the planet does not have a stockpile of materials, some production will automatically be diverted to producing materials.</p>
@@ -400,6 +400,12 @@ defence strength = ((shields mass * shields technology) / (ship mass + effective
 					<li>Identical groups are merged.</li>
 					<li>Groups are renumbered if the <a href="#ordo">sortgroups</a> option is turned on.</li>
 				</ol>
+				<p>A number of things follow from this:</p>
+				<ul>
+					<li>COL, CAP and MAT transported to a planet does not effect the planet's production until the following turn.</li>
+					<li>A cargo ship can be loaded, sent to another planet and unloaded in a single turn (using the <a href="#ordo">AutoUnload</a> or using <a href="#ordr">routes</a>.</li>
+					<li>One ship can bomb two planets in the same turn (though this is rare).</li>
+				</ul>
 
 			<hr />
 
