@@ -1925,6 +1925,9 @@ runTurn( game *aGame, char *ordersFileName )
     getLine( ordersFile );
     for ( ; !feof( ordersFile ); ) {
       char* ptr;
+      ptr = lineBuffer + strspn(lineBuffer, " \t");
+      if (ptr && *ptr == ';')
+	continue;		/* skip comment lines */
       if ((ptr = strchr(lineBuffer, '#')) == NULL)
 	ptr = lineBuffer;
         if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
