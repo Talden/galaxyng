@@ -229,7 +229,7 @@ echo "# out the above line and use this instead:" >> $PROCRC
 echo "# DEFAULT=\$MAILDIR/" >> $PROCRC
 echo >> $PROCRC
 echo "LOGFILE=\$MAILDIR/procmail.log" >> $PROCRC
-echo "LOCKFILE=\$HOME/.lockmail" >> $PROCRC
+echo "LOCKFILE=\$MAILDIR/.lockmail" >> $PROCRC
 echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
 echo >> $PROCRC
