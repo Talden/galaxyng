@@ -38,11 +38,7 @@ CMD_report( int argc, char **argv ) {
     
     anEnvelope = createEnvelope(  );
     returnAddress = getReturnAddress( stdin );
-    setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
-    setHeader(anEnvelope, MAILHEADER_REPLYTO,
-	      aGame->serverOptions.ReplyTo);
-    anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
-    anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
+
     plog( LBRIEF, "Report request from %s.\n", returnAddress );
     theTurnNumber = getTurnNumber( stdin );
     raceName = NULL;
@@ -55,16 +51,20 @@ CMD_report( int argc, char **argv ) {
 
     reportName = createString("%s/temp_report_copy_%s", tempdir, returnAddress);
     {
-      char *ptr = reportName;
+      char *ptr = strrchr(reportName, '/')+1;
       while (*ptr) {
 		  if (!isalnum(*ptr))
 			  *ptr = '_';
 		  ptr++;
       }
     }
-	
-	fprintf(stderr, "report copy name \"%s\"\n", reportName);
-	
+
+    setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
+    setHeader(anEnvelope, MAILHEADER_REPLYTO,
+	      aGame->serverOptions.ReplyTo);
+    anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+    anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
+
     report = fopen(reportName, "w");
     
     if ( ( resNumber == RES_TURNRAN ) ||
@@ -142,7 +142,7 @@ CMD_report( int argc, char **argv ) {
     result = eMail( aGame, anEnvelope, reportName );
     destroyEnvelope( anEnvelope );
     fprintf(stderr, "Report in %s\n", reportName);
-    //result |= ssystem( "rm %s", reportName );
+    result |= ssystem( "rm %s", reportName );
     result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
     if ( raceName )
 		free( raceName );
