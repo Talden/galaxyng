@@ -45,8 +45,6 @@
 		<h2>Variants</h2>
 		
 			<p>There are many <a href="variants.php">Galaxy Variants</a>.</p>
-			
-		<hr />
  		
  		<?php include 'footer.php'; ?>
  	</body>
