@@ -5,11 +5,10 @@
 	<!--<li><a href="http://www.gioco.net/galaxy/">GalaxyNG GIGA Server</a> (Italian)</li>-->
 	<li><a href="http://galaxy.gesserit.net/">Nine Lives GalaxyNG Server</a>
 		<ul>
+			<li><a href="http://galaxy.gesserit.net/tournament.php">Nine Lives GalaxyNG Tournament</a></li>
 			<li><a href="http://galaxy.gesserit.net/register.php#Cat">Cat</a></li>
 			<li><a href="http://galaxy.gesserit.net/register.php#Cheetah">Cheetah</a></li>
-			<li><a href="http://galaxy.gesserit.net/register.php#Meow">Meow</a></li>
 			<li><a href="http://galaxy.gesserit.net/register.php#Newcomer">Newcomer</a></li>
-			<li><a href="http://galaxy.gesserit.net/register.php#Standard">Standard</a></li>
 		</ul>
 	</li>
 	<li><a href="http://www.refs-home.net/galaxyng/">REF's GalaxyNG Site</a>

@@ -6,15 +6,14 @@
 		<ul>
 			<li><a href="http://galaxy.gesserit.net/Caterwaul/">Caterwaul</a></li>
 			<li><a href="http://galaxy.gesserit.net/CatNap/">CatNap</a></li>
-			<li><a href="http://galaxy.gesserit.net/Meow1/">Meow1</a></li>
-			<li><a href="http://galaxy.gesserit.net/Meow2/">Meow2</a></li>
-			<li><a href="http://galaxy.gesserit.net/Meow3/">Meow3</a></li>
-			<li><a href="http://galaxy.gesserit.net/Meow4/">Meow4</a></li>
-			<li><a href="http://galaxy.gesserit.net/Meow5/">Meow5</a></li>
+			<li><a href="http://galaxy.gesserit.net/Meow6/">Meow6</a></li>
+			<li><a href="http://galaxy.gesserit.net/Meow7/">Meow7</a></li>
 			<li><a href="http://galaxy.gesserit.net/Morat1/">Morat1</a></li>
 			<li><a href="http://galaxy.gesserit.net/Newcomer1/">Newcomer1</a></li>
 			<li><a href="http://galaxy.gesserit.net/Newcomer2/">Newcomer2</a></li>
+			<li><a href="http://galaxy.gesserit.net/Newcomer3/">Newcomer3</a></li>
 			<li><a href="http://galaxy.gesserit.net/SpaceInvaders/">SpaceInvaders</a></li>
+			<li><a href="http://galaxy.gesserit.net/Standard/">Standard</a></li>
 		</ul>
 	</li>
 <!--	<li><a href="http://www.refs-home.net/galaxyng/">REF's GalaxyNG Site</a>
