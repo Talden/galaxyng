@@ -86,6 +86,7 @@ typedef struct _gameOpts {
   char*  succeed_subject;	/* subject for successful registration */
   char*  fail_subject;		/* subject for failed registration */
   char*  replyto;
+  char*  cc;
   int    minplayers;		/* at least this many players must
 				   sign up */
   int    maxplayers;		/* no more than this number can sign
