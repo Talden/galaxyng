@@ -191,8 +191,8 @@ echo "# Received a message with the word order in the subject:" >> $PROCRC
 echo ":0 rw:order" >> $PROCRC
 echo "* ^Subject:.*order" >> $PROCRC
 echo "# Check the orders and send a forecast or an error message:" >> $PROCRC
-echo "$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -check" >> $PROCRC
-echo "# An error message was sent, save the prders: " >> $PROCRC
+echo "|"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -check" >> $PROCRC
+echo "# An error message was sent, save the orders: " >> $PROCRC
 echo ":0 e :order-error" >> $PROCRC
 echo "galaxyng-order-error" >> $PROCRC
 echo "# .galaxyng-order-error" >> $PROCRC
