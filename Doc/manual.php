@@ -1087,6 +1087,7 @@ Subject: orders
 #END</pre>
 
 					<p>The subject should be "orders" and the #GALAXY line should be in the body of the message, not in the subject.  It is very important to type this line correctly, as otherwise all of your orders will be discarded.  Everything before the #GALAXY line or after the #END line in the message is ignored by the server.  Replacement sets of orders may be sent anytime before the turn deadline. The last set of orders received will be used by the server when the turn is run.</p>
+					<p>Players can send empty orders (e.g. #GALAXY and #END lines with no contents) to avoid being removed from the game for <a href="#inactive">inactivity</a>.</p>
 					<p>If the GM chooses, the game can run when all players have submitted their orders or when a certain number of hours have passed since the last turn ran.  To send final orders and indicate you are ready for the turn to run, change the #GALAXY line to read:</p>
 					<pre>#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt; FinalOrders</pre>
 					<p>If all players submit final orders, the turn will run immediately.  If not, it will run when # hours have passed since the previous turn.  For example, the GM could run the turn when all players have submitted final orders or when 48 hours have passed since the previous turn.</p>
@@ -1099,7 +1100,7 @@ Subject: orders
 will store the orders (but not check them) and use them when the turn runs.  When sending advance orders, players should <strong>not</strong> change their <a href="#ordn">race name</a> or <a href="#ordy">password</a> when sending advance orders, as this can cause orders to be rejected when the turn runs.</p>
 
 				<h3 id="inactive">Inactivity</h3>
-					<p>Players are removed from the game if they do not send orders for the first turn, do not send orders for three turns in a row during the first ten turns, or do not send in orders for six turns in a row after turn ten.  Planets are reduced to 0 population and industry and all ships are destroyed at the beginning of the turn in which the player is removed.</p>
+					<p>Players are removed from the game if they do not send orders for the first turn, do not send orders for three turns in a row during the first ten turns, or do not send in orders for six turns in a row after turn ten.  Players are also removed from the game if they do not own any planets and do not send in orders on a single turn.  Planets are reduced to 0 population and industry and all ships are destroyed at the beginning of the turn in which the player is removed.  (Note that players can send empty orders and <a href="#adv">advance orders</a> to avoid being removed for inactivity.)</p>
 
 				<h3 id="ex">Example Set of Orders</h3>
 					<p>Writing orders for the first time can be a daunting task, so here is an example set of orders for turn 1.</p>
