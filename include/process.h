@@ -131,7 +131,7 @@ void
 int
                 getTurnNumber(FILE * orders);
 
-char           *getDestination(FILE * orders);
+char           *getDestination(char* subject_line);
 
 void
                 doOrders(game *aGame,

@@ -53,7 +53,7 @@ int CMD_relay( int argc, char **argv ) {
 
 	anEnvelope = readEnvelope(stdin);
 
-	destination = getDestination( stdin );
+	destination = getDestination( anEnvelope->subject );
 	raceName = NULL;
 	password = NULL;
 	final_orders = NULL;
@@ -62,6 +62,9 @@ int CMD_relay( int argc, char **argv ) {
 								&final_orders, &theTurnNumber );
 
 	/* it's ok to not have a turn number on a relay */
+	setHeader(anEnvelope, MAILHEADER_TO, anEnvelope->from);
+	setHeader(anEnvelope, MAILHEADER_FROM, aGame->serverOptions.GMemail);
+
 	if (resNumber != RES_OK && resNumber != RES_NO_TURN_NBR) {
 		setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
 		generateErrorMessage(resNumber, aGame, raceName,

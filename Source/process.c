@@ -2474,36 +2474,29 @@ getTurnNumber( FILE *orders )
  */
 
 char *
-getDestination( FILE *orders )
+getDestination( char *subject )
 {
     int theTurnNumber;
-    char *isRead, *destination;
+    char* destination;
+    char *c;
 
     theTurnNumber = LG_CURRENT_TURN;
-    for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, orders );
-          isRead; isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, orders ) ) {
-        /* WIN32 */
-        if ( noCaseStrncmp( string_mail_subject, lineBuffer, 8 ) == 0 ) {
-            char *c;
 
-            for ( c = lineBuffer; *c; c++ )
-                *c = ( char ) tolower( *c );
-            c = strstr( lineBuffer, "relay" );
-            if ( c != NULL ) {
-                getstr( c );
-                c = getstr( 0 );
-                if ( *c != '\0' ) {
-                    destination = strdup( c );
-                } else {
-                    destination = NULL;
-                }
-            } else {
-                assert( 0 );    /* the word relay was not in the subject */
-            }
-            break;
-        }
+    for ( c = lineBuffer; *c; c++ )
+      *c = ( char ) tolower( *c );
+    c = strstr( lineBuffer, "relay" );
+    if ( c != NULL ) {
+      getstr( c );
+      c = getstr( 0 );
+      if ( *c != '\0' ) {
+	destination = strdup( c );
+      } else {
+	destination = NULL;
+      }
+    } else {
+      assert( 0 );    /* the word relay was not in the subject */
     }
-    assert( isRead != NULL );   /* there was no subject line */
+
     return destination;
 }
 
