@@ -4,17 +4,17 @@ body {
   margin-left: 2.5em;
   margin-right: 2.5em;
   font-family: serif;
-  color: #FFFFFF;
+  color: #99CC80;
   background-color: #000000;
   background-image: url("lightstars.png");
 }
 
 A:link { 
-  color: #FF9933; 
+  color: #6666FF; 
   text-decoration: none;
 }
 A:visited {
-  color: #33FF33;
+  color: #6699FF;
   text-decoration: none;
 }
 A:active {
