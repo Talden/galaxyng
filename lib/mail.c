@@ -50,6 +50,8 @@ envelope* createEnvelope() {
   e->from = NULL;
   e->replyto = NULL;
   e->subject = NULL;
+  e->from_address = NULL;
+  e->from_name = NULL;
   e->bcc = NULL;
   e->cc = NULL;
   e->compress = FALSE;
@@ -297,6 +299,10 @@ int eMail(game *aGame, envelope *e, char *fileName) {
       aGame->serverOptions.compress &&
       aGame->serverOptions.encode) {
     char *relative_path; 
+    char *ptr;
+    char zipped_name[4096];
+    char encoded_name[4096];
+
     addMimeText(mailFile);
     fprintf(mailFile, "Turn report is attached as .zip file.\n\n");
     relative_path = strstr(fileName, "reports");
@@ -305,18 +311,25 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 	      "Reports are not in their standards position\n");
       relative_path = fileName;
     }
-    result = ssystem("%s %s.zip %s",
+    strcpy(zipped_name, fileName);
+    if ((ptr = strrchr(zipped_name, '.')) != NULL)
+	*ptr = '_';
+    strcat(zipped_name, ".zip");
+    strcpy(encoded_name, fileName);
+    if ((ptr = strrchr(encoded_name, '.')) != NULL)
+	*ptr = '_';
+    result = ssystem("%s %s %s",
 		     aGame->serverOptions.compress,
-		     fileName,
+		     zipped_name,
 		     relative_path);
-    result |= ssystem("%s %s.zip > %s", 
+    result |= ssystem("%s < %s > %s", 
 		      aGame->serverOptions.encode, 
-		      fileName, 
-		      fileName);
+		      zipped_name, 
+		      encoded_name);
     addMimeZip(mailFile);
-    result |= appendToMail(fileName, mailFile);
+    result |= appendToMail(encoded_name, mailFile);
     addMimeEnd(mailFile);
-    result |= ssystem("rm %s.zip", fileName);
+    result |= ssystem("rm %s %s", zipped_name, encoded_name);
   }
   else {
     result = appendToMail(fileName, mailFile);
@@ -366,6 +379,16 @@ addMimeText(FILE *mailFile)
 
 
 void
+addMimeUUE(FILE *mailFile)
+{
+  fprintf(mailFile, "--9jxsPFA5p3P2qPhR\n");
+  fprintf(mailFile, "Content-Type: application/zip\n");
+  fprintf(mailFile, "Content-Disposition: attachment; filename=\"turn.zip\"\n");
+  fprintf(mailFile, "Content-Transfer-Encoding: base64\n");
+  fprintf(mailFile, "\n");
+}
+
+void
 addMimeZip(FILE *mailFile)
 {
   fprintf(mailFile, "--9jxsPFA5p3P2qPhR\n");
@@ -390,7 +413,7 @@ appendToMail(char *fileName, FILE *mailFile)
 {
   FILE *f;
   char *isRead;
-  f = GOS_fopen(fileName, "r");
+  f = fopen(fileName, "r");
   if (f) {
     for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
 	 isRead;
