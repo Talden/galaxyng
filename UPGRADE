@@ -1,5 +1,15 @@
 How to upgrade your existing games:
 
+==== UPGRADE To release-6.1a =================
+
+Just compile galaxyng and copy it to your Games/ directory. If you
+don't want the graphical map then this release is not required as 
+there are no other changes.
+
+==== UPGRADE To release-6.1 =================
+
+==== UPGRADE To release-6.0 =================
+
 ==== UPGRADE To release-5-1  =================
 
 The turn data files are not compatible!!
