@@ -707,12 +707,15 @@ typedef struct game {
 
 
 
-extern char     map[MAPWIDTH][MAPHEIGHT];
-extern char     buf[LINE_BUFFER_SIZE];
-extern char     lineBuffer[2 * LINE_BUFFER_SIZE];
-extern char    *galaxynghome;
-extern char    *tempdir;
-extern char    *productname[];
+extern char  map[MAPWIDTH][MAPHEIGHT];
+extern char  buf[LINE_BUFFER_SIZE];
+extern char  lineBuffer[2 * LINE_BUFFER_SIZE];
+extern char* galaxynghome;
+extern char* tempdir;
+extern char* productname[];
+extern char* string_mail_to;
+extern char* string_mail_subject;
+extern char* string_mail_from;
 
 /* used in loadgame.c, should be a parameter */
 extern FILE    *turnFile;

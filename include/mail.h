@@ -39,15 +39,17 @@ enum {MAILHEADER_TO = 1, MAILHEADER_FROM, MAILHEADER_SUBJECT, MAILHEADER_BCC};
 /******/
 
 void createMailToAllHeader(game *aGame);
-envelope  *createEnvelope(void);
+envelope* createEnvelope(void);
 void      destroyEnvelope(envelope *e);
-void            setHeader(envelope *e, int headerType, char *format, ...);
-int                 eMail(game *aGame, envelope *e, char *fileName);
+void      setHeader(envelope *e, int headerType, char *format, ...);
+int       eMail(game *aGame, envelope *e, char *fileName);
+char*     getReturnAddress(FILE * orders);
 
-void addMimeHeader(FILE *mailFile);
-void addMimeText(FILE *mailFile);
-void addMimeZip(FILE *mailFile);
-void addMimeEnd(FILE *mailFile);
-int appendToMail(char *fileName, FILE *mailFile);
+
+void      addMimeHeader(FILE *mailFile);
+void      addMimeText(FILE *mailFile);
+void      addMimeZip(FILE *mailFile);
+void      addMimeEnd(FILE *mailFile);
+int       appendToMail(char *fileName, FILE *mailFile);
 
 #endif				/* GNG_MAIL_H */

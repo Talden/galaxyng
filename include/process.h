@@ -128,8 +128,6 @@ void
 int
                 getTurnNumber(FILE * orders);
 
-char           *getReturnAddress(FILE * orders);
-
 char           *getDestination(FILE * orders);
 
 void
