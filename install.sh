@@ -199,7 +199,7 @@ echo "# * ^Subject:.*order" >> $PROCRC
 echo "# {" >> $PROCRC
 echo "# 	:0 c" >> $PROCRC
 echo "# only un-comment one of the next three lines:" >> $PROCRC
-echo "# 	orders" >> $PROCRC
+echo "# orders" >> $PROCRC
 echo "# .orders" >> $PROCRC
 echo "# .orders/" >> $PROCRC
 echo "# 	:0 rw:orders.lock" >> $PROCRC

@@ -5,6 +5,14 @@ o By Ken Weinert (madcoder42)
   + added env variable GNG_LOG_LEVEL to dynamically change the 
     log level - this replaces hard coded loglevels in the code
 
+Release 6-4-3: January 2004
+o By Chris Shaffer (christhecat)
+  + ARE is documented in the server manual.
+  + ARE makefile updated.  NG/makefile now executes ARE
+    makefile.
+  + ARE procmailrc examples integrated into the procmailrc
+    example created by install.sh
+
 Release 6-4-2: December 2003
 o By Ken Weinert (madcoder42)
   + Updated version information
