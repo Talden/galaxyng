@@ -2339,7 +2339,8 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 			if (*theTurnNumber == 0) {
 				*theTurnNumber = LG_CURRENT_TURN;
 			}
-			else if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+
+			if (noCaseStrcmp(ptr, "FinalOrders") == 0)
 				*final_orders = strdup(ptr);
 		}
 		
