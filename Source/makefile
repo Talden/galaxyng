@@ -147,7 +147,7 @@ depend:
 
 loadgame.o: loadgame.h galaxy.h list.h util.h
 savegame.o: savegame.h galaxy.h list.h util.h
-create.o: create.h galaxy.h list.h util.h report.h loadgame.h mail.h
+create.o: create.h galaxy.h avl.h list.h util.h report.h loadgame.h mail.h
 create.o: report_m.h report_xml.h savegame.h process.h phase.h battle.h
 create.o: selftest.h
 phase.o: galaxy.h list.h util.h phase.h loadgame.h savegame.h
@@ -155,21 +155,23 @@ battle.o: battle.h galaxy.h list.h util.h
 process.o: process.h galaxy.h list.h util.h savegame.h loadgame.h phase.h
 process.o: battle.h report.h mail.h report_m.h report_xml.h selftest.h
 report.o: report.h galaxy.h loadgame.h list.h util.h mail.h report_m.h
-report.o: report_xml.h
-util.o: util.h galaxy.h list.h loadgame.h
+report.o: report_xml.h create.h avl.h
+util.o: util.h galaxy.h list.h create.h avl.h loadgame.h
 list.o: list.h util.h galaxy.h
-selftest.o: selftest.h galaxy.h util.h list.h create.h process.h savegame.h
-selftest.o: loadgame.h phase.h battle.h report.h mail.h report_m.h
+selftest.o: selftest.h galaxy.h util.h list.h create.h avl.h process.h
+selftest.o: savegame.h loadgame.h phase.h battle.h report.h mail.h report_m.h
 selftest.o: report_xml.h
-report_xml.o: report_xml.h galaxy.h report.h loadgame.h list.h util.h mail.h
-report_xml.o: report_m.h
+report_xml.o: create.h galaxy.h avl.h report_xml.h report.h loadgame.h list.h
+report_xml.o: util.h mail.h report_m.h
 mail.o: mail.h galaxy.h util.h list.h
-report_m.o: report_m.h galaxy.h list.h util.h report.h loadgame.h mail.h
-report_m.o: report_xml.h
+report_m.o: create.h galaxy.h avl.h report_m.h list.h util.h report.h
+report_m.o: loadgame.h mail.h report_xml.h
 galaxyng.o: galaxy.h util.h list.h process.h savegame.h loadgame.h phase.h
 galaxyng.o: battle.h report.h mail.h report_m.h report_xml.h selftest.h
-galaxyng.o: create.h
+galaxyng.o: create.h avl.h
 wopr.o: galaxy.h util.h list.h process.h savegame.h loadgame.h phase.h
 wopr.o: battle.h report.h mail.h report_m.h report_xml.h selftest.h create.h
-wopr.o: wopr.h
+wopr.o: avl.h wopr.h
 globals.o: galaxy.h
+avl.o: avl.h
+usage.o: galaxy.h

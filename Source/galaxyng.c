@@ -125,6 +125,7 @@ int             relayMessage(game *aGame, char *nationName, player *to);
  * SOURCE
  */
 
+#ifndef ROBOTESTER
 int
 main(int argc, char **argv)
 {
@@ -267,6 +268,7 @@ main(int argc, char **argv)
 	}
 	return result;
 }
+#endif
 
 /******/
 

@@ -41,9 +41,9 @@ main( int argc, char **argv )
     strcpy( vcid, "WOPR release-0-1, February 2001." );
     if ( argc == 2 ) {
         printf( "%s\n", argv[1] );
-        return ( wopr_battle( argc, argv ) ) ? EXIT_SUCCESS : EXIT_FAILURE;
+        return ( WOPR_battle( argc, argv ) ) ? EXIT_SUCCESS : EXIT_FAILURE;
     } else {
-        wopr_usage(  );
+        WOPR_usage(  );
         return EXIT_FAILURE;
     }
 }
@@ -51,7 +51,7 @@ main( int argc, char **argv )
 
 
 void
-wopr_usage(  )
+WOPR_usage( void )
 {
     printf( "%s\n", vcid );
     /* Usage message */
@@ -60,12 +60,12 @@ wopr_usage(  )
 
 
 int
-wopr_battle( int argc, char **argv )
+WOPR_battle( int argc, char **argv )
 {
     game *aGame;
     FILE *scenario;
 
-    aGame = wopr_createGame(  );
+    aGame = WOPR_createGame(  );
     if ( !aGame ) {
         fprintf( stderr, "Can't allocate a game structure\n" );
         return FALSE;
@@ -75,7 +75,8 @@ wopr_battle( int argc, char **argv )
         fprintf( stderr, "Can't open the scenario file %s\n", argv[1] );
         return FALSE;
     }
-    if ( wopr_parse_scenario( scenario, aGame ) ) {
+
+    if ( WOPR_parse_scenario( scenario, aGame ) ) {
         player *aPlayer;
 
         /* All data is read, precompute some date */
@@ -113,7 +114,7 @@ wopr_battle( int argc, char **argv )
  */
 
 int
-wopr_parse_scenario( FILE *scenario, game *aGame )
+WOPR_parse_scenario( FILE *scenario, game *aGame )
 {
     char *read;
     int reading;
@@ -129,7 +130,7 @@ wopr_parse_scenario( FILE *scenario, game *aGame )
             char *name;
             name = getstr( NULL );
             if ( name[0] != '\0' ) {
-                aPlayer = wopr_addPlayer( aGame, name );
+                aPlayer = WOPR_addPlayer( aGame, name );
                 reading = READING_NONE;
             } else {
                 fprintf( stderr, "No name specified\n" );
@@ -150,7 +151,7 @@ wopr_parse_scenario( FILE *scenario, game *aGame )
                 break;
             case READING_TYPES:
                 assert( aPlayer );
-                result = parse_type( aGame, aPlayer );
+                result = WOPR_parse_type( aGame, aPlayer );
                 break;
             }
             if ( !result ) {
@@ -168,7 +169,7 @@ wopr_parse_scenario( FILE *scenario, game *aGame )
 
 
 int
-parse_type( game *aGame, player *aPlayer )
+WOPR_parse_type( game *aGame, player *aPlayer )
 {
     char *typeName;
     char *par;
@@ -344,7 +345,7 @@ parse_group( game *aGame, player *aPlayer )
 
 
 game *
-wopr_createGame(  )
+WOPR_createGame(  )
 {
     game *aGame;
     planet *aPlanet;
@@ -392,7 +393,7 @@ wopr_allies( game *aGame, char *playerName1, char *playerName2 )
  */
 
 player *
-wopr_addPlayer( game *aGame, char *name )
+WOPR_addPlayer( game *aGame, char *name )
 {
     player *aPlayer;
 
@@ -416,3 +417,4 @@ wopr_addPlayer( game *aGame, char *name )
     addList( &( aGame->players ), aPlayer );
     return aPlayer;
 }
+
