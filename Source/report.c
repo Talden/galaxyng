@@ -136,7 +136,7 @@ mailGMReport(game *aGame, char *gameName)
       createGMReport(aGame, gameName, gmreport);
       fclose(gmreport);
       eMail(aGame, anEnvelope, fileName);
-      /*ssystem("rm %s", fileName);*/
+      ssystem("rm %s", fileName);
     }
     else {
       fprintf(stderr, "Can't open \"%s\".\n", fileName);
