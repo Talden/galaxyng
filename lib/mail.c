@@ -351,3 +351,41 @@ getReturnAddress( FILE *orders )
   
   return strdup( lineBuffer + 3 );
 }
+
+
+void gmNotify(char* subject, char* filename, game* aGame) {
+	envelope* env;
+
+	env = createEnvelope();
+
+	if (aGame == NULL) {
+		char  buffer[4096];
+		FILE* tmpFP;
+
+		aGame = (game*)malloc(sizeof(game));
+		
+		loadNGConfig(aGame);
+		if (aGame->serverOptions.GMemail == NULL) {
+			fprintf(stderr, "**ERROR** Could not load game or config in "
+					"gmNotify!!!\n");
+			fprintf(stderr, "This is the message that was trying to be "
+					"delivered:\n");
+			fprintf(stderr, "Subject: %s\n", subject);
+			tmpFP = fopen(filename, "r");
+			while (fgets(buffer, 4096, tmpFP) != NULL)
+				fprintf(stderr, "%s", buffer);
+			fclose(tmpFP);
+			return;
+		}
+	}
+	
+	env->to = strdup(aGame->serverOptions.GMemail);
+	env->from = strdup(aGame->serverOptions.SERVERemail);
+	env->subject = strdup(subject);
+
+	eMail(aGame, env, filename);
+
+	destroyEnvelope(env);
+	
+	return;
+}

@@ -54,5 +54,6 @@ void      addMimeText(FILE *mailFile);
 void      addMimeZip(FILE *mailFile);
 void      addMimeEnd(FILE *mailFile);
 int       appendToMail(char *fileName, FILE *mailFile);
+void      gmNotify(char* subject, char* filename, game* aGame);
 
 #endif				/* GNG_MAIL_H */
