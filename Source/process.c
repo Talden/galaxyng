@@ -2584,8 +2584,8 @@ removeDeadPlayer( game *aGame )
 
 /*                    if ( aGame->turn < ENDPHASE1TURN ) {*/
                         P->groups = NULL;
+						nbrPlanets = 0;
                         for ( p = aGame->planets; p; p = p->next ) {
-							nbrPlanets = 0;
                             if ( p->owner eq P ) {
 								nbrPlanets++;
                                 plog( LPART, "Resetting planet %s\n",
