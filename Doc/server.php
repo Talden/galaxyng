@@ -29,7 +29,7 @@
 					<li><a href="#create">Creating a New Game</a></li>
 					<li><a href="#mail">Mailing the Turn 0 Reports</a></li>
  					<li><a href="#process">Processing Orders</a></li>
-					<li><a href="#auto">Auto Checking</a></li>
+					<li><a href="#auto">Auto Checking Orders</a></li>
 					<li><a href="#run">Running Turns</a></li>
 					<li><a href="#command">Command Summary</a></li>
 					<li><a href="#ex">Example Files</a></li>
@@ -94,7 +94,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>Games/.galaxyngrc</tt></td>
-						<td>The <a href="#config">configuration</a> file for the the server.  The installation script tries to figure out the location of <tt>sendmail</tt> and <tt>formail</tt>.  It also asks for the GM email address.</td>
+						<td>The server configuration file.  The installation script tries to figure out the location of <tt>sendmail</tt> and <tt>formail</tt>.  It also asks for the GM email address.</td>
 					</tr>
 				</table>
 				<p>The installation program also creates a number of directories:</p>
@@ -109,7 +109,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>Games/orders/</tt></td>
-						<td>Players' orders are stored in a subdirectory for each game, with the name <var>&lt;nation_name&gt;.&lt;turn_number&gt;</var>.</td>
+						<td>Players' orders are stored in a subdirectory for each game, with the name <tt>&lt;nation_name&gt;.&lt;turn_number&gt;</tt>.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/forecasts/</tt></td>
@@ -139,15 +139,15 @@ LIBS   = -lm</pre>
 						<th>Explanation</th>
 					</tr>
 					<tr>
-						<td><tt><a href="global.bulletin">Games/notices/global.bulletin</a></tt></td>
+						<td><tt>Games/notices/global.bulletin</tt></td>
 						<td>Information that applies to all your games.</td>
 					</tr>
 					<tr>
-						<td><tt>Games/notices/</tt><var>&lt;game name&gt;</var><tt>.info</tt></td>
+						<td><tt>Games/notices/&lt;game name&gt;.info</tt></td>
 						<td>Information that applies to a particular game.</td>
 					</tr>
 					<tr>
-						<td><tt>Games/notices/</tt><var>&lt;game name&gt;.&lt;turn number&gt;</var><tt>.notice</tt></td>
+						<td><tt>Games/notices/&lt;game name&gt;.&lt;turn number&gt;.notice</tt></td>
 						<td>Information that applies to a particular turn of a game.</td>
 					</tr>
 				</table>
@@ -179,7 +179,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>StartTime</tt></td>
-						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the following option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have had the same effect.)</td>
+						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the following option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have the same effect.)</td>
 					</tr>
 				</table>
 
@@ -207,10 +207,10 @@ LIBS   = -lm</pre>
 			<h2 id="create">Creating a New Game</h2>
 				<p>To create a game use the command:</p>
 <pre>./galaxyng -create &lt;specification file&gt;</pre>
-				<p>The game configuration file specifies the structure of the galaxy, that is the number of home planets, empty planets, stuff planets, the name of the galaxy and the size of the galaxy as well as the the email address of each of the players.</p>
+				<p>The game configuration file specifies the structure of the galaxy: number of home, empty, and stuff planets; size and name of the galaxy; the email address of each of the players; and some game options.</p>
 				<p>You can create a template game configuration file by using the <tt>-template</tt> command.</p>
 <pre>./galaxyng -template &lt;game name&gt; &lt;number of players&gt;</pre>
-				<p>This creates a file named <a href="example.glx"><tt>game name.glx</tt></a> with default values for all parameters, plus documentation about what each parameter does.  You will have to edit this file to insert the email addresses of the players. For instance, say you have eight players to play in a galaxy game, and want to call the game Orion. You can then create the game as follows:</p>
+				<p>This creates a file named <tt>&lt;game name&gt;.glx</tt> with default values for all parameters, plus documentation about what each parameter does.  You will have to edit this file to insert the email addresses of the players. For instance, say you have eight players to play in a galaxy game, and want to call the game Orion. You can then create the game as follows:</p>
 <pre>./galaxyng -template Orion 8</pre>
 				<p>Edit the <tt>Orion.glx</tt> and change the dummy email addresses to the real email addresses of the players, then run:</p>
 <pre>./galaxyng -create Orion.glx</pre>
@@ -221,7 +221,7 @@ LIBS   = -lm</pre>
 
 			<h2 id="mail">Mailing the Turn 0 Reports</h2>
 				<p>If you are happy with the galaxy you created, you can mail the turn 0 reports with:</p>
-<pre>./galaxyng -mail0 <var>&lt;game name&gt;</var></pre>
+<pre>./galaxyng -mail0 &lt;game name&gt;</pre>
 				<p>Before you start any real games you might want to try to run a couple of test games with yourself as player. This way you can see if everything works OK.</p>
 				<p>So:</p>
 <pre>./galaxyng -mail0 Orion</pre>
@@ -233,23 +233,23 @@ LIBS   = -lm</pre>
 				<p>When you receive orders from a player, you can store and check them with the following command:</p>
 <pre>./galaxyng -check &lt; &lt;file with orders&gt;</pre>
 				<p>The file with orders has to be a properly formatted email message, with a To: field and a Subject: field with the word "orders" in it.</p>
-				<p>The orders are stored in the directory <tt>orders/</tt><var>&lt;game name&gt;</var> and the program sends a forecast to the player. A log file is kept of all orders that are checked. It can be found at <tt>$HOME/Games/log/orders_processed.txt</tt>.</p>
+				<p>The orders are stored in the directory <tt>orders/&lt;game name&gt;</tt> and the program sends a forecast to the player. A log file is kept of all orders that are checked. It can be found at <tt>$HOME/Games/log/orders_processed.txt</tt>.</p>
 
 			<hr />
 
-			<h2 id="auto">Auto Checking</h2>
-				<p>Checking orders by hand is of course a very cumbersome process that is best automated. You can automate with <tt>procmail</tt> and <tt>formail</tt>. They are programs that can reformat and process incoming emails.</p>
-				<p>If you never used <tt>procmail</tt> before, read the man pages, and then use the example procmailrc installed in <tt>$HOME/Games/procmailrc</tt>. Also read the example procmailrc file as it contains additional documentation.</p>
+			<h2 id="auto">Auto Checking Orders</h2>
+				<p>Checking orders and running turns by hand is of course a very cumbersome process that is best automated with <tt>procmail</tt> and <tt>formail</tt>. They are programs that can reformat and process incoming emails.</p>
+				<p>If you have never used <tt>procmail</tt> before, read the man pages, and then use the example procmailrc installed in <tt>$HOME/Games/procmailrc</tt>.</p>
 				<p>Procmail can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.</p>
 				<p>Each entry in a <tt>.procmailrc</tt> defines a recipe that tells what has to be done to a message and under what condition. The recipe for order messages looks as follows.</p>
 <pre>:0 rw :turno
-* ^Subject:.*Order
+* ^Subject:.*order
 |/usr/bin/formail -rkbt -s $HOME/Games/galaxyng -check</pre>
 				<p>Translated it means: if the subject of the message contains the word "order", pipe the message to <tt>formail</tt>. The condition is case insensitive, so Order, or ORDER also works. A lock file with the name turno.lock is used to prevent the simultaneous execution of the same recipe if two or more message that arrive at the same time.</p>
-				<p><tt>formail</tt> reformats the message. All mail header lines are thrown away. A To: line is generated with the address of person that send the message. A Subject: line is generated, with the original subject prepended with Re:. This together with the body of the message is fed to the galaxy server, running the check command.</p>
-				<p>The server will analyse the orders in the body, and send a reply to the person that send the message.</p>
-				<p>There are similar entries for the command to request a copy of a turn report, and the command to relay an message to another player. You will find them in the example <tt>procmailrc</tt> file.</p>
-				<p>If you want to keep a copy of the orders players sent-in, you can use the following entry:</p>
+				<p><tt>formail</tt> reformats the message. All mail header lines are thrown away. A <tt>To:</tt> line is generated with the address of person that sent the message. A <tt>Subject:</tt> line is generated, with the original subject prepended with <tt>Re:</tt>. This together with the body of the message is fed to the GalaxyNG server to run the check command.</p>
+				<p>The server will analyze the orders in the body, and send a reply to the person that sent the message.</p>
+				<p>There are similar entries for the commands to request a copy of a turn report and relay messages to other players. You will find them in <tt>Games/procmailrc</tt>.</p>
+				<p>If you want to keep a copy of the orders players send in, you can use the following entry:</p>
 <pre># Someone sent in orders, check them
 :0
 * ^Subject:.*order
@@ -382,10 +382,10 @@ LIBS   = -lm</pre>
 			<h2 id="ex">Example Files</h2>
 				<ul>
 					<li><a href="house_rules.txt">House Rules</a></li>
-					<li><a href="global.bulletin">Global Bulletin</a></li>
-					<li><a href="galaxyngrc">Server Configuration File</a></li>
-					<li><a href="example.glx">Game Configuration File</a></li>
- 					<li><a href="intro.text">Game Introduction Text</a></li>
+					<li><a href="global.bulletin">Global Bulletin</a> <tt>global.bulletin</tt></li>
+					<li><a href="galaxyngrc">Server Configuration File</a> <tt>.galaxyngrc</tt></li>
+					<li><a href="example.glx">Game Configuration File</a> <tt>&lt;game name&gt;.glx</tt></li>
+ 					<li><a href="intro.text">Game Introduction Text</a> <tt>&lt;game name&gt;.0<tt>.notice</tt></li>
  				</ul>
 
 			<hr />
