@@ -36,11 +36,11 @@ done
 #===================================================
 
 echo "o What is the GM email address?"
-echo "  (GM reports are sent to this address)"
+echo "  (Email to the GM is sent to this address)"
 read GMEMAIL
-#echo "o What is the server email address?"
-#echo "  (galaxyng commands are sent to this address)"
-#read SEMAIL
+echo "o What is the server email address?"
+echo "  (galaxyng commands are sent to this address)"
+read SERVEREMAIL
 echo "o What is the GM password?"
 echo "  (used for relay commands)"
 echo "  DO NOT USE THE GM ACCOUNT PASSWORD.  THIS PASSWORD"
@@ -51,7 +51,6 @@ read PASSWORD
 #  Try to find the sendmail command.
 #====================================================
 
-SENDMAIL=none
 echo "o Trying to locate the sendmail command..." 
 # Check the usual locations,  "which" does not work usually.
 for NAME in /bin /sbin /usr/sbin /usr/bin ; do
@@ -62,7 +61,7 @@ for NAME in /bin /sbin /usr/sbin /usr/bin ; do
   fi 
 done
 # If it was not found, ask the user where it is
-if [ $SENDMAIL = none ]; then
+if [ -z "$SENDMAIL" ]; then
   echo "  I can't seem to find the sendmail command."
   echo "  Please enter the full path for sendmail:"
   read SENDMAIL
@@ -76,7 +75,6 @@ echo "  $SENDMAIL"
 
 PROCRC=$GALAXY_HOME/procmailrc
 
-FORMAIL=none
 echo "o Trying to locate the formail command." 
 # Check the usual locations
 for NAME in /bin/ /sbin /usr/sbin /usr/bin ; do
@@ -87,11 +85,11 @@ for NAME in /bin/ /sbin /usr/sbin /usr/bin ; do
   fi 
 done
 # If it was not found, try which
-if [ $FORMAIL = none ]; then
+if [ -z "$FORMAIL" ]; then
 	FORMAIL=`which formail`
 fi
 # If it was not found, ask the user
-if [ $FORMAIL = none ]; then
+if [ -z "$FORMAIL" ]; then
   echo "  I can't seem to find the formail command."
   echo "  This may mean you don't have procmail installed."
   echo "  Please enter the full path to formail:"
@@ -105,9 +103,8 @@ echo "  $FORMAIL"
 # =========================================================
 
 echo "o Trying to find the compression utility."
-COMPRESS=none
 COMPRESS=`which zip`
-if [ $COMPRESS = none ]; then
+if [ -z "$COMPRESS" ]; then
   echo "  I can't seem to find the compression utility."
   echo "  Please enter the full path for the compression utility:"
   read COMPRESS
@@ -120,11 +117,14 @@ echo "  $COMPRESS"
 # =========================================================
 
 echo "o Trying to find the mime encoder."
-ENCODE=none
-for NAME in uuencode mimencode mmencode do
+for NAME in mmencode mimencode uuencode; do
+  echo "  Checking: $NAME"
   ENCODE=`which $NAME`
+  if [ -n "$ENCODE" ]; then
+    break;
+  fi
 done
-if [ $ENCODE = none ]; then
+if [ -z "$ENCODE" ]; then
   echo "  I can't seem to find the mime encoder."
   echo "  Please enter the full path for the mime encoder:"
   read ENCODE
@@ -138,7 +138,6 @@ echo "  $ENCODE"
 
 echo "o Trying to locate the web directory.  GalaxyNG uses this"
 echo "  directory to store the high score lists."
-WWW=none
 for NAME in $HOME/public_html $HOME/web $HOME/www $HOME/WWW; do
   echo "  Checking: $NAME"
   if [ -d $NAME ]; then 
@@ -146,7 +145,7 @@ for NAME in $HOME/public_html $HOME/web $HOME/www $HOME/WWW; do
     break
   fi
 done
-if [ $WWW = none ]; then
+if [ -z "$WWW" ]; then
   echo "  I can't seem to find the your web directory,"
   echo "  Please enter the full path to your web directory:"
   read WWW
@@ -155,7 +154,7 @@ if [ $WWW = none ]; then
   fi
 fi
 echo "  The web directory is:"
-echo "$WWW"
+echo "  $WWW"
 
 # =========================================================
 #  Check for a /tmp directory
@@ -359,12 +358,12 @@ echo "0 4 * * 2,5 $GALAXY_HOME/galaxyng -due Welland" >> $CRONT
 #  Create a .galaxyngrc file
 # =========================================================
 
+RCFILE=$GALAXY_HOME/.galaxyngrc
 echo "o Creating $RCFILE"
 echo "  This file contains basic configuration information for the server."
-echo "  You can edit it by hand.  It will be created at"
-echo "  $GALAXY_HOME/.galaxyngrc"
-echo "  Note that is $GALAXY_HOME/[dot]galaxyngrc"
-RCFILE=$GALAXY_HOME/.galaxyngrc
+echo "  You can edit it by hand. You can put game specific .galaxyngrc"
+echo "  files in the game data directories.  See the server manual for"
+echo "  more information. Note that is $GALAXY_HOME/[dot]galaxyngrc"
 if [ -e $RCFILE ]; then
   echo "  Found an existing version of $RCFILE"
   RCFILE=$GALAXY_HOME/.galaxyngrc.new
@@ -377,9 +376,14 @@ echo "; $GALAXY_HOME/Games/data/<gamename>" >> $RCFILE
 echo "sendmail { $SENDMAIL -t }" >> $RCFILE
 echo "GMemail $GMEMAIL" >> $RCFILE
 echo "GMpassword $PASSWORD" >> $RCFILE
+echo "SERVERemail $SERVEREMAIL" >> $RCFILE
 echo "encode { $ENCODE }" >> $RCFILE
 echo "compress { " $COMPRESS " }" >> $RCFILE
 echo "fontpath { " $GALAXY_HOME " }" >> $RCFILE
+echo "; The due parameter is used for the -due flag." >> $RCFILE
+echo "; Don't put any spaces around it, thus, for example:" >> $RCFILE
+echo "; due {in four hours} and not: due { in four hours }" >> $RCFILE
+echo "due {soon}" >> $RCFILE
 
 # =========================================================
 #  Copy GalaxyNG code
