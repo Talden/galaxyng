@@ -1,0 +1,1936 @@
+
+		Bulletins for Galaxy Game Clash Turn 39
+
+
+Clash NOTICE
+
+Clash Top 42 of turn 39
+ # lt Nation          Pop   dlt    Ind   dlt   eInd   dlt  tech  dlt   #  dlt
+ 1  0 Terminators   21647  1393  19119   991  19751  1091 26.87 2.59  62   0
+ 2  0 Koniba        15117    14  13495   520  13900   393 14.38 0.00  38  -2
+ 3  0 Lappland_Dev  15223   856  11194   359  12201   484 15.56 0.59  45  -1
+ 4  1 Mondrala      13414   763  10532   434  11253   516 21.19 1.06  41   0
+ 5 -1 Farmers       11986   131  10894   319  11167   272 19.39 0.64  35   1
+ 6  0 Oracle        12667 -1035   8023  -945   9184  -967 15.90 0.01  35  -3
+ 7  2 KANSAS         9399     0   8858   185   8994   139 16.03 1.64  18   0
+ 8  2 Maji           9636    31   8150   270   8522   210 10.37 0.37  30   1
+ 9 -1 BlackHare      9127  -983   7900  -557   8207  -664 12.02 0.36  31  -2
+10 -3 Clone_Empire   9126  -865   7665  -913   8030  -901 11.85 1.17  27   2
+11  0 MooMoo         9965   -40   6942   -75   7698   -67 10.34 0.05  25   2
+12  4 Buggers        5523   500   5516   504   5518   503 12.17 0.11  15   2
+13 -1 Mri            5427     0   5412    24   5416    18 16.46 0.77  15   0
+14  0 Snowmen        5762    62   5239    29   5369    37 11.48 0.33  16   0
+15 -2 SpaceWolves    5377     3   5339    18   5349    14 11.01 0.00  16  -1
+16 -1 Free_Star      5471     0   5300    97   5343    73 12.26 0.69  11   0
+17  0 First_Direct   4604   652   3013   381   3411   449 11.86 0.00  17   2
+18  0 ironwolf       2116 -1722    895 -1707   1200 -1711  5.33 0.00   4  -3
+19  0 Orkses         1844   167    959   111   1180   125 10.88 0.00  19   2
+20  0 THX_1138       1045   105    635    53    737    66  4.34 0.08   2   0
+21  0 Diamond           0     0      0     0      0     0  4.95 0.00   0   0
+22  0 Knox              0     0      0     0      0     0  5.00 0.00   0   0
+23  0 Terkans           0     0      0     0      0     0 11.02 0.00   0   0
+24  0 Insane_Asylu      0     0      0     0      0     0  4.00 0.00   0   0
+25  0 Qabalists         0     0      0     0      0     0  6.29 0.00   0   0
+26  0 Republic_of_      0     0      0     0      0     0  5.10 0.00   0   0
+27  0 TANSTAAFL         0     0      0     0      0     0  4.32 0.00   0   0
+28  0 MinoFinch         0     0      0     0      0     0  7.60 0.00   0   0
+29  0 Nation_205        0     0      0     0      0     0  4.00 0.00   0   0
+30  0 Muppets           0     0      0     0      0     0  4.18 0.00   0   0
+31  0 Fenix             0     0      0     0      0     0  5.52 0.00   0   0
+32  0 Illuminati        0     0      0     0      0     0  7.73 0.00   0   0
+33  0 Warlocks          0     0      0     0      0     0  9.32 0.00   0   0
+34  0 Dragons           0     0      0     0      0     0  4.00 0.00   0   0
+35  0 Nation_313        0     0      0     0      0     0  4.00 0.00   0   0
+36  0 Hegemony          0     0      0     0      0     0  4.00 0.00   0   0
+37  0 Nation_385        0     0      0     0      0     0  4.00 0.00   0   0
+38  0 Pilons            0     0      0     0      0     0  4.10 0.00   0   0
+39  0 Corpions          0     0      0     0      0     0  4.64 0.00   0   0
+40  0 Llamedos          0     0      0     0      0     0  6.81 0.00   0   0
+41  0 RDBMS             0     0      0     0      0     0  5.19 0.00   0   0
+42  0 DeathWarrior      0     0      0     0      0     0  4.57 0.00   0   0
+
+
+NOTES
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   -- Submitting Orders --
+
+Your orders should have the following format
+
+#GALAXY <game name> <race name> <password>
+<orders>
+#END
+
+Send your orders To: slothoub@cs.utwente.nl
+with as          Subject: <game name> orders 
+
+The checker is case sensitive some make sure you spell the name with
+capitals at the correct places.  
+
+You can submit as many sets of orders as you think necessary, the
+GalaxyNG Engine will use the last one at turn time.  However, do _NOT_
+send in orders a few minutes before the turn runs since there is a
+chance your orders will be lost.
+
+  -- Advance Orders --
+
+To send in orders in advance add the turn number to the subject line.
+So for instance to send in orders for turn 105 for the game Zeal use
+as subject   "Zeal orders 105"
+
+  -- Copies of Turn Report 
+
+If you have misplaced your report, you can request a copy by sending a
+the following command
+
+#REPORT <game name> <race name> <password>
+
+Again    To: slothoub@cs.utwente.nl
+with as  Subject:  <game name> orders 
+
+  -- More Information --
+
+You can find more information: high score list, rules, tips, etc,
+on:  http://wwwtios.cs.utwente.nl/~slothoub/Galaxy
+
+  -- Bugs --
+
+If you find bugs send them to slothoub@xs4all.nl
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+
+Clash INFO
+
+  _____   _                 _     
+ / ____| | |               | |    
+| |      | |   __ _   ___  | |__  
+| |      | |  / _` | / __| | '_ \ 
+| |____  | | | (_| | \__ \ | | | |
+ \_____| |_|  \__,_| |___/ |_| |_|
+                                  
+Clash runs on Mon, Wed, and Friday
+around 21:00 hours GMT
+
+Clash will slowdown to 2 turns/weeks
+after 15 turns.
+                                  
+
+
+
+		gng 2.1e  comp. 3  Wed Jun 25 21:29:24 1997
+
+		Galaxy Game Clash Turn 39 Report for Koniba
+
+
+GLOBAL Messages
+
+-message starts-
+We accept your NAP-proposal, in effect until turn 48. 
+At that time, We'll negotiate again.. 
+Mondrala 
+-message ends-
+
+PERSONAL Messages for Koniba
+
+-message starts-
+Greetings 
+ 
+Nice fleets you have ... 
+ 
+Emperor Antonioni 
+Clone Empire 
+ 
+-message ends-
+
+		Your Options
+
+N                 S  
+Anonymous        OFF 
+AutoUnload       ON  
+ProdTable        ON  
+SortGroups       ON  
+GroupForeCast    ON  
+PlanetForeCast   ON  
+ShipTypeForecast ON  
+RoutesForecast   ON  
+Compress         OFF 
+
+ORDERS RECEIVED
+
+> D Pump_15x4_25 27 15 4 25 0 
+> P O-4 Pump_15x4_25 
+> P DeepFry Scout_S 
+> P 47 Scout_S 
+> P 228 Scout 
+> D Pump_L 15 4 10 27 0 
+> P 95 Pump_L 
+> D Fury4_3x20_30 29 3 20 30 0 
+> P 385 Fury4_3x20_30 
+> P 325 Fury4_3x20_30 
+> P 386 Scout_S 
+> P 326 Scout_S 
+> P 297 Scout 
+> P Tartaros Scout 
+> P 112 Scout 
+> P Yarzoc Scout 
+> D MasterBlaster 88.5 2 43 144 0 
+> P ZombieGate MasterBlaster 
+> L 3 CAP 1 
+> S 3 330 1 
+> S 4 Anticron 47 
+> S 7 Anticron 1 
+> S 8 Anticron 1 
+> S 9 Anticron 1 
+> S 10 Anticron 1 
+> B 11 1  
+> L MAX CAP 1 
+> S MAX 225 1 
+> L 11 COL 1 
+> S 11 426 1 
+> L 13 CAP 1 
+> S 13 330 1 
+> I 14 195 1 
+> I 17 195 22 
+> S 18 Anticron 71 
+> S 21 112 1 
+> I 22 195 1 
+> I 23 195 1 
+> I 24 195 1 
+> S 25 Anticron 15 
+> S 28 477 1 
+> I 29 195 7 
+> I 31 195 70 
+> S 32 Anticron 1 
+> L 36 CAP 3 
+> S 36 O-5 3 
+> L 38 CAP 9 
+> S 38 O-5 9 
+> I 39 195 1 
+> S 42 Anticron 53 
+> S 45 Anticron 1 
+> S 46 477 1 
+> I 47 195 26 
+> S 48 426 1 
+> I 50 195 12 
+> B 51 13 
+> L MAX COL 13 
+> S MAX 330 13 
+> L 51 COL 1 
+> S 51 501 1 
+> L 52 COL 3 
+> S 52 501 3 
+> S 56 O-4 1 
+> S 57 O-4 2 
+> I 63 195 59 
+> S 68 213 1 
+> S 69 Anticron 69 
+> S 70 Anticron 98 
+> I 71 195 49 
+> S 12 Hades 1 
+> I 72 195 103 
+> I 73 195 1 
+> I 74 195 39 
+> S 76 385 2 
+> S 77 385 2 
+> S 78 385 2 
+> L 86 CAP 11 
+> S 86 330 11 
+> I 87 195 1 
+> I 88 195 39 
+> S 92 Anticron 1 
+> S 94 116 1 
+> S 95 Anticron 1 
+> I 95 195 1 
+> S 96 Anticron 1 
+> S 97 Anticron 1 
+> S 98 Anticron 1 
+> S 99 385 1 
+> L 101 CAP 22 
+> S 101 330 11 
+> L 103 COL 22 
+> S 103 O-4 22 
+> L 105 CAP 10  
+> S 105 330 10 
+> L 106 COL 19 
+> S 106 87 9 
+> S 106 O-4 10 
+> S 107 Anticron 66 
+> S 108 Anticron 71 
+> I 110 195 25 
+> S 111 Anticron 1 
+> I 112 195 28 
+> S 113 Anticron 1 
+> L 114 COL 2 
+> S 114 O-4 2 
+> I 115 195 1 
+> S 118 325 1 
+> I 119 195 20 
+> S 121 385 4 
+> S 122 Anticron 1 
+> S 132 Flozz 1 
+> S 133 Clone_8 1 
+> S 134 Blob 1 
+> S 135 Clone_7 1 
+> S 136 Limperzia 1 
+> S 139 Glopper 1 
+> S 109 326 1 
+> S 119 Havarn 1 
+> S 119 Drofill 1 
+> S 119 Zamora 1 
+> S 119 Azorcell 1 
+> S 119 195 1 
+> S 119 Bangkok 1 
+> S 119 Platium 1 
+> S 119 Whizz 1 
+> S 119 Presaq 1 
+> S 119 Globmin 1 
+> S 119 Clone_6 1 
+> S 119 Clone_5 1 
+> S 119 Qualfing 1 
+> S 119 Clone_3 1 
+> S 119 Clone_4 1 
+> S 119 Clone_Property_1 1 
+> S 119 Clone_Property_2 1 
+
+MISTAKES
+
+L 51 COL 1 
+No colonists available
+L 52 COL 3 
+No colonists available
+
+		Status of Players
+
+N                     D    W    S     C      P        I     #   R   
+Diamond             1.80 1.00  1.15 1.00     0.00     0.00  0 War   
+Free_Star           2.57 1.32  7.36 1.00  5470.93  5300.35 11 War   
+Knox                2.00 1.00  1.00 1.00     0.00     0.00  0 War   
+Maji                3.22 2.95  3.20 1.00  9636.21  8150.49 30 War   
+Terkans             3.01 3.03  3.98 1.00     0.00     0.00  0 War   
+ironwolf            1.40 1.93  1.00 1.00  2115.76   895.16  4 War   
+Insane_Asylum       1.00 1.00  1.00 1.00     0.00     0.00  0 War   
+KANSAS              3.88 6.31  4.85 1.00  9399.10  8858.41 18 War   
+MooMoo              3.45 2.06  3.82 1.00  9965.27  6941.79 25 Peace 
+Qabalists           2.41 1.00  1.87 1.00     0.00     0.00  0 War   
+Republic_of_Calysae 1.61 1.26  1.19 1.04     0.00     0.00  0 War   
+Farmers             8.39 4.52  5.23 1.24 11985.90 10893.84 35 Peace 
+TANSTAAFL           1.00 1.00  1.32 1.00     0.00     0.00  0 War   
+Oracle              4.69 4.95  5.27 1.00 12666.65  8023.13 35 Peace 
+Snowmen             3.78 4.43  2.27 1.00  5762.32  5238.55 16 War   
+First_Direct        4.31 2.14  4.41 1.00  4603.51  3013.22 17 War   
+MinoFinch           1.85 1.40  3.29 1.05     0.00     0.00  0 War   
+Nation_205          1.00 1.00  1.00 1.00     0.00     0.00  0 War   
+Muppets             1.17 1.00  1.00 1.00     0.00     0.00  0 War   
+Fenix               2.12 1.00  1.40 1.00     0.00     0.00  0 Peace 
+Mri                 4.50 4.76  5.06 2.14  5427.47  5412.41 15 War   
+Illuminati          2.85 1.46  2.42 1.00     0.00     0.00  0 War   
+Warlocks            3.24 2.36  2.56 1.16     0.00     0.00  0 War   
+Buggers             3.73 3.31  4.13 1.00  5523.13  5515.63 15 War   
+Lappland_Devils     4.85 4.19  5.51 1.00 15223.36 11193.82 45 War   
+Dragons             1.00 1.00  1.00 1.00     0.00     0.00  0 War   
+Nation_313          1.00 1.00  1.00 1.00     0.00     0.00  0 War   
+Koniba              5.09 2.21  6.09 1.00 15116.51 13495.00 38 Peace 
+Clone_Empire        3.00 3.18  3.40 2.27  9125.99  7665.07 27 War   
+Hegemony            1.00 1.00  1.00 1.00     0.00     0.00  0 War   
+BlackHare           3.49 3.26  4.27 1.00  9126.77  7900.39 31 Peace 
+SpaceWolves         4.26 2.45  3.29 1.00  5377.36  5339.46 16 War   
+Nation_385          1.00 1.00  1.00 1.00     0.00     0.00  0 War   
+Pilons              1.00 1.00  1.10 1.00     0.00     0.00  0 War   
+Mondrala            8.06 4.61  7.52 1.00 13413.77 10532.43 41 Peace 
+Corpions            1.64 1.00  1.00 1.00     0.00     0.00  0 War   
+Llamedos            2.07 1.16  2.58 1.00     0.00     0.00  0 War   
+RDBMS               2.19 1.00  1.00 1.00     0.00     0.00  0 War   
+THX_1138            1.08 1.02  1.24 1.00  1045.42   634.60  2 War   
+Terminators         9.46 5.40 10.17 1.84 21647.24 19119.35 62 War   
+Orkses              4.38 2.59  2.90 1.00  1843.57   958.99 19 War   
+DeathWarriors       1.41 1.16  1.00 1.00     0.00     0.00  0 War   
+
+		Your Ship Types
+
+N                      D    A    W      S     C    Mass  Speed  Def  
+Scout                 1.00  0   0.00   0.00  0.00   1.00 20.00  0.00 
+Shaker_0_0_0_1        2.90  0   0.00   0.00  1.00   3.90 14.87  0.00 
+KProbe_1_1_1_0        1.10  1   1.00   1.00  0.00   3.10  7.10  2.13 
+Mover                 1.50  0   0.00   0.00  1.00   2.50 12.00  0.00 
+Fury2_1x25_30        44.00  1  25.00  30.00  0.00  99.00  8.89 20.15 
+Splatter_16x1.5_6.7  20.00 16   1.50   6.70  0.00  39.45 10.14  6.12 
+Gun_1x12_42          45.50  1  12.00  41.50  0.00  99.00  9.19 27.87 
+Splat_70x1_23        40.50 70   1.00  23.00  0.00  99.00  8.18 15.45 
+Destroy_1x3_8.5       8.00  1   3.00   8.50  0.00  19.50  8.21  9.81 
+Pump_9x10_10         39.00  9  10.00  10.00  0.00  99.00  7.88  6.72 
+Mover2                2.10  0   0.00   0.00  1.00   3.10 13.55  0.00 
+Mover_S4.53_C34.7     5.50  0   0.00   0.00 14.30  19.80  5.56  0.00 
+Splat_15x4_25        42.00 15   4.00  25.00  0.00  99.00  8.48 16.79 
+Flack_2.5             1.00  0   0.00   2.50  0.00   3.50  5.71  5.12 
+Destroy_1x5_12.7      7.00  1   5.00  12.70  0.00  24.70  5.67 13.55 
+Protector_6x30_75    18.00  6  30.00  75.00  0.00 198.00  1.82 39.98 
+Pump_10x8_17         38.00 10   8.00  17.00  0.00  99.00  7.68 11.42 
+Pump_7x8_17          33.50  7   8.00  17.00  0.00  82.50  8.12 12.13 
+Destroy_1x10_15      14.60  1  10.00  15.00  0.00  39.60  7.37 13.67 
+Destroy_3x10_15      18.30  3  10.00  15.00  0.00  53.30  6.87 12.38 
+Splat_10x4_15        22.80 10   4.00  15.00  0.00  59.80  7.63 11.92 
+Scout_S               1.00  0   0.00   1.00  0.00   2.00 10.00  2.47 
+Fury3_2x20_24        45.00  2  20.00  24.00  0.00  99.00  9.09 16.12 
+Cargo1               27.80  0   0.00   0.00 12.00  39.80 13.97  0.00 
+Burst_4x30_45        78.00  4  30.00  45.00  0.00 198.00  7.88 23.99 
+Burst_3x30_44        61.70  3  30.00  44.00  0.00 165.70  7.45 24.89 
+Splat_30x5_45        75.50 30   5.00  45.00  0.00 198.00  7.63 23.99 
+Pump_10x10_45        68.00 10  10.00  45.00  0.00 168.00  8.10 25.34 
+Splat_50x1_30        43.50 50   1.00  30.00  0.00  99.00  8.79 20.15 
+Starbuster          145.00  1 100.00 250.00  0.00 495.00  5.86 98.20 
+Splat_30x1_20        28.00 30   1.00  20.00  0.00  63.50  8.82 15.58 
+Splat_35x1_20        29.00 36   1.00  20.00  0.00  67.50  8.59 15.26 
+Splat_55x1_20        51.00 55   1.00  20.00  0.00  99.00 10.30 13.43 
+Splat_40x1.5_29      39.00 40   1.50  29.00  0.00  98.75  7.90 19.50 
+Pump_15x4_25         27.00 15   4.00  25.00  0.00  84.00  6.43 17.74 
+Pump_L               15.00  4  10.00  27.00  0.00  67.00  4.48 20.66 
+Fury4_3x20_30        29.00  3  20.00  30.00  0.00  99.00  5.86 20.15 
+MasterBlaster        88.50  2  43.00 144.00  0.00 297.00  5.96 67.06 
+
+		MooMoo Ship Types
+
+N         D  A   W    S    C  Mass Speed  Def 
+BarnFly 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+Orac    1.00 1 1.00 1.00 0.00 3.00  6.67 2.15 
+
+		Farmers Ship Types
+
+N       D  A   W    S    C  Mass Speed  Def 
+Seeds 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+		Oracle Ship Types
+
+N           D   A   W     S    C    Mass Speed  Def 
+lightning 34.00 1 10.00 4.75  0.00 48.75 13.95 4.04 
+Drone      1.00 0  0.00 0.00  0.00  1.00 20.00 0.00 
+Colonizer  1.00 0  0.00 0.00  1.00  2.00 10.00 0.00 
+Mine       0.00 1  1.00 0.00  0.00  1.00  0.00 0.00 
+Patrol     2.03 1  1.00 2.24  0.00  5.27  7.70 4.00 
+Ferry     19.00 0  0.00 0.00 20.00 39.00  9.74 0.00 
+
+		First_Direct Ship Types
+
+N         D    A   W     S     C   Mass Speed  Def  
+H2-D1    0.00  1 19.80 19.80 0.00 39.60  0.00 18.05 
+SAtak    2.00  1  1.00  2.00 0.00  5.00  8.00  3.63 
+Zip     15.00  1 10.25 15.00 0.00 40.25  7.45 13.60 
+H2-A1   10.60 10  2.00 18.00 0.00 39.60  5.35 16.41 
+stone    0.00  0  0.00  1.00 0.00  1.00  0.00  3.11 
+BH_Stab  6.80  1  6.00  7.00 0.00 19.80  6.87  8.04 
+
+		Clone_Empire Ship Types
+
+N                  D    A   W     S     C    Mass  Speed  Def  
+Scout             1.00  0  0.00  0.00  0.00   1.00 20.00  0.00 
+A1x20            49.50  1 20.00 29.50  0.00  99.00 10.00 19.81 
+A39x1            49.50 39  1.00 29.50  0.00  99.00 10.00 19.81 
+A20x2            49.50 20  2.00 28.50  0.00  99.00 10.00 19.14 
+Def_3x20          0.00  3 20.00 59.00  0.00  99.00  0.00 39.63 
+Lifter            2.00  0  0.00  0.00  1.00   3.00 13.33  0.00 
+Asteroid_1        0.00  0  0.00  1.00  0.00   1.00  0.00  3.11 
+Freighter        59.00  0  0.00  0.00 40.00  99.00 11.92  0.00 
+Fighter           7.10  1  3.00  4.04  0.00  14.14 10.04  5.19 
+M80              40.00 10  5.00 12.50  0.00  80.00 10.00  9.01 
+Def_7x10          0.00  7 10.00 59.00  0.00  99.00  0.00 39.63 
+M82_Static_1      0.00  2 20.00 52.00  0.00  82.00  0.00 37.19 
+M82_Static_2      0.00  5 10.00 52.00  0.00  82.00  0.00 37.19 
+M53_Static_1      0.00  5 10.00 23.50  0.00  53.50  0.00 19.38 
+M53_Static_2      0.00  2 20.00 23.50  0.00  53.50  0.00 19.38 
+M82_Static_3      0.00 11  5.00 52.00  0.00  82.00  0.00 37.19 
+M53_Static_3      0.00 11  5.00 23.50  0.00  53.50  0.00 19.38 
+Opportunity_Twin  5.20  1  3.00  2.00  0.00  10.20 10.20  2.87 
+Havoc             3.20  1  2.00  1.00  0.00   6.20 10.32  1.69 
+Def_Type_A        0.00 20 10.00 93.00  0.00 198.00  0.00 49.58 
+M53_Static_4      0.00 60  1.00 23.00  0.00  53.50  0.00 18.97 
+Def_Type_C        0.00 40  5.00 95.50  0.00 198.00  0.00 50.91 
+M71_Static_1      0.00  5 10.00 41.00  0.00  71.00  0.00 30.77 
+Def_1x40          0.00  1 40.00 59.00  0.00  99.00  0.00 39.63 
+M71_Static_2      0.00 60  1.00 40.50  0.00  71.00  0.00 30.39 
+M30_Def_1         0.00  2 10.00 15.00  0.00  30.00  0.00 15.00 
+
+		BlackHare Ship Types
+
+N                    D   A   W    S    C    Mass Speed  Def 
+R_CargoMoyen_S2C10 12.50 0 0.00 2.00 10.00 24.50 10.20 2.14 
+R_Drone             1.00 0 0.00 0.00  0.00  1.00 20.00 0.00 
+
+		Mondrala Ship Types
+
+N         D   A   W    S    C    Mass Speed  Def 
+Droopy   1.00 0 0.00 0.00  0.00  1.00 20.00 0.00 
+Warlord  8.25 1 1.69 6.56  0.00 16.50 10.00 8.01 
+Tanker  79.00 0 0.00 0.00 20.00 99.00 15.96 0.00 
+
+		Orkses Ship Types
+
+N       D  A   W    S    C  Mass Speed  Def 
+Envoy 1.00 0 0.00 0.00 0.00 1.00 20.00 0.00 
+
+		Battle at Qualfing
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#     T       D    W    S    C  T   Q  L 
+1 Fighter   1.20 1.00 1.28 0.00 - 0.00 1 
+1 M30_Def_1 0.00 3.18 2.07 0.00 - 0.00 1 
+
+		Battle at 47
+
+		Your Groups
+
+#         T          D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0   1.40 1.00 1.00 0.00 - 0.00 1 
+1 Destroy_1x5_12.7 3.01 1.28 1.41 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at Globmin
+
+		Oracle Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Drone 1.40 0.00 0.00 0.00 - 0.00 1 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#    T      D    W    S    C  T   Q  L 
+1 Fighter 1.20 1.00 1.28 0.00 - 0.00 1 
+
+		Battle at 112
+
+		Your Groups
+
+#         T          D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0   1.20 1.00 1.00 0.00 - 0.00 1 
+1 Destroy_1x5_12.7 3.01 1.28 1.41 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at FarEast
+
+		Farmers Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Seeds 4.28 0.00 0.00 0.00 - 0.00 0 
+
+		Oracle Groups
+
+#      T       D    W    S    C  T   Q   L 
+ 1 lightning 2.07 1.17 1.26 0.00 - 0.00  1 
+ 1 Patrol    1.40 1.00 1.00 0.00 - 0.00  1 
+12 Drone     4.68 0.00 0.00 0.00 - 0.00 12 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 2.08 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at 116
+
+		Your Groups
+
+#        T          D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0  1.20 1.00 1.00 0.00 - 0.00 1 
+1 Destroy_1x10_15 3.01 1.40 1.91 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at Whizz
+
+		Farmers Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Seeds 4.28 0.00 0.00 0.00 - 0.00 0 
+
+		Oracle Groups
+
+#    T     D    W    S    C  T   Q  L 
+1 Patrol 1.20 1.00 1.00 0.00 - 0.00 1 
+1 Drone  1.00 0.00 0.00 0.00 - 0.00 1 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#    T      D    W    S    C  T   Q  L 
+1 Fighter 1.20 1.00 1.28 0.00 - 0.00 1 
+
+		Battle at Macau
+
+		MooMoo Groups
+
+#   T    D    W    S    C  T   Q  L 
+1 Orac 3.45 2.04 3.74 0.00 - 0.00 1 
+
+		Farmers Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Seeds 4.28 0.00 0.00 0.00 - 0.00 1 
+
+		Oracle Groups
+
+#   T    D    W    S    C  T   Q  L 
+2 Mine 0.00 4.95 0.00 0.00 - 0.00 0 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 2.08 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at Anticron
+
+		Oracle Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Drone 2.07 0.00 0.00 0.00 - 0.00 1 
+
+		Your Groups
+
+#          T          D    W    S    C  T   Q   L  
+ 69 Scout           2.08 0.00 0.00 0.00 - 0.00  44 
+  1 Splat_70x1_23   2.46 1.28 1.40 0.00 - 0.00   1 
+138 Scout           3.01 0.00 0.00 0.00 - 0.00  86 
+  1 Pump_10x8_17    3.01 1.40 1.91 0.00 - 0.00   0 
+  1 Pump_7x8_17     3.01 1.40 1.91 0.00 - 0.00   1 
+  1 Pump_10x8_17    3.01 1.40 1.97 0.00 - 0.00   1 
+  1 Splat_10x4_15   3.01 1.40 2.04 0.00 - 0.00   1 
+  1 Pump_10x8_17    3.01 1.40 2.04 0.00 - 0.00   1 
+ 66 Scout_S         3.01 0.00 2.29 0.00 - 0.00  48 
+ 71 Scout_S         3.01 0.00 2.55 0.00 - 0.00  53 
+ 25 Scout_S         3.01 0.00 2.80 0.00 - 0.00  19 
+  1 Fury3_2x20_24   3.01 2.21 2.80 0.00 - 0.00   1 
+  1 Burst_3x30_44   4.40 2.21 2.98 0.00 - 0.00   1 
+  2 Burst_4x30_45   4.40 2.21 2.98 0.00 - 0.00   2 
+  1 Pump_10x10_45   5.09 2.21 3.96 0.00 - 0.00   1 
+  1 Splat_30x5_45   5.09 2.21 3.96 0.00 - 0.00   1 
+  1 Splat_50x1_30   5.09 2.21 3.96 0.00 - 0.00   0 
+ 49 Scout_S         5.09 0.00 4.94 0.00 - 0.00  36 
+  1 Burst_3x30_44   5.09 2.21 4.94 0.00 - 0.00   1 
+447 Scout           5.09 0.00 0.00 0.00 - 0.00 266 
+  1 Splat_35x1_20   5.09 2.21 5.98 0.00 - 0.00   1 
+  1 Splat_30x1_20   5.09 2.21 5.98 0.00 - 0.00   1 
+ 26 Scout_S         5.09 0.00 5.98 0.00 - 0.00  18 
+  1 Splat_40x1.5_29 5.09 2.21 5.98 0.00 - 0.00   1 
+  1 Splat_55x1_20   5.09 2.21 5.98 0.00 - 0.00   1 
+  1 Burst_3x30_44   5.09 2.21 5.98 0.00 - 0.00   1 
+
+		Clone_Empire Groups
+
+#        T       D    W    S    C  T   Q  L 
+  1 A1x20      2.72 2.03 2.07 0.00 - 0.00 0 
+  1 A20x2      3.00 3.18 2.22 0.00 - 0.00 0 
+184 Scout      1.85 0.00 0.00 0.00 - 0.00 0 
+  1 A39x1      1.85 1.00 1.28 0.00 - 0.00 0 
+  1 M80        1.85 1.00 1.28 0.00 - 0.00 0 
+  1 Def_Type_A 0.00 3.18 2.22 0.00 - 0.00 0 
+ 87 Asteroid_1 0.00 0.00 2.07 0.00 - 0.00 0 
+  1 Def_Type_C 0.00 3.18 2.07 0.00 - 0.00 0 
+312 Scout      3.00 0.00 0.00 0.00 - 0.00 0 
+  1 Def_1x40   0.00 3.18 2.07 0.00 - 0.00 0 
+
+		BlackHare Groups
+
+#    T      D    W    S    C  T   Q  L 
+1 R_Drone 3.04 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at Tartaros
+
+		Your Groups
+
+#        T         D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0 1.40 1.00 1.00 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at Hades
+
+		Your Groups
+
+#          T            D    W    S    C  T   Q  L 
+1 Splatter_16x1.5_6.7 2.08 1.00 1.20 0.00 - 0.00 1 
+1 Fury3_2x20_24       3.01 2.21 2.80 0.00 - 0.00 1 
+1 Pump_10x8_17        3.01 1.40 1.91 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at 171
+
+		Your Groups
+
+#        T         D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0 1.20 1.00 1.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#         T          D    W    S    C  T   Q  L 
+1 Opportunity_Twin 3.00 2.26 2.07 0.00 - 0.00 1 
+3 Scout            1.85 0.00 0.00 0.00 - 0.00 3 
+
+		Battle at Yarzoc
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 3.01 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#         T          D    W    S    C  T   Q  L 
+3 Scout            1.85 0.00 0.00 0.00 - 0.00 3 
+1 Opportunity_Twin 3.00 2.26 2.07 0.00 - 0.00 1 
+
+		BlackHare Groups
+
+#    T      D    W    S    C  T   Q  L 
+1 R_Drone 3.04 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at BH_Pankwar
+
+		First_Direct Groups
+
+#    T      D    W    S    C  T   Q  L 
+2 BH_Stab 4.31 2.13 4.41 0.00 - 0.00 2 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 3.01 0.00 0.00 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 1 
+
+		BlackHare Groups
+
+#          T           D    W    S    C   T    Q   L 
+1 R_Drone            3.04 0.00 0.00 0.00 -    0.00 0 
+1 R_CargoMoyen_S2C10 3.04 0.00 1.46 1.00 COL 20.00 0 
+
+		Battle at 213
+
+		Your Groups
+
+#        T          D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0  1.20 1.00 1.00 0.00 - 0.00 0 
+1 Fury2_1x25_30   1.88 1.00 1.00 0.00 - 0.00 1 
+1 Destroy_3x10_15 3.01 1.40 1.91 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#         T          D    W    S    C  T   Q  L 
+1 Opportunity_Twin 3.00 2.26 2.07 0.00 - 0.00 0 
+3 Scout            1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at Platium
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#        T        D    W    S    C  T   Q   L 
+ 1 Freighter    3.00 0.00 0.00 1.75 - 0.00  1 
+ 1 M82_Static_1 0.00 3.18 2.07 0.00 - 0.00  1 
+ 1 M82_Static_2 0.00 3.18 2.07 0.00 - 0.00  1 
+53 Asteroid_1   0.00 0.00 2.07 0.00 - 0.00 53 
+ 2 M82_Static_3 0.00 3.18 2.07 0.00 - 0.00  2 
+
+		Battle at Zamora
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#        T       D    W    S    C  T   Q   L  
+ 30 Lifter     3.00 0.00 0.00 1.75 - 0.00  30 
+  1 Def_3x20   0.00 3.18 2.07 0.00 - 0.00   1 
+  1 Def_7x10   0.00 3.18 2.07 0.00 - 0.00   1 
+ 35 Lifter     2.72 0.00 0.00 1.05 - 0.00  35 
+ 99 Asteroid_1 0.00 0.00 2.07 0.00 - 0.00  99 
+100 Scout      1.85 0.00 0.00 0.00 - 0.00 100 
+  1 Def_Type_A 0.00 3.18 2.07 0.00 - 0.00   1 
+  1 Def_1x40   0.00 3.18 2.07 0.00 - 0.00   1 
+
+		Battle at Azorcell
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#    T      D    W    S    C  T   Q  L 
+1 Fighter 1.20 1.00 1.28 0.00 - 0.00 1 
+1 Scout   1.85 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at O-2
+
+		Your Groups
+
+#        T          D    W    S    C   T    Q  L 
+1 KProbe_1_1_1_0  1.40 1.00 1.00 0.00 -   0.00 1 
+1 Destroy_1x3_8.5 2.08 1.00 1.00 0.00 -   0.00 1 
+1 Mover           2.08 0.00 0.00 1.00 COL 1.10 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at 228
+
+		Your Groups
+
+#         T          D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0   1.20 1.00 1.00 0.00 - 0.00 1 
+1 Destroy_1x5_12.7 3.01 1.28 1.41 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at Orbital
+
+		First_Direct Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 SAtak 4.31 2.13 4.41 0.00 - 0.00 1 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 3.01 0.00 0.00 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Mondrala Groups
+
+#    T      D    W    S    C   T    Q   L 
+1 Droopy  2.03 0.00 0.00 0.00 -    0.00 1 
+1 Warlord 1.68 1.00 1.60 0.00 -    0.00 1 
+1 Tanker  2.09 0.00 0.00 1.00 COL 57.12 1 
+
+		Battle at Neryos
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 3.01 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#         T          D    W    S    C  T   Q  L 
+1 Opportunity_Twin 3.00 2.26 2.07 0.00 - 0.00 1 
+3 Scout            1.85 0.00 0.00 0.00 - 0.00 3 
+
+		Battle at 297
+
+		Your Groups
+
+#        T         D    W    S    C  T   Q  L 
+1 KProbe_1_1_1_0 1.40 1.00 1.00 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at O-7
+
+		Your Groups
+
+#         T          D    W    S    C  T   Q  L 
+1 Destroy_1x5_12.7 3.01 1.28 1.41 0.00 - 0.00 1 
+1 Scout            2.08 0.00 0.00 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+3 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+1 Havoc 3.00 2.26 2.07 0.00 - 0.00 0 
+
+		Battle at Tranzill
+
+		Farmers Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Seeds 4.28 0.00 0.00 0.00 - 0.00 0 
+
+		Oracle Groups
+
+#    T     D    W    S    C   T    Q   L 
+1 Drone  1.00 0.00 0.00 0.00 -    0.00 1 
+1 Patrol 1.40 1.00 1.00 0.00 -    0.00 1 
+1 Ferry  2.75 0.00 0.00 1.00 COL 60.00 1 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 2.08 0.00 0.00 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.20 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at 325
+
+		Your Groups
+
+#       T         D    W    S    C  T   Q  L 
+1 Burst_4x30_45 5.09 2.21 5.98 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at 326
+
+		Your Groups
+
+#       T         D    W    S    C  T   Q  L 
+1 Fury2_1x25_30 3.01 2.00 2.55 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at Glopper
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 3.01 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#        T        D    W    S    C  T   Q   L 
+ 1 Fighter      3.00 3.18 2.07 0.00 - 0.00  1 
+47 Asteroid_1   0.00 0.00 2.07 0.00 - 0.00 47 
+ 1 M71_Static_1 0.00 3.18 2.07 0.00 - 0.00  1 
+ 1 M71_Static_2 0.00 3.18 2.07 0.00 - 0.00  1 
+
+		Battle at Presaq
+
+		Oracle Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Drone 1.40 0.00 0.00 0.00 - 0.00 1 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#    T      D    W    S    C  T   Q  L 
+1 Fighter 1.20 1.00 1.28 0.00 - 0.00 1 
+
+		Battle at Clone_7
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 0 
+
+		Clone_Empire Groups
+
+#        T        D    W    S    C  T   Q   L 
+93 Asteroid_1   0.00 0.00 2.07 0.00 - 0.00 93 
+ 1 M53_Static_1 0.00 3.18 2.07 0.00 - 0.00  1 
+ 1 M53_Static_2 0.00 3.18 2.07 0.00 - 0.00  1 
+ 2 M53_Static_3 0.00 3.18 2.07 0.00 - 0.00  2 
+ 1 M53_Static_4 0.00 3.18 2.07 0.00 - 0.00  1 
+
+		Battle at Pasture
+
+		MooMoo Groups
+
+#   T    D    W    S    C  T   Q  L 
+1 Orac 3.45 2.04 3.74 0.00 - 0.00 1 
+
+		Oracle Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Drone 4.68 0.00 0.00 0.00 - 0.00 0 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 2.08 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at Bangkok
+
+		Farmers Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Seeds 4.28 0.00 0.00 0.00 - 0.00 0 
+
+		Oracle Groups
+
+#    T     D    W    S    C  T   Q   L 
+ 1 Mine  0.00 1.39 0.00 0.00 - 0.00  1 
+12 Drone 4.67 0.00 0.00 0.00 - 0.00 12 
+13 Drone 4.68 0.00 0.00 0.00 - 0.00 13 
+
+		Your Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 5.09 0.00 0.00 0.00 - 0.00 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.20 0.00 0.00 0.00 - 0.00 1 
+
+		Battle at 426
+
+		Your Groups
+
+#         T           D    W    S    C   T    Q   L 
+1 Fury2_1x25_30     2.08 1.00 1.00 0.00 -    0.00 1 
+1 Mover_S4.53_C34.7 5.09 0.00 0.00 1.00 COL 14.28 1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Battle at 477
+
+		Your Groups
+
+#           T            D    W    S    C   T    Q   L 
+11 Shaker_0_0_0_1      5.09 0.00 0.00 1.00 CAP 1.10 11 
+ 1 Splatter_16x1.5_6.7 1.88 1.00 1.00 0.00 -   0.00  1 
+ 1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00  1 
+ 1 Splat_15x4_25       2.84 1.28 1.41 0.00 -   0.00  1 
+ 1 Burst_4x30_45       5.09 2.21 3.96 0.00 -   0.00  1 
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q  L 
+1 Havoc 3.00 2.26 2.07 0.00 - 0.00 0 
+3 Scout 1.85 0.00 0.00 0.00 - 0.00 0 
+
+		Bombings
+
+W                  O           N        P       I       P      $    M    C   
+MooMoo       Oracle       Macau        55.80    0.75 Mine    0.00 0.00  0.00 
+First_Direct BlackHare    BH_Pankwar  741.19  235.51 CAP     0.00 0.00  1.81 
+Koniba       Clone_Empire Anticron   1000.00 1000.00 Shields 0.00 0.01 40.00 
+Clone_Empire Koniba       Neryos      220.40   74.46 CAP     0.00 0.00  0.00 
+Clone_Empire Koniba       171          36.16   36.16 Shields 4.22 0.00  4.34 
+Clone_Empire Koniba       Yarzoc      210.12   69.50 Scout   0.00 0.00  0.00 
+
+0.00,0.00  240.00,0.00
+--------------------------------------------------------------------------------
+   +            ++            +  +            +     +    +  +           +       
+  +        +              +   + + -                       +   +  +   + +        
+   +        +                                              + ++              +  
++                               +                      +              -     +++ 
+++ +        +  +                 +    -           +                +      ++ +  
+           -                +        -                      +   -  - +          
+ + +    +                    +        + +                     +-     -         +
+                     +    +  +        ++++        +  +        +  +       +    + 
+    + + +      +     +   +++    +       +-    + +- +             +  ++          
+    +   +   +  +-++    ++       +    +  + +  -      +  +    + +             +   
+ +    +     +-                            +               +-   +   +     +     +
+      +             + + .          +    +  +          +      -     + -  - -    +
+                 +  +   +              + ++                + +              ++ +
+                + ++  +    +   + -+ ++           +      + + +- +              + 
+                   +           -- -- -            + -              +            
+                   +       ++-      +             +     +++  +               +  
+             +    + +     +                  ++ ++                    +         
+       ++               +++          +  +-      + +  +                  +  + +++
+          + +   - --      +    +    ++    --  +   +   +            +  + +       
+      +  +        + +  ++            +          ++                    ++       +
+         ++ +  ++        -++ +-      +  +                +          +           
+               -- + +   +           *  + +                                  + + 
+++               -    +   +       *++       +   + +                      + +  + 
++  .              + ++        +*       *        ++    +                 o      +
+   +                *+.     +  +    *     +   +             -+              +   
+ +               * +  +*                                         ++ +           
+        +++  +               * **        +                   +  + + +           
+    +                     *      *  *                   -      +       +  +     
+ + ++                          *   **        +  ++   +             + -          
+          +           **      *   *         + +  +  +    +            +         
+   ++       ++ +        *      *                       -     + +     +      +++ 
+ + ++ -         +  *  *       . *  *             +       ++             + +  +  
+   ++ -+    +          **    * **           +                       +  +       +
+   --    +++ + +      +        *    ++        +           +    +      +  + +    
+                  -       +     ++    + +   ++ +            +      +   +++      
+   +  +      +    -   -+                      -   +         +              + +  
+ +   +           -+ -    - -  +   +                    ++ +   +      +         +
+                 o+-  -+  -            +     +           +      +          +    
+   + ++--    +   ++- +  ----- -+  +     +  ++ +  +            +                 
+ ++ + +                       -+  + +      +                       +            
+--------------------------------------------------------------------------------
+0.00,240.00  240.00,240.00
+
+		Your Planets
+
+N             X      Y      S       P       I      R         P          $     M      C   
+47         110.69 170.36  531.27  531.27  531.27  0.79 Scout_S        26.15  0.00  70.41 
+87          98.40 192.15  118.90  114.36   27.40  0.55 CAP             0.00  0.00   0.00 
+93          71.19 153.63  147.45   27.22    6.92  0.95 CAP             0.00  0.00   0.00 
+95          73.48 185.70  789.67  789.67  789.67  0.60 Pump_L         15.37  0.00   7.90 
+SkullPlane  96.33 196.51  750.17  750.17  750.17  1.95 Scout           6.68  0.00  60.25 
+112         94.49 169.15   62.42   62.42   62.42  0.86 Scout           8.07  0.00   8.74 
+116         79.16 165.56  163.20  163.20  163.20  0.92 Scout          35.71  0.00  28.45 
+Anticron    62.31 144.92 1000.00  270.00  250.00 10.00 CAP             0.00  0.01   0.00 
+Tartaros   104.06 175.29  144.63  144.63  144.63  0.54 Scout           4.96  0.00  20.25 
+Hades       91.81 176.36  720.38  720.38  718.86  0.80 Splat_30x1_20   0.00  0.00  14.41 
+O-4        110.09 146.45  876.81  876.81  876.81  2.41 Pump_15x4_25   21.68  0.00 129.48 
+Gulag      107.83 186.55  564.85  564.85  564.85  1.97 Scout           4.57  0.00  56.48 
+213         95.85 156.19  548.61  548.61  548.61  3.31 Scout_S        11.53  0.00  54.86 
+225         68.74 186.22  574.66  574.66  154.76  0.59 CAP             0.00  0.00   7.95 
+O-2        110.77 128.83  484.81  484.81  152.63  0.60 CAP             0.00  0.00  13.12 
+228        110.03 163.94  224.35  224.35  224.35  0.92 Scout          13.66  0.00  23.11 
+Battelica   95.68 195.75  625.59  625.59  625.59  2.17 Scout           6.75  0.00  51.63 
+263         57.15 191.95    2.16    0.86    0.86  0.62 CAP             0.28  0.00   0.00 
+297        105.22 171.45   68.66   68.66   68.27  0.98 Scout           0.00  0.00   9.10 
+O-7         94.54 141.03   13.74   13.74    8.72  0.60 CAP             0.00  0.00   1.86 
+325         97.81 161.99 1000.00 1000.00 1000.00 10.00 Fury4_3x20_30   0.00  0.00  75.00 
+326        100.55 162.18  400.00  400.00  400.00 10.00 Scout_S         0.00  0.00   8.00 
+330         98.52 188.55  988.59  988.59  671.99  0.67 CAP             0.00  0.00  73.67 
+356         93.91 201.76  147.71  147.71  108.79  1.51 CAP             0.00  0.00   5.66 
+380        105.88 191.87    5.76    5.76    5.76  0.81 Shields         0.73  0.00   1.22 
+385         71.22 195.88 1000.00 1000.00 1000.00 10.00 Fury4_3x20_30 158.39  0.00  25.90 
+386         72.14 193.63  400.00  400.00  400.00 10.00 Scout_S         6.11  0.00   9.26 
+388         94.99 185.20   80.36   80.36   56.49  1.53 CAP             0.00  0.00   7.25 
+O-5        118.83 140.64  870.61  870.61  689.92  1.30 CAP             0.00  0.00  69.46 
+403         58.87 189.24  118.78   47.12   38.78  0.53 CAP             0.00  0.00   0.00 
+411         53.34 151.65  488.74   27.22    6.15  0.61 CAP             0.00  0.00   0.00 
+426         71.85 175.79  148.70  128.20   23.65  1.73 CAP             0.00  0.00   0.00 
+428         68.01 176.92   96.02   15.07   15.07  0.57 CAP             2.43  0.00   0.00 
+O-1        104.34 136.51   17.26    0.00    0.00  1.18 CAP             0.00  0.00   0.00 
+477         87.13 156.21  983.66  983.66  983.66  0.53 Burst_3x30_44  12.10 26.40  14.58 
+ZombieGate  97.60 192.25 1000.00 1000.00 1000.00 10.00 MasterBlaster   0.00  0.06  80.00 
+DeepFry     98.76 193.52  400.00  400.00  400.00 10.00 Scout_S         0.44  0.00  12.00 
+501         88.84 196.00   94.95   65.93   24.79  1.25 CAP             0.00  0.00   0.00 
+
+		Ships In Production
+
+N                P          N       U    
+47         Scout_S         22.53   13.28 
+95         Pump_L         781.67    8.31 
+SkullPlane Scout           10.51    7.90 
+112        Scout           11.16    6.60 
+116        Scout           11.09    0.22 
+Tartaros   Scout           11.85    3.16 
+Hades      Splat_30x1_20  714.38    9.72 
+O-4        Pump_15x4_25   874.85    2.31 
+Gulag      Scout           10.51    5.38 
+213        Scout_S         20.60    6.98 
+228        Scout           11.09    2.61 
+Battelica  Scout           10.46    6.98 
+297        Scout           11.02    2.24 
+325        Fury4_3x20_30  999.90    0.13 
+326        Scout_S         20.20   16.30 
+385        Fury4_3x20_30  999.90    0.10 
+386        Scout_S         20.20   16.26 
+477        Burst_3x30_44 1919.83  994.76 
+ZombieGate MasterBlaster 2999.69 1000.00 
+DeepFry    Scout_S         20.20   16.30 
+
+		Your Routes
+
+N     $ M C  E   
+Hades - - 95 -   
+O-2   - - -  O-4 
+
+		MooMoo Planets
+
+N           X      Y      S      P     I    R     P      $    M    C   
+Macau     45.19 200.66 135.80  15.07 0.75 0.71 CAP     0.00 0.00  0.00 
+Mastitis 100.85 209.04  26.05  26.05 0.72 0.58 Shields 0.00 0.00  1.01 
+Pasture  108.29 201.94 133.55 133.55 0.14 1.20 Orac    0.00 0.00 18.70 
+
+		Oracle Planets
+
+N          X      Y      S      P     I     R    P     $    M    C   
+Seoul    67.50 152.70  55.57  15.83  7.47 0.54 CAP   0.00 0.00  0.00 
+FarEast  50.52 188.61 554.70 554.70  0.33 0.63 Drone 0.00 0.00 27.73 
+Tranzill 45.65 180.93  45.05  45.05 43.63 1.10 CAP   0.00 0.00 61.80 
+Bangkok  36.23 185.31 520.64 520.64  7.31 1.19 Drone 0.00 0.00 23.11 
+Serbia   58.51 155.86 322.36  17.09  9.34 0.61 CAP   0.00 0.00  0.00 
+Brewsar  41.91 181.99 125.16 125.16 51.75 1.12 CAP   0.00 0.00  8.49 
+
+		First_Direct Planets
+
+N             X      Y      S      P      I     R      P      $     M    C   
+BH_Pankwar  78.99 135.54 741.19 200.12  71.80  0.50 CAP      0.00 0.00  0.00 
+Napex      107.42 134.71 400.00 400.00 400.00 10.00 BH_Stab 17.18 0.00 29.40 
+
+		Clone_Empire Planets
+
+N           X      Y      S      P      I     R     P      $    M    C   
+Limperzia  4.72 170.55  50.55  15.56   6.03 0.85 Shields 0.00 0.00  0.00 
+Flozz     12.23 166.76   8.53   8.53   7.30 1.36 Shields 0.00 0.00  0.75 
+Havarn    54.11 143.99  39.94  24.20   3.52 1.20 Shields 0.00 0.00  0.00 
+Blob      24.17 158.49  95.37  95.37  95.37 0.65 Shields 4.95 0.00  7.62 
+Clone_8    4.89 150.37 157.59 157.59 106.67 1.17 Shields 0.00 0.00 13.83 
+Drofill   41.78 160.62 144.81 144.81  24.66 0.65 Shields 0.00 0.00  4.82 
+
+		Mondrala Planets
+
+N          X      Y      S       P     I     R    P    $    M    C  
+Orbital 109.81 135.69 1000.00 484.85  5.94 10.00 CAP 0.00 0.00 0.00 
+237     125.62 156.23   61.89  35.16 21.53  1.19 CAP 0.00 0.00 0.00 
+O-6     127.36 145.00  141.52  37.98 22.64  1.07 CAP 0.00 0.00 0.00 
+
+		Unidentified Planets
+
+N                   X      Y   
+PriaQ            123.32  42.17 
+2                122.97  40.59 
+NorthPole        217.04   2.57 
+Qualfing          14.09 165.00 
+Beijing           13.12 183.97 
+Toyota           197.92   9.21 
+7                 80.63  44.52 
+8                 12.76  51.82 
+BH_Grosse         20.06 115.30 
+10               151.10 106.84 
+NewTerritories    10.80 181.43 
+12                81.06  52.81 
+Ursa-major        91.67  10.35 
+Ursa-minor        91.48   9.04 
+Lima_Beans       138.21 203.57 
+Penang            31.06 202.89 
+17                98.35  20.14 
+Screwdriver      234.53 183.18 
+19               183.14 182.54 
+OnRamp           109.66  82.50 
+21                54.89 227.75 
+BH_Loin           49.30 120.07 
+23               121.19 123.94 
+Brahma            94.76 229.19 
+Knox               8.57 234.50 
+Lee                9.42 233.61 
+Kale             149.60 168.43 
+29               138.41 148.35 
+Santosa           35.98 198.67 
+31                97.67   8.64 
+32               122.33  57.31 
+33               205.32 192.08 
+34               188.86  38.66 
+Pandora          205.21 161.80 
+Douglas          216.36 102.50 
+37                26.95  53.18 
+38                25.06  54.96 
+OffRamp          112.11  81.85 
+Maggie           225.56 215.08 
+41                 2.85  25.50 
+42                79.14   7.21 
+B01               61.91  72.49 
+44               125.32  75.52 
+45                 3.80  60.93 
+Clone_6            2.55 140.49 
+Crest            189.57 202.20 
+50                52.98 228.10 
+Njal             238.82  61.92 
+52               161.62 102.57 
+53               233.98 189.51 
+54               239.41 217.87 
+Bjorn            239.48  66.67 
+Beets            132.31 177.66 
+57               122.21  50.58 
+Squighome        189.63  80.78 
+BH_Minotaur       79.58 102.82 
+Tulips           161.44 170.30 
+stonecold         53.88  59.00 
+brick             52.49  57.57 
+Mimas            190.35 165.78 
+Rice             138.81 174.72 
+65               106.55  66.13 
+Tamerlane          5.44 221.07 
+Geburah          225.69 135.82 
+VW               182.27   3.40 
+69               229.45  76.59 
+Snog             190.75 202.17 
+71                18.31  62.47 
+72               111.92 102.98 
+Sanctuary        112.62 109.02 
+Refuge           110.34 108.28 
+75                66.07 202.48 
+76               232.97  74.98 
+77                12.56  57.86 
+Guernsey          97.45 209.52 
+79               188.98  39.02 
+BH_Radar          60.49 119.00 
+Pilot            187.52 229.65 
+Little_Rock      239.40 114.13 
+Pratt            205.30 123.38 
+84               119.06  44.40 
+Topeka           211.19 114.04 
+Lawrence         212.01 115.78 
+Holstein          71.86 211.09 
+Kebnekajse       209.73   7.36 
+90               224.13 187.76 
+91                55.46  56.96 
+92                47.65  56.40 
+94                70.59 227.29 
+96                18.79  49.24 
+Angus             91.98 217.30 
+Hereford          90.77 216.93 
+Zeveneken        213.11 196.88 
+100              138.14  48.70 
+101              152.30  89.98 
+Napoleon          13.94 237.62 
+B02               67.25  82.98 
+Apoe             214.47 208.06 
+Snotling         170.53  82.92 
+107              150.67 108.29 
+Smidgeon         172.65  91.93 
+Malkuth          238.96 139.80 
+Yesod            239.75 141.42 
+Globmin           10.40 170.84 
+B03               55.89  96.94 
+114               97.36  50.00 
+Corn             135.31 227.30 
+Whizz             31.61 177.05 
+BH_Frontiere      46.30 121.89 
+BH_Mezeros        61.64 142.25 
+B04               59.76  87.28 
+Chrysler         156.50   2.94 
+Iola             218.22 112.25 
+Netzach          235.56 127.57 
+Midcap           186.82  57.54 
+York             102.86 228.40 
+BH_Fort           69.88 118.83 
+130              223.85 162.48 
+131               36.68  56.17 
+Maize            173.22 179.64 
+Carrots          135.44 207.38 
+Peas             134.25 209.42 
+Hoof              91.53 221.41 
+136              122.12 104.47 
+Clone_5            2.96 140.21 
+Blackeyed_Peas   150.60 214.77 
+BH_Baby           76.97 103.53 
+Raganar          238.59  70.91 
+142              216.52 187.99 
+Taiwan            23.15 193.54 
+144              227.69 227.16 
+T-145            146.62 140.04 
+T-146            147.37 138.71 
+Rommel            10.70 211.88 
+148               11.52   4.55 
+149              223.79 189.63 
+BH_Sentinelle     36.25 110.94 
+NorthShore       128.99  63.17 
+BH_EagleStar      93.25 113.70 
+Simpson          225.74 212.64 
+154               80.14  47.81 
+Beervelde        212.93 201.75 
+156              113.18 114.11 
+HongKong          10.43 189.05 
+Shanghai          11.97 189.57 
+Clone_4            3.55 137.76 
+B05               39.91  96.01 
+SmallFry         130.41  66.30 
+Washington        19.31 234.20 
+164               91.74   5.69 
+Canteloupe       120.49 204.22 
+never             81.59  82.86 
+Soufwest         175.06  94.99 
+Godratz          182.74  81.30 
+Calvin           153.06  51.12 
+Hobbes           153.23  49.33 
+171               94.37 149.92 
+BH_DialDirect     80.64 113.03 
+Marigolds        132.36 194.73 
+175              150.98 135.82 
+176              144.41  99.60 
+177               64.34  45.95 
+178              230.43  55.05 
+179               10.78  28.09 
+HangZhou          11.89 195.26 
+Off               86.44  93.22 
+Feck              85.24  94.61 
+Yarzoc            69.51 151.57 
+Norfsmidge       201.04  66.54 
+185              208.21 181.36 
+Honda            138.92   2.38 
+Pop              194.97 222.19 
+Vega             129.05 233.10 
+191               56.95 221.44 
+Smidglet         203.82  86.46 
+Bing             195.87  48.37 
+Bong             196.70  47.80 
+195               85.67 146.10 
+Avalon           110.75 235.09 
+197                7.99   6.22 
+198              207.01  48.03 
+Bell             187.60  45.09 
+Taurus           129.99 234.59 
+201              172.76 189.35 
+Summer_Squash    137.20 206.17 
+ZangZho           13.71 188.97 
+Concordia        211.18 101.55 
+205                5.50  27.47 
+206                3.56  29.13 
+BH_Fin            23.63 104.63 
+BH_Conquete       60.87 129.89 
+O-10             117.62 127.16 
+Rover            178.69  15.05 
+211              113.08  59.37 
+Wormsworth       158.45  55.28 
+214              148.68  83.15 
+215               64.96 232.15 
+Platium           27.41 159.85 
+Zamora            26.76 161.98 
+Azorcell          26.15 160.72 
+219                3.55  36.05 
+Jaguar           176.09  10.01 
+Gnat             175.60 201.56 
+222              152.00 134.47 
+B06               48.95  82.43 
+FuJang            14.64 196.78 
+226               11.97  37.16 
+231              164.29 141.87 
+Salina           203.92 108.00 
+233              234.46 128.45 
+Interspace       118.99  72.56 
+Atlas            205.31 154.60 
+236              144.43 107.91 
+238               25.27  51.03 
+Jokkmokk         222.69  27.68 
+240               38.98  26.42 
+Ticos             77.97  48.23 
+Seti              79.55  48.92 
+243              234.77  44.34 
+Ferrari          165.16  18.17 
+Benz             186.32  14.70 
+BH_Brikatorn      54.55 128.15 
+BH_Trente         31.07 121.06 
+Norfsnot         181.66  58.31 
+249               35.48  11.84 
+250               47.32  54.52 
+Pumpkins         174.18 189.88 
+Underground      182.87 212.68 
+Secret           182.37 209.77 
+Asparagus        137.93 170.46 
+Stormcaller      221.88  60.36 
+Snowmutant       126.02  57.32 
+Funf             173.83 223.79 
+Wheat            149.63 230.96 
+Ontario           11.84 190.70 
+262              132.19 137.09 
+Neryos            65.39 146.03 
+Salem            110.68 238.71 
+Haven            109.16 237.47 
+BH_Trois          25.73 107.30 
+DaDoom           235.73  21.20 
+269              145.59  99.80 
+MadZone           95.60  83.24 
+Hampton          104.37 238.12 
+272               78.48   9.86 
+273              207.96  31.60 
+274               65.71  49.79 
+Calvinball       146.43  48.16 
+Lotus            185.72  14.09 
+Ying              57.88  95.77 
+Yang              55.70  96.23 
+279               85.81  31.30 
+Janus            196.10 150.01 
+281              201.14 208.26 
+Susie            167.42  57.43 
+BH_Poste          36.35 123.99 
+Jokeland1        232.56  16.01 
+EastHouse        110.88  95.74 
+Enceladus        199.87 150.52 
+Tweet            203.66 208.99 
+GungHo           233.19  26.69 
+Jokeland17       229.04  20.33 
+ColonyX          230.57  22.36 
+O-3              118.14 131.72 
+Brace             89.70 122.89 
+293              203.22 235.11 
+Polled           103.71 219.43 
+295              214.73 163.86 
+296              139.04  96.18 
+Manila            28.44 200.01 
+O-8               91.57 138.52 
+BH_Archan         81.49 122.20 
+BH_Barker         80.15 120.00 
+Hod              235.73 136.82 
+Ding             206.79  48.23 
+305               26.19  40.59 
+Kansas_City      225.09 107.66 
+Loch             132.24 230.79 
+308               45.99  59.69 
+Hannibal          18.78 233.41 
+Bash             188.69 220.08 
+311               69.83  55.25 
+Omega             37.80 197.73 
+KL                37.80 196.46 
+Blackmane        236.69  81.79 
+BH_Micro          38.15 113.27 
+GROSS            115.73  43.62 
+Watermelons      116.13 208.70 
+319              191.24 184.20 
+Telesto          198.92 158.91 
+BH_Limite         54.81 115.03 
+Ogleville        233.15  95.10 
+Broccoli         143.00 206.00 
+324              136.12  98.55 
+Fursthome        174.55  78.78 
+Twaat            209.31 220.05 
+329               11.69  15.63 
+Rye              147.41 177.88 
+Eire              94.16 238.40 
+Pan              202.63 171.12 
+B07               62.60 100.95 
+Khan              16.70 229.03 
+Clone_Property_1   0.90 139.25 
+Clone_Property_2   2.60 140.04 
+Yukon            126.95  73.69 
+340              232.58 213.63 
+341               97.28  58.16 
+342              219.60 137.34 
+343               87.00  43.14 
+Glopper           31.22 161.32 
+345              173.77 122.59 
+Epimetheus       185.70 157.48 
+Chaos             95.32  79.84 
+Strawberries     149.03 179.59 
+Schard           147.98 177.40 
+351              124.25 131.34 
+Lantau            40.35 198.96 
+Stone            175.24 216.42 
+Bovine            98.21 207.96 
+Fence             79.82 204.21 
+Sleding          160.38  42.74 
+Snotlet          185.71  90.37 
+BH_Aergistal      30.22 113.77 
+BH_Arsenal        28.93 114.22 
+Presaq            14.25 169.08 
+Arkansas_City    230.90 126.88 
+Troy             120.69 232.67 
+Siriconia        231.06  21.47 
+367              147.70 114.30 
+Snotter          164.16  70.29 
+BH_Sud            28.67 124.60 
+370              152.73  47.21 
+371               52.28   0.49 
+372               41.75 233.33 
+Fenris           239.83  75.19 
+Lupine           237.17  74.19 
+Patton            15.24 221.04 
+BH_Achzone        83.12  90.45 
+Runthome         170.27  94.19 
+Benton           214.36 115.60 
+Clash            104.98  80.67 
+382              186.64  40.51 
+383              149.68 143.83 
+BH_Cent           24.74 104.02 
+Clone_7            9.50 144.30 
+389               47.89  25.21 
+391               40.13 213.96 
+Watercress       158.04 178.64 
+393              237.80  39.14 
+BH_Attente        66.25 133.17 
+395               72.93  58.58 
+Alfalfa          140.09 233.54 
+Goofy            178.65  12.39 
+Mickey           176.36  11.01 
+399              167.46 219.07 
+Alfa             172.53   5.76 
+401              217.27 190.05 
+YangZhou           4.60 191.79 
+BH_Brutace        72.65 117.08 
+407              144.49  99.33 
+408              138.43 112.09 
+Bee              149.01  99.72 
+Haa              148.08  97.12 
+413              122.75 106.73 
+414               49.72   5.09 
+415               90.20   1.75 
+Singapor          37.14 196.81 
+F'Narr            79.52 100.08 
+Calypso          184.13 148.12 
+Camp_David        74.03  73.57 
+Cod              170.01 218.23 
+Peer             219.47 208.13 
+Lochristi        218.98 209.94 
+Cabbage          144.16 170.90 
+425                5.49  38.88 
+427              221.34  45.63 
+429               46.52  48.77 
+B08               51.02  77.81 
+431               20.76  68.21 
+Peanuts          137.32 172.42 
+Hyperion         192.41 158.69 
+Tethys           194.19 157.62 
+436               38.13  62.27 
+Hammer           232.30 181.95 
+Frozen           202.80  27.82 
+440               66.11  70.41 
+B09               61.81  70.68 
+442              146.47 135.56 
+Eureka_Springs   233.49 107.48 
+St_Louis         236.93 106.54 
+Columbia         236.19 105.28 
+447               36.50  15.48 
+Tiphareth        230.46 148.34 
+B10               59.46  80.79 
+Caesar            18.35 212.44 
+452              100.12   4.43 
+Romeo            187.46  10.15 
+Fellhanded       201.41  65.05 
+Marge            225.29 201.26 
+BH_Arek           72.78 131.43 
+Outland          120.88  70.70 
+Wayout           122.42  68.31 
+Midway           191.39  63.31 
+Alexander          5.76 235.42 
+Electric         103.75 221.28 
+462              164.75 109.78 
+Springfield      239.74 103.38 
+Marshlands       213.43   8.54 
+BH_Celitos        63.17 138.62 
+Homer            221.95 203.15 
+467              212.62 178.13 
+Daewoo           180.86  33.32 
+Nuts             231.48 182.40 
+Bolts            229.17 180.90 
+BH_NeufCent       29.38 119.67 
+Snowline         174.05  65.16 
+Manhattan        210.29 110.05 
+Jakarta           35.80 201.27 
+Blueberries      113.25 200.19 
+F476             124.80 131.04 
+BH_GalaxyNG       73.58 106.68 
+B11               56.93  78.24 
+480              145.14 119.12 
+Thazgull         181.70  78.17 
+Thrakka          183.61  76.95 
+Zog              151.30  26.93 
+Biganorf         181.89  54.10 
+O-9              111.59 123.12 
+486               55.18 228.37 
+487              238.50 192.42 
+Sunflowers       148.72 189.82 
+489              115.05  36.43 
+490              122.03  46.97 
+Hope             239.32 116.51 
+Cybernia         227.39  28.15 
+495               88.17  37.25 
+496                2.81  18.31 
+Oxford           117.28 225.47 
+Clone_3            0.09 137.39 
+499              100.02  24.40 
+Prometheus       204.17 152.02 
+Gadget           235.28 181.53 
+Runtherd         177.70  77.95 
+504              152.06  90.99 
+
+		Uninhabited Planets
+
+N      X      Y   S R 
+49   51.10 227.42     
+439 217.12 141.14     
+
+		Your Groups
+
+G    #           T            D    W    S    C   T    Q          D          R        O     
+  1   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 47                                
+  2   1 Destroy_1x5_12.7    3.01 1.28 1.41 0.00 -   0.00 47                                
+  3  23 Scout_S             5.09 0.00 6.08 0.00 -   0.00 47                                
+  4   1 KProbe_1_1_1_0      1.20 1.00 1.00 0.00 -   0.00 87                                
+  5   9 Mover               5.09 0.00 0.00 1.00 -   0.00 87                                
+  6   1 Scout               2.08 0.00 0.00 0.00 -   0.00 93                                
+  7   1 Pump_L              5.09 2.21 6.08 0.00 -   0.00 95                                
+  8   1 Gun_1x12_42         2.08 1.00 1.00 0.00 -   0.00 SkullPlane                        
+  9   1 Destroy_1x10_15     3.01 1.40 1.97 0.00 -   0.00 SkullPlane                        
+ 10  71 Scout               5.09 0.00 0.00 0.00 -   0.00 SkullPlane                        
+ 11   1 KProbe_1_1_1_0      1.20 1.00 1.00 0.00 -   0.00 112                               
+ 12   1 Destroy_1x5_12.7    3.01 1.28 1.41 0.00 -   0.00 112                               
+ 13   5 Scout               5.09 0.00 0.00 0.00 -   0.00 112                               
+ 14   1 KProbe_1_1_1_0      1.20 1.00 1.00 0.00 -   0.00 116                               
+ 15   1 Destroy_1x10_15     3.01 1.40 1.91 0.00 -   0.00 116                               
+ 16  15 Scout               5.09 0.00 0.00 0.00 -   0.00 116                               
+ 17  44 Scout               2.08 0.00 0.00 0.00 -   0.00 Anticron                          
+ 18   1 Splat_70x1_23       2.46 1.28 1.40 0.00 -   0.00 Anticron                          
+ 19  86 Scout               3.01 0.00 0.00 0.00 -   0.00 Anticron                          
+ 20   1 Pump_7x8_17         3.01 1.40 1.91 0.00 -   0.00 Anticron                          
+ 21   1 Pump_10x8_17        3.01 1.40 1.97 0.00 -   0.00 Anticron                          
+ 22   1 Splat_10x4_15       3.01 1.40 2.04 0.00 -   0.00 Anticron                          
+ 23   1 Pump_10x8_17        3.01 1.40 2.04 0.00 -   0.00 Anticron                          
+ 24  48 Scout_S             3.01 0.00 2.29 0.00 -   0.00 Anticron                          
+ 25  53 Scout_S             3.01 0.00 2.55 0.00 -   0.00 Anticron                          
+ 26  19 Scout_S             3.01 0.00 2.80 0.00 -   0.00 Anticron                          
+ 27   1 Fury3_2x20_24       3.01 2.21 2.80 0.00 -   0.00 Anticron                          
+ 28   1 Burst_3x30_44       4.40 2.21 2.98 0.00 -   0.00 Anticron                          
+ 29   2 Burst_4x30_45       4.40 2.21 2.98 0.00 -   0.00 Anticron                          
+ 30   1 Pump_10x10_45       5.09 2.21 3.96 0.00 -   0.00 Anticron                          
+ 31   1 Splat_30x5_45       5.09 2.21 3.96 0.00 -   0.00 Anticron                          
+ 32  36 Scout_S             5.09 0.00 4.94 0.00 -   0.00 Anticron                          
+ 33   1 Burst_3x30_44       5.09 2.21 4.94 0.00 -   0.00 Anticron                          
+ 34 266 Scout               5.09 0.00 0.00 0.00 -   0.00 Anticron                          
+ 35   1 Splat_35x1_20       5.09 2.21 5.98 0.00 -   0.00 Anticron                          
+ 36   1 Splat_30x1_20       5.09 2.21 5.98 0.00 -   0.00 Anticron                          
+ 37  18 Scout_S             5.09 0.00 5.98 0.00 -   0.00 Anticron                          
+ 38   1 Splat_40x1.5_29     5.09 2.21 5.98 0.00 -   0.00 Anticron                          
+ 39   1 Splat_55x1_20       5.09 2.21 5.98 0.00 -   0.00 Anticron                          
+ 40   1 Burst_3x30_44       5.09 2.21 5.98 0.00 -   0.00 Anticron                          
+ 41   1 Splat_10x4_15       3.01 1.40 1.91 0.00 -   0.00 Anticron          3.69 116        
+ 42   1 Splat_10x4_15       3.01 1.40 1.97 0.00 -   0.00 Anticron          3.69 116        
+ 43   1 Pump_7x8_17         3.01 1.40 1.97 0.00 -   0.00 Anticron          2.20 116        
+ 44  22 Scout               3.01 0.00 0.00 0.00 -   0.00 Anticron          1.60 SkullPlane 
+ 45   7 Scout_S             3.01 0.00 2.55 0.00 -   0.00 Anticron         13.01 Hades      
+ 46  70 Scout_S             3.01 0.00 2.29 0.00 -   0.00 Anticron         13.01 Hades      
+ 47   1 Pump_10x10_45       5.09 2.21 5.98 0.00 -   0.00 Anticron          6.60 O-4        
+ 48   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 Tartaros                          
+ 49  12 Scout               5.09 0.00 0.00 0.00 -   0.00 Tartaros                          
+ 50   1 Splatter_16x1.5_6.7 2.08 1.00 1.20 0.00 -   0.00 Hades                             
+ 51   1 Fury3_2x20_24       3.01 2.21 2.80 0.00 -   0.00 Hades                             
+ 52   1 Pump_10x8_17        3.01 1.40 1.91 0.00 -   0.00 Hades                             
+ 53   1 Splat_30x1_20       5.09 2.21 6.08 0.00 -   0.00 Hades                             
+ 54   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 O-4                               
+ 55   1 Splatter_16x1.5_6.7 2.08 1.00 1.00 0.00 -   0.00 O-4                               
+ 56   1 Shaker_0_0_0_1      5.09 0.00 0.00 1.00 -   0.00 O-4                               
+ 57  22 Mover2              5.09 0.00 0.00 1.00 -   0.00 O-4                               
+ 58  12 Mover               5.09 0.00 0.00 1.00 -   0.00 O-4                               
+ 59   1 Pump_10x8_17        3.01 1.28 1.66 0.00 -   0.00 O-4                               
+ 60   2 Cargo1              5.09 0.00 0.00 1.00 -   0.00 O-4                               
+ 61   1 Pump_15x4_25        5.09 2.21 6.08 0.00 -   0.00 O-4                               
+ 62   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 Gulag                             
+ 63  54 Scout               5.09 0.00 0.00 0.00 -   0.00 Gulag                             
+ 64   1 Fury2_1x25_30       1.88 1.00 1.00 0.00 -   0.00 213                               
+ 65   1 Destroy_3x10_15     3.01 1.40 1.91 0.00 -   0.00 213                               
+ 66  27 Scout_S             5.09 0.00 6.08 0.00 -   0.00 213                               
+ 67   2 Mover               4.40 0.00 0.00 1.00 -   0.00 225                               
+ 68   1 Pump_10x8_17        3.01 1.40 1.97 0.00 -   0.00 225                               
+ 69   1 Mover_S4.53_C34.7   5.09 0.00 0.00 1.00 -   0.00 225                               
+ 70   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 O-2                               
+ 71   1 Destroy_1x3_8.5     2.08 1.00 1.00 0.00 -   0.00 O-2                               
+ 72   1 Mover               2.08 0.00 0.00 1.00 -   0.00 O-2                               
+ 73   1 KProbe_1_1_1_0      1.20 1.00 1.00 0.00 -   0.00 228                               
+ 74   1 Destroy_1x5_12.7    3.01 1.28 1.41 0.00 -   0.00 228                               
+ 75  20 Scout               5.09 0.00 0.00 0.00 -   0.00 228                               
+ 76   1 Splatter_16x1.5_6.7 1.88 1.00 1.00 0.00 -   0.00 Battelica                         
+ 77   1 Fury2_1x25_30       1.88 1.00 1.00 0.00 -   0.00 Battelica                         
+ 78  60 Scout               5.09 0.00 0.00 0.00 -   0.00 Battelica                         
+ 79   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 297                               
+ 80   6 Scout               5.09 0.00 0.00 0.00 -   0.00 297                               
+ 81   1 Destroy_1x5_12.7    3.01 1.28 1.41 0.00 -   0.00 O-7                               
+ 82   1 Scout               2.08 0.00 0.00 0.00 -   0.00 O-7                               
+ 83   1 Burst_4x30_45       5.09 2.21 5.98 0.00 -   0.00 325                               
+ 84   1 Fury4_3x20_30       5.09 2.21 6.08 0.00 -   0.00 325                               
+ 85   1 Fury2_1x25_30       3.01 2.00 2.55 0.00 -   0.00 326                               
+ 86  19 Scout_S             5.09 0.00 6.08 0.00 -   0.00 326                               
+ 87   1 KProbe_1_1_1_0      1.20 1.00 1.00 0.00 -   0.00 330                               
+ 88  10 Shaker_0_0_0_1      4.40 0.00 0.00 1.00 -   0.00 330                               
+ 89   2 Cargo1              5.09 0.00 0.00 1.00 -   0.00 330                               
+ 90  13 Mover2              4.40 0.00 0.00 1.00 -   0.00 330                               
+ 91  11 Shaker_0_0_0_1      5.09 0.00 0.00 1.00 -   0.00 330                               
+ 92  11 Mover2              2.08 0.00 0.00 1.00 CAP 1.10 330               7.47 385        
+ 93   2 Mover               5.09 0.00 0.00 1.00 -   0.00 385                               
+ 94   1 Splat_70x1_23       2.84 1.28 1.41 0.00 -   0.00 385                               
+ 95   1 Pump_9x10_10        2.08 1.00 1.00 0.00 -   0.00 385                               
+ 96   1 Fury2_1x25_30       2.08 1.00 1.00 0.00 -   0.00 385                               
+ 97   1 Splat_15x4_25       2.65 1.28 1.40 0.00 -   0.00 385                               
+ 98  11 Scout               2.65 0.00 0.00 0.00 -   0.00 385                               
+ 99   4 Mover2              4.40 0.00 0.00 1.00 -   0.00 385                               
+100  30 Scout_S             3.01 0.00 2.29 0.00 -   0.00 385                               
+101   1 Fury2_1x25_30       3.01 2.00 2.55 0.00 -   0.00 385                               
+102   2 Cargo1              4.40 0.00 0.00 1.00 -   0.00 385                               
+103   2 Cargo1              5.09 0.00 0.00 1.00 -   0.00 385                               
+104   1 Shaker_0_0_0_1      4.40 0.00 0.00 1.00 -   0.00 385                               
+105   1 Fury4_3x20_30       5.09 2.21 6.08 0.00 -   0.00 385                               
+106  19 Scout_S             5.09 0.00 6.08 0.00 -   0.00 386                               
+107   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 388                               
+108   1 Fury2_1x25_30       2.08 1.00 1.00 0.00 -   0.00 O-5                               
+109   3 Mover               5.09 0.00 0.00 1.00 -   0.00 O-5                               
+110   9 Mover2              2.08 0.00 0.00 1.00 -   0.00 O-5                               
+111   1 Scout               2.08 0.00 0.00 0.00 -   0.00 411                               
+112   1 Scout               2.65 0.00 0.00 0.00 -   0.00 411                               
+113   1 Fury2_1x25_30       2.08 1.00 1.00 0.00 -   0.00 426                               
+114   1 Mover_S4.53_C34.7   5.09 0.00 0.00 1.00 -   0.00 426                               
+115   1 Scout               3.01 0.00 0.00 0.00 -   0.00 428                               
+116  11 Shaker_0_0_0_1      5.09 0.00 0.00 1.00 -   0.00 477                               
+117   1 Splatter_16x1.5_6.7 1.88 1.00 1.00 0.00 -   0.00 477                               
+118   1 KProbe_1_1_1_0      1.40 1.00 1.00 0.00 -   0.00 477                               
+119   1 Splat_15x4_25       2.84 1.28 1.41 0.00 -   0.00 477                               
+120   1 Burst_4x30_45       5.09 2.21 3.96 0.00 -   0.00 477                               
+121  22 Flack_2.5           2.84 0.00 1.41 0.00 -   0.00 ZombieGate                        
+122   1 Protector_6x30_75   3.01 1.28 1.66 0.00 -   0.00 ZombieGate                        
+123   2 Scout               5.09 0.00 0.00 0.00 -   0.00 DeepFry                           
+124  19 Scout_S             5.09 0.00 6.08 0.00 -   0.00 DeepFry                           
+125   1 Scout               2.08 0.00 0.00 0.00 -   0.00 501                               
+126   1 Mover2              4.40 0.00 0.00 1.00 -   0.00 501                               
+127   3 Mover               5.09 0.00 0.00 1.00 -   0.00 501                               
+128   1 Scout               2.08 0.00 0.00 0.00 -   0.00 Seoul                             
+129   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Clone_6           8.06 DeepFry    
+130   1 Scout               2.08 0.00 0.00 0.00 -   0.00 FarEast                           
+131   1 Scout               2.08 0.00 0.00 0.00 -   0.00 Macau                             
+132   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Clone_5           7.83 DeepFry    
+133   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Clone_4           8.54 DeepFry    
+134   1 Scout               3.01 0.00 0.00 0.00 -   0.00 BH_Pankwar                        
+135   1 Scout               3.01 0.00 0.00 0.00 -   0.00 Orbital                           
+136   1 Scout               2.08 0.00 0.00 0.00 -   0.00 Napex                             
+137   1 Scout               3.01 0.00 0.00 0.00 -   0.00 237                               
+138   1 Scout               2.08 0.00 0.00 0.00 -   0.00 Mastitis                          
+139   1 Scout               2.08 0.00 0.00 0.00 -   0.00 Tranzill                          
+140   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Limperzia                         
+141   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Clone_Property_1 10.10 DeepFry    
+142   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Clone_Property_2  8.23 DeepFry    
+143   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Flozz                             
+144   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Havarn                            
+145   1 Scout               2.65 0.00 0.00 0.00 -   0.00 Blob                              
+146   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Clone_8                           
+147   3 Shaker_0_0_0_1      1.60 0.00 0.00 1.00 COL 1.10 395               9.12 Battelica  
+148   1 Scout               2.08 0.00 0.00 0.00 -   0.00 Pasture                           
+149   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Bangkok                           
+150   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Drofill                           
+151   1 Scout               3.01 0.00 0.00 0.00 -   0.00 O-6                               
+152   1 Scout               3.01 0.00 0.00 0.00 -   0.00 Serbia                            
+153   1 Scout               2.08 0.00 0.00 0.00 -   0.00 Brewsar                           
+154   1 Scout               5.09 0.00 0.00 0.00 -   0.00 Clone_3          11.72 DeepFry    
+
+		MooMoo Groups
+
+#    T      D    W    S    C  T   Q      D    
+1 BarnFly 1.86 0.00 0.00 0.00 - 0.00 403      
+1 BarnFly 1.86 0.00 0.00 0.00 - 0.00 95       
+1 BarnFly 1.86 0.00 0.00 0.00 - 0.00 225      
+1 Orac    3.45 2.04 3.74 0.00 - 0.00 Pasture  
+1 Orac    3.45 2.04 3.74 0.00 - 0.00 Macau    
+1 Orac    3.45 2.04 3.74 0.00 - 0.00 Mastitis 
+1 Orac    3.45 2.04 3.74 0.00 - 0.00 386      
+1 Orac    3.45 2.06 3.78 0.00 - 0.00 Pasture  
+
+		Farmers Groups
+
+#   T     D    W    S    C  T   Q    D   
+1 Seeds 4.28 0.00 0.00 0.00 - 0.00 Seoul 
+1 Seeds 4.28 0.00 0.00 0.00 - 0.00 Macau 
+
+		Oracle Groups
+
+#      T       D    W    S    C   T    Q       D     
+ 1 lightning 2.07 1.17 1.26 0.00 -   0.00 FarEast    
+ 1 Patrol    1.40 1.00 1.00 0.00 -   0.00 FarEast    
+ 1 Drone     1.00 0.00 0.00 0.00 -   0.00 Brewsar    
+ 1 Drone     1.00 0.00 0.00 0.00 -   0.00 403        
+ 1 Drone     1.00 0.00 0.00 0.00 -   0.00 Tranzill   
+ 1 Drone     1.40 0.00 0.00 0.00 -   0.00 Limperzia  
+ 1 Patrol    1.40 1.00 1.00 0.00 -   0.00 Tranzill   
+ 1 Ferry     2.75 0.00 0.00 1.00 -   0.00 Tranzill   
+ 1 Mine      0.00 1.39 0.00 0.00 -   0.00 Bangkok    
+ 1 Drone     2.07 0.00 0.00 0.00 -   0.00 Serbia     
+ 1 Drone     2.07 0.00 0.00 0.00 -   0.00 Anticron   
+ 1 Drone     2.07 0.00 0.00 0.00 -   0.00 Seoul      
+ 1 Drone     2.07 0.00 0.00 0.00 -   0.00 411        
+ 1 Drone     2.07 0.00 0.00 0.00 -   0.00 93         
+ 1 Colonizer 1.83 0.00 0.00 1.00 COL 1.10 411        
+ 1 Drone     3.15 0.00 0.00 0.00 -   0.00 263        
+12 Drone     4.67 0.00 0.00 0.00 -   0.00 Bangkok    
+ 1 Drone     4.67 0.00 0.00 0.00 -   0.00 356        
+24 Drone     4.68 0.00 0.00 0.00 -   0.00 FarEast    
+25 Drone     4.68 0.00 0.00 0.00 -   0.00 Bangkok    
+ 1 Drone     4.68 0.00 0.00 0.00 -   0.00 380        
+ 1 Drone     4.68 0.00 0.00 0.00 -   0.00 SkullPlane 
+ 1 Drone     4.68 0.00 0.00 0.00 -   0.00 ZombieGate 
+
+		First_Direct Groups
+
+#     T      D    W    S    C  T   Q       D     
+ 1 SAtak   4.31 2.13 4.41 0.00 - 0.00 Orbital    
+ 2 Zip     1.56 1.09 1.16 0.00 - 0.00 Napex      
+ 1 H2-A1   3.16 1.89 1.69 0.00 - 0.00 Napex      
+35 stone   0.00 0.00 4.41 0.00 - 0.00 Napex      
+ 1 H2-D1   0.00 2.13 4.41 0.00 - 0.00 Napex      
+ 2 BH_Stab 4.31 2.13 4.41 0.00 - 0.00 BH_Pankwar 
+ 2 BH_Stab 4.31 2.14 4.41 0.00 - 0.00 Napex      
+
+		Clone_Empire Groups
+
+#   T     D    W    S    C  T   Q       D     
+1 Scout 1.20 0.00 0.00 0.00 - 0.00 Tranzill   
+1 Scout 1.20 0.00 0.00 0.00 - 0.00 Bangkok    
+1 Scout 1.20 0.00 0.00 0.00 - 0.00 Brewsar    
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 Havarn     
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 Serbia     
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 Drofill    
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 Blob       
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 428        
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 411        
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 Seoul      
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 93         
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 BH_Pankwar 
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 O-1        
+1 Scout 1.85 0.00 0.00 0.00 - 0.00 Napex      
+
+		BlackHare Groups
+
+#    T      D    W    S    C  T   Q      D    
+1 R_Drone 3.04 0.00 0.00 0.00 - 0.00 Anticron 
+1 R_Drone 3.04 0.00 0.00 0.00 - 0.00 411      
+1 R_Drone 3.04 0.00 0.00 0.00 - 0.00 Serbia   
+1 R_Drone 3.18 0.00 0.00 0.00 - 0.00 Havarn   
+
+		Mondrala Groups
+
+#    T      D    W    S    C  T   Q     D    
+1 Droopy  2.03 0.00 0.00 0.00 - 0.00 Orbital 
+1 Warlord 1.17 1.02 1.23 0.00 - 0.00 237     
+1 Warlord 1.18 1.02 1.24 0.00 - 0.00 O-6     
+1 Warlord 1.68 1.00 1.60 0.00 - 0.00 Orbital 
+1 Tanker  2.09 0.00 0.00 1.00 - 0.00 Orbital 
+
+		Orkses Groups
+
+#   T     D    W    S    C  T   Q   D  
+1 Envoy 2.14 0.00 0.00 0.00 - 0.00 O-6 
