@@ -105,7 +105,7 @@ void            w_order(game *aGame, player *, strlist **);
 void            x_order(game *aGame, player *, strlist **);
 void            y_order(game *aGame, player *, strlist **);
 void            z_order(game *aGame, player *, strlist **);
-void            mistake(player *P, strlist *s, char *format, ...);
+void            mistake(player *P, enum error_type, strlist *s, char *format, ...);
 
 void
                 copyOrders(game *aGame,
@@ -141,7 +141,8 @@ int
 
 void
                 checkOrders(game *aGame,
-                            char *nationName, FILE * forecast);
+                            char *nationName, FILE * forecast, int kind);
+
 
 void
                 generateErrorMessage(int resNumber,

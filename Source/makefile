@@ -20,25 +20,29 @@
 #
 # you will also need to uncomment the following 2 lines
 #
-# CFLAGS = -Wall -pedantic -g -DDRAW_MAP
-# LIBS = -lgd -lpng -lz -ljpeg -lfreetype -lm
+CFLAGS = -Wall -pedantic -g -DDRAW_INFLUENCE_MAP -I.
+LIBS = -lgd -lpng -lz -ljpeg -lfreetype -lm
+ADDTL_SRCS = influence.c
+ADDTL_OBJS = influence.o
+#
+
 #
 # and comment these lines
 #
-CFLAGS = -Wall -pedantic -g
-LIBS = -lm
-
+#CFLAGS = -Wall -pedantic -g
+#LIBS = -lm
+#ADDTL_SRCS=
 
 CC=gcc
 
 
 SOURCES=loadgame.c savegame.c create.c phase.c battle.c process.c \
         report.c util.c list.c selftest.c report_xml.c mail.c \
-        report_m.c galaxyng.c wopr.c globals.c avl.c
+        report_m.c galaxyng.c wopr.c globals.c avl.c $(ADDTL_SOURCES)
 
 OBJECTS=loadgame.o savegame.o create.o phase.o battle.o process.o \
         report.o util.o list.o selftest.o report_xml.o mail.o \
-        report_m.o globals.o avl.o
+        report_m.o globals.o avl.o  $(ADDTL_OBJS)
 
 GALAXYNG=galaxyng
 WOPR=wopr
@@ -89,6 +93,9 @@ report_m.o: report_m.c
 
 avl.o: avl.c
 	$(CC) $(CFLAGS) -c avl.c -o avl.o
+
+influence.o: influence.c
+	$(CC) $(CFLAGS) -c influence.c -o influence.o
 
 galaxyng.o: galaxyng.c
 	$(CC) $(CFLAGS) -c galaxyng.c -o galaxyng.o

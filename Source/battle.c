@@ -442,7 +442,7 @@ selectAttackingGroup(batstat *batstats, batstat **attackingSide, int *ship)
   int             totalNumberOfAttackersLeft;
   batstat        *aBatstat;
 
-  // Compute the number of ships that haven't fired yet.
+  /* Compute the number of ships that haven't fired yet. */
   totalNumberOfAttackersLeft = 0;
   for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
     totalNumberOfAttackersLeft += aBatstat->numberOfAttackersLeft;
@@ -530,7 +530,7 @@ selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
 
   pdebug(DFULL, "selectTargetGroup\n");
 
-  // targetGroup = NULL;
+  /* targetGroup = NULL;*/
   *ship = 0;
 
   /* Compute the total number of targets */
@@ -569,7 +569,7 @@ selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
             int             curShip;
 
             n -= lowerLim;
-            // targetGroup = aGroup;
+            /* targetGroup = aGroup; */
             for (*ship = 0, curShip = 0; *ship < aGroup->ships; (*ship)++) {
               /* Is the ship alive */
               if ((aGroup->alive)[*ship]) {
@@ -661,6 +661,9 @@ isBattle(player *players, planet *p)
           *newGroup = *aGroup;
           assert(newGroup->ships == aGroup->ships);
           newGroup->left = aGroup->ships;
+	  newGroup->next = NULL;
+	  newGroup->name = (char*)malloc(8);
+	  sprintf(newGroup->name, "%d", newGroup->number);
           addList(&(aParticipant->groups), newGroup);
         }
       }

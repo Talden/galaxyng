@@ -3,9 +3,8 @@
 #include "list.h"
 
 /* Needed for xml report */
-void            report_xml(game* aGame, player* P, FILE* report);
+void            report_xml(game* aGame, player* P, FILE* report, int type);
 
-void            rHE_XML(game* aGame, player *P);
 void            rMR_XML(void);
 void            rGZ_XML(void);
 void            rPW_XML(game* aGame, player *P);

@@ -69,9 +69,16 @@
 #define   LINE_BUFFER_SIZE 1024
 #define   eq           ==
 
+#define   Report        0
+#define   Forecast      1
+
 /* May be this could help turns viewer */
 #define   MACHINEREPORT_VERSION   0.1
-#define   XMLREPORT_VERSION       0.2
+#define   XMLREPORT_VERSION       1.5
+#define   GNG_MAJOR               6
+#define   GNG_MINOR               3
+#define   GNG_RELEASE             0
+#define   GNG_DATE                "August 2003"
 
 /****d* GalaxyNG/Cookies
  * NAME
@@ -178,6 +185,18 @@ enum {
   CG_COL,
   CG_EMPTY,
   MAXCARGO
+};
+
+/****d* GalaxyNG/ErrorTypes
+ * NAME
+ *   ErrorTypes
+ * SOURCE
+ */
+
+enum error_type {
+  INFO,
+  WARNING,
+  ERROR
 };
 
 /*******/
@@ -652,6 +671,8 @@ struct player {
 #define F_XMLREPORT      16384
 /* player is no longer active */
 #define F_DEAD           32768
+/* is a text report wanted? */
+#define F_TXTREPORT      65536
 
 /****************/
 
@@ -766,7 +787,7 @@ extern struct option options[];
 extern int      debugLevel;
 
 extern char    *vcreate;
-extern char    *vcid;
+extern char    vcid[];
 extern char    *vprocess;
 extern char    *vphase;
 extern char    *vreport;

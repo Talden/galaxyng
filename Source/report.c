@@ -227,6 +227,7 @@ int
 mailTurnReport(game *aGame, player *aPlayer, long kind)
 {
   char           *fileName;
+  char            ext[4];
   FILE           *turnreport;
   int             result;
 
@@ -234,9 +235,23 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
 
   result = 1;
   if ((aPlayer->flags & F_DEAD) == 0) {
-    fileName = createString("%s/reports/%s/mail%s_%d.txt",
+    switch(kind) {
+    case F_XMLREPORT:
+      strcpy(ext, "xml");
+      break;
+
+    case F_MACHINEREPORT:
+      strcpy(ext, "mch");
+      break;
+
+    default:
+      strcpy(ext, "txt");
+      break;
+    }
+
+    fileName = createString("%s/reports/%s/mail%s_%d.%s",
                             galaxynghome,
-                            aGame->name, aPlayer->name, aGame->turn);
+                            aGame->name, aPlayer->name, aGame->turn, ext);
     if ((turnreport = GOS_fopen(fileName, "w"))) {
       envelope       *anEnvelope;
 
@@ -265,10 +280,12 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
       fclose(turnreport);
       result = eMail(aGame, anEnvelope, fileName);
       destroyEnvelope(anEnvelope);
+#if 0
 #ifdef WIN32
       result |= ssystem("del %s", fileName);
 #else
       result |= ssystem("rm %s", fileName);
+#endif
 #endif
     }
     else {
@@ -374,7 +391,7 @@ createTurnReport(game *aGame, player *aPlayer, FILE * reportfile,
 
   switch (kind) {
   case F_XMLREPORT:
-    report_xml(aGame, aPlayer, reportfile);
+    report_xml(aGame, aPlayer, reportfile, Report);
     break;
   case F_MACHINEREPORT:
     report_m(aPlayer, aGame, reportfile);
@@ -705,7 +722,24 @@ reportOrders(player *P, fielddef *fields)
 
     fprintf(fields->destination, "\nORDERS RECEIVED\n\n");
     for (s = P->orders; s; s = s->next) {
-      fprintf(fields->destination, "> %s\n", s->str);
+      if (*(s->str) == '+') {
+	switch(*((s->str)+1)) {
+	case 'I':
+	  fprintf(fields->destination, ">   INFO: %s\n", (s->str)+3);
+	  break;
+
+	case 'W':
+	  fprintf(fields->destination, ">   WARNING: %s\n", (s->str)+3);
+	  break;
+
+	case 'E':
+	  fprintf(fields->destination, ">   ERROR: %s\n", (s->str)+3);
+	  break;
+	}
+      }
+      else {
+	fprintf(fields->destination, "> %s\n", s->str);
+      }
     }
   }
 }

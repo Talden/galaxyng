@@ -1,5 +1,33 @@
+/*  xgamma -bgamma 0.1 -ggamma 0.1 -rgamma 0.3 */
+#include <time.h>
 #include "create.h"
 #include "report_xml.h"
+
+void   rXMLHeader(game* aGame, player* P);
+static void   rGame(game* aGame, player* P, int level, int type);
+static void   rFeatures(game* aGame, player* P, int level);
+static void   rTurn(game* aGame, player* P, int level, int type);
+static void   rRace(game* aGame, player* P, int level, int type);
+static void   rReport(game* aGame, player* P, int level, int type);
+static void   rOrders(game* aGame, player* P, int level);
+static void   rStatus(game* aGame, player* P, int level);
+static void   rAlienRaces(game* aGame, player* P, int level);
+static void   rDesigns(game* aGame, player* P, int level);
+static void   rBattles(game* aGame, player* P, int level);
+static void   rBombings(game* aGame, player* P, int level);
+static void   rMap(game* aGame, player* P, int level);
+static void   rIncoming(game* aGame, player* P, int level);
+static void   rRoutes(game* aGame, player* P, int level);
+static void   rIdentifiedWorlds(game* aGame, player* P, int level, int flag);
+static void   rUnidentifiedWorlds(game* aGame, player* P, int level);
+static void   rUninhabitedWorlds(game* aGame, player* P, int level);
+static void   rGroups(game* aGame, player* P, int level, int flag);
+static void   rFleets(game* aGame, player* P, int level);
+static void   rMessages(game* aGame, player* P, strlist* messages,
+			char* type, int level, int nbr_msgs);
+static void   rTrailer(game* aGame, player* P, int level);
+
+static void   showTech(player* P, int level);
 
 static char    *loadtypename[] =
 {
@@ -18,43 +46,24 @@ static char    *loadtypename[] =
          resulted in a coredump. 
 200002 : [BJE] fixed bugs and XML spec violations
 200003 : [BJE] fixed doubled groups bug
-200104:  CB, updated to add the game options section.
+200104 : CB, updated to add the game options section.
+200308 : KDW - complete rewrite to match the galaxy-1.5 dtd
 
 TODO :  write a doc :).
 
 */
 
-static FILE* reportFP;
+static FILE* fpR;
 
 void
-report_xml(game* aGame, player* P, FILE* XMLreport)
+report_xml(game* aGame, player* P, FILE* XMLreport, int RorF)
 {
-
-  reportFP = XMLreport;		/* local global */
-
-  rHE_XML(aGame, P);	/* Writes header of report file */
-				/* includes game options */
-  rMM_XML(aGame, P, aGame->messages, "global");	/* Global messages */
-  rMM_XML(aGame, P, P->messages, "personal"); /* Personal messages */
-  rOP_XML(aGame, P);	/* Options */
-  rOD_XML(aGame, P);	/* Orders */
-  rMK_XML(aGame, P);	/* Mistakes in orders */
-  rST_XML(aGame, P);	/* Players status */
-  rSH_XML(aGame, P);	/* Ships types */
-  rBT_XML(aGame, P);	/* Battles */
-  rBB_XML(aGame, P);	/* Bombing */
-  rMP_XML(aGame, P);	/* Text map */
-  rIC_XML(aGame, P);	/* Incoming groups */
-  rAP_XML(aGame, P);	/* All planets */
-  rPT_XML(aGame, P);	/* Production table */
-  rRT_XML(aGame, P);	/* Routes */
-  fprintf(reportFP, "    <grouplist>\n");
-  rGG_XML(aGame, P);	/* Player's groups */
-  rGS_XML(aGame, P);	/* Others players groups */
-  fprintf(reportFP, "    </grouplist>\n");
-  rFL_XML(aGame, P);	/* Fleets */
-  rEN_XML();		/* Writes last line of XML report file */
+  fpR = XMLreport;		/* local global */
+  rXMLHeader(aGame, P);
+  rGame(aGame, P, 2, RorF);
+  rTrailer(aGame, P, 0);
 }
+
 
 char*
 safename(char* name)
@@ -102,135 +111,98 @@ safename(char* name)
 
 /* Write header of report file */
 void
-rHE_XML(game* aGame, player *P)
+rXMLHeader(game* aGame, player *P)
 {
-  fprintf(reportFP, "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"
-	  "<!DOCTYPE galaxy PUBLIC \"-//Galaxy//Galaxy Data Exchange//EN\" "
-	  "\"http://galaxyview.sourceforge.com/galaxy.dtd\">\n\n");
+  time_t  now;
+  char    tbuf[32];
 
-  fprintf(reportFP,
+  time(&now);
+  strcpy(tbuf, asctime(localtime(&now)));
+
+  fprintf(fpR, "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"
+	  "<!DOCTYPE galaxy PUBLIC \"-//Galaxy//GalaxyNG//EN\" "
+	  "\"http://galaxy.pbem.net/galaxyng-1.0.0.dtd\">\n\n");
+
+
+  fprintf(fpR, "<!-- produced by galaxyng %d.%d.%d on %24.24s -->\n\n",
+	  GNG_MAJOR, GNG_MINOR, GNG_RELEASE, tbuf);
+
+  /* checked to galaxy-1.0.0.dtd */
+  fprintf(fpR,
 	  "<galaxy>\n"
 	  "  <variant>GalaxyNG</variant>\n"
-	  "  <version>%.2f</version>\n"
-	  "  <game name=\"%s\">\n"
-	  "    <features>\n"
-	  "      <size>%.2f</size>\n",
-	  XMLREPORT_VERSION, aGame->name, aGame->galaxysize);
-
-  rGO_XML(aGame);
-
-  fprintf(reportFP,
-	  "  </features>\n"
-	  "  <turn num=\"%d\">\n",
-	  aGame->turn);
-  
-  fprintf(reportFP, "  <race name=\"%s\"", safename(P->name));
-
-  if (P->pswdstate != 2) {
-    fprintf(reportFP, " password=\"%s\"",
-	    safename(P->pswd));
-  }
-  fprintf(reportFP, ">\n");
+	  "  <version>%d.%d.%d</version>\n",
+	  GNG_MAJOR, GNG_MINOR, GNG_RELEASE);
 }
 
-/* report global or personnal messages */
-void
-rMM_XML(game* aGame, player *P, strlist *messages, char *c)
+static void
+rTrailer(game* aGame, player* P, int level)
 {
-  strlist        *s;
-  int             nb_mes = 0;
-
-  s = messages;
-  nb_mes = numberOfElements(s);	/* Sorry, only the number of lines is *
-				 * counted. */
-
-  s = messages;
-  if (messages) {
-    fprintf(reportFP, "    <messages type=\"%s\" lines=\"%i\" >\n",
-	    c, nb_mes);
-    while (s) {
-      fprintf(reportFP, "%s\n", safename(s->str));
-      s = s->next;
-    }
-    fprintf(reportFP, "    </messages>\n");
-  }
+  fprintf(fpR, "</galaxy>\n");
 }
-/* report game options CB-20010401*/
-void
-rGO_XML(game* aGame)
-{
 
-  if (aGame->gameOptions.gameOptions & GAME_NONGBOMBING)
-    fprintf(reportFP, "    <full_bombing/>\n");
-
-  if (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION)
-    fprintf(reportFP, "    <keep_production/>\n");
-
-  if (aGame->gameOptions.gameOptions & GAME_NODROP)
-    fprintf(reportFP, "    <dont_drop_dead/>\n");
-
-  if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY)
-    fprintf(reportFP, "    <spherical_galaxy/>\n");
-
-  fprintf(reportFP,
-	  "    <initialtechlevels>\n"
-	  "      <drive>%.2f</drive>\n"
-	  "      <weapons>%.2f</weapons>\n"
-	  "      <shields>%.2f</shields>\n"
-	  "      <cargo>%.2f</cargo>\n"
-	  "    </initialtechlevels>\n",
-	  aGame->gameOptions.initial_drive,\
-	  aGame->gameOptions.initial_weapons,\
-	  aGame->gameOptions.initial_shields,\
-	  aGame->gameOptions.initial_cargo);
-}
-/* report options */
-void
-rOP_XML(game* aGame, player *P)
-{
-  option         *curOption;
-
-  int             nb_opt = 0;
-
-  curOption = options;
-  while (curOption->optionName) {
-    nb_opt++;
-    curOption++;
-  }
-
-   fprintf(reportFP, "    <options>\n");
-
-  for (curOption = options; curOption->optionName; curOption++) {
-    if (P->flags&curOption->optionMask)
-      fprintf(reportFP, "      <%s/>\n", curOption->optionName);
-  }
-
-  fprintf(reportFP, "    </options>\n");
-}
 /* report orders */
 void
-rOD_XML(game* aGame, player *P)
+rOrders(game* aGame, player *P, int level)
 {
-  strlist        *s;
-  int             nb_ord = 0;
-  int             i = 1;
+  strlist* s;
+  char     indent[64];
+
+  int      nb_ord = 0;
+  int      i = 1;
+  int      lastLineType = 0;
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  /* if a line begins with a + sign then that is an indication that
+     this is an error line and we need to do a little extra work */
 
   s = P->orders;
   nb_ord = numberOfElements(s);
 
-  if (nb_ord == 0) {
-    fprintf(reportFP, "    <orders/>\n");
-  }
-  else {
-    fprintf(reportFP, "    <orders>\n");
+  if (nb_ord) {
+    fprintf(fpR, "%s<orders>\n", indent);
 
     if (P->orders) {
       for (s = P->orders; s; s = s->next) {
-	fprintf(reportFP, "      <line num=\"%d\">%s</line>\n",
-		i++, safename(s->str));
+	if (*(s->str) == '+') {
+	  lastLineType = 1;
+	  fprintf(fpR, "\n");
+	  switch(*((s->str)+1)) {
+	  case 'I':
+	    fprintf(fpR, "%s    <info>%s</info>\n",
+		    indent, safename((s->str)+3));
+	    break;
+
+	  case 'W':
+	    fprintf(fpR, "%s    <warning>%s</warning>\n",
+		    indent, safename((s->str)+3));
+	    break;
+
+	  case 'E':
+	    fprintf(fpR, "%s    <error>%s</error>\n",
+		    indent, safename((s->str)+3));
+	    break;
+	  }
+	}
+	else {
+	  if (i != 1) {
+	    if (lastLineType == 0)
+	      fprintf(fpR, "</line>\n");
+	    else
+	      fprintf(fpR, "%s  </line>\n", indent);
+	  }
+	  fprintf(fpR, "%s  <line num=\"%d\">%s",
+		  indent, i++, safename(s->str));
+	  lastLineType = 0;
+	}
       }
     }
-    fprintf(reportFP, "    </orders>\n");
+    if (lastLineType == 0)
+      fprintf(fpR, "</line>\n");
+    else
+      fprintf(fpR, "%s  </line>\n", indent);
+    fprintf(fpR, "%s</orders>\n", indent);
   }
 }
 
@@ -246,15 +218,15 @@ rMK_XML(game* aGame, player *P)
   nb_mis = numberOfElements(s);	/* number of lines in fact */
 
   if (nb_mis == 0) {
-    fprintf(reportFP, "    <mistakes/>\n");
+    fprintf(fpR, "    <mistakes/>\n");
   }
   else {
-    fprintf(reportFP, "    <mistakes>\n");
+    fprintf(fpR, "    <mistakes>\n");
     for (s = P->mistakes; s; s = s->next) {
-      fprintf(reportFP, "      <line num=\"%d\">%s</line>\n",
+      fprintf(fpR, "      <line num=\"%d\">%s</line>\n",
 	      i++, safename(s->str));
     }
-    fprintf(reportFP, "    </mistakes>\n");
+    fprintf(fpR, "    </mistakes>\n");
   }
 }
 
@@ -268,9 +240,9 @@ rST_XML(game* aGame, player *P)
   P2 = aGame->players;
   nb_pla = numberOfElements(P2);
 
-  fprintf(reportFP, "    <playerlist>\n");
+  fprintf(fpR, "    <playerlist>\n");
   for (P2 = aGame->players; P2; P2 = P2->next) {
-    fprintf(reportFP,
+    fprintf(fpR,
 	    "      <player name=\"%s\">\n"
 	    "        <drive>%.2f</drive>\n"
 	    "        <weapons>%.2f</weapons>\n"
@@ -283,28 +255,28 @@ rST_XML(game* aGame, player *P)
 	    P2->totPop, P2->totInd, P2->numberOfPlanets);
 
     if (P2 != P) {
-      fprintf(reportFP, "        <diplomatic>%s</diplomatic>\n",
+      fprintf(fpR, "        <posture>%s</posture>\n",
 	      (atwar(P, P2) ? "War" : "Peace"));
     }
     else {
-      fprintf(reportFP, "        <diplomatic>-</diplomatic>\n");
+      fprintf(fpR, "        <posture>-</posture>\n");
     }
 
     if (P2->addr[0]) {
       if (P2->flags & F_ANONYMOUS) {
-	fprintf(reportFP, "        <address>anonymous</address>\n");
+	fprintf(fpR, "        <address>anonymous</address>\n");
       }
       else {
-	fprintf(reportFP, "        <address>%s</address>\n",
+	fprintf(fpR, "        <address>%s</address>\n",
 		safename(P2->addr));
       }
     }
     else {
-      fprintf(reportFP, "        <address>none</address>\n");
+      fprintf(fpR, "        <address>none</address>\n");
     }
-    fprintf(reportFP, "      </player>\n");
+    fprintf(fpR, "      </player>\n");
   }
-  fprintf(reportFP, "    </playerlist>\n");
+  fprintf(fpR, "    </playerlist>\n");
 }
 
 /* report ship types */
@@ -327,10 +299,10 @@ rSH_XML(game* aGame, player *P)
   }
 
   if (nbr_typ == 0) {
-    fprintf(reportFP, "    <shiptypes/>\n");
+    fprintf(fpR, "    <shiptypes/>\n");
   }
   else {
-    fprintf(reportFP, "    <shiptypes>\n");
+    fprintf(fpR, "    <shiptypes>\n");
       
     for (P2 = aGame->players; P2; P2 = P2->next) {
       if ((P2 eq P) || visibleShipTypes(aGame, P2, P)) {
@@ -338,9 +310,9 @@ rSH_XML(game* aGame, player *P)
 	  if ((t->flag) || (P eq P2)) {
 	    /* the following printf is split in 2 because
 	       safename uses a static buffer */
-	    fprintf( reportFP,
+	    fprintf( fpR,
 		    "      <type owner=\"%s\"", safename(P2->name));
-	    fprintf(reportFP,
+	    fprintf(fpR,
 		    " name=\"%s\">\n"
 		    "        <drive>%.2f</drive>\n"
 		    "        <attacks>%d</attacks>\n"
@@ -354,723 +326,1020 @@ rSH_XML(game* aGame, player *P)
 	}
       }
     }
-    fprintf(reportFP, "    </shiptypes>\n");
+    fprintf(fpR, "    </shiptypes>\n");
   }
 }
 
 
-/* report battles */
-/* patched this to fix nested loops using same variables */
 
+/* output game section */
 void
-rBT_XML(game* aGame, player *P)
+rGame(game* aGame, player* P, int level, int RorF)
 {
+  fprintf(fpR, "%*.*s<game name=\"%s\">\n",
+	  level, level, " ", aGame->name);
+
+  rFeatures(aGame, P, level+2);		/* features */
+  rTurn(aGame, P, level+2, RorF);
+
+  fprintf(fpR, "%*.*s</game>\n", level, level, " ");
+
+  return;
+}
+
+
+static void
+rFeatures(game* aGame, player* P, int level)
+{
+  char indent[64];
+  sprintf(indent, "%*.*s", level, level, " ");
+  fprintf(fpR, "%s<features>\n      <size>%.2f</size>\n",
+	  indent, aGame->galaxysize);
+  fprintf(fpR,
+	  "%s  <numWorlds>%d</numWorlds>\n",
+	  indent, numberOfElements(aGame->planets));
+  fprintf(fpR,
+	  "%s  <numRaces>%d</numRaces>\n",
+	  indent, numberOfElements(aGame->players));
+
+
+  fprintf(fpR, "%s  <fullBombing status=\"%s\"/>\n", indent,
+	  aGame->gameOptions.gameOptions & GAME_NONGBOMBING ? "ON" : "OFF");
+
+
+  fprintf(fpR, "%s  <keepProduction status=\"%s\"/>\n", indent,
+	  aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION ? "ON" : "OFF");
+
+  
+  fprintf(fpR, "%s  <dontDropDead status=\"%s\"/>\n", indent,
+	  aGame->gameOptions.gameOptions & GAME_NODROP ? "ON" : "OFF");
+
+  
+  fprintf(fpR, "%s  <sphericalGalaxy status=\"%s\"/>\n", indent,
+	  aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY ? "ON" : "OFF");
+
+  fprintf(fpR,
+	  "%s</features>\n", indent);
+}
+
+static void
+rTurn(game* aGame, player* P, int level, int RorF)
+{
+  char indent[64];
+  sprintf(indent, "%*.*s", level, level, " ");
+  fprintf(fpR, "%s<turn num=\"%d\">\n", indent, aGame->turn);
+  rRace(aGame, P, level+2, RorF);
+  fprintf(fpR, "%s</turn>\n", indent);
+}
+
+static void
+rRace(game* aGame, player* P, int level, int RorF)
+{
+  option*  curOption;
+  strlist* s;
+  char     indent[64];
+
+  int      nb_opt = 0;
+  int      nbr_msgs[2];
+
+  sprintf(indent, "%*.*s", level, level, " ");
+  fprintf(fpR, "%s<race name=\"%s\"", indent, safename(P->name));
+  fprintf(fpR, " password=\"%s\">\n", safename(P->pswd));
+  fprintf(fpR, "%s  <options>\n", indent);
+
+  curOption = options;
+  while (curOption->optionName) {
+    nb_opt++;
+    curOption++;
+  }
+
+  for (curOption = options; curOption->optionName; curOption++) {
+    fprintf(fpR, "%s    <%s status=\"%s\"/>\n", indent, curOption->optionName,
+	    P->flags&curOption->optionMask ? "ON" : "OFF");
+  }
+
+  fprintf(fpR, "%s  </options>\n", indent);
+  s = aGame->messages;
+  nbr_msgs[0] = numberOfElements(s);
+  s = P->messages;
+  nbr_msgs[1] = numberOfElements(s);
+  if (nbr_msgs[0] || nbr_msgs[1]) {
+    fprintf(fpR, "%s  <messages>\n", indent);
+    if (nbr_msgs[0])
+      rMessages(aGame, P, aGame->messages, "global", level+4, nbr_msgs[0]);
+    if (nbr_msgs[1])
+      rMessages(aGame, P, P->messages, "personal", level+4, nbr_msgs[1]);
+    fprintf(fpR, "%s  </messages>\n", indent);
+  }
+
+  rReport(aGame, P, level+2, RorF);
+  fprintf(fpR, "%s</race>\n", indent);
+}
+
+
+/* report global or personal messages */
+static void
+rMessages(game* aGame, player *P, strlist *messages, char *c,
+	  int level, int nb_mes)
+{
+  strlist* s;
+  char     indent[64];
+  
+  int      seq = 1;
+
+  s = messages;
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  fprintf(fpR, "%s<message type=\"%s\" lines=\"%d\" >\n",
+	  indent, c, nb_mes);
+  while (s) {
+    fprintf(fpR, "%s  <line seq=\"%d\">%s</line>\n",
+	    indent, seq, safename(s->str));
+    s = s->next;
+    seq++;
+  }
+  fprintf(fpR, "%s</message>\n", indent);
+}
+
+
+static void
+rReport(game* aGame, player* P, int level, int RorF)
+{
+  char indent[64];
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  switch (RorF) {
+  case Report:
+    fprintf(fpR, "%s<report>\n", indent);
+    break;
+
+  case Forecast:
+    fprintf(fpR, "%s<forecast>\n", indent);
+    break;
+  }
+
+  rOrders(aGame, P, level+2);
+  rStatus(aGame, P, level+2);
+
+  if (RorF == Report)
+    rAlienRaces(aGame, P, level+2);
+
+  if (RorF == Report || P->flags & F_SHIPTYPEFORECAST)
+    rDesigns(aGame, P, level+2);
+  
+  if (RorF == Report) {
+    rBattles(aGame, P, level+2);
+    rBombings(aGame, P, level+2);
+    rMap(aGame, P, level+2);
+  }
+
+  if (RorF == Report) {
+    rIncoming(aGame, P, level+2);
+  }
+
+  if (RorF == Report || P->flags & F_ROUTESFORECAST)
+    rRoutes(aGame, P, level+2);
+
+  if (RorF == Report || P->flags & F_PLANETFORECAST)
+    rIdentifiedWorlds(aGame, P, level+2, RorF);
+
+  if (RorF == Report) {
+    rUnidentifiedWorlds(aGame, P, level+2);
+    rUninhabitedWorlds(aGame, P, level+2);
+  }
+
+  if (RorF == Report || P->flags & F_GROUPFORECAST) {
+    rGroups(aGame, P, level+2, RorF);
+    rFleets(aGame, P, level+2);
+  }
+
+  switch (RorF) {
+  case Report:
+    fprintf(fpR, "%s</report>\n", indent);
+    break;
+
+  case Forecast:
+    fprintf(fpR, "%s</forecast>\n", indent);
+    break;
+  }
+
+
+}
+
+static void
+rStatus(game* aGame, player* P, int level)
+{
+  char indent[64];
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  fprintf(fpR, "%s<status>\n", indent);
+  showTech(P, level+2);
+  fprintf(fpR, "%s  <numPlanets>%d</numPlanets>\n",
+	  indent, P->numberOfPlanets);
+  fprintf(fpR, "%s  <population>%d</population>\n", indent, (int)P->totPop);
+  fprintf(fpR, "%s  <industry>%.2f</industry>\n", indent, P->totInd);
+  fprintf(fpR, "%s  <stockpiles>\n", indent);
+  fprintf(fpR, "%s    <capital>%.2f</capital>\n", indent, P->totCap);
+  fprintf(fpR, "%s    <material>%.2f</material>\n", indent, P->totMat);
+  fprintf(fpR, "%s    <colonists>%.2f</colonists>\n", indent, P->totCol);
+  fprintf(fpR, "%s  </stockpiles>\n", indent);
+  fprintf(fpR, "%s</status>\n", indent);
+}
+
+static void
+rAlienRaces(game* aGame, player* P, int level)
+{
+  char indent[64];
+  player* P2;
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  fprintf(fpR, "%s<alienRaces>\n", indent);
+  for (P2 = aGame->players; P2; P2=P2->next) {
+    if (P2 == P)
+      continue;
+    fprintf(fpR, "%s  <alienRace name=\"%s\">\n", indent, safename(P2->name));
+    if (!(P->flags && F_ANONYMOUS)) {
+      fprintf(fpR, "%s    <address>%s</address>\n", indent, P2->addr);
+    }
+    showTech(P2, level+4);
+    fprintf(fpR, "%s    <state>%s</state>\n",
+	    indent, (atwar(P, P2) ? "War" : "Peace"));
+    fprintf(fpR, "%s  </alienRace>\n", indent);
+  }
+  fprintf(fpR, "%s</alienRaces>\n", indent);
+}
+
+
+static void 
+showTech(player* P, int level)
+{
+  char indent[64];
+  sprintf(indent, "%*.*s", level, level, " ");
+  fprintf(fpR, "%s<tech>\n", indent);
+  fprintf(fpR, "%s  <drive>%.2f</drive>\n", indent, P->drive);
+  fprintf(fpR, "%s  <weapons>%.2f</weapons>\n", indent, P->weapons);
+  fprintf(fpR, "%s  <shields>%.2f</shields>\n", indent, P->shields);
+  fprintf(fpR, "%s  <cargo>%.2f</cargo>\n", indent, P->cargo);
+  fprintf(fpR, "%s</tech>\n", indent);
+}
+
+static void
+rDesigns(game* aGame, player* P, int level)
+{
+  shiptype* st;
+  char      indent[64];
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  if (numberOfElements(P->shiptypes) == 0) {
+    fprintf(fpR, "%s<designs/>\n", indent);
+    return;
+  }
+
+  fprintf(fpR, "%s<shiptypes>\n", indent);
+  for (st = P->shiptypes; st; st=st->next) {
+    fprintf(fpR, "%s  <shiptype name=\"%s\">\n", indent, safename(st->name));
+    fprintf(fpR, "%s    <drive>%.2f</drive>\n", indent, st->drive);
+    fprintf(fpR, "%s    <numAttacks>%d</numAttacks>\n", indent, st->attacks);
+    fprintf(fpR, "%s    <weapons>%.2f</weapons>\n", indent, st->weapons);
+    fprintf(fpR, "%s    <shields>%.2f</shields>\n", indent, st->shields);
+    fprintf(fpR, "%s    <cargo>%.2f</cargo>\n", indent, st->cargo);
+    fprintf(fpR, "%s  </shiptype>\n", indent);
+  }
+  fprintf(fpR, "%s</shiptypes>\n", indent);
+}
+
+static void
+rBattles(game* aGame, player* P, int level)
+{
+  char indent[64];
+
   battle         *b;
   participant    *r;
-  int             nbr_bat = 0;
+  int             header_output = 0;
+
+  sprintf(indent, "%*.*s", level, level, " ");
 
   for (b = aGame->battles; b; b = b->next) {
-    /*Count battles in which P is involved.*/
     for (r = b->participants; r; r = r->next) {
       if (r->who eq P) {
-	nbr_bat++;
-      }
-    }
-  }
-  
-  if (nbr_bat == 0) {
-    fprintf(reportFP, "    <battles/>\n");
-  }
-  else {
-    fprintf(reportFP, "    <battles>\n");
-    for (b = aGame->battles; b; b = b->next) {
-      for (r = b->participants; r; r = r->next) {
-	if (r->who eq P) {
-	  int             nbr_par = 0;
-	  participant	  *plr;
+	int             nbr_par = 0;
+	participant	  *plr;
 	  
-	  for (plr = b->participants; plr; plr = plr->next) {
-	    nbr_par++;
-	  }
-	  
-	  fprintf(reportFP, "      <battle location=\"%s\">\n",
-		  safename(b->where->name));
-	  
-	  for (plr = b->participants; plr; plr = plr->next) {
-	    group          *g;
-	    int             nbr_grp = 0;
-	    
-	    for (g = plr->groups; g; g = g->next) {
-	      nbr_grp++;
-	    }
-	    
-	    fprintf(reportFP, "      <groups name=\"%s\">\n",
-		    safename(plr->who->name));
-	    
-	    for (g = plr->groups; g; g = g->next) {
-	      rGP_XML(g, 0, G_MODE_BATTLE);
-	    }
-	    fprintf(reportFP, "      </groups>\n");
-	  }
-	  fprintf(reportFP, "    </battle>\n");
+	if (header_output == 0) {
+	  fprintf(fpR, "%s<battles>\n", indent);
+	  header_output = 1;
 	}
+
+	for (plr = b->participants; plr; plr = plr->next) {
+	  nbr_par++;
+	}
+	  
+	fprintf(fpR, "%s  <battle>\n", indent);
+	fprintf(fpR, "%s    <location>%s</location>\n",
+		indent, safename(b->where->name));
+
+	for (plr = b->participants; plr; plr = plr->next) {
+	  group          *g;
+	  int             nbr_grp = 0;
+	  
+	  for (g = plr->groups; g; g = g->next) {
+	    nbr_grp++;
+	  }
+	  
+	  fprintf(fpR, "%s    <battleGroups>\n", indent);
+	  fprintf(fpR, "%s      <owner>%s</owner>\n",
+		  indent, safename(plr->who->name));
+	  
+	  for (g = plr->groups; g; g = g->next) {
+	    fprintf(fpR, "%s      <battleGroup>\n", indent);
+	    fprintf(fpR, "%s        <numBefore>%d</numBefore>\n",
+		    indent, g->ships);
+	    fprintf(fpR, "%s        <sighting>\n", indent);
+	    fprintf(fpR, "%s          <model>%s</model>\n",
+		    indent, safename(g->type->name));
+	    fprintf(fpR, "%s          <velocity>%.2f</velocity>\n",
+		    indent, groupSpeed(g));
+	    fprintf(fpR, "%s          <numAttacks>%.2f</numAttacks>\n",
+		    indent, g->attack);
+	    fprintf(fpR, "%s          <weapon>%.2f</weapon>\n",
+		    indent, g->weapons);
+	    fprintf(fpR, "%s          <shield>%.2f</shield>\n",
+		    indent, g->shields);
+	    fprintf(fpR, "%s          <mass>%.2f</mass>\n",
+		    indent, shipmass(g)*g->ships);
+	    fprintf(fpR, "%s        </sighting>\n", indent);
+	    fprintf(fpR, "%s        <numAfter>%d</numAfter>\n",
+		    indent, g->left);
+	    fprintf(fpR, "%s      </battleGroup>\n", indent);
+	  }
+	  fprintf(fpR, "%s    </battleGroups>\n", indent);
+	}
+        if (P->flags & F_BATTLEPROTOCOL) {
+          int             i;
+          shot           *s;
+
+	  fprintf(fpR, "%s    <battleProtocol>\n", indent);
+          s = b->protocol->shots;
+          for (i = 0; i < b->protocol->cur; i++) {
+	    fprintf(fpR, "%s    <shot>\n", indent);
+	    fprintf(fpR, "%s      <attacker>\n", indent);
+	    fprintf(fpR, "%s        <name>%s</name>\n",
+		    indent, safename(s[i].attacker->name));
+	    fprintf(fpR, "%s        <type>%s</type>\n",
+		    indent, safename(s[i].atype->name));
+	    fprintf(fpR, "%s      </attacker>\n", indent);
+
+	    fprintf(fpR, "%s      <defender>\n", indent);
+	    fprintf(fpR, "%s        <name>%s</name>\n",
+		    indent, safename(s[i].target->name));
+	    fprintf(fpR, "%s        <type>%s</type>\n",
+		    indent, safename(s[i].ttype->name));
+	    fprintf(fpR, "%s      </defender>\n", indent);
+
+            if (s[i].result) {
+              fprintf(fpR, "%s      <result>destroyed</result>\n", indent);
+            }
+            else {
+              fprintf(fpR, "%s      <result>shields</result>\n", indent);
+            }
+	    fprintf(fpR, "%s    </shot>\n", indent);
+          }
+        }
+	fprintf(fpR, "%s  </battle>\n", indent);
       }
     }
-    fprintf(reportFP, "  </battles>\n");
   }
-  
+  if (header_output)
+    fprintf(fpR, "%s</battles>\n", indent);
 }
 
 
-
-
-/* report bombings */
-void
-rBB_XML(game* aGame, player *P)
+static void
+rBombings(game* aGame, player* P, int level)
 {
+  char indent[64];
+  bombing        *B;
+  alliance       *a;
+  int             nbr_bom = 0;
 
-  if (canseeBombing(aGame, P)) {
-    bombing        *B;
-    alliance       *a;
-    int             nbr_bom = 0;
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  if (!canseeBombing(aGame, P)) {
+    fprintf(fpR, "%s<bombings/>\n", indent);
+    return;
+  }
     
-    for (B = aGame->bombings; B; B = B->next)	{
-      for (a = B->viewers; a; a = a->next) {
-	if (a->who eq P) {
-	  nbr_bom++;
-	}
+  for (B = aGame->bombings; B; B = B->next)	{
+    for (a = B->viewers; a; a = a->next) {
+      if (a->who == P) {
+	nbr_bom++;
+	break;
       }
     }
+  }
     
-    if (nbr_bom == 0) {
-      fprintf(reportFP, "    <bombings/>\n");
+  if (nbr_bom == 0) {
+    fprintf(fpR, "%s<bombings/>\n", indent);
+    return;
+  }
+
+  fprintf(fpR, "%s<bombings>\n", indent);
+  for (B = aGame->bombings; B; B = B->next) {
+    for (a = B->viewers; a; a = a->next) {
+      if (a->who == P) {
+	break;
+      }
     }
-    else {
-      fprintf(reportFP, "    <bombings>\n");
-      for (B = aGame->bombings; B; B = B->next) {
-	for (a = B->viewers; a; a = a->next) {
-	  if (a->who eq P) {
-	    break;
-	  }
-	}
 	      
-	if (a) {
-	  fprintf(reportFP,
-		  "      <bombing attacker=\"%s\"", safename(B->who->name));
-	  fprintf(reportFP, " defender=\"%s\">\n", safename(B->owner->name));
-	  fprintf(reportFP,
-		  "        <planet>%s</planet>\n"
-		  "        <population>%.2f</population>\n"
-		  "        <industry>%.2f</industry>\n",
-		  B->name, B->pop, B->ind);
-		  
-	  if (B->producing eq PR_SHIP) {
-	    fprintf(reportFP, "        <producing>%s</producing>",
-		    safename(B->producingshiptype->name));
-	  }
-	  else {
-	    fprintf(reportFP, "        <producing>%s</producing>",
-		    productname[B->producing]);
-	  }
-		  
-	  fprintf(reportFP,
-		  "        <cap>%.2f</cap>\n"
-		  "        <mat>%.2f</mat>\n"
-		  "        <col>%.2f</col>\n"
-		  "      </bombing>\n",
-		  B->cap, B->mat, B->col);
-	}
-      }
-    }
-    fprintf(reportFP, "    </bombings>\n");
-  }
-  else {
-    fprintf(reportFP, "    <bombings/>\n");
-  }
-}
+    if (a) {
+      fprintf(fpR,
+	      "%s  <bombing>\n", indent);
+      fprintf(fpR,
+	      "%s    <owner>%s</owner>\n",
+	      indent, safename(B->who->name));
+      /*fprintf(fpR, " defender=\"%s\">\n", safename(B->owner->name));*/
+      fprintf(fpR,
+	      "%s    <location>%s</location>\n"
+	      "%s    <population>%.2f</population>\n"
+	      "%s    <industry>%.2f</industry>\n",
+	      indent, B->name, indent, B->pop, indent, B->ind);
 
-/* report text based map */
-void
-rMP_XML(game* aGame, player *P)
-{
-  player         *P2;
-  int             i, j;
-  group          *g;
-  planet         *p;
-  mapdimensions   mapDim;
-
-  mapDim.x1 = P->mx;
-  mapDim.x2 = P->mx + P->msize;
-  mapDim.y1 = P->my;
-  mapDim.y2 = P->my + P->msize;
-
-  fprintf(reportFP, "    <textmap>\n");
-
-  fprintf(reportFP,
-	  "      <xmin>%.2f</xmin>\n"
-	  "      <xmax>%.2f</xmax>\n"
-	  "      <ymin>%.2f</ymin>\n"
-	  "      <ymax>%.2f</ymax>\n",
-	  mapDim.x1, mapDim.x2, mapDim.y1, mapDim.y2);
-
-  memset(map, ' ', sizeof map);
-
-  for (P2 = aGame->players; P2; P2 = P2->next) {
-    if (P2 != P) {
-      for (g = P2->groups; g; g = g->next) {
-	putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '-');
-      }
-    }
-  }
-
-  for (g = P->groups; g; g = g->next) {
-    putmap(&mapDim, groupx(aGame, g), groupy(aGame, g), '.');
-  }
-
-  for (p = aGame->planets; p; p = p->next) {
-    if (!p->owner) {
-      putmap(&mapDim, p->x, p->y, 'o');
-    }
-  }
-
-  for (p = aGame->planets; p; p = p->next) {
-    if (p->owner && p->owner != P) {
-      putmap(&mapDim, p->x, p->y, '+');
-    }
-  }
-
-  for (p = aGame->planets; p; p = p->next) {
-    if (p->owner eq P) {
-      putmap(&mapDim, p->x, p->y, '*');
-    }
-  }
-
-  for (i = 0; i != MAPHEIGHT; i++) {
-    for (j = 0; j != MAPWIDTH; j++) {
-      if (map[j][i] != ' ') {
-	fprintf(reportFP,
-		"      <symbol x=\"%d\" y=\"%d\">%c</symbol>\n",
-		j, i, map[j][i]);
-      }
-    }
-  }
-
-  fprintf(reportFP, "    </textmap>\n");
-}
-
-/* report incoming */
-void
-rIC_XML(game* aGame, player *P)
-{
-  int             nbr_inc = 0;
-  player         *P2;
-
-  nbr_inc = 0;
-  for (P2 = aGame->players; P2; P2 = P2->next) {
-    if (P2 != P) {
-      group          *g;
-
-      for (g = P2->groups; g; g = g->next) {
-	if (g->dist && g->where->owner eq P) {
-	  nbr_inc++;
-	}
-      }
-    }
-  }
-
-  if (nbr_inc == 0) {
-    fprintf(reportFP, "    <incoming/>\n");
-  }
-  else {
-    fprintf(reportFP, "    <incoming>\n");
-    for (P2 = aGame->players; P2; P2 = P2->next) {
-      if (P2 != P) {
-	group          *g;
-
-	for (g = P2->groups; g; g = g->next) {
-	  if (g->dist && g->where->owner eq P) {
-	    fprintf(reportFP,
-		    "      <group from=\"%s\">\n", safename(g->from->name));
-	    fprintf(reportFP,
-		    "        <where>%s</where>\n"
-		    "        <dist>%.2f</dist>\n",
-		    safename(g->where->name), g->dist);
-	    
-	    if (g->thefleet) {
-	      fprintf(reportFP,
-		      "        <speed>%.2f</speed>\n",
-		      g->thefleet->fleetspeed);
-	    }
-	    else {
-	      fprintf(reportFP,
-		      "        <speed>%.2f</speed>\n",
-		      g->type->drive * g->drive * DRIVEMAGIC /
-		      shipmass(g));
-	    }
-	    fprintf(reportFP,
-		    "        <mass>%.2f</mass>\n"
-		    "      </group>\n",
-		    shipmass(g) * g->ships);
-	  }
-	}
-      }
-    }
-    fprintf(reportFP, "    </incoming>\n");
-  }
-}
-
-
-/* report production tables */
-void
-rPT_XML(game* aGame, player *P)
-{
-  planet         *p;
-  int             nbr_pro = 0;
-
-  if (P->flags & F_PRODTABLE) {
-    for (p = aGame->planets; p; p = p->next) {
-      if (p->owner eq P && p->producing eq PR_SHIP) {
-	nbr_pro++;
-      }
-    }
-  }
-
-  if (nbr_pro == 0) {
-    fprintf(reportFP, "    <production/>\n");
-  }
-  else {
-    fprintf(reportFP, "    <production>\n");
-    for (p = aGame->planets; p; p = p->next) {
-      if (p->owner eq P && p->producing eq PR_SHIP) {
-	rPD_XML(p);
-      }
-    }
-    fprintf(reportFP, "</production>\n");
-  }
-}
-
-
-/* report production (it's a sub routine) */
-void
-rPD_XML(planet *p)
-{
-  double          mass;
-  double          theshipmass;
-  double          prog;
-
-  fprintf(reportFP,
-	  "      <planet name=\"%s\">\n", safename(p->name));
-  fprintf(reportFP,
-	  "        <ship>%s</ship>\n",
-	  safename(p->producingshiptype->name));
-
-  theshipmass = typemass(p->producingshiptype);
-  mass = theshipmass * INDPERSHIP;
-  prog = p->inprogress;
-  if (theshipmass > p->mat) {
-    mass += (theshipmass - p->mat) / p->resources;
-  }
-
-  fprintf(reportFP,
-	  "        <mass>%.2f</mass>\n"
-	  "        <progress>%.2f</progress>\n"
-	  "      </planet>\n",
-	  mass, prog);
-}
-
-
-/* report routes */
-void
-rRT_XML(game* aGame, player *P)
-{
-  int             nbr_rou = 0;
-  planet         *p;
-
-  for (p = aGame->planets; p; p = p->next) {
-    if (p->owner eq P && (p->routes[0] || p->routes[1] ||
-			  p->routes[2] || p->routes[3])) {
-      nbr_rou++;
-    }
-  }
-
-  if (nbr_rou == 0) {
-    fprintf(reportFP, "    <routes/>\n");
-  }
-  else {
-    fprintf(reportFP, "    <routes>\n");
-    for (p = aGame->planets; p; p = p->next) {
-      if (p->owner eq P && (p->routes[0] || p->routes[1] ||
-			    p->routes[2] || p->routes[3])) {
-	int             i;
-	for (i = 0; i != MAXCARGO; i++) {
-	  if (p->routes[i]) {
-	    fprintf(reportFP, "      <%s>\n", loadtypename[i]);
-	    fprintf(reportFP,
-		    "        <from>%s</from>\n", safename(p->name));
-	    fprintf(reportFP,
-		    "        <to>%s</to>\n", safename(p->routes[i]->name));
-	    fprintf(reportFP, "      </%s>\n", loadtypename[i]);
-	  }
-	}
-      }
-    }				/* for */
-    fprintf(reportFP, "    </routes>\n");
-  }
-}
-
-/* report (all) planets */
-void
-rAP_XML(game* aGame, player *P)
-{
-  planet         *p;
-  player         *P2;
-  int             nbr_pla;
-  int             total_planets = 0;
-
-  /* First : the player is the owner, or he can see the planet, owned by * 
-   * another player */
-  for (P2 = aGame->players; P2; P2 = P2->next) {
-    nbr_pla = 0;
-    for (p = aGame->planets; p; p = p->next) {	/* count planets */
-      if (
-	  ((P2 eq P) && (p->owner eq P)) ||
-	  ((P2 != P) && (p->owner eq P2) &&
-	   canseeplanet(P, p))
-	  ) {
-	nbr_pla++;
-      }
-    }
-
-    if (nbr_pla != 0) {
-      if (total_planets == 0) {
-	fprintf(reportFP, "    <planetlist>\n");
-      }
-      total_planets += nbr_pla;
-      /* examines all the planets */
-      for (p = aGame->planets; p; p = p->next) {
-	if (
-	    ((P2 eq P) && (p->owner eq P)) ||
-	    ((P2 != P) && (p->owner eq P2) &&
-	     canseeplanet(P, p))
-	    ) {
-	  /* if (p->owner eq P || (isunidentified(P, p) && *
-	   * canseeplanet(P,p))) */
-	  rPL_XML(p, P2->name);
-	}
-      }
-    }
-  }
-
-  /* Second : planets owned by others players, but not visible */
-  for (p = aGame->planets; p; p = p->next) { /* count planets */ 
-    if (p->owner != P && isunidentified(P, p) && !canseeplanet(P, p)) {
-      nbr_pla++;
-    }
-  }
-
-  if (nbr_pla) {
-    if (total_planets == 0) {
-      fprintf(reportFP, "    <planetlist>\n");
-    }
-    total_planets += nbr_pla;
-
-    for (p = aGame->planets; p; p = p->next) { /* examines all the planets */
-      if (p->owner != P && isunidentified(P, p) && !canseeplanet(P, p)) {
-	fprintf(reportFP,
-		"      <planet name=\"%s\">\n"
-		"        <owner>unidentified</owner>\n"
-		"        <x>%.2f</x>\n"
-		"        <y>%.2f</y>\n"
-		"      </planet>\n",
-		safename(p->name), p->x, p->y);
-      }
-    }
-  }
-
-  /* Third : uninhabited planets */
-  nbr_pla = 0;
-  for (p = aGame->planets; p; p = p->next) { /* count planets */
-    if (isuninhabited(P, p)) {
-      nbr_pla++;
-    }
-  }
-
-  if (nbr_pla) {
-    if (total_planets == 0) {
-      fprintf(reportFP, "    <planetlist>\n");
-    }
-    total_planets += nbr_pla;
-
-    for (p = aGame->planets; p; p = p->next) {	/* examines all the planets */
-      if (isuninhabited(P, p)) {
-	fprintf(reportFP,
-		"      <planet name=\"%s\">\n"
-		"        <owner>uninhabited</owner>\n"
-		"        <x>%.2f</x>\n"
-		"        <y>%.2f</y>\n",
-		safename(p->name), p->x, p->y);
-
-	if (canseeplanet(P, p)) {
-	  fprintf(reportFP,
-		  "        <size>%.2f</size>\n"
-		  "        <resources>%.2f</resources>\n",
-		  p->size, p->resources);
-	}
-	fprintf(reportFP, "      </planet>\n");
-      }
-    }
-  }
-
-  if (total_planets == 0) {
-    fprintf(reportFP, "    <planetlist/>\n");
-  }
-  else {
-    fprintf(reportFP, "    </planetlist>\n");
-  }
-}
-
-/* report groups */
-void
-rGG_XML(game* aGame, player *P)
-{
-
-  int             nbr_grp = 0;
-  group          *g;
-
-  for (g = P->groups; g; g = g->next) {
-    if (!g->thefleet) {
-      nbr_grp++;
-    }
-  }
-
-  if (nbr_grp == 0) {
-    fprintf(reportFP, "      <groups owner=\"%s\"/>\n", safename(P->name));
-  }
-  else {
-    planet         *p;
-
-    fprintf(reportFP, "      <groups owner=\"%s\">\n", safename(P->name));
-    for (p = aGame->planets; p; p = p->next) {	/* First : player's planets */
-      if (p->owner eq P) {
-	for (g = P->groups; g; g = g->next) {
-	  if (!g->thefleet) { /* It's not a fleet */
-	    if ((g->location eq p) ||
-		(!g->location && g->where eq p)) {
-	      rGP_XML(g, g->number, G_MODE_OWN);
-	    }
-	  }
-	}
-      }
-    }
-    
-    /* Next : planets owned by others players */
-    for (p = aGame->planets; p; p = p->next) {
-      if (p->owner && p->owner != P) {
-	for (g = P->groups; g; g = g->next) {
-	  if (!g->thefleet) {
-	    if ((g->location eq p) ||
-		(!g->location && g->where eq p)) {
-	      rGP_XML(g, g->number, G_MODE_OWN);
-	    }
-	  }
-	}
-      }
-    }
-    
-    /* Next : uninhabited planets */
-    for (p = aGame->planets; p; p = p->next) {
-      if (!p->owner) {
-	for (g = P->groups; g; g = g->next) {
-	  if (!g->thefleet) {
-	    if ((g->location eq p) ||	/* bje: doubled groups fixed */
-		(!g->location && g->where eq p)) {
-	      rGP_XML(g, g->number, G_MODE_OWN);
-	    }
-	  }
-	}
-      }
-    }
-    
-    fprintf(reportFP, "      </groups>\n");
-  }
-}
-
-/* Report groups seen */
-void
-rGS_XML(game* aGame, player *P)
-{
-  player         *P2;
-
-  for (P2 = aGame->players; P2; P2 = P2->next) {
-    if (P2 != P) {
-      int             nbr_grp = 0;
-      group          *g;
-
-      for (g = P2->groups; g; g = g->next) {
-	if (canseegroup(P, g)) {
-	  nbr_grp++;
-	}
-      }
-
-      if (nbr_grp == 0) {
-	fprintf(reportFP, "      <groups owner=\"%s\"/>\n",
-		safename(P2->name));
+      fprintf(fpR,
+	      "%s    <stockpiles>\n", indent);
+      fprintf(fpR,
+	      "%s      <capital>%.2f</capital>\n"
+	      "%s      <material>%.2f</material>\n"
+	      "%s      <colonists>%.2f</colonists>\n",
+	      indent, B->cap, indent, B->mat, indent, B->col);
+      fprintf(fpR,
+	      "%s    </stockpiles>\n", indent);
+      if (B->producing eq PR_SHIP) {
+	fprintf(fpR,
+		"%s    <production>%s</production>\n",
+		indent, safename(B->producingshiptype->name));
       }
       else {
-	group          *g;
-	      
-	fprintf(reportFP, "      <groups owner=\"%s\">\n", safename(P2->name));
+	fprintf(fpR,
+		"%s    <production>%s</production>\n",
+		indent, productname[B->producing]);
+      }
+      fprintf(fpR,
+	      "%s  </bombing>\n", indent);
+    }
+  }
+
+  fprintf(fpR, "%s</bombings>\n", indent);
+
+}
+
+static void 
+rMap(game* aGame, player* P, int level)
+{
+  char     indent[64];
+  player*  P2;
+  group*   g;
+  int      height;
+  int      width;
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  height = (int) (P->msize * MAPHEIGHT);
+  width  = (int) (P->msize * MAPWIDTH);
+
+  fprintf(fpR, "%s<map>\n", indent);
+  fprintf(fpR, "%s  <ulx>%.2f</ulx>\n", indent, P->mx);
+  fprintf(fpR, "%s  <uly>%.2f</uly>\n", indent, P->my);
+  fprintf(fpR, "%s  <lrx>%.2f</lrx>\n", indent, P->mx+P->msize);
+  fprintf(fpR, "%s  <lry>%.2f</lry>\n", indent, P->my+P->msize);
+
+  for (P2 = aGame->players; P2; P2 = P2->next) {
+    if (P2 != P) {
+      for (g = P2->groups; g; g = g->next) {
+        if (groupLocation(aGame, g) == NULL) {
+	  fprintf(fpR, "%s  <group>\n%s    <position>\n", indent, indent);
+	  fprintf(fpR, "%s      <x>%.2f</x>\n",
+		  indent, (groupx(aGame, g) - P->mx) / width);
+	  fprintf(fpR, "%s      <y>%.2f</y>\n",
+		  indent, (groupy(aGame, g) - P->my) / height);
+	  fprintf(fpR, "%s    </position\n%s  </group>\n", indent, indent);
+	}
+      }
+    }
+  }
+
+  fprintf(fpR, "%s</map>\n", indent);
+}
+
+static void 
+rIdentifiedWorlds(game* aGame, player* P, int level, int flag)
+{
+  char    indent[64];
+  planet* pt;
+  player* p2;
+  
+  int     header_output;
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  
+  for (p2 = aGame->players; p2; p2 = p2->next) {
+    if (flag == Forecast && p2 != P)
+	continue;
+    header_output = 0;
+    for (pt = aGame->planets; pt; pt=pt->next) {
+      if (pt->owner == p2 && canseeplanet(P, pt)) {
+	if (!header_output) {
+	  fprintf(fpR, "%s<identifiedWorlds owner=\"%s\">\n",
+		  indent, p2->name);
+	  header_output = 1;
+	}
+	fprintf(fpR, "%s  <world name=\"%s\">\n", indent, pt->name);
+	fprintf(fpR, "%s    <position>\n%s      <x>%.2f</x>\n"
+		"%s      <y>%.2f</y>\n%s    </position>\n",
+		indent, indent, pt->x, indent, pt->y, indent);
+	fprintf(fpR, "%s    <resources>%.2f</resources>\n",
+		indent, pt->resources);
+	fprintf(fpR, "%s    <size>%.2f</size>\n", indent, pt->size);
+	fprintf(fpR, "%s    <population>%.2f</population>\n",
+		indent, pt->pop);
+	fprintf(fpR, "%s    <industry>%.2f</industry>\n", indent, pt->ind);
+	fprintf(fpR, "%s    <stockpiles>\n", indent);
+	fprintf(fpR,
+		"%s      <capital>%.2f</capital>\n"
+		"%s      <material>%.2f</material>\n"
+		"%s      <colonists>%.2f</colonists>\n",
+		indent, pt->cap, indent, pt->mat, indent, pt->col);
+	fprintf(fpR, "%s    </stockpiles>\n", indent);
+	if (pt->producing == PR_SHIP) {
+	  fprintf(fpR,
+		  "%s    <production>%s</production>\n",
+		  indent, safename(pt->producingshiptype->name));
+	}
+	else {
+	  fprintf(fpR,
+		  "%s    <production>%s</production>\n",
+		  indent, productname[pt->producing]);
+	}
+	fprintf(fpR, "%s  </world>\n", indent);
+      }
+    }
+    if (header_output)
+      fprintf(fpR, "%s</identifiedWorlds>\n", indent);
+  }
+}
+
+static void
+rUnidentifiedWorlds(game* aGame, player* P, int level)
+{
+  planet* pt;
+  char    indent[64];
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  fprintf(fpR, "%s<unidentifiedWorlds>\n", indent);
+  for (pt = aGame->planets; pt; pt = pt->next) {
+    if (isunidentified(P, pt)) {
+      fprintf(fpR, "%s  <world name=\"%s\">\n", indent, safename(pt->name));
+      fprintf(fpR, "%s    <position>\n%s      <x>%.2f</x>\n"
+	      "%s      <y>%.2f</y>\n%s    </position>\n",
+	      indent, indent, pt->x, indent, pt->y, indent);
+      fprintf(fpR, "%s  </world>\n", indent);
+    }
+  }
+  fprintf(fpR, "%s</unidentifiedWorlds>\n", indent);
+}
+
+static void
+rUninhabitedWorlds(game* aGame, player* P, int level)
+{
+  planet* pt;
+  char    indent[64];
+  int     header_output = 0;
+  
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  for (pt = aGame->planets; pt; pt = pt->next) {
+    if (isuninhabited(P, pt)) {
+      if (header_output == 0) {
+	fprintf(fpR, "%s<uninhabitedWorlds>\n", indent);
+	header_output = 1;
+      }
+
+      fprintf(fpR, "%s  <world name=\"%s\">\n", indent, pt->name);
+      fprintf(fpR, "%s    <position>\n%s      <x>%.2f</x>\n"
+	      "%s      <y>%.2f</y>\n",
+	      indent, indent, pt->x, indent, pt->y);
+      fprintf(fpR, "%s    </position>\n", indent);
+      if (canseeplanet(P, pt)) {
+	fprintf(fpR, "%s    <size>%.2f</size>\n", indent, pt->size);
+	fprintf(fpR, "%s    <resources>%.2f</resources>\n", indent,
+		pt->resources);
+	fprintf(fpR, "%s    <stockpiles>\n", indent);
+	fprintf(fpR,
+		"%s      <capital>%.2f</capital>\n"
+		"%s      <material>%.2f</material>\n"
+		"%s      <colonists>%.2f</colonists>\n",
+		indent, pt->cap, indent, pt->mat, indent, pt->col);
+	fprintf(fpR, "%s    </stockpiles>\n", indent);
+      }
+      fprintf(fpR, "%s  </world>\n", indent);
+    }
+  }
+
+  if (header_output)
+    fprintf(fpR, "%s</uninhabitedWorlds>\n", indent);
+}
+
+
+static void
+rIncoming(game* aGame, player* P, int level)
+{
+  char    indent[64];
+  int     header_output = 0;
+  player* P2;
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  for (P2 = aGame->players; P2; P2=P2->next) {
+    if (P2 != P) {
+      group* g;
+
+      for (g = P2->groups; g; g = g->next) {
+	if (g->dist && g->where->owner == P) {
+	  if (header_output == 0) {
+	    fprintf(fpR, "%s<incomingGroups>\n", indent);
+	    header_output = 1;
+	  }
+
+	  fprintf(fpR, "%s  <group>\n", indent);
+	  fprintf(fpR, "%s    <from>%s</from>\n",
+		  indent, safename(g->from->name));
+	  fprintf(fpR, "%s    <destination>%s</destination>\n",
+		  indent, safename(g->where->name));
+	  fprintf(fpR, "%s    <remaining>%.2f</remaining>\n",
+		  indent, g->dist);
+	  if (g->thefleet)
+	    fprintf(fpR, "%s    <speed>%.2f</speed>\n",
+		    indent, g->thefleet->fleetspeed);
+	  else
+	    fprintf(fpR, "%s    <speed>%.2f</speed>\n",
+		    indent, g->type->drive*g->drive*DRIVEMAGIC/shipmass(g));
+	  fprintf(fpR, "%s    <mass>%.2f</mass>\n",
+		  indent, g->ships*shipmass(g));
+	  fprintf(fpR, "%s  </group>\n", indent);
+	}
+      }
+    }
+  }
+  if (header_output)
+    fprintf(fpR, "%s</incomingGroups>\n", indent);
+}
+
+static void
+rRoutes(game* aGame, player* P, int level)
+{
+  planet* pt;
+  char    indent[64];
+  int     header_output = 0;
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  for (pt = aGame->planets; pt; pt = pt->next) {
+    if (pt->owner == P &&
+	(pt->routes[0] ||
+	 pt->routes[1] ||
+	 pt->routes[2] ||
+	 pt->routes[3])) {
+      int i;
+
+      if (header_output == 0) {
+	fprintf(fpR, "%s<routes>\n", indent);
+	header_output = 1;
+      }
+
+      fprintf(fpR, "%s  <route>\n", indent);
+      fprintf(fpR, "%s    <world>%s</world>\n",
+	      indent, safename(pt->name));
+      for (i = 0; i < MAXCARGO; i++) {
+	if (pt->routes[i]) 
+	  fprintf(fpR, "%s    <%s>%s</%s>\n", indent, loadtypename[i],
+		  safename(pt->routes[i]->name), loadtypename[i]);
+      }
+      fprintf(fpR, "%s  </route>\n", indent);
+    }
+  }
+  if (header_output)
+    fprintf(fpR, "%s</routes>\n", indent);
+	  
+}
+
+static void
+rGroups(game* aGame, player* P, int level, int flag)
+{
+  char    indent[64];
+  int     header_output = 0;
+  planet* pt;
+  player* P2;
+  group*  g;
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
+  for (P2 = aGame->players; P2; P2 = P2->next) {
+    if (P2 != P && flag == Forecast)
+      continue;
+    if (!P2->groups)
+      continue;
+    header_output = 0;
+
+    for (pt = aGame->planets; pt; pt = pt->next) {
+      if (pt->owner == P) {
 	for (g = P2->groups; g; g = g->next) {
-	  if (canseegroup(P, g)) {
-	    rGP_XML(g, 0, G_MODE_ALIEN);
+	  if (!g->thefleet) { /* It's not a fleet */
+	    if ((g->location == pt) ||
+		(!g->location && g->where == pt)) {
+
+	      if (header_output == 0) {
+		fprintf(fpR, "%s<groups owner=\"%s\">\n",
+			indent, safename(P2->name));
+		header_output = 1;
+	      }
+
+	      fprintf(fpR, "%s  <group>\n", indent);
+	      if (P2 == P)
+		fprintf(fpR, "%s    <id>%d</id>\n", indent, g->number);
+	      fprintf(fpR, "%s    <type>%s</type>\n",
+		      indent, safename(g->type->name));
+	      fprintf(fpR, "%s    <tech>\n", indent);
+	      fprintf(fpR, "%s      <drive>%.2f</drive>\n", indent, g->drive);
+	      fprintf(fpR, "%s      <weapons>%.2f</weapons>\n",
+		      indent, g->weapons);
+	      fprintf(fpR, "%s      <shields>%.2f</shields>\n",
+		      indent, g->shields);
+	      fprintf(fpR, "%s      <cargo>%.2f</cargo>\n", indent, g->cargo);
+	      fprintf(fpR, "%s    </tech>\n", indent);
+	      if (g->loadtype && g->loadtype != 3) {
+		fprintf(fpR, "%s    <loadtype>%s</loadtype>\n",
+			indent, loadtypename[g->loadtype]);
+		fprintf(fpR, "%s    <load>%.2f</load>\n", indent, g->load);
+	      }
+
+	      if (canseeplanet(P, g->where))
+		fprintf(fpR, "%s    <destination>%s</destination>\n",
+			indent, safename(g->where->name));
+
+	      if (P == P2) {
+		if (g->dist) {
+		  fprintf(fpR, "%s    <source>%s</source>\n",
+			  indent, safename(g->from->name));
+		  fprintf(fpR, "%s    <remaining>%.2f</remaining>\n",
+			  indent, g->dist);
+		}
+
+		if (g->thefleet) {
+		  fprintf(fpR, "%s    <speed>%.2f</speed>\n",
+			  indent, g->thefleet->fleetspeed);
+		  fprintf(fpR, "%s    <fleet>%s</fleet>\n",
+			  indent, safename(g->thefleet->name));
+		}
+		else {
+		  fprintf(fpR, "%s    <speed>%.2f</speed>\n",
+			  indent,
+			  g->type->drive*g->drive*DRIVEMAGIC/shipmass(g));
+		}
+	      }
+	      fprintf(fpR, "%s  </group>\n", indent);
+	    }
 	  }
 	}
-	fprintf(reportFP, "</groups>\n");
       }
     }
+    if (header_output)
+      fprintf(fpR, "%s</groups>\n", indent);
   }
+    
 }
 
-/* Report fleets */
-void
-rFL_XML(game* aGame, player *P)
+static void
+rFleets(game* aGame, player* P, int level)
 {
+  char indent[64];
+
+  sprintf(indent, "%*.*s", level, level, " ");
+
   if (P->fleetnames) {
-    fleetname      *fl;
-    int             nbr_flt;
+    fleetname* fn;
+    int        i;
+    
+    fprintf(fpR, "%s<fleets>\n", indent);
+    for (i = 1, fn = P->fleetnames; fn; fn = fn->next, i++) {
+      group* g;
 
-    nbr_flt = numberOfElements(P->fleetnames);
-    fprintf(reportFP, "    <fleets>\n");
-
-    for (fl = P->fleetnames; fl; fl = fl->next) {
-      group          *g;
-      int             nbr_grp = 0;
-
-      for (g = P->groups; g; g = g->next) {
-	if (g->thefleet eq fl) {
-	  nbr_grp++;
-	}
+      for (g = P->groups; g; g=g->next) {
+	if (g->thefleet == fn)
+	  break;
       }
 
-      fprintf(reportFP,
-	      "      <fleet name=\"%s\">\n", safename(fl->name));
-      fprintf(reportFP,
-	      "        <speed>%.2f</speed>\n", fl->fleetspeed);
-      for (g = P->groups; g; g = g->next) {
-	if (g->thefleet eq fl) {
-	  rGP_XML(g, g->number, G_MODE_OWN);
+      fprintf(fpR, "%s  <fleet>\n", indent);
+      fprintf(fpR, "%s    <id>%s</id>\n", indent, fn->name);
+      fprintf(fpR, "%s    <size>%d</size>\n",
+	      indent, numOfGroupsInFleet(fn, P->groups));
+      if (g) {
+	if (canseeplanet(P, g->where)) {
+	  fprintf(fpR, "%s    <destination>%s</destination>\n",
+		  indent, safename(g->where->name));
 	}
+	if (g->dist) {
+	  fprintf(fpR, "%s    <distance>%.2f</distance>\n",
+		  indent, g->dist);
+	  fprintf(fpR, "%s    <from>%s</from>\n",
+		  indent, safename(g->from->name));
+	}
+	fprintf(fpR, "%s    <speed>%.2f</speed>\n",
+		indent, fn->fleetspeed);
       }
-      fprintf(reportFP, "      </fleet>\n");
+      fprintf(fpR, "%s  </fleet>\n", indent);
     }
-    fprintf(reportFP, "    </fleets>\n");
-  }
-  else {
-    fprintf(reportFP, "    <fleets/>\n");
+    fprintf(fpR, "%s</fleets>\n", indent);
   }
 }
 
 
-/* Write last line of file report */
 void
-rEN_XML()
+XMLPlanetsForecast(game* aGame, player *P, FILE* XMLreport)
 {
-  fprintf(reportFP, "  </nation>\n</report>\n");
-}
+  planet* p;
+  option* curOption;
+  char    indent[64];
 
-/* report groups (it's a sub routine) */
-void
-rGP_XML(group *g, int n, int mode)
-{
-  static int otherGroupNbr = 100000;
+  fpR = XMLreport;
 
-  if (mode eq G_MODE_OWN) {
-    fprintf(reportFP,
-	    "        <group num=\"%d\">\n", n);
-  }
-  else {
-    fprintf(reportFP,
-	    "        <group num=\"%d\">\n", otherGroupNbr++);
-  }
+  rXMLHeader(aGame, P);
 
-  if (mode eq G_MODE_BATTLE) {
-    fprintf(reportFP,	/* Quantity of surviving ships */
-	    "          <ships>%d</ships>\n", g->left); 
-  }
-  else {
-    fprintf(reportFP,
-	    "          <ships>%d</ships>\n", g->ships);
-  }
-
-  fprintf(reportFP,
-	  "              <name>%s</name>\n"
-	  "              <drive>%.2f</drive>\n"
-	  "              <weapons>%.2f</weapons>\n"
-	  "              <shields>%.2f</shields>\n"
-	  "              <cargo>%.2f</cargo>\n"
-	  "              <loadtype>%s</loadtype>\n"
-	  "              <load>%.2f</load>\n",
-	  safename(g->type->name), g->drive, g->weapons, g->shields,
-	  g->cargo, loadtypename[g->loadtype], g->load);
-
-  /*  if (mode != G_MODE_BATTLE)*/
-  fprintf(reportFP,
-	  "              <where>%s</where>\n",
-	  safename(g->where->name));
-
-  if (mode eq G_MODE_OWN) {
-    if (g->dist) {
-      fprintf(reportFP,
-	      "        <dist>%.2f</dist>\n"
-	      "        <from>%s</from>\n",
-	      g->dist, safename(g->from->name));
+  fprintf(fpR, "  <game name=\"%s\">\n", aGame->name);
+  rFeatures(aGame, P, 4);
+  fprintf(fpR, "    <turn num=\"%d\">\n", aGame->turn+1);
+  fprintf(fpR, "      <race name=\"%s\">\n", safename(P->name));
+  strcpy(indent, "        ");
+  fprintf(fpR, "%s<options>\n", indent);
+  for (curOption = options; curOption->optionName; curOption++) {
+    if (P->flags&curOption->optionMask) {
+      if (curOption->optionMask == F_ANONYMOUS)
+	continue;
+      fprintf(fpR, "%s  <%s/>\n", indent, curOption->optionName);
     }
-    /* else  { fprintf(reportFP, " %s %s", "", ""); *  * } */
   }
+  fprintf(fpR, "%s</options>\n", indent);
+  fprintf(fpR, "%s<forecast>\n", indent);
 
-  if (mode eq G_MODE_BATTLE) {
-    fprintf(reportFP,
-	    "        <shipsbefore>%d</shipsbefore>\n",
-	    g->ships); /* Quantity of ships BEFORE a battle */
+  rOrders(aGame, P, 10);
+
+  fprintf(fpR, "%s  <worlds>\n", indent);
+
+  for (p = aGame->planets; p; p = p->next) {
+    if (p->owner == P) {
+      fprintf(fpR, "%s    <world name=\"%s\">\n", indent, safename(p->name));
+      fprintf(fpR, "%s      <position>\n", indent);
+      fprintf(fpR, "%s        <x>%.2f</x>\n", indent, p->x);
+      fprintf(fpR, "%s        <y>%.2f</y>\n", indent, p->y);
+      fprintf(fpR, "%s      </position>\n", indent);
+
+      if (p->flags & PL_VISPREVTURN) {
+	fprintf(fpR, "%s      <resources>%.2f</resources>\n",
+		indent, p->resources);
+	fprintf(fpR, "%s      <size>%.2f</size>\n", indent, p->size);
+	fprintf(fpR, "%s        <population>%.2f</population>\n",
+		indent, p->pop);
+	fprintf(fpR, "%s        <industry>%.2f</industry>\n",
+		indent, p->ind);
+	fprintf(fpR, "%s      <stockpiles>\n", indent);
+	fprintf(fpR, "%s        <capital>%.2f</capital>\n",
+		indent, p->cap);
+	fprintf(fpR, "%s        <material>%.2f</material>\n",
+		indent, p->mat);
+	fprintf(fpR, "%s        <colonists>%.2f</colonists>\n",
+		indent, p->col);
+
+	fprintf(fpR, "%s      </stockpiles>\n", indent);
+
+	if (p->producing eq PR_SHIP)
+	  fprintf(fpR, "%s      <producing>%s</producing\n",
+		  indent, safename(p->producingshiptype->name));
+	else
+	  fprintf(fpR, "%s      <producing>%s</producing\n",
+		  indent, productname[p->producing]);
+      }
+      fprintf(fpR, "%s    </world>\n", indent);
+    }
   }
-  fprintf(reportFP, "      </group>\n");
+  fprintf(fpR, "%s  </worlds>\n", indent);
+  fprintf(fpR, "%s</forecast>\n", indent);
 
+  fprintf(fpR, "      </race>\n");
+  fprintf(fpR, "    </turn>\n");
+  fprintf(fpR, "  </game>\n");
+  fprintf(fpR, "</galaxy>\n");
 }
 
-/* report planets (it's a sub routine) */
+
+/****f* Report/yourStatusForecast
+ * NAME
+ *   yourStatusForecast
+ ******
+ */
+
 void
-rPL_XML(planet *p, char* owner)
+yourXMLStatusForecast(planet *planets, player *P, fielddef *fields)
 {
-  fprintf(reportFP,
-	  "      <planet name=\"%s\">\n", safename(p->name));
-  fprintf(reportFP,
-	  "        <owner>%s</owner>\n", safename(owner));
-  fprintf(reportFP,
-	  "        <x>%.2f</x>\n"
-	  "        <y>%.2f</y>\n"
-	  "        <size>%.2f</size>\n"
-	  "        <population>%.2f</population>\n"
-	  "        <industry>%.2f</industry>\n"
-	  "        <resources>%.2f</resources>\n",
-	  p->x, p->y, p->size, p->pop, p->ind, p->resources);
+  int             state;
+  planet         *p;
 
-  if (p->producing eq PR_SHIP) {
-    fprintf(reportFP,
-	    "        <producing> %s</producing>\n",
-	    safename(p->producingshiptype->name));
-  }
-  else {
-    fprintf(reportFP,
-	    "        <producing>%s</producing>\n",
-	    safename(productname[p->producing]));
+  for (p = planets; p; p = p->next) {
+    if (p->owner eq P) {
+      if (!(p->flags & PL_VISPREVTURN)) {
+        P->totInd -= p->ind;
+        P->totPop -= p->pop;
+      }
+    }
   }
 
-  fprintf(reportFP,
-	  "        <cap>%.2f</cap>\n"
-	  "        <mat>%.2f</mat>\n"
-	  "        <col>%.2f</col>\n",
-	  p->cap, p->mat, p->col);
+  fprintf(fields->destination, "\n\t\tYour Status\n\n");
+  formatReset(fields);
+  for (state = 0; state < 2; state++) {
 
-  fprintf(reportFP,
-	  "      </planet>\n");
+    formatLabels("N D W S C P I # R", "lcccccccc", fields);
+    formatString(P->name, fields);
+    formatFloat(P->drive, fields);
+    formatFloat(P->weapons, fields);
+    formatFloat(P->shields, fields);
+    formatFloat(P->cargo, fields);
+    formatFloat(P->totPop, fields);
+    formatFloat(P->totInd, fields);
+    formatInteger(P->numberOfPlanets, fields);
+    formatString((atwar(P, P) ? "War" : "Peace"), fields);
+    formatReturn(fields);
+    formatPrint(fields);
+  }
 }
+
+/****f* GalaxyNG/yourPlanetsForecast
+ * NAME
+ *   yourPlanetsForecast -- planet forecast for next turn.
+ * FUNCTION
+ *   This is used by the forecaster (orders checker) 
+ *   to predict the situation
+ *   of the planets the next turn.
+ *****
+ */
+
+void
+yourXMLPlanetsForecast(planet *planets, player *P, fielddef *fields)
+{
+  int             state;
+
+  fprintf(fields->destination, "\n\t\tYour Planets\n\n");
+
+  formatReset(fields);
+  for (state = 0; state < 2; state++) {
+    planet         *p;
+
+    formatLabels("N X Y S P I R P $ M C", "lcccccccccc", fields);
+    for (p = planets; p; p = p->next) {
+      if (p->owner eq P) {
+        formatString(p->name, fields);
+        formatFloat(p->x, fields);
+        formatFloat(p->y, fields);
+        if (p->flags & PL_VISPREVTURN) {
+          formatFloat(p->size, fields);
+          formatFloat(p->pop, fields);
+          formatFloat(p->ind, fields);
+          formatFloat(p->resources, fields);
+          if (p->producing eq PR_SHIP)
+            formatString(p->producingshiptype->name, fields);
+          else
+            formatString(productname[p->producing], fields);
+          formatFloat(p->cap, fields);
+          formatFloat(p->mat, fields);
+          formatFloat(p->col, fields);
+        }
+        else {
+          formatStringCenter("?", fields);
+          formatStringCenter("?", fields);
+          formatStringCenter("?", fields);
+          formatStringCenter("?", fields);
+          formatString(productname[PR_CAP], fields);
+          formatStringCenter("?", fields);
+          formatStringCenter("?", fields);
+          formatStringCenter("?", fields);
+        }
+        formatReturn(fields);
+      }
+    }
+    formatPrint(fields);
+  }
+}
+
+

@@ -79,6 +79,31 @@ typedef struct list {
 
 #define   addList(l,e)    addListF((list **)l,(list *)e)
 
+/**********/
+
+/****f* List/insertList
+ * NAME
+ *   insertList -- macro, add an element to a list after the given element
+ * FUNCTION
+ *   Add an element to a list after a specified member, the end if the
+ *   member isn't found.
+ *   Uses evil casts to make it work on different 
+ *   type of lists and elements, so one function can
+ *   be used to add a player to a list of players
+ *   and a planet to a list of planets.
+ * INPUTS
+ *   l -- pointer to the base of a list.
+ *   a -- address of the anchor element
+ *   e -- address of the element to be added.
+ * EXAMPLE
+ *   addList(&Player->orders, orderBeingProcessed, mistake);
+ * SEE ALSO
+ *   insertListF(), addList(), add2List()
+ * SOURCE
+ */
+
+#define   insertList(l,a, e)    insertListF((list **)l, (list*)a, (list *)e)
+
 /*******/
 
 
@@ -142,11 +167,13 @@ typedef struct list {
 void            add2ListF(list **aList, list *anElement);
 void            freelist(void *base);
 void            addListF(list **aList, list *anElement);
+void            insertListF(list **aList, list* anchor, list *anElement);
 list           *findElementF(list *aList, char *name);
 void            removeListF(list **aList, list *anElement);
 void            setNameF(list *anElement, char *name);
 int             numberOfElementsF(list *aList);
 int             ptonum(void *base, void *target);
 void           *numtop(void *base, int n);
+void            dumpList(char* label, list* aList);
 
 #endif				/* GNG_LIST_H */

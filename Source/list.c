@@ -76,18 +76,49 @@ freelist(void *base)
 void
 addListF(list **aList, list *anElement)
 {
+  list           *curElement;
+
   if (*aList == NULL) {
     *aList = anElement;
-    anElement->next = NULL;
   } else {
-    list           *curElement;
-
     for (curElement = *aList;
 	 curElement->next;
 	 curElement = curElement->next);
     curElement->next = anElement;
-    anElement->next = NULL;
   }
+
+}
+
+/****i* List/insertListF
+ * NAME
+ *   insertListF --
+ ******
+ */
+ 
+void
+insertListF(list **aList, list* where, list *anElement)
+{
+  list *curElement;
+  list *listEnd;
+
+  if (*aList == NULL) {
+    *aList = anElement;
+  } else {
+    for (curElement = *aList; curElement->next;
+	 curElement = curElement->next) {
+      if (curElement == where) {
+	break;
+      }
+    }
+
+    for (listEnd = anElement; listEnd->next; listEnd = listEnd->next)
+      ;
+
+    listEnd->next = curElement->next;
+    curElement->next = anElement;
+
+  }
+
 }
 
 /****** List/findElementF
@@ -236,6 +267,17 @@ void setNameF(list *anElement, char *name)
   free(anElement->name);
   anElement->name = strdup(name);
 }
+
+void
+dumpList(char* label, list* aList)
+{
+  list* curElement;
+
+  fprintf(stderr, "*** %s ***\n", label);
+  for (curElement = aList; curElement->next; curElement=curElement->next)
+    fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
+}
+
 
 
 

@@ -630,6 +630,8 @@ void bat_addGroups(game *aGame, char *playerName, char *planetName, char *typeNa
    aGroup->flags = 0;
    aGroup->location = aPlanet;
    numberGroup(aPlayer, aGroup);
+   aGroup->name = (char*)malloc(8);
+   sprintf(aGroup->name, "%d", aGroup->number);
    addList(&aPlayer->groups, aGroup);
 }
 

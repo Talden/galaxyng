@@ -5,10 +5,8 @@
 #include "list.h"
 #include "util.h"
 
-#if defined(DRAW_MAP)
-/* this is to enable the current map to be created as an image */
-#include <gd.h>
-#include <avl.h>
+#if defined(DRAW_INFLUENCE_MAP)
+void  draw_maps(game* aGame);
 #endif
 
 void            writeString(char *s);

@@ -12,6 +12,7 @@ extern int      nbrProducts;
 char           *vprocess =
     "$Id$";
 
+void    forecast_xml(game* aGame, player* aPlayer, FILE* forecast);
 
 /****v* GalaxyNG/phase1orders
  * NAME
@@ -88,21 +89,42 @@ char           *string_mail_from = "from:";     /* Dutch: van: */
  */
 
 void
-mistake(player *P, strlist *s, char *format, ...)
+mistake(player *P, enum error_type elevel, strlist *s, char *format, ...)
 {
   int             n;
   va_list         ap;
+  char* lformat;
 
   va_start(ap, format);
-  addList(&P->mistakes, makestrlist(s->str));
+
+  lformat = (char*)malloc(strlen(format)+4);
+
+  switch(elevel) {
+  case INFO:
+    sprintf(lformat, "+I %s", format);
+    break;
+
+  case WARNING:
+    sprintf(lformat, "+W %s", format);
+    break;
+
+  case ERROR:
+    sprintf(lformat, "+E %s", format);
+    break;
+  }
+
 #ifdef WIN32
   vsprintf(lineBuffer, format, ap);
 #else
-  n = vsnprintf(lineBuffer, LINE_BUFFER_SIZE, format, ap);
+  n = vsnprintf(lineBuffer, LINE_BUFFER_SIZE, lformat, ap);
   assert(n != -1);
 #endif
-  addList(&P->mistakes, makestrlist(lineBuffer));
+
+  free(lformat);
+
   va_end(ap);
+
+  insertList(&P->orders, s, makestrlist(lineBuffer));
 }
 
 /********/
@@ -133,7 +155,7 @@ at_order(game *aGame, player *P, strlist **s)
         addList(&plist, a);
       }
       else
-        mistake(P, *s, "Nation not recognized");
+        mistake(P, INFO, *s, "Nation not recognized");
     }
     for (a = plist; a; a = a->next)
       addList(&a->who->messages, makestrlist("-message starts-"));
@@ -174,7 +196,7 @@ eq_order(game *aGame, player *P, strlist **s)
   pdebug(DFULL, "eq_order\n");
   ns = getstr(0);
   if (!ns[0]) {
-    mistake(P, *s, "No name provided.");
+    mistake(P, INFO, *s, "No name provided.");
     return;
   }
   if (P->realName)
@@ -195,7 +217,7 @@ a_order(game *aGame, player *P, strlist **s)
 
   pdebug(DFULL, "a_order\n");
   if (!P2) {
-    mistake(P, *s, "Nation not recognized");
+    mistake(P, ERROR, *s, "Nation not recognized");
     return;
   }
   for (a = P->allies; a; a = a->next) {
@@ -224,13 +246,13 @@ b_order(game *aGame, player *P, strlist **s)
 
   g = findgroup(P, getstr(0));
   if (!g) {
-    mistake(P, *s, "Group not recognized.");
+    mistake(P, INFO, *s, "Group not recognized.");
     return;
   }
   ns = getstr(0);
   if (noCaseStrncmp(ns, "fleet", 5) == 0) {
     if (g->dist) {
-      mistake(P, *s, "Fleet is in hyperspace.");
+      mistake(P, WARNING, *s, "Fleet is in hyperspace.");
       return;
     }
     g->thefleet = 0;
@@ -238,11 +260,11 @@ b_order(game *aGame, player *P, strlist **s)
   }
   i = atoi(ns);
   if (i > g->ships) {           /* FS Dec 1998 */
-    mistake(P, *s, "Not enough ships in group.");
+    mistake(P, INFO, *s, "Not enough ships in group.");
     return;
   }
   if (i < 0) {                  /* KDW July 1999 */
-    mistake(P, *s, "Can't have negative number of ships.");
+    mistake(P, WARNING, *s, "Can't have negative number of ships.");
     return;
   }
   g2 = allocStruct(group);
@@ -250,7 +272,10 @@ b_order(game *aGame, player *P, strlist **s)
   g2->ships = i;
   g->ships -= i;
   g2->thefleet = 0;
+  g2->next = NULL;
   numberGroup(P, g2);
+  g2->name = (char*)malloc(8);
+  sprintf(g2->name, "%d", g2->number);
   addList(&P->groups, g2);
 }
 
@@ -269,15 +294,15 @@ c_order(game *aGame, player *P, strlist **s)
     i--;
   ns[i] = 0;
   if (!ns[0]) {
-    mistake(P, *s, "No new race name given.");
+    mistake(P, ERROR, *s, "No new race name given.");
     return;
   }
   if (findElement(player, aGame->players, ns) != NULL) {
-    mistake(P, *s, "Race name already in use.");
+    mistake(P, ERROR, *s, "Race name already in use.");
     return;
   }
   if (strlen(ns) > NAMESIZE) {
-    mistake(P, *s, "Name is too long\n.");
+    mistake(P, ERROR, *s, "Name is too long\n.");
     return;
   }
   setName(P, ns);
@@ -304,15 +329,15 @@ d_order(game *aGame, player *P, strlist **s)
   pdebug(DFULL, "d_order\n");
   ns = getstr(0);
   if (!ns[0]) {
-    mistake(P, *s, "No ship type name given.");
+    mistake(P, ERROR, *s, "No ship type name given.");
     return;
   }
   if (strlen(ns) > NAMESIZE) {
-    mistake(P, *s, "Name is too long\n.");
+    mistake(P, ERROR, *s, "Name is too long\n.");
     return;
   }
   if (findElement(fleetname, P->fleetnames, ns)) {
-    mistake(P, *s, "Name already in use for fleet.");
+    mistake(P, ERROR, *s, "Name already in use for fleet.");
     return;
   }
   /* Occasionally someone designs a ship called "Cargo" or something, then 
@@ -322,31 +347,31 @@ d_order(game *aGame, player *P, strlist **s)
 
   for (i = 0; i < nbrProducts; i++) {
     if (productname[i] && !noCaseStrcmp(productname[i], ns)) {
-      mistake(P, *s, "Ship name can not be the same as a product name.");
+      mistake(P, ERROR, *s, "Ship name can not be the same as a product name.");
       return;
     }
   }
 
   if (findElement(shiptype, P->shiptypes, ns) != NULL) {
-    mistake(P, *s, "Ship type name already in use.");
+    mistake(P, WARNING, *s, "Ship type name already in use.");
     return;
   }
   if (!noCaseStrncmp(ns, "fleet", 5)) {
     ns = getstr(0);
     if (!ns[0]) {
-      mistake(P, *s, "No fleet name given.");
+      mistake(P, ERROR, *s, "No fleet name given.");
       return;
     }
     if (isdigit(ns[0])) {
-      mistake(P, *s, "Fleet names cannot have an initial digit.");
+      mistake(P, ERROR, *s, "Fleet names cannot have an initial digit.");
       return;
     }
     if (findElement(fleetname, P->fleetnames, ns)) {
-      mistake(P, *s, "Fleet name already in use.");
+      mistake(P, ERROR, *s, "Fleet name already in use.");
       return;
     }
     if (findElement(shiptype, P->shiptypes, ns)) {
-      mistake(P, *s, "Name already in use for ship type.");
+      mistake(P, ERROR, *s, "Name already in use for ship type.");
       return;
     }
     fl = allocStruct(fleetname);
@@ -382,7 +407,7 @@ d_order(game *aGame, player *P, strlist **s)
   }
 
   if (t->attacks && t->weapons < 1) {
-    mistake(P, *s, "Warning: gun size should be greater or equal to 1.");
+    mistake(P, WARNING, *s, "Warning: gun size should be greater or equal to 1.");
     t->attacks = 0;
   }
   if (!t->attacks)
@@ -399,8 +424,8 @@ d_order(game *aGame, player *P, strlist **s)
 
   if (t->shields && t->shields < 1) {
     t->shields = 0;
-    mistake(P, *s,
-            "Warning: shield size should be zero, or greater or equal to 1.");
+    mistake(P, WARNING, *s,
+            "shield size should be zero, or greater or equal to 1.");
   }
   par = getstr(0);
   if (*par) {
@@ -413,16 +438,16 @@ d_order(game *aGame, player *P, strlist **s)
 
   if (t->cargo && t->cargo < 1) {
     t->cargo = 0;
-    mistake(P, *s,
-            "Warning: cargo size should be zero, or greater or equal to 1.");
+    mistake(P, WARNING, *s,
+            "cargo size should be zero, or greater or equal to 1.");
   }
   if (!t->drive && !t->attacks && !t->shields && !t->cargo) {
-    mistake(P, *s, "At least one component must be non-zero.");
+    mistake(P, ERROR, *s, "At least one component must be non-zero.");
     free(t);
     return;
   }
   if (underDefined) {
-    mistake(P, *s, "Warning: A ship design requires 5 parameters.");
+    mistake(P, WARNING, *s, "A ship design requires 5 parameters.");
   }
   addList(&P->shiptypes, t);
 }
@@ -443,13 +468,13 @@ e_order(game *aGame, player *P, strlist **s)
   fl = findElement(fleetname, P->fleetnames, ns);
 
   if (!t && !fl) {
-    mistake(P, *s, "Ship or fleet type not recognized.");
+    mistake(P, ERROR, *s, "Ship or fleet type not recognized.");
     return;
   }
   if (fl) {
     for (g = P->groups; g; g = g->next)
       if ((g->thefleet == fl) && (g->dist)) {
-        mistake(P, *s, "Group is in hyperspace.");
+        mistake(P, ERROR, *s, "Group is in hyperspace.");
         return;
       }
     for (g = P->groups; g; g = g->next)
@@ -460,14 +485,14 @@ e_order(game *aGame, player *P, strlist **s)
   }
   for (g = P->groups; g; g = g->next)
     if (g->type == t) {
-      mistake(P, *s, "Some of these ships still exist.");
+      mistake(P, ERROR, *s, "Some of these ships still exist.");
       return;
     }
   if (g)
     return;
   for (p = aGame->planets; p; p = p->next)
     if (p->producingshiptype == t) {
-      mistake(P, *s, "Some of these ships are still being produced.");
+      mistake(P, ERROR, *s, "Some of these ships are still being produced.");
       return;
     }
   if (p)
@@ -485,7 +510,7 @@ f_order(game *aGame, player *P, strlist **s)
   P2 = findElement(player, aGame->players, getstr(0));
 
   if (!P2) {
-    mistake(P, *s, "Nation not recognized.");
+    mistake(P, ERROR, *s, "Nation not recognized.");
     return;
   }
   if (P2->addr[0]) {
@@ -518,18 +543,18 @@ g_order(game *aGame, player *P, strlist **s)
   pdebug(DFULL, "g_order\n");
   g = findgroup(P, getstr(0));
   if (!g) {
-    mistake(P, *s, "Group not recognized.");
+    mistake(P, ERROR, *s, "Group not recognized.");
     return;
   }
   if (g->dist) {
-    mistake(P, *s, "Group is in hyperspace.");
+    mistake(P, ERROR, *s, "Group is in hyperspace.");
     return;
   }
   p = g->where;
   t = g->type;
   plog(LFULL, "Upgrade: of %s on %s\n", t->name, p->name);
   if (p->owner != P) {
-    mistake(P, *s, "Planet is not owned by you.");
+    mistake(P, ERROR, *s, "Planet is not owned by you.");
     return;
   }
   x = INDPERSHIP * ((1 - g->drive / P->drive) * t->drive +
@@ -538,11 +563,11 @@ g_order(game *aGame, player *P, strlist **s)
                     (1 - g->cargo / P->cargo) * t->cargo);
   y = p->ind * .75 + p->pop * .25 - p->spent;
   if ((y <= 0.0) && (x > 0.0)) {
-    mistake(P, *s, "Planet has no remaining industry.");
+    mistake(P, ERROR, *s, "Planet has no remaining industry.");
     return;
   }
   if (x == 0.0) {
-    mistake(P, *s, "Group is already at current tech levels.");
+    mistake(P, WARNING, *s, "Group is already at current tech levels.");
     return;
   }
   ns = getstr(0);
@@ -551,11 +576,11 @@ g_order(game *aGame, player *P, strlist **s)
     if (i == 0)
       i = g->ships;
     if (i > g->ships) {
-      mistake(P, *s, "Not enough ships, all available used.");
+      mistake(P, ERROR, *s, "Not enough ships, all available used.");
       i = g->ships;
     }
     if (i < 0) {                /* KDW July 1999 */
-      mistake(P, *s,
+      mistake(P, ERROR, *s,
               "Can't use negative number of ships, all available used.");
       i = g->ships;
     }
@@ -567,6 +592,9 @@ g_order(game *aGame, player *P, strlist **s)
 
     *g2 = *g;
     numberGroup(P, g2);
+    g2->next = NULL;
+    g2->name = (char*)malloc(8);
+    sprintf(g2->name, "%d", g2->number);
     addList(&P->groups, g2);
     g->ships -= i;
     g2->ships = i;
@@ -609,7 +637,7 @@ h_order(game *aGame, player *P, strlist **s)
   fl = findElement(fleetname, P->fleetnames, ns);
 
   if (!g && !fl) {
-    mistake(P, *s, "Group or fleet not recognized.");
+    mistake(P, ERROR, *s, "Group or fleet not recognized.");
     return;
   }
   if (fl) {
@@ -621,12 +649,12 @@ h_order(game *aGame, player *P, strlist **s)
     for (g = P->groups; g; g = g->next) {
       if (g->thefleet == fl)
         if (!g->dist) {
-          mistake(P, *s, "Fleet is not in hyperspace.");
+          mistake(P, ERROR, *s, "Fleet is not in hyperspace.");
           return;
         }
       if (g->thefleet == fl)
         if (g->dist < fleetspeed * TURNS_LEFT) {
-          mistake(P, *s, "Fleet is too near from landing.");
+          mistake(P, ERROR, *s, "Fleet is too near from landing.");
           return;
         }
     }
@@ -636,12 +664,12 @@ h_order(game *aGame, player *P, strlist **s)
     return;
   }
   if (!g->dist) {
-    mistake(P, *s, "Group is not in hyperspace.");
+    mistake(P, ERROR, *s, "Group is not in hyperspace.");
     return;
   }
   if (g->dist < g->type->drive * g->drive *
       DRIVEMAGIC / shipmass(g) * TURNS_LEFT) {
-    mistake(P, *s, "Group is too near from landing.");
+    mistake(P, ERROR, *s, "Group is too near from landing.");
     return;
   }
   recall(aGame, g);
@@ -663,13 +691,13 @@ i_order(game *aGame, player *P, strlist **s)
   inFleet = findElement(fleetname, P->fleetnames, ns);
 
   if (!inGroup && !inFleet) {
-    mistake(P, *s, "Group or fleet not recognized.");
+    mistake(P, ERROR, *s, "Group or fleet not recognized.");
     return;
   }
   else {
     inPlanet = findPlanet(aGame, getstr(0));
     if (!inPlanet) {
-      mistake(P, *s, "Planet not recognized.");
+      mistake(P, ERROR, *s, "Planet not recognized.");
       return;
     }
   }
@@ -679,11 +707,11 @@ i_order(game *aGame, player *P, strlist **s)
 
     for (aGroup = P->groups; aGroup; aGroup = aGroup->next) {
       if ((aGroup->thefleet == inFleet) && (aGroup->dist)) {
-        mistake(P, *s, "Fleet is in hyperspace.");
+        mistake(P, ERROR, *s, "Fleet is in hyperspace.");
         return;
       }
       if ((aGroup->thefleet == inFleet) && (!aGroup->type->drive)) {
-        mistake(P, *s, "Fleet cannot move.");
+        mistake(P, ERROR, *s, "Fleet cannot move.");
         return;
       }
     }
@@ -699,18 +727,18 @@ i_order(game *aGame, player *P, strlist **s)
     int             noShips;
 
     if (inGroup->type->drive == 0) {
-      mistake(P, *s, "Ships in this group can't move.");
+      mistake(P, ERROR, *s, "Ships in this group can't move.");
       return;
     }
     if (inGroup->dist) {
-      mistake(P, *s, "Group is in hyperspace.");
+      mistake(P, ERROR, *s, "Group is in hyperspace.");
       return;
     }
     ns = getstr(0);
     if (*ns) {
       noShips = atoi(ns);
       if (noShips <= 0) {       /* KDW July 1999 - added return */
-        mistake(P, *s, "You must specify more than 0 Ships.");
+        mistake(P, WARNING, *s, "You must specify more than 0 Ships.");
         return;
       }
     }
@@ -721,7 +749,7 @@ i_order(game *aGame, player *P, strlist **s)
       group          *newGroup;
 
       if (noShips > inGroup->ships) {
-        mistake(P, *s, "Not enough ships, all available used.");
+        mistake(P, WARNING, *s, "Not enough ships, all available used.");
         noShips = inGroup->ships;
       }
       if (noShips != inGroup->ships) {
@@ -729,6 +757,9 @@ i_order(game *aGame, player *P, strlist **s)
 
         *newGroup = *inGroup;
         numberGroup(P, newGroup);
+	newGroup->name = (char*)malloc(8);
+	sprintf(newGroup->name, "%d", newGroup->number);
+	newGroup->next = NULL;
         addList(&P->groups, newGroup);
         inGroup->ships -= noShips;
         newGroup->ships = noShips;
@@ -743,7 +774,7 @@ i_order(game *aGame, player *P, strlist **s)
       }
     }
     else {
-      mistake(P, *s, "No ships left in group.");
+      mistake(P, ERROR, *s, "No ships left in group.");
     }
   }
 }
@@ -772,14 +803,14 @@ j_order(game *aGame, player *P, strlist **s)
   fl = findElement(fleetname, P->fleetnames, ns);
 
   if (!g && !fl) {
-    mistake(P, *s, "Source Group or fleet not recognized.");
+    mistake(P, ERROR, *s, "Source Group or fleet not recognized.");
     return;
   }
   if (fl) {
     fl2 = findElement(fleetname, P->fleetnames, getstr(0));
 
     if (!fl2) {
-      mistake(P, *s, "Destination fleet not recognized.");
+      mistake(P, ERROR, *s, "Destination fleet not recognized.");
       return;
     }
     dist = 0.0;
@@ -797,15 +828,15 @@ j_order(game *aGame, player *P, strlist **s)
       }
     }
     if (dist) {
-      mistake(P, *s, "First fleet is in hyperspace.");
+      mistake(P, ERROR, *s, "First fleet is in hyperspace.");
       return;
     }
     if (dist2) {
-      mistake(P, *s, "Second fleet is in hyperspace.");
+      mistake(P, ERROR, *s, "Second fleet is in hyperspace.");
       return;
     }
     if ((p != p2) && (p2)) {
-      mistake(P, *s, "Fleets are not at the same planet.");
+      mistake(P, ERROR, *s, "Fleets are not at the same planet.");
       return;
     }
     for (g = P->groups; g; g = g->next)
@@ -814,22 +845,22 @@ j_order(game *aGame, player *P, strlist **s)
     return;
   }
   if (g->dist) {
-    mistake(P, *s, "Group is in hyperspace.");
+    mistake(P, ERROR, *s, "Group is in hyperspace.");
     return;
   }
   fl = findElement(fleetname, P->fleetnames, getstr(0));
   if (!fl) {
-    mistake(P, *s, "Fleet type not recognized.");
+    mistake(P, ERROR, *s, "Fleet type not recognized.");
     return;
   }
   if ((j = atoi(getstr(0))) != 0) {
     i = j;
     if (i > g->ships) {
-      mistake(P, *s, "Not enough ships, all available used.");
+      mistake(P, ERROR, *s, "Not enough ships, all available used.");
       i = g->ships;
     }
     if (i <= 0) {
-      mistake(P, *s,
+      mistake(P, ERROR, *s,
               "You must specify more than 0 ships, all available used.");
       i = g->ships;
     }
@@ -837,7 +868,10 @@ j_order(game *aGame, player *P, strlist **s)
       g2 = allocStruct(group);
 
       *g2 = *g;
+      g2->next = NULL;
       numberGroup(P, g2);
+      g2->name = (char*)malloc(8);
+      sprintf(g2->name, "%d", g2->number);
       addList(&P->groups, g2);
       g->ships -= i;
       g2->ships = i;
@@ -846,11 +880,11 @@ j_order(game *aGame, player *P, strlist **s)
   }
   for (g2 = P->groups; g2; g2 = g2->next) {
     if ((g2->thefleet == fl) && (g2->dist)) {
-      mistake(P, *s, "Fleet is in hyperspace.");
+      mistake(P, ERROR, *s, "Fleet is in hyperspace.");
       return;
     }
     if ((g2->thefleet == fl) && (!g2->dist) && (g2->where != g->where)) {
-      mistake(P, *s, "Group is at the wrong planet.");
+      mistake(P, ERROR, *s, "Group is at the wrong planet.");
       return;
     }
   }
@@ -884,31 +918,31 @@ l_order(game *aGame, player *P, strlist **s)
   pdebug(DFULL, "l_order\n");
   g = findgroup(P, getstr(0));
   if (!g) {
-    mistake(P, *s, "Group not recognized.");
+    mistake(P, ERROR, *s, "Group not recognized.");
     return;
   }
   p = g->where;
 
   typeOfCargo = nametocargotype(getstr(0));
   if (g->type->cargo == 0) {
-    mistake(P, *s, "Group cannot carry cargo.");
+    mistake(P, ERROR, *s, "Group cannot carry cargo.");
     return;
   }
   if (g->dist) {
-    mistake(P, *s, "Group is in hyperspace.");
+    mistake(P, ERROR, *s, "Group is in hyperspace.");
     return;
   }
   if (cargospace(g) <= g->load) {
     /* '<=' is used cause we deal with doubles here */
-    mistake(P, *s, "Group is fully loaded.");
+    mistake(P, ERROR, *s, "Group is fully loaded.");
     return;
   }
   if (typeOfCargo < 0 || typeOfCargo > 2) {
-    mistake(P, *s, "Cargo type not recognized.");
+    mistake(P, ERROR, *s, "Cargo type not recognized.");
     return;
   }
   if (g->load && g->loadtype != typeOfCargo) {
-    mistake(P, *s, "Group is already carrying a different load.");
+    mistake(P, ERROR, *s, "Group is already carrying a different load.");
     return;
   }
   /* Determine the number of ships to load the cargo on */
@@ -920,11 +954,11 @@ l_order(game *aGame, player *P, strlist **s)
     numberOfShips = atoi(ns);
     if (numberOfShips != 0) {
       if (numberOfShips > g->ships) {
-        mistake(P, *s, "Not enough ships, all available used.");
+        mistake(P, ERROR, *s, "Not enough ships, all available used.");
         numberOfShips = g->ships;
       }
       if (numberOfShips <= 0) { /* KDW July 1999 */
-        mistake(P, *s, "You must specify > 0 ships, all available used.");
+        mistake(P, ERROR, *s, "You must specify > 0 ships, all available used.");
         numberOfShips = g->ships;
       }
     }
@@ -937,18 +971,18 @@ l_order(game *aGame, player *P, strlist **s)
       if (ns[0] != '\0') {
         amount = atof(ns);
         if (amount > (cargospace(g) - g->load)) {
-          mistake(P, *s,
+          mistake(P, ERROR, *s,
                   "Not enough cargo space available to carry this amount.");
           return;
         }
       }
       else {
-        mistake(P, *s, "Keyword AMOUNT should be followed by a number.");
+        mistake(P, ERROR, *s, "Keyword AMOUNT should be followed by a number.");
         return;
       }
     }
     else {
-      mistake(P, *s, "Expected the keyword AMOUNT.");
+      mistake(P, ERROR, *s, "Expected the keyword AMOUNT.");
       return;
     }
     amountFlag = TRUE;
@@ -958,7 +992,7 @@ l_order(game *aGame, player *P, strlist **s)
   }
 
   if (amount < AMOUNTMIN) {
-    mistake(P, *s,
+    mistake(P, ERROR, *s,
             "You should load at least %f per ship,"
             " you are trying to loading %f.", AMOUNTMIN, amount);
     return;
@@ -980,18 +1014,18 @@ l_order(game *aGame, player *P, strlist **s)
   /* Total amount that has to be uploaded */
   x = amount * numberOfShips;
   if (y == 0.0) {
-    mistake(P, *s, "No cargo of this type available on \"%s\".", p->name);
+    mistake(P, ERROR, *s, "No cargo of this type available on \"%s\".", p->name);
     return;
   }
   if (y / numberOfShips < AMOUNTMIN) {
-    mistake(P, *s,
+    mistake(P, ERROR, *s,
             "Not enough cargo available on \"%s\" to"
             " load at least %f per ship.", p->name, AMOUNTMIN);
     return;
   }
   if (y < x) {
     if (amountFlag) {
-      mistake(P, *s,
+      mistake(P, ERROR, *s,
               "Not enough cargo available on \"%s\" to"
               " load %.2f per ship,\nloading %.2f per ship.",
               p->name, amount, y / numberOfShips);
@@ -1004,7 +1038,10 @@ l_order(game *aGame, player *P, strlist **s)
     g2 = allocStruct(group);
 
     *g2 = *g;
+    g2->next = NULL;
     numberGroup(P, g2);
+    g2->name = (char*)malloc(8);
+    sprintf(g2->name, "%d", g2->number);
     addList(&P->groups, g2);
     assert(numberOfShips < g->ships);
     g->ships -= numberOfShips;
@@ -1054,7 +1091,7 @@ m_order(game *aGame, player *P, strlist **s)
   y = atof(getstr(0));
   z = atof(getstr(0));
   if (z < 1) {
-    mistake(P, *s, "Size must be at least 1.");
+    mistake(P, ERROR, *s, "Size must be at least 1.");
     return;
   }
   P->mx = x;
@@ -1076,30 +1113,30 @@ n_order(game *aGame, player *P, strlist **s)
   p = findElement(planet, aGame->planets, ns);
 
   if (!p) {
-    mistake(P, *s, "Planet not recognized.");
+    mistake(P, ERROR, *s, "Planet not recognized.");
     return;
   }
   if (p->owner != P) {
-    mistake(P, *s, "Planet not owned by you.");
+    mistake(P, ERROR, *s, "Planet not owned by you.");
     return;
   }
   ns = getstr(0);
   if (!ns[0]) {
-    mistake(P, *s, "New planet name not provided.");
+    mistake(P, ERROR, *s, "New planet name not provided.");
     return;
   }
   if (strlen(ns) > NAMESIZE) {
-    mistake(P, *s, "Name is too long\n.");
+    mistake(P, ERROR, *s, "Name is too long\n.");
     return;
   }
   if (findPlanet(aGame, ns) != NULL) {
-    mistake(P, *s, "Name already in use.");
+    mistake(P, ERROR, *s, "Name already in use.");
     return;
   }
   setName(p, ns);
   ns = getstr(0);
   if (*ns) {
-    mistake(P, *s, "Too many parameters.");
+    mistake(P, ERROR, *s, "Too many parameters.");
     return;
   }
 }
@@ -1131,7 +1168,7 @@ o_order(game *aGame, player *P, strlist **s)
     }
   }
   if (!curOption->optionName)
-    mistake(P, *s, "Option not recognized or no longer supported.");
+    mistake(P, ERROR, *s, "Option not recognized or no longer supported.");
 }
 
 
@@ -1146,11 +1183,11 @@ p_order(game *aGame, player *P, strlist **s)
 
   p = findPlanet(aGame, getstr(0));
   if (!p) {
-    mistake(P, *s, "Planet not recognized.");
+    mistake(P, ERROR, *s, "Planet not recognized.");
     return;
   }
   if (p->owner != P) {
-    mistake(P, *s, "Planet not owned by you.");
+    mistake(P, ERROR, *s, "Planet not owned by you.");
     return;
   }
   ns = getstr(0);
@@ -1180,7 +1217,7 @@ p_order(game *aGame, player *P, strlist **s)
   }
   t = findElement(shiptype, P->shiptypes, ns);
   if (!t) {
-    mistake(P, *s, "Production type \"%s\" not recognized.", ns);
+    mistake(P, ERROR, *s, "Production type \"%s\" not recognized.", ns);
     return;
   }
   if (p->producing != PR_SHIP || p->producingshiptype != t) {
@@ -1197,7 +1234,7 @@ q_order(game *aGame, player *P, strlist **s)
   pdebug(DFULL, "q_order\n");
 
   if (findElement(player, aGame->players, getstr(0)) != P) {
-    mistake(P, *s, "Nation identification not given.");
+    mistake(P, ERROR, *s, "Nation identification not given.");
     return;
   }
   P->flags |= F_DEAD;
@@ -1217,17 +1254,17 @@ r_order(game *aGame, player *P, strlist **s)
   ns = getstr(0);
   p = findPlanet(aGame, ns);
   if (!p) {
-    mistake(P, *s, "Source planet \"%s\" not recognized.", ns);
+    mistake(P, ERROR, *s, "Source planet \"%s\" not recognized.", ns);
     return;
   }
   if (p->owner != P) {
-    mistake(P, *s, "You do not own planet \"%s\".", p->name);
+    mistake(P, ERROR, *s, "You do not own planet \"%s\".", p->name);
     return;
   }
   ns = getstr(0);
   i = nametocargotype(ns);
   if (i < 0) {
-    mistake(P, *s, "Cargo type \"%s\" not recognized.", ns);
+    mistake(P, ERROR, *s, "Cargo type \"%s\" not recognized.", ns);
     return;
   }
   p2 = 0;
@@ -1235,7 +1272,7 @@ r_order(game *aGame, player *P, strlist **s)
   if (ns[0]) {
     p2 = findPlanet(aGame, ns);
     if (!p2) {
-      mistake(P, *s, "Destination planet \"%s\" not recognized.", ns);
+      mistake(P, ERROR, *s, "Destination planet \"%s\" not recognized.", ns);
       return;
     }
   }
@@ -1255,28 +1292,32 @@ s_order(game *aGame, player *P, strlist **s)
   char           *ns;
 
   pdebug(DFULL, "s_order\n");
+  plog(LFULL, "s_order\n");
 
   ns = getstr(0);
+  plog(LFULL, "ns: %s\n", ns);
+
   g = findgroup(P, ns);
   fl = findElement(fleetname, P->fleetnames, ns);
 
+  plog(LFULL, "g: %s   fl: %s\n", g ? g->name : "NULL", fl);
   if (!g && !fl) {
-    mistake(P, *s, "Group or fleet not recognized.");
+    mistake(P, ERROR, *s, "Group or fleet not recognized.");
     return;
   }
   if (fl) {
     p = findPlanet(aGame, getstr(0));
     if (!p) {
-      mistake(P, *s, "Planet not recognized.");
+      mistake(P, ERROR, *s, "Planet not recognized.");
       return;
     }
     for (g = P->groups; g; g = g->next) {
       if ((g->thefleet == fl) && (g->dist)) {
-        mistake(P, *s, "Fleet is in hyperspace.");
+        mistake(P, ERROR, *s, "Fleet is in hyperspace.");
         return;
       }
       if ((g->thefleet == fl) && (!g->type->drive)) {
-        mistake(P, *s, "Fleet cannot move.");
+        mistake(P, ERROR, *s, "Fleet cannot move.");
         return;
       }
     }
@@ -1286,27 +1327,27 @@ s_order(game *aGame, player *P, strlist **s)
     return;
   }
   if (g->type->drive == 0) {
-    mistake(P, *s, "Ships in this group can't move.");
+    mistake(P, ERROR, *s, "Ships in this group can't move.");
     return;
   }
   if (g->dist) {
-    mistake(P, *s, "Group is in hyperspace.");
+    mistake(P, ERROR, *s, "Group is in hyperspace.");
     return;
   }
   p = findPlanet(aGame, getstr(0));
   if (!p) {
-    mistake(P, *s, "Planet not recognized.");
+    mistake(P, ERROR, *s, "Planet not recognized.");
     return;
   }
   i = g->ships;
   if ((j = atoi(getstr(0))) != 0) {
     i = j;
     if (i > g->ships) {
-      mistake(P, *s, "Not enough ships, all available used.");
+      mistake(P, ERROR, *s, "Not enough ships, all available used.");
       i = g->ships;
     }
     if (i <= 0) {               /* KDW July 1999 */
-      mistake(P, *s,
+      mistake(P, ERROR, *s,
               "You must specify more than 0 ships, all available used.");
       i = g->ships;
     }
@@ -1314,7 +1355,10 @@ s_order(game *aGame, player *P, strlist **s)
       g2 = allocStruct(group);
 
       *g2 = *g;
+      g2->next = NULL;
       numberGroup(P, g2);
+      g2->name = (char*)malloc(8);
+      sprintf(g2->name, "%d", g2->number);
       addList(&P->groups, g2);
       g->ships -= i;
       g2->ships = i;
@@ -1340,20 +1384,20 @@ t_order(game *aGame, player *P, strlist **s)
   fl = findElement(fleetname, P->fleetnames, ns);
 
   if (!t && !fl) {
-    mistake(P, *s, "Ship or fleet type not recognized.");
+    mistake(P, ERROR, *s, "Ship or fleet type not recognized.");
     return;
   }
   ns = getstr(0);
   if (!ns[0]) {
-    mistake(P, *s, "New name not provided");
+    mistake(P, ERROR, *s, "New name not provided");
     return;
   }
   if (findElement(fleetname, P->fleetnames, ns)) {
-    mistake(P, *s, "Name already in use for fleet type.");
+    mistake(P, ERROR, *s, "Name already in use for fleet type.");
     return;
   }
   if (findElement(shiptype, P->shiptypes, ns) != NULL) {
-    mistake(P, *s, "Name already in use for ship type.");
+    mistake(P, ERROR, *s, "Name already in use for ship type.");
     return;
   }
   if (fl) {
@@ -1383,15 +1427,15 @@ u_order(game *aGame, player *P, strlist **s)
 
   g = findgroup(P, getstr(0));
   if (!g) {
-    mistake(P, *s, "Group not recognized.");
+    mistake(P, ERROR, *s, "Group not recognized.");
     return;
   }
   if (g->loadtype == CG_EMPTY) {
-    mistake(P, *s, "No cargo on board.");
+    mistake(P, ERROR, *s, "No cargo on board.");
     return;
   }
   if (g->dist) {
-    mistake(P, *s, "Group is in hyperspace.");
+    mistake(P, ERROR, *s, "Group is in hyperspace.");
     return;
   }
   /* Determine how many ships are unloaded */
@@ -1402,11 +1446,11 @@ u_order(game *aGame, player *P, strlist **s)
     numberOfShips = atoi(ns);
     if (numberOfShips != 0) {
       if (numberOfShips > g->ships) {
-        mistake(P, *s, "Not enough ships, all available used.");
+        mistake(P, ERROR, *s, "Not enough ships, all available used.");
         numberOfShips = g->ships;
       }
       if (numberOfShips <= 0) { /* KDW July 1999 */
-        mistake(P, *s, "You must specify > 0 ships, all available used.");
+        mistake(P, ERROR, *s, "You must specify > 0 ships, all available used.");
         numberOfShips = g->ships;
       }
     }
@@ -1420,22 +1464,22 @@ u_order(game *aGame, player *P, strlist **s)
         amount = atof(ns);
         if (amount > g->load) {
           amount = g->load;
-          mistake(P, *s,
+          mistake(P, ERROR, *s,
                   "Group does not carry that much cargo, using amount=%.2f",
                   amount);
         }
         if (amount < AMOUNTMIN) {
-          mistake(P, *s, "Unload atleast %.2f per ship.", AMOUNTMIN);
+          mistake(P, ERROR, *s, "Unload atleast %.2f per ship.", AMOUNTMIN);
           return;
         }
       }
       else {
-        mistake(P, *s, "Keyword AMOUNT should be followed by a number.");
+        mistake(P, ERROR, *s, "Keyword AMOUNT should be followed by a number.");
         return;
       }
     }
     else {
-      mistake(P, *s, "Expected the keyword AMOUNT.");
+      mistake(P, ERROR, *s, "Expected the keyword AMOUNT.");
       return;
     }
   }
@@ -1447,7 +1491,10 @@ u_order(game *aGame, player *P, strlist **s)
     g2 = allocStruct(group);
 
     *g2 = *g;
+    g2->next = NULL;
     numberGroup(P, g2);
+    g2->name = (char*)malloc(8);
+    sprintf(g2->name, "%d", g2->number);
     addList(&P->groups, g2);
     assert(numberOfShips < g->ships);
     g->ships -= numberOfShips;
@@ -1476,13 +1523,14 @@ v_order(game *aGame, player *P, strlist **s)
 
   p = findPlanet(aGame, getstr(0));
   if (!p) {
-    mistake(P, *s, "Planet not recognized.");
+    mistake(P, ERROR, *s, "Planet not recognized.");
   }
   else {
     plog(LFULL, "Nation %s claims planet %s\n", P->name, p->name);
     pclaim = allocStruct(planet_claim);
 
     pclaim->planet_claimed = p;
+    pclaim->next = NULL;
     addList(&(P->claimed_planets), pclaim);
   }
 }
@@ -1507,7 +1555,7 @@ w_order(game *aGame, player *P, strlist **s)
   P2 = findElement(player, aGame->players, getstr(0));
 
   if (!P2) {
-    mistake(P, *s, "Nation not recognized.");
+    mistake(P, ERROR, *s, "Nation not recognized.");
     return;
   }
   for (a = P->allies; a; a = a->next) {
@@ -1533,26 +1581,26 @@ x_order(game *aGame, player *P, strlist **s)
 
   g = findgroup(P, getstr(0));
   if (!g) {
-    mistake(P, *s, "Group not recognized.");
+    mistake(P, ERROR, *s, "Group not recognized.");
     return;
   }
   if (g->dist) {
-    mistake(P, *s, "Group is in hyperspace.");
+    mistake(P, ERROR, *s, "Group is in hyperspace.");
     return;
   }
   if (g->loadtype == CG_COL && g->where->owner && g->where->owner != P) {
-    mistake(P, *s, "Can't unload colonists onto an alien planet.");
+    mistake(P, ERROR, *s, "Can't unload colonists onto an alien planet.");
     return;
   }
   i = g->ships;
   if ((j = atoi(getstr(0))) != 0) {
     i = j;
     if (i > g->ships) {
-      mistake(P, *s, "Not enough ships, all available used.");
+      mistake(P, ERROR, *s, "Not enough ships, all available used.");
       i = g->ships;
     }
     if (i <= 0) {               /* KDW July 1999 */
-      mistake(P, *s,
+      mistake(P, ERROR, *s,
               "You must specify more than 0 ships, all available used.");
       i = g->ships;
     }
@@ -1560,7 +1608,10 @@ x_order(game *aGame, player *P, strlist **s)
       g2 = allocStruct(group);
 
       *g2 = *g;
+      g2->next = NULL;
       numberGroup(P, g2);
+      g2->name = (char*)malloc(8);
+      sprintf(g2->name, "%d", g2->number);
       addList(&P->groups, g2);
       g->ships -= i;
       g2->ships = i;
@@ -1582,7 +1633,7 @@ y_order(game *aGame, player *P, strlist **s)
 
   ns = getstr(0);
   if (!ns[0]) {
-    mistake(P, *s, "New password not provided.");
+    mistake(P, ERROR, *s, "New password not provided.");
     return;
   }
   if (P->pswd)
@@ -1601,7 +1652,7 @@ z_order(game *aGame, player *P, strlist **s)
 
   ns = getstr(0);
   if (!ns[0]) {
-    mistake(P, *s, "No new address given.");
+    mistake(P, ERROR, *s, "No new address given.");
     return;
   }
   if (P->addr)
@@ -1677,13 +1728,9 @@ runTurn(game *aGame, char *ordersFileName)
                  noCaseStrncmp("#GALAXY", lineBuffer, 7) &&
                  noCaseStrncmp("#END", lineBuffer, 4);) {
               strlist        *s;
-              char           *c;
 
-              for (c = lineBuffer; *c; c++)
-                if (*c == '\n')
-                  *c = ' ';
-              s = makestrlist(lineBuffer);
-              addList(&(aPlayer->orders), s);
+              if ((s = makestrlist(lineBuffer)) != NULL)
+                addList(&(aPlayer->orders), s);
               getLine(ordersFile);
             }
           }
@@ -1808,10 +1855,14 @@ runTurn(game *aGame, char *ordersFileName)
  */
 
 void
-checkOrders(game *aGame, char *nationName, FILE * forecast)
+checkOrders(game *aGame, char *nationName, FILE * forecast, int kind)
 {
   player         *aPlayer;
   struct fielddef fields;
+
+  /* blatant attempt to avoid doing orders more than once if more than 
+     one report type is being generated */
+  static int orders_done = 0;
 
   pdebug(DFULL, "check orders\n");
   aPlayer = findElement(player, aGame->players, nationName);
@@ -1821,45 +1872,56 @@ checkOrders(game *aGame, char *nationName, FILE * forecast)
 
   checkIntegrity(aGame);
 
-  doOrders(aGame, aPlayer, phase1orders, 1);
-  doOrders(aGame, aPlayer, phase2orders, 2);
+  if (orders_done == 0) {
+    orders_done = 1;
+
+    doOrders(aGame, aPlayer, phase1orders, 1);
+    doOrders(aGame, aPlayer, phase2orders, 2);
+
+    joinphase(aGame);
+    loadphase(aGame);
+    fleetphase(aGame);
+    checkIntegrity(aGame);
+    interceptphase(aGame);
+    movephase(aGame);
+    joinphase(aGame);
+    producephase(aGame);
+    unloadphase(aGame);
+    joinphase(aGame);
+    fleetphase(aGame);
+    
+    preComputeGroupData(aGame);
+    sortphase(aGame);
+    checkIntegrity(aGame);
+  }
 
   (aGame->turn)++;
-  joinphase(aGame);
-  loadphase(aGame);
-  fleetphase(aGame);
-  checkIntegrity(aGame);
-  interceptphase(aGame);
-  movephase(aGame);
-  joinphase(aGame);
-  producephase(aGame);
-  unloadphase(aGame);
-  joinphase(aGame);
-  fleetphase(aGame);
-
-  preComputeGroupData(aGame);
-  sortphase(aGame);
-  checkIntegrity(aGame);
-  nationStatus(aGame);
-  reportGlobalMessages(aGame->messages, &fields);
-  reportMessages(aPlayer, &fields);
-  reportOrders(aPlayer, &fields);
-  reportMistakes(aPlayer, &fields);
-  yourStatusForecast(aGame->planets, aPlayer, &fields);
-  if (aPlayer->flags & F_SHIPTYPEFORECAST) {
-    reportYourShipTypes(aPlayer, &fields);
+  if (kind == F_XMLREPORT) {
+    report_xml(aGame, aPlayer, forecast, Forecast);
   }
-  if (aPlayer->flags & F_PLANETFORECAST) {
-    yourPlanetsForecast(aGame->planets, aPlayer, &fields);
-    reportProdTable(aGame->planets, aPlayer, &fields);
+  else {
+    nationStatus(aGame);
+    reportGlobalMessages(aGame->messages, &fields);
+    reportMessages(aPlayer, &fields);
+    reportOrders(aPlayer, &fields);
+    reportMistakes(aPlayer, &fields);
+    yourStatusForecast(aGame->planets, aPlayer, &fields);
+    if (aPlayer->flags & F_SHIPTYPEFORECAST) {
+      reportYourShipTypes(aPlayer, &fields);
+    }
+    if (aPlayer->flags & F_PLANETFORECAST) {
+      yourPlanetsForecast(aGame->planets, aPlayer, &fields);
+      reportProdTable(aGame->planets, aPlayer, &fields);
+    }
+    if (aPlayer->flags & F_ROUTESFORECAST) {
+      reportRoutes(aGame->planets, aPlayer, &fields);
+    }
+    if (aPlayer->flags & F_GROUPFORECAST) {
+      reportYourGroups(aGame->planets, aPlayer, &fields);
+      reportFleets(aPlayer, &fields);
+    }
   }
-  if (aPlayer->flags & F_ROUTESFORECAST) {
-    reportRoutes(aGame->planets, aPlayer, &fields);
-  }
-  if (aPlayer->flags & F_GROUPFORECAST) {
-    reportYourGroups(aGame->planets, aPlayer, &fields);
-    reportFleets(aPlayer, &fields);
-  }
+  (aGame->turn)--;
 }
 
 /*************/
@@ -1867,7 +1929,7 @@ checkOrders(game *aGame, char *nationName, FILE * forecast)
 
 /****f* GalaxyNG/copyOrders
  * NAME
- *   copyOrders -- copy incomming orders to file.
+ *   copyOrders -- copy incoming orders to file.
  * SYNOPSIS
  * void copyOrders(game *aGame, FILE *orders, char *nationName, 
  *                 char *password, int theTurnNumber)
@@ -1899,25 +1961,15 @@ copyOrders(game *aGame,
   aPlayer->orders = NULL;
   copyFileName = alloc(strlen(aGame->name) + strlen(aPlayer->name) +
                        strlen(galaxynghome) + strlen("/orders//") + 20);
-#ifdef WIN32
-  sprintf(copyFileName, "%s\\orders\\%s\\%s.%d",
-          galaxynghome, aGame->name, aPlayer->name, theTurnNumber);
-#else
   sprintf(copyFileName, "%s/orders/%s/%s.%d",
           galaxynghome, aGame->name, aPlayer->name, theTurnNumber);
-#endif
+
   copyFile = Fopen(copyFileName, "w");
   savefprintf(copyFile, "#GALAXY %s %s %s\n",
               aGame->name, nationName, password);
   getLine(orders);
   for (; !feof(orders) && noCaseStrncmp("#END", lineBuffer, 4);) {
-    char           *c;
-
     savefprintf(copyFile, "%s", lineBuffer);
-    for (c = lineBuffer; *c; c++) {
-      if (*c == '\n')
-        *c = ' ';
-    }
     s = makestrlist(lineBuffer);
     addList(&(aPlayer->orders), s);
     getLine(orders);
@@ -2171,7 +2223,7 @@ getReturnAddress(FILE * orders)
     if (*c == '\n')
       *c = '\0';
   }
-  printf("returnAddress=%s<-\n", lineBuffer + 3);
+
   return strdup(lineBuffer + 3);
 }
 
@@ -2195,6 +2247,8 @@ doOrders(game *aGame, player *aPlayer, orderinfo *orderInfo, int phase)
   strlist        *s;
   orderinfo      *op;
 
+  plog(LFULL, "doOrders: Phase %d Nation %s\n", phase, aPlayer->name);
+
   pdebug(DFULL, "doOrders\n");
   pdebug(DFULL2, "  Phase %d Nation %s\n", phase, aPlayer->name);
   for (s = aPlayer->orders; s;) {
@@ -2202,6 +2256,7 @@ doOrders(game *aGame, player *aPlayer, orderinfo *orderInfo, int phase)
 
     pdebug(DFULL2, "  Order %s\n", s->str);
     for (order = getstr(s->str); (s) && (phase eq 2) && (*order eq '@');) {
+      plog(LFULL, "order: %s phase:%d\n", order, phase);
       for (s = s->next; s; s = s->next) {
         order = getstr(s->str);
         if (*order eq '@')
@@ -2258,9 +2313,11 @@ removeDeadPlayer(game *aGame)
       plog(LFULL, "Player %s idle turns %d\n", P->name, idleTurns);
       if (idleTurns != 0) {
         if (idleTurns < allowedOrderGap) {
+	  int gap = allowedOrderGap - idleTurns;
           sprintf(lineBuffer, "\n\
-*** NOTE: You didn't send orders this turn.  You have %d more turn(s) to\n\
-*** remain idle before you forfeit your position.", allowedOrderGap - idleTurns);
+*** NOTE: You didn't send orders this turn.  You have %d more turn%s to\n\
+*** remain idle before you forfeit your position.", gap, &"s"[gap == 1]);
+	  
           addList(&P->messages, makestrlist(lineBuffer));
         }
         else if (idleTurns == allowedOrderGap) {
@@ -2285,7 +2342,7 @@ removeDeadPlayer(game *aGame)
 
             for (p = aGame->planets; p; p = p->next) {
               if (p->owner eq P) {
-                plog(LPART, "Reseting planet %s\n", p->name);
+                plog(LPART, "Resetting planet %s\n", p->name);
                 p->col = 0;
                 p->producing = PR_CAP;
                 p->producingshiptype = 0;

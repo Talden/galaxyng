@@ -86,19 +86,20 @@ char           *tempdir = NULL;
  */
 
 struct option   options[] = {
-  {"Anonymous", F_ANONYMOUS},
-  {"AutoUnload", F_AUTOUNLOAD},
-  {"ProdTable", F_PRODTABLE},
-  {"SortGroups", F_SORTGROUPS},
-  {"GroupForeCast", F_GROUPFORECAST},
-  {"PlanetForeCast", F_PLANETFORECAST},
-  {"ShipTypeForecast", F_SHIPTYPEFORECAST},
-  {"RoutesForecast", F_ROUTESFORECAST},
-  {"Compress", F_COMPRESS},
-  {"Gplus", F_GPLUS},
-  {"MachineReport", F_MACHINEREPORT},   /* CB 1998 - Experimental */
-  {"BattleProtocol", F_BATTLEPROTOCOL},
-  {"XMLReport", F_XMLREPORT},   /* KDW 1999 - experimental */
+  {"address", F_ANONYMOUS},
+  {"autoUnload", F_AUTOUNLOAD},
+  {"prodTable", F_PRODTABLE},
+  {"sortGroups", F_SORTGROUPS},
+  {"groupForeCast", F_GROUPFORECAST},
+  {"planetForeCast", F_PLANETFORECAST},
+  {"shipTypeForecast", F_SHIPTYPEFORECAST},
+  {"routesForecast", F_ROUTESFORECAST},
+  {"compress", F_COMPRESS},
+  {"gplus", F_GPLUS},
+  {"machineReport", F_MACHINEREPORT},   /* CB 1998 - Experimental */
+  {"battleProtocol", F_BATTLEPROTOCOL},
+  {"xmlReport", F_XMLREPORT},   /* KDW 2003 */
+  {"txtReport", F_TXTREPORT},
   {NULL, 0}
 };
 

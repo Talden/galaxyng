@@ -806,8 +806,7 @@ createPlayer(gamespecification *aGameSpec, game *aGame,
   aPlayer->flags =
       F_ANONYMOUS | F_AUTOUNLOAD | F_PRODTABLE | F_SORTGROUPS |
       F_GROUPFORECAST | F_PLANETFORECAST | F_SHIPTYPEFORECAST |
-      F_ROUTESFORECAST;
-  /* | F_XMLREPORT ; */
+      F_ROUTESFORECAST | F_XMLREPORT | F_TXTREPORT ;
   /* F_MACHINEREPORT */
   return aPlayer;
 }

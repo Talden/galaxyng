@@ -460,10 +460,12 @@ loadgame(char *gameName, int whichTurn)
          !feof(turnFile) && !strstr(lineBuffer, "@EPGroups");
          getLine(turnFile)) {
       aGroup = allocStruct(group);
-
+      aGroup->next = NULL;
       aGroup->type = (shiptype *) readPointer((list *) P->shiptypes);
       assert(aGroup->type != NULL);
       aGroup->number = getReadInt();
+      aGroup->name = (char*)malloc(8);
+      sprintf(aGroup->name, "%d", aGroup->number);
       aGroup->drive = getReadFloat();
       aGroup->weapons = getReadFloat();
       aGroup->shields = getReadFloat();

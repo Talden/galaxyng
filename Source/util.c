@@ -165,11 +165,32 @@ getstr(char *s)
 strlist        *
 makestrlist(char *ns)
 {
-  strlist        *s;
+  strlist* s;
+  strlist* cur;
 
-  s = allocStruct(strlist);
+  char*    ptr;
+  char*    tmp;
 
-  s->str = strdup(ns);
+  tmp = strdup(ns);
+
+  cur = NULL;
+
+  ptr = strtok(tmp, "\r\n");
+  if (ptr == NULL)
+	  return NULL;
+  do {
+    if (cur) {
+      cur->next = (strlist*)allocStruct(strlist);
+      cur = cur->next;
+    }
+    else  
+      s = cur = (strlist*)allocStruct(strlist);
+
+    cur->str = strdup(ptr);
+  } while ((ptr = strtok(NULL, "\n\r")) != NULL);
+
+  free(tmp);
+
   return s;
 }
 
@@ -294,8 +315,8 @@ GOS_copy(char *fromfile, char *tofile)
 {
   int             res;
 
-#ifdef WIN32
   char           *c;
+#ifdef WIN32
 
   for (c = fromfile; *c; c++) {
     if (*c == '/')
@@ -307,6 +328,11 @@ GOS_copy(char *fromfile, char *tofile)
   }
   res = ssystem("copy %s %s", fromfile, tofile);
 #else
+  for (c = tofile; *c; c++) {
+    if (*c == ' ')
+      *c = '_';
+  }
+  plog(LBRIEF, "cp %s %s\n", fromfile, tofile);
   res = ssystem("cp %s %s", fromfile, tofile);
 #endif
   return res;
@@ -1309,6 +1335,7 @@ openLog(char *name, char *mode)
   if ((logFile = GOS_fopen(name, mode)) == NULL) {
     fprintf(stderr, "Could not open log file %s\n", name);
   }
+  setvbuf(logFile, NULL, _IONBF, 0);
   return 0;
 }
 

@@ -33,7 +33,7 @@
 #include "create.h"
 #include "wopr.h"
 
-char           *vcid = "WOPR release-0-1, February 2001.";
+char           vcid[128];
 
 int
 main(int argc, char **argv)
@@ -41,6 +41,7 @@ main(int argc, char **argv)
   /* Some initializations */
   resetErnie(197162622);
 
+  strcpy(vcid, "WOPR release-0-1, February 2001.");
   if (argc == 2) {
     printf("%s\n", argv[1]);
     return (wopr_battle(argc, argv)) ? EXIT_SUCCESS : EXIT_FAILURE;
@@ -94,8 +95,8 @@ int wopr_battle(int argc, char **argv)
       aPlayer->pswdstate = 1;
       printf("%s %d  \n", aPlayer->name, numberOfElements(aPlayer->groups));
 
-// Only works if you have the correct directories setup in $HOME/Games
-      //      galaxynghome = strdup("/home/chris");
+      /* Only works if you have the correct directories setup in $HOME/Games */
+      /* galaxynghome = strdup("/home/chris"); */
       saveTurnReport(aGame, aPlayer, 0);
     }
 
@@ -340,6 +341,8 @@ int parse_group(game *aGame, player *aPlayer)
   aGroup->flags = 0;
   aGroup->location = findPlanet(aGame, "BattleGround");
   numberGroup(aPlayer, aGroup);
+  aGroup->name = (char*)malloc(8);
+  sprintf(aGroup->name, "%d", aGroup->number);
   addList(&aPlayer->groups, aGroup);
   return TRUE;
 }
@@ -414,7 +417,7 @@ player *wopr_addPlayer (game *aGame, char *name) {
         F_ANONYMOUS | F_AUTOUNLOAD | F_PRODTABLE | F_SORTGROUPS |
         F_GROUPFORECAST | F_PLANETFORECAST | F_SHIPTYPEFORECAST |
         F_ROUTESFORECAST | F_BATTLEPROTOCOL;
-// Should check if the player exists already...
+    /* Should check if the player exists already...*/
     addList(&(aGame->players), aPlayer);
     return aPlayer;
 }

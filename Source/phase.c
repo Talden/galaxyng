@@ -458,6 +458,9 @@ loadphase(game *aGame)
 
                 *g2 = *g;
                 numberGroup(P, g2);
+		g2->name = (char*)malloc(8);
+		sprintf(g2->name, "%d", g2->number);
+		g2->next = NULL;
                 addList(&P->groups, g2);
                 g2->ships = i;
               }
@@ -486,6 +489,9 @@ loadphase(game *aGame)
 
                 *g2 = *g;
                 numberGroup(P, g2);
+		g2->name = (char*)malloc(8);
+		sprintf(g2->name, "%d", g2->number);
+		g2->next = NULL;
                 addList(&P->groups, g2);
                 g2->ships = i;
               }
@@ -514,6 +520,10 @@ loadphase(game *aGame)
 
                 *g2 = *g;
                 numberGroup(P, g2);
+		g2->name = (char*)malloc(8);
+		sprintf(g2->name, "%d", g2->number);
+		g2->next = NULL;
+		
                 addList(&P->groups, g2);
                 g2->ships = i;
               }
@@ -977,6 +987,9 @@ produceShip(planet *aPlanet, double industry)
     aGroup->flags = 0;
     aGroup->location = aPlanet;
     numberGroup(aPlayer, aGroup);
+    aGroup->name = (char*)malloc(8);
+    sprintf(aGroup->name, "%d", aGroup->number);
+    aGroup->next = NULL;
     addList(&aPlayer->groups, aGroup);
     aPlayer->massproduced += numberOfShips * typemass(typeProduced);
   }

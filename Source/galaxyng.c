@@ -51,12 +51,14 @@
 **********
 */
 
-#include "galaxy.h"
 #include <math.h>
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
 #include <time.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include "galaxy.h"
 #include "util.h"
 #include "process.h"
 #include "create.h"
@@ -69,7 +71,7 @@
 char           *galaxyng =
     "$Id$";
 
-char           *vcid = "GalaxyNG release-6-2, July 2003.";
+char           vcid[128];
 
 /* Should be in galaxy.h */
 
@@ -88,7 +90,9 @@ int             CMD_create(int argc, char **argv);
 int             CMD_mail0(int argc, char **argv, int kind);
 int             CMD_run(int argc, char **argv, int kind);
 int             CMD_check(int argc, char **argv, int kind);
+#if 0
 int             CMD_checkFile(int argc, char **argv, int kind);
+#endif
 int             CMD_report(int argc, char **argv);
 int             CMD_score(int argc, char **argv);
 int             CMD_graph(int argc, char **argv);
@@ -119,6 +123,9 @@ main(int argc, char **argv)
 
   /* Some initializations */
   resetErnie(197162622);
+
+  sprintf(vcid, "GalaxyNG release-%d-%d, %s.",
+    GNG_MAJOR, GNG_MINOR, GNG_DATE);
 
   /* This should be a function */
   if ((value = getenv("GALAXYNGHOME"))) {
@@ -160,9 +167,11 @@ main(int argc, char **argv)
   else if (strstr(argv[1], "mail0")) {
     result = CMD_mail0(argc, argv, CMD_CHECK_REAL);
   }
+#if 0
   else if (strstr(argv[1], "filecheck")) {
     result = CMD_checkFile(argc, argv, CMD_CHECK_DUMMY);
   }
+#endif
   else if (strstr(argv[1], "dummycheck")) {
     result = CMD_check(argc, argv, CMD_CHECK_DUMMY);
   }
@@ -307,7 +316,7 @@ CMD_template(int argc, char **argv)
               "; The list of the players, you can add here the mail address\n"
               "; of each player that enrolled in your game.\n" ";\n" "\n");
       for (i = 1; i <= numberOfPlayers; i++) {
-        fprintf(glxfile, "player  player%d@itsaddress.somehwere\n", i);
+        fprintf(glxfile, "player  player%d@itsaddress.somewhere\n", i);
       }
       fprintf(glxfile,
               ";\n"
@@ -323,13 +332,13 @@ CMD_template(int argc, char **argv)
               "; player player4@itsaddress.somewhere 500.0 100.0 1000.0\n\n");
       fprintf(glxfile,
               "\n"
-              "; You can specifie several other options :\n"
+              "; You can specify several other options :\n"
               ";\n"
               "; Initial tech levels\n"
               "; In order : Drive Weapons Shields Cargo\n"
               "; They can't be lower than 1 (don't ask why, I don't know\n"
               "; myself why I did this).\n"
-              "; In this case below, drive will be forced to 1 by the server.\n"
+              "; In the case below, drive will be forced to 1 by the server.\n"
               ";\n");
       fprintf(glxfile,
               "; Uncomment if you want this option.\n"
@@ -338,14 +347,14 @@ CMD_template(int argc, char **argv)
               ";\n"
               "; Full bombing, when bombed planets are completely bombed.\n"
               "; All population, industry, capital, colonists, and materials are gone.\n"
-              "; Normally the population and industry is reduced to 25%% of it's\n"
+              "; Normally the population and industry is reduced to 25%% of its\n"
               "; original value.\n" ";\n");
       fprintf(glxfile,
               "; Uncomment if you want this option.\n"
               "\n"
               "; FullBombing\n"
               "\n"
-              "; If keepproduction is set, the production points spend\n"
+              "; If keepproduction is set, the production points spent\n"
               "; on the previous product are preserved, otherwise all points are lost\n"
               ";\n" "; Uncomment if you want this option.\n" "\n");
       fprintf(glxfile,
@@ -353,7 +362,7 @@ CMD_template(int argc, char **argv)
               "\n"
               ";\n"
               "; Don't remove idle nations from a game.\n"
-              "; Normaly if players do not send in orders for a couple of turns\n"
+              "; Normally if players do not send in orders for a couple of turns\n"
               "; their nation self destructs.\n"
               ";\n" "; Uncomment if you want this option.\n" "\n");
       fprintf(glxfile,
@@ -368,8 +377,8 @@ CMD_template(int argc, char **argv)
       fprintf(glxfile,
               "; SaveReportCopy\n"
               "; The galaxy can be (roughly) mapped on a sphere\n"
-              "; This way, the gap beetween x (or y) coordinates of two\n"
-              "; planets is computed with borders lines crossing, and reapearing\n"
+              "; This way, the gap between x (or y) coordinates of two\n"
+              "; planets is computed with borders lines crossing, and reappearing\n"
               "; on the other side.\n"
               ";\n"
               "; Uncomment if you want this option.\n"
@@ -427,11 +436,11 @@ CMD_run(int argc, char **argv, int kind)
 
   result = EXIT_FAILURE;
   if (argc >= 4) {
-    game           *aGame;
-    int             turn;
-    char           *logName;
+    game* aGame;
+    int   turn;
+    char* logName;
 
-    logLevel = LPART;
+    logLevel = LFULL;
 
     logName = createString("%s/log/%s", galaxynghome, argv[2]);
     openLog(logName, "w");
@@ -444,7 +453,7 @@ CMD_run(int argc, char **argv, int kind)
     turn = (argc == 4) ? LG_CURRENT_TURN : atoi(argv[4]) - 1;
 
     if ((aGame = loadgame(argv[2], turn))) {
-      player         *aPlayer;
+      player *aPlayer;
 
       loadConfig(aGame);
       if (checkTime(aGame) || (kind == CMD_RUN_DUMMY)) {
@@ -454,54 +463,64 @@ CMD_run(int argc, char **argv, int kind)
           highScoreList(aGame);
           result = 0;
           for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-            if (kind == CMD_RUN_REAL) {
-              result |= mailTurnReport(aGame, aPlayer, 0);
-              if (aGame->gameOptions.gameOptions & GAME_SAVECOPY) {
-                saveTurnReport(aGame, aPlayer, 0);
-              }
-            }
-            else {
-              saveTurnReport(aGame, aPlayer, 0);
-            }
+	    if (aPlayer->flags & F_TXTREPORT) {
+	      if (kind == CMD_RUN_REAL) {
+		result |= mailTurnReport(aGame, aPlayer, F_TXTREPORT);
+		if (aGame->gameOptions.gameOptions & GAME_SAVECOPY) {
+		  saveTurnReport(aGame, aPlayer, F_TXTREPORT);
+		}
+	      }
+	      else {
+		saveTurnReport(aGame, aPlayer, F_TXTREPORT);
+	      }
+	    }
+
             if (aPlayer->flags & F_XMLREPORT) {
               if (kind == CMD_RUN_REAL) {
                 result |= mailTurnReport(aGame, aPlayer, F_XMLREPORT);
-              }
-              else {
-                saveTurnReport(aGame, aPlayer, F_XMLREPORT);
-              }
-            }
+		if (aGame->gameOptions.gameOptions & GAME_SAVECOPY) {
+		  saveTurnReport(aGame, aPlayer, F_XMLREPORT);
+		}
+		else {
+		  saveTurnReport(aGame, aPlayer, F_XMLREPORT);
+		}
+	      }
+	    }
+	    
             if (aPlayer->flags & F_MACHINEREPORT) {
               if (kind == CMD_RUN_REAL) {
                 result |= mailTurnReport(aGame, aPlayer, F_MACHINEREPORT);
-              }
-              else {
-                saveTurnReport(aGame, aPlayer, F_MACHINEREPORT);
-              }
-            }
-          }
-          savegame(aGame);
-        }
+		if (aGame->gameOptions.gameOptions & GAME_SAVECOPY) {
+		  saveTurnReport(aGame, aPlayer, F_MACHINEREPORT);
+		}
+		else {
+		  saveTurnReport(aGame, aPlayer, F_MACHINEREPORT);
+		}
+	      }
+	    }
+	  }
+	  savegame(aGame);
+	}
         else {
           fprintf(stderr,
                   "The server has detected an error in the game data structure. The run\n"
-                  "of the turn has been aborted. No turn reports have been send. Please\n"
-                  "contact Frans Slothouber at fslothouber@acm.org for a solution to this\n"
+                  "of the turn has been aborted. No turn reports have been sent. Please\n"
+                  "contact Ken Weinert at mc@quarter-flash.com for a solution to this\n"
                   "problem.\n");
           result = 1;
         }
-        plogtime(LPART);
+	plogtime(LPART);
         plog(LPART, "Run is completed.\n");
         result = (result) ? EXIT_FAILURE : EXIT_SUCCESS;
       }
       else {
         plog(LBRIEF, "Error, attempt to run the game \"%s\" at the"
              " wrong time.\n"
-             "You specified a starttime of %s in your .galaxyngrc file.\n",
+             "You specified a start time of %s in your .galaxyngrc file.\n",
              argv[2], aGame->starttime);
         fprintf(stderr,
                 "Error, attempt to run the game \"%s\" at the wrong time.\n"
-                "You specified a starttime of %s in your .galaxyngrc file.\n",
+                "You specified a start time of %s in your .galaxyngrc file.\n",
                 argv[2], aGame->starttime);
       }
       closeLog();
@@ -510,6 +529,7 @@ CMD_run(int argc, char **argv, int kind)
       }
       freegame(aGame);
     }
+
     else {
       plog(LBRIEF, "Game \"%s\" does not exist.\n", argv[2]);
       fprintf(stderr, "Game \"%s\" does not exist.\n", argv[2]);
@@ -583,9 +603,9 @@ checkTime(game *aGame)
 
 /****f* GalaxyNG/CMD_check
  * NAME
- *   CMD_check -- check in comming orders.
+ *   CMD_check -- check incoming orders.
  * FUNCTION
- *   Check incomming orders and create a forecast of the
+ *   Check incoming orders and create a forecast of the
  *   situation at the next turn.
  * INPUTS
  *   Orders come in via stdin. The forecast is mailed directy to the player.
@@ -604,8 +624,18 @@ checkTime(game *aGame)
 int
 CMD_check(int argc, char **argv, int kind)
 {
-  int             result;
-  char           *logName;
+  int       result;
+  char*     logName;
+  envelope* anEnvelope;
+  char*     forecastName;
+  char*     returnAddress;
+  char*     nationName;
+  char*     password;
+  game*     aGame;
+  FILE*     forecast;
+  player*   aPlayer;
+
+  int       resNumber, theTurnNumber;
 
   logLevel = LBRIEF;
   result = EXIT_FAILURE;
@@ -616,87 +646,208 @@ CMD_check(int argc, char **argv, int kind)
 
   plogtime(LBRIEF);
   if (argc >= 2) {
-    char           *forecastName, *returnAddress, *nationName, *password;
-    int             resNumber, theTurnNumber;
-    game           *aGame;
-    FILE           *forecast;
+    anEnvelope = createEnvelope();
+    returnAddress = getReturnAddress(stdin);
+    theTurnNumber = getTurnNumber(stdin);
+    nationName = NULL;
+    password = NULL;
+    aGame = NULL;
+    resNumber = areValidOrders(stdin, &aGame, &nationName,
+			       &password, theTurnNumber);
+    plog(LBRIEF, "game %s\n", aGame->name);
 
-    forecastName = createString("%s/NGforecast", tempdir);
-    if ((forecast = GOS_fopen(forecastName, "w"))) {
-      envelope       *anEnvelope;
+    if (resNumber == RES_OK) {
+      aPlayer = findElement(player, aGame->players, nationName);
+      aPlayer->orders = NULL;
 
-      anEnvelope = createEnvelope();
-      returnAddress = getReturnAddress(stdin);
-      theTurnNumber = getTurnNumber(stdin);
-      nationName = NULL;
-      password = NULL;
-      aGame = NULL;
-      resNumber = areValidOrders(stdin, &aGame, &nationName,
-                                 &password, theTurnNumber);
-      plog(LBRIEF, "game %s\n", aGame->name);
       setHeader(anEnvelope, MAILHEADER_TO, "%s", returnAddress);
       plog(LBRIEF, "Orders from %s\n", returnAddress);
-      if (resNumber eq RES_OK) {
-        if ((theTurnNumber eq LG_CURRENT_TURN) ||
-            (theTurnNumber eq(aGame->turn) + 1)) {
-          copyOrders(aGame, stdin, nationName, password,
-                     (aGame->turn) + 1);
-          setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                    "Galaxy HQ, %s turn %d forecast for %s", aGame->name,
-                    (aGame->turn) + 1, nationName);
-          plog(LBRIEF, "%s turn %d orders checked for %s.\n", aGame->name,
-               (aGame->turn) + 1, nationName);
-          checkOrders(aGame, nationName, forecast);
-        }
-        else {
-          copyOrders(aGame, stdin, nationName, password, theTurnNumber);
-          setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                    "Galaxy HQ, %s advance orders received for %s.",
-                    aGame->name, nationName);
-          plog(LBRIEF, "%s advance orders received for %s.\n",
-               aGame->name, nationName);
-          fprintf(forecast, "O wise leader your orders for turn %d "
-                  "have been received and stored.\n", theTurnNumber);
-        }
-      }
-      else {
-        setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy HQ, major trouble");
-        plog(LBRIEF, "major trouble %d\n", resNumber);
-        generateErrorMessage(resNumber, aGame, nationName,
-                             theTurnNumber, forecast);
-      }
-      fprintf(forecast, "\n\n%s\n", vcid);
-      fclose(forecast);
-      result = 0;
-      if (kind == CMD_CHECK_REAL) {
-        result |= eMail(aGame, anEnvelope, forecastName);
-      }
-      else {
-        char           *forecastFile;
 
-        forecastFile =
-            createString("%s/forecasts/%s",
-                         galaxynghome, argv[2], returnAddress);
-        GOS_copy(forecastName, forecastFile);
+
+      /* produce an XML forecast */
+      if (aPlayer->flags && F_XMLREPORT) {
+	if ((theTurnNumber == LG_CURRENT_TURN) ||
+	    (theTurnNumber == (aGame->turn) + 1)) {
+	  forecastName = createString("%s/NG_XML_%d_forecast", 
+            tempdir, getpid());
+          copyOrders(aGame, stdin, nationName, password, aGame->turn+1);
+	  if ((forecast = GOS_fopen(forecastName, "w")) == NULL) {
+	    plog(LBRIEF, "Could not open %s for forecasting\n", forecastName);
+	    return EXIT_FAILURE;
+	  }
+
+	  setHeader(anEnvelope, MAILHEADER_SUBJECT,
+		    "Galaxy HQ, %s turn %d XML forecast for %s", aGame->name,
+		    (aGame->turn) + 1, nationName);
+     
+	  checkOrders(aGame, nationName, forecast, F_XMLREPORT);
+
+	  fclose(forecast);
+	  if (kind == CMD_CHECK_REAL) {
+	    plog(LBRIEF, "mailing XML report %s to %s\n", forecastName, 
+		anEnvelope->to);
+	    result |= eMail(aGame, anEnvelope, forecastName);
+	  }
+	  else {
+	    char           *forecastFile;
+	    forecastFile =
+	      createString("%s/forecasts/%s/%s_XML",
+			   galaxynghome, argv[2], returnAddress);
+	    GOS_copy(forecastName, forecastFile);
+	  }
+	  result |= GOS_delete(forecastName);
+	  free(forecastName);
+	}
       }
-      if (nationName)
-        free(nationName);
-      if (password)
-        free(password);
-      destroyEnvelope(anEnvelope);
-      result |= GOS_delete(forecastName);
-      result = (result) ? EXIT_FAILURE : EXIT_SUCCESS;
+      
+      /* produce a text forecast */
+      if (aPlayer->flags && F_TXTREPORT) {
+	if ((theTurnNumber == LG_CURRENT_TURN) ||
+	    (theTurnNumber == (aGame->turn) + 1)) {
+	  forecastName = createString("%s/NG_TXT_%d_forecast", 
+             tempdir, getpid());
+	  forecast = GOS_fopen(forecastName, "w");
+	  if (aPlayer->orders == NULL)
+               copyOrders(aGame, stdin, nationName, password, aGame->turn+1);
+
+	  setHeader(anEnvelope, MAILHEADER_SUBJECT,
+		    "Galaxy HQ, %s turn %d TXT forecast for %s", aGame->name,
+		    (aGame->turn) + 1, nationName);
+      
+	  checkOrders(aGame, nationName, forecast, F_TXTREPORT);
+
+	  fclose(forecast);
+
+	  if (kind == CMD_CHECK_REAL) {
+	    plog(LBRIEF, "mailing TXT report %s to %s\n", forecastName, 
+		anEnvelope->to);
+	    
+	    result |= eMail(aGame, anEnvelope, forecastName);
+	  }
+	  else {
+	    char           *forecastFile;
+	    forecastFile =
+	      createString("%s/forecasts/%s/%s_TXT",
+			   galaxynghome, argv[2], returnAddress);
+	    GOS_copy(forecastName, forecastFile);
+	  }
+	  result |= GOS_delete(forecastName);
+	  free(forecastName);
+	}
+      }
+
     }
     else {
-      fprintf(stderr, "Can't open \"%s\".\n", forecastName);
+      forecastName = createString("%s/NG_TXT_%d_errors", 
+				  tempdir, getpid());
+      forecast = GOS_fopen(forecastName, "w");
+      setHeader(anEnvelope, MAILHEADER_SUBJECT,
+		"Galaxy HQ, major trouble");
+      plog(LBRIEF, "major trouble %d\n", resNumber);
+
+      generateErrorMessage(resNumber, aGame, nationName,
+			   theTurnNumber, forecast);
+      fclose(forecast);
+
+      if (kind == CMD_CHECK_REAL) {
+	plog(LBRIEF, "mailing error report %s to %s\n", forecastName, 
+	     anEnvelope->to);
+	    
+	result |= eMail(aGame, anEnvelope, forecastName);
+      }
+      else {
+	char           *forecastFile;
+	forecastFile =
+	  createString("%s/forecasts/%s/%s_ERR",
+		       galaxynghome, argv[2], returnAddress);
+	GOS_copy(forecastName, forecastFile);
+      }
+      result |= GOS_delete(forecastName);
+      free(forecastName);
     }
-    free(forecastName);
+
+    /* code here for advanced orders, we need to see how to determine this */
+    if (!((theTurnNumber == LG_CURRENT_TURN) ||
+	  (theTurnNumber == (aGame->turn) + 1))) {
+
+      if (aPlayer->orders == NULL)
+	copyOrders(aGame, stdin, nationName, password, theTurnNumber);
+
+      setHeader(anEnvelope, MAILHEADER_SUBJECT,
+		"Galaxy HQ, %s advance orders received for %s.",
+		aGame->name, nationName);
+      plog(LBRIEF, "%s advance orders received for %s.\n",
+	   aGame->name, nationName);
+      if (aPlayer->flags && F_XMLREPORT) {
+	forecastName = createString("%s/NG_XML_forecast", tempdir);
+	forecast = GOS_fopen(forecastName, "w");
+
+	fprintf(forecast, "<galaxy>\n  <variant>GalaxyNG</variant>\n");
+	fprintf(forecast, "  <version>%d.%d.%d</version>\n",
+		GNG_MAJOR, GNG_MINOR, GNG_RELEASE);
+	fprintf(forecast, "  <game name=\"%s\">\n", aGame->name);
+	fprintf(forecast, "    <turn num=\"%d\">\n", theTurnNumber);
+	fprintf(forecast, "      <race name=\"%s\">\n", nationName);
+	fprintf(forecast, "        <message>\n");
+	fprintf(forecast, "          <line num=\"1\">"
+		"O wise leader, your orders for turn %d</line>",
+		theTurnNumber);
+	fprintf(forecast, "          <line num=\"2\">"
+		"have been received and stored.</line>");
+	fprintf(forecast, "        </message>\n");
+	fprintf(forecast, "      </race>\n");
+	fprintf(forecast, "    </turn>\n");
+	fprintf(forecast, "  </game>\n");
+	fprintf(forecast, "</galaxy>\n");
+	fclose(forecast);
+	if (kind == CMD_CHECK_REAL) {
+	  result |= eMail(aGame, anEnvelope, forecastName);
+	}
+	else {
+	  char           *forecastFile;
+	  
+	  forecastFile =
+	    createString("%s/forecasts/%s/%s_XML",
+			 galaxynghome, argv[2], returnAddress);
+	  GOS_copy(forecastName, forecastFile);
+	}
+	result |= GOS_delete(forecastName);
+	free(forecastName);
+      }
+
+      if (aPlayer->flags && F_TXTREPORT) {
+         if (aPlayer->orders == NULL)
+            copyOrders(aGame, stdin, nationName, password, theTurnNumber);
+	forecastName = createString("%s/NG_TXT_forecast", tempdir);
+	forecast = GOS_fopen(forecastName, "w");
+	fprintf(forecast, "O wise leader your orders for turn %d "
+		"have been received and stored.\n", theTurnNumber);
+	fclose(forecast);
+	if (kind == CMD_CHECK_REAL) {
+	  result |= eMail(aGame, anEnvelope, forecastName);
+	}
+	else {
+	  char           *forecastFile;
+	  
+	  forecastFile =
+	    createString("%s/forecasts/%s/%s_TXT",
+			 galaxynghome, argv[2], returnAddress);
+	  GOS_copy(forecastName, forecastFile);
+	}
+
+	result |= GOS_delete(forecastName);
+	free(forecastName);
+      }
+    }
   }
-  else {
-    usage();
-  }
-  closeLog();
+
+  if (nationName)
+    free(nationName);
+  if (password)
+    free(password);
+  destroyEnvelope(anEnvelope);
+  result = (result) ? EXIT_FAILURE : EXIT_SUCCESS;
+
   return result;
 }
 
@@ -709,7 +860,7 @@ CMD_check(int argc, char **argv, int kind)
  * NOTE
  *   This should be merged with CMD_check(). 
  ****/
-
+#if 0
 int
 CMD_checkFile(int argc, char **argv, int kind)
 {
@@ -758,7 +909,7 @@ CMD_checkFile(int argc, char **argv, int kind)
                     (aGame->turn) + 1, nationName);
           plog(LBRIEF, "%s turn %d orders checked for %s.\n", aGame->name,
                (aGame->turn) + 1, nationName);
-          checkOrders(aGame, nationName, forecast);
+          checkOrders(aGame, nationName, forecast, F_TXTREPORT);
         }
         else {
           copyOrders(aGame, stream, nationName, password, theTurnNumber);
@@ -811,7 +962,7 @@ CMD_checkFile(int argc, char **argv, int kind)
   closeLog();
   return result;
 }
-
+#endif
 /***********/
 
 
