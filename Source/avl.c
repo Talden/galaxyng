@@ -145,7 +145,7 @@ int avl_remove(avl_tree* t, avl* a)
       /* remove from the left subtree */
       int ch;
       avl_tree left_subtree;
-      if(left_subtree.root=t->root->left){
+      if((left_subtree.root = t->root->left) != NULL) {
 	 left_subtree.compar=t->compar;
 	 ch=avl_remove(&left_subtree,a);
 	 t->root->left=left_subtree.root;
@@ -175,7 +175,7 @@ int avl_remove(avl_tree* t, avl* a)
       /* remove from the right subtree */
       int ch;
       avl_tree right_subtree;
-      if(right_subtree.root=t->root->right){
+      if((right_subtree.root = t->root->right) != NULL) {
 	 right_subtree.compar=t->compar;
 	 ch=avl_remove(&right_subtree,a);
 	 t->root->right=right_subtree.root;
@@ -260,7 +260,7 @@ int avl_range(avl_tree* t,avl* a,avl* b,int(*iter)(avl* a))
    if(x>=0){
       /* search in the left subtree */
       avl_tree left_subtree;
-      if(left_subtree.root=t->root->left){
+      if((left_subtree.root = t->root->left) != NULL) {
 	 left_subtree.compar=t->compar;
 	 if(!(c=avl_range(&left_subtree,a,b,iter))) if(x>0) return 0;
       }
