@@ -1262,7 +1262,7 @@ I'll never trust you again!
 					<p><a href="#orders">Change the player's password</a>.</p>
 
 				<h3 id="ordz">z &lt;new email address&gt;</h3>
-					<p>Change the player's <a href="#orders">email address</a>.</p>
+					<p>Change the player's <a href="#orders">email address</a>.  Note that players can have reports sent to multiple addresses by separating them with commas, e.g. &lt;email address 1&gt;,&lt;email address 2&gt;.</p>
 
 			<hr />
 
