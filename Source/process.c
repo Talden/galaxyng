@@ -10,7 +10,6 @@
 extern int      nbrProducts;
 
 char           *vprocess =
-
     "$Id$";
 
 
@@ -71,14 +70,13 @@ orderinfo       phase2orders[] = {
 
 /*********/
 
-// WIN32
-char           *string_mail_subject = "subject:";       // Dutch:
+/* WIN32 */
+char           *string_mail_subject = "subject:";       /* Dutch:
+                                                         * onderwerp: */
 
-                                                        // onderwerp:
+char           *string_mail_to = "to:"; /* Dutch: aan: */
 
-char           *string_mail_to = "to:"; // Dutch: aan:
-
-char           *string_mail_from = "from:";     // Dutch: van:        
+char           *string_mail_from = "from:";     /* Dutch: van: */
 
 /****f* GalaxyNG/mistake
  * NAME
@@ -317,7 +315,8 @@ d_order(game *aGame, player *P, strlist **s)
     mistake(P, *s, "Name already in use for fleet.");
     return;
   }
-  /* Occasionally someone designs a ship called "Cargo" or something, then *
+  /* Occasionally someone designs a ship called "Cargo" or something, then 
+   *
    * * * * * doesn't understand why the planet didn't produce the ship when * 
    * * they * * do * "P planet Cargo" :)  This will fix this problem.  - RJS */
 
@@ -616,7 +615,7 @@ h_order(game *aGame, player *P, strlist **s)
   if (fl) {
     double          fleetspeed;
 
-    // Fixed the "can turn around fleets, late" bug
+    /* Fixed the "can turn around fleets, late" bug */
     fleetspeed = fleetSpeed(fl, P->groups);
 
     for (g = P->groups; g; g = g->next) {
@@ -2067,7 +2066,7 @@ getTurnNumber(FILE * orders)
   theTurnNumber = LG_CURRENT_TURN;
   for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders);
        isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders)) {
-    // WIN32
+    /* WIN32 */
     if (noCaseStrncmp(string_mail_subject, lineBuffer, 8) == 0) {
       int             temp, nrRead;
       char           *c;
@@ -2119,7 +2118,7 @@ getDestination(FILE * orders)
   theTurnNumber = LG_CURRENT_TURN;
   for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders);
        isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders)) {
-    // WIN32
+    /* WIN32 */
     if (noCaseStrncmp(string_mail_subject, lineBuffer, 8) == 0) {
       char           *c;
 
@@ -2163,7 +2162,7 @@ getReturnAddress(FILE * orders)
 
   for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders);
        isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, orders)) {
-    // WIN32
+    /* WIN32 */
     if (noCaseStrncmp(string_mail_to, lineBuffer, 3) == 0)
       break;
   }
@@ -2172,7 +2171,7 @@ getReturnAddress(FILE * orders)
     if (*c == '\n')
       *c = '\0';
   }
-  printf("returnAddress=%s<-\n", lineBuffer+3);
+  printf("returnAddress=%s<-\n", lineBuffer + 3);
   return strdup(lineBuffer + 3);
 }
 

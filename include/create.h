@@ -4,10 +4,11 @@
 /* $Id$ */
 
 #include "galaxy.h"
+#include "avl.h"
 #include <fcntl.h>
 
 #ifdef WIN32
-// #include <varargs.h>
+/* #include <varargs.h> */
 #include <stdarg.h>
 #include <stdio.h>
 #endif
@@ -26,8 +27,8 @@ typedef struct newplayer {
   char           *pswd;
   int             numberOfHomePlanets;
   double         *coreSizes;    /* array of doubles; */
-  int            team;
-  int            done;  /* has been selected in a team game */
+  int             team;
+  int             done;         /* has been selected in a team game */
 } newplayer;
 
 /**********/
@@ -58,7 +59,7 @@ typedef struct gamespecification {
   int             numberOfRows;
   int             numberOfColumns;
   int             teamGame;
-  gameOpt         gameOptions; /*CB 20010425*/
+  gameOpt         gameOptions;  /* CB 20010425 */
 } gamespecification;
 
 /*******/
@@ -66,72 +67,71 @@ typedef struct gamespecification {
 
 int             createGameDirectories(char *name);
 
-player         *createPlayer(gamespecification *aGameSpec, game *aGame, newplayer *aNewPlayer);
+player         *createPlayer(gamespecification *aGameSpec, game *aGame,
+                             newplayer *aNewPlayer);
 
 gamespecification *readGameSpec(FILE * specfile);
 
-void printGameSpecs(gamespecification *gspec);
+void            printGameSpecs(gamespecification *gspec);
 
-void swap_data(double *v1, double *v2);
+void            swap_data(double *v1, double *v2);
 
-void Add_Empty_Planets(game *aGame, int nplanets,
+void            Add_Empty_Planets(game *aGame, int nplanets,
                                   double empty_dist, double x, double y,
                                   int *planet_name, double low_range,
                                   double up_range);
 
-planet         *Add_Core_Home_Planet(game *aGame, double min_dist, int *planet_name, player *Player, double size);
+planet         *Add_Core_Home_Planet(game *aGame, double min_dist,
+                                     int *planet_name, player *Player,
+                                     double size);
 
 planet         *Add_Circle_Home_Planet(game *aGame, int pnum,
                                        double min_dist, double sphere,
                                        int *planet_name, player *aPlayer,
                                        int num_players);
 
-void Randomize_Planet_Numbers(game *aGame);
+void            Randomize_Planet_Numbers(game *aGame);
 
-void Add_Stuff_Planets(game *aGame, int stuff_planets,
+void            Add_Stuff_Planets(game *aGame, int stuff_planets,
                                   int *planet_name);
 
-int createStandardLayout( gamespecification *aGameSpec,
-                game *aGame,
-                int planet_name);
+int             createStandardLayout(gamespecification *aGameSpec,
+                                     game *aGame, int planet_name);
 
-int createCheckeredLayout( gamespecification *aGameSpec,
-                game *aGame,
-                int planet_name);
+int             createCheckeredLayout(gamespecification *aGameSpec,
+                                      game *aGame, int planet_name);
 
-double CalcCirclegalaxysize(int num, double dist, double sphere);
+double          CalcCirclegalaxysize(int num, double dist, double sphere);
 
 game           *creategame(gamespecification *gspec);
 
-void Add_Circle_Stuff_Planets(game *aGame, int stuff_planets,
+void            Add_Circle_Stuff_Planets(game *aGame, int stuff_planets,
                                          int *planet_name, double sphere);
 
-void Add_Extra_Circle_Stuff_Planets(game *aGame,
+void            Add_Extra_Circle_Stuff_Planets(game *aGame,
                                                int circle_stuff_planets,
                                                double x, double y,
                                                int *planet_name,
                                                int min_dist);
 
-void Add_Center_Planet(game *aGame, int *planet_name);
+void            Add_Center_Planet(game *aGame, int *planet_name);
 
-newplayer *getNextTeamPlayer(
-                newplayer *aNewPlayer, 
-                int team);
+newplayer      *getNextTeamPlayer(newplayer *aNewPlayer, int team);
 
 void
-Add_Extra_Home_Planets(game *aGame,
-                       double x, double y,
-                       double size,
-                       double max_radius,
-                       int *planet_name, player *aPlayer);
+                Add_Extra_Home_Planets(game *aGame,
+                                       double x, double y,
+                                       double size,
+                                       double max_radius,
+                                       int *planet_name, player *aPlayer);
 
-void setTeamAllies(player *firstPlayer);
+void            setTeamAllies(player *firstPlayer);
 
 
-void Add_Team_Stuff_Planets(
-		game* aGame, 
-		gamespecification* aGameSpec, 
-		int* planet_name);
+void            Add_Team_Stuff_Planets(game *aGame,
+                                       gamespecification *aGameSpec,
+                                       int *planet_name);
+
+void            initUniqifyValues(void);
 
 #endif                          /* GNG_CREATEGAME_H */
-

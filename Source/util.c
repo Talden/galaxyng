@@ -20,7 +20,7 @@
 #include "list.h"
 #include "loadgame.h"
 
-/* $Id$        */
+/* $Id$ */
 
 /****h* GalaxyNG/Util
  * NAME
@@ -87,16 +87,17 @@ getstr(char *s)
 
   if (s)
     s1 = s;
-  /* first invocation of this function, for an order line.  Each next * * * * 
-   * times, for the same order line, s1 will "progress"  by a word to * * *
-   * the * right */
+  /* first invocation of this function, for an order line.  Each next * *
+   * * * times, for the same order line, s1 will "progress" by a word to
+   * * * * the * right */
   assert(s1 != NULL);
 
   i = 0;
   for (; *s1 && isspace(*s1); s1++);    /* skips spaces */
 
   if (*s1 eq '"') {
-    /* Players can enclose name (ie : including spaces) with double quotes */
+    /* Players can enclose name (ie : including spaces) with double quotes 
+     */
     for (s1++; *s1 && *s1 != '"';) {
       buf[i] = isspace(*s1) ? '_' : *s1;
       s1++;
@@ -115,7 +116,7 @@ getstr(char *s)
   else {
     if (*s1 != ';') {           /* otherwise, it's a comment */
       for (; *s1 && !isspace(*s1) && *s1 != ',';) {
-        /* space or ',' can be  used as separators, */
+        /* space or ',' can be used as separators, */
         buf[i] = *s1;
         s1++;
         i++;
@@ -127,9 +128,9 @@ getstr(char *s)
   buf[i] = '\0';
   if (*s1)
     s1++;                       /* Skip ',' or space */
-  /* CB, 19980922. Remove ";" and "<" from names (planets,  ships...), * * *
-   * * to  * protect machine report from corruption. Don't break messages * *
-   * * * and * comments. */
+  /* CB, 19980922. Remove ";" and "<" from names (planets, ships...), * *
+   * * * to * protect machine report from corruption. Don't break messages 
+   * * * * * and * comments. */
   i = 0;
   j = 0;
   while (buf[j] && j < 256) {
@@ -486,7 +487,7 @@ typemass(shiptype *t)
 double
 calcdefense(group *target)
 {
-  double res;
+  double          res;
 
   res = target->type->shields * target->shields * BATTLEMAGIC /
       pow(shipmass(target), .333333333333333);
@@ -530,6 +531,7 @@ cargospace(group *g)
 {
   double          size;
   double          res;
+
   size = g->type->cargo;
   res = g->cargo * size * (1 + size / 10.0);
   return res;
@@ -741,8 +743,8 @@ fleetSpeed(fleetname *fl, group *g)
   double          res = 0, tmp;
   group          *g2;
 
-  /* FS Mon Oct 12 14:39:11 MEST 1998  Sometimes people have fleets with * *
-   * * * * *  * *  * * ships of speed 0.0 */
+  /* FS Mon Oct 12 14:39:11 MEST 1998 Sometimes people have fleets with *
+   * * * * * * * * * * ships of speed 0.0 */
   for (g2 = g; g2; g2 = g2->next) {
     if (g2->thefleet == fl) {
       res = groupSpeed(g2);
@@ -823,12 +825,15 @@ dist(game *aGame, planet *p1, planet *p2)
   dx = fabs(x1 - x2);
   dy = fabs(y1 - y2);
 
-  if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) { /*CB-20010401 ; see galaxy.h */
+  if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) {  /* CB-20010401 
+                                                                 * ; see
+                                                                 * galaxy.h 
+                                                                 */
     s1 = aGame->galaxysize;
     s2 = aGame->galaxysize / 2.0;
 
-    dx = ( dx < s2 ) ? dx : s1 - dx;
-    dy = ( dy < s2 ) ? dy : s1 - dy;
+    dx = (dx < s2) ? dx : s1 - dx;
+    dy = (dy < s2) ? dy : s1 - dy;
   }
 
   res = sqrt(dx * dx + dy * dy);
@@ -1789,10 +1794,16 @@ nationStatus(game *aGame)
     aPlayer->totPop = 0;
     aPlayer->totInd = 0;
     aPlayer->numberOfPlanets = 0;
+    aPlayer->totCap = 0;
+    aPlayer->totMat = 0;
+    aPlayer->totCol = 0;
     for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
       if (aPlanet->owner eq aPlayer) {
         aPlayer->totPop += aPlanet->pop;
         aPlayer->totInd += aPlanet->ind;
+        aPlayer->totCap += aPlanet->cap;
+        aPlayer->totMat += aPlanet->mat;
+        aPlayer->totCol += aPlanet->col;
         aPlayer->numberOfPlanets++;
       }
     }

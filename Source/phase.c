@@ -11,7 +11,6 @@
 #include "savegame.h"
 
 char           *vphase =
-
     "$Id$";
 
 /****h* GalaxyNG/Phase
@@ -376,12 +375,13 @@ determineOwnership(game *aGame, planet *targetPlanet, player *aPlayer)
   group          *aGroup;
   int             standoff;
 
-  /* Check if the owner of the planet has any ships left that can  fire, * *
-   * * * * *  *  * * in that case there is a standoff */
+  /* Check if the owner of the planet has any ships left that can fire, *
+   * * * * * * * * * in that case there is a standoff */
   for (standoff = FALSE, aGroup = targetPlanet->owner->groups;
        aGroup && !standoff; aGroup = aGroup->next) {
     if (aGroup->location eq targetPlanet && aGroup->type->attacks
-        && aGroup->ships) standoff = TRUE;
+        && aGroup->ships)
+      standoff = TRUE;
   }
 
   claimingPlayer = (player *) NULL;
@@ -597,7 +597,8 @@ interceptphase(game *aGame)
                  aGroup; aGroup = aGroup->next) {
               if ((aGroup->dist) &&
                   (aGroup->location eq inPlanet) &&
-                  (dist(aGame, aGroup->where, inGroup->location) < maxDist)) {
+                  (dist(aGame, aGroup->where, inGroup->location) <
+                   maxDist)) {
                 massPerPlanet[ptonum(aGame->planets, aGroup->where)] +=
                     aGroup->ships * shipmass(aGroup);
               }
@@ -618,12 +619,14 @@ interceptphase(game *aGame)
 
         if (targetPlanet) {
           pdebug(DFULL, "Result: Planet %s (%f ly away).\n",
-                 targetPlanet->name, dist(aGame, inGroup->where, targetPlanet));
+                 targetPlanet->name, dist(aGame, inGroup->where,
+                                          targetPlanet));
           inGroup->where = inGroup->from;
           send(aGame, inGroup, targetPlanet);
         }
-        inGroup->flags &= ~GF_INTERCEPT;        /* Remove the * * * intercept 
-                                                 * * * *  *  * * * flag. */
+        inGroup->flags &= ~GF_INTERCEPT;        /* Remove the * * *
+                                                 * intercept * * * * * *
+                                                 * * flag. */
       }
     }
   }
@@ -653,7 +656,7 @@ fleetphase(game *aGame)
   fleetname      *fl, *fl2;
   group          *g;
 
-  /* double          shipspeed; */
+  /* double shipspeed; */
   int             hasships;
 
   pdebug(DFULL, "Fleet Phase\n");
@@ -664,13 +667,14 @@ fleetphase(game *aGame)
       hasships = FALSE;
       for (g = P->groups; g; g = g->next) {
         if (g->thefleet eq fl) {
-          fl->fleetspeed = groupSpeed(g);       /* This can be * * removed *
+          fl->fleetspeed = groupSpeed(g);       /* This can be * * removed 
+                                                 *
                                                  * * I * * * think! FS */
           hasships = TRUE;
           break;
         }
       }
-      fl->fleetspeed = fleetSpeed(fl, P->groups);       /* CB-19980922  *  */
+      fl->fleetspeed = fleetSpeed(fl, P->groups);       /* CB-19980922 * */
       pdebug(DFULL, "Fleet %s  speed %f\n", fl->name, fl->fleetspeed);
       if (!hasships) {
         pdebug(DFULL, "Removing Fleet %s\n", fl->name);
@@ -996,7 +1000,8 @@ produceMatCap(planet *aPlanet, double industry)
 
   switch (aPlanet->producing) {
   case PR_CAP:
-    materialDemand = industry / INDPERCAP;      /* 1 unit of MAT per 1 CAP *
+    materialDemand = industry / INDPERCAP;      /* 1 unit of MAT per 1 CAP 
+                                                 *
                                                  * * *  * *  */
     if (materialDemand > aPlanet->mat)
       materialDemand = aPlanet->mat;

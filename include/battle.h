@@ -41,7 +41,6 @@ void            fightphase(game *aGame, int phase);
 void            attack(bprotocol *aProtocol,
                        batstat *attackingSide, group *attackingGroup,
                        int attackingShip, batstat *targetSide,
-
                        group *targetGroup, int targetShip);
 battle         *isBattle(player *players, planet *p);
 int             mustBattle(participant *participants);

@@ -6,7 +6,6 @@
 #include "util.h"
 
 char           *vbattle =
-
     "$Id$";
 
 /****f* GalaxyNG/fightphase
@@ -40,9 +39,7 @@ fightphase(game *aGame, int phase)
 
   pdebug(DFULL, "fightphase\n");
   plog(LFULL, "Checking for battles\n");
-  for (p = aGame->planets; 
-       p; 
-       p = p->next) {
+  for (p = aGame->planets; p; p = p->next) {
     battle         *b;
 
     if ((b = isBattle(aGame->players, p))) {
@@ -54,9 +51,7 @@ fightphase(game *aGame, int phase)
       pdebug(DFULL2, "Battle at %s\n", p->name);
       b->phase = phase;
       batstats = NULL;
-      for (part = b->participants; 
-           part;
-           part = part->next) {
+      for (part = b->participants; part; part = part->next) {
         aBatstat = allocStruct(batstat);
 
         aBatstat->who = part->who;
@@ -69,9 +64,7 @@ fightphase(game *aGame, int phase)
       addList(&(aGame->battles), b);
       updateGroups(b);
 
-      for (aBatstat = batstats;
-           aBatstat;
-           aBatstat = aBatstat->next) {
+      for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
         free(aBatstat->enemies);
       }
       freelist(batstats);
@@ -389,7 +382,7 @@ resetSides(batstat *aBatstat)
       for (ship = 0; ship < aGroup->left; ship++) {
         (aGroup->alive)[ship] = TRUE;
       }
-      for (;ship < aGroup->ships; ship++) {
+      for (; ship < aGroup->ships; ship++) {
         (aGroup->alive)[ship] = FALSE;
       }
       aBatstat->numberOfTargets += aGroup->left;
@@ -531,19 +524,18 @@ selectAttackingGroup(batstat *batstats, batstat **attackingSide, int *ship)
 group          *
 selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
 {
-  /*  group          *targetGroup;*/
+  /* group *targetGroup; */
   int             enemy;
   int             totalNumberOfTargets;
 
   pdebug(DFULL, "selectTargetGroup\n");
 
-//  targetGroup = NULL;
+  // targetGroup = NULL;
   *ship = 0;
 
   /* Compute the total number of targets */
   totalNumberOfTargets = 0;
-  for (enemy = 0; 
-       enemy < attackingSide->noEnemies; enemy++) {
+  for (enemy = 0; enemy < attackingSide->noEnemies; enemy++) {
     totalNumberOfTargets +=
         (attackingSide->enemies[enemy])->numberOfTargets;
   }
@@ -559,9 +551,7 @@ selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
     n = frand3(totalNumberOfTargets);
 
     /* Find the owner of the target this ship */
-    for (enemy = 0; 
-         enemy < attackingSide->noEnemies; 
-         enemy++) {
+    for (enemy = 0; enemy < attackingSide->noEnemies; enemy++) {
       upperLim =
           lowerLim + (attackingSide->enemies[enemy])->numberOfTargets;
       if ((n >= lowerLim) && (n < upperLim)) {
@@ -571,20 +561,16 @@ selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
         n -= lowerLim;
         lowerLim = 0;
 
-        /* Find the group the ship belongs to, and the number of the ship *
-         * within * the group */
-        for (aGroup = (*targetSide)->groups;
-             aGroup;
-             aGroup = aGroup->next) {
+        /* Find the group the ship belongs to, and the number of the ship
+         * * within * the group */
+        for (aGroup = (*targetSide)->groups; aGroup; aGroup = aGroup->next) {
           upperLim = lowerLim + aGroup->left;
           if ((n >= lowerLim) && (n < upperLim)) {
             int             curShip;
 
             n -= lowerLim;
-//            targetGroup = aGroup;
-            for (*ship = 0, curShip = 0;
-                 *ship < aGroup->ships; 
-                 (*ship)++) {
+            // targetGroup = aGroup;
+            for (*ship = 0, curShip = 0; *ship < aGroup->ships; (*ship)++) {
               /* Is the ship alive */
               if ((aGroup->alive)[*ship]) {
                 if (n == curShip) {
@@ -662,8 +648,7 @@ isBattle(player *players, planet *p)
     participant    *aParticipant;
 
     for (aParticipant = participants;
-         aParticipant;
-         aParticipant = aParticipant->next) {
+         aParticipant; aParticipant = aParticipant->next) {
       group          *aGroup;
 
       for (aGroup = aParticipant->who->groups;
@@ -693,9 +678,10 @@ isBattle(player *players, planet *p)
       for (aParticipant = participants;
            aParticipant; aParticipant = aParticipant->next) {
         group          *aGroup;
+
         for (aGroup = aParticipant->groups; aGroup; aGroup = aGroup->next) {
           aGroup->canshoot = alloc(sizeof(int) * (aGroup->ships));
-          aGroup->alive    = alloc(sizeof(int) * (aGroup->ships));
+          aGroup->alive = alloc(sizeof(int) * (aGroup->ships));
           assert(aGroup->canshoot);
           assert(aGroup->alive);
         }

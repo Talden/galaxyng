@@ -33,9 +33,9 @@ report_xml(game* aGame, player* P, FILE* XMLreport)
   reportFP = XMLreport;		/* local global */
 
   rHE_XML(aGame, P);	/* Writes header of report file */
+				/* includes game options */
   rMM_XML(aGame, P, aGame->messages, "global");	/* Global messages */
   rMM_XML(aGame, P, P->messages, "personal"); /* Personal messages */
-  rGO_XML(aGame);	/* Game options CB-20010401 ; see galaxy.h*/
   rOP_XML(aGame, P);	/* Options */
   rOD_XML(aGame, P);	/* Orders */
   rMK_XML(aGame, P);	/* Mistakes in orders */
@@ -104,22 +104,32 @@ safename(char* name)
 void
 rHE_XML(game* aGame, player *P)
 {
-  fprintf(reportFP, "<?xml version=\"1.0\"?>\n\n");
+  fprintf(reportFP, "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n"
+	  "<!DOCTYPE galaxy PUBLIC \"-//Galaxy//Galaxy Data Exchange//EN\" "
+	  "\"http://galaxyview.sourceforge.com/galaxy.dtd\">\n\n");
+
   fprintf(reportFP,
-	  "<report>\n"
-	  "  <version>%5.2f</version>\n"
-	  "  <turn>%d</turn>\n"
-	  "  <gamename>%s</gamename>\n"
-	  "  <galaxysize>%8.2f</galaxysize>\n",
-	  XMLREPORT_VERSION, aGame->turn, aGame->name, aGame->galaxysize);
+	  "<galaxy>\n"
+	  "  <variant>GalaxyNG</variant>\n"
+	  "  <version>%.2f</version>\n"
+	  "  <game name=\"%s\">\n"
+	  "    <features>\n"
+	  "      <size>%.2f</size>\n",
+	  XMLREPORT_VERSION, aGame->name, aGame->galaxysize);
 
-  fprintf(reportFP, "  <nation name=\"%s\"", safename(P->name));
+  rGO_XML(aGame);
 
-  if (P->pswdstate != 2)
-    {
-      fprintf(reportFP, " password=\"%s\"",
-	      safename(P->pswd));
-    }
+  fprintf(reportFP,
+	  "  </features>\n"
+	  "  <turn num=\"%d\">\n",
+	  aGame->turn);
+  
+  fprintf(reportFP, "  <race name=\"%s\"", safename(P->name));
+
+  if (P->pswdstate != 2) {
+    fprintf(reportFP, " password=\"%s\"",
+	    safename(P->pswd));
+  }
   fprintf(reportFP, ">\n");
 }
 
@@ -150,33 +160,25 @@ void
 rGO_XML(game* aGame)
 {
 
-  fprintf(reportFP,
-	  "    <game-options>\n");
-  
-  fprintf(reportFP,
-	  "      <fullbombing state=\"%s\"/>\n",
-	  (aGame->gameOptions.gameOptions & GAME_NONGBOMBING)?"ON":"OFF");
+  if (aGame->gameOptions.gameOptions & GAME_NONGBOMBING)
+    fprintf(reportFP, "    <full_bombing/>\n");
+
+  if (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION)
+    fprintf(reportFP, "    <keep_production/>\n");
+
+  if (aGame->gameOptions.gameOptions & GAME_NODROP)
+    fprintf(reportFP, "    <dont_drop_dead/>\n");
+
+  if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY)
+    fprintf(reportFP, "    <spherical_galaxy/>\n");
 
   fprintf(reportFP,
-	  "      <keepproduction state=\"%s\"/>\n",
-	  (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION)?"ON":"OFF");
-
-  fprintf(reportFP,
-	  "      <dontdropdead state=\"%s\"/>\n",
-	  (aGame->gameOptions.gameOptions & GAME_NODROP)?"ON":"OFF");
-
-  fprintf(reportFP,
-	  "      <sphericalgalaxy state=\"%s\"/>\n",
-	  (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY)?"ON":"OFF");
-
-  fprintf(reportFP,
-	  "      <initialtechlevels>\n"
-	  "        <drive>%.2f</drive>\n"
-	  "        <weapons>%.2f</weapons>\n"
-	  "        <shields>%.2f</shields>\n"
-	  "        <cargo>%.2f</cargo>\n"
-	  "      </initialtechlevels>\n"
-	  "    </game-options>\n",
+	  "    <initialtechlevels>\n"
+	  "      <drive>%.2f</drive>\n"
+	  "      <weapons>%.2f</weapons>\n"
+	  "      <shields>%.2f</shields>\n"
+	  "      <cargo>%.2f</cargo>\n"
+	  "    </initialtechlevels>\n",
 	  aGame->gameOptions.initial_drive,\
 	  aGame->gameOptions.initial_weapons,\
 	  aGame->gameOptions.initial_shields,\
@@ -196,12 +198,11 @@ rOP_XML(game* aGame, player *P)
     curOption++;
   }
 
-  fprintf(reportFP, "    <options>\n");
+   fprintf(reportFP, "    <options>\n");
 
   for (curOption = options; curOption->optionName; curOption++) {
-    fprintf(reportFP, "      <%s state=", curOption->optionName);
-    fprintf(reportFP, "\"%s\"/>\n",
-	    P->flags & curOption->optionMask ? "ON" : "OFF");
+    if (P->flags&curOption->optionMask)
+      fprintf(reportFP, "      <%s/>\n", curOption->optionName);
   }
 
   fprintf(reportFP, "    </options>\n");
@@ -225,7 +226,7 @@ rOD_XML(game* aGame, player *P)
 
     if (P->orders) {
       for (s = P->orders; s; s = s->next) {
-	fprintf(reportFP, "      <line sequence=\"%d\">%s</line>\n",
+	fprintf(reportFP, "      <line num=\"%d\">%s</line>\n",
 		i++, safename(s->str));
       }
     }
@@ -250,7 +251,7 @@ rMK_XML(game* aGame, player *P)
   else {
     fprintf(reportFP, "    <mistakes>\n");
     for (s = P->mistakes; s; s = s->next) {
-      fprintf(reportFP, "      <line sequence=\"%d\">%s</line>\n",
+      fprintf(reportFP, "      <line num=\"%d\">%s</line>\n",
 	      i++, safename(s->str));
     }
     fprintf(reportFP, "    </mistakes>\n");

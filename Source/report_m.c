@@ -62,9 +62,10 @@ report_m(player *P, game *aGame, FILE * reportFile)
   rHE_M(aGame, P);              /* Writes header of report file */
   rMR_M();                      /* Machine report version */
   rGZ_M(aGame);                 /* Size of the galaxy */
-  rMM_M(aGame, P, aGame->messages, "global");   /* Global messages  */
+  rMM_M(aGame, P, aGame->messages, "global");   /* Global messages */
   rMM_M(aGame, P, P->messages, "personnal");    /* Personnal messages */
-  rGO_M(aGame);                  /* Game options, CB-20010401 ; see galaxy.h*/
+  rGO_M(aGame);                 /* Game options, CB-20010401 ; see
+                                 * galaxy.h */
   rOP_M(aGame, P);              /* Options */
   rOD_M(aGame, P);              /* Orders */
   rMK_M(aGame, P);              /* Mistakes in orders */
@@ -80,7 +81,8 @@ report_m(player *P, game *aGame, FILE * reportFile)
   rGG_M(aGame, P);              /* Player's groups */
   rGS_M(aGame, P);              /* Others players groups */
   rFL_M(aGame, P);              /* Fleets */
-  rEN_M();                      /* Writes last line of machine report file *
+  rEN_M();                      /* Writes last line of machine report file 
+                                 *
                                  * * *  * *  * *  * *  */
 }
 
@@ -148,7 +150,7 @@ rMM_M(game *aGame, player *P, strlist *messages, char *c)
   int             nb_mes = 0;
 
   s = messages;
-  nb_mes = numberOfElements(s); /* Sorry, only the number of lines  *  * * *
+  nb_mes = numberOfElements(s); /* Sorry, only the number of lines * * * *
                                  * * is * * * counted. */
 
   s = messages;
@@ -175,34 +177,40 @@ rGO_M(game *aGame)
 {
   int             nb_opt = 0;
 
-  nb_opt = 2; /* OK, I know, it's ugly, but there is currently only 2 options ;) */
-  
-  fprintf(Mreport, "<game-options %i >\n", nb_opt);  /*CB-20010401 ; see galaxy.h */
-  if (aGame->gameOptions.gameOptions & GAME_NONGBOMBING) {  
+  nb_opt = 2;                   /* OK, I know, it's ugly, but there is
+                                 * currently only 2 options ;) */
+
+  fprintf(Mreport, "<game-options %i >\n", nb_opt);     /* CB-20010401 ;
+                                                         * see galaxy.h */
+  if (aGame->gameOptions.gameOptions & GAME_NONGBOMBING) {
     fprintf(Mreport, "fullbombing %s\n", "ON");
-  } else {
+  }
+  else {
     fprintf(Mreport, "fullbombing %s\n", "OFF");
   }
-  if (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION) {  
+  if (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION) {
     fprintf(Mreport, "keepproduction %s\n", "ON");
-  } else {
+  }
+  else {
     fprintf(Mreport, "keepproduction %s\n", "OFF");
   }
-  if (aGame->gameOptions.gameOptions & GAME_NODROP) {  
+  if (aGame->gameOptions.gameOptions & GAME_NODROP) {
     fprintf(Mreport, "dontdropdead %s\n", "OFF");
-  } else {
+  }
+  else {
     fprintf(Mreport, "dontdropdead %s\n", "ON");
   }
-  if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) {  
+  if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) {
     fprintf(Mreport, "sphericalsalaxy %s\n", "ON");
-  } else {
+  }
+  else {
     fprintf(Mreport, "sphericalsalaxy %s\n", "OFF");
   }
   fprintf(Mreport, "initialtechlevels %.2f %.2f %.2f %.2f\n",
-	  aGame->gameOptions.initial_drive,\
-	  aGame->gameOptions.initial_weapons,\
-	  aGame->gameOptions.initial_shields,\
-	  aGame->gameOptions.initial_cargo);
+          aGame->gameOptions.initial_drive,
+          aGame->gameOptions.initial_weapons,
+          aGame->gameOptions.initial_shields,
+          aGame->gameOptions.initial_cargo);
   fprintf(Mreport, "</game-options>\n");
 }
 
@@ -257,8 +265,8 @@ rOD_M(game *aGame, player *P)
   s = P->orders;
   nb_ord = numberOfElements(s);
 
-  fprintf(Mreport, "<orders %i >\n", nb_ord);   /* number of lines  *  * * *
-                                                 * * in fact  *  *  * *  */
+  fprintf(Mreport, "<orders %i >\n", nb_ord);   /* number of lines * * * *
+                                                 * * in fact * * * * */
   if (P->orders) {
 
     for (s = P->orders; s; s = s->next) {
@@ -397,9 +405,9 @@ rBT_M(game *aGame, player *P)
   int             nbr_bat = 0;
 
   for (b = aGame->battles; b; b = b->next)
-    for (r = b->participants; r; r = r->next)   /* Count battles *  * in * *
-                                                 * which * P is  *  * * * *
-                                                 * involved. */
+    for (r = b->participants; r; r = r->next)   /* Count battles * * in *
+                                                 * * * which * P is * * *
+                                                 * * * * involved. */
       if (r->who eq P)
         nbr_bat++;
 
@@ -719,27 +727,26 @@ rAP_M(game *aGame, player *P)
   player         *P2;
   int             nbr_pla;
 
-  /* First : the player is the owner, or he can see the planet, owned by * *
+  /* First : the player is the owner, or he can see the planet, owned by * 
+   *
    * * * * *  *  * * another player */
   for (P2 = aGame->players; P2; P2 = P2->next) {
     nbr_pla = 0;
     for (p = aGame->planets; p; p = p->next) {  /* count planets */
-      if (
-          ((P2 eq P) && (p->owner eq P)) ||
+      if (((P2 eq P) && (p->owner eq P)) ||
           ((P2 != P) && (p->owner eq P2) && canseeplanet(P, p))
           )
         nbr_pla++;
     }
     if (nbr_pla) {
       fprintf(Mreport, "<planets %s %i >\n", P2->name, nbr_pla);
-      for (p = aGame->planets; p; p = p->next) {        /* examines all * * * 
-                                                         * * the * * * *
-                                                         * planets  *  */
-        if (
-            ((P2 eq P) && (p->owner eq P)) ||
+      for (p = aGame->planets; p; p = p->next) {        /* examines all *
+                                                         * * * * the * *
+                                                         * * * planets * */
+        if (((P2 eq P) && (p->owner eq P)) ||
             ((P2 != P) && (p->owner eq P2) && canseeplanet(P, p))
             ) {
-          /* if (p->owner eq P || (isunidentified(P, p) && * * *  *  * * * *
+          /* if (p->owner eq P || (isunidentified(P, p) && * * * * * * * *
            * canseeplanet(P,p))) */
           rPL_M(p);
         }
@@ -755,8 +762,8 @@ rAP_M(game *aGame, player *P)
   }
   if (nbr_pla) {
     fprintf(Mreport, "<planets unidentified %i >\n", nbr_pla);
-    for (p = aGame->planets; p; p = p->next) {  /* examines all * * the * * * 
-                                                 * * * * planets */
+    for (p = aGame->planets; p; p = p->next) {  /* examines all * * the *
+                                                 * * * * * * planets */
       if (p->owner != P && isunidentified(P, p) && !canseeplanet(P, p)) {
         fprintf(Mreport, "%s %.2f %.2f\n", p->name, p->x, p->y);
       }
@@ -771,8 +778,8 @@ rAP_M(game *aGame, player *P)
   }
   if (nbr_pla) {
     fprintf(Mreport, "<planets uninhabited %i >\n", nbr_pla);
-    for (p = aGame->planets; p; p = p->next) {  /* examines all * * the * * * 
-                                                 * * * * planets */
+    for (p = aGame->planets; p; p = p->next) {  /* examines all * * the *
+                                                 * * * * * * planets */
       if (isuninhabited(P, p)) {
         fprintf(Mreport, "%s %.2f %.2f", p->name, p->x, p->y);
         if (canseeplanet(P, p)) {
@@ -809,8 +816,8 @@ rGG_M(game *aGame, player *P)
     planet         *p;
 
     fprintf(Mreport, "<groups %s %i >\n", P->name, nbr_grp);
-    for (p = aGame->planets; p; p = p->next) {  /* First : * * player's * * * 
-                                                 * * * * planets */
+    for (p = aGame->planets; p; p = p->next) {  /* First : * * player's *
+                                                 * * * * * * planets */
       if (p->owner eq P) {
         for (g = P->groups; g; g = g->next) {
           if (!g->thefleet) {   /* It's not a fleet */
@@ -822,9 +829,9 @@ rGG_M(game *aGame, player *P)
       }
     }
 
-    for (p = aGame->planets; p; p = p->next) {  /* Next : planets * * * owned 
-                                                 * by  * * * * *  * * * *
-                                                 * others * * players */
+    for (p = aGame->planets; p; p = p->next) {  /* Next : planets * * *
+                                                 * owned by * * * * * * * 
+                                                 * * * others * * players */
       if (p->owner && p->owner != P) {
         for (g = P->groups; g; g = g->next) {
           if (!g->thefleet) {
@@ -836,8 +843,8 @@ rGG_M(game *aGame, player *P)
       }
     }
 
-    for (p = aGame->planets; p; p = p->next)    /* Next : * * uninhabited * * 
-                                                 * *  * planets */
+    for (p = aGame->planets; p; p = p->next)    /* Next : * * uninhabited
+                                                 * * * * * * planets */
       if (!p->owner) {
         for (g = P->groups; g; g = g->next) {
           if (!g->thefleet) {
@@ -974,13 +981,13 @@ rGP_M(group *g, int n, int mode)
   if (mode eq G_MODE_OWN)
     fprintf(Mreport, "%i ", n); /* n is the group number */
   else
-    fprintf(Mreport, "0 ");     /* 19990313 - CB ; To give a standard * * * * 
-                                 * record format. */
+    fprintf(Mreport, "0 ");     /* 19990313 - CB ; To give a standard * *
+                                 * * * record format. */
 
   /* 19990313 - CB ; To give a standard record format. */
   if (mode eq G_MODE_BATTLE)
-    fprintf(Mreport, "%i ", g->left);   /* Quantity of surviving *  * * ships 
-                                         */
+    fprintf(Mreport, "%i ", g->left);   /* Quantity of surviving * * *
+                                         * ships */
   else
     fprintf(Mreport, "%i ", g->ships);
 
@@ -995,11 +1002,11 @@ rGP_M(group *g, int n, int mode)
     if (g->dist) {
       fprintf(Mreport, " %.2f %s", g->dist, g->from->name);
     }
-    /* else  { fprintf(Mreport, " %s %s", "", ""); *  * } */
+    /* else { fprintf(Mreport, " %s %s", "", ""); * * } */
   }
   if (mode eq G_MODE_BATTLE)
-    fprintf(Mreport, " %i", g->ships);  /* Quantity of ships * * BEFORE a * * 
-                                         * battle */
+    fprintf(Mreport, " %i", g->ships);  /* Quantity of ships * * BEFORE a
+                                         * * * battle */
 
   fprintf(Mreport, "\n");
 

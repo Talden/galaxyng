@@ -6,7 +6,7 @@
 
 /* $Id$ */
 
-/* void            giveposition(void); */
+/* void giveposition(void); */
 void            convertcap(planet *p);
 void            unloadcap(planet *p, double x);
 void            unloadcol(planet *p, double x, player *P);
@@ -15,7 +15,6 @@ int             kill(group *attack, group *target);
 
 int             mustBomb(player *P, group *g);
 player         *determineOwnership(game *aGame, planet *targetPlanet,
-
                                    player *aPlayer);
 void            bombPlanet(game *aGame, planet *p);
 

@@ -128,66 +128,59 @@ void destroyEnvelope(envelope *e)
     int
 eMail(game *aGame, envelope *e, char *fileName)
 {
-    char           *tempName;
-    int             result;
+  FILE*  mailFile;
+  char    template[32] = "/tmp/galaxyXXXXXX";
+  int      result;
 
     pdebug(DFULL, "eMail\n");
 
     assert(fileName != NULL);
     assert(aGame != NULL);
 
-    tempName = tmpnam(NULL);
+    mailFile = fdopen(mkstemp(template),  "w");
     result = 1;
-    if (tempName != NULL) {
-	FILE           *mailFile;
-	if ((mailFile = GOS_fopen(tempName, "w"))) {
-	    assert(e->to);
-	    assert(e->subject);
 
-	    fprintf(mailFile, "To: %s\n", e->to);
-	    fprintf(mailFile, "Subject: %s\n", e->subject);
+    assert(e->to);
+    assert(e->subject);
+
+    fprintf(mailFile, "To: %s\n", e->to);
+    fprintf(mailFile, "Subject: %s\n", e->subject);
 #ifndef WIN32
-	    if (e->compress && aGame->serverOptions.compress && aGame->serverOptions.encode) {
-		addMimeHeader(mailFile);
-	    }
-	    fprintf(mailFile, "\n\n");
-	    if (e->compress && aGame->serverOptions.compress && aGame->serverOptions.encode) {
-		char *relative_path; 
-		addMimeText(mailFile);
-		fprintf(mailFile, "Turn report is attached as .zip file.\n\n");
-		relative_path = strstr(fileName, "reports");
-		if (relative_path == NULL) {
-			fprintf(stderr, 
-					"Reports are not in their standards position\n");
-			relative_path = fileName;
-		}
-		result = ssystem("%s %s.zip %s",
-			aGame->serverOptions.compress,
-			fileName,
-			relative_path);
-		result |= ssystem("%s %s.zip > %s", 
+    if (e->compress && aGame->serverOptions.compress && aGame->serverOptions.encode) {
+      addMimeHeader(mailFile);
+    }
+    fprintf(mailFile, "\n\n");
+    if (e->compress && aGame->serverOptions.compress && aGame->serverOptions.encode) {
+      char *relative_path; 
+      addMimeText(mailFile);
+      fprintf(mailFile, "Turn report is attached as .zip file.\n\n");
+      relative_path = strstr(fileName, "reports");
+      if (relative_path == NULL) {
+	fprintf(stderr, 
+		"Reports are not in their standards position\n");
+	relative_path = fileName;
+      }
+      result = ssystem("%s %s.zip %s",
+		       aGame->serverOptions.compress,
+		       fileName,
+		       relative_path);
+      result |= ssystem("%s %s.zip > %s", 
 			aGame->serverOptions.encode, 
 			fileName, 
 			fileName);
-		addMimeZip(mailFile);
-		result |= appendToMail(fileName, mailFile);
-		addMimeEnd(mailFile);
-		result |= ssystem("rm %s.zip", fileName);
-	    } else {
-		result = appendToMail(fileName, mailFile);
-	    }
-#endif
-	    fclose(mailFile);
-#ifndef WIN32
-	    result |= ssystem("%s < %s", aGame->serverOptions.sendmail, tempName);
-	    result |= ssystem("rm %s", tempName);
-#endif
-	} else {
-	    fprintf(stderr, "Can't open \"%s\".\n", tempName);
-	}
+      addMimeZip(mailFile);
+      result |= appendToMail(fileName, mailFile);
+      addMimeEnd(mailFile);
+      result |= ssystem("rm %s.zip", fileName);
     } else {
-	fprintf(stderr, "Can't create temporary file.\n");
+      result = appendToMail(fileName, mailFile);
     }
+#endif
+    fclose(mailFile);
+#ifndef WIN32
+    result |= ssystem("%s < %s", aGame->serverOptions.sendmail, template);
+    result |= ssystem("rm %s", template);
+#endif
     return result;
 }
 

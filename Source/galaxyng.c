@@ -4,7 +4,7 @@
 *  SYNOPSIS
 *    galaxyng [command [options]]
 *  FUNCTION
-*    Checks incomming orders, runs the turn, and sends out the turn
+*    Checks incoming orders, runs the turn, and sends out the turn
 *    reports. 
 *
 *    The code is divided into a number of modules:
@@ -70,6 +70,7 @@ char           *galaxyng =
     "$Id$";
 
 char           *vcid = "GalaxyNG release-6-0, May 2002.";
+
 /* Should be in galaxy.h */
 
 #define CMD_RUN_REAL    1       /* -run will mail turn reports */
@@ -276,22 +277,21 @@ CMD_template(int argc, char **argv)
               "\n"
               "; The engine will make sure that distance between any of primary home\n"
               "; planets is atleast 30.0 light years.\n"
-              "\n"
-              "nation_spacing 30.0\n"
-              "\n"
+              "\n" "nation_spacing 30.0\n" "\n");
+      fprintf(glxfile,
               "; The sizes of the core home planets for each nation.\n"
               "; The following would give each nation 3 homeplanets of sizes\n"
               "; 1000 250 350. The first one is the primary home planet.\n"
               "; You have to define these before any of the player definitions.\n"
-              "\n"
-              "core_sizes 1000 250 350\n"
-              "\n"
+              "\n" "core_sizes 1000 250 350\n" "\n");
+      fprintf(glxfile,
               "; Within a radius [2,r] from the primary home world the engine allocates\n"
               "; a number of empty planets for the nation to colonize.\n"
               "; The following two parameters define how many there are per nation,\n"
               "; and in within what radius. A number between 4 and 10 and\n"
               "; a radius of  nation_spacing/2.0  is a good guess.\n"
-              "\n"
+              "\n");
+      fprintf(glxfile,
               "empty_planets 6\n"
               "empty_radius 15\n"
               "\n"
@@ -300,7 +300,8 @@ CMD_template(int argc, char **argv)
               "; space between the home worlds. They make it possible for a players to\n"
               "; approach (attack) other players by different routes. The following\n"
               "; parameter specifies how many there are per nation.\n"
-              "\n"
+              "\n");
+      fprintf(glxfile,
               "stuff_planets 8\n"
               ";\n"
               "; The list of the players, you can add here the mail address\n"
@@ -321,62 +322,58 @@ CMD_template(int argc, char **argv)
               "\n"
               "; player player4@itsaddress.somewhere 500.0 100.0 1000.0\n\n");
       fprintf(glxfile,
-	      "\n"
-              "; You can specifie several other options :\n"
-	      ";\n"
-	      "; Initial tech levels\n"
-	      "; In order : Drive Weapons Shields Cargo\n"
-	      "; They can't be lower than 1 (don't ask why, I don't know\n"
-	      "; myself why I did this).\n"
-	      "; In this case below, drive will be forced to 1 by the server.\n"
-	      ";\n"
-	      "; Uncommend if you want this option.\n"
               "\n"
-	      "; InitialTechLevels 0.42 1 3.21 1.24\n"
+              "; You can specifie several other options :\n"
               ";\n"
-	      "; Full bombing, when bombed planets are completely bombed.\n"
-	      "; All population, industry, capital, colonists, and materials are gone.\n"
-	      "; Normally the population and industry is reduced to 25%% of it's\n"
-	      "; original value.\n"
-	      ";\n"
-	      "; Uncommend if you want this option.\n"
-	      "\n"
-	      "; FullBombing\n"
-	      "\n"
-	      "; If keepproduction is set, the production points spend\n"
-	      "; on the previous product are preserved, otherwise all points are lost\n"
-	      ";\n"
-	      "; Uncommend if you want this option.\n"
-	      "\n"
-	      "; KeepProduction\n"
-	      "\n"
-	      ";\n"
-	      "; Don't remove idle nations from a game.\n"
-	      "; Normaly if players do not send in orders for a couple of turns\n"
-	      "; their nation self destructs.\n"
-	      ";\n"
-	      "; Uncommend if you want this option.\n"
-	      "\n"
-	      "; DontDropDead\n"
-	      "\n"
-	      ";\n"
-	      "; Sometimes, if you have enough disk space, it is nice to get a copy\n"
-	      "; of turn reports that are send out to the players.\n"
-	      "; If you uncommend the following parameter, a copy of each turn report\n"
-	      "; that is send out is stored in reports/<game name>/\n"
-	      ";\n"
-	      "; Uncommend if you want this option.\n"
-	      "\n"
-	      "; SaveReportCopy\n"
-	      "; The galaxy can be (roughly) mapped on a sphere\n"
-	      "; This way, the gap beetween x (or y) coordinates of two\n"
-	      "; planets is computed with borders lines crossing, and reapearing\n"
-	      "; on the other side.\n"
-	      ";\n"
-	      "; Uncommend if you want this option.\n"
-	      "\n"
-	      "; sphericalgalaxy\n"
-	      "\n");
+              "; Initial tech levels\n"
+              "; In order : Drive Weapons Shields Cargo\n"
+              "; They can't be lower than 1 (don't ask why, I don't know\n"
+              "; myself why I did this).\n"
+              "; In this case below, drive will be forced to 1 by the server.\n"
+              ";\n");
+      fprintf(glxfile,
+              "; Uncomment if you want this option.\n"
+              "\n"
+              "; InitialTechLevels 0.42 1 3.21 1.24\n"
+              ";\n"
+              "; Full bombing, when bombed planets are completely bombed.\n"
+              "; All population, industry, capital, colonists, and materials are gone.\n"
+              "; Normally the population and industry is reduced to 25%% of it's\n"
+              "; original value.\n" ";\n");
+      fprintf(glxfile,
+              "; Uncomment if you want this option.\n"
+              "\n"
+              "; FullBombing\n"
+              "\n"
+              "; If keepproduction is set, the production points spend\n"
+              "; on the previous product are preserved, otherwise all points are lost\n"
+              ";\n" "; Uncomment if you want this option.\n" "\n");
+      fprintf(glxfile,
+              "; KeepProduction\n"
+              "\n"
+              ";\n"
+              "; Don't remove idle nations from a game.\n"
+              "; Normaly if players do not send in orders for a couple of turns\n"
+              "; their nation self destructs.\n"
+              ";\n" "; Uncomment if you want this option.\n" "\n");
+      fprintf(glxfile,
+              "; DontDropDead\n"
+              "\n"
+              ";\n"
+              "; Sometimes, if you have enough disk space, it is nice to get a copy\n"
+              "; of turn reports that are send out to the players.\n"
+              "; If you uncomment the following parameter, a copy of each turn report\n"
+              "; that is send out is stored in reports/<game name>/\n"
+              ";\n" "; Uncomment if you want this option.\n" "\n");
+      fprintf(glxfile,
+              "; SaveReportCopy\n"
+              "; The galaxy can be (roughly) mapped on a sphere\n"
+              "; This way, the gap beetween x (or y) coordinates of two\n"
+              "; planets is computed with borders lines crossing, and reapearing\n"
+              "; on the other side.\n"
+              ";\n"
+              "; Uncomment if you want this option.\n"
+              "\n" "; sphericalgalaxy\n" "\n");
       fclose(glxfile);
     }
     else {
@@ -1170,8 +1167,8 @@ CMD_report(int argc, char **argv)
             runTurn(aGame2, ordersName);
             free(ordersName);
           }
-          /* Translate the current nation name into the name used during the
-           * * turn * * * * that is requested */
+          /* Translate the current nation name into the name used during
+           * the * turn * * * * that is requested */
           aPlayer = findElement(player, aGame->players, nationName);
 
           index = ptonum(aGame->players, aPlayer);
@@ -1372,6 +1369,7 @@ CMD_dump(int argc, char **argv, int kind)
         }
       case CMD_DUMP_MAP_GNUPLOT:{
           aDummyPlayer = allocStruct(player);
+
           setName(aDummyPlayer, "DummyDummy");
           aDummyPlayer->msize = aGame->galaxysize;
           reportMap_gnuplot(aGame, aDummyPlayer, &fields);
@@ -1393,33 +1391,35 @@ CMD_dump(int argc, char **argv, int kind)
           reportHall(aGame, &fields);
           break;
         }
-      case CMD_DUMP_MAILHEADER: {
+      case CMD_DUMP_MAILHEADER:{
           createMailToAllHeader(aGame);
           break;
         }
-      case CMD_DUMP_TEAM_INFO: {
+      case CMD_DUMP_TEAM_INFO:{
           if (argc == 5) {
-             team = atoi(argv[4]);
-             reportTeam(aGame, &fields, team);
-          } else {
-             fprintf(stderr, "You have to specify a team number.\n");
+            team = atoi(argv[4]);
+            reportTeam(aGame, &fields, team);
+          }
+          else {
+            fprintf(stderr, "You have to specify a team number.\n");
           }
           break;
         }
-      case CMD_DUMP_TEAM_REPORT_NAMES: {
+      case CMD_DUMP_TEAM_REPORT_NAMES:{
           if (argc == 5) {
-             player *aPlayer;
-             team = atoi(argv[4]);
-             for (aPlayer = aGame->players; 
-                  aPlayer; 
-                  aPlayer = aPlayer->next) {
-               if (aPlayer->team == team) {
-                 printf("reports/%s/%s_%d.txt\n", aGame->name, 
-                        aPlayer->name, aGame->turn);
-               }
-             }
-          } else {
-             fprintf(stderr, "You have to specify a team number.\n");
+            player         *aPlayer;
+
+            team = atoi(argv[4]);
+            for (aPlayer = aGame->players;
+                 aPlayer; aPlayer = aPlayer->next) {
+              if (aPlayer->team == team) {
+                printf("reports/%s/%s_%d.txt\n", aGame->name,
+                       aPlayer->name, aGame->turn);
+              }
+            }
+          }
+          else {
+            fprintf(stderr, "You have to specify a team number.\n");
           }
           break;
         }
@@ -1466,7 +1466,7 @@ CMD_test(int argc, char **argv)
     result = EXIT_SUCCESS;
   }
   else {
-    printf("Game is NOT OK\n"); /* This is wrong! the game did not  *  * * *
+    printf("Game is NOT OK\n"); /* This is wrong! the game did not * * * *
                                  * * load.. * it still might be * ok! */
     result = EXIT_FAILURE;
   }
@@ -1503,8 +1503,8 @@ CMD_battletest(int argc, char **argv)
   if ((aGame)) {
     player         *aPlayer;
 
-    // srand((int) time(NULL));
-    // printf("%d", atoi(argv[2]));
+    /* srand((int) time(NULL)); */
+    /* printf("%d", atoi(argv[2])); */
     resetErnie(atoi(argv[2]));
     switch (atoi(argv[3])) {
     case 1:
@@ -1557,7 +1557,7 @@ CMD_battletest(int argc, char **argv)
     for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
       aPlayer->pswdstate = 1;
       printf("%s %d  ", aPlayer->name, numberOfElements(aPlayer->groups));
-      // saveTurnReport(aGame, aPlayer, 0);
+      /* saveTurnReport(aGame, aPlayer, 0); */
     }
 
     printf("\n");
@@ -1590,8 +1590,8 @@ usage()
          "   -hall       <game name>\n"
          "   -lastorders <game name> [turn]\n"
          "   -players    <game name> [turn]\n"
-         "   -teaminfo   <game name> <turn> <team number>\n"
-         " Debug commands\n"
+         "   -teaminfo   <game name> <turn> <team number>\n");
+  printf(" Debug commands\n"
          "   -dummyrun   <game name> <file with all orders> [turn]\n"
          "   -dummymail0 <game name>\n"
          "   -dummycheck <game name> <file with all orders> [turn]\n"
@@ -1600,19 +1600,19 @@ usage()
          "   -teaminfo   <game name> <turn> <team number>\n"
          "   -graph      <game name> [turn]\n"
          "   -map        <game name> [turn]\n"
-         "   -gnuplot    <game name> [turn]\n"
-         "\nExplanation:\n"
+         "   -gnuplot    <game name> [turn]\n");
+  printf("\nExplanation:\n"
          " -template   - create a template .glx file for use with -create.\n"
          " -create     - create a new game.\n"
          " -mail0      - mail the turn 0 reports.\n"
-         " -check      - check incoming orders, orders are read from stdin.\n"
-         " -run        - run a game and mail the turn reports.\n"
+         " -check      - check incoming orders, orders are read from stdin.\n");
+  printf(" -run        - run a game and mail the turn reports.\n"
          " -score      - creates highscore list in HTML format.\n"
          " -relay      - relay email between players,"
          " orders are read from stdin.\n"
          " -hall       - create information for the Hall of Fame.\n"
-         " -dummyrun   - run a game but do not mail the turn reports.\n"
-         " -dummycheck - check orders, but do not mail the forecast.\n"
+         " -dummyrun   - run a game but do not mail the turn reports.\n");
+  printf(" -dummycheck - check orders, but do not mail the forecast.\n"
          "               orders are read from stdin.\n"
          " -dummymail0 - create the turn 0 reports, but do not email them.\n"
          " -test       - test the integrity of a game file.\n"
@@ -1620,7 +1620,5 @@ usage()
          " -graph      - dump game data for graph creation.\n"
          " -map        - dump game map.\n"
          " -lastorders - list the turn when players last send in orders.\n"
-         " -players    - list address and password of all players.\n"
-     );
+         " -players    - list address and password of all players.\n");
 }
-

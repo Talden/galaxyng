@@ -12,7 +12,7 @@
 #include "report_xml.h"
 
 #ifdef WIN32
-// #include <varargs.h>
+/* #include <varargs.h> */
 #include <stdarg.h>
 #include <stdio.h>
 #endif
@@ -54,145 +54,160 @@ typedef struct fielddef {
 #define G_MODE_BATTLE  1
 #define G_MODE_ALIEN   2
 
-game *createDummyGame(void);
+game           *createDummyGame(void);
 
-void highScoreList(game *aGame);
+void            highScoreList(game *aGame);
 
-void mailGMReport(game *aGame, char *gameName);
+void            mailGMReport(game *aGame, char *gameName);
 
-void createGMReport(game *aGame, char *gameName, FILE * gmreport);
+void            createGMReport(game *aGame, char *gameName,
+                               FILE * gmreport);
 
-int mailTurnReport(game *aGame, player *aPlayer, long kind);
+int             mailTurnReport(game *aGame, player *aPlayer, long kind);
 
-void saveTurnReport(game *aGame, player *aPlayer, long kind);
+void            saveTurnReport(game *aGame, player *aPlayer, long kind);
 
-void createTurnReport(game *aGame, player *aPlayer, FILE * report, long kind);
+void            createTurnReport(game *aGame, player *aPlayer,
+                                 FILE * report, long kind);
 
-void createHeader(game *aGame, player *aPlayer, FILE * reportfile);
+void            createHeader(game *aGame, player *aPlayer,
+                             FILE * reportfile);
 
-void appendToFile(char *fileName, FILE * report);
+void            appendToFile(char *fileName, FILE * report);
 
-void report(game *aGame, player *P, FILE * report);
+void            report(game *aGame, player *P, FILE * report);
 
-void score(game *g1, game *g2, int html, FILE * dest);
+void            score(game *g1, game *g2, int html, FILE * dest);
 
-void rateNations(player *playerList);
+void            rateNations(player *playerList);
 
-void storeLength(fielddef *fields, int length);
+void            storeLength(fielddef *fields, int length);
 
-void formatReset(fielddef *fields);
+void            formatReset(fielddef *fields);
 
-void formatString(char *s, fielddef *fields);
+void            formatString(char *s, fielddef *fields);
 
-void formatStringCenter(char *s, fielddef *fields);
+void            formatStringCenter(char *s, fielddef *fields);
 
-void formatStringMode(char *s, fielddef *fields, int mode);
+void            formatStringMode(char *s, fielddef *fields, int mode);
 
-void formatFloat(double g, fielddef *fields);
+void            formatFloat(double g, fielddef *fields);
 
-void formatInteger(int i, fielddef *fields);
+void            formatInteger(int i, fielddef *fields);
 
-void GformatInteger(int i, fielddef *fields);
+void            GformatInteger(int i, fielddef *fields);
 
-void BformatInteger(int i, fielddef *fields, char *form);
+void            BformatInteger(int i, fielddef *fields, char *form);
 
-void formatReturn(fielddef *fields);
+void            formatReturn(fielddef *fields);
 
-void formatPrint(fielddef *fields);
+void            formatPrint(fielddef *fields);
 
-void formatLabels(char *labels, char *align, fielddef *fields);
+void            formatLabels(char *labels, char *align, fielddef *fields);
 
-void dumpItem(fielddef *fields, int mode);
+void            dumpItem(fielddef *fields, int mode);
 
-int visibleShipTypes(game *aGame, player *P2, player *P);
+int             visibleShipTypes(game *aGame, player *P2, player *P);
 
-int canseeBombing(game *aGame, player *P);
+int             canseeBombing(game *aGame, player *P);
 
-void formatChar(char c, fielddef *fields, int mode);
+void            formatChar(char c, fielddef *fields, int mode);
 
-void reportPlanet(planet *p, fielddef *fields);
+void            reportPlanet(planet *p, fielddef *fields);
 
-void GreportPlanet(planet *planets, planet *p, fielddef *fields);
+void            GreportPlanet(planet *planets, planet *p,
+                              fielddef *fields);
 
-void reportProduction(planet *p, fielddef *fields);
+void            reportProduction(planet *p, fielddef *fields);
 
-void GreportProduction(planet *planets, planet *p, fielddef *fields);
+void            GreportProduction(planet *planets, planet *p,
+                                  fielddef *fields);
 
-void reportGroup(group *g, int n, fielddef *fields, int mode);
+void            reportGroup(group *g, int n, fielddef *fields, int mode);
 
-void GreportGroup(planet *planets, player *P, group *g, int n,
+void            GreportGroup(planet *planets, player *P, group *g, int n,
                              fielddef *fields, int mode, int phase);
 
-void reportMap(game *aGame, player *P, fielddef *fields);
+void            reportMap(game *aGame, player *P, fielddef *fields);
 
-void reportMap_gnuplot(game *aGame, player *P, fielddef *fields);
+void            reportMap_gnuplot(game *aGame, player *P,
+                                  fielddef *fields);
 
-void reportGlobalMessages(strlist *messages, fielddef *fields);
+void            reportGlobalMessages(strlist *messages, fielddef *fields);
 
-void reportMessages(player *P, fielddef *fields);
+void            reportMessages(player *P, fielddef *fields);
 
-void reportOrders(player *P, fielddef *fields);
+void            reportOrders(player *P, fielddef *fields);
 
-void reportMistakes(player *P, fielddef *fields);
+void            reportMistakes(player *P, fielddef *fields);
 
-void reportLastOrders(player *players, fielddef *fields);
+void            reportLastOrders(player *players, fielddef *fields);
 
-void reportStatus(player *players, player *P, fielddef *fields);
+void            reportStatus(player *players, player *P, fielddef *fields);
 
-void reportYourShipTypes(player *P, fielddef *fields);
+void            reportYourShipTypes(player *P, fielddef *fields);
 
-void reportShipTypes(game *aGame, player *P, fielddef *fields);
+void            reportShipTypes(game *aGame, player *P, fielddef *fields);
 
-void reportShipType(shiptype *t, fielddef *fields);
+void            reportShipType(shiptype *t, fielddef *fields);
 
-void GreportShipType(shiptype *t, fielddef *fields);
+void            GreportShipType(shiptype *t, fielddef *fields);
 
-void reportBattles(game *aGame, player *P, fielddef *fields);
+void            reportBattles(game *aGame, player *P, fielddef *fields);
 
-void reportBombings(game *aGame, player *P, fielddef *fields);
+void            reportBombings(game *aGame, player *P, fielddef *fields);
 
-void reportIncoming(game *aGame, player *P, fielddef *fields);
+void            reportIncoming(game *aGame, player *P, fielddef *fields);
 
-void reportYourPlanets(planet *planets, player *P, fielddef *fields);
+void            reportYourPlanets(planet *planets, player *P,
+                                  fielddef *fields);
 
-void reportProdTable(planet *planets, player *P, fielddef *fields);
+void            reportProdTable(planet *planets, player *P,
+                                fielddef *fields);
 
-void reportRoutes(planet *planets, player *P, fielddef *fields);
+void            reportRoutes(planet *planets, player *P, fielddef *fields);
 
-void reportPlanetsSeen(game *aGame, player *P, fielddef *fields);
+void            reportPlanetsSeen(game *aGame, player *P,
+                                  fielddef *fields);
 
-void reportUnidentifiedPlanets(planet *planets, player *P, fielddef *fields);
+void            reportUnidentifiedPlanets(planet *planets, player *P,
+                                          fielddef *fields);
 
-void reportUninhabitedPlanets(planet *planets, player *P, fielddef *fields);
+void            reportUninhabitedPlanets(planet *planets, player *P,
+                                         fielddef *fields);
 
-void reportYourGroups(planet *planets, player *P, fielddef *fields);
+void            reportYourGroups(planet *planets, player *P,
+                                 fielddef *fields);
 
-void reportFleets(player *P, fielddef *fields);
+void            reportFleets(player *P, fielddef *fields);
 
-void GreportFleets(planet *planets, player *P, fielddef *fields);
+void            GreportFleets(planet *planets, player *P,
+                              fielddef *fields);
 
-void reportGroupsSeen(game *aGame, player *P, fielddef *fields);
+void            reportGroupsSeen(game *aGame, player *P, fielddef *fields);
 
-void reportGameOptions(game *aGame, fielddef *fields);
+void            reportGameOptions(game *aGame, fielddef *fields);
 
-void reportOptions(game *aGame, player *P, fielddef *fields);
+void            reportOptions(game *aGame, player *P, fielddef *fields);
 
-void tagVisiblePlanets(planet *planets, player *P);
+void            tagVisiblePlanets(planet *planets, player *P);
 
-void yourPlanetsForecast(planet *planets, player *P, fielddef *fields);
+void            yourPlanetsForecast(planet *planets, player *P,
+                                    fielddef *fields);
 
-void yourStatusForecast(planet *planets, player *P, fielddef *fields);
+void            yourStatusForecast(planet *planets, player *P,
+                                   fielddef *fields);
 
-void reportHall(game *aGame, fielddef *fields);
+void            reportHall(game *aGame, fielddef *fields);
 
-void reportTeam(game *aGame, fielddef *fields, int team);
+void            reportTeam(game *aGame, fielddef *fields, int team);
 
-void reportPlayers(player *players, fielddef *fields);
+void            reportPlayers(player *players, fielddef *fields);
 
-void reportNationProduction(player *players, fielddef *fields);
+void            reportNationProduction(player *players, fielddef *fields);
 
-void reportGMBombings(game *aGame, fielddef *fields);
+void            reportGMBombings(game *aGame, fielddef *fields);
 
-void scorePercent(game *g1, fielddef *fields);
+void            scorePercent(game *g1, fielddef *fields);
 
 #endif                          /* GNG_REPORT_H */

@@ -6,7 +6,6 @@
 #include "list.h"
 
 #ifdef WIN32
-// #include <varargs.h>
 #include <stdarg.h>
 #include <stdio.h>
 #endif
@@ -44,9 +43,9 @@ int             cankill(group *attack, group *target);
 
 int             numOfGroupsInFleet(fleetname *fl, group *g);
 void            putmap(mapdimensions *md, double x, double y, int c);
-double          dist(game *aGame, planet *p1, planet *p2); /* CB-20010401*/
-void            send(game *aGame, group *g, planet *p); /* CB-20010401*/
-void            recall(game *aGame, group *g);       /* CB-19980923 */
+double          dist(game *aGame, planet *p1, planet *p2);      /* CB-20010401 */
+void            send(game *aGame, group *g, planet *p); /* CB-20010401 */
+void            recall(game *aGame, group *g);  /* CB-19980923 */
 void            setproduction(game *aGame, planet *p, int t);
 double          groupx(game *aGame, group *g);
 double          groupy(game *aGame, group *g);

@@ -122,7 +122,8 @@ mailGMReport(game *aGame, char *gameName)
     if (!aGame)
       aGame = createDummyGame();
     anEnvelope = createEnvelope();
-    setHeader(anEnvelope, MAILHEADER_TO, "%s", aGame->serverOptions.GMemail);
+    setHeader(anEnvelope, MAILHEADER_TO, "%s",
+              aGame->serverOptions.GMemail);
     setHeader(anEnvelope, MAILHEADER_SUBJECT,
               "GM Report Turn %d for Galaxy Game %s", aGame->turn,
               gameName);
@@ -295,12 +296,14 @@ saveTurnReport(game *aGame, player *aPlayer, long kind)
 
   switch (kind) {
   case F_XMLREPORT:
-    fileName = createString("%s/reports/%s/%s.xml",
-                            galaxynghome, aGame->name, aPlayer->name);
+    fileName = createString("%s/reports/%s/%s_%d.xml",
+                            galaxynghome, aGame->name, aPlayer->name,
+                            aGame->turn);
     break;
   case F_MACHINEREPORT:
-    fileName = createString("%s/reports/%s/%s.m",
-                            galaxynghome, aGame->name, aPlayer->name);
+    fileName = createString("%s/reports/%s/%s_%d.m",
+                            galaxynghome, aGame->name, aPlayer->name,
+                            aGame->turn);
     break;
   default:
     fileName = createString("%s/reports/%s/%s_%d.txt",
@@ -616,7 +619,7 @@ report(game *aGame, player *P, FILE * report)
   }
   reportGlobalMessages(aGame->messages, &fields);
   reportMessages(P, &fields);
-  reportGameOptions(aGame, &fields); /*CB-20010401 ; see galaxy.h */
+  reportGameOptions(aGame, &fields);    /* CB-20010401 ; see galaxy.h */
   reportOptions(aGame, P, &fields);
   reportOrders(P, &fields);
   reportMistakes(P, &fields);
@@ -1063,7 +1066,7 @@ reportIncoming(game *aGame, player *P, fielddef *fields)
               if (P->flags & F_GPLUS) {
                 GformatInteger(ptonum(aGame->planets, g->from), fields);
                 formatString(g->where->name, fields);
-                // GformatInteger(ptonum(planets, g->where), fields);
+                /* GformatInteger(ptonum(planets, g->where), fields); */
               }
               else {
                 formatString(g->from->name, fields);
@@ -2257,43 +2260,47 @@ dumpItem(fielddef *fields, int mode)
  */
 
 void
-reportGameOptions(game *aGame, fielddef *fields) /*CB-20010401 ; see galaxy.h */
-{
+reportGameOptions(game *aGame, fielddef *fields)
+{                               /* CB-20010401 ; see galaxy.h */
   int             state;
 
-  fprintf(fields->destination, "\n\t\tGame Options\n\n"); 
+  fprintf(fields->destination, "\n\t\tGame Options\n\n");
   formatReset(fields);
   for (state = 0; state < 2; state++) {
     formatLabels("N S", "lc", fields);
 
     formatString("Full bombing", fields);
-    if (aGame->gameOptions.gameOptions & GAME_NONGBOMBING) {  
+    if (aGame->gameOptions.gameOptions & GAME_NONGBOMBING) {
       formatString("ON", fields);
-    } else {
+    }
+    else {
       formatString("OFF", fields);
     }
     formatReturn(fields);
 
     formatString("Keep production", fields);
-    if (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION) {  
+    if (aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION) {
       formatString("ON", fields);
-    } else {
+    }
+    else {
       formatString("OFF", fields);
     }
     formatReturn(fields);
 
     formatString("Drop idle players", fields);
-    if (aGame->gameOptions.gameOptions & GAME_NODROP) {  
+    if (aGame->gameOptions.gameOptions & GAME_NODROP) {
       formatString("OFF", fields);
-    } else {
+    }
+    else {
       formatString("ON", fields);
     }
     formatReturn(fields);
 
     formatString("Spherical Galaxy", fields);
-    if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) {  
+    if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) {
       formatString("ON", fields);
-    } else {
+    }
+    else {
       formatString("OFF", fields);
     }
     formatReturn(fields);
@@ -2365,32 +2372,35 @@ reportMap_gnuplot(game *aGame, player *P, fielddef *fields)
   mapDim.y1 = P->my;
   mapDim.y2 = P->my + P->msize;
 
-  // png
+  /* png */
 
   fprintf(fields->destination, "set output 'plot.png'\n");
   fprintf(fields->destination, "set term png color small\n");
   fprintf(fields->destination, "set nokey\n");
   fprintf(fields->destination, "set grid x y\n");
   fprintf(fields->destination, "set size 1.7,1.7\n");
-  fprintf(fields->destination, "set xrange [%.2f:%.2f]\n", mapDim.x1, mapDim.x2);
-  fprintf(fields->destination, "set yrange [%.2f:%.2f]\n", mapDim.y2, mapDim.y1);
+  fprintf(fields->destination, "set xrange [%.2f:%.2f]\n", mapDim.x1,
+          mapDim.x2);
+  fprintf(fields->destination, "set yrange [%.2f:%.2f]\n", mapDim.y2,
+          mapDim.y1);
 
   memset(map, ' ', sizeof map);
 
-//  Not needed for now - just debugging stuff.
-//  for (p = aGame->planets; p; p = p->next)
-//	  fprintf(fields->destination, "set label \" %s\" at %.2f, %.2f\n",p->name,p->x,p->y);
+  /* Not needed for now - just debugging stuff. for (p = aGame->planets;
+   * p; p = p->next) fprintf(fields->destination, "set label \" %s\" at
+   * %.2f, %.2f\n",p->name,p->x,p->y); */
 
   fprintf(fields->destination, "plot '-','-' index 0:1\n");
   for (p = aGame->planets; p; p = p->next)
-	  fprintf(fields->destination, "%.2f %.2f\n",p->x,p->y);
+    fprintf(fields->destination, "%.2f %.2f\n", p->x, p->y);
   fprintf(fields->destination, "e\n");
-  
+
   for (P2 = aGame->players; P2; P2 = P2->next)
     if (P2 != P)
       for (g = P2->groups; g; g = g->next)
-        if (groupLocation(aGame,g) == NULL)
-	  fprintf(fields->destination, "%.2f %.2f\n",groupx(aGame, g),groupy(aGame, g));
+        if (groupLocation(aGame, g) == NULL)
+          fprintf(fields->destination, "%.2f %.2f\n", groupx(aGame, g),
+                  groupy(aGame, g));
   fprintf(fields->destination, "e\n");
 }
 
@@ -2623,19 +2633,20 @@ reportHall(game *aGame, fielddef *fields)
  *
  ****/
 
-void reportTeam(game *aGame, fielddef *fields, int team) 
+void
+reportTeam(game *aGame, fielddef *fields, int team)
 {
   int             state;
   player         *aPlayer;
-  double tot_eff_ind = 0.0;
-  double tot_massproduced = 0.0;
-  double tot_masslost     = 0.0;
-  double tot_delta        = 0.0;
+  double          tot_eff_ind = 0.0;
+  double          tot_massproduced = 0.0;
+  double          tot_masslost = 0.0;
+  double          tot_delta = 0.0;
+
   nationStatus(aGame);
 
-  fprintf(fields->destination, 
-	  "\n\t\tTeam Leader Status Report for Game %s\n\n",
-          aGame->name);
+  fprintf(fields->destination,
+          "\n\t\tTeam Leader Status Report for Game %s\n\n", aGame->name);
 
   fprintf(fields->destination, "\n\t\tTeam Address Info\n\n");
   formatReset(fields);
@@ -2659,8 +2670,8 @@ void reportTeam(game *aGame, fielddef *fields, int team)
     formatLabels("Nation Eff_Ind Produced Lost Delta", "lrrrr", fields);
     tot_eff_ind = 0.0;
     tot_massproduced = 0.0;
-    tot_masslost     = 0.0;
-    tot_delta        = 0.0;
+    tot_masslost = 0.0;
+    tot_delta = 0.0;
     for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
       if (!(aPlayer->flags & F_DEAD) && (aPlayer->team == team)) {
         formatString(aPlayer->name, fields);
@@ -2670,10 +2681,10 @@ void reportTeam(game *aGame, fielddef *fields, int team)
         formatFloat(aPlayer->masslost, fields);
         formatFloat(aPlayer->massproduced - aPlayer->masslost, fields);
         formatReturn(fields);
-	tot_eff_ind += effectiveIndustry(aPlayer->totPop, aPlayer->totInd);
-	tot_massproduced += aPlayer->massproduced;
-	tot_masslost += aPlayer->masslost;
-	tot_delta  += aPlayer->massproduced - aPlayer->masslost;
+        tot_eff_ind += effectiveIndustry(aPlayer->totPop, aPlayer->totInd);
+        tot_massproduced += aPlayer->massproduced;
+        tot_masslost += aPlayer->masslost;
+        tot_delta += aPlayer->massproduced - aPlayer->masslost;
       }
     }
     formatString("Total", fields);

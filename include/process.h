@@ -14,7 +14,7 @@
 #ifdef WIN32
 #include <stdarg.h>
 #include <stdio.h>
-// #include <varargs.h>
+/* #include <varargs.h> */
 #endif
 
 /* $Id$ */
@@ -62,14 +62,16 @@ struct _orderinfo {
 
 void            at_order(game *aGame, player *, strlist **);
 void            eq_order(game *aGame, player *, strlist **);    /* FS
-
                                                                  * 
-                                                                 * * * * * * 
-                                                                 * * * * * *
-                                                                 * * * * * *
                                                                  * * * *
-                                                                 * 12/1999 *
-                                                                 * * *  * *  */
+                                                                 * * * *
+                                                                 * * * * * 
+                                                                 * * * * * 
+                                                                 * * * * * 
+                                                                 * *
+                                                                 * 12/1999 
+                                                                 * * * * * 
+                                                                 * * */
 void            a_order(game *aGame, player *, strlist **);
 void            b_order(game *aGame, player *, strlist **);
 void            c_order(game *aGame, player *, strlist **);
@@ -78,11 +80,12 @@ void            e_order(game *aGame, player *, strlist **);
 void            f_order(game *aGame, player *, strlist **);
 void            g_order(game *aGame, player *, strlist **);
 void            h_order(game *aGame, player *, strlist **);     /* CB-1990923 
-
                                                                  * 
-                                                                 * * * * * * 
-                                                                 * * * *  * * 
-                                                                 * * * *  */
+                                                                 * * * *
+                                                                 * * * *
+                                                                 * * * * * 
+                                                                 * * * *
+                                                                 * * */
 void            i_order(game *aGame, player *, strlist **);
 void            j_order(game *aGame, player *, strlist **);
 
@@ -106,7 +109,6 @@ void            mistake(player *P, strlist *s, char *format, ...);
 
 void
                 copyOrders(game *aGame,
-
                            FILE * orders,
                            char *nationName, char *password,
                            int theTurnNumber);
@@ -114,7 +116,6 @@ void
 int
                 areValidOrders(FILE * ordersFile,
                                game **aGame,
-
                                char **nationName, char **password,
                                int theTurnNumber);
 
@@ -140,7 +141,6 @@ int
 
 void
                 checkOrders(game *aGame,
-
                             char *nationName, FILE * forecast);
 
 void

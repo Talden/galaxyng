@@ -31,38 +31,36 @@
 #define   MAXPOP       1000.0
 
 /* How many people are turned into one colonist */
-#define   POPPERCOL    8        
+#define   POPPERCOL    8
 
 /* Population increase per turn */
-#define   POPINC       0.08     
+#define   POPINC       0.08
 
-/* Number of industry points needed to produce  one unit of ship */
-#define   INDPERSHIP   10       
+/* Number of industry points needed to produce one unit of ship */
+#define   INDPERSHIP   10
 
 /* Number of industry points needed to produce one unit of CAP */
-#define   INDPERCAP    5     
+#define   INDPERCAP    5
 
-/* Minimum amount of cargo that has to be  uploaded or downloaded */
-#define   AMOUNTMIN    0.01    
+/* Minimum amount of cargo that has to be uploaded or downloaded */
+#define   AMOUNTMIN    0.01
 
 #define   BATTLEMAGIC  3.107232506
 
 #define   DRIVEMAGIC   20.0
 
-/* Turn at which the first phase ends. 
- * During the first phase there is a strict policy 
- * for idle players. */
-#define   ENDPHASE1TURN 12  
+/* Turn at which the first phase ends. During the first phase there is a
+ * strict policy for idle players. */
+#define   ENDPHASE1TURN 12
 
 /* the number of turns one is allowed to miss during the first phase */
-#define   ORDERGAP1     2       
+#define   ORDERGAP1     2
 
 /* the number of turns one is allowed to miss during phase 2 */
-#define   ORDERGAP2     5     
+#define   ORDERGAP2     5
 
-/* CB-19980922. 
- * At least TURNS_LEFT from arrival to allow recall a group/fleet  i
- */
+/* CB-19980922. At least TURNS_LEFT from arrival to allow recall a
+ * group/fleet i */
 #define   TURNS_LEFT    4
 #define   MAPWIDTH      80
 #define   MAPHEIGHT     40
@@ -72,8 +70,8 @@
 #define   eq           ==
 
 /* May be this could help turns viewer */
-#define   MACHINEREPORT_VERSION   0.1   
-#define   XMLREPORT_VERSION       0.1
+#define   MACHINEREPORT_VERSION   0.1
+#define   XMLREPORT_VERSION       0.2
 
 /****d* GalaxyNG/Cookies
  * NAME
@@ -278,7 +276,7 @@ typedef struct shiptype {
  * SOURCE
  */
 
-#define PL_VISPREVTURN 1  
+#define PL_VISPREVTURN 1
 
 /*******/
 
@@ -599,7 +597,7 @@ struct player {
   group          *groups;
   double          mx, my, msize;
   char           *realName;     /* For in the Hall of Fame */
-  int             team;  
+  int             team;
   int             unused3;      /* For future expansion */
   int             unused4;      /* For future expansion */
   int             unused5;      /* For future expansion */
@@ -613,6 +611,9 @@ struct player {
   planet_claim   *claimed_planets;
   double          totPop;       /* Cache */
   double          totInd;       /* Cache */
+  double          totCap;       /* Cache */
+  double          totMat;       /* Cache */
+  double          totCol;       /* Cache */
   int             numberOfPlanets;      /* Cache */
   int             rating;       /* Used for the high score list */
 };
@@ -628,7 +629,7 @@ struct player {
  */
 
 /* Player want to stay anonymous */
-#define F_ANONYMOUS          1  
+#define F_ANONYMOUS          1
 #define F_AUTOUNLOAD         2
 #define F_PRODTABLE          4
 #define F_SORTGROUPS         8
@@ -637,20 +638,20 @@ struct player {
 #define F_SHIPTYPEFORECAST  64
 #define F_ROUTESFORECAST   128
 /* used by the rateNation function */
-#define F_SORTED           256  
+#define F_SORTED           256
 /* Compress turn reports before sending then */
-#define F_COMPRESS         512  
+#define F_COMPRESS         512
 #define F_GPLUS           1024
 /* Players ask for a "machine" turn report 19980620 */
-#define F_MACHINEREPORT   2048  
+#define F_MACHINEREPORT   2048
 /* Include a battle protocol */
-#define F_BATTLEPROTOCOL  4096  
+#define F_BATTLEPROTOCOL  4096
 /* Make every /n a cr lf (not used, can be reused) */
-#define F_CRLF            8192  
+#define F_CRLF            8192
 /* Players ask for an xml turn report 19990611 */
-#define F_XMLREPORT      16384  
+#define F_XMLREPORT      16384
 /* player is no longer active */
-#define F_DEAD           32768  
+#define F_DEAD           32768
 
 /****************/
 
@@ -666,15 +667,15 @@ struct player {
 
 typedef struct server {
   /* the command to email a file */
-  char           *sendmail;   
+  char           *sendmail;
   /* GM reports go to this address */
-  char           *GMemail;    
+  char           *GMemail;
   /* the command to compress the body of an email */
-  char           *compress;     
+  char           *compress;
   /* the command to encode the compressed body */
-  char           *encode;      
+  char           *encode;
   /* the path to mutt... mutt is good */
-  char           *mutt;      
+  char           *mutt;
 } server;
 
 /*******/
@@ -689,11 +690,11 @@ typedef struct server {
  */
 
 typedef struct gameOpt {
-  long           gameOptions;
-  double         initial_drive;
-  double         initial_weapons;
-  double         initial_shields;
-  double         initial_cargo;
+  long            gameOptions;
+  double          initial_drive;
+  double          initial_weapons;
+  double          initial_shields;
+  double          initial_cargo;
 } gameOpt;
 
 /*******/
@@ -710,12 +711,12 @@ typedef struct game {
   player         *next;
   long            cookie;
   char           *name;
-  server         serverOptions;
-  gameOpt        gameOptions;
+  server          serverOptions;
+  gameOpt         gameOptions;
   /* the time at which a turn is started, used for sanity check. */
-  char           *starttime;   
+  char           *starttime;
   int             turn;
-  double          galaxysize;   /*CB-20010408*/
+  double          galaxysize;   /* CB-20010408 */
   player         *players;      /* list with nations */
   planet         *planets;      /* list with planets */
   battle         *battles;      /* list with battles */
@@ -756,8 +757,9 @@ extern char     lineBuffer[2 * LINE_BUFFER_SIZE];
 extern char    *galaxynghome;
 extern char    *tempdir;
 extern char    *productname[];
+
 /* used in loadgame.c, should be a parameter */
-extern FILE    *turnFile;   
+extern FILE    *turnFile;
 extern FILE    *logFile;
 extern int      logLevel;
 extern struct option options[];
@@ -771,6 +773,6 @@ extern char    *vreport;
 extern char    *vbattle;
 extern char    *vsavegame;
 extern char    *vloadgame;
-extern int     nbrProducts;
+extern int      nbrProducts;
 
 #endif                          /* GNG_GALAXY_H */

@@ -5,7 +5,8 @@
 #include "list.h"
 #include "util.h"
 
-#define LG_CURRENT_TURN -1      /* Load current turn flag, if you supply * *
+#define LG_CURRENT_TURN -1      /* Load current turn flag, if you supply * 
+                                 *
                                  * * *  * *  * * this as turn number, *
                                  * loadgame * will * load  *  * * the *
                                  * current turn */

@@ -7,7 +7,8 @@
 
 #if defined(DRAW_MAP)
 /* this is to enable the current map to be created as an image */
-#include "gd.h"
+#include <gd.h>
+#include <avl.h>
 #endif
 
 void            writeString(char *s);

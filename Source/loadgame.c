@@ -4,7 +4,6 @@
 #include <string.h>
 
 char           *vloadgame =
-
     "$Id$";
 
 /****h* GalaxyNG/LoadGame
@@ -295,7 +294,7 @@ loadgame(char *gameName, int whichTurn)
   getReadInt();
   aGame->galaxysize = getReadFloat();
 
-  pdebug(DFULL, "Load Game : Game Options\n"); /* CB-20010407 */
+  pdebug(DFULL, "Load Game : Game Options\n");  /* CB-20010407 */
   for (getLine(turnFile);
        !feof(turnFile) && !strstr(lineBuffer, "@EGameOptions");
        getLine(turnFile)) {
@@ -305,7 +304,7 @@ loadgame(char *gameName, int whichTurn)
     aGame->gameOptions.initial_shields = getReadFloat();
     aGame->gameOptions.initial_cargo = getReadFloat();
   }
-  
+
   pdebug(DFULL, "Load Game : Players\n");
 
   getLine(turnFile);
@@ -485,7 +484,6 @@ loadgame(char *gameName, int whichTurn)
       aGroup->location = NULL;
     }
   }
-  // assert(!feof(turnFile));
   loadRanTab(turnFile);
   fclose(turnFile);
   return aGame;
