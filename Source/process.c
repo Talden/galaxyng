@@ -2338,10 +2338,9 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 			*theTurnNumber = atoi(ptr);
 			if (*theTurnNumber == 0) {
 				*theTurnNumber = LG_CURRENT_TURN;
-				*aGame = loadgame( gameName, LG_CURRENT_TURN);
-				loadNGConfig( *aGame );
-				return RES_NO_TURN_NBR;
 			}
+			else if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+				*final_orders = strdup(ptr);
 		}
 		
 		if ((ptr = getstr(NULL)) != NULL) {
