@@ -656,11 +656,12 @@ CMD_check(int argc, char **argv, int kind)
 			       &password, theTurnNumber);
     plog(LBRIEF, "game %s\n", aGame->name);
 
+    setHeader(anEnvelope, MAILHEADER_TO, "%s", returnAddress);
+
     if (resNumber == RES_OK) {
       aPlayer = findElement(player, aGame->players, nationName);
       aPlayer->orders = NULL;
 
-      setHeader(anEnvelope, MAILHEADER_TO, "%s", returnAddress);
       plog(LBRIEF, "Orders from %s\n", returnAddress);
 
 
