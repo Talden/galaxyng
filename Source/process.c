@@ -2324,6 +2324,8 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 			break;
 		}
 	}
+
+	*theTurnNumber = LG_CURRENT_TURN;
 	
 	if ( foundOrders ) {
 		char* ptr;
@@ -2335,6 +2337,7 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 			fprintf(stderr, "I think I have a turn number here: \"%s\"\n", ptr);
 			*theTurnNumber = atoi(ptr);
 			if (*theTurnNumber == 0) {
+				*theTurnNumber = LG_CURRENT_TURN;
 				*aGame = loadgame( gameName, LG_CURRENT_TURN);
 				return RES_NO_TURN_NBR;
 			}
