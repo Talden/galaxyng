@@ -2231,10 +2231,14 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
       sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
 	       aGame->name, aPlayer->name, theTurnNumber );
     }
-    else
+    else {
+      sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
+	       aGame->name, aPlayer->name, theTurnNumber );
+      unlink(copyFileName);
       sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome, aGame->name,
 	       aPlayer->name, theTurnNumber );
-
+	}
+	
     copyFile = Fopen( copyFileName, "w" );
     savefprintf( copyFile, "#GALAXY %s %s %s",
                  aGame->name, raceName, password );
