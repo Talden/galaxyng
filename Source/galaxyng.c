@@ -578,6 +578,8 @@ int CMD_clean(int argc, char **argv) {
 	if ( ( aGame = loadgame( argv[2], turn ) ) ) {
 		loadConfig( aGame );
 		cleanDeadPlayers(aGame);
+		aGame->turn--;  // hack to force it to save to the current game file
+		savegame( aGame );
 	}
 
 	return EXIT_SUCCESS;
