@@ -1,5 +1,12 @@
 # $Id$
 
+Release 6-1: May 2002
+o By Steve Webb
+  + Added gnuplot output
+  + Added some command-line fixes to commands that weren't very
+    well documented.
+  + Fixed the 'fleet recall' bug.
+
 Release 6-0: May 2002
 o By FS
   + Code is GPLed
