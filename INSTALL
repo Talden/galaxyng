@@ -14,13 +14,15 @@ You have two options:
 2) Maintain a mirror of the GalaxyNG SourceForge.net site
      Copy the files in /Doc/ into your local site and 
      change /Doc/base_url.txt to the base URL of your site.
-
+     (THIS OPTION IS NOT RECOMMENDED)
 
 GRAPHICAL MAP
 ----------------------------------------
 
-To enable the the galaxy map graphic option, edit Source/makefile and
-follow the directions there. You will also need to have installed
+To disable the the galaxy map graphic option, edit Source/makefile and
+follow the directions there.
+
+If you want graphical maps, you will also need to have installed
 libgd.a (http://www.boutell.com/gd/), libpng, libz, libjpeg, and
 libfreetype (these dependencies are explained one the libgd page.)
 
