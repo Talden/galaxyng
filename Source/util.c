@@ -1287,6 +1287,28 @@ round2(double f)
 /********/
 
 
+/****f* Util/roundup2
+ * NAME
+ *   roundup2 -- round a number to 2 decimal places, adding .005 first
+ * SYNOPSIS
+ *   double roundup2(double f)
+ *
+ * SOURCE
+ */
+
+double
+roundup2(double f)
+{
+  int             i;
+
+  i = (f + 0.005) * 100.0;
+  f = i / 100.0;
+  return f;
+}
+
+/********/
+
+
 
 /****f* Util/numberGroup
  * NAME
