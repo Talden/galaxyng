@@ -173,26 +173,26 @@ draw_maps(game* aGame, enum map_type map_type)
 
 	switch(map_type) {
 		case EffIndMap:
-			sprintf(buf, "%s/data/%s/%03d_effind.png",
+			sprintf(buf, "%s/data/%s/effind_%d.png",
 					galaxynghome, aGame->name, aGame->turn);
 			strcpy(map_title, "Effective Industry");
 			break;
 			
 #if 0
 		case ShipAttMap:
-			sprintf(buf, "%s/data/%s/%03d_shpatt.png",
+			sprintf(buf, "%s/data/%s/shpatt_%d.png",
 					galaxynghome, aGame->name, aGame->turn);
 			strcpy(map_title, "Ship Attack Potential");
 			break;
 			
 		case ShipDefMap:
-			sprintf(buf, "%s/data/%s/%03d_shpdef.png",
+			sprintf(buf, "%s/data/%s/shpdef_%d.png",
 					galaxynghome, aGame->name, aGame->turn);
 			strcpy(map_title, "Ship Defense Potential");
 			break;
 #endif
 		case LocationMap:
-			sprintf(buf, "%s/data/%s/%03d_location.png",
+			sprintf(buf, "%s/data/%s/location_%d.png",
 					galaxynghome, aGame->name, aGame->turn);
 			strcpy(map_title, "Locations Only");
 			break;
