@@ -1,6 +1,17 @@
 # $Id$
 
 Release 6.4.6: February 2004
+o By Chris Shaffer (christhecat) and Bogdan Mincu (mincub)
+  + major revision of GalaxyNG web site
+o By Chris Shaffer (christhecat)
+  + updates to manuals, particularly to support changes listed
+    below
+  + updated text in ARE messages to players
+  + modified sample galaxyngrc, procmail, and other files created
+    during installation, particularly to support changes listed
+    below
+  + modified text of the mailing attached to reports and other
+    items sent to players
 o By Ken Weinert (madcoder42)
   + added the -due command to email players who haven't yet sent 
     in orders. (#889054)
