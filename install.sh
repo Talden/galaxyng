@@ -18,6 +18,10 @@ echo "This script creates and installs all files necessary to run Galaxy Games"
 echo "Files will be installed in" $GALAXY_HOME
 echo
 
+#===================================================
+#     Create directories, if necessary.
+#===================================================
+
 if { test ! -d $GALAXY_HOME; } then {
   echo "Creating "$GALAXY_HOME;
   mkdir -p $GALAXY_HOME;
@@ -31,10 +35,10 @@ for NAME in log orders notices data reports statistics forecasts ; do
 done
 
 #===================================================
-#     Determine Users email address.
+#     Determine GM email address.
 #===================================================
 
-echo "o What is your email address (GM reports are send to this address)?"
+echo "o What is your email address (GM reports are sent to this address)?"
 read EMAIL
 
 #====================================================
@@ -61,10 +65,10 @@ fi
 echo "  The full path for sendmail is" $SENDMAIL
 
 # ===========================================================
-#   Try to find the location of the public WWW directory.
+#   Try to find the location of the public web directory.
 # ===========================================================
 
-echo "o Trying to locate the WWW directory."
+echo "o Trying to locate the web directory."
 echo "  GalaxyNG uses this directory to store the high score lists."
 
 WWW=none
@@ -77,9 +81,9 @@ for NAME in $HOME/public_html $HOME/WWW $HOME/www ; do
 done
 
 if { test $WWW = none; } then {
-  echo "  I can't seem to find the your WWW directory,"
-  echo "  Using "$GALAXY_HOME/WWW" for now."
-  WWW=$GALAXY_HOME/WWW
+  echo "  I can't seem to find the your web directory,"
+  echo "  Using "$GALAXY_HOME/public_html" for now."
+  WWW=$GALAXY_HOME/public_html
   if { test ! -d $WWW; } then { 
     mkdir $WWW; 
   } fi
@@ -125,14 +129,14 @@ cat Util/run_game.tail >> $RUN_GAME
 chmod +x $RUN_GAME
 
 # =========================================================
-#              Create .procmail file
+#              Create .procmailrc file
 # =========================================================
 
 PROCRC=$GALAXY_HOME/procmailrc
 FORMAIL=`which formail`
 echo "o Creating" $PROCRC
 #echo "  You can use this file in combination with procmail"
-#echo "  to automagically check incoming orders."
+#echo "  to automatically check incoming orders."
 #echo "  To use it copy it to " $HOME " as "$HOME"/.procmailrc"
 if { test -e $PROCRC; } then {
   echo "  Found an existing version of " $PROCRC;
@@ -144,11 +148,25 @@ fi
 echo "PATH=\$HOME/bin:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
 echo "# Make sure that this exists!" >> $PROCRC
 echo "MAILDIR=\$HOME/Mail" >> $PROCRC
+echo "# For maildir delivery (used by some mail servers instead of mbox delivery)" >> $PROCRC
+echo "# mailbox names should be followed by a /.  Replace the above line with:" >> $PROCRC
+echo "# MAILDIR=\$HOME/Maildir/" >> PROCRC
 echo "DEFAULT=\$MAILDIR/mbox" >> $PROCRC
+echo "# For maildir delivery, use:" >> $PROCRC
+echo "# DEFAULT=\$MAILDIR" >> $PROCRC
 echo "LOGFILE=\$MAILDIR/from" >> $PROCRC
 echo "LOCKFILE=\$HOME/.lockmail" >> $PROCRC
 echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
+echo "" >> $PROCRC
+echo "# Store GM reports in a folder called GM." >> $PROCRC
+echo ":0:" >> PROCRC
+echo "* ^Subject:.*GM Report" >> $PROCRC
+echo "GM" >> $PROCRC
+echo "# Some IMAP servers prefix mailbox names with a '.'  For example:" >> $PROCRC
+echo "#.GM" >> $PROCRC
+echo "# Combining this will maildir delivery would yield:" >> $PROCRC
+echo "#.GM/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Don't reply to anything from a mail daemon, but store it" >> $PROCRC
 echo "# in a folder called postmaster." >> $PROCRC
@@ -169,10 +187,9 @@ echo "* ^Subject:.*order" >> $PROCRC
 echo "|"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -check" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone requested a copy of a turn report, send a copy..." >> $PROCRC
-echo "# However don't reply to the GM report nor to turn reports." >> $PROCRC
+echo "# However don't reply to turn reports." >> $PROCRC
 echo ":0 rw :turno" >> $PROCRC
 echo "* ^Subject:.*report" >> $PROCRC
-echo "* !^Subject:.*GM Report" >> $PROCRC
 echo "* !^Subject:.*report for" >> $PROCRC
 echo "|"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -report" >> $PROCRC
 echo "" >> $PROCRC
@@ -182,7 +199,7 @@ echo "* ^Subject:.*relay" >> $PROCRC
 echo "|"$FORMAIL" -rkbt -s "$GALAXY_HOME"/galaxyng -relay" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Anything else, or messages that causes the engine to fail" >> $PROCRC
-echo "# are stored in Mail/mbox." >> $PROCRC
+echo "# are stored in the default mailbox." >> $PROCRC
 
 # =========================================================
 #              Create crontab file
@@ -212,7 +229,12 @@ echo "15 21 * * 5 " $RUN_GAME "Orion" >> $CRONT
 RCFILE=$GALAXY_HOME/.galaxyngrc
 COMPRESS=`which zip`
 ENCODE=`which mmencode`
-MUTT=`which mutt`
+if { test -z $ENCODE ; } then {
+  ENCODE=`which mimencode`
+}
+if { test -z $ENCODE ; } then {
+  ENCODE=`which uuencode`
+}
 echo "o Creating" $RCFILE
 if { test -e $RCFILE; } then {
   echo "  Found an existing version of " $RCFILE;
@@ -220,12 +242,10 @@ if { test -e $RCFILE; } then {
   echo "  Writing the new version to "  $RCFILE;
 }
 fi
+echo "; This file is documented in Doc/galaxyngrc" > $RCFILE
+echo "; and http://galaxyng.sourceforge.net/server.php" > $RCFILE
 echo "sendmail {"$SENDMAIL" -t }" > $RCFILE
 echo "GMemail "$EMAIL >> $RCFILE
-# if { test -n $MUTT ; } then {
-#   echo "mutt "$MUTT >> $RCFILE
-# }
-# fi
 if { test -n $ENCODE ; } then {
   echo "encode {"$ENCODE " }" >> $RCFILE
 }
@@ -234,6 +254,7 @@ if { test -n $COMPRESS ; } then {
   echo "compress {" $COMPRESS " }" >> $RCFILE
 }
 fi
+
 
 # =========================================================
 #              Copy GalaxyNG code
