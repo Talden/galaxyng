@@ -83,7 +83,10 @@ serverOpts* loadAREConfig(const char* pathname) {
 	char*       configName;		/* where the values are kept */
 	xmlDocPtr   doc;			/* root of the xml document */
 	char*       attr;			/* attribute pointer */
-
+	char*       lockFileName;	/* for locking the .arerc file */
+	int         attempt;		/* counter for lock file */
+	int         haveLock = 0;
+	
 	DBUG_ENTER("loadAREConfig");
 	
 	/* create a mail file so that any warnings/errors get sent to the GM */
@@ -97,6 +100,17 @@ serverOpts* loadAREConfig(const char* pathname) {
 
 	configName = createString("%s/.arerc", pathname);
 
+	lockFileName = createString("%s/lock/arerc", galaxynghome);
+	for (attempt = 0; attempt < 10; attempt++) {
+		if ((haveLock = spcLockFile(lockFileName)) == 1)
+			break;
+	}
+
+	if (haveLock != 1) {
+		fprintf(stderr, "**FATAL** cannot create lock on .arerc\n");
+		DBUG_RETURN(NULL);
+	}
+	
 	/* initialize the parser and the element lookup routines */
 	xmlInitParser();
 	initElementLookup();
