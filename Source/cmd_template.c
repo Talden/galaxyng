@@ -93,7 +93,9 @@ int CMD_template( int argc, char **argv ) {
 	    "; start_player\n"
 	    "; email race_1@their.address.tld\n"
 	    "; homeworld 1600 83 42\n"
-	    "; end_player\n\n"
+	    "; end_player\n\n");
+    
+    fprintf(glxfile,
 	    "; While the following player gets 3 home planets of sizes\n"
 	    "; 500.0, 100.0, and 1000.0\n\n"
 	    "; start_player\n"
@@ -101,7 +103,9 @@ int CMD_template( int argc, char **argv ) {
 	    "; homeworld 500 50 50\n"
 	    "; homeworld 100 45 55\n"
 	    "; homeworld 1000 55 45\n"
-	    "; end_player\n\n"
+	    "; end_player\n\n");
+    
+    fprintf(glxfile,
 	    "; Note that the server assumes that the first homeworld listed"
 	    "; is the main world for determining development planet radius"
 	    "; and distance between races.\n\n");
