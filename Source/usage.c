@@ -24,6 +24,7 @@ usage()
 		   "   -hall       <game name>\n"
 		   "   -lastorders <game name> [turn]\n"
 		   "   -players    <game name> [turn]\n"
+		   "   -due        <game name>\n"
 		   "   -teaminfo   <game name> <turn> <team number>\n");
 	
 	printf(" Debug commands\n"
@@ -56,11 +57,15 @@ usage()
 		   " -dummymail0 - create the turn 0 reports, but do not email them.\n"
 		   " -test       - test the integrity of a game file.\n"
 		   " -teaminfo   - create an info report for a team captain\n"
-		   " -graph      - dump game data for graph creation.\n"
-		   " -map        - dump ASCII game map.\n");
-	printf(" -influence  - create influence map(s). The available maps are\n"
+		   " -graph      - dump game data for graph creation.\n");
+
+	printf(" -map        - dump ASCII game map.\n"
+#if defined(DRAW_INFLUENCE_MAP)
+		   " -influence  - create influence map(s). The available maps are\n"
 		   "               Effective Industry, Attack Strength, Defense "
 		   "Strength, Planet Locater\n"
+#endif		   
 		   " -lastorders - list the turn when players last sent in orders.\n"
+		   " -due        - send email to players that haven't submitted orders.\n"
 		   " -players    - list address and password of all players.\n");
 }
