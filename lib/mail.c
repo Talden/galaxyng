@@ -238,7 +238,8 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 	FILE*  mailFile;
 	char    template[32] = "/tmp/galaxyXXXXXX";
 	int      result;
-  
+
+	plog(LBRIEF, ">eMail()\n");
 	pdebug(DFULL, "eMail\n");
   
 	assert(fileName != NULL);
@@ -249,9 +250,12 @@ int eMail(game *aGame, envelope *e, char *fileName) {
   
 	assert(e->to);
 	assert(e->subject);
-  
+
+	plog(LBRIEF, "to: \"%s\"  subject: \"%s\"\n", e->to, e->subject);
+
 	fprintf(mailFile, "To: %s\n", e->to);
 	fprintf(mailFile, "Subject: %s\n", e->subject);
+	
 	if (e->bcc) 
 		fprintf(mailFile, "BCC: %s\n", e->bcc);
 	if (e->cc)
@@ -302,8 +306,9 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 #endif
 	fclose(mailFile);
 #ifndef WIN32
+	plog(LBRIEF, "%s < %s\n",  aGame->serverOptions.sendmail, template);
 	result |= ssystem("%s < %s", aGame->serverOptions.sendmail, template);
-	result |= ssystem("rm %s", template);
+	/*result |= ssystem("rm %s", template);*/
 #endif
 	return result;
 }
