@@ -34,11 +34,11 @@ CC=gcc
 
 SOURCES=loadgame.c savegame.c create.c phase.c battle.c process.c \
         report.c util.c list.c selftest.c report_xml.c mail.c \
-        report_m.c galaxyng.c wopr.c globals.c
+        report_m.c galaxyng.c wopr.c globals.c avl.c
 
 OBJECTS=loadgame.o savegame.o create.o phase.o battle.o process.o \
         report.o util.o list.o selftest.o report_xml.o mail.o \
-        report_m.o globals.o
+        report_m.o globals.o avl.o
 
 GALAXYNG=galaxyng
 WOPR=wopr
@@ -86,6 +86,9 @@ mail.o: mail.c
 
 report_m.o: report_m.c
 	$(CC) $(CFLAGS) -c report_m.c -o report_m.o
+
+avl.o: avl.c
+	$(CC) $(CFLAGS) -c avl.c -o avl.o
 
 galaxyng.o: galaxyng.c
 	$(CC) $(CFLAGS) -c galaxyng.c -o galaxyng.o
