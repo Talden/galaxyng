@@ -1,13 +1,16 @@
 # $Id$
 
-Release 6.4.5: January 2005
+Release 6.4.5: January 2004
 o By Ken Weinert (madcoder42)
   + changed CMD_create to load the config file to fix the problem
     of not finding fonts during initial map creation in this phase
   + added the -influence command to generate influence maps without
     running a turn.
   + changed the method of allocating memory to reduce the impact of
-    map generation
+    map generation.
+  + fixed an issue with having more players than colors defined. We
+    can now comfortably fit 80 players on these types of maps. More
+    than that and the names will run off the right side.
   + XML reporting temporarily turned off as the C command would cause
     TXT reports to be not be created and copies of orders were lost
 
