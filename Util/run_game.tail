@@ -14,7 +14,7 @@ if { test -z $2; } then {
 
         } else {
 
-`       #
+        #
         # We land here in case of a re-run of a turn. Set the turn
         # number to the second parameter.
         #
@@ -23,7 +23,7 @@ if { test -z $2; } then {
 }
 fi
 
-if { test -e orders/$GAME/$TURN.all; } then {
+if { ! test -e orders/$GAME/$TURN.all; } then {
 
 	# 
 	# If the #.all file doesn't exist, create it.
