@@ -57,7 +57,7 @@ procmail; to automatically process in comming orders</pre>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
 LIBS   = -lm</pre>
-				<p>The above settings are valid for most systems that have <tt>GCC</tt> installed. They have been tested on Debian, Slackware, SuSE, and RedHat systems and should compile without changes on most Linux boxes.  Do not add any optimization options otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
+				<p>The above settings are valid for most systems that have <tt>GCC</tt> installed. They have been tested on Debian, Slackware, SuSE, and RedHat systems and should compile without changes on most Linux boxes.  Do not add any optimization options - otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
 				<p>To compile the code, in the <tt>NG/</tt> directory run:</p>
 <pre>make</pre>
 				<p>This creates the executable <tt>NG/Source/galaxyng</tt>.</p> 
@@ -113,15 +113,15 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>Games/forecasts/</tt></td>
-						<td>Forecasts are stored in a subdirectory for each game. This is only used for debugging the program.</td>
+						<td>Forecasts are stored in a subdirectory for each game. This feature is normally only enabled when debugging the program, as it can consume significant hard disk space.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/reports/</tt></td>
-						<td>Turn reports are stored in a subdirectory for each game. This is only used for debugging the program.</td>
+						<td>Turn reports are stored in a subdirectory for each game. This feature is normally only enabled when debugging the program, as it can consume significant hard disk space.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/log/</tt></td>
-						<td>Contains log files that contain information on processed orders and game runs.</td>
+						<td>Logs of information on processed orders and turns are stored in a file for each game.</td>
 					</tr>
 					<tr>
 						<td><tt>Games/statistics/</tt></td>
@@ -129,7 +129,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>Games/notices/</tt></td>
-						<td>This contains game notices. You can use these to provide additional information to the turn reports.</td>
+						<td>Game notices are stored in files described below.  You can use these to insert information in the bulletins that players receive in their turn reports.</td>
 					</tr>
 				</table>
 				<p>There are three kind of notices available:</p>
@@ -201,7 +201,7 @@ LIBS   = -lm</pre>
 
 			<h2 id="util">Utilities</h2>
 				<p>Registering players, checking orders and running turns are, of course, very cumbersome processes that are best automated with <tt><a href="http://www.procmail.org/">procmail</a></tt>, <tt><a href="http://www.wlug.org.nz/formail(1)">formail</a></tt> and <tt><a href="http://www.wlug.org.nz/cron(8)">cron</a></tt>.</p>
-				<p>If you have never used <tt>procmail</tt> before, read the <a href="http://www.ii.com/internet/robots/procmail/qs/">Procmail Quick Start</a> and review the example <tt>.procmailrc</tt> in <tt>$HOME/Games/procmailrc</tt> carefully.  If procmail is misconfigured, <em>you could lose or bounce your email</em>.  <tt>Procmail</tt> can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.  The Procmail Quick Start also discusses <a href="http://www.ii.com/internet/robots/procmail/qs/#maildirDetails">maildir delivery</a> and <a href="http://www.ii.com/internet/robots/procmail/qs/#qmail">qmail</a>.</p>
+				<p>If you have never used <tt>procmail</tt> before, read the <a href="http://www.ii.com/internet/robots/procmail/qs/">Procmail Quick Start</a> and review the example Procmail configuration file in <tt>$HOME/Games/procmailrc</tt> carefully.  If procmail is misconfigured, <em>you could lose or bounce your email</em>.  <tt>Procmail</tt> can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.  The Procmail Quick Start also discusses additional configuration needed to support <a href="http://www.ii.com/internet/robots/procmail/qs/#maildirDetails">maildir delivery</a> and/or <a href="http://www.ii.com/internet/robots/procmail/qs/#qmail">qmail</a>.</p>
 				<p>Each entry in <tt>.procmailrc</tt> defines a recipe that tells what has to be done to a message and under what condition. The recipe for order messages is:</p>
 <pre>:0 rw :orders
 * ^Subject:.*order
@@ -374,7 +374,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 					<li><a href="global.bulletin">Global Bulletin</a> <tt>global.bulletin</tt></li>
 					<li><a href="galaxyngrc">Server Configuration File</a> <tt>.galaxyngrc</tt></li>
 					<li><a href="example.glx">Game Configuration File</a> <tt>&lt;game name&gt;.glx</tt></li>
- 					<li><a href="intro.text">Game Introduction Text</a> <tt>&lt;game name&gt;.0<tt>.notice</tt></li>
+ 					<li><a href="intro.text">Game Introduction Text</a> <tt>&lt;game name&gt;.0.notice</tt></li>
  				</ul>
 
 			<hr />
