@@ -34,10 +34,10 @@
 			<h2 id="ex">Example Files</h2>
 				<ul>
 					<li><a href="house_rules.txt">House Rules</a></li>
-					<li><a href="globab.bulletin">Global Bulletin</a></li>
+					<li><a href="global.bulletin">Global Bulletin</a></li>
 					<li><a href="galaxyngrc">Server Configuration File</a></li>
 					<li><a href="example.glx">Game Configuration File</a></li>
- 					<li><a href="intro.txt">Game Introduction Text</a></li>
+ 					<li><a href="intro.text">Game Introduction Text</a></li>
  				</ul>
  			
 			<h2 id="compile">Compilation</h2>
