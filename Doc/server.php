@@ -376,8 +376,8 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 						<td>Show a map of the galaxy.</td>
 					</tr>
 					<tr>
-						<td><tt>galaxyng -influence &lt;game name&gt; [turn number]</tt></td>
-						<td>Produce an influence map of the galaxy.</td>
+						<td><tt>galaxyng -influence &lt;game name&gt; [public|industry|attack|defence] [turn number]</tt></td>
+						<td>Produce an influence map of the galaxy.  If no map type or turn number is specified, all maps for the current turn will be generated.  If turn number is specified, map type must also be specified.</td>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -score &lt;game name&gt;</tt></td>
@@ -403,7 +403,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 			<hr />
 
 			<h2 id="host">Hosting Team Games</h2>
-				<p>First get two teams...  best is to have the players themselves form the team and appoint a team captain for each team.  After that you will have two lists with email addreses. You add them in the .glx file and above the first list you add:</p>
+				<p>First get two teams...  best is to have the players themselves form the team and appoint a team captain for each team.  After that you will have two lists with email addresses. You add them in the .glx file and above the first list you add:</p>
 <pre>team 0</pre>
 				<p>and before the second list you add:</p>
 <pre>team 1</pre>
