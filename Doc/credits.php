@@ -1,24 +1,24 @@
-<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?> 
+<?php echo '<?xml version="1.0" encoding="iso-8859-1"?>'; ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
 
 	<head>
-		<link rel=stylesheet href="main.css" />
+		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Credits</title>
 	</head>
 
 	<body>
 	
-		<h1>Galaxy NG Credits</h1>
+		<h1>GalaxyNG Credits</h1>
 		
 		<h2>GalaxyNG Code</h2>
 			<ul>
-				<li>Frans Slothouber</li>
-				<li>Ken Weinert</li>
-				<li>Christophe Barbier</li>
-				<li>Jacco van Weert</li>
+				<li><a href="http://sourceforge.net/users/gumpu/">Frans Slothouber (gumpu)</a></li>
+				<li><a href="http://sourceforge.net/users/madcoder42/">Ken Weinert (madcoder42)</a></li>
+				<li><a href="http://sourceforge.net/users/albedo77/">Christophe Barbier (albedo77)</a></li>
+				<li><a href="http://sourceforge.net/users/weertj/">Jacco van Weert (weertj)</a></li>
 				<li>Tommy Lindqvist</li>
 				<li>Rogerio Fung</li>
 			</ul>
@@ -35,8 +35,15 @@
 			
 		<h2>Rules</h2>
 			<ul>
-				<li>Frans Slothouber (gumpu)</li>
-				<li>Chris Shaffer (christhecat)</li>
+				<li><a href="http://sourceforge.net/users/gumpu/">Frans Slothouber (gumpu)</a></li>
+				<li><a href="http://sourceforge.net/users/christhecat/">Chris Shaffer (christhecat)</a></li>
+			</ul>
+			
+		<h2>FAQ</h2>
+			<ul>
+				<li><a href="http://sourceforge.net/users/gumpu/">Frans Slothouber (gumpu)</a></li>
+				<li>Jamie Jackson</li>
+				<li><a href="http://sourceforge.net/users/christhecat/">Chris Shaffer (christhecat)</a></li>
 			</ul>
 			
 		<h2>License</h2>
