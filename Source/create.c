@@ -766,6 +766,10 @@ createGameDirectories(char *name)
     GOS_mkdir(lineBuffer, 0700);
     sprintf(lineBuffer, "%s/statistics/%s", galaxynghome, name);
     GOS_mkdir(lineBuffer, 0700);
+    sprintf(lineBuffer, "%s/forecasts/%s", galaxynghome, name);
+    GOS_mkdir(lineBuffer, 0700);
+    sprintf(lineBuffer, "%s/log/%s", galaxynghome, name);
+    GOS_mkdir(lineBuffer, 0700);
   }
   return TRUE;
 }
