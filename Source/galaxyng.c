@@ -678,7 +678,7 @@ CMD_check(int argc, char **argv, int kind)
 			
 			
 			/* produce an XML forecast */
-			if (aPlayer->flags && F_XMLREPORT) {
+			if (aPlayer->flags & F_XMLREPORT) {
 				if ((theTurnNumber == LG_CURRENT_TURN) ||
 					(theTurnNumber == (aGame->turn) + 1)) {
 					forecastName = createString("%s/NG_XML_%d_forecast", 
@@ -714,7 +714,7 @@ CMD_check(int argc, char **argv, int kind)
 			}
 			
 			/* produce a text forecast */
-			if (aPlayer->flags && F_TXTREPORT) {
+			if (aPlayer->flags & F_TXTREPORT) {
 				if ((theTurnNumber == LG_CURRENT_TURN) ||
 					(theTurnNumber == (aGame->turn) + 1)) {
 					forecastName = createString("%s/NG_TXT_%d_forecast", 
@@ -791,7 +791,7 @@ CMD_check(int argc, char **argv, int kind)
 					  aGame->name, nationName);
 			plog(LBRIEF, "%s advance orders received for %s.\n",
 				 aGame->name, nationName);
-			if (aPlayer->flags && F_XMLREPORT) {
+			if (aPlayer->flags & F_XMLREPORT) {
 				forecastName = createString("%s/NG_XML_forecast", tempdir);
 				forecast = GOS_fopen(forecastName, "w");
 				
@@ -828,7 +828,7 @@ CMD_check(int argc, char **argv, int kind)
 				free(forecastName);
 			}
 			
-			if (aPlayer->flags && F_TXTREPORT) {
+			if (aPlayer->flags & F_TXTREPORT) {
 				if (aPlayer->orders == NULL)
 					copyOrders(aGame, stdin, nationName, password, theTurnNumber);
 				forecastName = createString("%s/NG_TXT_forecast", tempdir);
