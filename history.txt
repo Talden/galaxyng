@@ -1,5 +1,15 @@
 # $Id$
 
+Release 6-2: July 2003
+o By Ken Weinert
+  + fixed bug that could cause the create process to hang
+  + added code to ensure each planet is in a unique location
+    this also accounts for the fact that planet coords are
+    only kept to 2 decimal places
+  + recommend that, for the moment, the .png option is not
+    used. I'm rewriting that code and it isn't stable - it
+    might not even compile.
+
 Release 6-1a: April 2003
 o By Ken Weinert
   + Added an option to generate a .png file when the turn is 
