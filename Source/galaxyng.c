@@ -709,6 +709,8 @@ CMD_immediate( int argc, char **argv)
 							result |= eMail(aGame, env, missing_orders_file);
 							destroyEnvelope(env);
 							msg_count++;
+							unlink(missing_orders_file);
+							free(missing_orders_file);
 						}
 					}
 				}
@@ -2347,8 +2349,8 @@ CMD_ordersdue(int argc, char** argv)
 	}
 	
 	if (missing_orders_file) {
+		unlink(missing_orders_file);
 		free(missing_orders_file);
-		ssystem("rm -f %s", missing_orders_file);
 	}
 	
 	if (msg_count) {
