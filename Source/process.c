@@ -2335,7 +2335,7 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 		*password = strdup( getstr( NULL ) );
 		if ((ptr = getstr(NULL)) != NULL) {
 			*theTurnNumber = atoi(ptr);
-			if (*theTurnNumber == 0) {
+			if (!isdigit(*ptr)) {
 				*theTurnNumber = LG_CURRENT_TURN;
 				if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
 					loadNGConfig(*aGame);
