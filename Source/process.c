@@ -2201,9 +2201,8 @@ checkOrders( game *aGame, char *raceName, FILE *forecast, int kind )
  */
 
 void
-copyOrders( game *aGame,
-            FILE *orders,
-            char *raceName, char *password, int theTurnNumber )
+copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
+	    char* final_orders, int theTurnNumber )
 {
     strlist *s;
     char *copyFileName;
@@ -2216,8 +2215,12 @@ copyOrders( game *aGame,
     copyFileName = alloc( strlen( aGame->name ) + strlen( aPlayer->name ) +
                           strlen( galaxynghome ) + strlen( "/orders//" ) +
                           20 );
-    sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome, aGame->name,
-             aPlayer->name, theTurnNumber );
+    if (final_orders)
+      sprintf( copyFileName, "%s/orders/%s/%s.%d.final", galaxynghome,
+	       aGame->name, aPlayer->name, theTurnNumber );
+    else
+      sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome, aGame->name,
+	       aPlayer->name, theTurnNumber );
 
     copyFile = Fopen( copyFileName, "w" );
     savefprintf( copyFile, "#GALAXY %s %s %s\n",
@@ -2246,7 +2249,8 @@ copyOrders( game *aGame,
  * SYNOPSIS
  *   int areValidOrders(FILE *ordersFile, 
  *                      char **command, game **game, 
- *                      char **raceName, char **password)
+ *                      char **raceName, char** final_orders,
+ *                      char **password)
  * FUNCTION
  *   Scans through a file with orders until a line that starts
  *   with "#" is found.  The the rest of the line is then
@@ -2280,79 +2284,81 @@ copyOrders( game *aGame,
  */
 
 int
-areValidOrders( FILE *ordersFile,
-                game **aGame,
-                char **raceName, char **password, int theTurnNumber )
+areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
+		char **password, char** final_orders, int theTurnNumber )
 {
-    int   resNumber;
-	int   foundOrders;
-    char* gameName;
-	char* isRead;
-
-    gameName = NULL;
-
-    foundOrders = FALSE;
-    for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
-          isRead;
-          isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
-        if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
-            foundOrders = TRUE;
-            break;
-        }
+  int   resNumber;
+  int   foundOrders;
+  char* gameName;
+  char* isRead;
+  
+  gameName = NULL;
+  
+  foundOrders = FALSE;
+  for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
+	isRead;
+	isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
+    if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
+      foundOrders = TRUE;
+      break;
     }
-
-    if ( foundOrders ) {
-        getstr( lineBuffer );
-        gameName = strdup( getstr( NULL ) );
-        *raceName = strdup( getstr( NULL ) );
-        *password = strdup( getstr( NULL ) );
-
-        if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
-            player *aPlayer;
-
-            loadConfig( *aGame );
-
-			if (noCaseStrcmp("GM", *raceName) == 0) {
-				if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
-					resNumber = RES_OK;
-				}
-			}
-			else {
-				aPlayer = findElement( player, ( *aGame )->players,
-									   *raceName );
-
-				if ( aPlayer ) {
-					if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
-						if ( ( theTurnNumber >= ( *aGame )->turn + 1 ) ||
-							 ( theTurnNumber eq LG_CURRENT_TURN ) ) {
-							resNumber = RES_OK;
-						} else {
-							resNumber = RES_TURNRAN;
-						}
-					} else {
-						resNumber = RES_PASSWORD;
-					}
-				} else {
-					resNumber = RES_PLAYER;
-				}
-			}
-		} else {
-			resNumber = RES_NO_GAME;
-		}
-	} else {
-		resNumber = RES_NO_ORDERS;
+  }
+  
+  if ( foundOrders ) {
+    char* ptr;
+    getstr( lineBuffer );
+    gameName = strdup( getstr( NULL ) );
+    *raceName = strdup( getstr( NULL ) );
+    *password = strdup( getstr( NULL ) );
+    if ((ptr = getstr(NULL)) != NULL)
+      *final_orders = strdup(ptr);
+    
+    if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
+      player *aPlayer;
+      
+      loadConfig( *aGame );
+      
+      if (noCaseStrcmp("GM", *raceName) == 0) {
+	if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
+	  resNumber = RES_OK;
 	}
-
-    if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
-        *aGame = allocStruct( game );
-
-        setName( *aGame, "UnknownGame" );
-        loadConfig( *aGame );
-        if ( gameName )
-            setName( *aGame, gameName );
+      }
+      else {
+	aPlayer = findElement( player, ( *aGame )->players,
+			       *raceName );
+	
+	if ( aPlayer ) {
+	  if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
+	    if ( ( theTurnNumber >= ( *aGame )->turn + 1 ) ||
+		 ( theTurnNumber eq LG_CURRENT_TURN ) ) {
+	      resNumber = RES_OK;
+	    } else {
+	      resNumber = RES_TURNRAN;
+	    }
+	  } else {
+	    resNumber = RES_PASSWORD;
+	  }
+	} else {
+	  resNumber = RES_PLAYER;
+	}
+      }
+    } else {
+      resNumber = RES_NO_GAME;
     }
-
-    return resNumber;
+  } else {
+    resNumber = RES_NO_ORDERS;
+  }
+  
+  if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
+    *aGame = allocStruct( game );
+    
+    setName( *aGame, "UnknownGame" );
+    loadConfig( *aGame );
+    if ( gameName )
+      setName( *aGame, gameName );
+  }
+  
+  return resNumber;
 }
 
 /*********/

@@ -605,7 +605,7 @@ CMD_immediate( int argc, char **argv)
 	    aPlayer = aPlayer->next ) {
 	if (aPlayer->flags & F_DEAD)
 	  continue;
-	ordersfile = createString("%s/orders/%s/%s.%d",
+	ordersfile = createString("%s/orders/%s/%s.%d.final",
 				  galaxynghome, argv[2],
 				  aPlayer->name, turn);
 	failed |= access(ordersfile, R_OK);
@@ -730,194 +730,211 @@ checkTime( game *aGame )
 
 enum EReportFormat { REP_TXT, REP_XML };
 
-FILE* openForecast( char* forecastName )
+FILE*
+openForecast( char* forecastName )
 {
-    FILE* forecast;
+  FILE* forecast;
 
-    if ( ( forecast = GOS_fopen( forecastName, "w" ) ) == NULL ) {
-        plog( LBRIEF, "Could not open %s for forecasting\n", forecastName );
-        fprintf( stderr, "Could not open %s for forecasting\n", forecastName );
-        return 0;
-    }
-    return forecast;
+  if ( ( forecast = GOS_fopen( forecastName, "w" ) ) == NULL ) {
+    plog( LBRIEF, "Could not open %s for forecasting\n", forecastName );
+    fprintf( stderr, "Could not open %s for forecasting\n", forecastName );
+    return 0;
+  }
+  return forecast;
 }
 
-int mailForecast( char* forecastName, char* tag, envelope* anEnvelope, game* aGame, int kind )
+int
+mailForecast( char* forecastName, char* tag, envelope* anEnvelope,
+	      game* aGame, int kind )
 {
-    int result = FALSE;
-    if ( kind == CMD_CHECK_REAL ) {
-        plog( LBRIEF, "mailing %s report %s to %s\n", tag, forecastName, anEnvelope->to );
-        fprintf( stderr, "mailing %s report %s to %s\n", tag, forecastName, anEnvelope->to );
-        result |= eMail( aGame, anEnvelope, forecastName );
-    } else {
-        /* TODO Create a file copy */
-    }
-    return result;
+  int result = FALSE;
+  if ( kind == CMD_CHECK_REAL ) {
+    plog( LBRIEF, "mailing %s report %s to %s\n",
+	  tag, forecastName, anEnvelope->to );
+    fprintf( stderr, "mailing %s report %s to %s\n",
+	     tag, forecastName, anEnvelope->to );
+    result |= eMail( aGame, anEnvelope, forecastName );
+  } else {
+    /* TODO Create a file copy */
+  }
+  return result;
 }
 
 
-int mail_AdvanceReport( game* aGame, player *aPlayer, envelope *anEnvelope, char* raceName, int kind, enum EReportFormat report_format )
+int
+mail_AdvanceReport( game* aGame, player *aPlayer, envelope *anEnvelope,
+		    char* raceName, int kind,
+		    enum EReportFormat report_format )
 {
-    int result = FALSE;
-    /* TODO */
-    return result;
+  int result = FALSE;
+  /* TODO */
+  return result;
 }
 
-int mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope, char* raceName, int kind, enum EReportFormat report_format )
+int
+mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope,
+	       char* raceName, int kind, enum EReportFormat report_format )
 {
-    char* tag = 0;
-    int result = FALSE;
-    FILE *forecast;
-    char* forecastName;
-
-    switch ( report_format )
-    {
-        case REP_TXT :
-            tag = "TXT";
-            break;
-        case REP_XML :
-            tag = "XML";
-            break;
-        default:
-            assert( 0 );
-    }
-
-    forecastName = createString( "%s/NG_%s_%d_forecast", tempdir, tag, getpid(  ) );
-    forecast = openForecast( forecastName );
-    if ( forecast ) {
-        /* OK */
-    } else {
-        return EXIT_FAILURE;
-    }
-
-    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-            "Galaxy HQ, %s turn %d %s forecast for %s",
-            aGame->name, ( aGame->turn ) + 1, tag, raceName );
-
-    /* Create the report */
-    ( aGame->turn )++;
-    fprintf( stderr, "Creating %s report, %s:%d\n", tag, raceName, kind );
-    switch ( report_format ) {
-        case REP_TXT :
-            reportForecast( aGame, raceName, forecast );
-            break;
-        case REP_XML :
-            report_xml( aGame, aPlayer, forecast, Forecast );
-            break;
-        default:
-            assert( 0 );
-    }
-    ( aGame->turn )--;
-
-    /* Mail it */
-    result |= mailForecast( forecastName, tag, anEnvelope, aGame, kind );
-    result |= GOS_delete( forecastName );
-    free( forecastName );
-    fclose( forecast );
-    return result;
+  char* tag = 0;
+  int result = FALSE;
+  FILE *forecast;
+  char* forecastName;
+  
+  switch ( report_format ) {
+  case REP_TXT :
+    tag = "TXT";
+    break;
+  case REP_XML :
+    tag = "XML";
+    break;
+  default:
+    assert( 0 );
+  }
+  
+  forecastName = createString( "%s/NG_%s_%d_forecast",
+			       tempdir, tag, getpid(  ) );
+  forecast = openForecast( forecastName );
+  if ( forecast ) {
+    /* OK */
+  } else {
+    return EXIT_FAILURE;
+  }
+  
+  setHeader( anEnvelope, MAILHEADER_SUBJECT,
+	     "Galaxy HQ, %s turn %d %s forecast for %s",
+	     aGame->name, ( aGame->turn ) + 1, tag, raceName );
+  
+  /* Create the report */
+  ( aGame->turn )++;
+  fprintf( stderr, "Creating %s report, %s:%d\n", tag, raceName, kind );
+  switch ( report_format ) {
+  case REP_TXT :
+    reportForecast( aGame, raceName, forecast );
+    break;
+  case REP_XML :
+    report_xml( aGame, aPlayer, forecast, Forecast );
+    break;
+  default:
+    assert( 0 );
+  }
+  ( aGame->turn )--;
+  
+  /* Mail it */
+  result |= mailForecast( forecastName, tag, anEnvelope, aGame, kind );
+  result |= GOS_delete( forecastName );
+  free( forecastName );
+  fclose( forecast );
+  return result;
 }
 
-int mail_TXT_Error( game* aGame, envelope *anEnvelope, char* raceName, int kind, int resNumber, int theTurnNumber )
+int
+mail_TXT_Error( game* aGame, envelope *anEnvelope, char* raceName, int kind,
+		int resNumber, int theTurnNumber )
 {
-    int result = FALSE;
-    FILE* forecast;
-
-    char *forecastName = createString( "%s/NG_TXT_%d_errors",
-            tempdir, getpid(  ) );
-    forecast = openForecast( forecastName );
-    if ( forecast ) {
-        /* OK */
-    } else {
-        return TRUE;
-    }
-
-    setHeader( anEnvelope, MAILHEADER_SUBJECT, "Galaxy HQ, major trouble" );
-    plog( LBRIEF, "major trouble %d\n", resNumber );
-
-    generateErrorMessage( resNumber, aGame, raceName, theTurnNumber, forecast );
-    fclose( forecast );
-
-    result |= mailForecast( forecastName, "TXT", anEnvelope, aGame, kind );
-    result |= GOS_delete( forecastName );
-    free( forecastName );
-    fclose( forecast );
-    return result;
+  int result = FALSE;
+  FILE* forecast;
+  
+  char *forecastName = createString( "%s/NG_TXT_%d_errors",
+				     tempdir, getpid(  ) );
+  forecast = openForecast( forecastName );
+  if ( forecast ) {
+    /* OK */
+  } else {
+    return TRUE;
+  }
+  
+  setHeader( anEnvelope, MAILHEADER_SUBJECT, "Galaxy HQ, major trouble" );
+  plog( LBRIEF, "major trouble %d\n", resNumber );
+  
+  generateErrorMessage( resNumber, aGame, raceName, theTurnNumber, forecast );
+  fclose( forecast );
+  
+  result |= mailForecast( forecastName, "TXT", anEnvelope, aGame, kind );
+  result |= GOS_delete( forecastName );
+  free( forecastName );
+  fclose( forecast );
+  return result;
 }
 
 int
 CMD_check( int argc, char **argv, int kind )
 {
-    char *logName;
-    int result = FALSE;
-
-    logName = createString( "%s/log/orders_processed.txt", galaxynghome );
-    openLog( logName, "a" );
-    free( logName );
-
-    plogtime( LBRIEF );
-    if ( argc < 2 ) {
-        result = TRUE;
+  char *logName;
+  int result = FALSE;
+  
+  logName = createString( "%s/log/orders_processed.txt", galaxynghome );
+  openLog( logName, "a" );
+  free( logName );
+  
+  plogtime( LBRIEF );
+  if ( argc < 2 ) {
+    result = TRUE;
+  } else {
+    envelope *anEnvelope = createEnvelope(  );
+    char* returnAddress = getReturnAddress( stdin );
+    int   theTurnNumber = getTurnNumber( stdin );
+    char* raceName = NULL;
+    char* password = NULL;
+    char* final_orders = NULL;
+    game *aGame = NULL;
+    int resNumber = areValidOrders( stdin, &aGame, &raceName,
+                                    &password, &final_orders, theTurnNumber );
+    plog( LBRIEF, "game %s\n", aGame->name );
+    
+    setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
+    
+    if ( resNumber == RES_OK ) {
+      player *aPlayer = findElement( player, aGame->players, raceName );
+      assert( aPlayer);
+      aPlayer->orders = NULL;
+      plog( LBRIEF, "Orders from %s\n", returnAddress );
+      
+      if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
+	   ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
+	/* They are orders for the comming turn, copy them. */
+	copyOrders( aGame, stdin, raceName, password, aGame->turn + 1 );
+	/* Check them */
+	checkOrders( aGame, raceName );
+	/* Now mail the result */
+	if ( aPlayer->flags & F_XMLREPORT ) {
+	  result = mail_Forecast( aGame, aPlayer, anEnvelope, raceName,
+				  kind, REP_XML );
+	}
+	if ( aPlayer->flags & F_TXTREPORT ) {
+	  result = mail_Forecast( aGame, aPlayer, anEnvelope, raceName,
+				  kind, REP_TXT );
+	}
+      } else if ( theTurnNumber > ( aGame->turn ) + 1 ) {
+	/* They are advance orders */
+	copyOrders( aGame, stdin, raceName, password, theTurnNumber );
+	setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		   "Galaxy HQ, %s advance orders received for %s.",
+		   aGame->name, raceName );
+	plog( LBRIEF, "%s advance orders received for %s.\n",
+	      aGame->name, raceName );
+	if ( aPlayer->flags & F_XMLREPORT ) {
+	  result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, raceName,
+				       kind, REP_XML );
+	}
+	if ( aPlayer->flags & F_TXTREPORT ) {
+	  result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, raceName,
+				       kind, REP_TXT );
+	}
+      } else {
+	/* Orders for a turn that already ran. 
+	 * Should be handled by areValidOrders() 
+	 */
+	assert( 0 );
+      }
     } else {
-        envelope *anEnvelope = createEnvelope(  );
-        char *returnAddress = getReturnAddress( stdin );
-        int   theTurnNumber = getTurnNumber( stdin );
-        char *raceName = NULL;
-        char *password = NULL;
-        game *aGame = NULL;
-        int resNumber = areValidOrders( stdin, &aGame, &raceName,
-                                    &password, theTurnNumber );
-        plog( LBRIEF, "game %s\n", aGame->name );
-
-        setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
-
-        if ( resNumber == RES_OK ) {
-            player *aPlayer = findElement( player, aGame->players, raceName );
-            assert( aPlayer);
-            aPlayer->orders = NULL;
-            plog( LBRIEF, "Orders from %s\n", returnAddress );
-
-            if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
-                 ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
-                /* They are orders for the comming turn, copy them. */
-                copyOrders( aGame, stdin, raceName, password, aGame->turn + 1 );
-                /* Check them */
-                checkOrders( aGame, raceName );
-                /* Now mail the result */
-                if ( aPlayer->flags & F_XMLREPORT ) {
-                     result = mail_Forecast( aGame, aPlayer, anEnvelope, raceName, kind, REP_XML );
-                }
-                if ( aPlayer->flags & F_TXTREPORT ) {
-                     result = mail_Forecast( aGame, aPlayer, anEnvelope, raceName, kind, REP_TXT );
-                }
-            } else if ( theTurnNumber > ( aGame->turn ) + 1 ) {
-                /* They are advance orders */
-                copyOrders( aGame, stdin, raceName, password, theTurnNumber );
-                setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                        "Galaxy HQ, %s advance orders received for %s.",
-                        aGame->name, raceName );
-                plog( LBRIEF, "%s advance orders received for %s.\n",
-                        aGame->name, raceName );
-                if ( aPlayer->flags & F_XMLREPORT ) {
-                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, raceName, kind, REP_XML );
-                }
-                if ( aPlayer->flags & F_TXTREPORT ) {
-                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, raceName, kind, REP_TXT );
-                }
-            } else {
-                /* Orders for a turn that already ran. 
-                 * Should be handled by areValidOrders() 
-                 */
-                assert( 0 );
-            }
-        } else {
-            /* Some major error */
-            result |= mail_TXT_Error( aGame, anEnvelope, 
-                    raceName, kind, resNumber, theTurnNumber );
-        }
+      /* Some major error */
+      result |= mail_TXT_Error( aGame, anEnvelope, 
+				raceName, kind, resNumber, theTurnNumber );
     }
-
-    result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
-    return result;
+  }
+  
+  result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
+  return result;
 }
 
 
@@ -925,248 +942,250 @@ CMD_check( int argc, char **argv, int kind )
 int
 CMD_check( int argc, char **argv, int kind )
 {
-    int result;
-    char *logName;
-    envelope *anEnvelope;
-    char *forecastName;
-    char *returnAddress;
-    char *raceName;
-    char *password;
-    game *aGame;
-    FILE *forecast;
-    player *aPlayer;
-
-    int resNumber, theTurnNumber;
-
-    result = FALSE;
-
-    logName = createString( "%s/log/orders_processed.txt", galaxynghome );
-    openLog( logName, "a" );
-    free( logName );
-
-    plogtime( LBRIEF );
-    if ( argc >= 2 ) {
-        anEnvelope = createEnvelope(  );
-        returnAddress = getReturnAddress( stdin );
-        theTurnNumber = getTurnNumber( stdin );
-        raceName = NULL;
-        password = NULL;
-        aGame = NULL;
-        resNumber = areValidOrders( stdin, &aGame, &raceName,
-                                    &password, theTurnNumber );
-        plog( LBRIEF, "game %s\n", aGame->name );
-
-        setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
-
-        if ( resNumber == RES_OK ) {
-            aPlayer = findElement( player, aGame->players, raceName );
-            aPlayer->orders = NULL;
-
-            plog( LBRIEF, "Orders from %s\n", returnAddress );
-
-            /* produce an XML forecast */
-            if ( aPlayer->flags & F_XMLREPORT ) {
-                if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
-                     ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
-                    forecastName = createString( "%s/NG_XML_%d_forecast",
-                                                 tempdir, getpid(  ) );
-                    copyOrders( aGame, stdin, raceName, password,
-                                aGame->turn + 1 );
-                    if ( ( forecast =
-                           GOS_fopen( forecastName, "w" ) ) == NULL ) {
-                        plog( LBRIEF, "Could not open %s for forecasting\n",
-                              forecastName );
-                        fprintf( stderr,
-                                 "Could not open %s for forecasting\n",
-                                 forecastName );
-                        return EXIT_FAILURE;
-                    }
-
-                    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, %s turn %d XML forecast for %s",
-                               aGame->name, ( aGame->turn ) + 1, raceName );
-
-                    checkOrders( aGame, raceName, forecast, F_XMLREPORT );
-
-                    fclose( forecast );
-                    if ( kind == CMD_CHECK_REAL ) {
-                        plog( LBRIEF, "mailing XML report %s to %s\n",
-                              forecastName, anEnvelope->to );
-                        fprintf( stderr, "mailing XML report %s to %s\n",
-                                 forecastName, anEnvelope->to );
-                        result |= eMail( aGame, anEnvelope, forecastName );
-                    } else {
-                        char *forecastFile;
-                        forecastFile =
-                            createString( "%s/forecasts/%s/%s_XML",
-                                          galaxynghome, argv[2],
-                                          returnAddress );
-                        GOS_copy( forecastName, forecastFile );
-                    }
-                    result |= GOS_delete( forecastName );
-                    free( forecastName );
-                }
-            }
-
-            /* produce a text forecast */
-            if ( aPlayer->flags & F_TXTREPORT ) {
-                if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
-                     ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
-                    forecastName = createString( "%s/NG_TXT_%d_forecast",
-                                                 tempdir, getpid(  ) );
-                    if ( ( forecast =
-                           GOS_fopen( forecastName, "w" ) ) == NULL ) {
-                        plog( LBRIEF, "Could not open %s for forecasting\n",
-                              forecastName );
-                        return EXIT_FAILURE;
-                    }
-
-                    if ( aPlayer->orders == NULL )
-                        copyOrders( aGame, stdin, raceName, password,
-                                    aGame->turn + 1 );
-
-                    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                               "Galaxy HQ, %s turn %d TXT forecast for %s",
-                               aGame->name, ( aGame->turn ) + 1, raceName );
-
-                    checkOrders( aGame, raceName, forecast, F_TXTREPORT );
-
-                    fclose( forecast );
-
-                    if ( kind == CMD_CHECK_REAL ) {
-                        plog( LBRIEF, "mailing TXT report %s to %s\n",
-                              forecastName, anEnvelope->to );
-                        fprintf( stderr, "mailing TXT report %s to %s\n",
-                                 forecastName, anEnvelope->to );
-
-                        result |= eMail( aGame, anEnvelope, forecastName );
-                    } else {
-                        char *forecastFile;
-                        forecastFile =
-                            createString( "%s/forecasts/%s/%s_TXT",
-                                          galaxynghome, argv[2],
-                                          returnAddress );
-                        GOS_copy( forecastName, forecastFile );
-                    }
-                    result |= GOS_delete( forecastName );
-                    free( forecastName );
-                }
-            }
-
-        } else {
-            forecastName = createString( "%s/NG_TXT_%d_errors",
-                                         tempdir, getpid(  ) );
-            forecast = GOS_fopen( forecastName, "w" );
-            setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                       "Galaxy HQ, major trouble" );
-            plog( LBRIEF, "major trouble %d\n", resNumber );
-
-            generateErrorMessage( resNumber, aGame, raceName,
-                                  theTurnNumber, forecast );
-            fclose( forecast );
-
-            if ( kind == CMD_CHECK_REAL ) {
-                plog( LBRIEF, "mailing error report %s to %s\n", forecastName,
-                      anEnvelope->to );
-
-                result |= eMail( aGame, anEnvelope, forecastName );
-            } else {
-                char *forecastFile;
-                forecastFile =
-                    createString( "%s/forecasts/%s/%s_ERR",
-                                  galaxynghome, argv[2], returnAddress );
-                GOS_copy( forecastName, forecastFile );
-            }
-            result |= GOS_delete( forecastName );
-            free( forecastName );
-        }
-
-        /* code here for advanced orders, we need to see how to determine this */
-        if ( !( ( theTurnNumber == LG_CURRENT_TURN ) ||
-                ( theTurnNumber == ( aGame->turn ) + 1 ) ) ) {
-
-            if ( aPlayer->orders == NULL )
-                copyOrders( aGame, stdin, raceName, password,
-                            theTurnNumber );
-
-            setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                       "Galaxy HQ, %s advance orders received for %s.",
-                       aGame->name, raceName );
-            plog( LBRIEF, "%s advance orders received for %s.\n",
-                  aGame->name, raceName );
-
-
-            if ( aPlayer->flags & F_XMLREPORT ) {
-                forecastName = createString( "%s/NG_XML_forecast", tempdir );
-                forecast = GOS_fopen( forecastName, "w" );
-
-                fprintf( forecast,
-                         "<galaxy>\n  <variant>GalaxyNG</variant>\n" );
-                fprintf( forecast, "  <version>%d.%d.%d</version>\n",
-                         GNG_MAJOR, GNG_MINOR, GNG_RELEASE );
-                fprintf( forecast, "  <game name=\"%s\">\n", aGame->name );
-                fprintf( forecast, "    <turn num=\"%d\">\n", theTurnNumber );
-                fprintf( forecast, "      <race name=\"%s\">\n", raceName );
-                fprintf( forecast, "        <message>\n" );
-                fprintf( forecast, "          <line num=\"1\">"
-                         "O wise leader, your orders for turn %d</line>",
-                         theTurnNumber );
-                fprintf( forecast, "          <line num=\"2\">"
-                         "have been received and stored.</line>" );
-                fprintf( forecast, "        </message>\n" );
-                fprintf( forecast, "      </race>\n" );
-                fprintf( forecast, "    </turn>\n" );
-                fprintf( forecast, "  </game>\n" );
-                fprintf( forecast, "</galaxy>\n" );
-                fclose( forecast );
-                if ( kind == CMD_CHECK_REAL ) {
-                    result |= eMail( aGame, anEnvelope, forecastName );
-                } else {
-                    char *forecastFile;
-
-                    forecastFile =
-                        createString( "%s/forecasts/%s/%s_XML",
-                                      galaxynghome, argv[2], returnAddress );
-                    GOS_copy( forecastName, forecastFile );
-                }
-                result |= GOS_delete( forecastName );
-                free( forecastName );
-            }
-
-            if ( aPlayer->flags & F_TXTREPORT ) {
-                if ( aPlayer->orders == NULL )
-                    copyOrders( aGame, stdin, raceName, password,
-                                theTurnNumber );
-                forecastName = createString( "%s/NG_TXT_forecast", tempdir );
-                forecast = GOS_fopen( forecastName, "w" );
-                fprintf( forecast, "O wise leader your orders for turn %d "
-                         "have been received and stored.\n", theTurnNumber );
-                fclose( forecast );
-                if ( kind == CMD_CHECK_REAL ) {
-                    result |= eMail( aGame, anEnvelope, forecastName );
-                } else {
-                    char *forecastFile;
-
-                    forecastFile =
-                        createString( "%s/forecasts/%s/%s_TXT",
-                                      galaxynghome, argv[2], returnAddress );
-                    GOS_copy( forecastName, forecastFile );
-                }
-
-                result |= GOS_delete( forecastName );
-                free( forecastName );
-            }
-        }
+  int result;
+  char *logName;
+  envelope *anEnvelope;
+  char* forecastName;
+  char* returnAddress;
+  char* raceName;
+  char* password;
+  char* final_orders;
+  game* aGame;
+  FILE* forecast;
+  player* aPlayer;
+  
+  int resNumber, theTurnNumber;
+  
+  result = FALSE;
+  
+  logName = createString( "%s/log/orders_processed.txt", galaxynghome );
+  openLog( logName, "a" );
+  free( logName );
+  
+  plogtime( LBRIEF );
+  if ( argc >= 2 ) {
+    anEnvelope = createEnvelope(  );
+    returnAddress = getReturnAddress( stdin );
+    theTurnNumber = getTurnNumber( stdin );
+    raceName = NULL;
+    password = NULL;
+    final_orders = NULL;
+    aGame = NULL;
+    resNumber = areValidOrders( stdin, &aGame, &raceName,
+				&password, &final_orders, theTurnNumber );
+    plog( LBRIEF, "game %s\n", aGame->name );
+    
+    setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
+    
+    if ( resNumber == RES_OK ) {
+      aPlayer = findElement( player, aGame->players, raceName );
+      aPlayer->orders = NULL;
+      
+      plog( LBRIEF, "Orders from %s\n", returnAddress );
+      
+      /* produce an XML forecast */
+      if ( aPlayer->flags & F_XMLREPORT ) {
+	if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
+	     ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
+	  forecastName = createString( "%s/NG_XML_%d_forecast",
+				       tempdir, getpid(  ) );
+	  copyOrders( aGame, stdin, raceName, password, final_orders,
+		      aGame->turn + 1 );
+	  if ( ( forecast =
+		 GOS_fopen( forecastName, "w" ) ) == NULL ) {
+	    plog( LBRIEF, "Could not open %s for forecasting\n",
+		  forecastName );
+	    fprintf( stderr,
+		     "Could not open %s for forecasting\n",
+		     forecastName );
+	    return EXIT_FAILURE;
+	  }
+	  
+	  setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		     "Galaxy HQ, %s turn %d XML forecast for %s",
+		     aGame->name, ( aGame->turn ) + 1, raceName );
+	  
+	  checkOrders( aGame, raceName, forecast, F_XMLREPORT );
+	  
+	  fclose( forecast );
+	  if ( kind == CMD_CHECK_REAL ) {
+	    plog( LBRIEF, "mailing XML report %s to %s\n",
+		  forecastName, anEnvelope->to );
+	    fprintf( stderr, "mailing XML report %s to %s\n",
+		     forecastName, anEnvelope->to );
+	    result |= eMail( aGame, anEnvelope, forecastName );
+	  } else {
+	    char *forecastFile;
+	    forecastFile =
+	      createString( "%s/forecasts/%s/%s_XML",
+			    galaxynghome, argv[2],
+			    returnAddress );
+	    GOS_copy( forecastName, forecastFile );
+	  }
+	  result |= GOS_delete( forecastName );
+	  free( forecastName );
+	}
+      }
+      
+      /* produce a text forecast */
+      if ( aPlayer->flags & F_TXTREPORT ) {
+	if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
+	     ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
+	  forecastName = createString( "%s/NG_TXT_%d_forecast",
+				       tempdir, getpid(  ) );
+	  if ( ( forecast =
+		 GOS_fopen( forecastName, "w" ) ) == NULL ) {
+	    plog( LBRIEF, "Could not open %s for forecasting\n",
+		  forecastName );
+	    return EXIT_FAILURE;
+	  }
+	  
+	  if ( aPlayer->orders == NULL )
+	    copyOrders( aGame, stdin, raceName, password, final_orders,
+			aGame->turn + 1 );
+	  
+	  setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		     "Galaxy HQ, %s turn %d TXT forecast for %s",
+		     aGame->name, ( aGame->turn ) + 1, raceName );
+	  
+	  checkOrders( aGame, raceName, forecast, F_TXTREPORT );
+	  
+	  fclose( forecast );
+	  
+	  if ( kind == CMD_CHECK_REAL ) {
+	    plog( LBRIEF, "mailing TXT report %s to %s\n",
+		  forecastName, anEnvelope->to );
+	    fprintf( stderr, "mailing TXT report %s to %s\n",
+		     forecastName, anEnvelope->to );
+	    
+	    result |= eMail( aGame, anEnvelope, forecastName );
+	  } else {
+	    char *forecastFile;
+	    forecastFile =
+	      createString( "%s/forecasts/%s/%s_TXT",
+			    galaxynghome, argv[2],
+			    returnAddress );
+	    GOS_copy( forecastName, forecastFile );
+	  }
+	  result |= GOS_delete( forecastName );
+	  free( forecastName );
+	}
+      }
+      
+    } else {
+      forecastName = createString( "%s/NG_TXT_%d_errors",
+				   tempdir, getpid(  ) );
+      forecast = GOS_fopen( forecastName, "w" );
+      setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		 "Galaxy HQ, major trouble" );
+      plog( LBRIEF, "major trouble %d\n", resNumber );
+      
+      generateErrorMessage( resNumber, aGame, raceName,
+			    theTurnNumber, forecast );
+      fclose( forecast );
+      
+      if ( kind == CMD_CHECK_REAL ) {
+	plog( LBRIEF, "mailing error report %s to %s\n", forecastName,
+	      anEnvelope->to );
+	
+	result |= eMail( aGame, anEnvelope, forecastName );
+      } else {
+	char *forecastFile;
+	forecastFile =
+	  createString( "%s/forecasts/%s/%s_ERR",
+			galaxynghome, argv[2], returnAddress );
+	GOS_copy( forecastName, forecastFile );
+      }
+      result |= GOS_delete( forecastName );
+      free( forecastName );
     }
-
-    if ( raceName )
-        free( raceName );
-    if ( password )
-        free( password );
-    destroyEnvelope( anEnvelope );
-    result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
-
-    return result;
+    
+    /* code here for advanced orders, we need to see how to determine this */
+    if ( !( ( theTurnNumber == LG_CURRENT_TURN ) ||
+	    ( theTurnNumber == ( aGame->turn ) + 1 ) ) ) {
+      
+      if ( aPlayer->orders == NULL )
+	copyOrders( aGame, stdin, raceName, password, final_orders,
+		    theTurnNumber );
+      
+      setHeader( anEnvelope, MAILHEADER_SUBJECT,
+		 "Galaxy HQ, %s advance orders received for %s.",
+		 aGame->name, raceName );
+      plog( LBRIEF, "%s advance orders received for %s.\n",
+	    aGame->name, raceName );
+      
+      
+      if ( aPlayer->flags & F_XMLREPORT ) {
+	forecastName = createString( "%s/NG_XML_forecast", tempdir );
+	forecast = GOS_fopen( forecastName, "w" );
+	
+	fprintf( forecast,
+		 "<galaxy>\n  <variant>GalaxyNG</variant>\n" );
+	fprintf( forecast, "  <version>%d.%d.%d</version>\n",
+		 GNG_MAJOR, GNG_MINOR, GNG_RELEASE );
+	fprintf( forecast, "  <game name=\"%s\">\n", aGame->name );
+	fprintf( forecast, "    <turn num=\"%d\">\n", theTurnNumber );
+	fprintf( forecast, "      <race name=\"%s\">\n", raceName );
+	fprintf( forecast, "        <message>\n" );
+	fprintf( forecast, "          <line num=\"1\">"
+		 "O wise leader, your orders for turn %d</line>",
+		 theTurnNumber );
+	fprintf( forecast, "          <line num=\"2\">"
+		 "have been received and stored.</line>" );
+	fprintf( forecast, "        </message>\n" );
+	fprintf( forecast, "      </race>\n" );
+	fprintf( forecast, "    </turn>\n" );
+	fprintf( forecast, "  </game>\n" );
+	fprintf( forecast, "</galaxy>\n" );
+	fclose( forecast );
+	if ( kind == CMD_CHECK_REAL ) {
+	  result |= eMail( aGame, anEnvelope, forecastName );
+	} else {
+	  char *forecastFile;
+	  
+	  forecastFile =
+	    createString( "%s/forecasts/%s/%s_XML",
+			  galaxynghome, argv[2], returnAddress );
+	  GOS_copy( forecastName, forecastFile );
+	}
+	result |= GOS_delete( forecastName );
+	free( forecastName );
+      }
+      
+      if ( aPlayer->flags & F_TXTREPORT ) {
+	if ( aPlayer->orders == NULL )
+	  copyOrders( aGame, stdin, raceName, password, final_orders,
+		      theTurnNumber );
+	forecastName = createString( "%s/NG_TXT_forecast", tempdir );
+	forecast = GOS_fopen( forecastName, "w" );
+	fprintf( forecast, "O wise leader your orders for turn %d "
+		 "have been received and stored.\n", theTurnNumber );
+	fclose( forecast );
+	if ( kind == CMD_CHECK_REAL ) {
+	  result |= eMail( aGame, anEnvelope, forecastName );
+	} else {
+	  char *forecastFile;
+	  
+	  forecastFile =
+	    createString( "%s/forecasts/%s/%s_TXT",
+			  galaxynghome, argv[2], returnAddress );
+	  GOS_copy( forecastName, forecastFile );
+	}
+	
+	result |= GOS_delete( forecastName );
+	free( forecastName );
+      }
+    }
+  }
+  
+  if ( raceName )
+    free( raceName );
+  if ( password )
+    free( password );
+  destroyEnvelope( anEnvelope );
+  result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
+  
+  return result;
 }
 #endif
 
@@ -1196,6 +1215,7 @@ CMD_checkFile( int argc, char **argv, int kind )
     plogtime( LBRIEF );
     if ( argc >= 2 ) {
         char *forecastName, *returnAddress, *raceName, *password;
+	char* final_orders;
         int resNumber, theTurnNumber;
         game *aGame;
         FILE *forecast;
@@ -1211,9 +1231,11 @@ CMD_checkFile( int argc, char **argv, int kind )
             theTurnNumber = getTurnNumber( stream );
             raceName = NULL;
             password = NULL;
+	    final_orders = NULL;
             aGame = NULL;
             resNumber = areValidOrders( stream, &aGame, &raceName,
-                                        &password, theTurnNumber );
+                                        &password, &final_orders,
+					theTurnNumber );
             plog( LBRIEF, "game %s\n", aGame->name );
             setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
             plog( LBRIEF, "Orders from %s\n", returnAddress );
@@ -1314,11 +1336,12 @@ CMD_relay( int argc, char **argv )
         confirmName = createString( "%s/NGconfirm", tempdir );
         if ( ( confirm = GOS_fopen( confirmName, "w" ) ) ) {
             player* toPlayer;
-			player* fromPlayer;
+	    player* fromPlayer;
             char* destination;
-			char* returnAddress;
-			char* raceName;
-			char* password;
+	    char* returnAddress;
+	    char* raceName;
+	    char* password;
+	    char* final_orders;
             int theTurnNumber = LG_CURRENT_TURN;
             envelope *anEnvelope;
 
@@ -1328,10 +1351,11 @@ CMD_relay( int argc, char **argv )
             destination = getDestination( stdin );
 	    raceName = NULL;
             password = NULL;
+	    final_orders = NULL;
             aGame = NULL;
             resNumber =
                 areValidOrders( stdin, &aGame, &raceName,
-                                &password, theTurnNumber );
+                                &password, &final_orders, theTurnNumber );
 
 			if (noCaseStrcmp(raceName, "GM") == 0) {
 				fromPlayer = (player*)malloc(sizeof (player));
@@ -1672,11 +1696,14 @@ CMD_report( int argc, char **argv )
     plogtime( LBRIEF );
     result = EXIT_FAILURE;
     if ( argc >= 2 ) {
-        char *returnAddress, *raceName, *password;
+        char* returnAddress;
+	char* raceName;
+	char* password;
+	char* final_orders;
         int resNumber, theTurnNumber;
-        game *aGame;
-        FILE *report;
-        char *reportName;
+        game* aGame;
+        FILE* report;
+        char* reportName;
 
         reportName = createString( "%s/temp_report_copy", tempdir );
         if ( ( report = GOS_fopen( reportName, "w" ) ) ) {
@@ -1689,10 +1716,11 @@ CMD_report( int argc, char **argv )
             theTurnNumber = getTurnNumber( stdin );
             raceName = NULL;
             password = NULL;
+	    final_orders = NULL;
             aGame = NULL;
             resNumber =
                 areValidOrders( stdin, &aGame, &raceName, &password,
-                                theTurnNumber );
+                                &final_orders, theTurnNumber );
             if ( ( resNumber == RES_TURNRAN )
                  || ( ( resNumber == RES_OK )
                       && ( theTurnNumber == LG_CURRENT_TURN ) ) ) {
@@ -2131,87 +2159,87 @@ CMD_battletest( int argc, char **argv )
 int
 CMD_ordersdue(int argc, char** argv)
 {
-	FILE* gmnote;
-	FILE* mof_fp;
+  FILE* gmnote;
+  FILE* mof_fp;
 
-	char* gmbody;
+  char* gmbody;
 	
-    game* aGame;
-	player* aplayer;
-	envelope* env;
-	char* missing_orders_file = NULL;
-	char* orders_dir;
-	char* orders_file;
-    int result;
-	int msg_count = 0;
-	
-    result = EXIT_FAILURE;
-
-	if (argc < 3) {
-		usage();
+  game* aGame;
+  player* aplayer;
+  envelope* env;
+  char* missing_orders_file = NULL;
+  char* orders_dir;
+  char* orders_file;
+  int result;
+  int msg_count = 0;
+  
+  result = EXIT_FAILURE;
+  
+  if (argc < 3) {
+    usage();
+  }
+  else if ((aGame = loadgame(argv[2], LG_CURRENT_TURN)) != NULL) {
+    loadConfig( aGame );
+    gmbody = createString("%s/orders_due_%s", tempdir, aGame->name);
+    gmnote = GOS_fopen(gmbody, "w");
+    
+    orders_dir = createString("%s/orders/%s/", galaxynghome, aGame->name);
+    for (aplayer = aGame->players; aplayer; aplayer = aplayer->next) {
+      if (aplayer->flags & F_DEAD)
+	continue;
+      
+      orders_file = createString("%s/%s.%d", orders_dir,
+				 aplayer->name, aGame->turn+1);
+      if (access(orders_file, R_OK) == -1) {
+	env = createEnvelope();
+	env->to = strdup(aplayer->addr);
+	env->from = strdup(aGame->serverOptions.SERVERemail);
+	env->subject = createString("Turn %d of %s is about to run",
+				    aGame->turn+1, argv[2]);
+	if (msg_count == 0) {
+	  fprintf(gmnote, "The following players have not yet "
+		  "submitted orders for turn %d of %s\n",
+		  aGame->turn+1, aGame->name);
+	  
+	  missing_orders_file = createString("%s/data/%s/missing_orders.%d",
+					     galaxynghome, aGame->name,
+					     aGame->turn+1);
+	  mof_fp = fopen(missing_orders_file, "w");
+	  fprintf(mof_fp, "Your orders for turn %d for %s have not been "
+		  "received.\nOrders are due %s. Please send them now.\n",
+		  aGame->turn+1, aGame->name, aGame->serverOptions.due);
+	  fclose(mof_fp);
 	}
-	else if ((aGame = loadgame(argv[2], LG_CURRENT_TURN)) != NULL) {
-		loadConfig( aGame );
-		gmbody = createString("%s/orders_due_%s", tempdir, aGame->name);
-		gmnote = GOS_fopen(gmbody, "w");
-		
-		orders_dir = createString("%s/orders/%s/", galaxynghome, aGame->name);
-		for (aplayer = aGame->players; aplayer; aplayer = aplayer->next) {
-			if (aplayer->flags & F_DEAD)
-				continue;
-			
-			orders_file = createString("%s/%s.%d", orders_dir,
-									   aplayer->name, aGame->turn+1);
-			if (access(orders_file, R_OK) == -1) {
-				env = createEnvelope();
-				env->to = strdup(aplayer->addr);
-				env->from = strdup(aGame->serverOptions.SERVERemail);
-				env->subject = createString("Turn %d of %s is about to run",
-											aGame->turn+1, argv[2]);
-				if (msg_count == 0) {
-					fprintf(gmnote, "The following players have not yet "
-							"submitted orders for turn %d of %s\n",
-							aGame->turn+1, aGame->name);
-
-					missing_orders_file = createString("%s/data/%s/missing_orders.%d",
-													   galaxynghome, aGame->name,
-													   aGame->turn+1);
-					mof_fp = fopen(missing_orders_file, "w");
-					fprintf(mof_fp, "Your orders for turn %d for %s have not been "
-							"received.\nOrders are due %s. Please send them now.\n",
-							aGame->turn+1, aGame->name, aGame->serverOptions.due);
-					fclose(mof_fp);
-				}
-				fprintf(gmnote, "%s has not turned in orders.\n", aplayer->name);
-				result |= eMail(aGame, env, missing_orders_file);
-				destroyEnvelope(env);
-				msg_count++;
-			}
-			free(orders_file);
-		}
-		free(orders_dir);
-	}
-	else {
-		fprintf(stderr, "Cannot open game %s\n", argv[2]);
-	}
-
-	if (missing_orders_file) {
-		free(missing_orders_file);
-		ssystem("rm -f %s", missing_orders_file);
-	}
-
-	if (msg_count) {
-		fclose(gmnote);
-		env = createEnvelope();
-		env->to = strdup(aGame->serverOptions.GMemail);
-		env->from = strdup(aGame->serverOptions.SERVERemail);
-		env->subject = createString("Turn %d of %s is about to run",
-									aGame->turn+1, aGame->name);
-		result |= eMail(aGame, env, gmbody);
-
-		destroyEnvelope(env);
-	}
-
-	
-	return result;
+	fprintf(gmnote, "%s has not turned in orders.\n", aplayer->name);
+	result |= eMail(aGame, env, missing_orders_file);
+	destroyEnvelope(env);
+	msg_count++;
+      }
+      free(orders_file);
+    }
+    free(orders_dir);
+  }
+  else {
+    fprintf(stderr, "Cannot open game %s\n", argv[2]);
+  }
+  
+  if (missing_orders_file) {
+    free(missing_orders_file);
+    ssystem("rm -f %s", missing_orders_file);
+  }
+  
+  if (msg_count) {
+    fclose(gmnote);
+    env = createEnvelope();
+    env->to = strdup(aGame->serverOptions.GMemail);
+    env->from = strdup(aGame->serverOptions.SERVERemail);
+    env->subject = createString("Turn %d of %s is about to run",
+				aGame->turn+1, aGame->name);
+    result |= eMail(aGame, env, gmbody);
+    
+    destroyEnvelope(env);
+  }
+  
+  
+  return result;
 }

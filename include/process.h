@@ -108,16 +108,15 @@ void            z_order(game *aGame, player *, strlist **);
 void            mistake(player *P, enum error_type, strlist *s, char *format, ...);
 
 void
-                copyOrders(game *aGame,
-                           FILE * orders,
+                copyOrders(game *aGame, FILE * orders,
                            char *raceName, char *password,
-                           int theTurnNumber);
+                           char* final_orders, int theTurnNumber);
 
 int
                 areValidOrders(FILE * ordersFile,
                                game **aGame,
                                char **raceName, char **password,
-                               int theTurnNumber);
+                               char** final_orders, int theTurnNumber);
 
 void
                 preComputeGroupData(game *aGame);
