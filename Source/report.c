@@ -77,6 +77,7 @@ highScoreList(game *aGame)
       createString("%s/notices/%s.score", galaxynghome, aGame->name);
   if ((reportFile = GOS_fopen(fileName, "w"))) {
     if ((prevTurn = loadgame(aGame->name, aGame->turn - 1))) {
+      loadNGConfig(prevTurn);
       score(prevTurn, aGame, 0, reportFile);
       freegame(prevTurn);
     }
