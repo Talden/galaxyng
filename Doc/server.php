@@ -209,7 +209,9 @@ LIBS   = -lm</pre>
 <pre>./galaxyng -template &lt;game name&gt; &lt;number of players&gt;</pre>
 				<p>This creates a file named <tt>&lt;game name&gt;.glx</tt> with default values for all parameters, plus documentation about what each parameter does.  Edit this file to insert the email addresses of the players and make any desired changes to the configuration. For example, if you have eight players and you want to call the game Orion, you can create the game as follows:</p>
 <pre>./galaxyng -template Orion 8</pre>
-				<p>Edit <tt>Orion.glx</tt> and change the dummy email addresses to the real email addresses of the players, make changes to configuraiton options if desired, then run:</p>
+				<p>The template should be edited to change the dummy email addresses to the real email addresses of the players and make changes to configuration options, if desired.  The game is then created by running:</p>
+<pre>./galaxyng -create &lt;game name&gt;</pre>
+				<p>So, for the Orion game, run:</p>
 <pre>./galaxyng -create Orion.glx</pre>
 				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>OrionLayout.txt</tt>:</p>
 <pre>./galaxyng -create Orion.glx  &gt; OrionLayout.txt</pre>
