@@ -6,7 +6,7 @@
  * GalaxyNG  -  UNIX Version 
  *
  * Created by
- * o Frans Slothouber (fslothouber@acm.org),
+ * o Frans Slothouber (rfsber #at# xs4all.nl),
  * o Christophe  Barbier,
  * o Jacco van Weert,
  * o Tommy Lindqvist,
@@ -186,6 +186,8 @@ enum {
   CG_EMPTY,
   MAXCARGO
 };
+
+/*****/
 
 /****d* GalaxyNG/ErrorTypes
  * NAME

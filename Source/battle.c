@@ -391,6 +391,7 @@ resetSides(batstat *aBatstat)
   }
 }
 
+/*****/
 
 
 /****f* GalaxyNG/updateGroups

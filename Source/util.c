@@ -2085,3 +2085,5 @@ addShipAtt(game* aGame, planet* p)
 	printf("%s: %f\n", p->name, total);
 	return total;
 }
+
+/*******/
