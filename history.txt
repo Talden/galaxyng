@@ -1,5 +1,18 @@
 # $Id$
 
+Release 6.4.7: November 2004
+o By Ken Weinert (madcoder42)
+  + enabled compressed reports from a report request (it already
+    worked from normal turns)
+  + added code to include additional parameters to sendmail in order
+    to "shape" the From line in the email so it looks like it comes
+    from the server - this is especially useful for people with hosted
+    sites.
+  + changed a couple of emails so they came from the server instead of
+    the GM
+  + changed message so that race names specified incorrectly can be
+    distinguished from badly formed email (1051567)
+
 Release 6.4.6: February 2004
 o By Chris Shaffer (christhecat) and Bogdan Mincu (mincub)
   + major revision of GalaxyNG web site
