@@ -21,15 +21,13 @@ echo
 #  Create directories, if necessary.
 #===================================================
 
-if { test ! -d $GALAXY_HOME; } then {
+if [ ! -d $GALAXY_HOME ]; then
   echo "Creating $GALAXY_HOME"
   mkdir -p $GALAXY_HOME
-}
 fi
 for NAME in log orders notices data reports statistics forecasts ; do
-  if { test ! -d $GALAXY_HOME/$NAME; } then { 
-    mkdir $GALAXY_HOME/$NAME; 
-  }
+  if [ ! -d $GALAXY_HOME/$NAME ]; then
+    mkdir $GALAXY_HOME/$NAME
   fi
 done
 
@@ -56,19 +54,18 @@ read PASSWORD
 SENDMAIL=none
 echo "o Trying to locate the sendmail command..." 
 # Check the usual locations,  "which" does not work usually.
-for NAME in /usr/bin /usr/sbin /sbin /bin ; do
+for NAME in /bin /sbin /usr/sbin /usr/bin ; do
   echo "  Checking: $NAME"
-  if { test -x $NAME/sendmail ; } then {  
+  if [ -x $NAME/sendmail ]; then 
     SENDMAIL=$NAME/sendmail
-  } 
+    break
   fi 
 done
-# If it was not found, ask the user...
-if { test $SENDMAIL = none; } then {
+# If it was not found, ask the user where it is
+if [ $SENDMAIL = none ]; then
   echo "  I can't seem to find the sendmail command."
   echo "  Please enter the full path for sendmail:"
   read SENDMAIL
-}
 fi
 echo "  The full path for sendmail is:"
 echo "  $SENDMAIL"
@@ -82,25 +79,23 @@ PROCRC=$GALAXY_HOME/procmailrc
 FORMAIL=none
 echo "o Trying to locate the formail command." 
 # Check the usual locations
-for NAME in /usr/bin /usr/sbin /sbin /bin ; do
-#  echo "  Checking: $NAME"
-  if { test -x $NAME/formail ; } then {  
+for NAME in /bin/ /sbin /usr/sbin /usr/bin ; do
+  echo "  Checking: $NAME"
+  if [ -x $NAME/formail ]; then  
     FORMAIL=$NAME/formail
-  } 
+    break
   fi 
 done
-# If it was not found, try which...
-if { test $FORMAIL = none; } then {
+# If it was not found, try which
+if [ $FORMAIL = none ]; then
 	FORMAIL=`which formail`
-}
 fi
-# If it was not found, ask the user...
-if { test $FORMAIL = none; } then {
+# If it was not found, ask the user
+if [ $FORMAIL = none ]; then
   echo "  I can't seem to find the formail command."
   echo "  This may mean you don't have procmail installed."
   echo "  Please enter the full path to formail:"
   read FORMAIL
-}
 fi
 echo "  The full path for formail is:"
 echo "  $FORMAIL"
@@ -112,11 +107,11 @@ echo "  $FORMAIL"
 echo "o Trying to find the compression utility."
 COMPRESS=none
 COMPRESS=`which zip`
-if { test $COMPRESS = none; } then {
+if [ $COMPRESS = none ]; then
   echo "  I can't seem to find the compression utility."
   echo "  Please enter the full path for the compression utility:"
   read COMPRESS
-}
+fi
 echo "  The full path for the compression utility is:"
 echo "  $COMPRESS"
 
@@ -129,11 +124,10 @@ ENCODE=none
 for NAME in uuencode mimencode mmencode do
   ENCODE=`which $NAME`
 done
-if { test $ENCODE = none; } then {
+if [ $ENCODE = none ]; then
   echo "  I can't seem to find the mime encoder."
   echo "  Please enter the full path for the mime encoder:"
   read ENCODE
-}
 fi
 echo "  The full path for the mime encoder is:"
 echo "  $ENCODE"
@@ -144,41 +138,37 @@ echo "  $ENCODE"
 
 echo "o Trying to locate the web directory.  GalaxyNG uses this"
 echo "  directory to store the high score lists."
-
 WWW=none
-for NAME in $HOME/WWW $HOME/www $HOME/web $HOME/public_html; do
-#  echo "  Checking: $NAME"
-  if { test -d $NAME; } then { 
-    WWW=$NAME; 
-  }
-  fi 
+for NAME in $HOME/public_html $HOME/web $HOME/www $HOME/WWW; do
+  echo "  Checking: $NAME"
+  if [ -d $NAME ]; then 
+    WWW=$NAME
+    break
+  fi
 done
-
-if { test $WWW = none; } then {
+if [ $WWW = none ]; then
   echo "  I can't seem to find the your web directory,"
-  echo "  Using $GALAXY_HOME/public_html for now."
-  WWW=$GALAXY_HOME/public_html
-  if { test ! -d $WWW; } then {
-    mkdir $WWW;
-  } fi
-} else {
-  echo "  Using: $WWW"
-}
+  echo "  Please enter the full path to your web directory:"
+  read WWW
+  if [ ! -d $WWW ]; then
+    mkdir $WWW
+  fi
 fi
+echo "  The web directory is:"
+echo "$WWW"
 
 # =========================================================
 #  Check for a /tmp directory
 # =========================================================
 
 echo "o Trying to locate a tmp directory."
-if { test -d /tmp; } then { 
+if [ -d /tmp ]; then 
   TEMP=/tmp
-} else {
+else
   TEMP=$GALAXY_HOME/tmp
   mkdir $GALAXY_HOME/tmp
-}
 fi
-echo "  Using: $TEMP"
+echo "  The tmp directory is: $TEMP"
 
 # =========================================================
 #  Fonts for influence mapping
@@ -187,7 +177,6 @@ echo "  Using: $TEMP"
 if [ -f Source/cranberr.ttf ]; then
 	cp Source/cranberr.ttf $GALAXY_HOME
 fi
-
 if [ -f Source/angostur.ttf ]; then
 	cp Source/angostur.ttf $GALAXY_HOME
 	cp Source/angostur.ttf $GALAXY_HOME/influence.ttf
@@ -200,11 +189,10 @@ fi
 RUN_GAME=$GALAXY_HOME/run_game
 echo "o Creating $RUN_GAME"
 #echo "  The run_game script is used to run a turn."
-if { test -e $RUN_GAME; } then {
+if [ -e $RUN_GAME ]; then
   echo "  Found an existing version of $RUN_GAME"
   RUN_GAME=$GALAXY_HOME/run_game.new
   echo "  Writing the new version to $RUN_GAME"
-}
 fi
 
 echo "#!/bin/bash" > $RUN_GAME
@@ -225,11 +213,10 @@ echo "  You can use this file in combination with procmail"
 echo "  to automatically check incoming orders."
 echo "  To use it copy it to $HOME as $HOME/.procmailrc"
 echo "  Note that is $HOME/[dot]procmailrc"
-if { test -e $PROCRC; } then {
+if [ -e $PROCRC ]; then
   echo "  Found an existing version of $PROCRC"
   PROCRC=$GALAXY_HOME/procmailrc.new
   echo "  Writing the new version to $PROCRC"
-}
 fi
 
 echo "PATH=\$HOME/bin:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
@@ -251,7 +238,8 @@ echo "# Store GM reports in a folder called gmreport." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^Subject:.*GM Report" >> $PROCRC
 echo "gmreport" >> $PROCRC
-echo "# Some IMAP servers prefix mailbox names with a '.'  For example:" >> $PROCRC
+echo "# Some IMAP servers prefix mailbox names with a dot." >> $PROCRC
+echo "#  For example:" >> $PROCRC
 echo "# .gmreport" >> $PROCRC
 echo "# Combining this with maildir delivery would yield:" >> $PROCRC
 echo "# .gmreport/" >> $PROCRC
@@ -269,9 +257,10 @@ echo ":0:" >> $PROCRC
 echo "* ^FROM_MAILER" >> $PROCRC
 echo "postmaster" >> $PROCRC
 echo >> $PROCRC
-echo "# The following prevents mail loops. These happen when the server" >> $PROCRC
-echo "# starts replying to its own messages or messages from another server." >> $PROCRC
-echo "# Mail loops usually annoy the heck out of sysadmins." >> $PROCRC
+echo "# The following prevents mail loops. These happen when the" >> $PROCRC
+echo "# server starts replying to its own messages or messages" >> $PROCRC
+echo "# from another server. Mail loops usually annoy the heck" >> $PROCRC
+echo "# out of sysadmins." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^Subject:.*(orders checked|copy of turn|major trouble|orders received|message sent|report for)" >> $PROCRC
 echo "loops" >> $PROCRC
@@ -349,11 +338,10 @@ echo "# top of this file." >> $PROCRC
 CRONT=$GALAXY_HOME/games.crontab
 echo "o Creating $CRONT"
 echo "  Edit it and run: crontab games.crontab"
-if { test -e $CRONT; } then {
+if [ -e $CRONT ]; then
   echo "  Found an existing version of $CRONT"
   CRONT=$GALAXY_HOME/games.crontab.new
   echo "  Writing the new version to $CRONT"
-}
 fi
 echo "# This is an example crontab file. It would run the game " > $CRONT
 echo "# Jangi on Monday, Wednesday, and Friday at 21:15 (9:15pm)" >> $CRONT
@@ -377,11 +365,10 @@ echo "  You can edit it by hand.  It will be created at"
 echo "  $GALAXY_HOME/.galaxyngrc"
 echo "  Note that is $GALAXY_HOME/[dot]galaxyngrc"
 RCFILE=$GALAXY_HOME/.galaxyngrc
-if { test -e $RCFILE; } then {
+if [ -e $RCFILE ]; then
   echo "  Found an existing version of $RCFILE"
   RCFILE=$GALAXY_HOME/.galaxyngrc.new
   echo "  Writing the new version to $RCFILE"
-}
 fi
 echo "; This is the global galaxyng configuration file." > $RCFILE
 echo "; You can override this file for a game by putting" >> $RCFILE
@@ -400,13 +387,12 @@ echo "fontpath { " $GALAXY_HOME " }" >> $RCFILE
 
 echo "o Copying the GalaxyNG server"
 NG=$GALAXY_HOME/galaxyng
-if { test -e $NG; } then {
+if [ -e $NG ]; then
   echo "  Found an existing version of " $NG
   NG=$GALAXY_HOME/galaxyng.new
   echo "  Writing the new version to "  $NG
   echo "  _Test_ this new version and if it works according to your needs"
   echo "  copy it to " $GALAXY_HOME "/galaxyng"
-}
 fi
 cp Source/galaxyng $NG
 strip $NG
@@ -417,13 +403,12 @@ strip $NG
 
 echo "o Copying the Automatic Registration Engine (ARE)"
 ARE=$GALAXY_HOME/are
-if { test -e $ARE; } then {
+if [ -e $ARE ]; then
   echo "  Found an existing version of " $ARE
   ARE=$GALAXY_HOME/are.new
   echo "  Writing the new version to "  $ARE
   echo "  _Test_ this new version and if it works according to your needs"
   echo "  copy it to " $GALAXY_HOME "/are"
-}
 fi
 cp ARE/are $ARE
 strip $ARE
