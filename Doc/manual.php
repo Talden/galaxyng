@@ -677,60 +677,393 @@ XMLReport        OFF</pre>
 
 				<h3 id="repmis">Mistakes</h3>
 					<p>Errors resulting from the player's orders are reported.</p>
+<pre>MISTAKES
+
+P 659 Drive
+Planet is not owned by you.
+S 53 42
+Group is in hyperspace.
+G 509 
+Planet has no remaining industry.</pre>
 
 				<h3 id="repstat">Status of Players</h3>
 					<p>The status of all players is reported: race name, drive technology, weapons technology, shields technology, cargo technology, total population, total industry, number of inhabited planets and alliance/war.</p>
+<pre>		Status of Players
+
+N              D    W    S    C     P       I     #  R  
+Nation_1     1.00 2.03 1.00 1.00    0.00    0.00  0 War 
+Nation_2     2.84 1.05 1.12 1.00 3237.40 2008.65 13 War 
+Nation_3     1.50 1.00 1.00 1.00 3626.57 2265.05 15 War 
+Valdorians   2.16 1.00 1.00 1.00 3562.07 2524.05 18 War 
+SiliconFungi 2.92 1.00 1.00 1.00 3504.22 3204.68 22 War 
+Santa_s      2.85 1.00 1.00 1.00 3401.92 2024.78 12 War 
+NULLoids     1.60 1.48 2.28 1.24 3467.43 2618.08 14 War 
+Tarmangani   2.17 1.67 1.00 1.00 2361.15 1648.30  8 War 
+Farmers      2.09 1.00 1.01 1.00 3607.00 3239.78 11 -   
+Nation_10    1.32 1.00 1.00 1.00    0.00    0.00  0 War 
+Nation_11    1.32 1.00 1.00 1.00    0.00    0.00  0 War 
+Vegetaborg   2.31 1.58 1.00 1.00 3694.72 2495.30 19 War 
+Outvaders    1.47 1.20 1.95 1.00 3126.61 1985.52  9 War 
+Nation_14    1.61 1.00 1.00 1.00 2178.18 1831.18 14 War 
+Nation_15    1.55 1.51 1.00 1.00 3534.16 2388.89  6 War</pre>
 
 				<h3 id="repst">Your Ship Types</h3>
 					<p>All the player's ship types are reported: ship type name, drive mass, attacks, weapons mass, shields mass, cargo mass, ship mass, speed (at drive technology 1.00 with no cargo) and effective defence (at shields technology 1.00).</p>
+<pre>		Your Ship Types
+
+N            D    A   W     S     C    Mass Speed  Def  
+Cargo0      1.02  0  0.00  0.00  1.00  2.02 10.10  0.00 
+Cargo1      1.03  0  0.00  0.00  1.00  2.03 10.15  0.00 
+Cargo2      1.06  0  0.00  0.00  1.00  2.06 10.29  0.00 
+Cargo3     69.98  0  0.00  0.00 29.02 99.00 14.14  0.00 
+Rake0      33.00 29  2.00 35.00  1.00 99.00  6.67 23.51 
+Axe0       33.00  3 15.00 35.00  1.00 99.00  6.67 23.51 
+Flak0       1.00  0  0.00  2.00  0.00  3.00  6.67  4.31 
+Scarecrow0  1.00  1  5.00  3.00  0.00  9.00  2.22  4.48 
+Seed        1.00  0  0.00  0.00  0.00  1.00 20.00  0.00 
+Rake1      28.88 40  2.00 15.75  1.00 86.63  6.67 11.06 
+Axe1       27.84  1 35.00 19.66  1.00 83.50  6.67 13.98 
+Axe3        8.92  1 10.00  7.83  0.00 26.75  6.67  8.14 
+Rake2      43.32 25  2.00 16.31  1.00 86.63 10.00 11.45 
+Axe2       41.75  3 12.00 16.75  1.00 83.50 10.00 11.91 
+Flak1       1.00  0  0.00  1.00  0.00  2.00 10.00  2.47 
+Scarecrow1  8.91  1  3.00  5.91  0.00 17.82 10.00  7.03 
+Scarecrow3  2.00  1  4.00  4.70  0.00 10.70  3.74  6.63</pre>
 
 				<h3 id="repast">Alien Ship Types</h3>
 					<p>Other races' ship types observed during the turn are reported.  For each race: ship type name, drive mass, attacks, weapons mass, shields mass, cargo mass, ship mass, speed (at drive technology 1.00 with no cargo) and effective defence (at shields technology 1.00).</p>
+<pre>		SiliconFungi Ship Types
+
+N        D   A   W    S    C   Mass Speed  Def 
+Drone   1.00 0 0.00 0.00 0.00  1.00 20.00 0.00 
+ATT_F1  2.50 1 1.50 1.50 0.00  5.50  9.09 2.64 
+ATT_F3 12.25 3 3.00 6.00 0.00 24.25 10.10 6.44 
+
+		NULLoids Ship Types
+
+N    D  A   W    S    C  Mass Speed  Def 
+F1 1.00 1 1.00 1.00 1.00 4.00  5.00 1.96 
+
+		Vegetaborg Ship Types
+
+N                 D   A   W     S    C   Mass Speed  Def 
+Onion-24.75     0.00  3  8.25 8.25 0.00 24.75  0.00 8.80 
+Garlic          0.00  1  1.00 0.00 0.00  1.00  0.00 0.00 
+Onion-25.47     0.00  3  8.49 8.49 0.00 25.47  0.00 8.97 
+Onion-23.79     0.00  3  7.93 7.93 0.00 23.79  0.00 8.57 
+Onion-23.61     0.00  3  7.87 7.87 0.00 23.61  0.00 8.52 
+Artichoke-24.75 0.00 16  1.94 8.26 0.00 24.75  0.00 8.81 
+Mushroom-23.61  0.00  1 18.89 4.72 0.00 23.61  0.00 5.11 
+Mushroom-32.47  0.00  1 25.98 6.49 0.00 32.47  0.00 6.32 
+Mushroom-24.75  0.00  1 19.80 4.95 0.00 24.75  0.00 5.28 
+Mushroom-27.18  0.00  1 21.74 5.44 0.00 27.18  0.00 5.62 </pre>
 
 				<h3 id="repbat">Battles</h3>
 					<p>All battles observed during the turn are reported.  For each group in each battle: number of ships participating in battle, ship type name, drive technology, weapons technology, shields technology, cargo technology, cargo type, cargo quantity per ship, number of surviving ships.</p>
+<pre>		Battle at 22
+
+		Your Groups
+
+#      T     D    W    S    C  T   Q  L 
+  1 Axe3   7.11 3.44 4.50 0.00 - 0.00 0 
+100 Flak1  7.11 0.00 4.50 0.00 - 0.00 0 
+  1 Rake10 7.11 3.44 4.50 0.00 - 0.00 0 
+  1 Axe9   7.11 3.44 4.50 0.00 - 0.00 0 
+
+		Nation_15 Groups
+
+#     T       D    W    S    C  T   Q  L 
+2 Cargo_Pod 4.56 0.00 0.00 1.00 - 0.00 0 
+4 Cargo_Orb 4.98 0.00 0.00 1.00 - 0.00 0 
+3 Cargo_Orb 4.00 0.00 0.00 1.00 - 0.00 0 
+3 Probe     3.14 0.00 0.00 0.00 - 0.00 0 
+1 Cargo_Pod 2.70 0.00 0.00 1.00 - 0.00 0 
+1 Beam      4.98 3.50 3.52 0.00 - 0.00 0 
+1 Sunlight  4.00 2.76 2.76 0.00 - 0.00 0 
+1 Rainbow   0.00 3.50 4.10 0.00 - 0.00 1 
+5 Spark     3.14 0.00 2.00 0.00 - 0.00 0</pre>
 					<p>If the battleprotocol option is on, for each battle, for each shot fired: attacking ship type name, defending ship type name, result (shields | destroyed).</p>
+<pre>		Battle Protocol
+
+Farmers Axe9 fires on Nation_15 Cargo_Orb : Destroyed
+Nation_15 Beam fires on Farmers Flak1 : Shields
+Nation_15 Beam fires on Farmers Flak1 : Shields
+Nation_15 Beam fires on Farmers Flak1 : Destroyed
+Nation_15 Beam fires on Farmers Flak1 : Destroyed
+Nation_15 Beam fires on Farmers Flak1 : Shields
+Nation_15 Beam fires on Farmers Flak1 : Shields
+Nation_15 Sunlight fires on Farmers Flak1 : Destroyed
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed
+Farmers Rake10 fires on Nation_15 Beam : Shields
+Farmers Rake10 fires on Nation_15 Cargo_Orb : Destroyed
+Farmers Rake10 fires on Nation_15 Cargo_Pod : Destroyed
+Farmers Rake10 fires on Nation_15 Beam : Shields
+
+...hundreds of lines snipped...
+
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed
+Nation_15 Rainbow fires on Farmers Flak1 : Destroyed</pre>
 
 				<h3 id="repbom">Bombings</h3>
 					<p>All bombings observed during the turn are reported.  For each bombing: new owner, previous owner, planet name, previous population, previous industry, what the planet was ordered to produce that turn and capital, material and colonist stockpiles.</p>
+<pre>		Bombings
+
+W                 O         N        P      I      P      $      M     C   
+SiliconFungi Valdorians Zephir    134.22  62.69 Weapons  0.00   0.00  9.71 
+SiliconFungi The_Grinch 62         30.92  20.07 Shields  0.00   0.00  0.00 
+Farmers      Valdorians 90        528.09 355.29 Probe    0.00   0.00  0.00 
+Farmers      Valdorians 232        53.53  53.53 Weapons 17.56   0.00  0.00 
+Farmers      Santa_s    225         9.50   0.40 CAP      0.00   0.00  0.00 
+Farmers      Valdorians 198        28.50  22.68 Weapons  0.00   0.00  0.00 
+Farmers      Nation_15  98        745.52 745.52 Spark   29.37   0.00 35.36 
+Farmers      Nation_15  246       600.61 600.61 Probe    1.37 119.96 18.02 
+Farmers      Nation_15  Arrowroot  79.39  12.07 Shields  0.00   0.00  0.00 
+Nation_15    Farmers    205       211.21 211.21 Seed    38.06   0.00  0.00</pre>
 
 				<h3 id="repmap">Map</h3>
-					<p>An text map of the galaxy or a section of the galaxy.  The player can change the size and extent of the map.  Symbols on the map have the following meanings:</p>
-<pre>* - The player's planet
-o - An uninhabited planet
-+ - Another race's planet
-. - The player's group in hyperspace
-- - Another race's group in hyperspace</pre>
+					<p>An text map of the galaxy or a section of the galaxy.  The player can change the size and extent of the map.  Symbols on the map have the following meanings:
+<br>* The player's planet
+<br>o An uninhabited planet
+<br>+ Another race's planet
+<br>. The player's group in hyperspace
+<br>- Another race's group in hyperspace</p>
+
+<pre>50.00,0.00  200.00,0.00
+--------------------------------------------------------------------------------
+                                                                         *      
+                                                                                
+                                                                                
+                                   *                     *                      
+                                                                                
+               **   *                    *                                   *  
+            *                  *                                                
+                 * *                                                        *   
+                *** *               *                                    *      
+               ** **                                                            
+            *            *               *            *                         
+                                                            *         *         
+                                            *                           *   * * 
+               *                        *        * *                            
+                                           *   *                                
+        *                        *           .* *   * *                      *  
+ *..                  *                       .          *                      
+. .                                               **                           
+.                       *              .                      .      *          
+  .                                          *                .                 
+           ..                               *                                   
+                                                                                
+                                                                    +           
+                            ..                        *         +   +   +       
+                         *                                                      
+*                                      *    *                      ++    *      
+                                 * **                             -++ .         
+                           +     * **                            - *+           
+                            *  **   *                          + ++         o   
+    **                                                             +            
+      **                     *      *                                           
+       ****                                                                     
+          *                *                                                    
+        * *  *                                                                  
+                                                                  +             
+             *                           .         +  +                         
+*                           *                                                   
+                                                 ++                             
+        *     o                 *                  ++                           
+                                                  +  +                          
+--------------------------------------------------------------------------------
+50.00,150.00  200.00,150.00</pre>
 
 				<h3 id="repinc">Incoming Groups</h3>
 					<p>All alien ships in hyperspace travelling toward the player's planets.  Multiple groups that have the same origin planet, destination planet, distance remaining and speed (e.g. a fleet) will be reported collectively as a single group.  For each incoming group: origin planet, destination planet, distance remaining, speed and total mass.</p>
+<pre>		Incoming Groups
+
+O    D      R     S      M   
+73  188   34.19 21.02  19.80
+383 Apple 18.02 24.33 284.33</pre>
 
 				<h3 id="reppla">Your Planets</h3>
 					<p>All planets owned by the player.  For each planet: planet name, x coordinate, y coordinate, size, population, industry, resources, production, capital stockpile, material stockpile, colonist stockpile, effective industry.</p>
+<pre>		Your Planets
+
+N                     X      Y      S       P       I      R        P        $      M      C      L    
+Peach               74.16  23.86  464.15  464.15  464.15  1.65 Rake         0.00    0.28  5.85  464.15 
+Daisy              133.09  46.93  831.34  831.34  831.34  7.50 CAP          2.78    0.00  8.31  831.34 
+Marigolds           79.58  51.29   99.82   99.82   99.82  0.59 Shields      2.01    0.00  1.00   99.82 
+Curry              208.47  64.46   61.94   11.09    1.32  0.92 Cargo0       0.00    0.00  0.00    3.76 
+14                 194.38  20.04    5.90    5.90    0.87  1.28 CAP          0.00    0.00  0.18    2.13 
+17                 177.32 101.70  442.38    8.80    0.00  0.61 CAP          0.00    0.00  0.00    2.20 
+Lima_Bean           79.61  19.20  501.30  501.30  501.30  1.31 Weapons      0.11    0.81 19.82  501.30 
+Brush              163.97  41.69   61.14   17.59    5.68  1.73 Drive        0.00    0.00  0.00    8.66 </pre>
 				
 				<h3 id="repsip">Ships In Production</h3>
 					<p>All planets owned by the player that are producing ships.  If no ships are being produced, or if the ProdTable option is turned off, Ships in Production will not be reported.  For each planet: planet name, ship type name, production cost, excess ship production.</p>
+<pre>		Ships In Production
+
+N          P       N     U   
+Aster Scarecrow0 90.90  1.21 
+141   Seed       10.18  5.76 
+Curry Cargo0     21.82 10.06 
+Corn  Scarecrow0 90.90  1.36 
+Flax  Cargo4     23.35  7.70 
+296   Seed       10.00  3.60</pre>
 
 				<h3 id="reproute">Your Routes</h3>
 					<p>All the player's planets that have routes set.  For each planet: capital route destination planet, materials route destination planet, colonists route destination planet and empty route destination plant.  A - (hyphen) indicates no route is set for the specified commodity.</p>
+<pre>		Your Routes
+
+N            $         M C                E          
+Peach        Soy       - Soy              -          
+Daisy        -         - -                Broccoli   
+Lima_Bean    -         - Monkey_Grass     -          
+Apricot      -         - -                Grapefruit 
+Aster        -         - -                Grapefruit 
+Dogwood      -         - -                Canteloupe 
+Grape        -         - Soy              -          
+Daylilly     -         - Foxglove         Grapefruit</pre>
 
 				<h3 id="repapla">Alien Planets</h3>
 					<p>All planets owned by other players at which the player has a ship in orbit.  For each race, for each planet: planet name, x coordinate, y coordinate, size, population, industry, resources, production, capital stockpile, material stockpile, colonist stockpile, effective industry.</p>
+<pre>		SiliconFungi Planets
+
+N         X      Y      S     P     I     R   P     $     M    C    L   
+62     116.24 200.05  66.83  8.35  6.05 1.99 CAP   0.00 0.00 0.00  6.63 
+73     128.73 205.75 706.09  5.51  5.51 4.96 CAP 108.04 0.00 0.00  5.51 
+80     141.26 203.61 733.01 84.80 62.95 3.51 CAP   0.00 0.00 0.00 68.41 
+Zephir  29.96 218.01 134.22 36.24 19.12 1.19 CAP   0.00 0.00 0.00 23.40 
+178    128.98 206.46 501.09 67.61 31.16 0.73 CAP   0.00 0.00 0.00 40.27 
+
+		NULLoids Planets
+
+N     X     Y     S    P    I    R   P    $    M    C    L  
+37 227.09 71.09 2.77 2.77 2.77 0.69 CAP 0.59 0.00 1.41 2.77 
+88 222.13 79.56 9.23 9.23 9.23 0.60 CAP 2.76 0.00 1.59 9.23 
+
+		Outvaders Planets
+
+N       X      Y      S     P     I    R   P    $    M    C    L   
+C103 145.15 141.84 770.36 25.48 9.29 6.34 CAP 0.00 0.00 0.00 13.34</pre>
 
 				<h3 id="repupla">Unidentified Planets</h3>
 					<p>All planets owned by other players at which the player does not have a ships\ in orbit.  For each planet: planet name, x coordinate, y coordinate.</p>
+<pre>		Unidentified Planets
+
+N           X      Y   
+C1       145.53 141.86 
+C2       145.70 144.83 
+C3       147.85 143.21 
+6         91.88 222.99 
+7         80.39 225.80 
+9         58.75 214.28 
+C12      172.14 106.54 
+15        79.33 165.86 
+16        89.27 176.56 
+22        67.28 118.70 
+NULL25   230.03 108.78</pre>
 
 				<h3 id="repunpla">Uninhabited Planets</h3>
 					<p>All uninhabited planets.  For each planet: planet name, x coordinate, y coordinate.  If the player has a ship in orbit at the planet, size and resources will also be given.</p>
+<pre>		Uninhabited Planets
+
+N      X      Y      S     R     $    M  
+10   35.63  86.87                        
+11   11.52 111.02
+20  192.69 107.48  28.16  0.90 0.00 0.00 
+31    7.81 103.75
+36   14.30 107.37
+41    9.77 143.99 130.33  0.55 0.00 0.00 
+68    4.16 116.78 456.46  1.03 0.00 0.00</pre>
 
 				<h3 id="repgroups">Your Groups</h3>
 					<p>All groups owned by the player which are not part of a fleet.  For each group: group number, number of ships, ship type name, drive technology, weapons technology, shields technology, cargo technology, cargo type carried, cargo mass carried per ship, destination planet, distance to destination, origin planet.</p>
+<pre>		Your Groups
 
+G    #       T       D    W    S    C   T    Q           D           R        O     
+  1   1 Scarecrow0 7.11 3.44 4.50 0.00 -   0.00 Peach                               
+  2   1 Seed       1.40 0.00 0.00 0.00 -   0.00 Peach                               
+  3   3 Cargo1     7.11 0.00 0.00 1.00 -   0.00 Peach                               
+  4   1 Cargo2     7.11 0.00 0.00 1.00 -   0.00 Peach                               
+
+...snip...
+                     
+ 15   1 Seed       1.40 0.00 0.00 0.00 -   0.00 Lima_Bean                           
+ 16  22 Cargo1     7.11 0.00 0.00 1.00 -   0.00 Lima_Bean                           
+ 17   2 Cargo2     7.11 0.00 0.00 1.00 -   0.00 Lima_Bean                           
+ 18   1 Scarecrow0 7.11 3.44 4.50 0.00 -   0.00 Lima_Bean                           
+ 19   1 Flak0      7.11 0.00 4.50 0.00 -   0.00 Lima_Bean                           
+ 20   2 Cargo0     7.11 0.00 0.00 1.00 -   0.00 Lima_Bean                           
+
+...snip...
+ 
+ 34   1 Axe2       7.11 3.44 4.50 1.00 -   0.00 Aster                               
+ 35   1 Scarecrow3 7.11 3.44 4.50 0.00 -   0.00 Aster                               
+ 36   1 Flak0      7.11 0.00 4.50 0.00 -   0.00 Aster                               
+ 37   1 Rake4      7.11 3.44 4.50 1.00 -   0.00 Aster                               
+ 38   1 Axe7       7.11 3.44 4.50 1.00 -   0.00 Aster                               
+ 39   2 Rake3      7.11 3.44 4.50 1.00 -   0.00 Aster                               
+ 40  65 Flak1      7.11 0.00 4.50 0.00 -   0.00 Aster                               
+ 41   1 Rake2      7.11 3.44 4.50 1.00 -   0.00 Aster                               
+ 42   1 Cargo1     5.74 0.00 0.00 1.00 -   0.00 Aster                               
+ 43   1 Rake7      7.11 3.44 4.50 0.00 -   0.00 Aster                               
+ 44   1 Axe11      7.11 3.44 4.50 0.00 -   0.00 Aster                               
+ 45   1 Axe14      7.11 3.44 4.50 0.00 -   0.00 Aster                               
+ 46  24 Flak1      7.11 0.00 4.59 0.00 -   0.00 Aster                               
+ 47  11 Scarecrow0 7.11 3.44 4.60 0.00 -   0.00 Aster                               
+ 48   1 Seed       4.60 0.00 0.00 0.00 -   0.00 Foxglove                            
+
+...snip...
+   
+ 67   1 Flak1      7.11 0.00 4.50 0.00 -   0.00 59                                  
+ 68   1 Seed       7.11 0.00 0.00 0.00 -   0.00 59                                  
+ 69   1 Seed       4.60 0.00 0.00 0.00 -   0.00 Hops                                
+ 70  11 Cargo0     7.11 0.00 0.00 1.00 COL 1.10 Hops               15.36 Lima_Bean  
+ 71   2 Cargo1     7.11 0.00 0.00 1.00 COL 1.10 Hops               16.20 Apple      
+ 72   5 Cargo0     7.11 0.00 0.00 1.00 COL 1.10 Hops               16.51 Apple</pre>
+ 
 				<h3 id="repfleets">Your Fleets</h3>
 					<p>All fleets owned by the player.  For each fleet: fleet name, fleet speed.  For each group within a fleet: group number, number of ships, ship type name, drive technology, weapons technology, shields technology, cargo technology, cargo type carried, cargo mass carried per ship, destination planet, distance to destination, origin planet.</p>
+<pre>		Fleet Defenders (speed 6.67)
+
+G   #   T     D    W    S    C  T   Q    D  R O 
+64  1 Axe0  1.00 1.00 1.00 1.00 - 0.00 Corn     
+65  1 Rake0 1.00 1.00 1.00 1.00 - 0.00 Corn     
+66 41 Flak0 1.00 0.00 1.00 0.00 - 0.00 Corn     
+67  9 Flak0 1.40 0.00 1.00 0.00 - 0.00 Corn     
+68  9 Flak0 1.60 0.00 1.00 0.00 - 0.00 Corn     
+69  5 Flak0 1.20 0.00 1.00 0.00 - 0.00 Corn</pre>
 
 				<h3 id="repagroups">Alien Groups</h3>
-					<p>All groups owned by other players that are at planets where the player has a ship in orbit.  For each group: number of ships, ship type name, drive technology, weapons technology, shields technology, cargo technology, cargo type carried, cargo mass carried per ship, destination planet, distance to destination, origin planet.</p>									
+					<p>All groups owned by other players that are at planets where the player has a ship in orbit.  For each group: number of ships, ship type name, drive technology, weapons technology, shields technology, cargo technology, cargo type carried, cargo mass carried per ship, destination planet, distance to destination, origin planet.</p>		
+<pre>		SiliconFungi Groups
+
+#     T     D    W    S    C  T   Q     D   
+ 2 ATT_F1 6.18 3.28 2.88 0.00 - 0.00 167    
+ 1 ATT_F3 6.18 3.28 2.88 0.00 - 0.00 Zephir 
+ 1 ATT_F3 6.18 4.62 4.64 0.00 - 0.00 62     
+11 Drone  6.18 0.00 0.00 0.00 - 0.00 62     
+11 Drone  6.18 0.00 0.00 0.00 - 0.00 178    
+ 1 Drone  6.18 0.00 0.00 0.00 - 0.00 118    
+ 1 ATT_F3 6.18 4.62 4.64 0.00 - 0.00 178    
+
+		NULLoids Groups
+
+#  T   D    W    S    C  T   Q   D 
+1 F1 1.60 1.48 2.28 1.24 - 0.00 37 
+1 F1 1.60 1.48 2.28 1.24 - 0.00 88 
+
+		Outvaders Groups
+
+#       T         D    W    S    C  T   Q    D  
+1 1_0_0_0_0     1.00 0.00 0.00 0.00 - 0.00 17   
+1 1_0_0_0_0     1.00 0.00 0.00 0.00 - 0.00 20   
+2 10_10_10_10_0 3.23 1.45 2.61 0.00 - 0.00 C103 
+2 10_10_10_10_0 3.35 1.45 2.61 0.00 - 0.00 C103 
+2 10_10_10_10_0 3.63 1.45 2.61 0.00 - 0.00 20   
+2 10_10_10_10_0 3.84 1.45 2.61 0.00 - 0.00 20</pre>
 
 			<hr />
 
