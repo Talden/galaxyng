@@ -1,5 +1,18 @@
 How to upgrade your existing games:
 
+==== UPGRADE To release-6.4.0 ================
+
+The entire GalaxyNG web site has been rewritten.  You have two
+options:
+
+1) Link to GalaxyNG SourceForge.net site (preferred)
+   Delete most of your local site and point to files on:
+     http://galaxyng.sourceforge.net/
+
+2) Maintain a mirror of the GalaxyNG SourceForge.net site
+   Delete most of your local site.  Copy the files in /Doc/
+   into your local site.
+
 ==== UPGRADE To release-6.1a =================
 
 Just compile galaxyng and copy it to your Games/ directory. If you
