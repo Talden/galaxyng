@@ -18,7 +18,7 @@
 
 			<hr />
 			
-			<p>Frans Slothober's reasons for creating GalaxyNG are presented below.</p>
+			<p>Frans Slothouber's reasons for creating GalaxyNG are presented below.</p>
 			
 			<hr />
 			
