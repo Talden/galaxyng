@@ -12,7 +12,7 @@
 
 	<body>
 	
-		<h1>GalaxyNG Credits</h1>
+		<h1><a href="/">GalaxyNG</a> Credits</h1>
 
 			<hr />
 		
