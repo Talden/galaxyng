@@ -24,7 +24,7 @@
 #define  COOKIEgame               0x0FD4EEDF
 #define  COOKIEgamespecification  0xF1AABEEF
 #define  COOKIEnewplayer          0xF1EA5747
-#define  COOKIEgameopts           0xF2AABEEF
+#define  COOKIEgameOpts           0xF2AABEEF
 
 /******/
 
