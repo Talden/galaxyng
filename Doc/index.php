@@ -1,31 +1,35 @@
-<HEAD><LINK rel=stylesheet href="Doc/main.css">
-<TITLE>GalaxyNG User Manual</TITLE></HEAD>
-<HTML>
-<BODY>
-<H1>Galaxy Next Generation Manuals</H1>
-<P>For release-5-0</P>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'; ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" 
+   "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 
-<H3>Authors</H3>
-<UL>
- <LI>Galaxy NG Code</LI>
-   <UL>
-   <LI>Frans Slothouber</LI>
-   <LI>Ken Weinert</LI>
-   <LI>Christophe Barbier</LI>
-   <LI>Jacco van Weert</LI>
-   <LI>Tommy LIndqvist</LI>      
-   <LI>Rogerio Fung</LI>
-   </UL>
- <LI>Original Version of Galaxy Code</LI>
-  <UL>  
-  <LI>Russell Wallace</LI>
-  <LI>Tim Myers</LI>
-  <LI>Robert Stone</LI>
-  <LI>Mayan Moudgill</LI>
-  <LI>Graeme Griffiths</LI>
-  <LI>K Pankhurst</LI>
-  </UL>
-</UL>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
+
+	<head>
+		<link rel=stylesheet href="main.css" />
+		<title>GalaxyNG Documentation</title>
+	</head>
+
+	<body>
+		<h1>Galaxy Next Generation Documentation</h1>
+		<p>For release-5.1</p>
+
+		<h2>Authors</h2>
+		<dl>
+			<dt>Galaxy NG Code</dt>
+				<dd>Frans Slothouber</dd>
+				<dd>Ken Weinert</dd>
+				<dd>Christophe Barbier</dd>
+				<dd>Jacco van Weert</dd>
+				<dd>Tommy Lindqvist</dd>
+				<dd>Rogerio Fung</dd>
+			<dt>Original Version of Galaxy Code</dt>
+				<dd>Russell Wallace</dd>
+				<dd>Tim Myers</dd>
+				<dd>Robert Stone</dd>
+				<dd>Mayan Moudgill</dd>
+				<dd>Graeme Griffiths</dd>
+				<dd>K Pankhurst</dd>
+		</dl>
 
 <H2>Table of Contents</H2>
 <OL>
