@@ -19,6 +19,7 @@
 				<ul>
 					<li>Review the <a href="http://web.archive.org/web/20011006200732/http://www.jacobean.demon.co.uk/galaxy/galaxy.beginner.txt">Beginner's Guide</a>.  (Note that it is not completely accurate in all details, as it describes original Galaxy and not GalaxyNG.)</li>
 					<li>Subscribe to the <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">galaxyng-players</a> mailing list and ask questions.</li>
+					<li>Read the <a href="start.php">Getting Started</a> guide.</li>
 				</ul>
 				<p>In the early stages of the game, there will be plenty of planets to spare so there will be little need to fight for territory; however, you should ensure that your homeworlds are defended against sneak attacks by xenophobic aliens. You will need to devote your efforts to exploration, building up colonies, researching technology, and contacting other races with a view to forming alliances.</p>
 				<p>The map in your turn report only indicates which planets are occupied by alien races, and the location of alien ships in hyperspace. To learn of enemy fleets which may pose a threat to your safety, you will need to send ships to enemy planets to spy on them.</p>
@@ -44,11 +45,11 @@
 					<li>Each player will have a number of growth planets within a certain radius of their homeworlds.</li>
 					<li>There will be a number of stuff planets scattered around the galaxy.</li>
 				</ul>
-				<p>Thus, a seven player game advertised with homeworlds 1,000, 500, 250; 10 growth planets 40LY radius; 25 stuff planets and minimum 40LY distance between homeworlds will have the following configuration:</p>
+				<p>Thus, a 7 player game advertised with homeworlds 1,000, 500, 250 @ 40LY; 10 growth planets 30LY radius; 25 stuff planets will have the following configuration:</p>
 				<ul>
 					<li>Each player will have 3 homeworlds with sizes 1,000, 500 and 250 that are at least 40 light years from the other players' homeworlds.</li>
-					<li>There will be 10 growth planets within a 30 light years of each player's homeworlds (total 70 growth planets clustered around homeworlds).</li>
-					<li>There will be 25 stuff planets scattered around the galaxy per player (total 175 stuff planets, randomly distributed in the galaxy).</li>
+					<li>There will be 10 growth planets within 30 light years of each player's homeworlds (total 7*10=70 growth planets, clustered around homeworlds).</li>
+					<li>There will be 25 stuff planets scattered around the galaxy per player (total 7*25=175 stuff planets, randomly distributed in the galaxy).</li>
 				</ul>
 				<p>Note that growth planet radii can overlap.  GMs can be very creative in manipulating the galaxy creation parameters to create a wide variety of galaxies.  For more information on galaxy creation, refer to the <a href="server.php">Server Manual</a>.</p>
 
