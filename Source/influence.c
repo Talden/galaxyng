@@ -94,7 +94,8 @@ draw_maps(game* aGame)
 	iscale = (int)scale;
 
 	sprintf(font, "%s/influence.ttf", aGame->serverOptions.fontpath);
-
+	plog(LBRIEF, "font: \"%s\"\n", font);
+	
 	for (mt = FirstMap; mt < NbrMaps; mt++) {
 		switch(mt) {
 			case EffIndMap:
