@@ -162,6 +162,8 @@ main( int argc, char **argv )
         result = CMD_battletest( argc, argv );
     } else if ( strstr( argv[1], "test" ) ) {   /* experimental */
         result = CMD_test( argc, argv );
+    } else if ( strstr( argv[1], "webreport" ) ) {
+      result = CMD_webreport( argc, argv);
     } else if ( strstr( argv[1], "report" ) ) {
         result = CMD_report( argc, argv );
     } else if ( strstr( argv[1], "relay" ) ) {

@@ -38,6 +38,7 @@ int CMD_check( int argc, char **argv, int kind );
 int CMD_checkFile( int argc, char **argv, int kind );
 #endif
 int CMD_report( int argc, char **argv );
+int CMD_webreport( int argc, char **argv );
 int CMD_score( int argc, char **argv );
 int CMD_graph( int argc, char **argv );
 int CMD_dump( int argc, char **argv, int kind );
