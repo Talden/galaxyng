@@ -86,9 +86,9 @@ typedef struct _gameOpts {
   char*  succeed_subject;	/* subject for successful registration */
   char*  fail_subject;		/* subject for failed registration */
   char*  replyto;
-  int    minimum_players;	/* at least this many players must
+  int    minplayers;		/* at least this many players must
 				   sign up */
-  int    maximum_players;	/* no more than this number can sign
+  int    maxplayers;		/* no more than this number can sign
 				   up */
   int    delay_hours;		/* wait this long after minimum number
 				   of players signed up to start game */
@@ -128,7 +128,8 @@ typedef struct _gameOpts {
 typedef struct _serverOpts {
   char* from;			/* default email information, can be
 				   overridden in each game */
-  char* subject;
+  char*  succeed_subject;	/* subject for successful registration */
+  char*  fail_subject;		/* subject for failed registration */
   char* replyto;
   char* cc;
   gameOpts* go;			/* list of games registration is being
