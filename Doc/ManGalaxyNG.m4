@@ -28,7 +28,7 @@ www_section(`intro', `Introduction')
 
 www_subSection(`names', `Names')
 
-<P>Races, planets and ship types can be named.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should ALink(`#ordc', `provide a name') by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when ALink(`#ordd', `designed') and can be ALink(`#ordt', `renamed').  Planets have numbers for names at the start of the game and can be ALink(`#ordn', `changed') by their current owner.</P>
+<P>Races, planets and ship types can be named.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Each player should ALink(`#ordc', `provide a name') by which their race will be known, e.g. Mutant_Camels or Zzyaxians - if this is not done they will simply be known by number, e.g. Race_4 or Race_5.  Ship types are given names when ALink(`#ordd', `designed') and can be ALink(`#ordt', `renamed').  Planets are numbered at the start of the game and can be ALink(`#ordn', `renamed') by their current owner.</P>
 
 www_subSection(`war', `War and Alliances')
 
@@ -36,11 +36,11 @@ www_subSection(`war', `War and Alliances')
 
 www_subSection(`victory', `Victory and Defeat')
 
-<P>The game can be won by a single race or by an alliance of races, depending upon the game settings.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</P>
+<P>The game can be won by a single race or by an alliance of races, depending upon the game settings.  Races are ranked based on the total production of their planets.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</P>
 
 www_section(`ships', `Ships')
 
-<P>Ships are organized into groups and fleets which are used for exploration, scouting, attack, defence and cargo transport.  Ships have seventeen characteristics: ship type (drive mass, attacks, weapons mass, shields mass, cargo mass and ship mass), group number, fleet name, drive technology, attacks, weapons technology, shields technology, cargo technology, cargo carried type, cargo carried mass, destination planet, and distance to destination planet.  Ships can be built by ordering planets to ALink(`#ordp', `produce') them.</P>
+<P>Ships are organized into groups and fleets which are used for exploration, scouting, attack, defence and cargo transport.  Ships have the following characteristics: ship type (name, drive mass, attacks, weapons mass, shields mass, cargo mass and ship mass), group number, fleet name, drive technology, weapons technology, shields technology, cargo technology, cargo carried type, cargo carried mass, destination planet, and distance to destination planet.  Ships can be ALink(`#ordp', `built') at planets.</P>
 
 www_subSection(`shiptypes', `Ship Types')
 
@@ -78,7 +78,7 @@ www_subSection(`shiptypes', `Ship Types')
   MegaFreighter  120.00   0   0.00  38.43  39.57
 </PRE>
 
-<P>Ship types with zero or one attack have a ship mass of drive mass + weapon mass + shield mass + cargo mass.  Each additional attack beyond the first adds 50% of the weapon mass to the ship mass.  For example:</P>
+<P>Ship types with zero or one attack have a ship mass of drive mass + weapon mass + shield mass + cargo mass.  Each additional attack beyond the first adds 50% of the weapons mass to the ship mass.  For example:</P>
 
 <PRE>
   Drone            1.00 + 0.00 + 0.00 + 0.00 = 1.00
@@ -102,20 +102,13 @@ www_subSection(`groups', `Groups')
 
 <P>A race can have hundreds or even thousands of ships, which would be inconvenient to handle individually.  Hence ships are handled in groups, which can contain one or more ships all of the same type, in the same place, carrying the same quantity and type of cargo (if any) and built with the same technology levels.</P>
 
-<P>Groups can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, ALink(`#ordh', `reverse') course, ALink(`#ordb', `break') off ships into a new group, ALink(`#ordj', `join') a fleet, Alink(`#ordb', `leave') a fleet, ALink(`#ordg', `upgrade') technology levels, ALink(`#ordl', `load') cargo, or ALink(`#ordu', `unload') cargo.  Groups may also be ALink(`#ordx', `scrapped').  Groups can also be sent on ALink(`#routes', `routes').</P>
+<P>Groups can be ordered to ALink(`#ords', `travel') to another planet, ALink(`#ordi', `intercept') other ships, ALink(`#ordh', `reverse') course, ALink(`#ordb', `break') off ships into a new group, ALink(`#ordj', `join') a fleet, Alink(`#ordb', `leave') a fleet, ALink(`#ordg', `upgrade') technology levels, ALink(`#ordl', `load') cargo, or ALink(`#ordu', `unload') cargo.  Groups may also be ALink(`#ordx', `scrapped').  Groups can also ALink(`#routes', `routed').</P>
 
 <P>Each group is assigned a number, which is used to issue orders to ships in the corresponding group.  When new groups are created, they are assigned a number N+1, where N is the highest numbered group in existence.  Whenever a group number is required as an order parameter, the keyword MAX may be used instead. This will apply the order to the group with the highest group number, i.e. the most recently created group.</P>
 
-<P>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower-numbered group number.  For example, if group 5 containing 48 ships is merged with group 12 containing 52 ships, group 5 will contain 100 ships and group 12 will be eliminated.</P>
+<P>In several phases of the turn, groups containing identical ships, carrying identical cargo (if any), in the same place and in the same fleet (if applicable) will be merged using the lower group number.  For example, if group 5 containing 48 ships is merged with group 12 containing 52 ships, group 5 will contain 100 ships and group 12 will be eliminated.</P>
 
-<P>If the SortGroups ALink(`#ordo', `option') is turned on, at the end of each turn groups will be automatically sorted and renumbered as follows:</P>
-
-<UL>
-  <LI>Owner's groups at owner's planets</LI>
-  <LI>Owner's groups at other race's planets</LI>
-  <LI>Owner's groups at uninhabited planets</LI>
-  <LI>Owner's groups in fleets</LI>
-</UL>
+<P>If the SortGroups ALink(`#ordo', `option') is turned on, at the end of each turn groups will be automatically sorted and renumbered as follows: Owner's groups at owner's planets; Owner's groups at other race's planets; Owner's groups at uninhabited planets; Owner's groups in fleets</P>
 
 www_subSection(`fleets', `Fleets')
 
@@ -131,13 +124,13 @@ www_section(`tech', `Technology')
 
 www_Section(`move', `Movement')
 
-<P>Ships are equipped with hyperspace drives, except ships with a drive mass of zero remain which remain forever at the planet where they were built.  ALink(`#ords', `Send') and ALink(`#ordi', `intercept') orders can be issued to groups and fleets to move them between planets.</P>
+<P>Ships are equipped with hyperspace drives, except ships with a drive mass of zero which remain forever at the planet where they were built.  Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace can only go forward or reverse and cannot participate in combat.  ALink(`#ords', `Send'), ALink(`#ordi', `intercept') and ALink(`#ordh', `reverse') orders can be issued to groups and fleets to move them between planets.</P>
 
 www_Section(`speed', `Speed')
 
 <P>Ships move a number of light years per turn according to the following formula:  Light years travelled = 20 * drive technology level * (drive mass / (ship mass + cargo carried mass)).</P>
 
-<P>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of 20 times your drive technology.  For example, assuming drive technology 1.00 carrying no cargo:<P>
+<P>Note that unless your drive technology is very high, large ships should have correspondingly large drives or they will be very slow.  On the other hand the fastest ships you can possibly build (all numbers except drive mass being zero in the design) can only travel at a speed of 20 times your drive technology.  For example, using the ship types above and assuming drive technology 1.00 carrying no cargo:<P>
 
 <PRE>
   Drone          20 * 1.00 * (1.00/1.00) = 20.00
@@ -157,17 +150,17 @@ www_Section(`speed', `Speed')
   MegaFreighter  20 * 1.00 * (120.00/198.00) = 12.12
 </PRE>
 
-www_Section(`travel', `Travel')
+<P>Note that, when fully loaded, cargo ships can be much slower.  For example, assuming drive technology 1.00 and cargo technology 1.00:</P>
 
-<P>Hyperspace travel is only possible from one concentration of mass to another, i.e. from one planet to another.  Ships can only travel at maximum speed in hyperspace, unless they are part of a fleet.  When ships enters hyperspace, no time passes for the ship or those on board; a ship in hyperspace cannot change course, or participate in combat.  Ships sent on very long journeys may be ordered to ALink(`#ordh', `reverse') course.</P>
+<PRE>
+  Hauler         20 * 1.00 * (2.00/(3.00+1.10)) = 9.75
+  Freighter      20 * 1.00 * (30.00/(49.50+20.00)) = 8.63
+  MegaFreighter  20 * 1.00 * (120.00/(198.00+196.14)) = 6.09
+</PRE>
 
 www_subSection(`incoming', `Incoming Ships')
 
-<P>Detection of ships in hyperspace is a difficult business.  Of course, your administrative staff will keep a record of your ships, so you will always know where they are.  However, the equipment to accurately detect the position of alien ships in hyperspace requires a large staff to operate and maintain.</P>
-
-<P>Accurate readings can only be obtained for ships heading toward one of your planets.</P>
-
-<P>A rough indication of the location of other alien groups will be indicated on the ALink(`#ordm', `map'), but you will not know their speed or direction of travel.</P>
+<P>Each race's administrative staff will keep a record of its own ships on planets or in hyperspace.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can only be obtained for ships heading directly toward a detector.  A rough indication of the location of other alien groups is indicated on the ALink(`#ordm', `map'), but their mass, speed and direction of travel are unknown.</P>
 
 www_section(`planets', `Planets')
 
