@@ -681,19 +681,21 @@ struct player {
  *   server -- NG server options structure
  * PURPOSE
  *   All server options in one place.
- *   Usualy feed with .galaxyngrc file
+ *   Usually feed with .galaxyngrc file
  * SOURCE
  */
 
 typedef struct server {
-  /* the command to email a file */
-  char           *sendmail;
-  /* GM reports go to this address */
-  char           *GMemail;
-  /* the command to compress the body of an email */
-  char           *compress;
-  /* the command to encode the compressed body */
-  char           *encode;
+/* the command to email a file */
+	 char* sendmail;
+	 /* GM reports go to this address */
+	 char* GMemail;
+	 /* the command to compress the body of an email */
+	 char* compress;
+	 /* the command to encode the compressed body */
+	 char* encode;
+	/* the directory where the fonts are located */
+	 char* fontpath;
 } server;
 
 /*******/

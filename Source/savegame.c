@@ -262,7 +262,7 @@ savegame(game *aGame)
 	fclose(turnFile);
 	
 #if defined(DRAW_INFLUENCE_MAP)
-	if (aGame->turn > 0)
+/*	if (aGame->turn > 0)*/
 		draw_maps(aGame);
 #endif
 }

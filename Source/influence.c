@@ -24,7 +24,7 @@ draw_maps(game* aGame)
 	int        i, j, k;
 	int        iscale;
 	
-	char*      font = "influence";
+	char       font[1024];
 	
 	int        idx, x, y, player_nbr;
 	int        x0, y0, df, d_e, d_se;
@@ -86,6 +86,8 @@ draw_maps(game* aGame)
 	scale = 765.0 / aGame->galaxysize;
 	iscale = (int)scale;
 
+	sprintf(font, "%s/influence.ttf", aGame->serverOptions.fontpath);
+	
 	for (mt = FirstMap; mt < NbrMaps; mt++) {
 		switch(mt) {
 			case EffIndMap:

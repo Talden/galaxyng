@@ -535,33 +535,42 @@ loadConfig(game *aGame)
 void
 readDefaults(game *aGame, FILE * f)
 {
-  char           *isRead, *key;
+	char           *isRead, *key;
 
-  for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
-       isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
-
-    key = getstr(lineBuffer);
-    if (key[0] != '\0') {
-      if (noCaseStrcmp("GMemail", key) == 0) {
-        aGame->serverOptions.GMemail = strdup(getstr(0));
-      }
-      else if (noCaseStrcmp("compress", key) == 0) {
-        aGame->serverOptions.compress = strdup(getstr(0));
-      }
-      else if (noCaseStrcmp("encode", key) == 0) {
-        aGame->serverOptions.encode = strdup(getstr(0));
-      }
-      else if (noCaseStrcmp("sendmail", key) == 0) {
-        aGame->serverOptions.sendmail = strdup(getstr(0));
-      }
-      else if (noCaseStrcmp("starttime", key) == 0) {
-        aGame->starttime = strdup(getstr(0));
-      }
-      else {
-        printf("Unknown key %s\n", key);
-      }
-    }
-  }
+	aGame->serverOptions.sendmail = NULL;
+	aGame->serverOptions.encode = NULL;
+	aGame->serverOptions.compress = NULL;
+	aGame->serverOptions.GMemail = NULL;
+	aGame->serverOptions.fontpath = NULL;
+	
+	for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
+		 isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
+		
+		key = getstr(lineBuffer);
+		if (key[0] != '\0') {
+			if (noCaseStrcmp("GMemail", key) == 0) {
+				aGame->serverOptions.GMemail = strdup(getstr(0));
+			}
+			else if (noCaseStrcmp("compress", key) == 0) {
+				aGame->serverOptions.compress = strdup(getstr(0));
+			}
+			else if (noCaseStrcmp("encode", key) == 0) {
+				aGame->serverOptions.encode = strdup(getstr(0));
+			}
+			else if (noCaseStrcmp("sendmail", key) == 0) {
+				aGame->serverOptions.sendmail = strdup(getstr(0));
+			}
+			else if (noCaseStrcmp("starttime", key) == 0) {
+				aGame->starttime = strdup(getstr(0));
+			}
+			else if (noCaseStrcmp("fontpath", key) == 0) {
+				aGame->serverOptions.fontpath = strdup(getstr(0));
+			}
+			else {
+				printf("Unknown key %s\n", key);
+			}
+		}
+	}
 }
 
 void
@@ -571,4 +580,5 @@ freeDefaults(game *aGame)
   free(aGame->serverOptions.encode);
   free(aGame->serverOptions.compress);
   free(aGame->serverOptions.GMemail);
+  free(aGame->serverOptions.fontpath);
 }
