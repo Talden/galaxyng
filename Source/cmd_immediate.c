@@ -57,7 +57,7 @@ CMD_immediate( int argc, char **argv) {
   
   /* create a log for the GM */
   logName = createString("%s/log/%s.imm", galaxynghome, argv[2]);
-  openLog(logName, "w");
+  openLog(logName, "a");
   free(logName);
   
   /* galaxyng logging setup */
@@ -90,10 +90,12 @@ CMD_immediate( int argc, char **argv) {
    */
   elapsedTime = ((now - now % 60) - (buf.st_mtime - buf.st_mtime % 60));
   free(nextTurn);
-  
+  plog(LPART, "elapsedTime: %d\n", elapsedTime);
+
   /* time, in seconds, between game ticks */
   tickTime = 3600 * atol(aGame->serverOptions.tick_interval);
-  
+  plog(LPART, "tickTime: %d\n", tickTime);
+
   if (elapsedTime >= tickTime) {
     /* orders status doesn't matter, time to run the turn */
     plog(LPART, "imm: time's up, running game\n");
