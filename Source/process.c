@@ -2300,7 +2300,7 @@ areValidOrders( FILE *ordersFile,
         gameName = strdup( getstr( NULL ) );
         *raceName = strdup( getstr( NULL ) );
         *password = strdup( getstr( NULL ) );
-        plog( LPART, "%s %s %s\n", gameName, *raceName, *password );
+
         if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
             player *aPlayer;
 
