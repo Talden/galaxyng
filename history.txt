@@ -1,5 +1,13 @@
 # $Id$
 
+Release 6.4.4: January 2004
+o By Ken Weinert (madcoder42)
+  + added fontpath variable to the rc file to eliminate dependency on
+    the environment variable
+  + made compiling with influence map generation the default
+  + restored generating an influence map on turn 0 as the main 
+    impediment was the lack of an environment variable
+
 Release 6-4-3: January 2004
 o By Ken Weinert (madcoder42)
   + added env variable GNG_LOG_LEVEL to dynamically change the 
