@@ -1,5 +1,12 @@
 #include "influence.h"
 
+int
+CMD_influence(int argc, char* argv[])
+{
+	printf("This command not yet implemented\n");
+	return 1;
+}
+
 struct _map {
 	double* influence;
 	double* factor;

@@ -102,6 +102,9 @@ int             CMD_relay(int argc, char **argv);
 int             CMD_template(int argc, char **argv);
 int             CMD_selftest();
 int             CMD_battletest(int argc, char **argv);
+#if defined(DRAW_INFLUENCE_MAP)
+int             CMD_influence(int argc, char **argv);
+#endif
 int             checkTime(game *aGame);
 int             relayMessage(game *aGame, char *nationName, player *to);
 void            usage(void);
@@ -226,6 +229,11 @@ main(int argc, char **argv)
 	else if (strstr(argv[1], "template")) {
 		result = CMD_template(argc, argv);
 	}
+#if defined(DRAW_INFLUENCE_MAP)	
+	else if (strstr(argv[1], "influence")) {
+		result = CMD_influence(argc, argv);
+	}
+#endif	
 	else if (strstr(argv[1], "map")) {
 		result = CMD_dump(argc, argv, CMD_DUMP_MAP);
 	}
@@ -724,7 +732,6 @@ CMD_check(int argc, char **argv, int kind)
 												tempdir, getpid());
 					if ((forecast = GOS_fopen(forecastName, "w")) == NULL) {
 						plog(LBRIEF, "Could not open %s for forecasting\n", forecastName);
-						fprintf(stderr, "Could not open %s for forecasting\n", forecastName);
 						return EXIT_FAILURE;
 					}
 
@@ -1776,6 +1783,7 @@ usage()
 		   "   -lastorders <game name> [turn]\n"
 		   "   -players    <game name> [turn]\n"
 		   "   -teaminfo   <game name> <turn> <team number>\n");
+	
 	printf(" Debug commands\n"
 		   "   -dummyrun   <game name> <file with all orders> [turn]\n"
 		   "   -dummymail0 <game name>\n"
@@ -1785,6 +1793,10 @@ usage()
 		   "   -teaminfo   <game name> <turn> <team number>\n"
 		   "   -graph      <game name> [turn]\n"
 		   "   -map        <game name> [turn]\n"
+#if defined(DRAW_INFLUENCE_MAP)
+		   "   -influence  <game name> <type> [turn]\n"
+		   "               (<type> is all, industry, attack, defend)\n"
+#endif		   
 		   "   -gnuplot    <game name> [turn]\n");
 	printf("\nExplanation:\n"
 		   " -template   - create a template .glx file for use with -create.\n"
@@ -1803,7 +1815,10 @@ usage()
 		   " -test       - test the integrity of a game file.\n"
 		   " -teaminfo   - create an info report for a team captain\n"
 		   " -graph      - dump game data for graph creation.\n"
-		   " -map        - dump game map.\n"
-		   " -lastorders - list the turn when players last send in orders.\n"
+		   " -map        - dump ASCII game map.\n");
+	printf(" -influence  - create influence map(s). The available maps are\n"
+		   "               Effective Industry, Attack Strength, Defense "
+		   "Strength\n"
+		   " -lastorders - list the turn when players last sent in orders.\n"
 		   " -players    - list address and password of all players.\n");
 }

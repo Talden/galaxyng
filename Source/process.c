@@ -62,7 +62,6 @@ orderinfo       phase1orders[] = {
  */
 
 orderinfo       phase2orders[] = {
-  {"c", &c_order},
   {"g", &g_order},
   {"n", &n_order},
   {"t", &t_order},
@@ -70,6 +69,23 @@ orderinfo       phase2orders[] = {
 };
 
 /*********/
+
+/****v* GalaxyNG/phase3orders
+ * NAME
+ *   phase3orders -- map of all phase 3 orders.
+ * FUNCTION
+ *   A map that maps an order name to the corresponding function
+ *   that executes the order.  
+ * SOURCE
+ */
+
+orderinfo       phase3orders[] = {
+  {"c", &c_order},
+  {NULL, NULL}
+};
+
+/*********/
+
 
 /* WIN32 */
 char           *string_mail_subject = "subject:";       /* Dutch:
@@ -1697,126 +1713,134 @@ z_order(game *aGame, player *P, strlist **s)
 int
 runTurn(game *aGame, char *ordersFileName)
 {
-  player         *P;
-  char           *oGameName;
-  char           *nationName;
-  char           *password;
-  FILE           *ordersFile;
+	player         *P;
+	char           *oGameName;
+	char           *nationName;
+	char           *password;
+	FILE           *ordersFile;
 
-  plog(LPART, "Reading orders from file %s\n", ordersFileName);
-
-  ordersFile = Fopen(ordersFileName, "r");
-
-  getLine(ordersFile);
-  for (; !feof(ordersFile);) {
-    if (noCaseStrncmp("#GALAXY", lineBuffer, 7) == 0) {
-      player         *aPlayer;
-
-      getstr(lineBuffer);
-      oGameName = strdup(getstr(NULL));
-      nationName = strdup(getstr(NULL));
-      password = strdup(getstr(NULL));
-      if (noCaseStrcmp(oGameName, aGame->name) == 0) {
-        aPlayer = findElement(player, aGame->players, nationName);
-
-        if (aPlayer) {
-          aPlayer->lastorders = aGame->turn + 1;
-          if (noCaseStrcmp(aPlayer->pswd, password) == 0) {
-            aPlayer->orders = NULL;
-            getLine(ordersFile);
-            for (; !feof(ordersFile) &&
-                 noCaseStrncmp("#GALAXY", lineBuffer, 7) &&
-                 noCaseStrncmp("#END", lineBuffer, 4);) {
-              strlist        *s;
-
-              if ((s = makestrlist(lineBuffer)) != NULL)
-                addList(&(aPlayer->orders), s);
-              getLine(ordersFile);
-            }
-          }
-          else {
-            plog(LPART, "Password Incorrect.\n");
-          }
-        }
-        else {
-          plog(LPART, "Unrecognized player %s.\n", nationName);
-        }
-      }
-      else {
-        plog(LPART, "Orders are not for game %s.\n", aGame->name);
-      }
-      free(oGameName);
-      free(nationName);
-      free(password);
-    }
-    getLine(ordersFile);
-  }
-  fclose(ordersFile);
-
-  (aGame->turn)++;
-
-  if (!checkIntegrity(aGame))
-    return FALSE;
-
-  plog(LPART, "Orders read, processing...\n");
-  plog(LFULL, "# Phase 1 Orders\n");
-  for (P = aGame->players; P; P = P->next) {
-    doOrders(aGame, P, phase1orders, 1);
-  }
-
-  if (!checkIntegrity(aGame))
-    return FALSE;
-
-  plog(LFULL, "# Phase 2 Orders\n");
-  for (P = aGame->players; P; P = P->next) {
-    doOrders(aGame, P, phase2orders, 2);
-  }
-
-  if (!checkIntegrity(aGame))
-    return FALSE;
-
-  plog(LFULL, "# joinphase I\n");
-  joinphase(aGame);
-  preComputeGroupData(aGame);
-  plog(LFULL, "# fightphase I\n");
-  fightphase(aGame, GF_INBATTLE1);
-  plog(LFULL, "# bombphase I\n");
-  bombphase(aGame);
-  plog(LFULL, "# loadphase\n");
-  loadphase(aGame);
-  plog(LFULL, "# fleetphase I \n");
-  fleetphase(aGame);
-  if (!checkIntegrity(aGame))
-    return FALSE;
-  plog(LFULL, "# interceptphase\n");
-  interceptphase(aGame);
-  plog(LFULL, "# movephase\n");
-  movephase(aGame);
-  plog(LFULL, "# joinphase II\n");
-  joinphase(aGame);
-  preComputeGroupData(aGame);
-  plog(LFULL, "# fightphase II\n");
-  fightphase(aGame, GF_INBATTLE2);
-  plog(LFULL, "# bombphase II\n");
-  bombphase(aGame);
-  plog(LFULL, "# producephase\n");
-  producephase(aGame);
-  plog(LFULL, "# unloadphase\n");
-  unloadphase(aGame);
-  plog(LFULL, "# joinphase III\n");
-  joinphase(aGame);
-  plog(LFULL, "# fleetphase II\n");
-  fleetphase(aGame);
-  if (!checkIntegrity(aGame))
-    return FALSE;
-  preComputeGroupData(aGame);
-  sortphase(aGame);
-
-  if (!(aGame->gameOptions.gameOptions & GAME_NODROP))
-    removeDeadPlayer(aGame);
-  nationStatus(aGame);
-
-  return TRUE;
+	plog(LPART, "Reading orders from file %s\n", ordersFileName);
+	
+	ordersFile = Fopen(ordersFileName, "r");
+	
+	getLine(ordersFile);
+	for (; !feof(ordersFile);) {
+		if (noCaseStrncmp("#GALAXY", lineBuffer, 7) == 0) {
+			player         *aPlayer;
+			
+			getstr(lineBuffer);
+			oGameName = strdup(getstr(NULL));
+			nationName = strdup(getstr(NULL));
+			password = strdup(getstr(NULL));
+			if (noCaseStrcmp(oGameName, aGame->name) == 0) {
+				aPlayer = findElement(player, aGame->players, nationName);
+				
+				if (aPlayer) {
+					aPlayer->lastorders = aGame->turn + 1;
+					if (noCaseStrcmp(aPlayer->pswd, password) == 0) {
+						aPlayer->orders = NULL;
+						getLine(ordersFile);
+						for (; !feof(ordersFile) &&
+								 noCaseStrncmp("#GALAXY", lineBuffer, 7) &&
+								 noCaseStrncmp("#END", lineBuffer, 4);) {
+							strlist        *s;
+							
+							if ((s = makestrlist(lineBuffer)) != NULL)
+								addList(&(aPlayer->orders), s);
+							getLine(ordersFile);
+						}
+					}
+					else {
+						plog(LPART, "Password Incorrect.\n");
+					}
+				}
+				else {
+					plog(LPART, "Unrecognized player %s.\n", nationName);
+				}
+			}
+			else {
+				plog(LPART, "Orders are not for game %s.\n", aGame->name);
+			}
+			free(oGameName);
+			free(nationName);
+			free(password);
+		}
+		getLine(ordersFile);
+	}
+	fclose(ordersFile);
+	
+	(aGame->turn)++;
+	
+	if (!checkIntegrity(aGame))
+		return FALSE;
+	
+	plog(LPART, "Orders read, processing...\n");
+	plog(LFULL, "# Phase 1 Orders\n");
+	for (P = aGame->players; P; P = P->next) {
+		doOrders(aGame, P, phase1orders, 1);
+	}
+	
+	if (!checkIntegrity(aGame))
+		return FALSE;
+	
+	plog(LFULL, "# Phase 2 Orders\n");
+	for (P = aGame->players; P; P = P->next) {
+		doOrders(aGame, P, phase2orders, 2);
+	}
+	
+	if (!checkIntegrity(aGame))
+		return FALSE;
+	
+	plog(LFULL, "# Phase 3 Orders\n");
+	for (P = aGame->players; P; P = P->next) {
+		doOrders(aGame, P, phase3orders, 3);
+	}
+	
+	if (!checkIntegrity(aGame))
+		return FALSE;
+	
+	plog(LFULL, "# joinphase I\n");
+	joinphase(aGame);
+	preComputeGroupData(aGame);
+	plog(LFULL, "# fightphase I\n");
+	fightphase(aGame, GF_INBATTLE1);
+	plog(LFULL, "# bombphase I\n");
+	bombphase(aGame);
+	plog(LFULL, "# loadphase\n");
+	loadphase(aGame);
+	plog(LFULL, "# fleetphase I \n");
+	fleetphase(aGame);
+	if (!checkIntegrity(aGame))
+		return FALSE;
+	plog(LFULL, "# interceptphase\n");
+	interceptphase(aGame);
+	plog(LFULL, "# movephase\n");
+	movephase(aGame);
+	plog(LFULL, "# joinphase II\n");
+	joinphase(aGame);
+	preComputeGroupData(aGame);
+	plog(LFULL, "# fightphase II\n");
+	fightphase(aGame, GF_INBATTLE2);
+	plog(LFULL, "# bombphase II\n");
+	bombphase(aGame);
+	plog(LFULL, "# producephase\n");
+	producephase(aGame);
+	plog(LFULL, "# unloadphase\n");
+	unloadphase(aGame);
+	plog(LFULL, "# joinphase III\n");
+	joinphase(aGame);
+	plog(LFULL, "# fleetphase II\n");
+	fleetphase(aGame);
+	if (!checkIntegrity(aGame))
+		return FALSE;
+	preComputeGroupData(aGame);
+	sortphase(aGame);
+	
+	if (!(aGame->gameOptions.gameOptions & GAME_NODROP))
+		removeDeadPlayer(aGame);
+	nationStatus(aGame);
+	
+	return TRUE;
 }
 
 /****************/
@@ -1873,9 +1897,6 @@ checkOrders(game *aGame, char *nationName, FILE * forecast, int kind)
 	checkIntegrity(aGame);
 	
 	if (orders_done == 0) {
-		fprintf(stderr, "processing orders, %s:%d\n", nationName, kind);
-		orders_done = 1;
-		
 		doOrders(aGame, aPlayer, phase1orders, 1);
 		doOrders(aGame, aPlayer, phase2orders, 2);
 
@@ -1924,6 +1945,12 @@ checkOrders(game *aGame, char *nationName, FILE * forecast, int kind)
 			reportFleets(aPlayer, &fields);
 		}
 	}
+
+	if (orders_done == 0) {
+		orders_done = 1;
+		doOrders(aGame, aPlayer, phase3orders, 3);
+	}
+
 	(aGame->turn)--;
 }
 
