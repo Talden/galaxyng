@@ -34,6 +34,7 @@
 					<li><a href="#command">Command Summary</a></li>
 					<li><a href="#ex">Example Files</a></li>
 					<li><a href="#host">Hosting Team Games</a></li>
+					<li><a href="#trouble">Troubleshooting</a></li>
 				</ul>
  				
  			<hr />
@@ -412,6 +413,15 @@ t0   t1   t0   t1
 
 t1   t0   t1</pre>
 				<p>You can find out how this is done in createCheckeredLayout()...  it is currently setup for a 7 by 7 grid and the removed of the corner players and 4 players in the middle...</p>
+
+			<hr />
+			
+			<h2 id="trouble">Troubleshooting</h2>
+				<p>The GalaxyNG server defaults to brief logging.  To change the logging level, issue one of the following commands prior to running the server, or add it to your <tt>.bash_profile</tt>:</p>
+<pre>declare -x GNG_LOG_LEVEL=full
+declare -x GNG_LOG_LEVEL=part
+declare -x GNG_LOG_LEVEL=brief
+declare -x GNG_LOG_LEVEL=none</pre>
 
 		<?php include 'footer.php'; ?>
  	</body>
