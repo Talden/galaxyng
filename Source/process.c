@@ -2310,8 +2310,10 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
     gameName = strdup( getstr( NULL ) );
     *raceName = strdup( getstr( NULL ) );
     *password = strdup( getstr( NULL ) );
-    if ((ptr = getstr(NULL)) != NULL)
-      *final_orders = strdup(ptr);
+    if ((ptr = getstr(NULL)) != NULL) {
+      if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+	*final_orders = strdup(ptr);
+    }
     
     if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
       player *aPlayer;
