@@ -1,8 +1,0 @@
-#
-# Let players join for a new game called Jangi with a limit of 25 players.
-#
-
-:0: jangi.lock
-* ^Subject.*Join Jangi
-|/usr/bin/formail -rbt -s /home/gumpu/NewGames/are Jangi 25 | /usr/sbin/sendmail -t 
-
