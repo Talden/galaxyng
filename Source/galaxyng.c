@@ -110,6 +110,7 @@ int CMD_battletest( int argc, char **argv );
 #if defined(DRAW_INFLUENCE_MAP)
 int CMD_influence( int argc, char **argv );
 #endif
+int CMD_ordersdue(int argc, char** argv);
 int checkTime( game *aGame );
 int relayMessage( game *aGame, char *nationName, player *to );
 
@@ -227,6 +228,9 @@ main( int argc, char **argv )
         result = CMD_influence( argc, argv );
     }
 #endif
+	else if ( strstr( argv[1], "due" ) ) {
+		result = CMD_ordersdue( argc, argv);
+	}
     else if ( strstr( argv[1], "map" ) ) {
         result = CMD_dump( argc, argv, CMD_DUMP_MAP );
     } else if ( strstr( argv[1], "hall" ) ) {
@@ -1933,4 +1937,71 @@ CMD_battletest( int argc, char **argv )
     return 0;
 }
 
+int
+CMD_ordersdue(int argc, char** argv)
+{
+    game* aGame;
+	player* aplayer;
+	envelope* env;
+	char* orders_dir;
+	char* orders_file;
+    int result;
+	int bcc_count = 0;
+	
+    result = EXIT_FAILURE;
 
+	if (argc < 3) {
+		usage();
+	}
+	else if ((aGame = loadgame(argv[2], LG_CURRENT_TURN)) != NULL) {
+		loadConfig( aGame );
+		orders_dir = createString("%s/orders/%s/", galaxynghome, aGame->name);
+		for (aplayer = aGame->players; aplayer; aplayer = aplayer->next) {
+			if (aplayer->flags & F_DEAD)
+				continue;
+			
+			orders_file = createString("%s/%s.%d", orders_dir,
+									   aplayer->name, aGame->turn+1);
+			if (access(orders_file, R_OK) == -1) {
+				if (bcc_count == 0) {
+					env = createEnvelope();
+					env->to = strdup(aGame->serverOptions.GMemail);
+					env->from = strdup(aGame->serverOptions.GMemail);
+					env->subject = createString("Turn %d of %s is about to run",
+												aGame->turn+1, argv[2]);
+					env->bcc = (char*)malloc(sizeof(char)*4096);
+					strcpy(env->bcc, aplayer->addr);
+				}
+				else {
+					strcat(env->bcc, ", ");
+					strcat(env->bcc, aplayer->addr);
+				}
+				bcc_count++;
+			}
+			free(orders_file);
+		}
+		free(orders_dir);
+	}
+	else {
+		fprintf(stderr, "Cannot open game %s\n", argv[2]);
+	}
+
+	if (bcc_count) {			/* need to send out email */
+		FILE* mof_fp;
+		char* missing_orders_file;
+
+		missing_orders_file = createString("%s/data/%s/missing_orders.%d",
+										   galaxynghome, aGame->name,
+										   aGame->turn+1);
+		mof_fp = fopen(missing_orders_file, "w");
+		fprintf(mof_fp, "Turn %d for %s is less than 24 hours away and you\n"
+				"have not yet submitted orders. Please send them now.\n",
+				aGame->turn+1, aGame->name);
+		fclose(mof_fp);
+		result |= eMail(aGame, env, missing_orders_file);
+		free(missing_orders_file);
+		destroyEnvelope(env);
+	}
+	
+	return result;
+}
