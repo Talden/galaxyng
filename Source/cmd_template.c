@@ -132,7 +132,7 @@ int CMD_template( int argc, char **argv ) {
 				"; If keepproduction is set, the production points spent\n"
 				"; on the previous product are preserved, otherwise all points\n"
 				"; are lost\n\n"
-				"; Uncomment if you want this option.\n\n;KeepProduction\n\n");\
+				"; Uncomment if you want this option.\n\n; KeepProduction\n\n");\
 		
 		fprintf(glxfile,
 				"; Don't kill off players:\n"
