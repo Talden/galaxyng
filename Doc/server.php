@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<h1>GalaxyNG Server Manual</h1>
+		<h1><a href="/"><img src="galaxyngsmall.png"></a><br>Server Manual</h1>
 
 			<hr />
 

@@ -14,7 +14,7 @@
 
 	<body>
 	
-		<h1>Why <a href="/">GalaxyNG</a>?</h1>
+		<h1><a href="/"><img src="galaxyngsmall.png"></a><br>Why GalaxyNG?</h1>
 
 			<hr />
 			

@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<h1><a href="/">GalaxyNG</a> Variants</h1>
+		<h1><a href="/"><img src="galaxyngsmall.png"></a><br>Variants</h1>
 			<p>Updates or corrections?  Contact <a href="http://sourceforge.net/users/christhecat/">christhecat</a>.</p>
 		
 			<h2>Galaxy</h2>

@@ -14,7 +14,7 @@
 
 	<body>
 	
-		<h1><a href="/">GalaxyNG</a> Credits</h1>
+		<h1><a href="/"><img src="galaxyngsmall.png"></a><br>Credits</h1>
 
 			<hr />
 		

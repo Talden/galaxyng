@@ -14,7 +14,7 @@
 
 	<body>
 	
-		<h1><a href="/">GalaxyNG</a> Sample Turn Reports</h1>
+		<h1><a href="/"><img src="galaxyngsmall.png"></a><br>Sample Turn Reports</h1>
 
 			<hr />
 			

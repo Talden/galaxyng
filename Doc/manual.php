@@ -13,7 +13,7 @@
 	</head>
 
 	<body>
-		<h1><a href="index.php">GalaxyNG</a> Players' Manual</h1>
+		<h1><a href="/"><img src="galaxyngsmall.png"></a><br>Players' Manual</h1>
 
 			<hr />
 
