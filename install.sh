@@ -249,8 +249,8 @@ if { test -e $NG; } then {
   echo "  copy it to "i $NG;
 }
 fi
-strip $NG
 cp Source/galaxyng $NG
-
+strip $NG
+cp Source/cranberr.ttf $GALAXY_HOME
 echo "Installation completed."
 
