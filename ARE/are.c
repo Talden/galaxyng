@@ -74,8 +74,6 @@
  *   the subject:
  *
  *      "Join Jangi"
- * BUGS
- *   Should be configured by the install script.
  *******
  */
 
@@ -432,13 +430,13 @@ void playerMessage(char *gameName, char *address, char *planets)
   "might have put in your mail.\n"
   "\n"
   "For more information about GalaxyNG, have a look at\n"
-  "   http://galaxy.pbem.net/index2.html\n"
+  "  http://galaxyng.sourceforge.net/\n"
   "Now is a good time to read the manual:\n"
-  "   http://galaxy.pbem.net/NonM4/ManGalaxyNG.html\n"
+  "  http://galaxyng.sourceforge.net/manual.php\n"
   "and the FAQ: \n"
-"   http://galaxy.pbem.net/NonM4/FAQ.html\n\n"
-  "If you then still have questions send an email to\n"
-  " fslothouber@acm.org\n"
+"   http://galaxyng.sourceforge.net/faq.php\n\n"
+  "If you then still have questions, join the Galaxy mailing list:\n"
+  "  \n"
   "\n"
   "Happy Hunting in Galaxy %s!\n\n",
   gameName);
