@@ -398,8 +398,8 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 				</ol>
 				<p>A number of things follow from this:</p>
 				<ul>
-					<li>COL, CAP and MAT transported to a planet does not effect the planet's production until the following turn.</li>
-					<li>A cargo ship can be loaded, sent to another planet and unloaded in a single turn (using the <a href="#ordo">AutoUnload</a> or using <a href="#ordr">routes</a>.</li>
+					<li>COL, CAP and MAT transported to a planet do not effect the planet's production until the following turn.</li>
+					<li>A cargo ship can be loaded, sent to another planet and unloaded in a single turn.</li>
 					<li>One ship can bomb two planets in the same turn (though this is rare).</li>
 				</ul>
 
