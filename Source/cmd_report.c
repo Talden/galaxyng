@@ -49,7 +49,7 @@ int CMD_report( int argc, char **argv ) {
             aGame = NULL;
             resNumber =
                 areValidOrders( stdin, &aGame, &raceName, &password,
-                                &final_orders, theTurnNumber );
+                                &final_orders, &theTurnNumber );
             if ( ( resNumber == RES_TURNRAN ) ||
                  ( ( resNumber == RES_OK ) &&
 				   ( theTurnNumber == LG_CURRENT_TURN ) ) ) {

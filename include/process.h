@@ -52,6 +52,7 @@ struct _orderinfo {
 #define RES_TURNRAN       6
 #define RES_DESTINATION   7
 #define RES_NODESTINATION 8
+#define RES_NO_TURN_NBR   9
 
 /**********/
 
@@ -116,7 +117,7 @@ int
                 areValidOrders(FILE * ordersFile,
                                game **aGame,
                                char **raceName, char **password,
-                               char** final_orders, int theTurnNumber);
+                               char** final_orders, int* theTurnNumber);
 
 void
                 preComputeGroupData(game *aGame);

@@ -2306,82 +2306,89 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
 
 int
 areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
-		char **password, char** final_orders, int theTurnNumber )
+		char **password, char** final_orders, int* theTurnNumber )
 {
-  int   resNumber;
-  int   foundOrders;
-  char* gameName;
-  char* isRead;
-  
-  gameName = NULL;
-  
-  foundOrders = FALSE;
-  for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
-	isRead;
-	isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
-    if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
-      foundOrders = TRUE;
-      break;
-    }
-  }
-  
-  if ( foundOrders ) {
-    char* ptr;
-    getstr( lineBuffer );
-    gameName = strdup( getstr( NULL ) );
-    *raceName = strdup( getstr( NULL ) );
-    *password = strdup( getstr( NULL ) );
-    if ((ptr = getstr(NULL)) != NULL) {
-      if (noCaseStrcmp(ptr, "FinalOrders") == 0)
-	*final_orders = strdup(ptr);
-    }
-    
-    if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
-      player *aPlayer;
-      
-      loadNGConfig( *aGame );
-      
-      if (noCaseStrcmp("GM", *raceName) == 0) {
-	if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
-	  resNumber = RES_OK;
-	}
-      }
-      else {
-	aPlayer = findElement( player, ( *aGame )->players,
-			       *raceName );
+	int   resNumber;
+	int   foundOrders;
+	char* gameName;
+	char* isRead;
 	
-	if ( aPlayer ) {
-	  if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
-	    if ( ( theTurnNumber >= ( *aGame )->turn + 1 ) ||
-		 ( theTurnNumber eq LG_CURRENT_TURN ) ) {
-	      resNumber = RES_OK;
-	    } else {
-	      resNumber = RES_TURNRAN;
-	    }
-	  } else {
-	    resNumber = RES_PASSWORD;
-	  }
-	} else {
-	  resNumber = RES_PLAYER;
+	gameName = NULL;
+	
+	foundOrders = FALSE;
+	for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
+		  isRead;
+		  isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
+		if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
+			foundOrders = TRUE;
+			break;
+		}
 	}
-      }
-    } else {
-      resNumber = RES_NO_GAME;
-    }
-  } else {
-    resNumber = RES_NO_ORDERS;
-  }
-  
-  if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
-    *aGame = allocStruct( game );
+	
+	if ( foundOrders ) {
+		char* ptr;
+		getstr( lineBuffer );
+		gameName = strdup( getstr( NULL ) );
+		*raceName = strdup( getstr( NULL ) );
+		*password = strdup( getstr( NULL ) );
+		if ((ptr = getstr(NULL)) != NULL) {
+			*theTurnNumber = atoi(ptr);
+			if (*theTurnNumber == 0) {
+				return RES_NO_TURN_NBR;
+			}
+		}
+		
+		if ((ptr = getstr(NULL)) != NULL) {
+			if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+				*final_orders = strdup(ptr);
+		}
     
-    setName( *aGame, "UnknownGame" );
-    loadNGConfig( *aGame );
-    if ( gameName )
-      setName( *aGame, gameName );
-  }
-  
-  return resNumber;
+		if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
+			player *aPlayer;
+      
+			loadNGConfig( *aGame );
+      
+			if (noCaseStrcmp("GM", *raceName) == 0) {
+				if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
+					resNumber = RES_OK;
+				}
+			}
+			else {
+				aPlayer = findElement( player, ( *aGame )->players,
+									   *raceName );
+	
+				if ( aPlayer ) {
+					if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
+						if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
+							 ( *theTurnNumber eq LG_CURRENT_TURN ) ) {
+							resNumber = RES_OK;
+						} else {
+							resNumber = RES_TURNRAN;
+						}
+					} else {
+						resNumber = RES_PASSWORD;
+					}
+				} else {
+					resNumber = RES_PLAYER;
+				}
+			}
+		} else {
+			resNumber = RES_NO_GAME;
+		}
+	} else {
+		resNumber = RES_NO_ORDERS;
+	}
+	
+	if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
+		*aGame = allocStruct( game );
+		
+		setName( *aGame, "UnknownGame" );
+		loadNGConfig( *aGame );
+		if ( gameName )
+			setName( *aGame, gameName );
+	}
+	
+	return resNumber;
 }
 
 /*********/
@@ -2738,53 +2745,63 @@ preComputeGroupData( game *aGame )
  * SOURCE
  */
 
-void
-generateErrorMessage( int resNumber, game *aGame,
-                      char *raceName, int theTurnNumber, FILE *forecast )
-{
+void generateErrorMessage( int resNumber, game *aGame,
+						   char *raceName, int theTurnNumber,
+						   FILE *forecast ) {
     switch ( resNumber ) {
-    case RES_NO_ORDERS:
-        fprintf( forecast,
-                 "O wise leader your mail did not contain any orders.\n"
-                 "Remember orders start with,\n"
-                 " #GALAXY <Galaxy Name> <Race Name> <Password>\n"
-                 "and end with,\n #END\n" );
-        break;
-    case RES_ERR_GALAXY:
-        fprintf( forecast,
-                 "O wise leader you must supply your race name and galaxy name.\n"
-                 "Remember orders start with,\n"
-                 " #GALAXY <Galaxy Name> <Race Name> <Password>\n"
-                 "and end with,\n #END\n" );
-        break;
-    case RES_NO_GAME:
-        fprintf( forecast,
-                 "O wise leader there is no galaxy called %s.\n"
-                 "This probably means that you mispelled the galaxy name "
-                 "in your orders\n", aGame->name );
-        break;
-    case RES_PASSWORD:
-        fprintf( forecast,
-                 "O wise leader the password you gave is incorrect.\n" );
-        break;
-    case RES_PLAYER:
-        fprintf( forecast,
-                 "O wise leader there is no race called %s.\n"
-                 "This probably means that you mispelled your race name.\n",
-                 raceName );
-        break;
-    case RES_TURNRAN:
-        fprintf( forecast,
-                 "O wise leader you sent in orders for turn %d, that turn already ran.\n",
-                 theTurnNumber );
-        break;
-    case RES_DESTINATION:
-        fprintf( forecast,
-                 "O wise leader the recipient of the message you sent does not exist.\n" );
-        break;
-    case RES_NODESTINATION:
-        fprintf( forecast,
-                 "O wise leader you failed to give a destination for your message.\n" );
+		case RES_NO_ORDERS:
+			fprintf(forecast, "O Wise Leader, your mail did not contain any "
+					"orders.\nRemember orders start with\n\n"
+					 "#GALAXY GameName RaceName Password TurnNumber "
+					 "[FinalOrders]\n\nand end with\n\n#END\n" );
+			break;
+
+		case RES_ERR_GALAXY:
+			fprintf(forecast, "O Wise Leader, you must supply your race name "
+					 "and galaxy name.\n Remember orders start with,\n\n"
+					 "#GALAXY GameName RaceName Password TurnNumber "
+					 "[FinalOrders]\n\nand end with\n\n#END\n");
+			break;
+
+		case RES_NO_GAME:
+			fprintf(forecast, "O Wise Leader, there is no galaxy called %s.\n"
+					 "This probably means that you mispelled the galaxy name "
+					 "in your orders\n", aGame->name );
+			break;
+			
+		case RES_PASSWORD:
+			fprintf(forecast, "O Wise Leader, the password you gave is "
+					 "incorrect.\n" );
+			break;
+			
+		case RES_PLAYER:
+			fprintf(forecast, "O Wise Leader there is no race called %s.\n"
+					 "This probably means that you mispelled your "
+					 "race name.\n", raceName );
+			break;
+			
+		case RES_TURNRAN:
+			fprintf(forecast, "O Wise Leader, you sent in orders for turn %d, "
+					"that turn already ran.\n", theTurnNumber );
+			break;
+			
+		case RES_DESTINATION:
+			fprintf(forecast, "O Wise Leader, the recipient of the message "
+					"you sent does not exist.\n" );
+			break;
+			
+		case RES_NODESTINATION:
+			fprintf(forecast, "O Wise Leader, you failed to give a "
+					"destination for your message.\n" );
+			break;
+
+		case RES_NO_TURN_NBR:
+			fprintf(forecast, "O Wise Leader, you didn't specify a turn "
+					"number.\nRemember that orders start with\n\n"
+					 "#GALAXY GameName RaceName Password TurnNumber "
+					 "[FinalOrders]\n\n"
+					 "and end with\n\n#END\n");
+			break;
     }
     fprintf( forecast,
              "\nYour orders have been discarded!\n"

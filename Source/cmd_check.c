@@ -264,13 +264,12 @@ int CMD_check( int argc, char **argv, int kind ) {
 	if ( argc >= 2 ) {
 		anEnvelope = createEnvelope(  );
 		returnAddress = getReturnAddress( stdin );
-		theTurnNumber = getTurnNumber( stdin );
 		raceName = NULL;
 		password = NULL;
 		final_orders = NULL;
 		aGame = NULL;
 		resNumber = areValidOrders( stdin, &aGame, &raceName,
-									&password, &final_orders, theTurnNumber );
+									&password, &final_orders, &theTurnNumber );
 		plog( LBRIEF, "game %s\n", aGame->name );
 		
 		setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );

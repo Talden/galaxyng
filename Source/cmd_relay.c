@@ -48,7 +48,7 @@ int CMD_relay( int argc, char **argv ) {
 			aGame = NULL;
 			resNumber = areValidOrders( stdin, &aGame, &raceName,
 										&password, &final_orders,
-										theTurnNumber );
+										&theTurnNumber );
 			
 			fprintf(confirm, "Relay for game \"%s\"\n", aGame->name);
 			
