@@ -61,7 +61,7 @@ GNG_SRCS=galaxyng.c loadgame.c savegame.c create.c phase.c battle.c \
 	cmd_check.c cmd_relay.c cmd_relaymessage.c cmd_create.c cmd_mail0.c \
 	cmd_clean.c cmd_report.c cmd_score.c cmd_graph.c cmd_dump.c \
 	cmd_test.c cmd_selftest.c cmd_battletest.c cmd_ordersdue.c \
-	$(ADDTL_SOURCES)
+	cmd_webcheck.c $(ADDTL_SOURCES)
 
 GNG_OBJS=$(GNG_SRCS:.c=.o)
 
