@@ -2552,14 +2552,15 @@ removeDeadPlayer( game *aGame )
     player *P;
     player *P3;
     int allowedOrderGap;
-
+	int nbrPlanets;
+	
     pdebug( DFULL, "removeDeadPlayer\n" );
     allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
     for ( P = aGame->players; P; P = P3 ) {
         P3 = P->next;
         if ( P->addr[0] ) {
             int idleTurns;
-
+			
             idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
                 allowedOrderGap + 1;
             plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
@@ -2576,8 +2577,79 @@ removeDeadPlayer( game *aGame )
 *** WARNING: If you do not send orders for this next turn then you will\n\
 *** forfeit your position in the game!  Please send orders next turn if you\n\
 *** wish to continue playing." ) );
-                } else if ( ( idleTurns > allowedOrderGap ) &&
-                            ( ( P->flags & F_DEAD ) == 0 ) ) {
+                } else if ( idleTurns > allowedOrderGap ) {
+                    planet *p;
+
+                    P->flags |= F_DEAD;
+
+/*                    if ( aGame->turn < ENDPHASE1TURN ) {*/
+                        P->groups = NULL;
+                        for ( p = aGame->planets; p; p = p->next ) {
+							nbrPlanets = 0;
+                            if ( p->owner eq P ) {
+								nbrPlanets++;
+                                plog( LPART, "Resetting planet %s\n",
+                                      p->name );
+                                p->col = 0;
+                                p->producing = PR_CAP;
+                                p->producingshiptype = 0;
+                                p->inprogress = 0;
+                                memset( p->routes, 0, sizeof( p->routes ) );
+                                p->pop = 0;
+                                p->ind = 0;
+                                p->cap = 0;
+                                p->mat = 0;
+                                p->owner = NULL;
+                            }
+                        }
+						if (nbrPlanets) {
+							plog( LPART, "Discontinuing reports for %s\n",
+								  P->name );
+							sprintf( lineBuffer,
+									 "\n-*-*-*-\n%s had an unfortunate accident and was "
+									 "obliterated.\n-*-*-*-\n", P->name );
+							addList( &( aGame->messages ),
+									 makestrlist( lineBuffer ) );
+						}
+/*                    }*/
+                }
+            }
+        }
+    }
+}
+
+
+void
+cleanDeadPlayers( game *aGame )
+{
+    player *P;
+    player *P3;
+    int allowedOrderGap;
+	
+    pdebug( DFULL, "removeDeadPlayer\n" );
+    allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
+    for ( P = aGame->players; P; P = P3 ) {
+        P3 = P->next;
+        if ( P->addr[0] ) {
+            int idleTurns;
+			
+            idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
+                allowedOrderGap + 1;
+            plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
+            if ( idleTurns != 0 ) {
+                if ( idleTurns < allowedOrderGap ) {
+                    int gap = allowedOrderGap - idleTurns;
+                    sprintf( lineBuffer, "\n\
+*** NOTE: You didn't send orders this turn.  You have %d more turn%s to\n\
+*** remain idle before you forfeit your position.", gap, &"s"[gap == 1] );
+
+                    addList( &P->messages, makestrlist( lineBuffer ) );
+                } else if ( idleTurns == allowedOrderGap ) {
+                    addList( &P->messages, makestrlist( "\n\
+*** WARNING: If you do not send orders for this next turn then you will\n\
+*** forfeit your position in the game!  Please send orders next turn if you\n\
+*** wish to continue playing." ) );
+                } else if (idleTurns > allowedOrderGap) {
                     planet *p;
 
                     plog( LPART, "Discontinuing reports for %s\n", P->name );
