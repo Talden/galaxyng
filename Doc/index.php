@@ -37,11 +37,12 @@
 							<li><a href="http://galaxy.gesserit.net/register.php#Standard">Standard</a></li>
 						</ul>
 					</li>
-					<li><a href="http://www.refs-home.net/galaxyng/">REF's GalaxyNG Site</a></li>
+					<li><a href="http://www.refs-home.net/galaxyng/">REF's GalaxyNG Site</a>
 						<ul>							
 							<li><a href="http://www.refs-home.net/galaxyng/index.php?action=games">MiniMe1</a></li>							
 							<li><a href="http://www.refs-home.net/galaxyng/index.php?action=games">REFHordes3</a></li>							
 							<li><a href="http://www.refs-home.net/galaxyng/index.php?action=games">REFVillage6</a></li>
+					</li>
 						</ul>
 					<!--<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a> (closing soon)</li>-->
 				</ul>
