@@ -2578,73 +2578,77 @@ doOrders( game *aGame, player *aPlayer, orderinfo *orderInfo, int phase )
 void
 removeDeadPlayer( game *aGame )
 {
-    player *P;
-    player *P3;
-    int allowedOrderGap;
-	int nbrPlanets;
+  player *P;
+  player *P3;
+  int allowedOrderGap;
+  int nbrPlanets;
 	
-    pdebug( DFULL, "removeDeadPlayer\n" );
-    allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
-    for ( P = aGame->players; P; P = P3 ) {
-        P3 = P->next;
-        if ( P->addr[0] ) {
-            int idleTurns;
-			
-            idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
-                allowedOrderGap + 1;
-            plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
-            if ( idleTurns != 0 ) {
-                if ( idleTurns < allowedOrderGap ) {
-                    int gap = allowedOrderGap - idleTurns;
-                    sprintf( lineBuffer, "\n\
+  pdebug( DFULL, "removeDeadPlayer\n" );
+  allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
+  for ( P = aGame->players; P; P = P3 ) {
+    P3 = P->next;
+    if ( P->addr[0] ) {
+      int idleTurns;
+      
+      idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
+	allowedOrderGap + 1;
+      plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
+      if ( idleTurns != 0 ) {
+	if ( idleTurns < allowedOrderGap ) {
+	  int gap = allowedOrderGap - idleTurns;
+	  sprintf( lineBuffer, "\n\
 *** NOTE: You didn't send orders this turn.  You have %d more turn%s to\n\
 *** remain idle before you forfeit your position.", gap, &"s"[gap == 1] );
-
-                    addList( &P->messages, makestrlist( lineBuffer ) );
-                } else if ( idleTurns == allowedOrderGap ) {
-                    addList( &P->messages, makestrlist( "\n\
-*** WARNING: If you do not send orders for this next turn then you will\n\
-*** forfeit your position in the game!  Please send orders next turn if you\n\
+	  
+	  addList( &P->messages, makestrlist( lineBuffer ) );
+	} else if ( idleTurns == allowedOrderGap ) {
+	  addList( &P->messages, makestrlist( "\n\
+*** WARNING: If you do not send orders for this next turn then you will\n \
+*** forfeit your position in the game!  Please send orders next turn if you\n \
 *** wish to continue playing." ) );
-                } else if ( idleTurns > allowedOrderGap ) {
-                    planet *p;
+	} else if ( idleTurns > allowedOrderGap ) {
+	  planet *p;
+	  group  *g;
 
-                    P->flags |= F_DEAD;
-
-/*                    if ( aGame->turn < ENDPHASE1TURN ) {*/
-                        P->groups = NULL;
-						nbrPlanets = 0;
-                        for ( p = aGame->planets; p; p = p->next ) {
-                            if ( p->owner eq P ) {
-								nbrPlanets++;
-                                plog( LPART, "Resetting planet %s\n",
-                                      p->name );
-                                p->col = 0;
-                                p->producing = PR_CAP;
-                                p->producingshiptype = 0;
-                                p->inprogress = 0;
-                                memset( p->routes, 0, sizeof( p->routes ) );
-                                p->pop = 0;
-                                p->ind = 0;
-                                p->cap = 0;
-                                p->mat = 0;
-                                p->owner = NULL;
-                            }
-                        }
-						if (nbrPlanets) {
-							plog( LPART, "Discontinuing reports for %s\n",
-								  P->name );
-							sprintf( lineBuffer,
-									 "\n-*-*-*-\n%s had an unfortunate accident and was "
-									 "obliterated.\n-*-*-*-\n", P->name );
-							addList( &( aGame->messages ),
-									 makestrlist( lineBuffer ) );
-						}
-/*                    }*/
-                }
-            }
-        }
+	  P->flags |= F_DEAD;
+	  
+	  /* fix for bug 991269 */
+	  for (g = P->groups; g; g = g->next) {
+	    remList(&P->groups, g);
+	  }
+	  P->groups = NULL;
+	  nbrPlanets = 0;
+	  for ( p = aGame->planets; p; p = p->next ) {
+	    if ( p->owner == P ) {
+	      nbrPlanets++;
+	      plog( LPART, "Resetting planet %s\n",
+		    p->name );
+	      p->col = 0;
+	      p->producing = PR_CAP;
+	      p->producingshiptype = 0;
+	      p->inprogress = 0;
+	      memset( p->routes, 0, sizeof( p->routes ) );
+	      p->pop = 0;
+	      p->ind = 0;
+	      p->cap = 0;
+	      p->mat = 0;
+	      p->owner = NULL;
+	    }
+	  }
+	  if (nbrPlanets) {
+	    plog( LPART, "Discontinuing reports for %s\n",
+		  P->name );
+	    sprintf( lineBuffer,
+		     "\n-*-*-*-\n%s had an unfortunate accident and was "
+		     "obliterated.\n-*-*-*-\n", P->name );
+	    addList( &( aGame->messages ),
+		     makestrlist( lineBuffer ) );
+	  }
+	  /*                    }*/
+	}
+      }
     }
+  }
 }
 
 
