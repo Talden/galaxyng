@@ -31,7 +31,6 @@
  					<li><a href="#due">Sending Orders Due Messages</a></li>
 					<li><a href="#run">Running Turns</a></li>
 					<li><a href="#command">Command Summary</a></li>
-					<li><a href="#ex">Example Files</a></li>
 					<li><a href="#host">Hosting Team Games</a></li>
 					<li><a href="#trouble">Troubleshooting</a></li>
 				</ul>
@@ -388,17 +387,6 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 						<td>Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to the <a href="http://www.refs-home.net/galaxyng/hof/">Hall of Fame maintainer</a>.</td>
 					</tr>
 				</table>
-
-			<hr />
-			
-			<h2 id="ex">Example Files</h2>
-				<ul>
-					<li><a href="house_rules.txt">House Rules</a></li>
-					<li><a href="global.bulletin">Global Bulletin</a> <tt>global.bulletin</tt></li>
-					<li><a href="galaxyngrc">Server Configuration File</a> <tt>.galaxyngrc</tt></li>
-					<li><a href="example.glx">Game Configuration File</a> <tt>&lt;game name&gt;.glx</tt></li>
- 					<li><a href="intro.text">Game Introduction Text</a> <tt>&lt;game name&gt;.0.notice</tt></li>
- 				</ul>
 
 			<hr />
 
