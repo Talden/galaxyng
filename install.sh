@@ -161,7 +161,7 @@ echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
 echo "" >> $PROCRC
 echo "# Store GM reports in a folder called GM." >> $PROCRC
-echo ":0:" >> PROCRC
+echo ":0:" >> $PROCRC
 echo "* ^Subject:.*GM Report" >> $PROCRC
 echo "GM" >> $PROCRC
 echo "# Some IMAP servers prefix mailbox names with a '.'  For example:" >> $PROCRC
