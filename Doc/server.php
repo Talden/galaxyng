@@ -242,6 +242,10 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 <pre>./galaxyng -create Orion.glx</pre>
 				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>OrionLayout.txt</tt>:</p>
 <pre>./galaxyng -create Orion.glx  &gt; OrionLayout.txt</pre>
+				<p>To create the turn 0 hitlist, create a directory for it:</p>
+<pre>mkdir &lt;web directory&gt;/Orion</pre>
+				<p>and then create the hitlist:</p>
+<pre>./galaxyng -score Orion > &lt;web directory&gt;/Orion/hitlist.html</pre>
 
 			<hr />
 
@@ -252,7 +256,6 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>So:</p>
 <pre>./galaxyng -mail0 Orion</pre>
 				<p>for your Orion game.</p>
-
 			<hr />
 
 			<h2 id="process">Processing Orders</h2>
