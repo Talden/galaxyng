@@ -18,8 +18,6 @@ unsigned int    krandom(void);
 void            resetErnie(unsigned long seed);
 int             frand3(int r);
 
-char           *getstr(char *s);
-strlist        *makestrlist(char *ns);
 void            ftrunc3(void);
 FILE           *Fopen(char *filename, char *mode);
 FILE           *GOS_fopen(char *filename, char *mode);
@@ -27,7 +25,6 @@ int             GOS_mkdir(char *filename, int mode);
 int             GOS_delete(char *filename);
 int             GOS_copy(char *fromfile, char *tofile);
 void           *alloc(unsigned int n);
-void            freestrlist(strlist *s);
 double          frand(double x);
 double          frand2(void);
 planet         *addplanet(game *aGame);
@@ -57,17 +54,9 @@ double          effectiveIndustry(double pop, double ind);
 void            dumpGame(void);
 void            dumpPlanets(planet *aPlanet);
 void            dumpPlayers(player *aPlayer);
-void            dumpStrList(strlist *aStrList);
 
 char           *createString(char *format, ...);
 int             ssystem(char *format, ...);
-
-void            pdebug(int level, char *format, ...);
-
-int             openLog(char *name, char *mode);
-void            closeLog(void);
-void            plog(int level, char *format, ...);
-void            plogtime(int level);
 
 void            savefprintf(FILE * f, char *format, ...);
 
@@ -78,9 +67,6 @@ int             isunidentified(player *P, planet *p);
 int             isuninhabited(player *P, planet *p);
 
 
-
-int             noCaseStrcmp(char *s, char *t);
-int             noCaseStrncmp(char *s, char *t, int n);
 
 double          typeSpeed(shiptype *t);
 double          typeDefense(shiptype *t);
