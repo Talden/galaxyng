@@ -70,9 +70,7 @@ After installation you might want to:
 (1) edit and copy the procmailrc file to enable automatic
     checking of orders; Copy it to $(HOME)/.procmailrc,
 (2) edit the games.crontab file to enable automatic 
-    running of games, 
-(3) run strip on the executable to save some diskspace.
-
+    running of games
 
 SUPPORT
 ----------------------------------------
