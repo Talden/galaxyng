@@ -376,6 +376,16 @@ c_order( game *aGame, player *P, strlist **s )
         return;
     }
 
+	if (noCaseStrcmp(ns, "GM") == 0) {
+		mistake(P, ERROR, *s, "GM is a reserved name");
+		return;
+	}
+
+	if (noCaseStrcmp(aGame->name, ns) == 0) {
+		mistake(P, ERROR, *s, "You cannot use game name for a Race name");
+		return;
+	}
+	
     /* someone else already using it? */
     if ( findElement( player, aGame->players, ns ) != NULL )
     {
@@ -2292,7 +2302,7 @@ areValidOrders( FILE *ordersFile,
 
             loadConfig( *aGame );
 
-			if (noCaseStrcmp((*aGame)->serverOptions.GMemail, *raceName) == 0) {
+			if (noCaseStrcmp("GM", *raceName) == 0) {
 				if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
 					resNumber = RES_OK;
 				}
