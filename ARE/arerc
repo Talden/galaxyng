@@ -1,20 +1,57 @@
 <are version="1.0">
-  <email>
-     <from>Registration Engine &lt;server@gesserit.net&gt;</from>
-     <subject type="success">Successfull Enrollment</subject>
-     <subject type="failure">Enrollment Problem</subject>
-     <replyto>server-gm@gesserit.net</replyto>
-     <cc></cc>
-  </email>
+  <!-- the server section contains the default email headers for the
+       games. any individual game can override any/all of these
+       settings -->
+  <server>
+    <from>Registration Engine &lt;server@gesserit.net&gt;</from>
+    <!-- separate subject lines, depending on whether the proposed
+         join worked or not -->
+    <subject type="success">Successfull Enrollment</subject>
+    <subject type="failure">Enrollment Problem</subject>
+    <replyto>server-gm@gesserit.net</replyto>
+    <cc></cc>
+  </server>
+  <!-- there is now a section for each game. These are the initial
+       game design parameters specified by the GM. This will be the
+       basis for generating the .glx for actual game creation. When a
+       player joins the game their info will be added into the
+       appropriate section. -->
   <game name="SmallGame47">
+    <!-- note that all of the envelope information will be inherited
+         from the <server> section except for the From: line -->
     <from>SmallGame47 Registration Engine &lt;server@gesserit.net&gt;</from>
-    <minimum_players>5</minimum_players>
-    <maximum_players>5</maximum_players>
-    <totalplanetsize>500.0</totalplanetsize>
-    <maxplanetsize>200.0</maxplanetsize>
-    <minplanets>3</minplanets>
-    <maxplanets>3</maxplanets>
+    <!-- specifying the min players == the max players means that
+         exactly that number can join -->
+    <minplayers>5</minplayers>
+    <maxplayers>5</maxplayers>
+    <!-- this section specifies the homeworlds for each player. This
+         is the one section the player can override (to some extent.)
+         Aside from naming his planets they can set the size. There
+         are constraints on both number of planets to start with and
+         their sizes. -->
+    <planets type="home">
+      <sizes>
+        <!-- with no <min> supplied, the game default minimum planet
+             size of 100 (for homeworlds) is used -->
+        <total>500.0</total>
+        <max>200.0</max>
+      </sizes>
+      <!-- this section defines how many homeworlds the player can
+           define. If the player defines none, then these are the
+           defaults that will be used. Setting min == max means that
+           exactly that number homeworlds will be created -->
+         <min>3</min>
+         <max>3</max>
+       </sizes>
+    </planets>
+    <!-- note that with nothing else defined there is a lot of default
+         behaviour here. This is unlikely to happen in reality because
+         there will be some sort of "game generation" process which
+         will output defaults when adding the game. -->
   </game>
+  <!-- this is a much fuller game declaration. The intent is to have
+       at least one of everything to test the parser and to act as an
+       example for GMs -->
   <game name="Jangi">
     <from>Jangi Registration Engine &lt;server@gesserit.net&gt;</from>
     <subject type="success">Successful Jangi Registration</subject>
@@ -22,76 +59,203 @@
     <replyto>server-jangi@gesserit.net</replyto>
     <minplayers>15</minplayers>
     <maxplayers>25</maxplayers>
-    <delayhours>0</delayhours>
-    <totalplanetsize>2000.0</totalplanetsize>
-    <maxplanetsize>1000.0</maxplanetsize>
-    <minplanets>3</minplanets>
-    <maxplanets>5</maxplanets>
     <galaxy_size>450.0</galaxy_size>
-    <nation_spacing>30</nation_spacing>
-    <core_sizes planetcount="4">
-      <planet seq="1">1000.0</planet>
-      <planet seq="2">250</planet>
-      <planet seq="3">350</planet>
-      <planet seq="4">400</planet>
-    </core_sizes>
-    <growth_planets>
-      <count>6</count>
+    <nation_spacing>30.0</nation_spacing>
+    <planets type="home">
+      <!-- in a standard game all homeworlds have maximum resources -->
+      <res>
+        <min>10.0</min>
+        <max>10.0</max>
+      </res>
+      <!-- homeworlds are within this radius of the empire center -->
+      <radius>5.0</radius>
+      <!-- these are the parameters a player must stay within when
+           specifying their planets. A GM can exceed these and only
+           get a warning, but a player that exceeds them will get an
+           error and not get registered. It is also an error for a
+           player to not meet the criteria (totals don't add up to the
+           value of the <total> tag) -->
+      <sizes>
+        <min>200.0</min>
+        <max>1000.0</max>
+        <total>2000.0</total>
+      </sizes>
+      <!-- this sets the range of planets that must be
+           specified. Setting min == max sets the required number of 
+           planets. The GM must specify the <max> number of planets to
+           allow for players inheriting values. -->
+      <count>
+        <min>3</min>
+        <max>5</max>
+      </count>
+      <!-- For example, if a player doesn't specify any planets, the
+           GM list is what they will get. Since a player can only
+           specify name and size, the <res> is inherited. The <pop>
+           and <ind> will be set to the size (as is normal for
+           homeworlds) --> 
+      <planet seq="1">
+        <size>750.0</size>
+        <res>10.0</res>
+        <pop>750.0</pop>
+        <ind>750.0</ind>
+        <!-- note that the GM can specify stockpiles for a planet -->
+        <cap>10.0</cap>
+        <col>10.0</col>
+        <mat>10.0</mat>
+      </planet>
+      <planet seq="2">
+        <size>250.0</size>
+        <pop>250.0</pop>
+        <ind>250.0</ind>
+      </planet>
+      <planet seq="3">
+        <size>350.0</size>
+        <pop>350.0</pop>
+        <ind>350.0</ind>
+      </planet>
+      <planet seq="4">
+        <size>400.0</size>
+        <pop>400.0</pop>
+        <ind>400.0</ind>
+      </planet>
+      <planet seq="5">
+        <size>250.0</size>
+        <pop>250.0</pop>
+        <ind>250.0</ind>
+      </planet>
+    </planets>
+    <!-- these are the planets stuck around the empire center to
+         assist in player development. -->
+    <planets type="develop">
+      <count>
+        <min>4</min>
+        <max>8</max>
+      </count>
+      <!-- this is the amount of additional industry is supplied to
+           players through develop planets -->
+      <industry> 
+        <min>50</min>
+        <max>100</max>
+        <total>850</total>
+      </industry>
+      <sizes>
+         <min>200.0</min>
+         <max>1000.0</max>
+         <total>4000.0</total>
+      </sizes>
+      <!-- for development planets, resources can vary -->
+      <res>
+         <min>0.01</min>
+         <max>10.0</max>
+         <avg>1.0</avg>
+      </res>
       <radius>15</radius>
-    </growth_planets>
-    <stuff_planets>8</stuff_planets>
+    </planets>
+    <planets type="stuff">
+      <radius>50</radius>
+      <count>
+        <min>6</min>
+        <max>10</max>
+      </count>
+      <sizes>
+        <min>0.01</min>
+        <max>200.0</max>
+      </sizes>
+      <res>
+        <min>0.01</min>
+        <max>10.0</max>
+        <avg>1.0</avg>
+      </res>
+      <!-- here's an example of an incomplete planet
+           specification. its only purpose is to cache some CAP on a
+           planet for later discovery. -->
+      <planet seq="1">
+        <cap>350.0</cap>
+      </planet>
+    </planets>
+    <!-- asteroids are virtually useless - you can't colonize them,
+         you can't store anything on them, etc. Basically they are
+         just to be used for rally points for attacks. -->
+    <planets type="asteroid">
+      <radius>300</radius>
+      <count>
+        <min>2</min>
+        <max>10</max>
+      </count>
+      <sizes>
+        <min>0</min>
+        <max>0</max>
+      </sizes>
+      <res>
+        <min>0</min>
+        <max>0</max>
+      </res>
+    </planets>
+    <!-- this sets global peace (the engine won't allow anyone to
+         declare war) for the given number of turns -->
     <paxgalactica>20</paxgalactica>
+    <!-- these are the defaults, this section is mainly useful if the
+         GM wants to start everyone out a higher levels -->
     <initial_tech_levels>
       <drive>1</drive>
       <weapons>1</weapons>
       <shields>1</shields>
       <cargo>1</cargo>
     </initial_tech_levels>
+    <!-- game options. the fact that they're here means they're turned
+         on. -->
     <full_bombing />
     <keep_production />
     <dont_drop_dead />
     <save_report_copy />
     <spherical_galaxy />
-    <players count="1" />
-	<player>
-	    <name>ChaccaCor</name>
-	    <realname>Ken Weinert</realname>
-	    <map>
-		<x>40</x>
-		<y>40</y>
-		<size>100</size>
-	    </map>
-	    <password>cantguessme</password>
-	    <planets count="3">
-		<planet>
-		    <name>HomeWorld</name>
-		    <size>1000.0</size>
-		</planet>
-		<planet>
-		    <name>Colony1</name>
-		    <size>600.0</size>
-		</planet>
-		<planet>
-		    <name>Colony2</name>
-		    <size>400.0</size>
-		</planet>
-	    </planets>
-	    <options>
-		<textreport />
-		<xmlreport />
-		<anonymous />
-		<autounload />
-		<battleprotocol />
-		<compress />
-		<gplus />
-		<groupforecast />
-		<machinereport />
-		<planetforecast />
-		<prodtable />
-		<routesforecast />
-		<shiptypeforecast />
-		<sortgroups />
-	    </options>
-	</player>
-    </game>
+    <!-- there will be a player section added when a player
+         successfully joins the game. -->
+    <players>
+      <player seq="1">
+        <name>ChaccaCor</name>
+        <realname>Ken Weinert</realname>
+        <map>
+          <x>40</x>
+          <y>40</y>
+          <size>100</size>
+        </map>
+        <password>cantguessme</password>
+        <!-- the player *must* give information for at least the
+             minimum number of planets the GM specified, but no more
+             than the maximum allowed. In addition the player must
+             specify sizes that add up to the <total> tag the GM
+             specified.  -->
+        <planets type="home">
+          <planet>
+            <name>HomeWorld</name>
+            <size>1000.0</size>
+          </planet>
+          <planet>
+            <name>Colony1</name>
+            <size>600.0</size>
+          </planet>
+          <planet>
+            <name>Colony2</name>
+            <size>400.0</size>
+          </planet>
+        </planets>
+        <!-- player options -->
+        <textreport />
+        <xmlreport />
+        <anonymous />
+        <autounload />
+        <battleprotocol />
+        <compress />
+        <gplus />
+        <groupforecast />
+        <machinereport />
+        <planetforecast />
+        <prodtable />
+        <routesforecast />
+        <shiptypeforecast />
+        <sortgroups />
+      </player>
+    </players>
+  </game>
 </are>
