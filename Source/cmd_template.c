@@ -141,12 +141,13 @@ int CMD_template( int argc, char **argv ) {
 				"; destructs.\n; Uncomment if you want this option.\n\n"
 				"; DontDropDead\n\n");
 		
-		fprintf(glxfile,
-				"; Sometimes, if you have enough disk space, it is nice to get a\n"
-				"; copy of turn reports that are send out to the players.\n"
-				"; If you uncomment the following parameter, a copy of each turn\n"
-				"; report that is send out is stored in reports/<game name>/\n"
-				"; Uncomment if you want this option.\n\n; SaveReportCopy\n\n");
+/*		fprintf(glxfile,
+ *				"; Sometimes, if you have enough disk space, it is nice to get a\n"
+ *				"; copy of turn reports that are send out to the players.\n"
+ *				"; If you uncomment the following parameter, a copy of each turn\n"
+ *				"; report that is send out is stored in reports/<game name>/\n"
+ *				"; Uncomment if you want this option.\n\n; SaveReportCopy\n\n");
+ */
 		
 		fprintf(glxfile,
 				"; The galaxy can be (roughly) mapped on a sphere\n"
