@@ -1234,6 +1234,9 @@ CMD_relay( int argc, char **argv )
 					 aPlayer;
 					 aPlayer = aPlayer->next) {
 
+					if (aPlayer->flags & F_DEAD)
+						continue;
+					
 					if (mode == SINGLE_PLAYER) {
 						aPlayer = findElement( player, aGame->players,
 											   destination );
