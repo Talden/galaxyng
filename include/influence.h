@@ -10,13 +10,13 @@
 #include <avl.h>
 
 enum map_type {
-  FirstMap=0,
-  EffIndMap=0,
-#if 0
-  ShipAttMap,
-  ShipDefMap,
-#endif
-  NbrMaps
+	AllMaps = -1,
+	FirstMap=0,
+	EffIndMap=0,
+	ShipAttMap,
+	ShipDefMap,
+	NoInfluenceMap,
+	NbrMaps
 };
 
 #endif
