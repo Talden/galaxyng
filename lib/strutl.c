@@ -1,6 +1,6 @@
 #include "strutl.h"
 
-/****f* Util/getstr 
+/****f* strutl/getstr 
  *
  * NAME 
  *   getstr -- extract a word from a longer string 
@@ -51,7 +51,6 @@ char *
 getstr( char *s )
 {
     static char *s1;
-    static char *s2;
 
     static char buf[256];
     int i;
@@ -122,7 +121,7 @@ getstr( char *s )
 
 
 
-/****f* Util/makestrlist 
+/****f* strutl/makestrlist 
  * NAME
  *   makestrlist -- create an element for a string list
  * FUNCTION
@@ -169,7 +168,7 @@ makestrlist( char *ns )
 /*********/
 
 
-/****f* Util/freestrlist
+/****f* strutl/freestrlist
  * NAME
  *   freestrlist -- free memory used by a string list.
  * SYNOPSIS
@@ -196,3 +195,66 @@ freestrlist( strlist *s )
         s = s2;
     }
 }
+
+void
+dumpstrlist(strlist *aStrlist)
+{
+    for (; aStrlist; aStrlist = aStrlist->next) { 
+	printf("%s\n", aStrlist->str); 
+    }
+}
+
+/****f* strutl/noCaseStrcmp
+ * NAME
+ *   noCaseStrcmp --
+ * SYNOPSIS
+ *   int noCaseStrcmp(char *s, char *t)
+ * FUNCTION
+ *   Compare two strings without paying no attention to the case of
+ *   the letters.
+ * RESULT
+ *    0  s == t
+ *   -1  s < t
+ *    1  s > t
+ * SOURCE
+ */
+
+int
+noCaseStrcmp(const char *s, const char *t)
+{
+  for (; tolower(*s) == tolower(*t); s++, t++)
+    if (*s == '\0')
+      return 0;
+  return (int) (tolower(*s) - tolower(*t));
+}
+
+/*********/
+
+/****f* strutl/noCaseStrncmp
+ * NAME
+ *   noCaseStrncmp --
+ * SYNOPSIS
+ *   int noCaseStrncmp(char *, char *, int)
+ *   result = noCaseStrncmp(s, t, n)
+ * FUNCTION
+ *   Compare two strings without paying no attention to the case of
+ *   the letters, but compare no more than n characters.
+ * RESULT
+ *    0  s == t
+ *   -1  s < t
+ *    1  s > t
+ * SOURCE
+ */
+
+int
+noCaseStrncmp(const char *s, const char *t, int n)
+{
+  for (n--; (tolower(*s) == tolower(*t)) && (n > 0); s++, t++, n--)
+    if (*s == '\0')
+      return 0;
+  return (int) (tolower(*s) - tolower(*t));
+}
+
+/***********/
+
+
