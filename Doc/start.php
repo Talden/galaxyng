@@ -16,18 +16,17 @@
 		<?php include 'menu.php'; ?>
 			
 			<h2>Join a new game:</h2>
-					<p>To join a new game send an email to the GalaxyNG game server (e.g. <tt>server@somewhere.com</tt>) with the subject "<tt>Join GameName</tt>." You will receive a confirmation email from the server.  To find a game, subscribe to the <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">galaxyng-players mailing list</a> or visit a GalaxyNG server:</p>
+					<p>To join a new game send an email to the GalaxyNG game server (e.g. <tt>server@somewhere.com</tt>) with the subject "<tt>Join GameName</tt>." You will receive a confirmation email from the server.  To find a game, <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">subscribe to GalaxyNG-Players</a> or visit a GalaxyNG server:</p>
 				<ul>
 					<!--<li><a href="http://www.gioco.net/galaxy/">GalaxyNG GIGA Server</a> (Italian)</li>-->
 					<li><a href="http://galaxy.gesserit.net/">Nine Lives GalaxyNG Server</a></li>
 					<li><a href="http://www.refs-home.net/galaxyng/">REF's GalaxyNG Site</a></li>
-					<!--<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a> (closing soon)</li>-->
 				</ul>
 				
 			<hr />
 			
 			<h2>Get a turn viewer:</h2>
-				<p>To display the map and create orders, download a <a href="http://galaxyview.sourceforge.net/tools.html">turn viewer</a>. Galaxyview and MkGal are popular turn viewers.  Download some <a href="turns.php">turn reports and orders</a> so you can experiment with the turn viewer.</p>
+				<p>To display the map and create orders, download a <a href="http://galaxyview.sourceforge.net/tools.html">turn viewer</a>. Galaxyview and MkGal are very popular.  Download some <a href="turns.php">turn reports and orders</a> so you can experiment with the turn viewer.</p>
 			
 			<hr />
 			
@@ -45,13 +44,23 @@
 			
 			<hr />
 			
+			<h2>Ask for help:</h2>
+				<p>Players and GMs alike will be happy to help you.  Ask questions on the <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">GalaxyNG-Players mailing list</a> or send an email to your GM.</p>
+			
+			<hr />
+			
 			<h2>Submit orders for the first turn:</h2>
-					<p>When the game begins, you will receive a Turn 0 report. You <span class="bold">must</span> send your first set of orders prior to Turn 1 deadline, otherwise you will be eliminated from the game. Send an email to the GalaxyNG server with the subject "<tt>orders</tt>." The first line of your orders should be "<tt>#GALAXY <em>GameName</em> <em>RaceName</em> <em>Password</em></tt>" and the last line should be "<tt>#END</tt>."</p>
+					<p>When the game begins, you will receive a Turn 0 report. You <span class="bold">must</span> send your first <a href="http://galaxyng.sourceforge.net/manual.php#orders">set of orders</a> prior to Turn 1 deadline, and continue sending orders on subsequent turns, otherwise you will be <a href="http://galaxyng.sourceforge.net/manual.php#inactive">eliminated from the game</a>. Send an email to the GalaxyNG server with the subject "<tt>orders</tt>." The first line of your orders should be "<tt>#GALAXY <em>GameName</em> <em>RaceName</em> <em>Password</em></tt>" and the last line should be "<tt>#END</tt>."</p>
 					
 				<hr />
 				
 				<h2>Send anonymous email to other races:</h2>
-					<p>Send an email to the GalaxyNG server with the subject "<tt>relay <em>RaceName</em></tt>". The first line of the message should be "<tt>#GALAXY <em>GameName</em> <em>RaceName</em> <em>Password</em></tt>."  The body of your message will be relayed to the other player by the server. Remember to chop end your message with "<tt>#END</tt>" to prevent your opponents from reading your signature. Also, if you send your message in HTML or HTML+text, the other player will get a copy of your email address, racename and password - causing all kinds of havoc! Make sure that your email client <a href="http://www.expita.com/nomime.html">sends plain ASCII text only</a>.</p>
+					<p>Send an email to the GalaxyNG server with the subject "<tt>relay <em>RaceName</em></tt>". The first line of the message should be "<tt>#GALAXY <em>GameName</em> <em>RaceName</em> <em>Password</em></tt>."  The body of your message <a href="http://galaxyng.sourceforge.net/manual.php">will be relayed</a> to the other player by the server. Remember to chop end your message with "<tt>#END</tt>" to prevent your opponents from reading your signature. Also, if you send your message in HTML or HTML+text, the other player will get a copy of your email address, racename and password - causing all kinds of havoc! Make sure that your email client <a href="http://www.expita.com/nomime.html">sends plain ASCII text only</a>.</p>
+					
+				<hr />
+				
+				<h2>Conquer the galaxy:</h2>
+					<p>Hard work and experience will pay off in the end, as you conquer the galaxy and destroy your enemies!</p>
  		
  		<?php include 'footer.php'; ?>
  	</body>
