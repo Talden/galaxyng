@@ -253,7 +253,7 @@ echo "# :0" >> $PROCRC
 echo "# * ^Subject.*Join Jangi" >> $PROCRC
 echo "# {" >> $PROCRC
 echo "  # :0: Jangi.lock" >> $PROCRC
-echo "  # |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 | /usr/sbin/sendmail -t" >> $PROCRC
+echo "  # |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Jangi 25 0 0 0 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "  # An error occured, save the email: " >> $PROCRC
 echo "  # :0 e :Jangi-error" >> $PROCRC
 echo "  # galaxyng-Jangi-error" >> $PROCRC
