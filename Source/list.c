@@ -272,9 +272,9 @@ dumpList(char* label, list* aList)
 {
   list* curElement;
 
-  fprintf(stderr, "*** %s ***\n", label);
+  plog(LBRIEF, "*** %s ***\n", label);
   for (curElement = aList; curElement->next; curElement=curElement->next)
-    fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
+    plog(LBRIEF, "%lX: %s\n", curElement->cookie, curElement->name);
 }
 
 
