@@ -177,12 +177,10 @@ echo "  The tmp directory is: $TEMP"
 #  Fonts for influence mapping
 # =========================================================
 
-if [ -f Source/cranberr.ttf ]; then
-	cp Source/cranberr.ttf $GALAXY_HOME
-fi
 if [ -f Source/angostur.ttf ]; then
-	cp Source/angostur.ttf $GALAXY_HOME
 	cp Source/angostur.ttf $GALAXY_HOME/influence.ttf
+else
+	cp Source/cranberr.ttf $GALAXY_HOME/influence.ttf
 fi
 
 # ========================================================
