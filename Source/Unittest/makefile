@@ -1,6 +1,6 @@
 #****h* GalaxyNG/Unittest
 # FUNCTION
-#   Unittest for WOPR and GalaxyNG
+#   Unittest for GalaxyNG
 #*****
 
 RBT_DIR     = /home/galaxyng/robotester-0.0.3/Source
@@ -18,6 +18,7 @@ CFLAGS = -g -Wall -pedantic -I$(RBT_DIR) -I$(NG_DIR) -DROBOTESTER
 #   We always need these.
 # SOURCE
 #
+
 RBT_SOURCES = $(RBT_DIR)/rbt_assert.c \
               $(RBT_DIR)/robotester.c \
               $(RBT_DIR)/testcase.c \
@@ -33,7 +34,7 @@ RBT_OBJECTS = ${RBT_SOURCES:.c=.o}
 # SOURCE
 #
 
-TEST_SOURCES = create_suites.c test_wopr.c
+TEST_SOURCES = create_suites.c test_ng.c
 TEST_OBJECTS = ${TEST_SOURCES:.c=.o}
 
 #******
@@ -43,18 +44,19 @@ TEST_OBJECTS = ${TEST_SOURCES:.c=.o}
 #   These are the common sources between wopr and galaxyng
 # SOURCE
 #
-REAL_SOURCES = $(NG_DIR)/loadgame.c $(NG_DIR)/savegame.c $(NG_DIR)/create.c $(NG_DIR)/phase.c \
+
+REAL_SOURCES = $(NG_DIR)/loadgame.c $(NG_DIR)/savegame.c \
+               $(NG_DIR)/create.c $(NG_DIR)/phase.c \
                $(NG_DIR)/battle.c $(NG_DIR)/process.c \
-               $(NG_DIR)/report.c $(NG_DIR)/util.c $(NG_DIR)/list.c $(NG_DIR)/selftest.c \
+               $(NG_DIR)/report.c $(NG_DIR)/util.c \
+               $(NG_DIR)/list.c $(NG_DIR)/selftest.c \
                $(NG_DIR)/report_xml.c $(NG_DIR)/mail.c \
                $(NG_DIR)/report_m.c $(NG_DIR)/globals.c \
-               $(NG_DIR)/avl.c $(NG_DIR)/usage.c 
+               $(NG_DIR)/avl.c $(NG_DIR)/usage.c \
+               $(NG_DIR)/galaxyng.c
 REAL_OBJECTS = ${REAL_SOURCES:.c=.o}
 
 #******
-
-WOPR_SOURCES = $(NG_DIR)/wopr.c
-WOPR_OBJECTS = ${WOPR_SOURCES:.c=.o}
 
 #****v* Unittest/OBJECTS
 # FUNCTION
@@ -66,31 +68,14 @@ OBJECTS = $(RBT_OBJECTS) $(TEST_OBJECTS) $(REAL_OBJECTS)
 
 #******
 
-
-
-#****e* Unittest/woprtester
-# FUNCTION
-#   This builds the test application that can run the individual
-#   testcases in the unittest for WOPR.
-# SOURCE
-#
-
-woprtester : $(OBJECTS) $(WOPR_OBJECTS)
-	$(CC) $(OBJECTS) $(WOPR_OBJECTS) -o woprtester $(LIBS)
-
-#*****
-
-NG_SOURCES = $(NG_DIR)/galaxyng.c
-NG_OBJECTS = ${NG_SOURCES:.c=.o}
-
 #****e* Unittest/ngtester
 # FUNCTION
 #   This builds the test application that can run the individual
 #   testcases in the unittest for GalaxyNG.
 # SOURCE
 
-ngtester : $(OBJECTS) $(NG_OBJECTS)
-	$(CC) $(OBJECTS) $(NG_OBJECTS) -o ngtester $(LIBS)
+ngtester : $(OBJECTS)
+	$(CC) $(OBJECTS) -o ngtester $(LIBS)
 
 #****
 
@@ -99,14 +84,14 @@ ngtester : $(OBJECTS) $(NG_OBJECTS)
 #    This runs the testcases and collects all the results.
 # SOURCE
 
-test: woprtester
+test: ngtester
 	perl $(ROBORUN)
 
 #****
 
 clean:
 	-rm -f $(OBJECTS)
-	-rm -f woprtester
+	-rm -f ngtester
 
 
 depend:
@@ -145,7 +130,3 @@ depend:
 ../galaxyng.o: ../loadgame.h ../phase.h ../battle.h ../report.h ../mail.h
 ../galaxyng.o: ../report_m.h ../report_xml.h ../selftest.h ../create.h
 ../galaxyng.o: ../avl.h
-../wopr.o: ../galaxy.h ../util.h ../list.h ../process.h ../savegame.h
-../wopr.o: ../loadgame.h ../phase.h ../battle.h ../report.h ../mail.h
-../wopr.o: ../report_m.h ../report_xml.h ../selftest.h ../create.h ../avl.h
-../wopr.o: ../wopr.h

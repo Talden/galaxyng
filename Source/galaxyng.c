@@ -1,56 +1,56 @@
 /****h* Galaxy/GalaxyNG
-*  NAME  
-*    galaxyng -- Server for the play-by-email game GalaxyNG
-*  SYNOPSIS
-*    galaxyng [command [options]]
-*  FUNCTION
-*    Checks incoming orders, runs the turn, and sends out the turn
-*    reports. 
-*
-*    The code is divided into a number of modules:
-*     List     -- (list.c list.h) functions for manipulating lists.
-*     Util     -- (util.c util.h) frequently used functions.
-*     Phase    -- (phase.c phase.h) code for the various phases in the game.
-*     Process  -- (process.c process.h ) code for order checking, 
-*                 order processing, and running a turn.
-*     Report   -- (report.c report.h) 
-*                 Code to generate the turn reports.
-*     Battle   -- (battle.c battle.h) code that performs the battles.
-*     Loadgame -- saves a turn to disk
-*     Savegame -- load a turn from disk
-*     GalaxyNG -- glues it all together.
-*  AUTHOR
-*    Created by:  
-*    o Frans Slothouber
-*    o Christophe  Barbier 
-*    o Jacco van Weert 
-*    o Tommy Lindqvist       
-*    o Rogerio Fung
-*    o Ken Weinert
-*
-*    This code contains parts of the the orginal Galaxy code which was
-*    created by Russell Wallace (RWALLACE@vax1.tcd.ie), and updated by the
-*    Galaxy PBeM Development Group which include 
-*    o Russell Wallace (RWALLACE@vax1.tcd.ie) 
-*    o Tim Myers (tmyers@unlinfo.unl.edu), 
-*    o Robert Stone (stone@athena.cs.uga.edu), 
-*    o Mayan Moudgill (moudgill@cs.cornell.edu), 
-*    o Graeme Griffiths (graeme@abekrd.co.uk), 
-*    o K Pankhurst (k.pankhurst@ic.ac.uk).
-*  CREATION DATE
-*    4-Jan-1997
-*  COPYRIGHT
-*    GPL  see ../COPYING
-*  NOTES
-*    This is not the most pretty code around. It is a product of many
-*    years and many people. The code hosts a lot of global variables
-*    and many not very descriptively named function. The code is
-*    pretty stable however.
-*  BUGS
-*    See the sourceforge page at
-*       http://sourceforge.net/projects/galaxyng/
-**********
-*/
+ *  NAME  
+ *    galaxyng -- Server for the play-by-email game GalaxyNG
+ *  SYNOPSIS
+ *    galaxyng [command [options]]
+ *  FUNCTION
+ *    Checks incoming orders, runs the turn, and sends out the turn
+ *    reports. 
+ *
+ *    The code is divided into a number of modules:
+ *     List     -- (list.c list.h) functions for manipulating lists.
+ *     Util     -- (util.c util.h) frequently used functions.
+ *     Phase    -- (phase.c phase.h) code for the various phases in the game.
+ *     Process  -- (process.c process.h ) code for order checking, 
+ *                 order processing, and running a turn.
+ *     Report   -- (report.c report.h) 
+ *                 Code to generate the turn reports.
+ *     Battle   -- (battle.c battle.h) code that performs the battles.
+ *     Loadgame -- saves a turn to disk
+ *     Savegame -- load a turn from disk
+ *     GalaxyNG -- glues it all together.
+ *  AUTHOR
+ *    Created by:
+ *    o Frans Slothouber
+ *    o Christophe  Barbier
+ *    o Jacco van Weert
+ *    o Tommy Lindqvist
+ *    o Rogerio Fung
+ *    o Ken Weinert
+ *
+ *    This code contains parts of the the orginal Galaxy code which was
+ *    created by Russell Wallace and updated by the
+ *    Galaxy PBeM Development Group which include 
+ *    o Russell Wallace
+ *    o Tim Myers
+ *    o Robert Stone
+ *    o Mayan Moudgill
+ *    o Graeme Griffiths
+ *    o K Pankhurst
+ *  CREATION DATE
+ *    4-Jan-1997
+ *  COPYRIGHT
+ *    GPL  see ../COPYING
+ *  NOTES
+ *    This is not the most pretty code around. It is a product of many
+ *    years and many people. The code hosts a lot of global variables
+ *    and many not very descriptively named function. The code is
+ *    pretty stable however.
+ *  BUGS
+ *    See the sourceforge page at
+ *       http://sourceforge.net/projects/galaxyng/
+ **********
+ */
 
 #include <math.h>
 #include <stdlib.h>
@@ -58,7 +58,11 @@
 #include <string.h>
 #include <time.h>
 #include <sys/types.h>
+#ifdef WIN32
+    /* Empty */
+#else
 #include <unistd.h>
+#endif
 #include "galaxy.h"
 #include "util.h"
 #include "process.h"
@@ -635,106 +639,120 @@ checkTime( game *aGame )
  */
 
 #if FS_NEW_FORECAST
-int mail_XML_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope,
-       char* nationName, int kind )
+
+enum EReportFormat { REP_TXT, REP_XML };
+
+FILE* openForecast( char* forecastName )
 {
-    int result = FALSE;
-    FILE *forecast;
-    char* forecastName = 
-        createString( "%s/NG_XML_%d_forecast", tempdir, getpid(  ) );
+    FILE* forecast;
 
     if ( ( forecast = GOS_fopen( forecastName, "w" ) ) == NULL ) {
         plog( LBRIEF, "Could not open %s for forecasting\n", forecastName );
         fprintf( stderr, "Could not open %s for forecasting\n", forecastName );
-        return EXIT_FAILURE;
+        return 0;
     }
+    return forecast;
+}
 
-    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-            "Galaxy HQ, %s turn %d XML forecast for %s",
-            aGame->name, ( aGame->turn ) + 1, nationName );
-
-    ( aGame->turn )++;
-    fprintf( stderr, "Creating XML report, %s:%d\n", nationName, kind );
-    report_xml( aGame, aPlayer, forecast, Forecast );
-    ( aGame->turn )--;
-    fclose( forecast );
-
+int mailForecast( char* forecastName, char* tag, envelope* anEnvelope, game* aGame, int kind )
+{
+    int result = FALSE;
     if ( kind == CMD_CHECK_REAL ) {
-        plog( LBRIEF, "mailing XML report %s to %s\n", forecastName, anEnvelope->to );
-        fprintf( stderr, "mailing XML report %s to %s\n", forecastName, anEnvelope->to );
+        plog( LBRIEF, "mailing %s report %s to %s\n", tag, forecastName, anEnvelope->to );
+        fprintf( stderr, "mailing %s report %s to %s\n", tag, forecastName, anEnvelope->to );
         result |= eMail( aGame, anEnvelope, forecastName );
     } else {
         /* TODO Create a file copy */
     }
-    result |= GOS_delete( forecastName );
-    free( forecastName );
     return result;
 }
 
 
-
-int mail_TXT_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope,
-       char* nationName, int kind )
+int mail_AdvanceReport( game* aGame, player *aPlayer, envelope *anEnvelope, char* nationName, int kind, enum EReportFormat report_format )
 {
+    int result = FALSE;
+    /* TODO */
+    return result;
+}
+
+int mail_Forecast( game* aGame, player *aPlayer, envelope *anEnvelope, char* nationName, int kind, enum EReportFormat report_format )
+{
+    char* tag = 0;
     int result = FALSE;
     FILE *forecast;
-    char* forecastName = 
-        createString( "%s/NG_TXT_%d_forecast", tempdir, getpid(  ) );
+    char* forecastName;
 
-    if ( ( forecast = GOS_fopen( forecastName, "w" ) ) == NULL ) {
-        plog( LBRIEF, "Could not open %s for forecasting\n", forecastName );
-        fprintf( stderr, "Could not open %s for forecasting\n", forecastName );
+    switch ( report_format )
+    {
+        case REP_TXT :
+            tag = "TXT";
+            break;
+        case REP_XML :
+            tag = "XML";
+            break;
+        default:
+            assert( 0 );
+    }
+
+    forecastName = createString( "%s/NG_%s_%d_forecast", tempdir, tag, getpid(  ) );
+    forecast = openForecast( forecastName );
+    if ( forecast ) {
+        /* OK */
+    } else {
         return EXIT_FAILURE;
     }
 
     setHeader( anEnvelope, MAILHEADER_SUBJECT,
-            "Galaxy HQ, %s turn %d TXT forecast for %s",
-            aGame->name, ( aGame->turn ) + 1, nationName );
+            "Galaxy HQ, %s turn %d %s forecast for %s",
+            aGame->name, ( aGame->turn ) + 1, tag, nationName );
 
+    /* Create the report */
     ( aGame->turn )++;
-    fprintf( stderr, "Creating TXT report, %s:%d\n", nationName, kind );
-    reportForecast( aGame, nationName, forecast );
-    ( aGame->turn )--;
-    fclose( forecast );
-
-    if ( kind == CMD_CHECK_REAL ) {
-        plog( LBRIEF, "mailing TXT report %s to %s\n", forecastName, anEnvelope->to );
-        fprintf( stderr, "mailing TXT report %s to %s\n", forecastName, anEnvelope->to );
-        result |= eMail( aGame, anEnvelope, forecastName );
-    } else {
-        /* TODO Create a file copy */
+    fprintf( stderr, "Creating %s report, %s:%d\n", tag, nationName, kind );
+    switch ( report_format ) {
+        case REP_TXT :
+            reportForecast( aGame, nationName, forecast );
+            break;
+        case REP_XML :
+            report_xml( aGame, aPlayer, forecast, Forecast );
+            break;
+        default:
+            assert( 0 );
     }
+    ( aGame->turn )--;
+
+    /* Mail it */
+    result |= mailForecast( forecastName, tag, anEnvelope, aGame, kind );
     result |= GOS_delete( forecastName );
     free( forecastName );
+    fclose( forecast );
     return result;
 }
 
-int mail_TXT_Error( game* aGame, envelope *anEnvelope, char* nationName, int kind,
-       int resNumber, int theTurnNumber )
+int mail_TXT_Error( game* aGame, envelope *anEnvelope, char* nationName, int kind, int resNumber, int theTurnNumber )
 {
     int result = FALSE;
+    FILE* forecast;
 
     char *forecastName = createString( "%s/NG_TXT_%d_errors",
             tempdir, getpid(  ) );
-    FILE* forecast = GOS_fopen( forecastName, "w" );
+    forecast = openForecast( forecastName );
+    if ( forecast ) {
+        /* OK */
+    } else {
+        return EXIT_FAILURE;
+    }
 
-    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-            "Galaxy HQ, major trouble" );
+    setHeader( anEnvelope, MAILHEADER_SUBJECT, "Galaxy HQ, major trouble" );
     plog( LBRIEF, "major trouble %d\n", resNumber );
 
-    generateErrorMessage( resNumber, aGame, nationName,
-            theTurnNumber, forecast );
+    generateErrorMessage( resNumber, aGame, nationName, theTurnNumber, forecast );
     fclose( forecast );
 
-    if ( kind == CMD_CHECK_REAL ) {
-        plog( LBRIEF, "mailing error report %s to %s\n", forecastName,
-                anEnvelope->to );
-        result |= eMail( aGame, anEnvelope, forecastName );
-    } else {
-        /* TODO */
-    }
+    result |= mailForecast( forecastName, "TXT", anEnvelope, aGame, kind );
     result |= GOS_delete( forecastName );
     free( forecastName );
+    fclose( forecast );
     return result;
 }
 
@@ -764,26 +782,42 @@ CMD_check( int argc, char **argv, int kind )
 
         if ( resNumber == RES_OK ) {
             player *aPlayer = findElement( player, aGame->players, nationName );
-
             assert( aPlayer);
             aPlayer->orders = NULL;
             plog( LBRIEF, "Orders from %s\n", returnAddress );
 
             if ( ( theTurnNumber == LG_CURRENT_TURN ) ||
                  ( theTurnNumber == ( aGame->turn ) + 1 ) ) {
-
-                copyOrders( aGame, stdin, nationName, password,
-                        aGame->turn + 1 );
+                /* They are orders for the comming turn, copy them. */
+                copyOrders( aGame, stdin, nationName, password, aGame->turn + 1 );
+                /* Check them */
                 checkOrders( aGame, nationName );
-
+                /* Now mail the result */
                 if ( aPlayer->flags & F_XMLREPORT ) {
-                     result = mail_XML_Forecast( aGame, aPlayer, anEnvelope, nationName, kind );
+                     result = mail_Forecast( aGame, aPlayer, anEnvelope, nationName, kind, REP_XML );
                 }
                 if ( aPlayer->flags & F_TXTREPORT ) {
-                     result = mail_TXT_Forecast( aGame, aPlayer, anEnvelope, nationName, kind );
+                     result = mail_Forecast( aGame, aPlayer, anEnvelope, nationName, kind, REP_TXT );
+                }
+            } else if ( theTurnNumber > ( aGame->turn ) + 1 ) {
+                /* They are advance orders */
+                copyOrders( aGame, stdin, nationName, password, theTurnNumber );
+                setHeader( anEnvelope, MAILHEADER_SUBJECT,
+                        "Galaxy HQ, %s advance orders received for %s.",
+                        aGame->name, nationName );
+                plog( LBRIEF, "%s advance orders received for %s.\n",
+                        aGame->name, nationName );
+                if ( aPlayer->flags & F_XMLREPORT ) {
+                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, nationName, kind, REP_XML );
+                }
+                if ( aPlayer->flags & F_TXTREPORT ) {
+                     result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, nationName, kind, REP_TXT );
                 }
             } else {
-                /* They are advance orders */
+                /* Orders for a turn that already ran. 
+                 * Should be handled by areValidOrders() 
+                 */
+                assert( 0 );
             }
         } else {
             /* Some major error */
@@ -791,9 +825,9 @@ CMD_check( int argc, char **argv, int kind )
                     nationName, kind, resNumber, theTurnNumber );
         }
     }
-
     return result;
 }
+
 
 #else
 int
@@ -968,6 +1002,8 @@ CMD_check( int argc, char **argv, int kind )
                        aGame->name, nationName );
             plog( LBRIEF, "%s advance orders received for %s.\n",
                   aGame->name, nationName );
+
+
             if ( aPlayer->flags & F_XMLREPORT ) {
                 forecastName = createString( "%s/NG_XML_forecast", tempdir );
                 forecast = GOS_fopen( forecastName, "w" );
@@ -1896,3 +1932,5 @@ CMD_battletest( int argc, char **argv )
     }
     return 0;
 }
+
+
