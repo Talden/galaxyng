@@ -616,8 +616,20 @@ readDefaults(game *aGame, FILE * f)
   if (aGame->serverOptions.tick_interval == NULL)
     aGame->serverOptions.tick_interval = strdup("48");
   
-  if (aGame->serverOptions.SERVERemail == NULL)
-    aGame->serverOptions.SERVERemail =
-      strdup(aGame->serverOptions.GMemail);
+  if (aGame->serverOptions.SERVERemail == NULL) {
+    char* logfile = createString("%s/Games/log/%s", galaxynghome, aGame->name);
+    FILE* logfp = fopen(logfile, "+w");
+    fprintf(stderr, "SERVERemail is a required entry in your .galaxyngrc\n");
+    fprintf(logfp, "SERVERemail is a required entry in your .galaxyngrc\n");
+    fclose(logfp);
+    exit(EXIT_FAILURE);
+  }
+    
+  if (aGame->serverOptions.GMemail == NULL)
+    aGame->serverOptions.GMemail =
+      strdup(aGame->serverOptions.SERVERemail);
+
+  if (aGame->serverOptions.GMpassword == NULL)
+    aGame->serverOptions.GMpassword = strdup("");
 }
 
