@@ -284,7 +284,7 @@ CMD_template( int argc, char **argv )
                      "\n" "core_sizes 1000 250 350\n" "\n" );
             fprintf( glxfile,
                      "; Within a radius [2,r] from the primary home world the engine allocates\n"
-                     "; a number of empty planets for the race to colonize.\n"
+                     "; a number of empty planets , size 200 - 1,000 for the race to colonize.\n"
                      "; The following two parameters define how many there are per race,\n"
                      "; and in within what radius. A number between 4 and 10 and\n"
                      "; a radius of  race_spacing/2.0  is a good guess.\n"
@@ -294,23 +294,23 @@ CMD_template( int argc, char **argv )
                      "empty_radius 15\n"
                      "\n"
                      "; It is possible to add a number of 'stuff' planets. These are useless\n"
-                     "; planets, all of size 50 or less, that are use to fill up the empty\n"
+                     "; planets, all of size 200 or less, that are use to fill up the empty\n"
                      "; space between the home worlds. They make it possible for a players to\n"
                      "; approach (attack) other players by different routes. The following\n"
                      "; parameter specifies how many there are per race.\n"
                      "\n" );
             fprintf( glxfile,
                      "stuff_planets 8\n"
-                     ";\n"
+                     "\n"
                      "; The list of the players, you can add here the mail address\n"
-                     "; of each player that enrolled in your game.\n" ";\n"
+                     "; of each player that enrolled in your game.\n"
                      "\n" );
             for ( i = 1; i <= numberOfPlayers; i++ ) {
                 fprintf( glxfile, "player  player%d@itsaddress.somewhere\n",
                          i );
             }
             fprintf( glxfile,
-                     ";\n"
+                     "\n"
                      "; You can override the core size for a player by adding the sizes.\n"
                      "; For instance the following player will get one home planet\n"
                      "; of size 1600.0\n"
@@ -320,26 +320,26 @@ CMD_template( int argc, char **argv )
                      "; While the following player gets 3 home planets of sizes\n"
                      "; 500.0, 100.0, and 1000.0\n"
                      "\n"
-                     "; player player4@itsaddress.somewhere 500.0 100.0 1000.0\n\n" );
+                     "; player player4@itsaddress.somewhere 500.0 100.0 1000.0\n" );
             fprintf( glxfile,
                      "\n"
                      "; You can specify several other options :\n"
-                     ";\n"
+                     "\n"
                      "; Initial tech levels\n"
                      "; In order : Drive Weapons Shields Cargo\n"
                      "; They can't be lower than 1 (don't ask why, I don't know\n"
                      "; myself why I did this).\n"
-                     "; In the case below, drive will be forced to 1 by the server.\n"
-                     ";\n" );
+                     "; In the case below, drive will be forced to 1 by the server.\n" );
             fprintf( glxfile,
                      "; Uncomment if you want this option.\n"
                      "\n"
                      "; InitialTechLevels 0.42 1 3.21 1.24\n"
-                     ";\n"
+                     "\n"
                      "; Full bombing, when bombed planets are completely bombed.\n"
                      "; All population, industry, capital, colonists, and materials are gone.\n"
                      "; Normally the population and industry is reduced to 25%% of its\n"
-                     "; original value.\n" ";\n" );
+                     "; original value.\n"
+                     ";\n" );
             fprintf( glxfile,
                      "; Uncomment if you want this option.\n"
                      "\n"
@@ -349,8 +349,10 @@ CMD_template( int argc, char **argv )
 					 "; You can enforce Pax Galactica - just put in the number\n"
 					 "; of turns you want to disallow players to declare war\n"
 					 "; on each other\n"
-					 "; Uncomment if you want this option.\n\n"
-					 "; Peace 20\n\n");
+					 "; Uncomment if you want this option.\n"
+					 "\n"
+					 "; Peace 20\n"
+					 "\n");
 			fprintf( glxfile,
 					 "; If keepproduction is set, the production points spent\n"
                      "; on the previous product are preserved, otherwise all points are lost\n"
@@ -358,29 +360,32 @@ CMD_template( int argc, char **argv )
             fprintf( glxfile,
                      "; KeepProduction\n"
                      "\n"
-                     ";\n"
                      "; Don't remove idle races from a game.\n"
                      "; Normally if players do not send in orders for a couple of turns\n"
                      "; their race self destructs.\n"
-                     ";\n" "; Uncomment if you want this option.\n" "\n" );
+                     "; Uncomment if you want this option.\n"
+                     "\n" );
             fprintf( glxfile,
                      "; DontDropDead\n"
                      "\n"
-                     ";\n"
                      "; Sometimes, if you have enough disk space, it is nice to get a copy\n"
                      "; of turn reports that are send out to the players.\n"
                      "; If you uncomment the following parameter, a copy of each turn report\n"
                      "; that is send out is stored in reports/<game name>/\n"
-                     ";\n" "; Uncomment if you want this option.\n" "\n" );
+                     ";\n" "; Uncomment if you want this option.\n"
+                     "\n" );
             fprintf( glxfile,
                      "; SaveReportCopy\n"
+                     "\n"
                      "; The galaxy can be (roughly) mapped on a sphere\n"
                      "; This way, the gap between x (or y) coordinates of two\n"
                      "; planets is computed with borders lines crossing, and reappearing\n"
                      "; on the other side.\n"
-                     ";\n"
+                     "\n"
                      "; Uncomment if you want this option.\n"
-                     "\n" "; sphericalgalaxy\n" "\n" );
+                     "\n"
+                     "; sphericalgalaxy\n"
+                     "\n" );
             fclose( glxfile );
         } else {
             fprintf( stderr, "Can't open \"%s\".\n", glxname );
