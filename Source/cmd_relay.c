@@ -62,8 +62,8 @@ int CMD_relay( int argc, char **argv ) {
 								&final_orders, &theTurnNumber );
 
 	/* it's ok to not have a turn number on a relay */
-	setHeader(anEnvelope, MAILHEADER_TO, anEnvelope->from);
-	setHeader(anEnvelope, MAILHEADER_FROM, aGame->serverOptions.GMemail);
+	setHeader(anEnvelope, MAILHEADER_TO, "%s", anEnvelope->from);
+	setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.GMemail);
 
 	if (resNumber != RES_OK && resNumber != RES_NO_TURN_NBR) {
 		setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");

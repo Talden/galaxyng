@@ -2493,6 +2493,9 @@ getDestination( char *subject )
     else
       destination += 5;
 
+    while (isspace(destination))
+      destination++;
+
     destination = strdup(destination);
     free (c);
 
