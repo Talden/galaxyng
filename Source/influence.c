@@ -87,7 +87,7 @@ draw_maps(game* aGame)
 	iscale = (int)scale;
 
 	sprintf(font, "%s/influence.ttf", aGame->serverOptions.fontpath);
-	
+
 	for (mt = FirstMap; mt < NbrMaps; mt++) {
 		switch(mt) {
 			case EffIndMap:
@@ -317,7 +317,12 @@ draw_maps(game* aGame)
 								gdImageColorResolve(map_png, r, g, b));
 			}
 		}
-		
+		for (p = aGame->planets; p; p = p->next) {
+			x = (int) ((scale * p->x) + 1);
+			y = (int) ((scale * p->y) + 1);
+			//gdImageSetPixel(map_png, x, y, white);
+			gdImageArc(map_png, x, y, 2, 2, 0, 360, white);
+		}
 		gdImagePng(map_png, mapfile);
 		fclose(mapfile);
 		gdImageDestroy(map_png);
