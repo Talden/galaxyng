@@ -121,6 +121,7 @@ cat Util/run_game.header >> $RUN_GAME
 echo "BASE="$GALAXY_HOME >> $RUN_GAME
 echo "WWWHOME="$WWW >> $RUN_GAME
 echo "GALAXYNGHOME="$GALAXY_HOME >> $RUN_GAME
+echo "GDFONTDIR="$GALAXY_HOME >> $RUN_GAME
 cat Util/run_game.tail >> $RUN_GAME
 chmod +x $RUN_GAME
 
