@@ -14,8 +14,8 @@
 	<body>
 
 		<h1><a href="index.php">GalaxyNG</a> FAQ</h1>
-		
 
+			<hr />
 
 			<h2>Where can I learn more about Galaxy strategy and tactics?</h2>
 				<ul>
@@ -28,11 +28,17 @@
 				<p>If you have an "Incoming Groups" section on your turn report, this probably means that one or more of your planets is under attack, and your first priority should be to ensure that you have an adequate defense. For each incoming group, divide the Distance by Speed to find out how many turns the group will take to reach its target planet. Look at the Total Mass figure - the bigger this is, the greater the potential threat. Of course you don't know whether a very large group is a huge battleship or a fleet of small fighters or anything in between.  You could also try some last-minute diplomacy: the player owning the group cannot turn it back, but he can declare an alliance with you, so that the group will not attack you when it does arrive.</p>
 				<p>In the later stages of the game, it is quite likely that one race will develop a dominant position and appear to be heading for victory. At this point, it is vitally important for all the other races to immediately leave aside whatever differences they may have among themselves and launch an attack on this race, because if it is given a chance to pick the others off one by one at his leisure, it is very likely to win.</p>
 
+			<hr />
+
 			<h2>What are the best ship designs?</h2>
 				<p>Read <a href="http://www.indyramp.com/galaxy/strategy.html">Ship Design in Galaxy and Blind Galaxy</a>.</p>
+
+			<hr />
 				
 			<h2>Which turn viewer should I use?</h2>
 				<p>It's a matter of personal preference.  <a href="http://jump.to/mkgal">MKGal</a> and <a href="http://galaxyview.sourceforge.net">GalaxyView</a> are very popular GalaxyNG clients, but there are other <a href="http://galaxyview.sourceforge.net/tools.html">Galaxy Tools</a> that you can use.</p>
+
+			<hr />
 			
 			<h2>How is the galaxy created?  What are growth and stuff planets?</h2>
 				<p>Growth planets are size 200 to size 1000.  Stuff planets are size 1 to 200.  The GM has complete control over the distribution of planets in the galaxy.  However, the default settings assume that:</p>
@@ -48,21 +54,33 @@
 					<li>There will be 25 stuff planets scattered around the galaxy per player (total 175 stuff planets, randomly distributed in the galaxy).</li>
 				</ul>
 				<p>Note that growth planet radii can overlap.  GMs can be very creative in manipulating the galaxy creation parameters to create a wide variety of galaxies.  For more information on galaxy creation, refer to the <a href="server.php">Server Manual</a>.</p>
+
+			<hr />
 				
 			<h2>Is there any point to ordering a very tiny planet to research drive technology?</p>
 				<p>Yes.  The server reports technology levels to two decimal places, but stores numbers in double precision format, so researching 0.001 drive technology will effect ships on the following turn (but not much).  After ten turns, drive technology will be reported to be 0.01 higher.</p>
 
+			<hr />
+
 			<h2>What should I produce at planets with low resources?</h2>
 				<p>Planets with low resources can produce anything.  However, they are less efficient at producing ships and capital, so many players use them for research.</p>
+
+			<hr />
 				
 			<h2>Can I order cargo ships to load cargo, move and unload cargo in one turn?</h2>
 				<p>Yes, using the L and S orders (but only if the autounload option is turned on or if the destination planet is the destination for an appropriate route cargo).</p>
 
+			<hr />
+
 			<h2>Can cargo ships be unloaded and sent to another planet in one turn?</h2>
 				<p>Yes, using the U and S orders.</p>
+
+			<hr />
 				
 			<h2>Do I ever need to use the U order if the autounload option is turned on?</h2>
 				<p>No.</p>
+
+			<hr />
 
 			<h2>I have 100 cargo ships at planet X and I want to use 50 to transport COL to planet Y and 50 to transport CAP to planet Z.  How do I do this?</p>
 				<p>First option:</p>
@@ -75,6 +93,8 @@ R X CAP Z; set a CAP route from planet X to planet Z
 S MAX Y; send the 50 ships that were broken off to planet Y
 L 20 CAP; load CAP onto the remaining ships in group 20
 S 20 Z; send them to planet Z</pre>
+
+			<hr />
 
 			<h2>I am at war with everybody. I sent a probe to a planet but it was not shot down, how can this be?</h2>
 				<p>It is sometimes confusing to determine whether a ship will be shot down, or whether a planet will be bombed. It depends on the peace/war status of all the nations. We will try to clarify this with a number of scenarios:</p>
@@ -104,6 +124,8 @@ S 20 Z; send them to planet Z</pre>
 						<li>Betrayer wins the battle at GeeWhiz and bombs it.  The Betrayer ships travel to Snoody.  Unsuspecting happens to have sent a fleet to Snoody, so another battle occurs.  The Betrayer ships lose second the battle and Snoody is not bombed.</li>
 						<li>Betrayer loses the battle at GeeWhiz.  GeeWhiz and Snoody are not bombed.</li>
 					</ol>
+
+			<hr />
 
 			<h2>The Intercept Command</h2>
 				<p>With the intercept command you can order your ships to follow enemy ships from another planet.  It is a handy command.  Be careful though - the sting is in the details. Imagine the following scenario:</p>
