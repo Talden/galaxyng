@@ -15,6 +15,7 @@ Graphical maps are turned on by default now.  If you do
 not want them, edit NG/Source/Makefile.  The relevant
 section is documented near the top of the file.
 
+IMPORTANT: The format of the .glx files has changed.
 You may specify the exact coordinates of each homeworld,
 if desired.  This has caused a change in the .glx file
 format for players.  The ARE has been updated to reflect
