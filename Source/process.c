@@ -2795,8 +2795,9 @@ void generateErrorMessage( int resNumber, game *aGame,
 			break;
 			
 		case RES_TURNRAN:
-			fprintf(forecast, "O Wise Leader, you sent in orders for turn %d, "
-					"that turn already ran.\n", theTurnNumber );
+			fprintf(forecast, "O Wise Leader, you sent in orders for turn %d "
+					"but that turn already ran.\nThe next turn is %d.",
+					theTurnNumber, aGame->turn+1);
 			break;
 			
 		case RES_DESTINATION:
