@@ -13,18 +13,34 @@
 
 	<body>
 		<h1>GalaxyNG Server Manual</h1>
-			<ul>
-				<li><a href="house_rules.txt">Example House Rules</a></li>
-				<li><a href="globab.bulletin">Example Global Bulletin</a></li>
-				<li><a href="galaxyngrc">Example Server Configuration File</a></li>
-				<li><a href="example.glx">Example Game Configuration File</a></li>
- 				<li><a href="intro.txt">Example Game Introduction Text</a></li>
- 			</ul>
 
 			<h2>Table of Contents</h2>
+				<ul>
+					<li><a href="#ex">Example Files</a></li>
+					<li><a href="#compile">Compilation</a></li>
+					<li><a href="#install">Installation</a></li>
+					<li><a href="#files">Files</a></li>
+					<li><a href="#use">Use</a></li>
+					<li><a href="#create">Creating a New Game</a></li>
+					<li><a href="#mail">Mailing the Turn 0 Reports</a></li>
+ 					<li><a href="process">Processing Orders</a></li>
+					<li><a href="auto">Auto Checking</a></li>
+					<li><a href="run">Running Turns</a></li>
+					<li><a href="command">Command Summary</a></li>
+					<li><a href="config">Configuration</a></li>
+					<li><a href="host">Hosting Team Games</a></li>
+				</ul>
 			
-
-			<h2>Compilation</h2>
+			<h2 id="ex">Example Files</h2>
+				<ul>
+					<li><a href="house_rules.txt">House Rules</a></li>
+					<li><a href="globab.bulletin">Global Bulletin</a></li>
+					<li><a href="galaxyngrc">Server Configuration File</a></li>
+					<li><a href="example.glx">Game Configuration File</a></li>
+ 					<li><a href="intro.txt">Game Introduction Text</a></li>
+ 				</ul>
+ 			
+			<h2 id="compile">Compilation</h2>
 				<p>Most of the configuration is done after compilation and is handled by the install program.  Before compiling galaxyng you might want to edit the <tt>makefile</tt> in the <tt>Source/</tt> directory to make it fit your machine's configuration.  The following variables can be configured:</p>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
@@ -34,16 +50,14 @@ LIBS   = -lm</pre>
 <pre>make</pre>
 				<p>in the top level directory <tt>GalaxyNG/</tt>, this creates the executable <tt>Source/galaxyng</tt>.</p> 
 
-			<h2>Installation</h2>
+			<h2 id="install">Installation</h2>
 				<p>After you compiled the code, do a</p>
 <pre>make install</pre>
 				<p>to install galaxyng. It creates a directory called <tt>Games</tt> in your home directory and installs a number of files in it.</p>
-
-			<h2>Installing in a Different Directory</h2>
 				<p>If you want to have the game installed in a different directory you have to edit the first line of the <tt>install.sh</tt> script.  You also <strong>must</strong> set the environment variable <tt>GALAXYNGHOME</tt> to this directory.  You can do this by adding a line to your <tt>.bash_profile</tt> file (or the appropriate file for your favourite shell).  For instance if you have installed the game in /home/gng/mygames, add</p>
 <pre>export GALAXYNGHOME=/home/gng/mygames</pre>
 
-			<h2>Files Created by the Install Process</h2>
+			<h2 id="files">Files</h2>
 				<p>The following files are created.</p>
 				<table>
 					<tr>
@@ -111,7 +125,7 @@ LIBS   = -lm</pre>
 					</tr>
 				</table>
 
-			<h2>Use</h2>
+			<h2 id="use">Use</h2>
 				<p>Running a galaxy game consists of steps:</p>
 				<ol>
 					<li>create a new game,</li>
@@ -122,7 +136,7 @@ LIBS   = -lm</pre>
 				</ol>
 				<p>Then repeat steps 3, 4, and 5, until the players request the game be stopped.</p>
 
-			<h2>Creating a New Game</h2>
+			<h2 id="create">Creating a New Game</h2>
 				<p>To create a game use the command:</p>
 <pre>./galaxyng -create &lt;specification file&gt;</pre>
 				<p>The specification file specifies the structure of the galaxy, that is the number of home planets, empty planets, stuff planets, the name of the galaxy and the size of the galaxy as well as the the email address of each of the players.</p>
@@ -135,7 +149,7 @@ LIBS   = -lm</pre>
 				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>orionlayout.txt</tt>:</p>
 <pre>./galaxyng -create Orion.glx  &gt; orionlayout.txt</pre>
 
-			<h2>Mailing the Turn 0 Reports</h2>
+			<h2 id="mail">Mailing the Turn 0 Reports</h2>
 				<p>If you are happy with the galaxy you created, you can mail the turn 0 reports with:</p>
 <pre>./galaxyng -mail0 <var>&lt;game name&gt;</var></pre>
 				<p>Before you start any real games you might want to try to run a couple of test games with yourself as player. This way you can see if everything works OK.</p>
@@ -143,13 +157,13 @@ LIBS   = -lm</pre>
 <pre>./galaxyng -mail0 Orion</pre>
 				<p>for your Orion game.</p>
 
-			<h2>Processing Orders</h2>
+			<h2 id="process">Processing Orders</h2>
 				<p>When you receive orders from a player, you can store and check them with the following command:</p>
 <pre>./galaxyng -check &lt; &lt;file with orders&gt;</pre>
 				<p>The file with orders has to be a properly formatted email message, with a To: field and a Subject: field with the word "orders" in it.</p>
 				<p>The orders are stored in the directory <tt>orders/</tt><var>&lt;game name&gt;</var> and the program sends a forecast to the player. A log file is kept of all orders that are checked. It can be found at <tt>$HOME/Games/log/orders_processed.txt</tt>.</p>
 
-			<h2>Auto Checking</h2>
+			<h2 id="auto">Auto Checking</h2>
 				<p>Checking orders by hand is of course a very cumbersome process that is best automated. You can automate with <tt>procmail</tt> and <tt>formail</tt>. They are program that can reformat and process incomming emails.</p>
 				<p>If you never used <tt>procmail</tt> before, read the man pages, and then use the example procmailrc installed in <tt>$HOME/Games/procmailrc</tt>. Also read the example procmailrc file as it contains additional documentation.</p>
 				<p>Procmail can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.</p>
@@ -162,7 +176,6 @@ LIBS   = -lm</pre>
 				<p>The server will analyse the orders in the body, and send a reply to the person that send the message.</p>
 				<p>There are similar entries for the command to request a copy of a turn report, and the command to relay an message to another player. You will find them in the example <tt>procmailrc</tt> file.</p>
 				<p>If you want to keep a copy of the orders players sent-in, you can use the following entry:</p>
-
 <pre># Someone sent in orders, check them
 :0
 * ^Subject:.*order
@@ -186,18 +199,14 @@ LIBS   = -lm</pre>
 }</pre>
 				<p>In this case procmail ignores the lock file, and it can happen that when two players send in orders shortly after each other the orders of the first player are overwritten.</p>
 
-			<h2>Running a Turn</h2>
+			<h2 id="run">Running Turns</h2>
 				<p>When it is time to run a turn you do this with:</p>
 <pre>./run_game &lt;game name&gt;</pre>
 				<p>This shell script collects all orders in one file, runs the turn based on these orders, and then sends out all the turn reports to the players.  It also creates high-score lists in HTML and places it in your <tt>$HOME/public_html</tt> directory, if you have one.  You can edit the script and add other commands that need to be run for each turn.</p>
 				<p>After each turn you are send a GM status report. It tells you whether the turn ran successfully. It is especially handy if the server runs on some remote computer. It also contains information on the status of all nations in the game, a list of all bombings and a map. That way you can follow the game.</p>
-
-			<h2>Rerunning a Turn</h2>
 				<p>If for some reason there was a problem with a turn, you can rerun it by executing:</p>
 <pre>./run_game &lt;game name&gt; &lt;turn&gt;</pre>
 				<p>The game will be rerun and new turn reports are sent to the players.  This only works for turns that already ran.</p>
-
-			<h2>Running Turns Automatically</h2>
 				<p>Although it is simple to run a turn it becomes cumbersome after a few turns. Automization is again the solution. You can do this with cron. For instance if you have a game called Orion, that runs on Monday, Wednesday, and Friday around 21:15 hours, you can use the following cron file:</p>
 <pre>#           day            day 
 #  Min Hour of     month   the     Command to run
@@ -214,7 +223,7 @@ LIBS   = -lm</pre>
 <pre>(need info here)</pre>
 				<p>See the <tt>crontab</tt> and <tt>cron</tt> manual for more information.</p>
 
-			<h2>Command Summary</h2>
+			<h2 id="command">Command Summary</h2>
 				<table>
 					<tr>
 						<th>Command</th>
@@ -303,46 +312,42 @@ LIBS   = -lm</pre>
 					</tr>
 				</table>
 
-			<h2>Configuration</h2>
-
-				<h3>Server Configuration File</h3>
-					<p>The server can be configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>. You can use this to override settings for a particular game.
+			<h2 id="config">Configuration</h2>
+				<p>The server can be configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>. You can use this to override settings for a particular game.
 An example <tt>.galaxyngrc</tt> file is generated when you install the game.  A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Docs/</tt> directory. You can use it to specify the following parameters.  Only the first two are essential to run games.</p>
-					<table>
-						<tr>
-							<td><tt>GMemail</tt></td>
-							<td>The address for GM status reports.</td>
-						</tr>
-						<tr>
-							<td><tt>sendmail</tt></td>
-							<td>The command that is used to send mail to the players.</td>
-						</tr>
-						<tr>
-							<td><tt>compress</tt></td>
-							<td>The command to compress email with, usually <tt>{ /usr/bin/zip }</tt>.</td>
-						</tr>
-						<tr>
-							<td><tt>encode</tt></td>
-							<td>Path to the command to attach a file to an email with, usually <tt>{ /usr/bin/mmencode }</tt>.</td>
-						</tr>
-						<tr>
-							<td><tt>FullBombing</tt></td>
-							<td>Switch to turn on old style galaxy bombing rule.</td>
-						</tr>
-						<tr>
-							<td><tt>DontDropDead</tt></td>
-							<td>Switch, idle players are not dropped from the game.</td>
-						</tr>
-						<tr>
-							<td><tt>SaveReportCopy</tt></td>
-							<td>When running a turn also save a copy of each turn report in <tt>reports/&lt;game name&gt;/</tt>.</td>
-						</tr>
-					</table>
+				<table>
+					<tr>
+						<td><tt>GMemail</tt></td>
+						<td>The address for GM status reports.</td>
+					</tr>
+					<tr>
+						<td><tt>sendmail</tt></td>
+						<td>The command that is used to send mail to the players.</td>
+					</tr>
+					<tr>
+						<td><tt>compress</tt></td>
+						<td>The command to compress email with, usually <tt>{ /usr/bin/zip }</tt>.</td>
+					</tr>
+					<tr>
+						<td><tt>encode</tt></td>
+						<td>Path to the command to attach a file to an email with, usually <tt>{ /usr/bin/mmencode }</tt>.</td>
+					</tr>
+					<tr>
+						<td><tt>FullBombing</tt></td>
+						<td>Switch to turn on old style galaxy bombing rule.</td>
+					</tr>
+					<tr>
+						<td><tt>DontDropDead</tt></td>
+						<td>Switch, idle players are not dropped from the game.</td>
+					</tr>
+					<tr>
+						<td><tt>SaveReportCopy</tt></td>
+						<td>When running a turn also save a copy of each turn report in <tt>reports/&lt;game name&gt;/</tt>.</td>
+					</tr>
+				</table>
+				<p>You can override where the server looks for all its data files by setting the <tt>GALAXYNGHOME</tt> variable. If it is not set the server looks in <tt>$HOME/Games/</tt>.</p>
 
-				<h3>Environment Variables</h3>
-					<p>You can override where the server looks for all its data files by setting the <tt>GALAXYNGHOME</tt> variable. If it is not set the server looks in <tt>$HOME/Games/</tt>.</p>
-
-			<h2>How to Host a Team Game</h2>
+			<h2 id="host">Hosting Team Games</h2>
 				<p>First get two teams...  best is to have the players themselves form the team and appoint a team captain for each team.  After that you will have two lists with email addreses. You add them in the .glx file and above the first list you add:</p>
 <pre>team 0</pre>
 				<p>and before the second list you add:</p>
