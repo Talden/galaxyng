@@ -14,7 +14,7 @@
  */
 
 #include "avl.h"
-
+#include <stdio.h>
 /* Private methods */
 
 /* Swing to the left
@@ -271,7 +271,8 @@ int avl_range(avl_tree* t,avl* a,avl* b,int(*iter)(avl* a))
    if(x<=0){
       /* search in the right subtree */
       avl_tree right_subtree;
-      if(right_subtree.root=t->root->right){
+      if((right_subtree.root = t->root->right) != NULL) {
+/*      if(right_subtree.root=t->root->right){  */
 	 right_subtree.compar=t->compar;
 	 if(!(c=avl_range(&right_subtree,a,b,iter))) if(x<0) return 0;
       }
