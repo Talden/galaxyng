@@ -8,6 +8,7 @@
 
 #include "process.h"
 
+static void fakeGame(game** aGame);
 
 /****h* GalaxyNG/Process
  * FUNCTION
@@ -2304,105 +2305,143 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
  * SOURCE
  */
 
+enum {GALAXY, GAMENAME, RACENAME, PASSWORD, TURNNBR, FINALORDERS, NBRITEMS};
+
 int
 areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 		char **password, char** final_orders, int* theTurnNumber )
 {
-	int   resNumber;
-	int   foundOrders;
-	char* gameName;
-	char* isRead;
-	
-	gameName = NULL;
-	
-	foundOrders = FALSE;
-	for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
-		  isRead;
-		  isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
-		if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
-			foundOrders = TRUE;
-			break;
-		}
-	}
+  player* aPlayer;
 
+  char*   galaxyItems[NBRITEMS];
+  char*   gameName;
+  char*   isRead;
+  char*   ptr;
+
+  int     resNumber = RES_OK;
+  int     foundOrders;
+  int     giIdx = 0;
+
+  gameName = NULL;
+  
+  foundOrders = FALSE;
+  for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
+	isRead;
+	isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
+    if ((ptr = strchr(lineBuffer, '#')) != NULL) {
+      if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
+	foundOrders = TRUE;
+	break;
+      }
+    }
+  }
+  
+  if (!foundOrders) {
+    fakeGame(aGame);
+    return RES_NO_ORDERS;
+  }
+
+  for (giIdx = 0; giIdx < NBRITEMS; giIdx++) {
+    galaxyItems[giIdx] = NULL;
+  }
+
+  ptr = strtok(lineBuffer, " ");
+  do {
+    galaxyItems[giIdx++] = strdup(ptr);
+    plog(LBRIEF, "%d: \"%s\"\n", giIdx-1, ptr);
+  } while ((ptr = strtok(NULL, " ")) != NULL);
+
+  
+  for (giIdx = 0; giIdx < NBRITEMS; giIdx++) {
+    switch(giIdx) {
+    case GALAXY:		/* #galaxy */
+      if (noCaseStrcmp(galaxyItems[GALAXY], "#galaxy") != 0) {
+	plog(LBRIEF, "areValidOrders(%d): invalid #galaxy line\n", __LINE__);
+	fakeGame(aGame);
+	return RES_NO_GAME;
+      }
+      break;
+
+    case GAMENAME:
+      if (galaxyItems[GAMENAME] == NULL) {
+	fakeGame(aGame);
+	return RES_NO_GAME;
+      }
+      gameName = galaxyItems[GAMENAME];
+      break;
+
+    case RACENAME:
+      if (galaxyItems[RACENAME] == NULL) {
+	fakeGame(aGame);
+	return RES_NO_GAME;
+      }
+      *raceName = galaxyItems[RACENAME];
+      break;
+
+    case PASSWORD:
+      if (galaxyItems[PASSWORD] == NULL) {
+	fakeGame(aGame);
+	return RES_NO_GAME;
+      }
+      *password = galaxyItems[PASSWORD];
+      break;
+
+    case TURNNBR:
+      if (galaxyItems[TURNNBR] == NULL) {
 	*theTurnNumber = LG_CURRENT_TURN;
-	
-	if ( foundOrders ) {
-		char* ptr;
-		getstr( lineBuffer );
-		gameName = strdup( getstr( NULL ) );
-		*raceName = strdup( getstr( NULL ) );
-		*password = strdup( getstr( NULL ) );
-		if ((ptr = getstr(NULL)) != NULL) {
-			*theTurnNumber = atoi(ptr);
-			if (!isdigit(*ptr)) {
-				*theTurnNumber = LG_CURRENT_TURN;
-				if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
-					loadNGConfig(*aGame);
-				else {
-					*aGame = allocStruct( game );
-		
-					setName( *aGame, "UnknownGame" );
-					loadNGConfig( *aGame );
-					if ( gameName )
-						setName( *aGame, gameName );
-					return RES_NO_GAME;
-				}
-				return RES_NO_TURN_NBR;
-			}
-		}
-		
-		if ((ptr = getstr(NULL)) != NULL) {
-			if (noCaseStrcmp(ptr, "FinalOrders") == 0)
-				*final_orders = strdup(ptr);
-		}
+	resNumber = RES_NO_TURN_NBR;
+      }
+      else {
+	*theTurnNumber = atoi(galaxyItems[TURNNBR]);
+	free(galaxyItems[TURNNBR]);
+      }
+      break;
+
+    case FINALORDERS:
+      if (galaxyItems[FINALORDERS] != NULL) {
+	*final_orders = galaxyItems[FINALORDERS];
+      }
+      break;
+    }
+  }
+
+  if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) == NULL) {
+    fakeGame(aGame);
+    return RES_NO_GAME;
+  }
+
     
-		if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
-			player *aPlayer;
+  loadNGConfig( *aGame );
+    
+  if (noCaseStrcmp("GM", *raceName) == 0) {
+    if (strcmp((*aGame)->serverOptions.GMpassword, *password) != 0) {
+      return RES_PASSWORD;
+    }
+  }
+
+  aPlayer = findElement( player, ( *aGame )->players, *raceName );
+
+  if (aPlayer == NULL) {
+    return RES_PLAYER;
+  }
+    
+  if (noCaseStrcmp( aPlayer->pswd, *password) != 0) {
+    return RES_PASSWORD;
+  }
       
-			loadNGConfig( *aGame );
-      
-			if (noCaseStrcmp("GM", *raceName) == 0) {
-				if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
-					resNumber = RES_OK;
-				}
-			}
-			else {
-				aPlayer = findElement( player, ( *aGame )->players,
-									   *raceName );
-	
-				if ( aPlayer ) {
-					if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
-						if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
-							 ( *theTurnNumber == LG_CURRENT_TURN ) ) {
-							resNumber = RES_OK;
-						} else {
-							resNumber = RES_TURNRAN;
-						}
-					} else {
-						resNumber = RES_PASSWORD;
-					}
-				} else {
-					resNumber = RES_PLAYER;
-				}
-			}
-		} else {
-			resNumber = RES_NO_GAME;
-		}
-	} else {
-		resNumber = RES_NO_ORDERS;
-	}
-	
-	if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
-		*aGame = allocStruct( game );
-		
-		setName( *aGame, "UnknownGame" );
-		loadNGConfig( *aGame );
-		if ( gameName )
-			setName( *aGame, gameName );
-	}
-	
-	return resNumber;
+  if (*theTurnNumber <= (*aGame)->turn) {
+    return RES_TURNRAN;
+  }
+
+  return resNumber;
+}
+
+
+static void fakeGame(game** aGame) {
+  *aGame = allocStruct( game );
+    
+  setName( *aGame, "UnknownGame" );
+  loadNGConfig( *aGame );
 }
 
 /*********/
