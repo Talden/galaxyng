@@ -59,7 +59,7 @@ you for the location of the sendmail command if it can not find it.
 
 If you want to enable web highscore lists, make sure you have a
 $(HOME)/public_html or $(HOME)/www directory before you start
-installing. (Or edit Games/run_turn afterwards.)
+installing. (Or edit Games/run_game afterwards.)
 
 Much more information can be found in the server manual.  Visit
   http://galaxyng.sourceforge.net/server.php
@@ -77,7 +77,7 @@ SUPPORT
 
 If you have any questions, ask on the galaxyng-developers list:
   http://lists.sourceforge.net/lists/listinfo/galaxyng-developers
-submit a support request:
+or submit a support request:
   http://sourceforge.net/tracker/?group_id=48224&atid=454548
 
 
