@@ -403,7 +403,8 @@ rRace(game* aGame, player* P, int level, int RorF)
   int      nbr_msgs[2];
 
   sprintf(indent, "%*.*s", level, level, " ");
-  fprintf(fpR, "%s<race name=\"%s\"", indent, safename(P->name));
+  fprintf(fpR, "%s<race name=\"%s\" id=\"%d\"",
+		  indent, safename(P->name), ptonum(aGame->players, P));
   fprintf(fpR, " password=\"%s\">\n", safename(P->pswd));
   fprintf(fpR, "%s  <options>\n", indent);
 
@@ -560,7 +561,9 @@ rAlienRaces(game* aGame, player* P, int level)
   for (P2 = aGame->players; P2; P2=P2->next) {
     if (P2 == P)
       continue;
-    fprintf(fpR, "%s  <alienRace name=\"%s\">\n", indent, safename(P2->name));
+    fprintf(fpR, "%s  <alienRace name=\"%s\" id=\"%d\">\n",
+			indent, safename(P2->name), ptonum(aGame->players, P2));
+
     if (!(P->flags && F_ANONYMOUS)) {
       fprintf(fpR, "%s    <address>%s</address>\n", indent, P2->addr);
     }
