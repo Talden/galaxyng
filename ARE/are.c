@@ -274,7 +274,7 @@ int getPlanetSizes(FILE *orders, char **planets, double totalPlanetSize,
     if (totalSize < totalPlanetSize - 25.0) {
       printf("\nWARNING:\n"
 	     "The sum of the sizes of your planets is:  %9.2f\n" 
-	     "The the limit set by your game master is: %9.2f\n"
+	     "The maximum limit set by your game master is: %9.2f\n"
 	     "This means that you can increase the size of one (or more) of\n"
 	     "your planets by %.2f!\n"
 	     "My guess is that you want to edit and retransmit your\n"

@@ -227,6 +227,7 @@ LIBS   = -lm</pre>
 e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>The server will send error messages to players who submit requests for planets that do not match the criteria specified in the <tt>.procmail</tt> recipe.</p>
 				<p>Note that better examples of game signup recipes can be found in the file <tt>$HOME/Games/procmailrc</tt>.</p>
+				<p>The email address and planet sizes are written to two files: <tt>$HOME/Games/&lt;gamename&gt;.players</tt> for players that were accepted and <tt>$HOME/Games/&lt;gamename&gt;.standby</tt> for players that were rejected. The contents of these files can be pasted into your .glx file.</p>
 
 			<hr />
 
