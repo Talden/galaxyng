@@ -5,7 +5,8 @@
 CFLAGS = -Wall -pedantic -I../include $(ADDTL_CFLAGS)
 CC = gcc
 
-SOURCES=strutl.c logging.c list.c globals.c mail.c util.c loadNGConfig.c
+SOURCES=strutl.c logging.c list.c globals.c mail.c util.c loadNGConfig.c \
+		lockFile.c
 OBJECTS=$(SOURCES:.c=.o)
 
 all : libgalaxyng.a
