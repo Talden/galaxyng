@@ -2487,7 +2487,7 @@ doOrders( game *aGame, player *aPlayer, orderinfo *orderInfo, int phase )
 
         pdebug( DFULL2, "  Order %s\n", s->str );
         for ( order = getstr( s->str );
-              ( s ) && ( phase eq 2 ) && ( *order eq '@' ); ) {
+              ( s ) && ( phase eq 3 ) && ( *order eq '@' ); ) {
             plog( LFULL, "order: %s phase:%d\n", order, phase );
             for ( s = s->next; s; s = s->next ) {
                 order = getstr( s->str );
