@@ -383,9 +383,9 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 					<li>Groups with weapons attack enemy ships, causing combat.  This can happen if a player declares war on the current turn.  It can also happen if a player built a ship with weapons at a planet with enemy ships in orbit at the end of the previous turn.</li>
 					<li>Groups with weapons bomb enemy planets.  This can happen if a player declares war on the current turn.</li>
 					<li>Groups <a href="#ordl">load</a> or <a href="#ordu">unload</a> cargo.</li>
+					<li>Groups are <a href="#ordg">upgraded</a>.</li>
 					<li>Groups and fleets <a href="#ords">sent</a> to planets enter hyperspace.</li>
-					<li><a href="#ordr">Routes are assigned</a> to planets.</li>
-					<li>Cargo ships are assigned cargos and destinations, load cargo (if necessary) and enter hyperspace.</li>
+					<li><a href="#ordr">Routes are assigned</a> to planets. Cargo ships are assigned cargos and destinations, load cargo (if necessary) and enter hyperspace.</li>
 					<li>Groups and fleets with <a href="#ordi">intercept</a> orders are assigned destinations and enter hyperspace.</li>
 					<li>Groups and fleets move through hyperspace, possibly arriving at planets.</li>
 					<li>Groups with weapons attack enemy ships, causing combat.</li>
@@ -395,6 +395,7 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 					<li>Ships at route destinations unload cargo.  All ships unload cargo if the <a href="#ordo">autounload option</a> is turned on.</li>
 					<li>Identical groups are merged.</li>
 					<li>Groups are renumbered if the <a href="#ordo">sortgroups</a> option is turned on.</li>
+					<li><a href="#ordc">Races</a>, <a href="#ordn">planets</a>, <a href="#ordt">ships</a> and <a href="#ordt">fleets</a> are renamed.</li>
 				</ol>
 				<p>A number of things follow from this:</p>
 				<ul>
