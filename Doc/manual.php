@@ -516,6 +516,11 @@ and write and send the reply. For your convenience the
 to remove the "&gt; " your mail program added in front of it.
 Be careful with signatures if you want to stay anonymous.
 
+If you want to relay a message to all players in the game, rather than
+to a single player, the subject of your message should be
+"relay &lt;gamename&gt;" - thus, to relay to all players in the
+game Distance the subject should be "relay Distance"
+
 -*- TIME AND DUE DATES FOR ORDERS -*-
 
 Most turns get run at midnight "Mountain" time or "Colorado" time
@@ -1273,6 +1278,9 @@ Subject: relay &lt;alien race name&gt;
 #GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt;
 ...message...
 #END</pre>
+
+					<p>To relay a message to all players in the game, rather than to a
+single player, the subject of the message should be "relay &lt;gamename&gt;" - thus, to relay to all players in Distance the subject should be "relay Distance"</p>
 
 					<p>Players should be sure to end their messages with #END if they want to prevent their email signature from being sent to the recipient.  Messages should <strong>never</strong> be sent in HTML format, as this will expose the player's password to the message recipient.</p>
 					
