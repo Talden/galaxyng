@@ -30,6 +30,7 @@
 					<li><a href="#create">Creating a New Game</a></li>
 					<li><a href="#mail">Mailing the Turn 0 Reports</a></li>
  					<li><a href="#process">Processing Orders</a></li>
+ 					<li><a href="#due">Sending Orders Due Messages</a></li>
 					<li><a href="#run">Running Turns</a></li>
 					<li><a href="#command">Command Summary</a></li>
 					<li><a href="#ex">Example Files</a></li>
@@ -209,6 +210,7 @@ LIBS   = -lm</pre>
 |/usr/bin/formail -rkbt -s $HOME/Games/galaxyng -check</pre>
 				<p>Translated it means: if the subject of the message contains the string "order", pipe the message to <tt>formail</tt>. It is case insensitive, so order, NewOrder and ORDERS will all match the condistion. A lock file with the name orders.lock is used to prevent the simultaneous execution of the same recipe if two or more messages arrive at the same time.  There are similar entries for the commands to request a copy of a turn report, relay messages to other players and register for games. You will find them in the example procmailrc file at <tt>$HOME/Games/procmailrc</tt>.</p>
 				<p><tt>formail</tt> reformats email messages. When used with the <tt>-rkbt</tt> flags, all mail header lines are thrown away, a <tt>To:</tt> line is generated with the address of person that sent the message, a <tt>Subject:</tt> line is generated, with the original subject prepended with <tt>Re:</tt>, and the body of the message is retained.  This allows the GalaxyNG server to mail forecasts, turn reports and other responses to the person who sent the message.</p>
+				<p><tt>cron</tt> runs programs on a schedule.  You can use cron to send <a href="#due">orders due</a> messages and <a href="#run">run turns</a>.</p>
 
 			<hr />
 
@@ -269,6 +271,15 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 
 			<hr />
 
+			<h2 id="due">Sending Orders Due Mesages</h2>
+
+				<p>Players that haven't sent orders can be reminded with an orders due message.  You do this with:</p>
+<pre>./galaxyng -due &lt;game name&gt;</pre>
+				<p>For example:</p>
+<pre>./galaxyng -due Orion</pre>
+
+			<hr />
+
 			<h2 id="run">Running Turns</h2>
 				<p>When it is time to run a turn you do this with:</p>
 <pre>./run_game &lt;game name&gt;</pre>
@@ -277,20 +288,17 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>If for some reason there was a problem with a turn, you can rerun it by executing:</p>
 <pre>./run_game &lt;game name&gt; &lt;turn&gt;</pre>
 				<p>The game will be rerun and new turn reports are sent to the players.  This only works for turns that already ran.</p>
-				<p>Although it is simple to run a turn it becomes cumbersome after a few turns. Automization is again the solution. You can do this with cron. For instance if you have a game called Orion, that runs on Monday, Wednesday, and Friday around 21:15 hours, you can use the following cron file:</p>
-<pre>#           day            day 
-#  Min Hour of     month   the     Command to run
-#           month         week
-    15   21   *      *     1     /home/yourname/Games/run_game Orion
-    15   21   *      *     3     /home/yourname/Games/run_game Orion
-    15   21   *      *     5     /home/yourname/Games/run_game Orion</pre>
+				<p>Although it is simple to run a turn it becomes cumbersome after a few turns. Automization is again the solution. You can do this with cron. For instance if you have a game called Orion, that runs on Monday, Wednesday, and Friday around 21:15 hours and send reminders at 17:15 hours, you can use the following cron file:</p>
+<pre>#           days             days 
+#  Min Hour of     months    of     Command to run
+#           month           week
+    15   21   *      *     1,3,5     /home/username/Games/run_game Orion
+    15   17   *      *     1,3,5     /home/username/Games/galaxyng -due Orion</pre>
 				<p>To enable a cron file run:</p>
 <pre>crontab &lt;your cron file&gt;</pre>
 				<p>To see what cron files you have enabled run:</p>
 <pre>crontab -l</pre>
 				<p>An example file can be found at <tt>$HOME/GalaxyNG/games.crontab</tt></p>
-				<p>To enable it run:</p>
-<pre>(need info here)</pre>
 				<p>See the <tt>crontab</tt> and <tt>cron</tt> manual for more information.</p>
 
 			<hr />

@@ -200,6 +200,14 @@ echo "# .gmreport" >> $PROCRC
 echo "# Combining this with maildir delivery would yield:" >> $PROCRC
 echo "# .gmreport/" >> $PROCRC
 echo "" >> $PROCRC
+echo "" >> $PROCRC
+echo "# Store orders due messages in a folder called due." >> $PROCRC
+echo ":0:" >> $PROCRC
+echo "* ^Subject:.*is about to run." >> $PROCRC
+echo "due" >> $PROCRC
+echo "# .due" >> $PROCRC
+echo "# .due/" >> $PROCRC
+echo "" >> $PROCRC
 echo "# Don't reply to anything from a mail daemon, but store it" >> $PROCRC
 echo "# in a folder called postmaster." >> $PROCRC
 echo ":0:" >> $PROCRC
@@ -307,12 +315,15 @@ if { test -e $CRONT; } then {
 fi
 echo "# This is an example crontab file. It would run the game " > $CRONT
 echo "# Jangi on Monday, Wednesday, and Friday at 21:15 (9:15pm)" >> $CRONT
-echo "# and the game Welland on Tuesday and Friday at 08:00 (8:00am)" > $CRONT
-echo "# To use it, type" >> $CRONT
+echo "# and the game Welland on Tuesday and Friday at 08:00 (8:00am)" >> $CRONT
+echo "# It will also send 'orders due' messages four hours before" >> $CRONT
+echo "# each turn.  To use it, type" >> $CRONT
 echo "#   crontab games.crontab" >> $CRONT 
 echo "#" >> $CRONT
 echo "15 21 * * 1,3,5 " $RUN_GAME "Jangi" >> $CRONT
+echo "15 17 * * 1,3,5 "$GALAXY_HOME"/galaxyng -due Jangi" >> $CRONT 
 echo "0 8 * * 2,5 " $RUN_GAME "Welland" >> $CRONT
+echo "0 4 * * 2,5 "$GALAXY_HOME"/galaxyng -due Welland" >> $CRONT 
 
 # =========================================================
 #              Create a .galaxyngrc file
