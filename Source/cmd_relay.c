@@ -53,6 +53,10 @@ int CMD_relay( int argc, char **argv ) {
 	anEnvelope = readEnvelope(stdin);
 
 	destination = getDestination( anEnvelope->subject );
+	plog(LBRIEF, ">CMD_relay(from: \"%s\"  to: \"%s\"), "
+	     "confirmation in \"%s\"\n", anEnvelope->from, destination,
+	     confirmName);
+
 	raceName = NULL;
 	password = NULL;
 	final_orders = NULL;
