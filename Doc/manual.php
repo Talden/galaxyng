@@ -1037,7 +1037,7 @@ G   #   T     D    W    S    C  T   Q    D  R O
 69  5 Flak0 1.20 0.00 1.00 0.00 - 0.00 Corn</pre>
 
 				<h3 id="repagroups">Alien Groups</h3>
-					<p>All groups owned by other players that are at planets where the player has a ship in orbit.  For each group: number of ships, ship type name, drive technology, weapons technology, shields technology, cargo technology, cargo type carried, cargo mass carried per ship, destination planet, distance to destination, origin planet.</p>		
+					<p>All groups owned by other players that are at planets where the player has a ship in orbit.  For each group: number of ships, ship type name, drive technology, weapons technology, shields technology, cargo technology, cargo type carried, cargo mass carried per ship, destination (i.e. current) planet.</p>		
 <pre>		SiliconFungi Groups
 
 #     T     D    W    S    C  T   Q     D   
