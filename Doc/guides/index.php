@@ -24,6 +24,7 @@
 				<li><a href="etiquette.php">Galaxy Etiquette (Gettiquette)</a> by Chris Orr</li>
 				<li><a href="http://www.indyramp.com/galaxy/strategy.html">Ship Design in Galaxy and Blind Galaxy</a> by Howard Bampton</li>
 				<li><a href="http://web.archive.org/web/20011005182146/http://www.jacobean.demon.co.uk/galaxy/tips.html">Tim's Galaxy Tips and Tricks</a> by Tim Hughes</li>
+				<li><a href="http://www.truehonour.com/galaxyguide.html">GalaxyNG: Guide</a> by John Woolsey</li>
 			</ul>
 		
 		<hr />
