@@ -320,7 +320,7 @@ uninhabited planet will be stockpiled until the planet is colonized.</p>
 					<p>A planet can research one of the four technologies each turn.  It costs 5,000.00 production to increase drive, weapons, or shields technology by one point and 2,500.00 production to increase cargo technology by one point.  Fractional increases are effective immediately: if you spend 500.00 production on research into Weapons, your weapons technology will go up by 0.10.  Research takes effect on the following turn and applies to all new and upgraded ships, regardless of which planet conducted the research.</p>
 
 				<h3 id="build">Ship Building</h3>
-					<p>A planet can produce one type of ships each turn.  The production cost of a ship is equal to its ship mass times ten.  In addition, one unit of materials is required for every ten units of production.  If the planet does not have a stockpile of materials, some production will automatically be diverted to producing materials.</p>
+					<p>A planet can produce one type of ship each turn.  The production cost of a ship is equal to its ship mass times ten.  In addition, one unit of materials is required for every unit of mass.  If the planet does not have a stockpile of materials, some production will automatically be diverted to producing materials.</p>
 <pre>                  Mass  Production  Materials
 Drone             1.00     10.00       1.00
 Flak              3.00     30.00       1.00
