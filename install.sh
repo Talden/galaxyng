@@ -377,9 +377,9 @@ echo "sendmail { $SENDMAIL -t }" >> $RCFILE
 echo "GMemail $GMEMAIL" >> $RCFILE
 echo "GMpassword $PASSWORD" >> $RCFILE
 echo "SERVERemail $SERVEREMAIL" >> $RCFILE
-echo "encode { $ENCODE }" >> $RCFILE
-echo "compress { " $COMPRESS " }" >> $RCFILE
-echo "fontpath { " $GALAXY_HOME " }" >> $RCFILE
+echo "encode $ENCODE" >> $RCFILE
+echo "compress $COMPRESS" >> $RCFILE
+echo "fontpath $GALAXY_HOME" >> $RCFILE
 echo "; The due parameter is used for the -due flag." >> $RCFILE
 echo "; Don't put any spaces around it, thus, for example:" >> $RCFILE
 echo "; due {in four hours} and not: due { in four hours }" >> $RCFILE
