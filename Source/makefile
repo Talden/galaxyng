@@ -18,11 +18,11 @@
 # if you want to have a .png map generated when the -influence 
 # command is used, then you'll need to have libgd 
 # (http://www.boutell.com/gd/) installed with png, jpeg, and 
-# freetype support enabled.
-ADDTL_CFLAGS = -DDRAW_INFLUENCE_MAP -I.
-ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype
-ADDTL_SRCS = influence.c
-ADDTL_OBJS = influence.o
+# freetype support enabled and uncomment the following lines:
+#ADDTL_CFLAGS = -DDRAW_INFLUENCE_MAP -I.
+#ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype
+#ADDTL_SRCS = influence.c
+#ADDTL_OBJS = influence.o
 
 CFLAGS = -Wall -pedantic -g $(ADDTL_CFLAGS)
 #CFLAGS = -Wall -pedantic -g -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
