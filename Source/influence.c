@@ -98,8 +98,6 @@ draw_maps(game* aGame)
 	else
 		strcpy(font, "./influence.ttf");
 	
-	fprintf(stderr, "font: \"%s\"\n", font);
-	
 	for (mt = FirstMap; mt < NbrMaps; mt++) {
 		switch(mt) {
 			case EffIndMap:
