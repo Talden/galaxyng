@@ -4,6 +4,9 @@
 
 Source/galaxyng:
 	cd Source ; make ; cd .. 
+	
+ARE/are:
+	cd ARE ; make ; cd ..
 
 install: Source/galaxyng
 	./install.sh
