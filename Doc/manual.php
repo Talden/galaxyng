@@ -411,9 +411,9 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 				<p>Players can obtain copies of current and previous turn reports by sending an email to the GalaxyNG server using this format:</p>
 <pre>To: server@somewhere.org
 From: player@someplace.com
-Subject: report &lt;turn number&gt;
+Subject: report
 
-#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt;</pre>
+#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt;  &lt;turn number&gt;</pre>
 
 				<h3 id="repbul">Bulletins</h3>
 					<p>The bulletins are provided by the GM.  They usually include a ranked list of races, announcements about the game, holiday notices and other server updates, server instructions, GM contact information, and more.</p>
@@ -455,7 +455,7 @@ Daily8 Top 15 of turn 12 which ran on 18:00:02 Mon Feb 17 2003
 Orders should be send to:   steve@badcheese.com
 with a subject line of:     "order" or "orders"
 All orders should start with:
-  #GALAXY &lt;game name&gt; &lt;your nation name&gt; &lt;your password&gt;
+  #GALAXY &lt;game name&gt; &lt;your nation name&gt; &lt;your password&gt; &lt;turn number&gt;
 and end with:
   #END
 
@@ -496,8 +496,8 @@ http://www.expita.com/nomime.html
 
 You can get a copy of any of the previous turn reports by sending a
 set of orders that contains just one line:
-  #GALAXY &lt;game name&gt; &lt;your nation name&gt; &lt;your password&gt;
-to steve@badcheese.com with a Subject line of "report &lt;turn#&gt;"
+  #GALAXY &lt;game name&gt; &lt;your nation name&gt; &lt;your password&gt;  &lt;turn number&gt;
+to steve@badcheese.com with a Subject line of "report"
 Use the nation name and password of the last turn, not the
 name and password you had at the turn you request.
 
@@ -1082,29 +1082,28 @@ option1 | option2 | option3</pre>
 From: player@someplace.com
 Subject: orders
 
-#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt;
+#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt;  &lt;turn number&gt;
 ...orders...
 #END</pre>
 
 					<p>The subject should be "orders" and the #GALAXY line should be in the body of the message, not in the subject.  It is very important to type this line correctly, as otherwise all of your orders will be discarded.  Everything before the #GALAXY line or after the #END line in the message is ignored by the server.  Replacement sets of orders may be sent anytime before the turn deadline. The last set of orders received will be used by the server when the turn is run.</p>
 					<p>Players can send empty orders (e.g. #GALAXY and #END lines with no contents) to avoid being removed from the game for <a href="#inactive">inactivity</a>.</p>
 					<p>If the GM chooses, the game can run when all players have submitted their orders or when a certain number of hours have passed since the last turn ran.  To send final orders and indicate you are ready for the turn to run, change the #GALAXY line to read:</p>
-					<pre>#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt; FinalOrders</pre>
+					<pre>#GALAXY &lt;game name&gt; &lt;player's race name&gt; &lt;password&gt; &lt;turn number&gt; FinalOrders</pre>
 					<p>If all players submit final orders, the turn will run immediately.  If not, it will run when # hours have passed since the previous turn.  For example, the GM could run the turn when all players have submitted final orders or when 48 hours have passed since the previous turn.</p>
      
 				<h3 id="fore">Forecast and Errors</h3>
 					<p>The server sends a forecast and error report to the email address used to send orders.  The forecast is a prediction of the results of the orders sent, assuming no other races exist in the galaxy.  It contains only information about the player's planets and groups, and does not contain information about other races or uninhabited planets.  Errors with the email or with specific orders will be reported to the player so they can be corrected and resent.</p>
 
 				<h3 id="adv">Advance Orders</h3>
-					<p>Players can send advance orders if they will be away from email for some time.  The subject should be  "orders &lt;turn number&gt;" - for example "orders 27" for turn 27.  The server
-will store the orders (but not check them) and use them when the turn runs.  When sending advance orders, players should <strong>not</strong> change their <a href="#ordn">race name</a> or <a href="#ordy">password</a> when sending advance orders, as this can cause orders to be rejected when the turn runs.</p>
+					<p>Players can send advance orders if they will be away from email for some time.  Simply change the turn number on the #GALAXY line to the appropriate turn.  The server will store the orders (but not check them) and use them when the turn runs.  When sending advance orders, players should <strong>not</strong> change their <a href="#ordn">race name</a> or <a href="#ordy">password</a>, as this can cause orders to be rejected when the turn runs.</p>
 
 				<h3 id="inactive">Inactivity</h3>
 					<p>Players are removed from the game if they do not send orders for the first turn, do not send orders for three turns in a row during the first ten turns, or do not send in orders for six turns in a row after turn ten.  Players are also removed from the game if they do not own any planets and do not send in orders on a single turn.  Planets are reduced to 0 population and industry and all ships are destroyed at the beginning of the turn in which the player is removed.  (Note that players can send empty orders and <a href="#adv">advance orders</a> to avoid being removed for inactivity.)</p>
 
 				<h3 id="ex">Example Set of Orders</h3>
 					<p>Writing orders for the first time can be a daunting task, so here is an example set of orders for turn 1.</p>
-<pre>#GALAXY Jangi Race_12 P981231231
+<pre>#GALAXY Jangi race_5 P981231231 1
 c Vogons           ; Change the player's race name.
 y towel            ; Change password.
 = "Arthur Dent"    ; Set player name for Hall of Fame.
