@@ -99,10 +99,13 @@
 #define TRUE  1
 #define FALSE 0
 
-#define T_PLAYER  1
-#define T_STANDBY 2
+enum PlayerStatus {Player, Standby};
 
 void dump_so(serverOpts* so);	/* used for debugging, not needed othewise */
+static int processPlanets(playerOpts* po, char* ordersLine, FILE* playerMsg,
+						  float totalPlanetSize, float maxPlanetSize);
+static void processName(playerOpts* po, char* ordersLine, FILE* playerMsg);
+static void processOptions(playerOpts* po, char* ordersLine, FILE* playerMsg);
 
 char* gamename;
 
@@ -134,7 +137,9 @@ int main(int argc, char *argv[]) {
 	
 	char* messages = NULL;
 	FILE* msgFP = NULL;
-		
+	int   endOrders;			/* to flag the #END found in the orders */
+	char  buffer[4096];			/* for reading in orders */
+	
 	DBUG_ENTER("main");
 	DBUG_PUSH(argv[1]);
 	DBUG_PROCESS(argv[0]);
@@ -196,6 +201,7 @@ int main(int argc, char *argv[]) {
 			else {
 				DBUG_PRINT("find", ("found game \"%s\"\n", gameName));
 			}
+			break;
 		}
 		getLine(stdin);
 		if ((ptr = strchr(lineBuffer, '#')) == NULL)
@@ -251,39 +257,54 @@ int main(int argc, char *argv[]) {
 		po->planets = NULL;
 	}
 	
-#if 0
-	/* now we have to read in the orders */
-			if (getPlanetSizes(stdin, &planets, totalPlanetSize,
-							   maxNumberOfPlanets, maxPlanetSize)) {
-				errorCode = registerPlayer(po, gamename,
-										   (curNumberOfPlayers < maxNumberOfPlayers) ? T_PLAYER : T_STANDBY);
-				
-				if (errorCode == EXIT_SUCCESS) { 
-					if (curNumberOfPlayers < maxNumberOfPlayers) {
-						playerMessage(po, gamename);
-					} else {
-						standbyMessage(gamename);
-					}
-				}
-			} else { /* Player made a mistake in planet sizes */
-				badPlanetMessage(planets);
-			}
-			if (planets)
-				free(planets);
-			if (address)
-				free(address);
-		} else {
-			fprintf(stderr, 
-					"ARE: Can't determine return address.\n");
-		}
-    }
-    else {
-		fprintf(stderr, 
-				"ARE: Can't determine the number players that "
-				"enrolled.\n");
-    }
 
-#endif
+	/* now we have to read in the orders */
+	endOrders = 0;
+	while ((fgets(buffer, 4096, stdin) != NULL) && !endOrders) {
+		*(strchr(buffer, '\n')) = '\0';
+		ptr = buffer + strspn(buffer, " ");
+		switch(*ptr) {
+			case 'k':
+			case 'K':
+				DBUG_PRINT("orders", ("found planet, \"%s\"", ptr));
+				if (processPlanets(po, ptr, msgFP,
+								   totalPlanetSize, maxPlanetSize) > 0) {
+					fprintf(msgFP, "You are not registered for this game "
+							"due to incorrect planet specifications.\n"
+							"Please try again.\n");
+				}
+				else {
+					planet* p;
+					DBUG_PRINT("planets", ("added planets"));
+					for (p = po->planets; p; p=p->next)
+						DBUG_PRINT("planets", ("    %.2f ", p->size));
+				}
+				break;
+
+			case 'n':
+			case 'N':
+				DBUG_PRINT("orders", ("found planet name, \"%s\"", ptr));
+				processName(po, ptr, msgFP);
+				break;
+
+			case 'o':
+			case 'O':
+				DBUG_PRINT("orders", ("found option, \"%s\"", ptr));
+				processOptions(po, ptr, msgFP);
+				break;
+
+			case '#':
+				if (noCaseStrncmp("#END", ptr, 4) == 0) {
+					endOrders = 1;
+				}
+				break;
+
+			default:
+				DBUG_PRINT("orders", ("unknown: \"%s\"\n", ptr));
+				break;
+		}
+	}
+
 	DBUG_RETURN(errorCode);
 }
 #if 0
@@ -782,3 +803,52 @@ ReadDefaults(serverOpts* so, FILE* f)
   return;
 }
 #endif
+
+
+static int processPlanets(playerOpts* po, char* ordersLine, FILE* playerMsg,
+						   float tps, float mps) {
+	planet* p;					/* new planet */
+	char*   ptr;				/* for separating out the planet sizes */
+
+	float   totalSize = 0.;
+	float   planetSize;
+
+	int     errors = 0;
+	
+	DBUG_ENTER("processPlanets");
+	
+	ptr = strtok(ordersLine, " ");
+
+	while ((ptr = strtok(NULL, " ")) != NULL) {
+		p = allocStruct(planet);
+		planetSize = (float)strtod(ptr, NULL);
+		if (planetSize > mps) {
+			fprintf(playerMsg, "Your planet size of %.2f was larger than the "
+					"maximum size (%.2f) specified by the GM\n",
+					planetSize, mps);
+			errors++;
+			continue;
+		}
+		totalSize += planetSize;
+		p->size = atof(ptr);
+		DBUG_PRINT("planets", ("adding planet sized %.2f", atof(ptr)));
+		addList(&po->planets, p);
+	}
+
+	if (totalSize > tps) {
+		fprintf(playerMsg, "The total size of your planets (%.2f) exceeded "
+				"the total allowable by the GM (%.2f).\n",
+				totalSize, tps);
+		errors++;
+	}
+
+	DBUG_RETURN(errors);
+}
+
+static void processName(playerOpts* po, char* ordersLine, FILE* playerMsg) {
+	return;
+}
+static void processOptions(playerOpts* po, char* ordersLine, FILE* playerMsg) {
+	return;
+}
+

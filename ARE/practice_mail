@@ -13,5 +13,9 @@ To: server@gesserit.net
 Subject: join
 
 #galaxy Jangi ChaccaCor mypassword
-
+k 1000 750 250
+n 1 planet1
+n 2 planet2
+n 3 400
+o no xmlreport
 #end
