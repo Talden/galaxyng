@@ -24,20 +24,20 @@ ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype
 ADDTL_SRCS = influence.c
 ADDTL_OBJS = influence.o
 
-CFLAGS = -g -Wall -pedantic -I../include $(ADDTL_CFLAGS)
+CFLAGS = -g -Wall -pedantic -I../include -I$(HOME)/include $(ADDTL_CFLAGS)
 #CFLAGS = -Wall -pedantic -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
-LIBS = -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
+LIBS = -L$(HOME)/lib -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
 
 
 CC=gcc
 
 SOURCES=loadgame.c savegame.c create.c phase.c battle.c process.c \
-        report.c util.c selftest.c report_xml.c mail.c \
-        report_m.c galaxyng.c wopr.c globals.c avl.c usage.c $(ADDTL_SOURCES)
+        report.c selftest.c report_xml.c \
+        report_m.c galaxyng.c wopr.c avl.c usage.c $(ADDTL_SOURCES)
 
 OBJECTS=loadgame.o savegame.o create.o phase.o battle.o process.o \
-        report.o util.o selftest.o report_xml.o mail.o \
-        report_m.o globals.o avl.o  usage.o $(ADDTL_OBJS)
+        report.o selftest.o report_xml.o \
+        report_m.o avl.o  usage.o $(ADDTL_OBJS)
 
 GALAXYNG=galaxyng
 WOPR=wopr
@@ -59,9 +59,6 @@ create.o: create.c
 phase.o: phase.c
 	$(CC) $(CFLAGS) -c phase.c -o phase.o
 
-globals.o: globals.c
-	$(CC) $(CFLAGS) -c globals.c -o globals.o
-
 battle.o: battle.c
 	$(CC) $(CFLAGS) -c battle.c -o battle.o
 
@@ -71,9 +68,6 @@ process.o: process.c
 report.o: report.c
 	$(CC) $(CFLAGS) -c report.c -o report.o
 
-util.o: util.c
-	$(CC) $(CFLAGS) -c util.c -o util.o
-
 list.o: list.c
 	$(CC) $(CFLAGS) -c list.c -o list.o
 
@@ -82,9 +76,6 @@ selftest.o: selftest.c
 
 report_xml.o: report_xml.c
 	$(CC) $(CFLAGS) -c report_xml.c -o report_xml.o
-
-mail.o: mail.c
-	$(CC) $(CFLAGS) -c mail.c -o mail.o
 
 report_m.o: report_m.c
 	$(CC) $(CFLAGS) -c report_m.c -o report_m.o
@@ -174,9 +165,6 @@ report.o: ../include/cookies.h ../include/logging.h
 report.o: ../include/loadgame.h ../include/list.h ../include/util.h
 report.o: ../include/mail.h ../include/report_m.h ../include/report_xml.h
 report.o: ../include/create.h ../include/avl.h
-util.o: ../include/util.h ../include/galaxy.h ../include/strutl.h
-util.o: ../include/logging.h ../include/list.h
-util.o: ../include/create.h ../include/avl.h ../include/loadgame.h
 selftest.o: ../include/selftest.h ../include/galaxy.h ../include/strutl.h
 selftest.o: ../include/cookies.h ../include/logging.h
 selftest.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
@@ -192,8 +180,6 @@ report_xml.o: ../include/report_xml.h
 report_xml.o: ../include/report.h ../include/loadgame.h ../include/list.h
 report_xml.o: ../include/util.h 
 report_xml.o: ../include/mail.h ../include/report_m.h
-mail.o: ../include/mail.h ../include/galaxy.h ../include/strutl.h
-mail.o: ../include/logging.h ../include/util.h ../include/list.h
 report_m.o: ../include/create.h ../include/galaxy.h ../include/strutl.h
 report_m.o: ../include/logging.h ../include/avl.h
 report_m.o: ../include/report_m.h ../include/list.h ../include/util.h
@@ -213,8 +199,6 @@ wopr.o: ../include/loadgame.h ../include/phase.h ../include/battle.h
 wopr.o: ../include/report.h ../include/mail.h ../include/report_m.h
 wopr.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
 wopr.o: ../include/avl.h ../include/wopr.h
-globals.o: ../include/galaxy.h ../include/strutl.h ../include/cookies.h
-globals.o: ../include/logging.h
 avl.o: ../include/avl.h
 usage.o: ../include/galaxy.h ../include/strutl.h
 usage.o: ../include/cookies.h ../include/logging.h
