@@ -13,6 +13,8 @@
 
 	<body>
 		<h1>GalaxyNG</h1>
+
+			<hr />
 		
 			<h2>Introduction</h2>
 				<p>Galaxy is a free play by email interstellar wargame for multiple players created by Russel Wallace in 1992.  The object of the game is to conquer the galaxy by colonizing and developing uninhabited planets and conquering neighboring races.  GalaxyNG is a variant of Galaxy created by <a href="http://sourceforge.net/users/gumpu/">Frans Slothouber</a> which introduced multiple homeworlds and partial bombings.  It is the variant that is most similar to original Galaxy.  Other Galaxy variants include <a href="http://explorer.sourceforge.net/">GalaxyExplorer</a>, <a href="http://storm.myrnek.de/galaxy/">Blind Galaxy</a> and <a href="http://galaxy.pbem.ru/">GalaxyPlus</a>.  To the best of our knowledge, there are no original version Galaxy servers active.</p>
@@ -22,6 +24,8 @@
 					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a></li>
 				 <li><a href="http://www.refs-home.net/galaxyng/index.php">REF's GalaxyNG Site</a></li>
 				</ul>
+
+			<hr />
 				
 			<h2>Manuals</h2>
 

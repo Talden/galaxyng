@@ -14,7 +14,7 @@
 	<body>
 		<h1><a href="index.php">GalaxyNG</a> Players' Manual</h1>
 
-
+			<hr />
 
 			<h2 id="toc">Table of Contents</h2>
 				<ul>

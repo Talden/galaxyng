@@ -14,6 +14,8 @@
 	<body>
 		<h1>GalaxyNG Server Manual</h1>
 
+			<hr />
+
 			<h2>Table of Contents</h2>
 				<ul>
 					<li><a href="#ex">Example Files</a></li>
@@ -30,6 +32,8 @@
 					<li><a href="config">Configuration</a></li>
 					<li><a href="host">Hosting Team Games</a></li>
 				</ul>
+
+			<hr />
 			
 			<h2 id="ex">Example Files</h2>
 				<ul>
@@ -39,6 +43,8 @@
 					<li><a href="example.glx">Game Configuration File</a></li>
  					<li><a href="intro.text">Game Introduction Text</a></li>
  				</ul>
+
+			<hr />
  			
 			<h2 id="compile">Compilation</h2>
 				<p>Most of the configuration is done after compilation and is handled by the install program.  Before compiling galaxyng you might want to edit the <tt>makefile</tt> in the <tt>Source/</tt> directory to make it fit your machine's configuration.  The following variables can be configured:</p>
@@ -50,12 +56,16 @@ LIBS   = -lm</pre>
 <pre>make</pre>
 				<p>in the top level directory <tt>GalaxyNG/</tt>, this creates the executable <tt>Source/galaxyng</tt>.</p> 
 
+			<hr />
+
 			<h2 id="install">Installation</h2>
 				<p>After you compiled the code, do a</p>
 <pre>make install</pre>
 				<p>to install galaxyng. It creates a directory called <tt>Games</tt> in your home directory and installs a number of files in it.</p>
 				<p>If you want to have the game installed in a different directory you have to edit the first line of the <tt>install.sh</tt> script.  You also <strong>must</strong> set the environment variable <tt>GALAXYNGHOME</tt> to this directory.  You can do this by adding a line to your <tt>.bash_profile</tt> file (or the appropriate file for your favourite shell).  For instance if you have installed the game in /home/gng/mygames, add</p>
 <pre>export GALAXYNGHOME=/home/gng/mygames</pre>
+
+			<hr />
 
 			<h2 id="files">Files</h2>
 				<p>The following files are created.</p>
@@ -125,6 +135,8 @@ LIBS   = -lm</pre>
 					</tr>
 				</table>
 
+			<hr />
+
 			<h2 id="use">Use</h2>
 				<p>Running a galaxy game consists of steps:</p>
 				<ol>
@@ -135,6 +147,8 @@ LIBS   = -lm</pre>
 					<li>mail the turn reports.</li>
 				</ol>
 				<p>Then repeat steps 3, 4, and 5, until the players request the game be stopped.</p>
+
+			<hr />
 
 			<h2 id="create">Creating a New Game</h2>
 				<p>To create a game use the command:</p>
@@ -149,6 +163,8 @@ LIBS   = -lm</pre>
 				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>orionlayout.txt</tt>:</p>
 <pre>./galaxyng -create Orion.glx  &gt; orionlayout.txt</pre>
 
+			<hr />
+
 			<h2 id="mail">Mailing the Turn 0 Reports</h2>
 				<p>If you are happy with the galaxy you created, you can mail the turn 0 reports with:</p>
 <pre>./galaxyng -mail0 <var>&lt;game name&gt;</var></pre>
@@ -157,11 +173,15 @@ LIBS   = -lm</pre>
 <pre>./galaxyng -mail0 Orion</pre>
 				<p>for your Orion game.</p>
 
+			<hr />
+
 			<h2 id="process">Processing Orders</h2>
 				<p>When you receive orders from a player, you can store and check them with the following command:</p>
 <pre>./galaxyng -check &lt; &lt;file with orders&gt;</pre>
 				<p>The file with orders has to be a properly formatted email message, with a To: field and a Subject: field with the word "orders" in it.</p>
 				<p>The orders are stored in the directory <tt>orders/</tt><var>&lt;game name&gt;</var> and the program sends a forecast to the player. A log file is kept of all orders that are checked. It can be found at <tt>$HOME/Games/log/orders_processed.txt</tt>.</p>
+
+			<hr />
 
 			<h2 id="auto">Auto Checking</h2>
 				<p>Checking orders by hand is of course a very cumbersome process that is best automated. You can automate with <tt>procmail</tt> and <tt>formail</tt>. They are program that can reformat and process incomming emails.</p>
@@ -199,6 +219,8 @@ LIBS   = -lm</pre>
 }</pre>
 				<p>In this case procmail ignores the lock file, and it can happen that when two players send in orders shortly after each other the orders of the first player are overwritten.</p>
 
+			<hr />
+
 			<h2 id="run">Running Turns</h2>
 				<p>When it is time to run a turn you do this with:</p>
 <pre>./run_game &lt;game name&gt;</pre>
@@ -222,6 +244,8 @@ LIBS   = -lm</pre>
 				<p>To enable it run:</p>
 <pre>(need info here)</pre>
 				<p>See the <tt>crontab</tt> and <tt>cron</tt> manual for more information.</p>
+
+			<hr />
 
 			<h2 id="command">Command Summary</h2>
 				<table>
@@ -312,6 +336,8 @@ LIBS   = -lm</pre>
 					</tr>
 				</table>
 
+			<hr />
+
 			<h2 id="config">Configuration</h2>
 				<p>The server can be configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>. You can use this to override settings for a particular game.
 An example <tt>.galaxyngrc</tt> file is generated when you install the game.  A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Docs/</tt> directory. You can use it to specify the following parameters.  Only the first two are essential to run games.</p>
@@ -346,6 +372,8 @@ An example <tt>.galaxyngrc</tt> file is generated when you install the game.  A 
 					</tr>
 				</table>
 				<p>You can override where the server looks for all its data files by setting the <tt>GALAXYNGHOME</tt> variable. If it is not set the server looks in <tt>$HOME/Games/</tt>.</p>
+
+			<hr />
 
 			<h2 id="host">Hosting Team Games</h2>
 				<p>First get two teams...  best is to have the players themselves form the team and appoint a team captain for each team.  After that you will have two lists with email addreses. You add them in the .glx file and above the first list you add:</p>
