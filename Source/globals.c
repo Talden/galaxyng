@@ -33,28 +33,8 @@ int             nbrProducts = sizeof(productname) / sizeof(char *);
 FILE           *turnFile = NULL;
 
 
-/****v* GalaxyNG/logFile
- * NAME
- *   logFile -- 
- * SOURCE
- */
-
-FILE           *logFile = NULL;
-
 /******/
 
-
-/****v* GalaxyNG/logLevel
- * NAME
- *   logLevel -- specifies the level of detail in log files.
- * SOURCE
- */
-
-int             logLevel = LFULL;
-
-/******/
-
-int             debugLevel = DERR;      /* DFULL2; */
 
 /****v* GalaxyNG/galaxynghome
  * NAME
