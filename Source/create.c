@@ -127,206 +127,203 @@ readGameSpec(FILE * specfile)
   for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, specfile);
        isRead; isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, specfile)) {
 
+    key = getstr(lineBuffer);
+
+    if (key[0] != '\0') {
+      if (noCaseStrcmp("start_player", key) == 0) {
+	newplayer *aNewPlayer;
+	char       raceName[20];
+	int        nbrHomePlanetsAllocated = 10;
+	
+	aNewPlayer = allocStruct(newplayer);
+	while (fgets(lineBuffer, LINE_BUFFER_SIZE, specfile)) {
 	  key = getstr(lineBuffer);
-
-	  if (key[0] != '\0') {
-		  if (noCaseStrcmp("start_player", key) == 0) {
-			  newplayer *aNewPlayer;
-			  char       raceName[20];
-			  int        nbrHomePlanetsAllocated = 10;
-			  
-			  aNewPlayer = allocStruct(newplayer);
-			  while (fgets(lineBuffer, LINE_BUFFER_SIZE, specfile)) {
-				  key = getstr(lineBuffer);
-				  if (noCaseStrcmp(key, "end_player") == 0) {
-					  break;
-				  }
-				  else if (noCaseStrcmp(key, "email") == 0) {
-					  aNewPlayer->addr = strdup(getstr(0));
-					  aNewPlayer->team = team;
-					  (aGameSpec->numberOfPlayers)++;
-					  sprintf(raceName, "race_%d", aGameSpec->numberOfPlayers);
-					  setName(aNewPlayer, raceName);
-					  sprintf(raceName, "P%d", rand());
-					  aNewPlayer->pswd = strdup(raceName);
-					  addList(&(aGameSpec->players), aNewPlayer);
-					  aNewPlayer->coreSizes = malloc(10 * sizeof(double));
-					  memset(aNewPlayer->coreSizes, 0, 10*sizeof(double));
-					  aNewPlayer->coreXOffset = malloc(10 * sizeof(double));
-					  memset(aNewPlayer->coreXOffset, 0, 10*sizeof(double));
-					  aNewPlayer->coreYOffset = malloc(10 * sizeof(double));
-					  memset(aNewPlayer->coreYOffset, 0, 10*sizeof(double));
-				  }
-				  else if (noCaseStrcmp(key, "homeworld") == 0) {
-					  int i = aNewPlayer->numberOfHomePlanets++;
-					  if (aNewPlayer->numberOfHomePlanets == nbrHomePlanetsAllocated) {
-						  int lastAllocSize = nbrHomePlanetsAllocated;
-						  nbrHomePlanetsAllocated *= 2;
-						  aNewPlayer->coreSizes =
-							  realloc(aNewPlayer->coreSizes,
-									  nbrHomePlanetsAllocated * sizeof(double));
-						  aNewPlayer->coreXOffset =
-							  realloc(aNewPlayer->coreXOffset,
-									  nbrHomePlanetsAllocated * sizeof(double));
-						  aNewPlayer->coreYOffset =
-							  realloc(aNewPlayer->coreYOffset,
-									  nbrHomePlanetsAllocated * sizeof(double));
-						  
-						  memset(&aNewPlayer->coreSizes[lastAllocSize], 0,
-								 lastAllocSize*sizeof(double));
-						  memset(&aNewPlayer->coreXOffset[lastAllocSize], 0,
-								 lastAllocSize*sizeof(double));
-						  memset(&aNewPlayer->coreYOffset[lastAllocSize], 0,
-								 lastAllocSize*sizeof(double));
-					  }
-					  
-					  value = getstr(0);
-					  aNewPlayer->coreSizes[i] = atof(value);
-					  if ((value = getstr(0)) != NULL)
-						  aNewPlayer->coreXOffset[i] = atof(value);
-					  if ((value = getstr(0)) != NULL)
-						  aNewPlayer->coreYOffset[i] = atof(value);
-#if 0
-					  printf("%2d) %.2f %.2f %.2f\n", i, aNewPlayer->coreSizes[i],
-							 aNewPlayer->coreXOffset[i], aNewPlayer->coreYOffset[i]);
-#endif					  
-				  }
-			  }
-
-			  if (aNewPlayer->numberOfHomePlanets == 0) {
-				  int i;
-				  
-				  aNewPlayer->coreSizes =
-					  malloc(aGameSpec->numberOfHomePlanets * sizeof(double));
-				  
-				  for (i = 0; i < aGameSpec->numberOfHomePlanets; i++) {
-					  aNewPlayer->coreSizes[i] = aGameSpec->coreSizes[i];
-				  }
-				  aNewPlayer->numberOfHomePlanets = aGameSpec->numberOfHomePlanets;
-			  }
-		  }
-
-		  else if (noCaseStrcmp("peace", key) == 0) {
-			  /* store as negative for now so that we can recognize the
-			   * difference between old game files and new ones
-			   */
-			  value = getstr(0);
-			  aGameSpec->gameOptions.galactic_peace = atoi(value);
-		  }
-		  else if (noCaseStrcmp("size", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->galaxySize = atof(value);
-		  }
-		  else if (noCaseStrcmp("race_spacing", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->minDist = atof(value);
-		  }
-		  else if (noCaseStrcmp("empty_planets", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->numberOfEmptyPlanets = atoi(value);
-		  }
-		  else if (noCaseStrcmp("stuff_planets", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->numberOfStuffPlanets = atoi(value);
-		  }
-		  else if (noCaseStrcmp("rows", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->numberOfRows = atoi(value);
-		  }
-		  else if (noCaseStrcmp("columns", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->numberOfColumns = atoi(value);
-		  }
-		  else if (noCaseStrcmp("team", key) == 0) {
-			  value = getstr(0);
-			  team = atoi(value);
-		  }
-		  else if (noCaseStrcmp("empty_radius", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->radiusEmptyPlanets = atof(value);
-		  }
-		  else if (noCaseStrcmp("secondary_radius", key) == 0) {
-			  value = getstr(0);
-			  aGameSpec->radiusSecondaryPlanets = atof(value);
-		  }
-		  else if (noCaseStrcmp("name", key) == 0) {
-			  setName(aGameSpec, getstr(0));
-		  }
-		  else if (noCaseStrcmp("teamgame", key) == 0) {
-			  aGameSpec->teamGame = TRUE;
-		  }
-		  else if (noCaseStrcmp("core_sizes", key) == 0) {
-			  int             number;
-			  
-			  for (value = getstr(0), aGameSpec->numberOfHomePlanets = 0;
-				   value[0] != '\0';
-				   value = getstr(0), aGameSpec->numberOfHomePlanets++);
-			  aGameSpec->coreSizes =
-				  malloc(aGameSpec->numberOfHomePlanets * sizeof(double));
-			  
-			  getstr(lineBuffer);
-			  for (value = getstr(0), number = 0;
-				   value[0] != '\0'; value = getstr(0), number++) {
-				  aGameSpec->coreSizes[number] = atof(value);
-			  }
-		  }
-		  else if (noCaseStrcmp("initialtechlevels", key) == 0) {   /* CB-20010407 
-																	 * ; no
-																	 * verification 
-																	 * at all */
-			  aGameSpec->gameOptions.initial_drive = atof(getstr(0)); /* seems
-																	   * strtod
-																	   * is not
-																	   * portable 
-																	   */
-			  aGameSpec->gameOptions.initial_weapons = atof(getstr(0));
-			  aGameSpec->gameOptions.initial_shields = atof(getstr(0));
-			  aGameSpec->gameOptions.initial_cargo = atof(getstr(0));
-			  if (aGameSpec->gameOptions.initial_drive < 1.0) {
-				  aGameSpec->gameOptions.initial_drive = 1.0;
-			  }
-			  if (aGameSpec->gameOptions.initial_weapons < 1.0) {
-				  aGameSpec->gameOptions.initial_weapons = 1.0;
-			  }
-			  if (aGameSpec->gameOptions.initial_shields < 1.0) {
-				  aGameSpec->gameOptions.initial_shields = 1.0;
-			  }
-			  if (aGameSpec->gameOptions.initial_cargo < 1.0) {
-				  aGameSpec->gameOptions.initial_cargo = 1.0;
-			  }
-		  }
-		  else if (noCaseStrcmp("fullbombing", key) == 0) {
-			  aGameSpec->gameOptions.gameOptions |= GAME_NONGBOMBING;
-		  }
-		  else if (noCaseStrcmp("keepproduction", key) == 0) {
-			  aGameSpec->gameOptions.gameOptions |= GAME_KEEPPRODUCTION;
-		  }
-		  else if (noCaseStrcmp("createcircle", key) == 0) {        /* Don't
-																	 * know if 
-																	 * still
-																	 * used
-																	 * ???? CB 
-																	 * 20010425 */
-			  aGameSpec->gameOptions.gameOptions |= GAME_CREATECIRCLE;
-		  }
-		  else if (noCaseStrcmp("dontdropdead", key) == 0) {
-			  aGameSpec->gameOptions.gameOptions |= GAME_NODROP;
-		  }
-		  else if (noCaseStrcmp("savereportcopy", key) == 0) {
-			  aGameSpec->gameOptions.gameOptions |= GAME_SAVECOPY;
-		  }
-		  else if (noCaseStrcmp("sphericalgalaxy", key) == 0) {     /* CB-20010401 
-																	 * ; see
-																	 * galaxy.h 
-																	 */
-			  /* printf ("*==> %ld\n", aGameSpec->gameOptions); */
-			  aGameSpec->gameOptions.gameOptions |= GAME_SPHERICALGALAXY;
-			  /* printf ("*==> %ld\n", aGameSpec->gameOptions); */
-		  }
-		  else {
-			  printf("Unknown key %s\n", key);
-		  }
+	  if (noCaseStrcmp(key, "end_player") == 0) {
+	    break;
 	  }
+	  else if (noCaseStrcmp(key, "email") == 0) {
+	    aNewPlayer->addr = strdup(getstr(0));
+	    aNewPlayer->team = team;
+	    (aGameSpec->numberOfPlayers)++;
+	    sprintf(raceName, "race_%d", aGameSpec->numberOfPlayers);
+	    setName(aNewPlayer, raceName);
+	    sprintf(raceName, "P%d", rand());
+	    aNewPlayer->pswd = strdup(raceName);
+	    addList(&(aGameSpec->players), aNewPlayer);
+	    aNewPlayer->coreSizes = malloc(10 * sizeof(double));
+	    memset(aNewPlayer->coreSizes, 0, 10*sizeof(double));
+	    aNewPlayer->coreXOffset = malloc(10 * sizeof(double));
+	    memset(aNewPlayer->coreXOffset, 0, 10*sizeof(double));
+	    aNewPlayer->coreYOffset = malloc(10 * sizeof(double));
+	    memset(aNewPlayer->coreYOffset, 0, 10*sizeof(double));
+	  }
+	  else if (noCaseStrcmp(key, "homeworld") == 0) {
+	    int i = aNewPlayer->numberOfHomePlanets++;
+	    if (aNewPlayer->numberOfHomePlanets == nbrHomePlanetsAllocated) {
+	      int lastAllocSize = nbrHomePlanetsAllocated;
+	      nbrHomePlanetsAllocated *= 2;
+	      aNewPlayer->coreSizes =
+		realloc(aNewPlayer->coreSizes,
+			nbrHomePlanetsAllocated * sizeof(double));
+	      aNewPlayer->coreXOffset =
+		realloc(aNewPlayer->coreXOffset,
+			nbrHomePlanetsAllocated * sizeof(double));
+	      aNewPlayer->coreYOffset =
+		realloc(aNewPlayer->coreYOffset,
+			nbrHomePlanetsAllocated * sizeof(double));
+	      
+	      memset(&aNewPlayer->coreSizes[lastAllocSize], 0,
+		     lastAllocSize*sizeof(double));
+	      memset(&aNewPlayer->coreXOffset[lastAllocSize], 0,
+		     lastAllocSize*sizeof(double));
+	      memset(&aNewPlayer->coreYOffset[lastAllocSize], 0,
+		     lastAllocSize*sizeof(double));
+	    }
+	    
+	    value = getstr(0);
+	    aNewPlayer->coreSizes[i] = atof(value);
+	    if ((value = getstr(0)) != NULL)
+	      aNewPlayer->coreXOffset[i] = atof(value);
+	    if ((value = getstr(0)) != NULL)
+	      aNewPlayer->coreYOffset[i] = atof(value);
+#if 0
+	    printf("%2d) %.2f %.2f %.2f\n", i, aNewPlayer->coreSizes[i],
+		   aNewPlayer->coreXOffset[i], aNewPlayer->coreYOffset[i]);
+#endif					  
+	  }
+	}
+	
+	if (aNewPlayer->numberOfHomePlanets == 0) {
+	  int i;
+	  
+	  aNewPlayer->coreSizes =
+	    malloc(aGameSpec->numberOfHomePlanets * sizeof(double));
+	  
+	  for (i = 0; i < aGameSpec->numberOfHomePlanets; i++) {
+	    aNewPlayer->coreSizes[i] = aGameSpec->coreSizes[i];
+	  }
+	  aNewPlayer->numberOfHomePlanets = aGameSpec->numberOfHomePlanets;
+	}
+      }
+      
+      else if (noCaseStrcmp("peace", key) == 0) {
+	value = getstr(0);
+	aGameSpec->gameOptions.galactic_peace = atoi(value);
+      }
+      else if (noCaseStrcmp("size", key) == 0) {
+	value = getstr(0);
+	aGameSpec->galaxySize = atof(value);
+      }
+      else if (noCaseStrcmp("race_spacing", key) == 0) {
+	value = getstr(0);
+	aGameSpec->minDist = atof(value);
+      }
+      else if (noCaseStrcmp("empty_planets", key) == 0) {
+	value = getstr(0);
+	aGameSpec->numberOfEmptyPlanets = atoi(value);
+      }
+      else if (noCaseStrcmp("stuff_planets", key) == 0) {
+	value = getstr(0);
+	aGameSpec->numberOfStuffPlanets = atoi(value);
+      }
+      else if (noCaseStrcmp("rows", key) == 0) {
+	value = getstr(0);
+	aGameSpec->numberOfRows = atoi(value);
+      }
+      else if (noCaseStrcmp("columns", key) == 0) {
+	value = getstr(0);
+	aGameSpec->numberOfColumns = atoi(value);
+      }
+      else if (noCaseStrcmp("team", key) == 0) {
+	value = getstr(0);
+	team = atoi(value);
+      }
+      else if (noCaseStrcmp("empty_radius", key) == 0) {
+	value = getstr(0);
+	aGameSpec->radiusEmptyPlanets = atof(value);
+      }
+      else if (noCaseStrcmp("secondary_radius", key) == 0) {
+	value = getstr(0);
+	aGameSpec->radiusSecondaryPlanets = atof(value);
+      }
+      else if (noCaseStrcmp("name", key) == 0) {
+	setName(aGameSpec, getstr(0));
+      }
+      else if (noCaseStrcmp("teamgame", key) == 0) {
+	aGameSpec->teamGame = TRUE;
+      }
+      else if (noCaseStrcmp("core_sizes", key) == 0) {
+	int number;
+	
+	for (value = getstr(0), aGameSpec->numberOfHomePlanets = 0;
+	     value[0] != '\0';
+	     value = getstr(0), aGameSpec->numberOfHomePlanets++);
+	aGameSpec->coreSizes =
+	  malloc(aGameSpec->numberOfHomePlanets * sizeof(double));
+			  
+	getstr(lineBuffer);
+	for (value = getstr(0), number = 0;
+	     value[0] != '\0'; value = getstr(0), number++) {
+	  aGameSpec->coreSizes[number] = atof(value);
+	}
+      }
+      else if (noCaseStrcmp("initialtechlevels", key) == 0) {   /* CB-20010407 
+								 * ; no
+								 * verification 
+								 * at all */
+	aGameSpec->gameOptions.initial_drive = atof(getstr(0)); /* seems
+								 * strtod
+								 * is not
+								 * portable 
+								 */
+	aGameSpec->gameOptions.initial_weapons = atof(getstr(0));
+	aGameSpec->gameOptions.initial_shields = atof(getstr(0));
+	aGameSpec->gameOptions.initial_cargo = atof(getstr(0));
+	if (aGameSpec->gameOptions.initial_drive < 1.0) {
+	  aGameSpec->gameOptions.initial_drive = 1.0;
+	}
+	if (aGameSpec->gameOptions.initial_weapons < 1.0) {
+	  aGameSpec->gameOptions.initial_weapons = 1.0;
+	}
+	if (aGameSpec->gameOptions.initial_shields < 1.0) {
+	  aGameSpec->gameOptions.initial_shields = 1.0;
+	}
+	if (aGameSpec->gameOptions.initial_cargo < 1.0) {
+	  aGameSpec->gameOptions.initial_cargo = 1.0;
+	}
+      }
+      else if (noCaseStrcmp("fullbombing", key) == 0) {
+	aGameSpec->gameOptions.gameOptions |= GAME_NONGBOMBING;
+      }
+      else if (noCaseStrcmp("keepproduction", key) == 0) {
+	aGameSpec->gameOptions.gameOptions |= GAME_KEEPPRODUCTION;
+      }
+      else if (noCaseStrcmp("createcircle", key) == 0) {        /* Don't
+								 * know if 
+								 * still
+								 * used
+								 * ???? CB 
+								 * 20010425 */
+	aGameSpec->gameOptions.gameOptions |= GAME_CREATECIRCLE;
+      }
+      else if (noCaseStrcmp("dontdropdead", key) == 0) {
+	aGameSpec->gameOptions.gameOptions |= GAME_NODROP;
+      }
+      else if (noCaseStrcmp("savereportcopy", key) == 0) {
+	aGameSpec->gameOptions.gameOptions |= GAME_SAVECOPY;
+      }
+      else if (noCaseStrcmp("sphericalgalaxy", key) == 0) {     /* CB-20010401 
+								 * ; see
+								 * galaxy.h 
+								 */
+	/* printf ("*==> %ld\n", aGameSpec->gameOptions); */
+	aGameSpec->gameOptions.gameOptions |= GAME_SPHERICALGALAXY;
+	/* printf ("*==> %ld\n", aGameSpec->gameOptions); */
+      }
+      else {
+	printf("Unknown key %s\n", key);
+      }
+    }
   }
 
   return aGameSpec;
@@ -427,76 +424,75 @@ printGameSpecs(gamespecification *aGameSpec)
 game           *
 creategame(gamespecification *aGameSpec)
 {
-	if (createGameDirectories(aGameSpec->name)) {
-		int             planet_name;
-		int             created_ok;
+  if (createGameDirectories(aGameSpec->name)) {
+    int   planet_name;
+    int   created_ok;
+    game *aGame;
 		
-		game           *aGame;
-		
-		srand((int) time(NULL));
-		resetErnie(197162622 + (rand() & 0xFF));
-		aGame = allocStruct(game);
-		
-		setName(aGame, aGameSpec->name);
-		aGame->turn = 0;
-		aGame->gameOptions.gameOptions = aGameSpec->gameOptions.gameOptions;
-		aGame->gameOptions.initial_drive =
-			aGameSpec->gameOptions.initial_drive;
-		aGame->gameOptions.initial_weapons =
-			aGameSpec->gameOptions.initial_weapons;
-		aGame->gameOptions.initial_shields =
-			aGameSpec->gameOptions.initial_shields;
-		aGame->gameOptions.initial_cargo =
-			aGameSpec->gameOptions.initial_cargo;
-		aGame->gameOptions.galactic_peace =
-			aGameSpec->gameOptions.galactic_peace;
-		
-		/* Do not change this! planets can be looked up by number and this
-		 * function expects the first planet to have number 1 */
-		planet_name = 1;
-		if (aGameSpec->teamGame) {
-			created_ok = createCheckeredLayout(aGameSpec, aGame, planet_name);
-			if (created_ok)
-				setTeamAllies(aGame->players);
-		}
-		else {
-			created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
-		}
-		
-		if (created_ok) {
-			if (aGame->gameOptions.galactic_peace < 0) {
-				player* aPlayer;
-				player* aPlayer2;
-				
-				
-				for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-					for (aPlayer2 = aGame->players; aPlayer2; aPlayer2 = aPlayer2->next) {
-						alliance       *a;
-						
-						if (aPlayer == aPlayer2)
-							continue;
-						
-						a = allocStruct(alliance);
-						
-						a->who = aPlayer2;
-						addList(&aPlayer->allies, a);
-					}
-				}
-			}
-			
-			Randomize_Planet_Numbers(aGame);
-			preComputeGroupData(aGame);
-			raceStatus(aGame);
-			return aGame;
-		}
-		else {
-			freegame(aGame);
-			return NULL;
-		}
+    srand((int) time(NULL));
+    resetErnie(197162622 + (rand() & 0xFF));
+    aGame = allocStruct(game);
+    
+    setName(aGame, aGameSpec->name);
+    aGame->turn = 0;
+    aGame->gameOptions.gameOptions = aGameSpec->gameOptions.gameOptions;
+    aGame->gameOptions.initial_drive =
+      aGameSpec->gameOptions.initial_drive;
+    aGame->gameOptions.initial_weapons =
+      aGameSpec->gameOptions.initial_weapons;
+    aGame->gameOptions.initial_shields =
+      aGameSpec->gameOptions.initial_shields;
+    aGame->gameOptions.initial_cargo =
+      aGameSpec->gameOptions.initial_cargo;
+    aGame->gameOptions.galactic_peace =
+      aGameSpec->gameOptions.galactic_peace;
+    
+    /* Do not change this! planets can be looked up by number and this
+     * function expects the first planet to have number 1 */
+    planet_name = 1;
+    if (aGameSpec->teamGame) {
+      created_ok = createCheckeredLayout(aGameSpec, aGame, planet_name);
+      if (created_ok)
+	setTeamAllies(aGame->players);
+    }
+    else {
+      created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
+    }
+    
+    if (created_ok) {
+      if (aGame->gameOptions.galactic_peace > 0) {
+	player* aPlayer;
+	player* aPlayer2;
+	
+	
+	for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
+	  for (aPlayer2 = aGame->players; aPlayer2; aPlayer2 = aPlayer2->next) {
+	    alliance       *a;
+	    
+	    if (aPlayer == aPlayer2)
+	      continue;
+	    
+	    a = allocStruct(alliance);
+	    
+	    a->who = aPlayer2;
+	    addList(&aPlayer->allies, a);
+	  }
 	}
-	else {
-		return NULL;
-	}
+      }
+      
+      Randomize_Planet_Numbers(aGame);
+      preComputeGroupData(aGame);
+      raceStatus(aGame);
+      return aGame;
+    }
+    else {
+      freegame(aGame);
+      return NULL;
+    }
+  }
+  else {
+    return NULL;
+  }
 }
 
 /********/
@@ -534,16 +530,17 @@ createStandardLayout(gamespecification *aGameSpec,
       if (aNewPlayer->numberOfHomePlanets > 1) {
         int             cur_extra_home;
 
-		printf("o Adding secondary home planets.\n");
-        for (cur_extra_home = 1;
+	printf("o Adding secondary home planets.\n");
+		
+	for (cur_extra_home = 1;
              cur_extra_home < aNewPlayer->numberOfHomePlanets;
              cur_extra_home++) {
           Add_Extra_Home_Planets(aGame, x, y,
                                  aNewPlayer->coreSizes[cur_extra_home],
                                  aGameSpec->radiusSecondaryPlanets,
                                  &planet_name, aPlayer,
-								 aNewPlayer->coreXOffset[cur_extra_home],
-								 aNewPlayer->coreYOffset[cur_extra_home]);
+				 aNewPlayer->coreXOffset[cur_extra_home],
+				 aNewPlayer->coreYOffset[cur_extra_home]);
         }
       }
 
