@@ -7,9 +7,8 @@
 
 #  define PD(label) label##Element,
 
-   enum ERR_CODES {SUCCESS, FAILURE, NO_DATA};
-
-   enum ELEMENT_VALS {UnknownElement = -1,
+    enum ERR_CODES {SUCCESS, FAILURE, NO_DATA};
+    enum ELEMENT_VALS {UnknownElement = -1,
 #else
 #  define PD_PASS1
 #  include "storage.h"
@@ -23,8 +22,8 @@
 #if !defined(ENUM_ONLY)
 
 struct _elementLookup {
-  char *elementName;
-  enum ELEMENT_VALS elementVal;
+	char *elementName;
+	enum ELEMENT_VALS elementVal;
 } elementLookup[] = {
 
 #endif
@@ -33,7 +32,7 @@ struct _elementLookup {
 #include "parserdefs.h"
 
 #if defined(PD_PASS1)
- NUM_ITEMS};
+ NUM_ELEMENTS};
 
 #else
 #  if !defined(ENUM_ONLY)

@@ -7,8 +7,10 @@
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>
+#include <libxml/parser.h>
+#include <libxml/xpath.h>
 
-#include "expat.h"
+#include "list.h"
 #include "galaxy.h"
 #include "mail.h"
 
@@ -106,38 +108,38 @@ typedef struct _playerOpts {
  */
 
 typedef struct _gameOpts {
-  /* basic list structure */
-  struct _gameOpts*  next;
-  long               cookie;
-  char*              name;
-  /* end basic list */
-  char*  from;			/* email information for mail going
-				   back to registering player. if
-				   information is not found here, the
-				   generic information from the server
-				   will be used*/
-  char*  succeed_subject;	/* subject for successful registration */
-  char*  fail_subject;		/* subject for failed registration */
-  char*  replyto;
-  char*  cc;
-  int    minplayers;		/* at least this many players must
-				   sign up */
-  int    maxplayers;		/* no more than this number can sign
-				   up */
-  float  galaxy_size;		/* size of the galaxy */
-  float  nation_spacing;	/* how far apart nations must be */
-  int    pax_galactica;		/* number of turns of enforced peace */
-  float  initial_drive;		/* initial tech levels, must be at
-				   least 1.0 */
-  float  initial_weapons;
-  float  initial_shields;
-  float  initial_cargo;
-  long   game_options;		/* game option flags */
-  planetSpec home;
-  planetSpec dev;
-  planetSpec stuff;
-  planetSpec asteroid;
-  playerOpts po;		/* players signed up for the game */
+	/* basic list structure */
+	struct _gameOpts*  next;
+	long               cookie;
+	char*              name;
+	/* end basic list */
+	char*  from;			/* email information for mail going
+							   back to registering player. if
+							   information is not found here, the
+							   generic information from the server
+							   will be used*/
+	char*  sub_succeed;	/* subject for successful registration */
+	char*  sub_fail;		/* subject for failed registration */
+	char*  replyto;
+	char*  cc;
+	int    minplayers;		/* at least this many players must
+							   sign up */
+	int    maxplayers;		/* no more than this number can sign
+							   up */
+	float  galaxy_size;		/* size of the galaxy */
+	float  nation_spacing;	/* how far apart nations must be */
+	int    pax_galactica;		/* number of turns of enforced peace */
+	float  initial_drive;		/* initial tech levels, must be at
+								   least 1.0 */
+	float  initial_weapons;
+	float  initial_shields;
+	float  initial_cargo;
+	long   game_options;		/* game option flags */
+	planetSpec home;
+	planetSpec dev;
+	planetSpec stuff;
+	planetSpec asteroid;
+	playerOpts* po;		/* players signed up for the game */
 } gameOpts;
   
 
@@ -149,14 +151,14 @@ typedef struct _gameOpts {
  */
 
 typedef struct _serverOpts {
-  char* from;			/* default email information, can be
-				   overridden in each game */
-  char*  succeed_subject;	/* subject for successful registration */
-  char*  fail_subject;		/* subject for failed registration */
-  char* replyto;
-  char* cc;
-  gameOpts* go;			/* list of games registration is being
-				   accepted for*/
+	char* from;					/* default email information, can be
+								   overridden in each game */
+	char*  sub_succeed;			/* subject for successful registration */
+	char*  sub_fail;			/* subject for failed registration */
+	char* replyto;
+	char* cc;
+	gameOpts* games;			/* list of games registration is being
+								   accepted for*/
 } serverOpts;
 
 

@@ -60,8 +60,8 @@
     <replyto>server-jangi@gesserit.net</replyto>
     <minplayers>15</minplayers>
     <maxplayers>25</maxplayers>
-    <galaxy_size>450.0</galaxy_size>
-    <nation_spacing>30.0</nation_spacing>
+    <galaxysize>450.0</galaxysize>
+    <nationspacing>30.0</nationspacing>
     <homeworlds>
       <!-- in a standard game all homeworlds have maximum resources -->
       <res>
@@ -197,19 +197,19 @@
     <paxgalactica>20</paxgalactica>
     <!-- these are the defaults, this section is mainly useful if the
          GM wants to start everyone out a higher levels -->
-    <initial_tech_levels>
+    <initialtech>
       <drive>1</drive>
       <weapons>1</weapons>
       <shields>1</shields>
       <cargo>1</cargo>
-    </initial_tech_levels>
+    </initialtech>
     <!-- game options. the fact that they're here means they're turned
          on. -->
-    <full_bombing />
-    <keep_production />
-    <dont_drop_dead />
-    <save_report_copy />
-    <spherical_galaxy />
+    <fullbombing />
+    <keepproduction />
+    <dontdropdead />
+    <savereportcopy />
+    <sphericalgalaxy />
     <!-- there will be a player section added when a player
          successfully joins the game. -->
     <players>
@@ -240,7 +240,7 @@
             <name>Colony2</name>
             <size>400.0</size>
           </planet>
-        </planets>
+        </homeworlds>
         <!-- player options -->
         <textreport />
         <xmlreport />

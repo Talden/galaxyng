@@ -6,6 +6,19 @@
 #define INBUF_SIZE    8192
 #define ELEMENT_CODE_LEN   16
 #define forever          1
+
+char* strlwr(char* input) {
+	char* ptr = input;
+
+	while (*ptr) {
+		if (isupper(*ptr))
+			*ptr = tolower(*ptr);
+		ptr++;
+	}
+
+	return input;
+}
+
 /*====================================================================*/
 /*            FUNCTION:  elementComp                                     */
 /*--------------------------------------------------------------------*/
@@ -56,7 +69,7 @@ enum ELEMENT_VALS lookupElement (const char *elementName) {
 	if (dataElement)
 		return dataElement->elementVal;
 	else
-		return UNKNOWN_ELEMENT;
+		return UnknownElement;
 }
 
 /*====================================================================*/
@@ -85,7 +98,7 @@ enum ERR_CODES storeElementData (enum ELEMENT_VALS type, char *elementText) {
 /*--------------------------------------------------------------------*/
 
 int getElementCount (enum ELEMENT_VALS type) {
-	return bibDoc.tag[type].count;
+	return 0;
 }
 
 /*====================================================================*/
@@ -110,7 +123,7 @@ char * lookupElementName (enum ELEMENT_VALS type) {
 	return "No Name Found";
 }
 
-y/*====================================================================*/
+/*====================================================================*/
 /*            FUNCTION: dumpStorage                                   */
 /*--------------------------------------------------------------------*/
 void dumpStorage (enum ELEMENT_VALS type) {
@@ -125,10 +138,8 @@ void dumpStorage (enum ELEMENT_VALS type) {
 char* getElementName (enum ELEMENT_VALS type) {
 	int i;
 
-	for (i = 0; i < MAX_DOC_ELEMENTS; i++) {
-		if (elementLookup[i].elementVal == type) {
-			return elementLookup[i].elementName;
-        }
-    }
+	if (elementLookup[i].elementVal == type)
+		return elementLookup[i].elementName;
+
 	return "UnknownElement";
 }

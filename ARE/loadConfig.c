@@ -1,560 +1,602 @@
-#include <stdio.h>
-#include "xmlparse.h"
-#include "list.h"
 #include "are.h"
+
+#define ENUM_ONLY
 #include "storage.h"
 
-enum element_context {
-	unknown, start, are, server, server_data, game, homeworlds, growth, stuff,
-	asteroids, player
-};
+static void getTechElements(xmlNodePtr tech, gameOpts* go);
+static void getPlanets(xmlNodePtr planets, enum ELEMENT_VALS ev, gameOpts* go);
+static planetTemplate* instantiatePlanet(xmlNodePtr planet);
 
-static enum element_context stack[64] = {start};
-static int top = 0;
-static int line_number = 1;
+xmlXPathObjectPtr getNodeSet(xmlDocPtr doc, xmlChar* xpath) {
+	xmlXPathContextPtr context;
+	xmlXPathObjectPtr  result;
 
-static char** curElement;
-static serverOpts* so = NULL;
-static gameOpts* go = NULL;
-static playerOpts* po = NULL;
-
-void startElement (void *userData, const char *name, const char **atts) {
-	
-	enum ELEMENT_VALS element;
-
-	if (*name == '\n') {
-		line_number++;
-		return;
-	}
-	
-	if ((element = lookupElement(name)) == UnknownElement) {
-		fprintf(stderr, "Unexpected element \"%s\", exiting.\n", name);
-		exit(EXIT_FAILURE);
+	context = xmlXPathNewContext(doc);
+	if ((result = xmlXPathEvalExpression(xpath, context)) == NULL) {
+		xmlXPathFreeContext(context);
+		fprintf(stderr, "No result\n");
+		return NULL;
 	}
 
-	switch(stack[top]) {
-		case unknown:			/* this should never happen */
-			fprintf(stderr, "TRC: unbalanced stack, line %d\n", line_number);
-			exit(EXIT_FAILURE);
-			break;
+
+	if (xmlXPathNodeSetIsEmpty(result->nodesetval)) {
+		xmlXPathFreeContext(context);
+		fprintf(stderr, "No result\n");
+		return NULL;
+	}
+
+	xmlXPathFreeContext(context);
+
+	return result;
+}
+
+xmlDocPtr getDoc(char* filename) {
+	xmlDocPtr doc;
+	xmlXPathObjectPtr are_node;
+	xmlChar* version;
+	
+	doc = xmlParseFile(filename);
+
+	if (doc == NULL) {
+		fprintf(stderr, "Document not successfully parsed.\n");
+		return NULL;
+	}
+
+	if ((are_node = getNodeSet(doc, (xmlChar*)"/are")) == NULL) {
+		fprintf(stderr, "Document is not an ARE config file.\n");
+		xmlFreeDoc(doc);
+		return NULL;
+	}
+
+	version =
+		xmlGetProp(are_node->nodesetval->nodeTab[0], (xmlChar*)"version");
+
+	if (version == NULL || strcmp((char*)version, "1.0") != 0) {
+		fprintf(stderr, "Incorrect ARE version. Continuing, but some"
+				" new features may not be used.\n");
+	}
+
+	free(version);
+	
+	xmlXPathFreeObject(are_node);
+	return doc;
+}
+
+serverOpts* loadConfig(const char* pathname) {
+	serverOpts* so = NULL;		/* the options structure */
+	char*       configName;		/* where the values are kept */
+	xmlDocPtr   doc;			/* root of the xml document */
+	char*       attr;			/* attribute pointer */
+
+	configName = createString("%s/.arerc", pathname);
+
+	xmlInitParser();
+
+	if ((doc = getDoc(configName)) == NULL) {
+		free(configName);
+		return NULL;
+	}
+
+	initElementLookup();		/* initialize the lookup structure */
+	
+	/* get the server info */
+	{
+		xmlXPathObjectPtr server_node;
+		xmlNodePtr nptr;
+		enum ELEMENT_VALS ev;
+		
+		if ((server_node = getNodeSet(doc, (xmlChar*)"/are/server")) == NULL) {
+			fprintf(stderr, "Cannot find server element, exiting.\n");
+			return NULL;
+		}
+		so = (serverOpts*)malloc(sizeof(serverOpts));
+		so->from = so->sub_succeed = so->sub_fail = so->replyto = NULL;
+		so->cc = NULL;
+		so->games = NULL;
+		for (nptr = server_node->nodesetval->nodeTab[0]->children;
+			 nptr != NULL; nptr = nptr->next) {
+			char* content;
+			switch(nptr->type) {
+				case XML_ELEMENT_NODE:
+					ev = lookupElement((char*)nptr->name);
+					content = (char*)xmlNodeGetContent(nptr);
+					switch(ev) {
+						case fromElement:
+							so->from = content;
+							break;
+
+						case subjectElement:
+							attr =
+								(char *)xmlGetProp(nptr, (xmlChar*)"type");
+							if (noCaseStrcmp(attr, "success") == 0)
+								so->sub_succeed = content;
+							else
+								so->sub_fail = content;
+							free(attr);
+							break;
+
+						case replytoElement:
+							so->replyto = content;
+							break;
+
+						case ccElement:
+							so->cc = content;
+							break;
+
+						case UnknownElement:
+							fprintf(stderr, "Unrecognized element \"%s\", "
+									"exiting\n", nptr->name);
+							return NULL;
+							break;
+							
+						default: /* no other elements are in the server area */
+							break;
+					}
+					break;
+
+				default:
+					break;
+			}
+		}
+
+		xmlXPathFreeObject(server_node);
+	}
+
+	/* get the game info */
+	{
+		int i;
+		xmlChar* name;
+		gameOpts* go;
+		xmlNodePtr nptr;
+		enum ELEMENT_VALS ev;
+		xmlXPathObjectPtr game_nodes;
+		int errors = 0;
+		
+		if ((game_nodes = getNodeSet(doc, (xmlChar*)"/are/game")) == NULL) {
+			fprintf(stderr, "No games defined.\n");
+		}
+
+		for (i = 0; i < game_nodes->nodesetval->nodeNr; i++) {
+			name =
+				xmlGetProp(game_nodes->nodesetval->nodeTab[i],
+						   (xmlChar*)"name");
+			go = allocStruct(gameOpts);
+			setName(go, (char*)name);
+			go->from = NULL;
+			go->sub_succeed = go->sub_fail = go->replyto = go->cc = NULL;
+			go->minplayers = go->maxplayers = go->pax_galactica = 0;
+			go->galaxy_size = go->nation_spacing = 0.0;
+			go->initial_drive = go->initial_weapons = 0.0;
+			go->initial_shields = go->initial_cargo = 0.0;
+			go->game_options = 0L;
+			memset(&go->home, '\0', sizeof(planetSpec));
+			memset(&go->dev, '\0', sizeof(planetSpec));
+			memset(&go->stuff, '\0', sizeof(planetSpec));
+			memset(&go->asteroid, '\0', sizeof(planetSpec));
+			go->po = NULL;
 			
-		case start:
-			if (element != areElement) {
-				fprintf(stderr, "Expected <are> at line %d\n", line_number);
-				exit(EXIT_FAILURE);
+			for (nptr = game_nodes->nodesetval->nodeTab[i]->children;
+				 nptr != NULL; nptr = nptr->next) {
+				char* content;
+				switch(nptr->type) {
+					case XML_ELEMENT_NODE:
+						ev = lookupElement((char*)nptr->name);
+						content = (char*)xmlNodeGetContent(nptr);
+						switch(ev) {
+							case fromElement:
+								go->from = content;
+								break;
+
+							case subjectElement:
+								attr =
+									(char *)xmlGetProp(nptr, (xmlChar*)"type");
+								if (noCaseStrcmp(attr, "success") == 0)
+									go->sub_succeed = content;
+								else
+									go->sub_fail = content;
+								free(attr);
+								break;
+
+							case replytoElement:
+								go->replyto = content;
+								break;
+
+							case ccElement:
+								go->cc = content;
+								break;
+
+							case minplayersElement:
+								go->minplayers = atoi(content);
+								break;
+
+							case maxplayersElement:
+								go->maxplayers = atoi(content);
+								break;
+
+							case galaxysizeElement:
+								go->galaxy_size = atof(content);
+								break;
+
+							case nationspacingElement:
+								go->nation_spacing = atof(content);
+								break;
+
+							case paxgalacticaElement:
+								go->pax_galactica = atoi(content);
+								break;
+
+							case initialtechElement:
+								getTechElements(nptr->children, go);
+								break;
+
+							case homeworldsElement:
+							case developElement:
+							case stuffElement:
+							case asteroidsElement:
+								getPlanets(nptr->children, ev, go);
+								break;
+								
+							case UnknownElement:
+								fprintf(stderr, "Unrecognized element \"%s\", "
+										"exiting\n", nptr->name);
+								return NULL;
+								break;
+
+							default:
+								break;
+						}
+
+					default:
+						break;
+				}
+			}
+			/* normalize data */
+			go->from = (go->from == NULL) ?
+				strdup(so->from) : go->from;
+
+			go->sub_succeed = (go->sub_succeed == NULL) ?
+				strdup(so->sub_succeed) : go->sub_succeed;
+
+			go->sub_fail = (go->sub_fail == NULL) ?
+				strdup(so->sub_fail) : go->sub_fail;
+
+			go->replyto = (go->replyto == NULL) ?
+				strdup(so->replyto) : go->replyto;
+
+			go->cc = (go->cc == NULL) ? strdup(so->cc) : go->cc;
+
+			if (go->maxplayers < go->minplayers) {
+				int tmp = go->maxplayers;
+				go->maxplayers = go->minplayers;
+				go->minplayers = tmp;
 			}
 
-			if (strcmp(atts[1], "1.0") != 0) {
-				fprintf(stderr, "unrecognized ARE version, continuing\n");
+			if (go->minplayers <= 0 || go->maxplayers <= 0) {
+				fprintf(stderr, "you must specify a postive number of "
+						"players in game %s\n", go->name);
+				errors++;
 			}
-			stack[++top] = are;
-			break;
 
-		case are:
-			switch(element) {
-				case serverElement:
-					stack[++top] = server_data;
-					break;
-
-				case gameElement:
-					stack[++top] = game_data;
-					go = allocStruct(gameOpts);
-					assert(go != NULL);
-					go->next = NULL;
-					go->from = NULL;
-					go->succeed_subject = NULL;
-					go->fail_subject = NULL;
-					go->replyto = NULL;
-					go->cc = NULL;
-					go->minplayers = 0;
-					go->maxplayers = 0;
-					go->delay_hours = 0;
-					go->totalplanetsize = 0.0;
-					go->maxplanetsize = 0.0;
-					go->minplanets = 0;
-					go->maxplanets = 0;
-					go->galaxy_size = 0.0;
-					go->nation_spacing = 0.0;
-					go->core_sizes = (float*)malloc(sizeof(float));
-					go->core_sizes[0] = -1;
-					go->growth_planets_count = 0;
-					go->growth_planets_radius = 0.0;
-					go->stuff_planets = 0;
-					go->pax_galactica = 0;
-					go->initial_drive = 1.0;
-					go->initial_weapons = 1.0;
-					go->initial_shields = 1.0;
-					go->initial_cargo = 1.0;
-					go->game_options = 0;
-					setName(go,atts[1]);
-					break;
-
-				default:
-					fprintf(stderr, "Expecting <server> or <game> at line\n",
-							line_number);
-					break;
-			}
-			break;
-
-		case server_data:
-			switch(element) {
-				case fromElement:
-					curElement = &so->from;
-					break;
-
-				case subjectElement:
-					if (noCaseStrcmp(atts[1], "success") == 0)
-						curElement = &so->succeed_subject;
-					else
-						curElement = &so->fail_subject;
-					break;
-
-				case replytoElement:
-					curElement = &so->replyto;
-					break;
-
-				case ccElement:
-					curElement = &so->cc;
-					break;
-
-				default:
-					fprintf(stderr, "Unexpected element \"%s\" at line %d\n",
-							name, line_number);
-					break;
-			}
-			break;
-
-		case game_data:
-			switch(element) {
-				case fromElement:
-					curElement = &go->from;
-					break;
-
-				case subjectElement:
-					if (noCaseStrcmp(atts[1], "success") == 0)
-						curElement = &go->succeed_subject;
-					else
-						curElement = &go->fail_subject;
-					break;
-					
-				case repltytoElement:
-					curElement = &go->replyto;
-					break;
-
-				case ccElement:
-					curElement = &go->cc;
-					break;
-			}
-			break;
-	}
-
-
-	else if (noCaseStrcmp(name, "core_sizes") == 0) {
-		int nbr_core = atoi(atts[1]);
-		free(go->core_sizes);
-		go->core_sizes = (float*)malloc(sizeof(float)*(nbr_core+1));
-		go->core_sizes[nbr_core] = -1;
-		context = core_context;
-	}
-	else if (noCaseStrcmp(name, "minplayers") == 0) {
-		curElement = (char**)&go->minplayers;
-	}
-	else if (noCaseStrcmp(name, "maxplayers") == 0) {
-		curElement = (char**)&go->maxplayers;
-	}
-	else if (noCaseStrcmp(name, "totalplanetsize") == 0) {
-		curElement = (char**)&go->totalplanetsize;
-	}
-	else if (noCaseStrcmp(name, "maxplanetsize") == 0) {
-		curElement = (char**)&go->maxplanetsize;
-	}
-	else if (noCaseStrcmp(name, "minplanets") == 0) {
-		curElement = (char**)&go->minplanets;
-	}
-	else if (noCaseStrcmp(name, "maxplanets") == 0) {
-		curElement = (char**)&go->maxplanets;
-	}
-	else if (noCaseStrcmp(name, "galaxy_size") == 0) {
-		curElement = (char**)&go->galaxy_size;
-	}
-	else if (noCaseStrcmp(name, "delay_hours") == 0) {
-		curElement = (char**)&go->delay_hours;
-	}
-	else if (noCaseStrcmp(name, "nation_spacing") == 0) {
-		curElement = (char**)&go->nation_spacing;
-	}
-	else if (noCaseStrcmp(name, "planet") == 0) {
-		if (context == core_context) {
-			core_idx = atoi(atts[1]) - 1;
-			curElement = (char**)&go->core_sizes;
+			
+			addList(&so->games, go);
+			free(name);
 		}
 	}
-	else if (noCaseStrcmp(name, "growth_planets") == 0) {
-		context = growth_context;
-	}
-	else if (noCaseStrcmp(name, "count") == 0) {
-		if (context == growth_context) 
-			curElement = (char**)&go->growth_planets_count;
-	}
-	else if (noCaseStrcmp(name, "radius") == 0) {
-		if (context == growth_context)
-			curElement = (char**)&go->growth_planets_radius;
-	}
-	else if (noCaseStrcmp(name, "stuff_planets") == 0) {
-		curElement = (char**)&go->stuff_planets;
-	}
-	else if (noCaseStrcmp(name, "paxgalactica") == 0) {
-		curElement = (char**)&go->pax_galactica;
-	}
-	else if (noCaseStrcmp(name, "initial_tech_levels") == 0) {
-		context = tech_context;
-	}
-	else if (noCaseStrcmp(name, "drive") == 0) {
-		if (context == tech_context)
-			curElement = (char**)&go->initial_drive;
-	}
-	else if (noCaseStrcmp(name, "weapons") == 0) {
-		if (context == tech_context)
-			curElement = (char**)&go->initial_weapons;
-	}
-	else if (noCaseStrcmp(name, "shields") == 0) {
-		if (context == tech_context)
-			curElement = (char**)&go->initial_shields;
-	}
-	else if (noCaseStrcmp(name, "cargo") == 0) {
-		if (context == tech_context)
-			curElement = (char**)&go->initial_cargo;
-	}
-	else if (noCaseStrcmp(name, "full_bombing") == 0) {
-		go->game_options |= GAME_NONGBOMBING;
-	}
-	else if (noCaseStrcmp(name, "keep_production") == 0) {
-		go->game_options |= GAME_KEEPPRODUCTION;
-	}
-	else if (noCaseStrcmp(name, "dont_drop_dead") == 0) {
-		go->game_options |= GAME_NODROP;
-	}
-	else if (noCaseStrcmp(name, "save_report_copy") == 0) {
-		go->game_options |= GAME_SAVECOPY;
-	}
-	else if (noCaseStrcmp(name, "spherical_galaxy") == 0) {
-		go->game_options |= GAME_SPHERICALGALAXY;
-	}
-	else if (noCaseStrcmp(name, "players") == 0) {
-		tagContext = 0;
-		context = player_context;
-		po = allocStruct(playerOpts);
-		assert(po != NULL);
-		po->next = NULL;
-		po->email = NULL;
-		po->password = NULL;
-		po->real_name = NULL;
-		po->x = 0.0;
-		po->y = 0.0;
-		po->size = 0.0;
-		po->planets = allocStruct(planet);
-		po->options = 0;
-	}
-	else if (noCaseStrcmp(name, "player") == 0) {
-	}
-	else {
-		tagContext = 0;
-		printf("unrecognized element %s\n", name);
-	}
+	xmlCleanupParser();
+	return so;
 }
 
-void
-endElement (void *userData, const char *name)
-{
-  if (noCaseStrcmp(name, "game") == 0) {
-    int errors = 0;
-    if (go->from == NULL) {
-      if (so->from == NULL) {
-	fprintf(stderr, "**ERROR** Either the server or a game section "
-		"must specify a <from> element.\n");
-	errors++;
-      }
-      else {
-	go->from = strdup(so->from);
-      }
-    }
-    if (go->succeed_subject == NULL) {
-      if (so->succeed_subject == NULL) {
-	fprintf(stderr, "**ERROR** Either the server or a game section "
-		"must specify a <subject type=\"succeed\"> element\n");
-	errors++;
-      }
-      else {
-	go->succeed_subject = strdup(so->succeed_subject);
-      }
-    }
-    if (go->fail_subject == NULL) {
-      if (so->fail_subject == NULL) {
-	fprintf(stderr, "**ERROR** Either the server or a game section "
-		"must specify a <subject type=\"fail\"> element\n");
-	errors++;
-      }
-      else {
-	go->fail_subject = strdup(so->fail_subject);
-      }
-    }
 
-    if (errors) {
-      fprintf(stderr, "Please fix %s problem%s and try again.\n",
-	      errors == 1 ? "this" : "these", &"s"[errors == 1]);
-      exit(EXIT_FAILURE);
-    }
+static void getTechElements(xmlNodePtr tech, gameOpts* go) {
+	enum ELEMENT_VALS ev;
+	char* content;
 
-    addList(&so->go, go);
-    context = server_context;
-    go = NULL;
-  }
-  else if (noCaseStrcmp(name, "core_sizes") == 0) {
-    context = game_context;
-  }
-  else if (noCaseStrcmp(name, "growth_planets") == 0) {
-    context = game_context;
-  }
-  else if (noCaseStrcmp(name, "initial_tech") == 0) {
-    context = game_context;
-  }
-  else if (noCaseStrcmp(name, "players") == 0) {
-    context = game_context;
-  }
-  tagContext = 0;
-  curElement = NULL;
-  return;
+	for (; tech != NULL; tech = tech->next) {
+		switch(tech->type) {
+			case XML_ELEMENT_NODE:
+				ev = lookupElement((char*)tech->name);
+				content = (char*)xmlNodeGetContent(tech);
+				switch(ev) {
+					case driveElement:
+						go->initial_drive = atof(content);
+						if (go->initial_drive < 0.0 ||
+							(go->initial_drive > 0.0 && go->initial_drive < 1.0))
+							go->initial_drive = 1.0;
+						break;
+						
+					case weaponsElement:
+						go->initial_weapons = atof(content);
+						if (go->initial_weapons < 0.0 ||
+							(go->initial_weapons > 0.0 && go->initial_weapons < 1.0))
+							go->initial_weapons = 1.0;
+						break;
+						
+					case shieldsElement:
+						go->initial_shields = atof(content);
+						if (go->initial_shields < 0.0 ||
+							(go->initial_shields > 0.0 && go->initial_shields < 1.0))
+							go->initial_shields = 1.0;
+						break;
+						
+					case cargoElement:
+						go->initial_cargo = atof(content);
+						if (go->initial_cargo < 0.0 ||
+							(go->initial_cargo > 0.0 && go->initial_cargo < 1.0))
+							go->initial_cargo = 1.0;
+						break;
+						
+					default:
+						break;
+				}
+				break;
+				
+			default:
+				break;
+		}
+	}
+	return;
 }
 
-void
-contentData(void* userData, const char* text, int len)
-{
-  char ltext[1024];
-
-  if (!tagContext || curElement == NULL)
-    return;
-  
-  sprintf(ltext, "%*.*s", len, len, text);
-  
-  if (go) {
-    if (curElement == &go->from) {
-      if (*curElement == NULL)
-	*curElement = strdup(ltext);
-      else {
-	int newlen = strlen(*curElement) + len + 1;
-	*curElement = (char*)realloc(*curElement, newlen);
-	strcat(*curElement, ltext);
-      }
-    }
-    else if (curElement == &go->succeed_subject) {
-      if (*curElement == NULL)
-	*curElement = strdup(ltext);
-      else {
-	int newlen = strlen(*curElement) + len + 1;
-	*curElement = (char*)realloc(*curElement, newlen);
-	strcat(*curElement, ltext);
-      }
-    }
-    else if (curElement == &go->fail_subject) {
-      if (*curElement == NULL)
-	*curElement = strdup(ltext);
-      else {
-	int newlen = strlen(*curElement) + len + 1;
-	*curElement = (char*)realloc(*curElement, newlen);
-	strcat(*curElement, ltext);
-      }
-    }
-    else if (curElement == &go->replyto) {
-      if (*curElement == NULL)
-	*curElement = strdup(ltext);
-      else {
-	int newlen = strlen(*curElement) + len + 1;
-	*curElement = (char*)realloc(*curElement, newlen);
-	strcat(*curElement, ltext);
-      }
-    }
-    else if (curElement == &go->cc) {
-      if (*curElement == NULL)
-	*curElement = strdup(ltext);
-      else {
-	int newlen = strlen(*curElement) + len + 1;
-	*curElement = (char*)realloc(*curElement, newlen);
-	strcat(*curElement, ltext);
-      }
-    }
-    else if (curElement == (char**)&go->minplayers) {
-      go->minplayers = atoi(ltext);
-    }
-    else if (curElement == (char**)&go->maxplayers) {
-      go->maxplayers = atoi(ltext);
-    }
-    else if (curElement == (char**)&go->totalplanetsize) {
-      go->totalplanetsize = atof(ltext);
-    }
-    else if (curElement == (char**)&go->maxplanetsize) {
-      go->maxplanetsize = atof(ltext);
-    }
-    else if (curElement == (char**)&go->minplanets) {
-      go->minplanets = atoi(ltext);
-    }
-    else if (curElement == (char**)&go->maxplanets) {
-      go->maxplanets = atoi(ltext);
-    }
-    else if (curElement == (char**)&go->galaxy_size) {
-      go->galaxy_size = atof(ltext);
-    }
-    else if (curElement == (char**)&go->delay_hours) {
-      go->delay_hours = atol(ltext);
-    }
-    else if (curElement == (char**)&go->nation_spacing) {
-      go->nation_spacing = atof(ltext);
-    }
-    else if (curElement == (char**)&go->core_sizes) {
-      go->core_sizes[core_idx] = atof(ltext);
-    }
-    else if (curElement == (char**)&go->growth_planets_count) {
-      go->growth_planets_count = atoi(ltext);
-    }
-    else if (curElement == (char**)&go->growth_planets_radius) {
-      go->growth_planets_radius = atof(ltext);
-    }
-    else if (curElement == (char**)&go->stuff_planets) {
-      go->stuff_planets = atoi(ltext);
-    }
-    else if (curElement == (char**)&go->pax_galactica) {
-      go->pax_galactica = atoi(ltext);
-    }
-    else if (curElement == (char**)&go->initial_drive) {
-      if ((go->initial_drive = atof(ltext)) < 1.0)
-	go->initial_drive = 1.0;
-    }
-    else if (curElement == (char**)&go->initial_shields) {
-      if ((go->initial_shields = atof(ltext)) < 1.0)
-	go->initial_shields = 1.0;
-    }
-    else if (curElement == (char**)&go->initial_weapons) {
-      if ((go->initial_weapons = atof(ltext)) < 1.0)
-	go->initial_weapons = 1.0;
-    }
-    else if (curElement == (char**)&go->initial_cargo) {
-      if ((go->initial_cargo = atof(ltext)) < 1.0)
-	go->initial_cargo = 1.0;
-    }
-    else {
-      if (*curElement == NULL)
-	*curElement = strdup(ltext);
-      else {
-	int newlen = strlen(*curElement) + len + 1;
-	*curElement = (char*)realloc(*curElement, newlen);
-	strcat(*curElement, ltext);
-      }
-    }
-  }
-  else {
-    if (*curElement == NULL)
-      *curElement = strdup(ltext);
-    else {
-      int newlen = strlen(*curElement) + len + 1;
-      *curElement = (char*)realloc(*curElement, newlen);
-      strcat(*curElement, ltext);
-    }
-  }
-}
-
-void
-dumpGameOptData(void* data)
-{
-  gameOpts* go = (gameOpts*)data;
-  int i;
-  
-  fprintf(stderr, "  from: %s\n", go->from);
-  
-  if (go->succeed_subject)
-    fprintf(stderr, "  subject (succeed): %s\n", go->succeed_subject);
-  if (go->fail_subject)
-    fprintf(stderr, "  subject (failed): %s\n", go->fail_subject);
-  if (go->replyto)
-    fprintf(stderr, "  replyto: %s\n", go->replyto);
-  
-  fprintf(stderr, "  playerlimit: %d to %d\n", go->minplayers,
-	  go->maxplayers);
-  fprintf(stderr, "  delay_hours: %d\n", go->delay_hours);
-  
-  fprintf(stderr, "  totalplanetsize: %f\n", go->totalplanetsize);
-  fprintf(stderr, "  maxplanetsize: %f\n", go->maxplanetsize);
-  fprintf(stderr, "  planets: %d to %d\n", go->minplanets, go->maxplanets);
-  fprintf(stderr, "  galaxy_size: %f\n", go->galaxy_size);
-  fprintf(stderr, "  nation_spacing: %f\n", go->nation_spacing);
-  fprintf(stderr, "  core planets: ");
-  for (i = 0; go->core_sizes[i] != -1; i++)
-    fprintf(stderr, " %f ", go->core_sizes[i]);
-  fprintf(stderr, "\n");
-  fprintf(stderr, "  %d growth planets within %f\n",
-	  go->growth_planets_count, go->growth_planets_radius);
-  fprintf(stderr, "  Pax Galactica: %d\n", go->pax_galactica);
-  fprintf(stderr, "  initial tech: %.2f %.2f %.2f %.2f\n",
-	  go->initial_drive, go->initial_weapons, go->initial_cargo,
-	  go->initial_cargo);
-}
-
-serverOpts* loadConfig (const char *galaxynghome) {
-    FILE *areFP;
-    char arename[BUFSIZ];
-    char buf[BUFSIZ];
-    XML_Parser parser = XML_ParserCreate (NULL);
-    int done;
-    so = (serverOpts*)malloc(sizeof(serverOpts));
-
-	initElementLookup();
+static void getPlanets(xmlNodePtr planets, enum ELEMENT_VALS worldtype,
+					   gameOpts* go) {
+	enum ELEMENT_VALS ev;
+	char* content;
+	planetSpec* ps;
+	xmlNodePtr  nptr;
 	
-    XML_SetUserData (parser, NULL);
-    XML_SetElementHandler (parser, startElement, endElement);
-    XML_SetCharacterDataHandler(parser, contentData);
+	switch(worldtype) {
+		case homeworldsElement:
+			ps = &go->home;
+			break;
 
-    so->from = NULL;
-    so->succeed_subject = NULL;
-    so->fail_subject = NULL;
-    so->replyto = NULL;
-    so->cc = NULL;
-    so->go = NULL;
+		case developElement:
+			ps = &go->dev;
+			break;
 
-    sprintf (arename, "%s/.arerc", galaxynghome);
-    if ((areFP = fopen (arename, "r")) == NULL) {
-	plog (LPART, "Could not open \"%s\" for input.\n", arename);
-	return NULL;
-    }
+		case stuffElement:
+			ps = &go->stuff;
+			break;
 
-    do {
-	size_t len = fread (buf, 1, sizeof (buf), areFP);
-	done = len < sizeof (buf);
-	if (!XML_Parse (parser, buf, len, done)) {
-	    fprintf (stderr, "%s at line %d\n",
-			XML_ErrorString (XML_GetErrorCode (parser)),
-			XML_GetCurrentLineNumber (parser));
-	    return NULL;
+		case asteroidsElement:
+			ps = &go->asteroid;
+			break;
+
+		default:
+			break;
 	}
-    } while (!done);
+	
+	for (; planets != NULL; planets = planets->next) {
+		switch(planets->type) {
+			case XML_ELEMENT_NODE:
+				ev = lookupElement((char*)planets->name);
+				content = (char*)xmlNodeGetContent(planets);
 
-    fprintf(stderr, "so->from: \"%s\"\n", so->from);
-    fprintf(stderr, "so->succeed_subject: \"%s\"\n", so->succeed_subject);
-    fprintf(stderr, "so->fail_subject: \"%s\"\n", so->fail_subject);
-    fprintf(stderr, "so->replyto: \"%s\"\n", so->replyto);
-    fprintf(stderr, "so->cc: \"%s\"\n", so->cc);
+				switch(ev) {
+					case countElement:
+						for (nptr = planets->children; nptr != NULL;
+							 nptr = nptr->next) {
+							switch(nptr->type) {
+								case XML_ELEMENT_NODE:
+									content = (char*)xmlNodeGetContent(nptr);
+									
+									if (noCaseStrcmp((char*)nptr->name, "min") == 0) {
+										ps->count_min = atoi(content);
+									}
+									else {
+										ps->count_max = atoi(content);
+									}
+									break;
 
-    dumpList("games", (list*)so->go, dumpGameOptData);
+								default:
+									break;
+							}
+						}
+						break;
+						
+					case sizesElement:
+						for (nptr = planets->children; nptr != NULL;
+							 nptr = nptr->next) {
+							switch(nptr->type) {
+								case XML_ELEMENT_NODE:
+									content = (char*)xmlNodeGetContent(nptr);
+									
+									if (noCaseStrcmp((char*)nptr->name, "min") == 0) {
+										ps->size_min = atof(content);
+									}
+									else if (noCaseStrcmp((char*)nptr->name, "max") == 0) {
+										ps->size_max = atof(content);
+									}
+									else {
+										ps->size_total = atof(content);
+									}
+									break;
 
-    XML_ParserFree (parser);
-    return so;
+								default:
+									break;
+							}
+						}
+						break;
+
+					case resElement:
+						for (nptr = planets->children; nptr != NULL;
+							 nptr = nptr->next) {
+							switch(nptr->type) {
+								case XML_ELEMENT_NODE:
+									content = (char*)xmlNodeGetContent(nptr);
+									
+									if (noCaseStrcmp((char*)nptr->name, "min") == 0) {
+										ps->res_min = atof(content);
+									}
+									else if (noCaseStrcmp((char*)nptr->name, "max") == 0) {
+										ps->res_max = atof(content);
+									}
+									break;
+
+								default:
+									break;
+							}
+						}
+						break;
+
+					case radiusElement:
+						ps->radius = atof(content);
+						break;
+
+					case planetElement:
+					{
+						planetTemplate* pt;
+						pt = instantiatePlanet(planets->children);
+						addList(&ps->pt, pt);
+					}
+					break;
+					
+					default:
+						break;
+				}
+
+			default:
+				break;
+		}
+	}
+	return;
 }
 
+static planetTemplate* instantiatePlanet(xmlNodePtr planet) {
+	static int planet_nbr = 1;
+	
+	planetTemplate* pt;
+	enum ELEMENT_VALS ev;
+	char* content;
+	char  name[16];
+	
+	pt = allocStruct(planetTemplate);
+	pt->size = pt->res = pt->pop = pt->ind = pt->cap = pt->col = pt->mat = 0.0;
+	sprintf(name, "%d", planet_nbr++);
+	setName(pt, name);
+	
+	for (; planet != NULL; planet = planet->next) {
+		switch(planet->type) {
+			case XML_ELEMENT_NODE:
+				ev = lookupElement((char*)planet->name);
+				content = (char*)xmlNodeGetContent(planet);
+
+				switch(ev) {
+					case sizeElement:
+						pt->size = atof(content);
+						break;
+
+					case resElement:
+						pt->res = atof(content);
+						break;
+
+					case popElement:
+						pt->pop = atof(content);
+						break;
+
+					case indElement:
+						pt->ind = atof(content);
+						break;
+
+					case capElement:
+						pt->cap = atof(content);
+						break;
+
+					case colElement:
+						pt->col = atof(content);
+						break;
+
+					case matElement:
+						pt->mat = atof(content);
+						break;
+						
+					default:
+						break;
+				}
+				break;
+
+			default:
+				break;
+		}
+	}
+
+	return pt;
+}
 #if defined(LoadConfigMainNeeded)
+
+static void dump_planets(planetSpec* ps) {
+	planetTemplate* pt;
+	
+	printf("      resources: %.2f to %.2f\n", ps->res_min, ps->res_max);
+	printf("      sizes: %.2f to %.2f (%.2f total)\n",
+		   ps->size_min, ps->size_max, ps->size_total);
+	printf("      radius: %.2f\n", ps->radius);
+	printf("      define %d to %d planets\n", ps->count_min, ps->count_max);
+	printf("      Default Planets:\n");
+	for(pt = ps->pt; pt != NULL; pt = pt->next) {
+		printf("        name: %s\n", pt->name);
+		printf("          size: %.2f\n          res: %.2f\n"
+			   "          pop: %.2f\n", pt->size, pt->res, pt->pop);
+		printf("          ind: %.2f\n          cap: %.2f\n"
+			   "          col: %.2f\n", pt->ind, pt->cap, pt->col);
+		printf("          mat: %.2f\n", pt->mat);
+	}
+	
+	return;
+}
+	
+static void dump_so(serverOpts* so) {
+	gameOpts* go;
+	
+	printf("server:\n  from: \"%s\"\n  subject (succeed): \"%s\"\n",
+		   so->from, so->sub_succeed);
+	printf("  subject (fail): \"%s\"\n  replyto: \"%s\"\n",
+		   so->sub_fail, so->replyto);
+	printf("  cc: \"%s\"\ngames:\n", so->cc);
+
+	for(go = so->games; go != NULL; go = go->next) {
+		printf("  %s\n", go->name);
+		printf("    from: \"%s\"\n    subject (succeed): \"%s\"\n",
+			   go->from, go->sub_succeed);
+		printf("    subject (fail): \"%s\"\n    replyto: \"%s\"\n",
+			   go->sub_fail, go->replyto);
+		printf("    cc: \"%s\"\n    players: %d to %d\n",
+			   go->cc, go->minplayers, go->maxplayers);
+		printf("    galaxy size: %.2f\n    nation spacing: %.2f\n",
+			   go->galaxy_size, go->nation_spacing);
+		printf("    Pax Galactica: %d\n    initial tech:\n",
+			   go->pax_galactica);
+		printf("      drive: %.2f\n      weapons: %.2f\n",
+			   go->initial_drive, go->initial_weapons);
+		printf("      shields: %.2f\n      cargo: %.2f\n",
+			   go->initial_shields, go->initial_cargo);
+
+		printf("    HomeWorlds:\n");
+		dump_planets(&go->home);
+		printf("\n    Develop Worlds:\n");
+		dump_planets(&go->dev);
+		printf("\n    Stuff Worlds:\n");
+		dump_planets(&go->stuff);
+		printf("\n    Asteroids:\n");
+		dump_planets(&go->asteroid);
+
+		
+	}
+	
+	return;
+}
 
 int
 main (int argc, char *argv[])
 {
-  serverOpts *so;
+	serverOpts* so;
+	if (argc == 1)
+		so = loadConfig ("/home/kenw/Games");
+	else
+		so = loadConfig(argv[1]);
 
-  so = loadConfig ("/home/kenw/Games");
+	dump_so(so);
+	
+	return EXIT_SUCCESS;
 }
 
 #endif
