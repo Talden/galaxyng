@@ -228,7 +228,7 @@ echo "# For maildir delivery, mailboxes end in a /, so comment" >> $PROCRC
 echo "# out the above line and use this instead:" >> $PROCRC
 echo "# DEFAULT=\$MAILDIR/" >> $PROCRC
 echo >> $PROCRC
-echo "LOGFILE=\$MAILDIR/galaxyng.log" >> $PROCRC
+echo "LOGFILE=\$MAILDIR/procmail.log" >> $PROCRC
 echo "LOCKFILE=\$HOME/.lockmail" >> $PROCRC
 echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
