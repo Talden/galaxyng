@@ -933,7 +933,8 @@ produceShip(planet *aPlanet, double industry)
 
   typeProduced = aPlanet->producingshiptype;
   typeMass = typemass(typeProduced);
-  typeMass = typeMass - 0.01;   /* Fudge Factor, cause people keep on *
+  if (typeMass > 49.5)
+    typeMass = typeMass - 0.01;   /* Fudge Factor, cause people keep on *
                                  * building those 99.01 ships and then *
                                  * complain they get not build */
 
