@@ -13,3 +13,4 @@ Redirect permanent /ng/NonM4/RefManual.html http://galaxyng.sourceforge.net/quic
 Redirect permanent /ng/example.html http://galaxyng.sourceforge.net/turns.php
 Redirect permanent /ng/hosting.html http://galaxyng.sourceforge.net/server.php
 Redirect permanent /ng/mailing.html http://sourceforge.net/mail/?group_id=48224
+Redirect permanent /reports.php http://galaxyng.sourceforge.net/turns.php
