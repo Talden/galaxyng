@@ -17,3 +17,8 @@ are: $(OBJECTS)
 
 clean:
 	rm -f $(ARE) $(OBJECTS) *~
+
+depend:
+	makedepend -- $(CFLAGS) -- $(SOURCES)
+# DO NOT DELETE
+
