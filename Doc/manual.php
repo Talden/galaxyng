@@ -25,17 +25,6 @@
 							<li>Victory and Defeat</li>
 						</ol>
 					</li>
-					<li>Ships
-						<ol>
-							<li>Ship Types</li>
-							<li>Groups</li>
-							<li>Fleets</li>
-							<li>Technology</li>
-							<li>Movement
-							<li>Speed</li>
-							<li>Locating Ships</li>
-						</ol>
-					</li>
 					<li>Planets
 						<ol>
 							<li>Owner</li>
@@ -46,17 +35,25 @@
 							<li>Stockpiles</li>
 						</ol>
 					</li>
+					<li>Ships
+						<ol>
+							<li>Ship Types</li>
+							<li>Groups</li>
+							<li>Fleets</li>
+							<li>Technology</li>
+							<li>Movement
+							<li>Speed</li>
+							<li>Locating Ships</li>
+							<li>Cargo</li>
+							<li>Routes</li>
+						</ol>
+					</li>
 					<li>Production
 						<ol>
 							<li>Materials</li>
 							<li>Capital</li>
 							<li>Technology</li>
 							<li>Ships</li>
-						</ol>
-					</li>
-					<li>Cargo
-						<ol>
-							<li>Routes</li>
 						</ol>
 					</li>
 					<li>Combat
@@ -112,6 +109,43 @@
 
 				<h3><a link="victory">Victory and Defeat</a></h3>
 					<p>The game can be won by a single race or by an alliance of races, depending upon the game settings.  Races are ranked based on the total production of their planets.  A race is eliminated if it owns no planets and has no ships.  The game is complete when all surviving players agree to end it and notify the game master.</p>
+
+
+
+			<h2><a link="planets">Planets</a></h2>
+					<p>Planets are located in the galaxy by X and Y coordinates.  Planets have seven characteristics: owner, size, population, industry, resources, production and stockpiles.</p>
+
+				<h3><a link="owner">Owner</a></h3>
+					<p>Inhabited planets are owned by one race at a time (except in the special case of a <a href="#combat">standoff</a> when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</p>
+
+				<h3><a link="size">Size</a></h3>
+					<p>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), uninhabited development planets (size 200.00 to 1000.00) and uninhabited stuff planets (size 0.01 to 200.00).</p>
+
+				<h3><a link="pop">Population</a></h3>
+					<p>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into colonists.  These are people automatically stored in containers in deep freeze.  Every eight extra population units are converted into one unit of colonists.</p>
+
+				<h3><a link="ind">Industry</a></h3>
+					<p>Each inhabited planet has industry, which may be lower than the planet's population but may not be greater.  If population exceed industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be produced at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</p>
+
+				<h3><a link="res">Resources</a></h3>
+					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in resources can easily produce materials such as sheet steel, copper wire and plastics.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00, with the average being 1.00.  The resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 resources will produce 5.00 units of materials per point of production, while a planet with 0.10 resources would only produce 0.10 units of materials.  Materials are necessary to produce ships and capital.  Each planet may have a stockpile of materials and if present this will be used.  If no stockpile exists, some production points will be diverted to producing materials.</p>
+
+				<h3><a link="stock">Stockpiles</a></h3>
+					<p>When colonists from a planet's stockpile are shipped to other planets
+which still have room for population growth, they are automatically
+thawed out and added to the planet's population.  This is how
+uninhabited planets are colonized.  (Note that colonist production is
+completely automatic, and consumes no production points.)</p>
+
+					<p>A planet's industry level is increased by the production of
+capital goods.  These represent things like machine tools, computers
+and transport vehicles.  To produce one unit of capital requires 5
+production points and 1 unit of raw materials.  If the planet's
+industry level is below its population it will then be increased by
+one unit.  Otherwise the capital units will be stockpiled.  If shipped
+to a planet whose industry level is below its population, that
+planet's industry level will be increased.  This is useful for quickly
+building up the economy of a colony planet.</p>
 
 
 
@@ -211,78 +245,7 @@
 					<p>Each race's administrative staff will keep a record of its own ships on planets or in hyperspace.  Planet owners have full knowledge of all ships orbiting their planets.  Players also receive complete reports on ships at planets visited by their own ships.</p>
 					<p>Locating alien ships in hyperspace is much more problematic.  Detectors to accurately locate the position of alien ships in hyperspace are installed on each planet.  Accurate readings of mass, speed, origin and distance from destination can be obtained for ships heading directly toward a detector (i.e. inbound to a planet).  A rough indication of the location of other alien groups is indicated on the <a href="#ordm">map</a>, but their mass, speed and direction of travel are unknown.</p>
 
-
-
-			<h2><a link="planets">Planets</a></h2>
-					<p>Planets are located in the galaxy by X and Y coordinates.  Planets have seven characteristics: owner, size, population, industry, resources, production and stockpiles.</p>
-
-				<h3><a link="owner">Owner</a></h3>
-					<p>Inhabited planets are owned by one race at a time (except in the special case of a <a href="#combat">standoff</a> when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</p>
-
-				<h3><a link="size">Size</a></h3>
-					<p>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), uninhabited development planets (size 200.00 to 1000.00) and uninhabited stuff planets (size 0.01 to 200.00).</p>
-
-				<h3><a link="pop">Population</a></h3>
-					<p>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with zero population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into colonists.  These are people automatically stored in containers in deep freeze.  Every eight extra population units are converted into one unit of colonists.</p>
-
-				<h3><a link="ind">Industry</a></h3>
-					<p>Each inhabited planet has industry, which may be lower than the planet's population but may not be greater.  If population exceed industry, the industry may be increased by adding capital.  If there is not an existing stockpile of capital, it may be produced at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</p>
-
-				<h3><a link="res">Resources</a></h3>
-					<p>Each planet has a resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in resources can easily produce materials such as sheet steel, copper wire and plastics.  Home planets have a resources value of 10.00.  Other planets have a resources value between 0.01 and 10.00, with the average being 1.00.  The resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 resources will produce 5.00 units of materials per point of production, while a planet with 0.10 resources would only produce 0.10 units of materials.  Materials are necessary to produce ships and capital.  Each planet may have a stockpile of materials and if present this will be used.  If no stockpile exists, some production points will be diverted to producing materials.</p>
-
-				<h3><a link="stock">Stockpiles</a></h3>
-					<p>When colonists from a planet's stockpile are shipped to other planets
-which still have room for population growth, they are automatically
-thawed out and added to the planet's population.  This is how
-uninhabited planets are colonized.  (Note that colonist production is
-completely automatic, and consumes no production points.)</p>
-
-					<p>A planet's industry level is increased by the production of
-capital goods.  These represent things like machine tools, computers
-and transport vehicles.  To produce one unit of capital requires 5
-production points and 1 unit of raw materials.  If the planet's
-industry level is below its population it will then be increased by
-one unit.  Otherwise the capital units will be stockpiled.  If shipped
-to a planet whose industry level is below its population, that
-planet's industry level will be increased.  This is useful for quickly
-building up the economy of a colony planet.</p>
-
-
-
-			<h2><a link="produce">Production</a></h2>
-				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every four points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 industry and 500.00 population has 500.00 production points, while a planet with 250.00 industry and 500.00 population has 312.50 production points.  A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production each turn.</p>
-				
-				<h3>Materials</h3>
-				
-				<h3>Capital</h3>
-				
-				<h3>Technology</h3>
-					<p>A planet can research one of the four technologies each turn.  It costs 5,000 production points to increase Drive, Weapons, or Shields technology by one point and 2,500 production points to increase Cargo technology by one point.  Fractional increases are effective immediately (e.g. if you spend 500 production points on research into Weapons, your Weapons technology will go up by one tenth of a point).</p>
-					
-				<h3>Ships</h3>
-					<p>A planet can produce one type of ships each turn.  The production cost of a ship is equal to its mass times ten.  In addition, one unit of materials is required for every ten units of production.</p>
-					<pre>                    Mass  Production  Materials
-  Drone             1.00     10.00       1.00
-  Flak              3.00     30.00       1.00
-  FastFlak          2.02     20.20       2.02
-  Fighter           4.95     49.50       4.95
-  Gunship          11.00    110.00      11.00
-  Destroyer        18.00    180.00      18.00
-  Cruiser          49.50    495.00      49.50
-  BattleCruiser    99.00    990.00      99.00
-  Battleship       99.00    990.00      99.00
-  BattleStation   198.00   1980.00     198.00
-  OrbitalFort      99.00    990.00      99.00
-  SpaceGun         19.80    198.00      19.80
-  Hauler            3.00     30.00       3.00
-  Freighter        49.50    495.00      49.50
-  MegaFreighter   198.00   1980.00     198.00	</pre>
-					<p>For example: If a planet with 1000.00 production and 10.00 resources with no stockpile of materials was producing Drones, it would produce 99.01 per turn.  About 9.90 production would be diverted to producing 99.01 materials to build the probes.  However, if it was producing Cruisers, it would only produce 2.00 per turn.  A planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.50 Cruisers per turn.</p>
-
-
-
-			<h2><a link="#cargo">Cargo</a></h2>
+				<h3><a link="#cargo">Cargo</a></h3>
 
 <p> 
 The amount of cargo a ship can carry is determined by the
@@ -370,6 +333,36 @@ colonists to uninhabited planets.  Routes are assigned transport
 ships in the following order of priority:  colonists, capital,
 materials and empty transports.  
 </p>
+
+			<h2><a link="produce">Production</a></h2>
+				<p>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every four points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 industry and 500.00 population has 500.00 production points, while a planet with 250.00 industry and 500.00 population has 312.50 production points.  A planet can be ordered to <a href="#ordp">produce</a> materials, capital, technology research or ships.  Each planet can only perform one type of production each turn.</p>
+				
+				<h3>Materials</h3>
+				
+				<h3>Capital</h3>
+				
+				<h3>Technology</h3>
+					<p>A planet can research one of the four technologies each turn.  It costs 5,000 production points to increase Drive, Weapons, or Shields technology by one point and 2,500 production points to increase Cargo technology by one point.  Fractional increases are effective immediately (e.g. if you spend 500 production points on research into Weapons, your Weapons technology will go up by one tenth of a point).</p>
+					
+				<h3>Ships</h3>
+					<p>A planet can produce one type of ships each turn.  The production cost of a ship is equal to its mass times ten.  In addition, one unit of materials is required for every ten units of production.</p>
+					<pre>                    Mass  Production  Materials
+  Drone             1.00     10.00       1.00
+  Flak              3.00     30.00       1.00
+  FastFlak          2.02     20.20       2.02
+  Fighter           4.95     49.50       4.95
+  Gunship          11.00    110.00      11.00
+  Destroyer        18.00    180.00      18.00
+  Cruiser          49.50    495.00      49.50
+  BattleCruiser    99.00    990.00      99.00
+  Battleship       99.00    990.00      99.00
+  BattleStation   198.00   1980.00     198.00
+  OrbitalFort      99.00    990.00      99.00
+  SpaceGun         19.80    198.00      19.80
+  Hauler            3.00     30.00       3.00
+  Freighter        49.50    495.00      49.50
+  MegaFreighter   198.00   1980.00     198.00	</pre>
+					<p>For example: If a planet with 1000.00 production and 10.00 resources with no stockpile of materials was producing Drones, it would produce 99.01 per turn.  About 9.90 production would be diverted to producing 99.01 materials to build the probes.  However, if it was producing Cruisers, it would only produce 2.00 per turn.  A planet with 750 production and 10.00 resources with no stockpile of materials would produce 1.50 Cruisers per turn.</p>
 
 
 
