@@ -83,7 +83,7 @@ CMD_influence(int argc, char* argv[])
 struct _map {
 	float* influence;
 	float* factor;
-} pi_map[768][768];
+} pi_map[901][901];
 
 int
 draw_maps(game* aGame, enum map_type map_type)
@@ -111,7 +111,8 @@ draw_maps(game* aGame, enum map_type map_type)
 	int        idx, x, y, player_nbr;
 	int        x0, y0, df, d_e, d_se;
 	int        r, g, b;
-	
+int map_height;
+int name_rows;
 	float     weight;
 	float     influence;
 	float     factor, limit;
@@ -169,7 +170,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	/*long total_mem = 0;*/
 	nbr_of_colors = sizeof(map_colors) / (sizeof(int)*4);
 	nbr_of_players = numberOfElements(aGame->players);
-	scale = 765.0 / aGame->galaxysize;
+	scale = 900.0 / aGame->galaxysize;
 	iscale = (int)scale;
 
 	if (aGame->serverOptions.fontpath)
@@ -177,6 +178,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	else
 		strcpy(font, "./influence.ttf");
 
+name_rows = nbr_of_players / 4 + ((nbr_of_players % 4) != 0);
 	switch(map_type) {
 		case EffIndMap:
 			sprintf(buf, "%s/data/%s/effind_%d.png",
@@ -207,6 +209,7 @@ draw_maps(game* aGame, enum map_type map_type)
 			sprintf(buf, "%s/data/%s/public_%d.png",
 					galaxynghome, aGame->name, aGame->turn);
 			strcpy(map_title, "Overview");
+name_rows = 0;
 			break;
 
 		default:
@@ -215,7 +218,8 @@ draw_maps(game* aGame, enum map_type map_type)
 	
 	mapfile = GOS_fopen(buf, "wb");
 	
-	map_png = gdImageCreateTrueColor(1024, 768);
+map_height = 902 + (name_rows+1)*17+2;
+map_png = gdImageCreateTrueColor(902, map_height);
 	
 	for (i = 0; i < nbr_of_colors; i++) {
 		map_colors[i][3] = gdImageColorAllocate(map_png, map_colors[i][0],
@@ -226,58 +230,60 @@ draw_maps(game* aGame, enum map_type map_type)
 	white = map_colors[1][3];
 	ship = map_colors[2][3];
 	
-	gdImageRectangle(map_png, 0, 0, 1023, 767, white);
-	gdImageLine(map_png, 767, 0, 767, 767, white);
-	gdImageLine(map_png, 767, 745, 1023, 745, white);
-	gdImageLine(map_png, 767, 723, 1023, 723, white);
+	gdImageRectangle(map_png, 0, 0, 901, map_height-1, white);
+	gdImageRectangle(map_png, 0, 901, 902, 902, white);
+	gdImageLine(map_png, 0, map_height-1, map_height-1, map_height-1, white);
+gdImageLine(map_png, 0, 919, map_height-1, 919, white);
 
-	strcpy(buf, "Scale (hash every 10 LY)");
-	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
-						  12., 0., 0, 0, buf);
-	if (err)
-		fprintf(stderr, "%s\n", err);
-	
-	gdImageStringFT(map_png, NULL, white, font, 12., 0., 780, 690, buf);
-	
-	if (790 + brect[4] + 20*scale > 1023)
-		ticks = 1;
-	else
-		ticks = 2;
+printf("map_height: %d, name_rows: %d\n", map_height, name_rows);
 
-	
-	gdImageLine(map_png, 790 + brect[4], 687, 790+(10*ticks*scale) + brect[4], 687, white);
-	gdImageLine(map_png, 790 + brect[4], 684, 790 + brect[4], 690, white);
-	for (i = 1; i <= ticks; i++) {
-		gdImageLine(map_png, 790+(10*ticks*scale) + brect[4],
-					684, 790+(10*ticks*scale) + brect[4], 690, white);
-	}
+
+
 	sprintf(buf, "Map Size: %d", (int)aGame->galaxysize);
-	gdImageStringFT(map_png, NULL, white, font, 12., 0., 780, 710, buf);
+	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
+						  12., 0., 0, 0, buf);
+	if (err)
+		fprintf(stderr, "%s\n", err);
+	gdImageStringFT(map_png, NULL, white, font, 12., 0., 3, 916, buf);
 
-	sprintf(buf, "%s   Turn: %d", aGame->name, aGame->turn);
+
+	gdImageLine(map_png, 5 + brect[4], 914, 5+(10*scale) + brect[4], 914, white);
+
+	for (i = 0; i <= 1; i++) {
+		gdImageLine(map_png, 5+(10*i*scale) + brect[4],
+					914, 5+(10*i*scale) + brect[4], 908, white);
+	}
+
+strcpy(buf, "(10 LY)");
+gdImageStringFT(map_png, NULL, white, font, 12.0, 0.,
+7+brect[4]+10*scale, 916, buf);
+{int dist_used = 9 + brect[4] + 10*scale;
+	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
+						  12., 0., 0, 0, buf);
+	if (err)
+		fprintf(stderr, "%s\n", err);
+
+gdImageLine(map_png, dist_used + brect[4], 919, dist_used+brect[4], 902, white);
+gdImageLine(map_png, 902 - (dist_used + brect[4]), 919, 902 - (dist_used+brect[4]), 902, white);
+sprintf(buf, "Turn: %d", aGame->turn);
+gdImageStringFT(map_png, NULL, white, font, 12.0, 0., 904 - (dist_used+brect[4]), 916, buf); 
+}
+	sprintf(buf, "%s: %s", aGame->name, map_title);
 	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
 						  12., 0., 0, 0, buf);
 	if (err)
 		fprintf(stderr, "%s\n", err);
 	
 	gdImageStringFT(map_png, NULL, white, font, 12., 0.,
-					896 - (brect[4] / 2), 762, buf);
-	
-	err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
-						  12., 0., 0, 0, map_title);
-	if (err)
-		fprintf(stderr, "%s\n", err);
-	
-	gdImageStringFT(map_png, NULL, white, font, 12., 0.,
-					896 - (brect[4] / 2), 740, map_title);
-	
+					451 - (brect[4] / 2), 916, buf);
+
 	/* try something different - this method turns out to be
 	 * *very* memory intensive */
 	/* set  up variables to hold the influence, one float for each
 	 * player. We'll combine at the end
 	 */
-	for (j = 0; j < 768; j++) {
-		for (k = 0; k < 768; k++) {
+	for (j = 0; j < 900; j++) {
+		for (k = 0; k < 900; k++) {
 			if (pi_map[j][k].influence != NULL) {
 				memset((void*)pi_map[j][k].influence, 0,
 					   sizeof(float)*nbr_of_players);
@@ -360,7 +366,7 @@ draw_maps(game* aGame, enum map_type map_type)
 					d_se = -2 * idx + 5;
 					
 					do {
-						if (x+x0 < 767 && y + y0 < 767) {
+						if (x+x0 < 900 && y + y0 < 900) {
 							x1 = x+x0;
 							y1 = y+y0;
 							if (pi_map[x1][y1].influence == NULL) {
@@ -374,7 +380,7 @@ draw_maps(game* aGame, enum map_type map_type)
 							pi_map[x1][y1].factor[player_nbr] += influence;
 						}
 						
-						if (x0 && (x-x0 > 1 && y+y0<767)) {
+						if (x0 && (x-x0 > 1 && y+y0<900)) {
 							x1 = x - x0;
 							y1 = y + y0;
 							if (pi_map[x1][y1].influence == NULL) {
@@ -388,7 +394,7 @@ draw_maps(game* aGame, enum map_type map_type)
 							pi_map[x1][y1].factor[player_nbr] += influence;
 						}
 						
-						if (y0 && (x+x0 < 767 && y-y0 > 1)) {
+						if (y0 && (x+x0 < 900 && y-y0 > 1)) {
 							x1 = x+x0;
 							y1 = y-y0;
 							if (pi_map[x1][y1].influence == NULL) {
@@ -418,7 +424,7 @@ draw_maps(game* aGame, enum map_type map_type)
 						}
 						
 						if (x0 != y0) {
-							if (x+y0<767 && y+x0<767) {
+							if (x+y0<900 && y+x0<900) {
 								x1 = x+y0;
 								y1 = y+x0;
 								if (pi_map[x1][y1].influence == NULL) {
@@ -433,7 +439,7 @@ draw_maps(game* aGame, enum map_type map_type)
 								pi_map[x1][y1].factor[player_nbr] += influence;
 							}
 							
-							if (x0 && (x+y0<767 && y-x0>1)) {
+							if (x0 && (x+y0<900 && y-x0>1)) {
 								x1 = x+y0;
 								y1 = y-x0;
 								if (pi_map[x1][y1].influence == NULL) {
@@ -448,7 +454,7 @@ draw_maps(game* aGame, enum map_type map_type)
 								pi_map[x1][y1].factor[player_nbr] += influence;
 							}
 							
-							if (y0 && (x-y0>1 && y+x0<767)) {
+							if (y0 && (x-y0>1 && y+x0<900)) {
 								x1 = x-y0;
 								y1 = y+x0;
 								if (pi_map[x1][y1].influence == NULL) {
@@ -497,8 +503,8 @@ draw_maps(game* aGame, enum map_type map_type)
 			
 			/*fprintf(stderr, "total mem used: %ld\n", total_mem);*/
 			
-			for (i = 1; i < 767; i++) {
-				for (j = 1; j < 767; j++) {
+			for (i = 1; i < 900; i++) {
+				for (j = 1; j < 900; j++) {
 					int winning_player;
 					float max_weight;
 					
