@@ -223,7 +223,7 @@ LIBS   = -lm</pre>
 * ^Subject.*Join Welland
 |/usr/bin/formail -rkbt -s $HOME/Games/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t</pre>
 				<p>Players can request planet sizes by adding this line to their registration email:</p>
-<pre>#PLANETS lt;size of planet 1&gt; &lt;size of planet 2&gt; ... &lt;size of planet n&gt;
+<pre>#PLANETS &lt;size of planet 1&gt; &lt;size of planet 2&gt; ... &lt;size of planet n&gt;
 e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>The server will send error messages to players who submit requests for planets that do not match the criteria specified in the <tt>.procmail</tt> recipe.</p>
 				<p>Note that better examples of game signup recipes can be found in the file <tt>$HOME/Games/procmailrc</tt>.</p>

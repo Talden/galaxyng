@@ -369,7 +369,7 @@ MegaFreighter   198.00   1980.00     198.00	</pre>
 				 <p>Battles occur whenever a ship with weapons encounters an enemy ship at a planet.  Ships in hyperspace cannot participate in battles.  In each battle round, randomly select a ship from all surviving ships that have not yet attacked (note that if a ship is destroyed before it gets a chance to fire it will not attack).  For each gun on the ship, randomly select a surviving enemy ship and fire a shot.  Repeat until all ships have fired.  Battle rounds continue until the battle is either a standoff or a win.  A battle is a standoff if all remaining ships are invulnerable to enemy attacks.  A battle is won if all remaining ships belong to races that are allied with each other.</p>
 					<p>Attack and defence strengths are calculated using the following forumlae:</p>
 <pre>attack strength = (weapons mass * weapons technology)
-defence strength = ((shields mass * shields technology) / (ship mass + effective cargo carried mass)^(1/3) * 30^(1/3).</pre>
+defence strength = ((shield mass * shields technology) / (ship mass + effective cargo carried mass)^(1/3)) * 30^(1/3).</pre>
 					<p>If a shot is successful, the enemy ship is destroyed.  The attack forumula is:</p>
 <pre>p[kill] = (log[4](attack strength / defence strength) + 1) / 2</pre>
 					<p>Where log[4](x)  is the log with base 4 of x, which can be computed with log(x)/log(4).  If the attack strength is four times as strong as the defence strength, the attack will always succeed.  If the defence strength is four times as strong as the attack strength, the attack will always fail.  The numbers are calculated so that if a ship type 10 1 10 10 0 fires at an identical ship, it will have a 50% chance of destroying the target.</p>
@@ -391,7 +391,7 @@ defence strength = ((shields mass * shields technology) / (ship mass + effective
 					<li>Groups <a href="#ordl">load</a> or <a href="#ordu">unload</a> cargo.</li>
 					<li>Groups and fleets <a href="#ords">sent</a> to planets enter hyperspace.</li>
 					<li><a href="#ordr">Routes</a> are assigned to planets.</li>
-					<li>Cargo ships are assigned cargoes and destinations, load cargo (if necessary) and enter hyperspace.</li>
+					<li>Cargo ships are assigned cargos and destinations, load cargo (if necessary) and enter hyperspace.</li>
 					<li>Groups and fleets with <a href="#ordi">intercept</a> orders are assigned destinations and enter hyperspace.</li>
 					<li>Groups and fleets move through hyperspace, possibly arriving at planets.</li>
 					<li>Groups with weapons attack enemy ships, causing combat.</li>
