@@ -726,7 +726,16 @@ CMD_immediate( int argc, char **argv)
 			}
 		
 			if (failed) {
+				envelope* env = createEnvelope();
+				env->to=strdup(aGame->serverOptions.GMemail);
+				env->from = strdup(aGame->serverOptions.SERVERemail);
+				env->subject = createString("Missing orders for %s (%d)",
+											argv[2], aGame->turn+1);
+				fclose(gmnote);
+				eMail(aGame, env, gmbody);
+				destroyEnvelope(env);
 				plog( LPART, "Not all orders in, skipping tick.\n");
+				
 			}
 			
 			
