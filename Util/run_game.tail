@@ -9,25 +9,25 @@ if { test -z $2 ; } then {
     #	
     # Determine Current turn number
     #
-    TURN=`cat data/$1/next_turn` ;
+    TURN=`cat data/$1/next_turn`
 
     #
     # Copy the orders of all nations into a single file.
     #
-    cat orders/$GAME/*.$TURN > orders/$GAME/$TURN.all ;
+    cat orders/$GAME/*.$TURN > orders/$GAME/$TURN.all
 
     # Clean-up: 
     # Since all individual order sets for each nation have been copied
     # to $TURN.all  we can remove them.
     #
-    rm -f orders/$GAME/*.$TURN ;
+    rm -f orders/$GAME/*.$TURN
     
 } else {
     # We land here in case of a re-run of a turn. The previous run
     # will already have put all orders into a single file, so no
     # need to repeat it here.
     #
-    TURN=$2 ;
+    TURN=$2
 } 
 fi
 
@@ -38,14 +38,25 @@ fi
 $GALAXY -run $GAME orders/$GAME/$TURN.all $TURN
 
 #
-# Create HTML high-score list and copy it the WWWHOME.
+# Create the web directory if necessary
 #
 
 if { test ! -d $WWWHOME/$GAME/ ; } then { mkdir $WWWHOME/$GAME/ ; } fi
-$GALAXY -score $GAME  > $WWWHOME/$GAME/hitlist.html 
+
+#
+# Create the influence map and move it to the web directory.
+# Uncomment the following lines if you want to create a public
+# influence map.
+#
+#$GALAXY -influence $GAME public $TURN
+#mv data/$GAME/public_$TURN.png $WWWHOME/$GAME/
+
+#
+# Create the high score list in HTML and copy it to the web directory.
+#
+
+$GALAXY -score $GAME  > $WWWHOME/$GAME/score.html 
 
 #
 # Done. 
 #
-
-
