@@ -282,12 +282,12 @@ CMD_template( int argc, char **argv )
 	    "; The following size is only approximately right.\n"
 	    "; You probably want to experiment with different sizes to get\n"
 	    "; a galaxy that looks right. It should not be too crowded nor\n"
-	    "too sparse.\n\nsize %d\n\n", gsize);
+	    "; too sparse.\n\nsize %d\n\n", gsize);
     
     fprintf(glxfile,
-	    "\n;The engine will make sure that distance between any of the\n"
-	    "; primary home planets is atleast 30.0 light years."
-	    "\n\nrace_spacing 30.0\n\n");
+	    "\n; The engine will make sure that distance between any of the\n"
+	    "; primary home planets is at least 30 light years."
+	    "\n\nrace_spacing 30\n\n");
     
     fprintf(glxfile,
 	    "; The sizes of the core home planets for each race.\n"
@@ -368,7 +368,7 @@ CMD_template( int argc, char **argv )
 	    "; Don't kill off players:\n"
 	    "; Don't remove idle races from a game. Normally if players do\n"
 	    "; not send in orders for a couple of turns their race self\n"
-	    "; destructs.\nUncomment if you want this option.\n\n"
+	    "; destructs.\n; Uncomment if you want this option.\n\n"
 	    "; DontDropDead\n\n");
 
     fprintf(glxfile,
