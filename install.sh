@@ -4,12 +4,12 @@
 
 #===================================================
 # If you want to install the server in a directory other than
-# $HOME/galaxyng, change the following line, and add the line
+# $HOME/Games, change the following line, and add the line
 #   export GALAXYNGHOME=<the dir you install it in> 
 # to your .bash_profile file.
 #===================================================
 
-GALAXY_HOME=$HOME/galaxyng
+GALAXY_HOME=$HOME/Games
 
 echo "*** GalaxyNG Install Script ***"
 echo "This script creates and installs all files necessary to"
