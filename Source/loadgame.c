@@ -345,7 +345,7 @@ loadgame(char *gameName, int whichTurn)
 		P->flags = getReadLong();
 
 		plog(LBRIEF, "Player flags: %ld\n", P->flags);
-		P->flags |= ~F_XMLREPORT;
+		P->flags &= ~F_XMLREPORT;
 		plog(LBRIEF, "Player flags: %ld\n", P->flags);
 		
 		pdebug(DFULL, "Load Game : Ship Types\n");
