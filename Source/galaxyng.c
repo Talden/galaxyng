@@ -686,6 +686,7 @@ CMD_check(int argc, char **argv, int kind)
 					copyOrders(aGame, stdin, nationName, password, aGame->turn+1);
 					if ((forecast = GOS_fopen(forecastName, "w")) == NULL) {
 						plog(LBRIEF, "Could not open %s for forecasting\n", forecastName);
+						fprintf(stderr, "Could not open %s for forecasting\n", forecastName);
 						return EXIT_FAILURE;
 					}
 					
@@ -698,6 +699,8 @@ CMD_check(int argc, char **argv, int kind)
 					fclose(forecast);
 					if (kind == CMD_CHECK_REAL) {
 						plog(LBRIEF, "mailing XML report %s to %s\n", forecastName, 
+							 anEnvelope->to);
+						fprintf(stderr, "mailing XML report %s to %s\n", forecastName, 
 							 anEnvelope->to);
 						result |= eMail(aGame, anEnvelope, forecastName);
 					}
@@ -719,7 +722,12 @@ CMD_check(int argc, char **argv, int kind)
 					(theTurnNumber == (aGame->turn) + 1)) {
 					forecastName = createString("%s/NG_TXT_%d_forecast", 
 												tempdir, getpid());
-					forecast = GOS_fopen(forecastName, "w");
+					if ((forecast = GOS_fopen(forecastName, "w")) == NULL) {
+						plog(LBRIEF, "Could not open %s for forecasting\n", forecastName);
+						fprintf(stderr, "Could not open %s for forecasting\n", forecastName);
+						return EXIT_FAILURE;
+					}
+
 					if (aPlayer->orders == NULL)
 						copyOrders(aGame, stdin, nationName, password, aGame->turn+1);
 					
@@ -733,6 +741,8 @@ CMD_check(int argc, char **argv, int kind)
 					
 					if (kind == CMD_CHECK_REAL) {
 						plog(LBRIEF, "mailing TXT report %s to %s\n", forecastName, 
+							 anEnvelope->to);
+						fprintf(stderr, "mailing TXT report %s to %s\n", forecastName, 
 							 anEnvelope->to);
 						
 						result |= eMail(aGame, anEnvelope, forecastName);
