@@ -17,11 +17,8 @@
 			
 			<h2>Join a new game:</h2>
 					<p>To join a new game send an email to the GalaxyNG game server (e.g. <tt>server@somewhere.com</tt>) with the subject "<tt>Join GameName</tt>." You will receive a confirmation email from the server.  To find a game, <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">subscribe to GalaxyNG-Players</a> or visit a GalaxyNG server:</p>
-				<ul>
-					<!--<li><a href="http://www.gioco.net/galaxy/">GalaxyNG GIGA Server</a> (Italian)</li>-->
-					<li><a href="http://galaxy.gesserit.net/">Nine Lives GalaxyNG Server</a></li>
-					<li><a href="http://www.refs-home.net/galaxyng/">REF's GalaxyNG Site</a></li>
-				</ul>
+				
+			<?php include 'newgames.php'; ?>
 				
 			<hr />
 			
