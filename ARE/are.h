@@ -12,6 +12,45 @@
 #include "galaxy.h"
 #include "mail.h"
 
+typedef struct _planetTemplate {
+  /* basic list structure */
+  struct _planetTemplate* next;
+  long                    cookie;
+  char*                   name;
+  /* end basic list */
+  float     size;
+  float     res;
+  float     pop;
+  float     ind;
+  float     cap;
+  float     col;
+  float     mat;
+} planetTemplate;
+
+
+/****v* ARE/planetSpec
+ * NAME
+ *   planetSpec -- the GM creates the specs for the planets to be
+ *   created when the game is created. the player can do a limited
+ *   override in regards to name and size (size within constraints)
+ *
+ *   $GALACYNGHOME/.arerc file in XML format, includes list of games
+ * SOURCE
+ */
+
+typedef struct _planetSpec {
+  float    res_min;
+  float    res_max;
+  float    radius;
+  float    size_min;
+  float    size_max;
+  float    size_total;
+  int      count_min;
+  int      count_max;
+  planetTemplate* pt;
+} planetSpec; 
+
+
 /****v* ARE/playerOpts
  * NAME
  *   playerOpts -- options for players, replaces passing many parameters
@@ -54,13 +93,7 @@ typedef struct _playerOpts {
  *   minumum_players == maximum_players if you want exactly that
  *   number of players to join before starting.
  *
- *   2) delay_hours is the number of hours to wait until generating
- *   the game. this is only used if minimum_players <
- *   maximum_players. set to 0 to allow the GM to start the game
- *   manually. if minimum_players == maximum_players then this value
- *   is ignored.
- *
- *   3) minumum_planets is the minimum number of planets that the
+ *   2) minumum_planets is the minimum number of planets that the
  *   player *must* specify in their orders, maximum_planets is the
  *   number of planets that the player can't exceed. set
  *   minimum_planets == maximum planets to force the player to declare
@@ -91,23 +124,8 @@ typedef struct _gameOpts {
 				   sign up */
   int    maxplayers;		/* no more than this number can sign
 				   up */
-  int    delay_hours;		/* wait this long after minimum number
-				   of players signed up to start game */
-  float  totalplanetsize;	/* total size of planets GM allows
-				    player to specify */
-  float  maxplanetsize;		/* largest possible planet */
-  int    minplanets;		/* minimum number of planets a player
-				   can define */
-  int    maxplanets;		/* maximum number of planets a player
-				   can define */
   float  galaxy_size;		/* size of the galaxy */
   float  nation_spacing;	/* how far apart nations must be */
-  float* core_sizes;		/* list of initial planet sizes, can
-				   be overridden by registering player
-				   input*/
-  int    growth_planets_count;	/* number of growth planets */
-  float  growth_planets_radius;	/* located within this radius */
-  int    stuff_planets;		/* number of filler planets */
   int    pax_galactica;		/* number of turns of enforced peace */
   float  initial_drive;		/* initial tech levels, must be at
 				   least 1.0 */
@@ -115,7 +133,11 @@ typedef struct _gameOpts {
   float  initial_shields;
   float  initial_cargo;
   long   game_options;		/* game option flags */
-  playerOpts* po;		/* players signed up for the game */
+  planetSpec home;
+  planetSpec dev;
+  planetSpec stuff;
+  planetSpec asteroid;
+  playerOpts po;		/* players signed up for the game */
 } gameOpts;
   
 
@@ -136,6 +158,7 @@ typedef struct _serverOpts {
   gameOpts* go;			/* list of games registration is being
 				   accepted for*/
 } serverOpts;
+
 
 /* function prototypes, unique to ARE */
 int   countPlayersRegistered(char* gameName);
