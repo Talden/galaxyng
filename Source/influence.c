@@ -551,7 +551,7 @@ draw_maps(game* aGame, enum map_type map_type)
 			if (groupLocation(aGame, gp) == NULL) {
 				x = (int) ((scale * groupx(aGame, gp)) + 1);
 				y = (int) ((scale * groupy(aGame, gp)) + 1);
-				gdImageSetPixel(map_png, x, y, ship);
+				gdImageArc(map_png, x, y, 1, 1, 0, 360, ship);
 			}
 		}
 	}
