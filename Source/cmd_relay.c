@@ -17,7 +17,7 @@ int CMD_relay( int argc, char **argv ) {
 	int   resNumber;
 	game* aGame;
 	FILE* confirm;
-	emailList* toPlayers;
+	emailList* toPlayers = NULL;
 	emailList* listPlayer;
 	
 	player* itPlayer;
@@ -106,8 +106,6 @@ int CMD_relay( int argc, char **argv ) {
 		return result;
 	}
 			
-	toPlayers = allocStruct(emailList);
-
 	if (noCaseStrcmp(destination, aGame->name) == 0) {
 		/* since we are relaying to the game, then the relay goes to
 		 * all players and the GM
