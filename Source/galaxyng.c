@@ -1585,6 +1585,7 @@ usage()
          "   -check\n"
          "   -run        <game name> <file with all orders> [turn]\n"
          "   -score      <game name>\n"
+         "   -toall      <game name>\n"
          "   -relay\n"
          "   -hall       <game name>\n"
          "   -lastorders <game name> [turn]\n"
