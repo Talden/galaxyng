@@ -7,21 +7,22 @@ m4_include(`faqnavigator.m4')m4_dnl
 ATitle(`Galaxy Next Generation FAQ')
 <!-- $Id$ -->
 
-ASection(`Frequently Asked Questions about Galaxy')
+ASection(`Frequently Asked Questions about GalaxyNG')
 
 <UL>
   <LI>This document can also be found on: 
-  ALink(`http://galaxy.pbem.net/NonM4/FAQ.html',
-  `http://galaxy.pbem.net/NonM4/FAQ.html')</LI>
+  ALink(`http://galaxyng.sourceforge.net/FAQ.html',
+  `http://galaxyng.sourceforge.net/FAQ.html')</LI>
   <LI>This document is public domain, and can be freely distributed.</LI>
   <LI>Authors: Frans Slothouber, Jamie Jackson</LI>
+  <LI>Edited by: Chris Shaffer</LI>
 </UL>
 
 
 ASection(`Introduction')
 
 <P>
-A game master usually gets a lot of questions about Galaxy, simple
+A game master usually gets a lot of questions about GalaxyNG, simple
 ones, but also rather difficult ones. Beginners are usually confused
 on how to interpret the rules, and come up with questions such as
 &quot;can I produce more than one product on a planet?&quot;. As soon
@@ -48,11 +49,11 @@ ASection(`Questions Answered in this FAQ')
 <UL>
 <LI><A HREF="#0">0. General</A></LI>
 
-<UL><LI><A HREF="#0.1">0.1: What is Galaxy?</A></LI>
+<UL><LI><A HREF="#0.1">0.1: What is GalaxyNG?</A></LI>
     <LI><A HREF="#0.2">0.2: How can I join a game?</A></LI>
     <LI><A HREF="#0.3">0.3: How long does a game take?</A></LI>
     <LI><A HREF="#0.4">0.4: Where can I find more information about
-         Galaxy?</A></LI>
+         GalaxyNG?</A></LI>
 </UL>
 
 <LI><A HREF="#1">1. Technical</A></LI>
@@ -93,8 +94,8 @@ ASection(`Questions Answered in this FAQ')
 <LI><A HREF="#4">4. Battle</A></LI>
 
 <UL><LI><A HREF="#4.1">4.1: War and Peace.</A></LI>
-    <LI><A HREF="#4.2">4.2: Where can I learn more about Strategy or
-         Tactics?</A></LI>
+    <LI><A HREF="#4.2">4.2: Where can I learn more about strategy or
+         tactics?</A></LI>
     <LI><A HREF="#4.3">4.3: Bombing Rules.</A></LI>
     <LI><A HREF="#4.4">4.4: The Intercept Command.</A></LI>
 </UL>
@@ -121,27 +122,28 @@ ASection(`Questions Answered in this FAQ')
 
 <P>
 Galaxy is a play-by-email interstellar wargame for several players
-created by Russel Wallace somewhere in 1992.
+created by Russel Wallace somewhere in 1992.  GalaxyNG is an updated
+version of Galaxy created by Frans Slothouber.
 </P>
 
 <P>
 A game usually has somewhere between 10 and 80 players and one Game
-Master that runs the game. Each player gets to play one nation. The
-game is set in a Galaxy filled with many planets. Each nation starts
-with one populated planet. The other planets are empty. The goal of
-the game is to conquer the whole Galaxy by colonising the empty
-planets and killing the other nations.
+Master that runs the game. Each player gets to play one race. The
+game is set in a galaxy filled with many planets. Each race starts
+with one or more populated planets. The other planets are empty. The
+object of the game is to conquer the whole galaxy by colonising the empty
+planets and killing the other races.
 </P>
 
 <P>
-A game runs several turns a week. Players send in orders before
-each turn. These orders tell what the player wants his nation to do,
+A game runs one or more turns a week. Players send in orders before
+each turn. These orders tell what the player wants his race to do,
 and after each turn runs each player receives a report that states
 what happened that turn.
 </P>
 
 <P>
-When you play a nations you can do many things. You can design your
+When you play a race you can do many things. You can design your
 own ships. Each ship has many parameters, drive, number of weapons,
 shields, and cargo capabilities. These can all be tweaked to create
 many different ship designs. Populated planets can be used to build
@@ -155,7 +157,7 @@ Experienced players do not operate alone, they use diplomacy to
 create a pacts with other players, and attack their enemies
 together. Back stabbing, double deals, and other treason are of course
 also possible, no-one is to be completely trusted, and you will find
-that Galaxy is a good simulation of real-world politics. It is also
+that GalaxyNG is a good simulation of real-world politics. It is also
 very addictive :)
 </P>
 

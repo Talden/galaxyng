@@ -15,7 +15,9 @@ Based on the rules for Galaxy V3.52: Copyright 1991-1992 by Russell
 Wallace, Copyright 1993 the Galaxy PBeM Development Group.
 </P>
 
-<P>Maintained by Frans Slothouber (rfsber@xs4all.nl)</P>
+<P>
+Maintained by Frans Slothouber (rfsber@xs4all.nl)
+</P>
 
 
 www_section(`toc', `Table of Contents')
@@ -24,14 +26,15 @@ m4_include(toc.html)
 
 www_section(`intr', `Introduction')
 
-<P> Galaxy is a game of interstellar war for several players.  You are
+<P>
+Galaxy is a game of interstellar war for several players.  You are
 the leader of your race.  You start off by sharing an area of the
 galaxy with a number of other races and your objective is to become
-its sole occupant.  You must provide a name by which your race will be
-known e.g.  Mutant_Camels, Zzyaxians etc - if you have not already
-done this you should do it on your first turn, until then you will
-simply be known as Nation_5 or whatever.  See "Orders" for how to
-change your race name.  </P>
+its sole occupant.  You should provide a name by which your race will be
+known e.g.  Mutant_Camels, Zzyaxians etc - if you have not done this you 
+will simply be known as Nation_5 or whatever.  See "Orders" for how to
+change your race name.
+</P>
 
 
 www_section(`tgal', `The Galaxy')
@@ -43,10 +46,9 @@ ignored) which contains a number of habitable planets (all other
 astronomical objects are irrelevant to the game and so are
 ignored).  Each race starts off occupying one (or more,
 depending on the taste of the GM) planets.  All the other
-planets are uninhabited.  It is possible to colonize uninhabited
-planets and conquer planets inhabited by other races.  
+planets, if any, are uninhabited.  It is possible to colonize
+uninhabited planets and conquer planets inhabited by other races.
 </P>
-
 
 
 www_subSection(`units', `Units')
@@ -69,7 +71,7 @@ things may be no more than 20 characters (a character is a
 letter, digit, or underscore).  Ship types are given names by
 their designer.  All planets only have numbers for names at the
 start of the game.  When you colonize a planet you can change
-its name.  You may want to change your home planet's name
+its name.  You may want to change your home planet name(s)
 immediately to something more exciting e.g.  from "112" to
 "Zzyax_Prime". (See the ALink(`#ordc', `C command').)
 </P>
@@ -526,19 +528,19 @@ goes to the race that bombed the planet. This is how you conquer
 planets occupied by another race.  </P>
 
 
-<P> You will ask, who gets the planet when two friendly nations have
-ships above the same planet?  Normally this is the nations that comes
-first in the list with nations (as shown in the turn report).  This is
+<P> You will ask, who gets the planet when two friendly races have
+ships above the same planet?  Normally this is the races that comes
+first in the list with races (as shown in the turn report).  This is
 unfair of course, allies will like to divide the planets they conquer
 amongst each other.  This is possible though with the V command, that
-allows a nations to claim a planet. You use it to indicate that you
+allows a races to claim a planet. You use it to indicate that you
 claim ownership of a planet when it is bombed. It of course only works
 when you have ships left above the planet when it is bombed.  In case
-2 or more nations claim the same planet, nobody gets ownership over
+2 or more races claim the same planet, nobody gets ownership over
 the planet.  </P>
 
 <P> There is one other special situation. This is when after battle,
-both the owner of the planet, and the nation(s) that attacked the
+both the owner of the planet, and the race(s) that attacked the
 planet all have ships left, a so called standoff.  This can happen
 when there are ships with small guns and big shields.  In this case,
 the planet is bombed but nobody gets ownership over the planet.  </P>
@@ -611,7 +613,7 @@ number indictates the turn the orders are intended for.  The server
 will store the orders (but not check them), and use them when the turn
 runs.  </P>
 
-<P>Be careful <STRONG>not</STRONG> to change your nation name or
+<P>Be careful <STRONG>not</STRONG> to change your race name or
 password, right before sending in advance orders. Since then your
 advance orders will be rejected when the turn runs.</P>
 
@@ -678,7 +680,7 @@ Examples of incorrect order lines:
 <P>The following sections show what orders are available.</P>
 
 
-www_subSection(`ordat', `@ [nation ...]')
+www_subSection(`ordat', `@ [race ...]')
 
 <P> This command sends a message to one or more other players. All
 lines between this line and the next one with an @ as its first
@@ -693,9 +695,9 @@ be sent to all of these, e.g.  </P>
 </PRE>
 
 
-<P> If no list of nations is provided (or if a nation name is provided
+<P> If no list of races is provided (or if a race name is provided
 with no space between it and the @ sign - take care to avoid this),
-the message will be sent to all nations. The program does not
+the message will be sent to all races. The program does not
 automatically sign your name, so you should sign it yourself unless
 you wish the message to be anonymous.  </P>
 
@@ -712,9 +714,9 @@ instance</P>
 = "John Wayne"
 </PRE>
 
-www_subSection(`orda', `A &lt;nation&gt;')
+www_subSection(`orda', `A &lt;race&gt;')
 
-<P> Declare peace on another nation.  </P>
+<P> Declare peace on another race.  </P>
 
 
 www_subSection(`ordb', `B &lt;group&gt; &lt;number of ships&gt;')
@@ -737,7 +739,7 @@ www_subSection(`orde', `E &lt;type name&gt;')
 existence or being built).  </P>
 
 
-www_subSection(`ordf', `F &lt;nation&gt;')
+www_subSection(`ordf', `F &lt;race&gt;')
 
 <P> This gives the address of the indicated player. If there is no
 address, this means that that position is either not being played, or
@@ -976,7 +978,7 @@ research</TD></TR> <TR><TD>WEAPONS</TD><TD> Weapons research</TD></TR>
 <TR><TD>type-name</TD><TD>Ships of the named type</TD></TR> </TABLE>
 
 
-www_subSection(`ordq', `Q &lt;your nation name&gt;')
+www_subSection(`ordq', `Q &lt;your race name&gt;')
 
 <P> Quit the game. You must provide your race name as the parameter as
 a safeguard to prevent Quit orders being issued accidentally.  </P>
@@ -1025,14 +1027,14 @@ www_subSection(`ordv', `V &lt;planet&gt;')
 <P> Use this command to indicate that you claim ownership of a planet.
 This command is of use when you and your allies jointly attack an
 enemy and you want to divide the captures planets among eachother
-(share the loot).  It only works if the nation that claims the planet
+(share the loot).  It only works if the race that claims the planet
 has armed ships left after the battle.  In case one of your allies
-cheat, that is in case 2 or more nations claim the same planet, nobody
+cheat, that is in case 2 or more races claim the same planet, nobody
 gets the planet.  </P>
 
-www_subSection(`ordw', `W &lt;nation&gt;')
+www_subSection(`ordw', `W &lt;race&gt;')
 
-<P> Declare war on another nation.  </P>
+<P> Declare war on another race.  </P>
 
 
 www_subSection(`ordx', `X &lt;group&gt; [number-of-ships]')
@@ -1212,13 +1214,13 @@ from the game).</P>
 <P>After turn 10 you are not allowed to miss more than 5
 turns in a row. If you do, you are expelled from the game, your empire
 continues to exists however. And without a leader it will be an easy
-prey for other nations to feast on.</P>
+prey for other races to feast on.</P>
 
 
 www_section(`yourreport',  `Your Turn Report')
 
 <P>After each turn runs you will receive a turn report with information
-on the state of your nation. If you don't play in a game yet,
+on the state of your race. If you don't play in a game yet,
 you might want to look at some example reports at
 ALink(`http://galaxy.pbem.net/example.html', 
     `http://galaxy.pbem.net/example.html'). 
