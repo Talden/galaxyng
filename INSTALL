@@ -1,5 +1,20 @@
 $Id$
 
+To enable the the galaxy map graphic option, edit Source/makefile and
+follow the directions there. You will also need to have installed
+libgd.a (http://www.boutell.com/gd/), libpng, libz, libjpeg, and
+libfreetype (these dependencies are explained one the libgd page.)
+
+This option uses the GD library, see COPYING_GD for details.
+This option also uses a free truetype font from Larabie Fonts
+(http://larabiefonts.com).
+
+After editing the makefile follow the directions below.
+
+(Ken Weinert kenw@quarter-flash.com)
+
+
+
 To install the GalaxyNG server use:
 
   make
