@@ -372,7 +372,7 @@ fi
 echo "; This is the global galaxyng configuration file." > $RCFILE
 echo "; You can override this file for a game by putting" >> $RCFILE
 echo "; a .galaxyngrc file in the game data directory:" >> $RCFILE
-echo "; $GALAXY_HOME/Games/data/<gamename>" >> $RCFILE
+echo "; $GALAXY_HOME/data/<gamename>" >> $RCFILE
 echo "sendmail { $SENDMAIL -t }" >> $RCFILE
 echo "GMemail $GMEMAIL" >> $RCFILE
 echo "GMpassword $PASSWORD" >> $RCFILE
