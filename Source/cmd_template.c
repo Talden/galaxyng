@@ -87,8 +87,8 @@ int CMD_template( int argc, char **argv ) {
 	    "; of each player that enrolled in your game.\n\n");
     
     fprintf(glxfile,
-	    "; You can override the core size for a player by adding the\n"
-	    "; sizes. For instance the following player will get one home\n"
+	    "; You can set the size and locations of homeworlds for each\n"
+	    "; player. For instance the following player will get one home\n"
 	    "; planet of size 1600.0\n\n"
 	    "; start_player\n"
 	    "; email race_1@their.address.tld\n"
