@@ -267,7 +267,7 @@ echo "# server starts replying to its own messages or messages" >> $PROCRC
 echo "# from another server. Mail loops usually annoy the heck" >> $PROCRC
 echo "# out of sysadmins." >> $PROCRC
 echo ":0:" >> $PROCRC
-echo "* ^Subject:.*(orders checked|copy of turn|major trouble|orders received|message sent|report for)" >> $PROCRC
+echo "* ^Subject:.*(gng|major trouble|message sent|message not sent|received for|report for|forecast for|report copy)" >> $PROCRC
 echo "loops" >> $PROCRC
 echo >> $PROCRC
 echo "# Received a message with the word order in the subject:" >> $PROCRC

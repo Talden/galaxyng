@@ -79,7 +79,7 @@ int mail_Forecast(game* aGame,
   
   switch ( report_format ) {
   case REP_TXT :
-    tag = "TXT";
+    tag = "text";
     break;
   case REP_XML :
     tag = "XML";
@@ -211,10 +211,10 @@ int CMD_check( int argc, char **argv, int kind ) {
 	/* They are advance orders */
 	copyOrders( aGame, stdin, raceName, password, theTurnNumber );
 	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "[GNG] %s advance orders received for %s.",
-		   aGame->name, raceName );
-	plog( LBRIEF, "%s advance orders received for %s.\n",
-	      aGame->name, raceName );
+		   "[GNG] %s turn %d advance orders received for %s.",
+		   aGame->name, theTurnNumber, raceName );
+	plog( LBRIEF, "%s turn %d advance orders received for %s.\n",
+	      aGame->name, theTurnNumber, raceName );
 	if ( aPlayer->flags & F_XMLREPORT ) {
 	  result = mail_AdvanceReport( aGame, aPlayer, anEnvelope, raceName,
 				       kind, REP_XML );
@@ -306,11 +306,11 @@ int CMD_check( int argc, char **argv, int kind ) {
 	  
 	  if (final_orders)
 	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		       "[GNG] %s turn %d XML FinalOrders forecast for %s",
+		       "[GNG] %s turn %d XML finalorders forecast for %s",
 		       aGame->name, ( aGame->turn ) + 1, raceName );
 	  else
 	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		       "[GNG] %s turn %d XML Orders forecast for %s",
+		       "[GNG] %s turn %d XML forecast for %s",
 		       aGame->name, ( aGame->turn ) + 1, raceName );
 	  
 	  checkOrders( aGame, raceName, forecast, F_XMLREPORT );
@@ -354,11 +354,11 @@ int CMD_check( int argc, char **argv, int kind ) {
 	  
 	  if (final_orders)
 	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		       "[GNG] %s turn %d TXT FinalOrders forecast for %s",
+		       "[GNG] %s turn %d text finalorders forecast for %s",
 		       aGame->name, ( aGame->turn ) + 1, raceName );
 	  else 
 	    setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		       "[GNG] %s turn %d TXT Orders forecast for %s",
+		       "[GNG] %s turn %d text forecast for %s",
 		       aGame->name, ( aGame->turn ) + 1, raceName );
 	  
 	  checkOrders( aGame, raceName, forecast, F_TXTREPORT );
@@ -422,17 +422,17 @@ int CMD_check( int argc, char **argv, int kind ) {
       
       if (final_orders) {
 	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "[GNG] %s advance final orders received for %s.",
-		   aGame->name, raceName );
-	plog( LBRIEF, "%s advance final orders received for %s.\n",
-	      aGame->name, raceName );
+		   "[GNG] %s turn %d advance finalorders received for %s.",
+		   aGame->name, theTurnNumber, raceName );
+	plog( LBRIEF, "%s turn %d advance finalorders received for %s.\n",
+	      aGame->name, theTurnNumber, raceName );
       }
       else {
 	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "[GNG] %s advance orders received for %s.",
-		   aGame->name, raceName );
-	plog( LBRIEF, "%s advance orders received for %s.\n",
-	      aGame->name, raceName );
+		   "[GNG] %s turn %d advance orders received for %s.",
+		   aGame->name, theTurnNumber, raceName );
+	plog( LBRIEF, "%s turn %d advance orders received for %s.\n",
+	      aGame->name, theTurnNumber, raceName );
       }
       
       if ( aPlayer->flags & F_XMLREPORT ) {

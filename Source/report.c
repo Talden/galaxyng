@@ -125,8 +125,8 @@ mailGMReport(game *aGame, char *gameName)
     anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
     anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
     setHeader(anEnvelope, MAILHEADER_SUBJECT,
-              "GM Report Turn %d for Galaxy Game %s", aGame->turn,
-              gameName);
+              "[GNG] %s turn %d text report for GM", gameName,
+              aGame->turn);
     setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
     anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
     anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
@@ -269,17 +269,17 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
       switch (kind) {
       case F_XMLREPORT:
         setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy Game %s Turn %d XML Report for %s",
+                  "[GNG] %s turn %d XML report for %s",
                   aGame->name, aGame->turn, aPlayer->name);
         break;
       case F_MACHINEREPORT:
         setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy Game %s Turn %d Machine Report for %s",
+                  "[GNG] %s turn %d machine report for %s",
                   aGame->name, aGame->turn, aPlayer->name);
         break;
       default:
         setHeader(anEnvelope, MAILHEADER_SUBJECT,
-                  "Galaxy Game %s Turn %d Text Report for %s",
+                  "[GNG] %s turn %d text report for %s",
                   aGame->name, aGame->turn, aPlayer->name);
       }
       setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);

@@ -89,8 +89,8 @@ CMD_report( int argc, char **argv ) {
 		  
 		  loadNGConfig( aGame2 );
 		  setHeader( anEnvelope, MAILHEADER_SUBJECT,
-					 "[GNG] Copy of turn %d report",
-					 theTurnNumber );
+					 "[GNG] %s turn %d report copy for %s",
+					 aGame->name, theTurnNumber, raceName );
 		  if ( theTurnNumber > 0 ) {  /* Rerun the turn */
 			  char *ordersName;
 			  
@@ -117,7 +117,8 @@ CMD_report( int argc, char **argv ) {
       }
       else {
 		  setHeader( anEnvelope, MAILHEADER_SUBJECT,
-					 "[GNG] Copy of turn report request." );
+					 "[GNG] %s turn %d report copy for %s",
+					 aGame->name, theTurnNumber, raceName  );
 		  fprintf( report,
 				   "\n\nThe turn you requested is no longer available...\n" );
       }
