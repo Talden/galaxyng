@@ -20,6 +20,7 @@
 				<ul>
 					<li><a href="http://sourceforge.net/users/gumpu/">Frans Slothouber (gumpu)</a></li>
 					<li><a href="http://sourceforge.net/users/madcoder42/">Ken Weinert (madcoder42)</a></li>
+					<li><a href="http://sourceforge.net/users/scum-o/">Steve Webb (scum-o)</a></li>
 					<li><a href="http://sourceforge.net/users/albedo77/">Christophe Barbier (albedo77)</a></li>
 					<li><a href="http://sourceforge.net/users/weertj/">Jacco van Weert (weertj)</a></li>
 					<li>Tommy Lindqvist</li>
