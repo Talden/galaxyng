@@ -156,7 +156,7 @@ CMD_relay( int argc, char **argv )
 	   findElement(player, aGame->players, destination)) == NULL) {
 	setHeader(anEnvelope, MAILHEADER_SUBJECT,
 		  "[GNG] Major Trouble");
-	generateErrorMessage(RES_NODESTINATION, aGame, raceName,
+	generateErrorMessage(RES_DESTINATION, aGame, raceName,
 			     theTurnNumber, confirm);
 	fprintf(confirm, "\n\n%s\n", vcid);
 	fclose(confirm);
