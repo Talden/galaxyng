@@ -2053,3 +2053,35 @@ resetErnie(unsigned long seed)
 }
 
 /*********/
+
+/****f* Util/addShipAtt
+ * NAME
+ *   addShipAtt - determine the attack strength of groups at this planet
+ * SYNOPSIS
+ *   double addShipAtt(Game*, planet*)
+ * FUNCTION
+ *   determine the attack strength of all ships located 
+ *   at the specified planet on a per player basis
+ * SOURCE
+ */
+
+double
+addShipAtt(game* aGame, planet* p)
+{
+	double total = 0.;
+	player* P = aGame->players;
+	group*  g;
+
+	while (P) {
+		printf("checking player %s\n", P->name);
+		for (g = P->groups; g; g = g->next) {
+			if (g->where == p && g->dist == 0.) {
+				printf("found a group, value: %f\n", g->weapons*g->type->weapons);
+				total += g->weapons * g->type->weapons;
+			}
+		}
+		P = P->next;
+	}
+	printf("%s: %f\n", p->name, total);
+	return total;
+}
