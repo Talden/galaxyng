@@ -20,7 +20,9 @@ static FILE* logFile = NULL;
  * SOURCE
  */
     
-void pdebug(enum DebugLevels level, char *format, ...) {
+void
+pdebug(enum DebugLevels level, char *format, ...)
+{
   va_list         ap;
     
   if (level <= debugLevel) {
@@ -49,7 +51,9 @@ void pdebug(enum DebugLevels level, char *format, ...) {
  * SOURCE
  */
     
-void plog(enum LogLevels level, char *format, ...) {
+void
+plog(enum LogLevels level, char *format, ...)
+{
   va_list         ap;
 
   if (level <= logLevel && logFile) {
@@ -66,19 +70,19 @@ void plog(enum LogLevels level, char *format, ...) {
  * NAME
  *   plogtime -- write current time and date to the log file.
  * SYNOPSIS
- *   void plogtime(int level, const char* tag)
+ *   void plogtime(int level)
  * SOURCE
  */
 
-void plogtime(enum LogLevels level, const char* tag) {
+void
+plogtime(enum LogLevels level)
+{
   if (level <= logLevel && logFile) {
-    time_t ttp;
-    char   timeBuffer[255];
+    time_t          ttp;
+    char            timeBuffer[255];
 
     time(&ttp);
     strftime(timeBuffer, 255, "%H:%M:%S %a %b %d %Y\n", localtime(&ttp));
-    if (tag)
-      fprintf(logFile, "%s: ", tag);
     fprintf(logFile, "%s", timeBuffer);
   }
 }
@@ -95,7 +99,8 @@ void plogtime(enum LogLevels level, const char* tag) {
  * SOURCE
  */
 
-enum DebugLevels setDebugLevel(enum DebugLevels level) {
+enum DebugLevels setDebugLevel(enum DebugLevels level)
+{
     enum DebugLevels lastLevel = debugLevel;
 
     debugLevel = level;
@@ -113,7 +118,8 @@ enum DebugLevels setDebugLevel(enum DebugLevels level) {
  * SOURCE
  */
 
-enum LogLevels setLogLevel(enum LogLevels level) {
+enum LogLevels setLogLevel(enum LogLevels level)
+{
     enum LogLevels lastLevel = logLevel;
 
     logLevel = level;
@@ -130,23 +136,17 @@ enum LogLevels setLogLevel(enum LogLevels level) {
  * SOURCE
  */
 
-int openLog(char *mode, char* format, ...) {
-  va_list ap;
-  char  logname[512];
-
-  if (logFile)
-    fclose(logFile);
-
-  va_start(ap, format);
-  vsprintf(logname, format, ap);
-  va_end(ap);
-
-  if ((logFile = fopen(logname, mode)) == NULL) {
-    fprintf(stderr, "Could not open log file %s\n", logname);
-    return 1;
-  }
-  setvbuf(logFile, NULL, _IONBF, 0);
-  return 0;
+int
+openLog(char *name, char* mode)
+{
+    if (logFile)
+	fclose(logFile);
+    if ((logFile = fopen(name, mode)) == NULL) {
+	fprintf(stderr, "Could not open log file %s\n", name);
+	return 1;
+    }
+    setvbuf(logFile, NULL, _IONBF, 0);
+    return 0;
 }
 
 /**********/

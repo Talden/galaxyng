@@ -1,27 +1,18 @@
 #ifndef GNG_GALAXYNG_H
 #define GNG_GALAXYNG_H
 
-#include <math.h>
+#include <stdio.h>
 #include <stdlib.h>
-#include <assert.h>
-#include <string.h>
-#include <time.h>
+#include <math.h>
 #include <sys/types.h>
 #include <sys/stat.h>
-#include <unistd.h>
 #include <unistd.h>
 
 #include "galaxy.h"
 #include "util.h"
+#include "loadgame.h"
 #include "process.h"
 #include "create.h"
-#include "loadgame.h"
-#include "savegame.h"
-#include "report.h"
-#include "selftest.h"
-#include "mail.h"
-
-#include "dbug.h"
 
 #define CMD_RUN_REAL    1       /* -run will mail turn reports */
 #define CMD_RUN_DUMMY   2       /* -run will save turn reports to disk */
@@ -52,7 +43,7 @@ int CMD_dump( int argc, char **argv, int kind );
 int CMD_test( int argc, char **argv );
 int CMD_relay( int argc, char **argv );
 int CMD_template( int argc, char **argv );
-int CMD_selftest(void);
+int CMD_selftest(  );
 int CMD_battletest( int argc, char **argv );
 #if defined(DRAW_INFLUENCE_MAP)
 int CMD_influence( int argc, char **argv );

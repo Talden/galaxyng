@@ -211,15 +211,6 @@ void            reportGMBombings(game *aGame, fielddef *fields);
 void            scorePercent(game *g1, fielddef *fields);
 
 
-double          percent( double tot, double f );
-char *safename( char *name );
-void XMLPlanetsForecast( game *aGame, player *P, FILE *XMLreport );
-void yourXMLStatusForecast( planet *planets, player *P, fielddef *fields );
-void yourXMLPlanetsForecast( planet *planets, player *P, fielddef *fields );
-
-
-
-
 #if FS_NEW_FORECAST
 void reportForecast( game *aGame, char *raceName, FILE *forecast );
 #endif

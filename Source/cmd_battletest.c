@@ -1,8 +1,6 @@
 #include "galaxyng.h"
 
-int
-CMD_battletest( int argc, char **argv )
-{
+int CMD_battletest( int argc, char **argv ) {
     game *aGame;
 
     aGame = bat_createGame(  );
@@ -11,7 +9,7 @@ CMD_battletest( int argc, char **argv )
 
         /* srand((int) time(NULL)); */
         /* printf("%d", atoi(argv[2])); */
-        resetErnie( ( unsigned ) atoi( argv[2] ) );
+        resetErnie( atoi( argv[2] ) );
         switch ( atoi( argv[3] ) ) {
         case 1:
             bat_scenario_1( aGame );
@@ -69,6 +67,7 @@ CMD_battletest( int argc, char **argv )
 
         printf( "\n" );
     }
-
+	
     return 0;
 }
+

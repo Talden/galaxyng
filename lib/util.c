@@ -1116,7 +1116,7 @@ savefprintf(FILE * f, char *format, ...)
   error = vfprintf(f, format, ap);
   if (error < 0) {
     fprintf(stderr, "Galaxyng: write to file failed!\n");
-    plogtime(LNONE, "savefprintf");
+    plogtime(LNONE);
     plog(LFULL, "Galaxyng: write to file failed!\n");
     printf("Subject: Error\n");
     printf("\nThere was a serious error, your orders are lost.\n");
@@ -1727,12 +1727,4 @@ char* rightNow() {
 	strcpy(timestamp, asctime(localtime(&now)));
 
 	return timestamp;
-}
-
-
-int epsilon(double val1, double val2, double diff) {
-  if (fabs(val1 - val2) < diff)
-    return 1;
-  else
-    return 0;
 }

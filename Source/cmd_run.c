@@ -29,25 +29,26 @@
  * SOURCE
  */
 
-int
-CMD_run( int argc, char **argv, int kind )
-{
+int CMD_run( int argc, char **argv, int kind ) {
     int result;
 
     result = EXIT_FAILURE;
     if ( argc >= 4 ) {
-        game *aGame;
-        int turn;
+        game* aGame;
+        int   turn;
+        char* logName;
+		
+        logName = createString( "%s/log/%s", galaxynghome, argv[2] );
+        openLog( logName, "w" );
+        free( logName );
 
-        openLog( "w", "%s/log/%s", galaxynghome, argv[2] );
-
-        plogtime( LPART, "CMD_run" );
+        plogtime( LPART );
         plog( LPART, "Trying to run Game \"%s\".\n", argv[2] );
 
         aGame = NULL;
         turn = ( argc == 4 ) ? LG_CURRENT_TURN : atoi( argv[4] ) - 1;
         if ( ( aGame = loadgame( argv[2], turn ) ) ) {
-            player *aPlayer;
+            player* aPlayer;
 
             loadNGConfig( aGame );
 
@@ -57,7 +58,7 @@ CMD_run( int argc, char **argv, int kind )
                 if ( runTurn( aGame, argv[3] ) ) {
                     highScoreList( aGame );
                     result = 0;
-
+					
                     for ( aPlayer = aGame->players; aPlayer;
                           aPlayer = aPlayer->next ) {
                         if ( aPlayer->flags & F_TXTREPORT ) {
@@ -86,8 +87,9 @@ CMD_run( int argc, char **argv, int kind )
                                                     F_XMLREPORT );
                                 }
                             } else {
-                                saveTurnReport( aGame, aPlayer, F_XMLREPORT );
-                            }
+								saveTurnReport( aGame, aPlayer,
+												F_XMLREPORT );
+							}
                         }
 
                         if ( aPlayer->flags & F_MACHINEREPORT ) {
@@ -100,10 +102,10 @@ CMD_run( int argc, char **argv, int kind )
                                     saveTurnReport( aGame, aPlayer,
                                                     F_MACHINEREPORT );
                                 }
-                            } else {
-                                saveTurnReport( aGame, aPlayer,
-                                                F_MACHINEREPORT );
-                            }
+							} else {
+								saveTurnReport( aGame, aPlayer,
+												F_MACHINEREPORT );
+							}
                         }
                     }
                     savegame( aGame );
@@ -115,7 +117,7 @@ CMD_run( int argc, char **argv, int kind )
                              "problem.\n" );
                     result = 1;
                 }
-                plogtime( LPART, NULL );
+                plogtime( LPART );
                 plog( LPART, "Run is completed.\n" );
                 result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
             } else {

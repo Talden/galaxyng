@@ -1,6 +1,3 @@
-#if !defined(REPORT_M_H)
-#define REPORT_M_H
-
 #include "galaxy.h"
 #include "list.h"
 #include "report.h"
@@ -34,5 +31,3 @@ void            rFL_M(game *aGame, player *P);
 void            rGS_M(game *aGame, player *P);
 void            rPD_M(planet *p);
 void            rEN_M(void);
-
-#endif

@@ -377,15 +377,14 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 			<h2 id="turn">Turn Sequence</h2>
 
 				<ol>
+					<li>Planetary <a href="#ordp">production orders</a> are assigned.  Note that production occurs later in the turn.</li>
 					<li><a href="#ordA">Messages</a> are sent.</li>
 					<li><a href="#orda">Alliances</a> and <a href="#ordw">war</a> are declared.</li>
-					<li>Planetary <a href="#ordp">production orders</a> are assigned.  (Note that production occurs later in the turn.)</li>
-					<li>Groups with weapons attack enemy ships, causing combat.  This can happen if a player declares war on the current turn.  It can also happen if player A has previously declared war on player B, and on the previous turn player A built a ship with weapons at a planet where player B has ships in orbit.</li>
+					<li>Groups with weapons attack enemy ships, causing combat.  This can happen if a player declares war on the current turn.  It can also happen if a player built a ship with weapons at a planet with enemy ships in orbit at the end of the previous turn.</li>
 					<li>Groups with weapons bomb enemy planets.  This can happen if a player declares war on the current turn.</li>
 					<li>Groups <a href="#ordl">load</a> or <a href="#ordu">unload</a> cargo.</li>
 					<li>Groups and fleets <a href="#ords">sent</a> to planets enter hyperspace.</li>
 					<li><a href="#ordr">Routes are assigned</a> to planets.</li>
-					<li>Groups are <a href="ordg">upgraded</a>.</li>
 					<li>Cargo ships are assigned cargos and destinations, load cargo (if necessary) and enter hyperspace.</li>
 					<li>Groups and fleets with <a href="#ordi">intercept</a> orders are assigned destinations and enter hyperspace.</li>
 					<li>Groups and fleets move through hyperspace, possibly arriving at planets.</li>
@@ -402,7 +401,6 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 					<li>COL, CAP and MAT transported to a planet do not effect the planet's production until the following turn.</li>
 					<li>A cargo ship can be loaded, sent to another planet and unloaded in a single turn.</li>
 					<li>One ship can bomb two planets in the same turn (though this is rare).</li>
-					<li>Upgrades are the last orders processed, and occur after ships sent to other planets enter hyperspace.  Thus, it is very dangerous to use the MAX command when performing upgrades.</li>
 				</ul>
 
 			<hr />

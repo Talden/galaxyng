@@ -190,35 +190,7 @@ LIBS   = -lm</pre>
 						<td><tt>StartTime</tt></td>
 						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the StartTime option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have the same effect.)</td>
 					</tr>
-					<tr>
-						<td><tt>fontpath</tt></td>
-						<td>Sets the path to the fonts for influence mapping.</td>
-					</tr>
-					<tr>
-						<td><tt>due</tt></td>
-						<td>When using the immediate flag, the server will send an &quote;orders due&quote; message prior to the turn.  This parameter tells the server how many hours before the turn to send the message.</td>
-					</tr>
-					<tr>
-						<td><tt>tick</tt></td>
-						<td>When using the immediate flag, the server will run the turn if this many hours have passed since the previous turn.  (Note that the server will also run the turn if all players have sent in final orders.)</td>
-					</tr>
 				</table>
-				
-				<p>Example .galaxyngrc file:</p>
-<pre>; This is the global galaxyng configuration file.
-; You can override this file for a game by putting
-; a .galaxyngrc file in the game data directory, e.g.:
-; /home/server/Games/Games/data/&lt;gamename&gt;/.galaxyngrc
-GMemail game-gm@example.com
-GMpassword blahblahblah
-SERVERemail game-server@example.com
-sendmail { /usr/sbin/sendmail -t }
-compress /usr/bin/zip
-encode /usr/bin/mimencode
-fontpath /home/server/Games
-; The due and tick parameters are used for the -immediate flag.
-due 4
-tick 48</pre>
 
 			<hr />												
 
@@ -246,9 +218,6 @@ tick 48</pre>
 				<p>Translated it means: if the subject of the message contains the string "order", pipe the message to <tt>formail</tt>. It is case insensitive, so order, NewOrder and ORDERS will all match the condition. A lock file with the name orders.lock is used to prevent the simultaneous execution of the same recipe if two or more messages arrive at the same time.  There are similar entries for the commands to request a copy of a turn report, relay messages to other players and register for games. You will find them in the example procmailrc file at <tt>$HOME/Games/procmailrc</tt>.</p>
 				<p><tt>formail</tt> reformats email messages. When used with the <tt>-rkbt</tt> flags, all mail header lines are thrown away, a <tt>To:</tt> line is generated with the address of person that sent the message, a <tt>Subject:</tt> line is generated, with the original subject prepended with <tt>Re:</tt>, and the body of the message is retained.  This allows the GalaxyNG server to mail forecasts, turn reports and other responses to the person who sent the message.</p>
 				<p><tt>cron</tt> runs programs on a schedule.  You can use cron to send <a href="#due">orders due</a> messages and <a href="#run">run turns</a>.</p>
-				<p><tt>mimedecode</tt> solves some problems with mail formatting in non-ASCII character sets.  You can use it to prefix commands in your .procmail file.  For example:</p>
-<pre>|/usr/bin/mimedecode|/usr/bin/formail -rkbt -s \
-  /home/server/Games/galaxyng -check</pre>
 
 			<hr />
 

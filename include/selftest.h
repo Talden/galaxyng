@@ -19,7 +19,7 @@ int frand3Test (void);
 
 player *bat_createPlayer (game *aGame, char *name);
 void bat_addPlanet(game *aGame, player *owner, int *planet_name, double x, double y);
-game *bat_createGame(void);
+game *bat_createGame();
 void bat_addShiptypes(player *aPlayer);
 shiptype *bat_createShiptype(char *name, double drive, int attacks, double weapons, double shields, double cargo);
 void bat_addGroups(game *aGame, char *playerName, char *planetName, char *typeName, int numberOfShips);

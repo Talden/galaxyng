@@ -37,5 +37,7 @@
 #define   validateStruct(t,p) if(!(p->cookie == COOKIE ## t)) \
  { printf("validateStruct Failed in line %d of %s\n", __LINE__ , __FILE__);exit(100); } ;
 
+void* allocStructF(unsigned int n, long cookie);
+
 #endif
 
