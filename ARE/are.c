@@ -112,10 +112,10 @@ int main(int argc, char *argv[]) {
 	gameOpts*   go;		/* options for a game */
 
 	envelope*   env;		/* for mailing back to the player */
+	envelope*   received_env;	/* mail headers */
 #if 0
 	strlist*    orders;
 #endif
-	char*       returnAddress;	/* players return address, from email */
 	char*       value;		/* getting values from player email
 							 * and environment */
 	char*       ptr;		/* text manipulation, generic char ptr */
@@ -132,7 +132,11 @@ int main(int argc, char *argv[]) {
 	float maxPlanetSize;		/* largest any particular planet can be */
 	int maxNumberOfPlanets;	/* how many planets a player can specify */
 	
+	char* messages = NULL;
+	FILE* msgFP = NULL;
+		
 	DBUG_ENTER("main");
+	DBUG_PUSH(argv[1]);
 	DBUG_PROCESS(argv[0]);
 	DBUG_PUSH_ENV("DBUG");
 	
@@ -161,12 +165,9 @@ int main(int argc, char *argv[]) {
 	DBUG_PRINT("load", ("loaded .arerc (%p)", (void*)so));
 	
 	env = createEnvelope();
-	if ((returnAddress = getReturnAddress(stdin)) == NULL) {
-		fprintf(stderr, "could not get return address from email.\n");
-		exit(EXIT_FAILURE);
-	}
+	received_env = readEnvelope(stdin);
 	
-	DBUG_PRINT("mail", ("returnAddress: %s", returnAddress));
+	DBUG_PRINT("mail", ("returnAddress: %s/%s", received_env->from, received_env->replyto));
 	
 	/* now we need to load the orders into memory so we can determine
 	   which game and which player we are dealing with */
@@ -209,24 +210,25 @@ int main(int argc, char *argv[]) {
 	maxPlanetSize        = go->home.size_max;
 	maxNumberOfPlanets   = go->home.count_max;
 	
-    if (curNumberOfPlayers >= 0) {
-		char* messages = createString("%s/log/%s.txt", galaxynghome, raceName);
-		FILE* msgFP = fopen(messages, "w");
+	env->from = strdup(so->from);
+	env->replyto = strdup(so->replyto);
+	env->to = strdup(received_env->replyto ? received_env->replyto : received_env->from);
+	DBUG_PRINT("email", ("envelope: from/replyto/to: %s/%s/%s", env->from, env->replyto, env->to));
+	messages = createString("%s/log/%s.txt", galaxynghome, raceName);
+	msgFP = fopen(messages, "w");
+	
+	fprintf(msgFP, "Greetings,\n");
+	/* see if the current player is already in the game */
+	DBUG_PRINT("current", ("looking for %s in the people signed up", raceName));
+	if ((po = findElement(playerOpts, go->po, raceName)) != NULL) {
+		fprintf(msgFP, "You have already been accepted for this game.\n"
+				"I am replacing your information with the new information "
+				"you supplied in this email.\n\n");
 		
-		env->from = strdup(so->from);
-		env->replyto = strdup(so->replyto);
-		env->to = strdup(po->email);
-		
-		fprintf(msgFP, "Greetings,\n");
-		/* see if the current player is already in the game */
-		if ((po = findElement(playerOpts, go->po, raceName)) != NULL) {
-			fprintf(msgFP, "You have already been accepted for this game.\n"
-					"I am replacing your information with the new information"
-					"you just supplied.\n\n");
-		}
-		remList(go->po, po);
+		DBUG_PRINT("current", ("found player, resetting information"));
+		remList(&go->po, po);
 		free(po->email);
-		po->email = strdup(returnAddress);
+		po->email = strdup(received_env->replyto ? received_env->replyto : received_env->from); 
 		free(password);
 		po->password = strdup(password);
 		free(po->real_name);
@@ -237,7 +239,20 @@ int main(int argc, char *argv[]) {
 		freelist(po->planets);
 		po->planets = NULL;
 	}
-#if 0		
+	else {
+		po = (playerOpts*)malloc(sizeof(playerOpts));
+		po->email = strdup(received_env->replyto ? received_env->replyto : received_env->from);
+		po->password = strdup(password);
+		po->real_name = NULL;
+		po->options = 0L;
+		po->x = 0.0;
+		po->y = 0.0;
+		po->size = 0.0;
+		po->planets = NULL;
+	}
+	
+#if 0
+	/* now we have to read in the orders */
 			if (getPlanetSizes(stdin, &planets, totalPlanetSize,
 							   maxNumberOfPlanets, maxPlanetSize)) {
 				errorCode = registerPlayer(po, gamename,
