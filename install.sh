@@ -232,9 +232,11 @@ ENCODE=`which mmencode`
 if { test -z $ENCODE ; } then {
   ENCODE=`which mimencode`
 }
+fi
 if { test -z $ENCODE ; } then {
   ENCODE=`which uuencode`
 }
+fi
 echo "o Creating" $RCFILE
 if { test -e $RCFILE; } then {
   echo "  Found an existing version of " $RCFILE;
