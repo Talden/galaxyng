@@ -77,7 +77,7 @@ void readDefaults(game *aGame, FILE * f) {
 	aGame->serverOptions.tick_interval = strdup(getstr(0));
       }
       else {
-	printf("Unknown key %s\n", key);
+	printf("Unknown key \"%s\"\n", key);
       }
     }
   }
