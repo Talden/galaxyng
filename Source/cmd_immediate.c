@@ -61,8 +61,8 @@ CMD_immediate( int argc, char **argv) {
   free(logName);
   
   /* galaxyng logging setup */
-  plogtime(LPART);
-  plog(LPART, "Checking to see if game can be run now.\n");
+  plogtime(LBRIEF);
+  plog(LBRIEF, "Checking to see if game can be run now.\n");
   
   /* get the game information */
   aGame = NULL;
@@ -90,26 +90,24 @@ CMD_immediate( int argc, char **argv) {
    */
   elapsedTime = ((now - now % 60) - (buf.st_mtime - buf.st_mtime % 60));
   free(nextTurn);
-  plog(LPART, "elapsedTime: %d\n", elapsedTime);
 
   /* time, in seconds, between game ticks */
   tickTime = 3600 * atol(aGame->serverOptions.tick_interval);
-  plog(LPART, "tickTime: %d\n", tickTime);
 
   if (elapsedTime >= tickTime) {
     /* orders status doesn't matter, time to run the turn */
-    plog(LPART, "imm: time's up, running game\n");
+    plog(LBRIEF, "imm: time's up, running game\n");
     
-    sprintf(command_line, "%s/run_game %s >> %s/log/%s",
+    sprintf(command_line, "%s/run_game %s >> %s/log/%s\n",
 	    galaxynghome, argv[2], galaxynghome, argv[2]);
-    plog(LPART, "command line: \"%s\"\n", command_line);
+    plog(LBRIEF, "command line: \"%s\"\n", command_line);
     return ssystem(command_line);
   }
   
   /* what time do we check for orders due? */
   dueTime = 3600 * (atol(aGame->serverOptions.tick_interval) -
 		    atol(aGame->serverOptions.due));
-  
+ 
   /* now check the players, see if they've turned in orders */
   nbrOrders = 0;
   actvPlayers = 0;
@@ -260,11 +258,11 @@ CMD_immediate( int argc, char **argv) {
   
   /* if there were any missing orders and we need to email the GM,
    * then do so */
-  plog(LPART, "%d active players, %d orders received",
+  plog(LBRIEF, "%d active players, %d orders received\n",
        actvPlayers, nbrOrders);
   
   if (nbrOrders != actvPlayers) {
-    if (gmNote != NULL) {
+    if (gmNote != NULL && ftell(gmNote) > 0) {
       envelope* env = createEnvelope();
       env->to=strdup(aGame->serverOptions.GMemail);
       env->from = strdup(aGame->serverOptions.SERVERemail);
@@ -285,7 +283,7 @@ CMD_immediate( int argc, char **argv) {
   
   freegame( aGame );
   
-  plog(LPART, "All orders in, running game\n");
+  plog(LBRIEF, "All orders in, running game\n");
   
   sprintf(command_line, "%s/run_game %s >> %s/log/%s",
 	  galaxynghome, argv[2], galaxynghome, argv[2]);
