@@ -44,11 +44,11 @@ ADDTL_OBJS = influence.o
 #
 
 CFLAGS = -Wall -pedantic -I../include -I$(HOME)/include
-CFLAGS += -fdelete-null-pointer-checks -std=gnu99 -D__USE_GNU 
-CFLAGS += -pipe -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2
-CFLAGS += -Wmissing-declarations -Wmissing-format-attribute -Wnested-externs
-CFLAGS += -Wredundant-decls -Wstrict-prototypes -Wunreachable-code
 CFLAGS += $(ADDTL_CFLAGS)
+#CFLAGS += -fdelete-null-pointer-checks -std=gnu99 -D__USE_GNU 
+#CFLAGS += -pipe -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2
+#CFLAGS += -Wmissing-declarations -Wmissing-format-attribute -Wnested-externs
+#CFLAGS += -Wredundant-decls -Wstrict-prototypes -Wunreachable-code
 
 LIBS = -L$(HOME)/lib -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
 
