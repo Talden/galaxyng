@@ -1,4 +1,21 @@
-$Id$
+# $Id$
+
+WEB SITE
+----------------------------------------
+
+You have two options:
+
+1) Link to GalaxyNG SourceForge.net site (preferred)
+   Delete most of your local site and point to files on:
+     http://galaxyng.sourceforge.net/
+
+2) Maintain a mirror of the GalaxyNG SourceForge.net site
+   Delete most of your local site.  Copy the files in /Doc/
+   into your local site.
+
+
+GRAPHICAL MAP
+----------------------------------------
 
 To enable the the galaxy map graphic option, edit Source/makefile and
 follow the directions there. You will also need to have installed
@@ -11,14 +28,16 @@ This option also uses a free truetype font from Larabie Fonts
 
 After editing the makefile follow the directions below.
 
-If you run galaxyng by hand for game creation, etc you'll need to be
+If you run galaxyng by hand for game creation, etc you will need to be
 sure that the environmental variable for locating the TTF file is set:
 GDFONTPATH is the variable that needs to be set and the file is in the 
 normal galaxyng home directory.
 
-(Ken Weinert kenw@quarter-flash.com)
+(Ken Weinert madcoder42@users.sourceforge.net)
 
 
+SERVER INSTALL
+----------------------------------------
 
 To install the GalaxyNG server use:
 
@@ -34,14 +53,15 @@ your machine. All files will be installed in the directory
 $HOME/Games.
 
 The installer will ask you for your email address. It might also ask
-you for the location of the sendmail command if it can't find it.
+you for the location of the sendmail command if it can not find it.
 
-If you want to enable WWW highscore lists, make sure you have a
+If you want to enable web highscore lists, make sure you have a
 $(HOME)/public_html or $(HOME)/www directory before you start
 installing. (Or edit Games/run_turn afterwards.)
 
-Much more information can be found in the server manual, use netscape
-index.html.
+Much more information can be found in the server manual.  Visit
+  http://galaxyng.sourceforge.net/server.php
+or review /Doc/server.php.
 
 After installation you might want to:
 
@@ -51,8 +71,15 @@ After installation you might want to:
     running of games, 
 (3) run strip on the executable to save some diskspace.
 
-If you have any questions send them to <rfsber@xs4all.nl>
 
-Have fun,
-Frans.
+SUPPORT
+----------------------------------------
 
+If you have any questions, ask on the galaxyng-developers list:
+  http://lists.sourceforge.net/lists/listinfo/galaxyng-developers
+submit a support request:
+  http://sourceforge.net/tracker/?group_id=48224&atid=454548
+
+
+HAVE FUN!
+----------------------------------------
