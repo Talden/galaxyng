@@ -317,8 +317,12 @@ LIBS   = -lm</pre>
 						<td>Create the turn 0 reports, but don't email them. You can find them in <tt>reports/&lt;game name&gt;</tt><td>
 					</tr>
 					<tr>
+						<td><tt>run_game &lt;game name&gt;</tt></td>
+						<td>Run a game turn.</td>
+					</tr>
+					<tr>
 						<td><tt>galaxyng -run &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
-						<td>Run a turn, and mail the turn reports.</td>
+						<td>Run a turn, and mail the turn reports.  Used in combination with run_game.</td>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -dummyrun &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
