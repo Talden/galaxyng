@@ -216,16 +216,17 @@ LIBS   = -lm</pre>
 				<p>The Automatic Registration Engine (ARE) is invoked by procmail to respond to emails from players signing up for games.  For example, to allow up to 25 players to sign up for a game named Jangi, use this procmail recipe:</p>
 <pre>:0 rw :Jangi.lock
 * ^Subject.*Join Jangi
-|/usr/bin/formail -rkbt -s $GALAXYNGHOME/are Jangi 25 | /usr/sbin/sendmail -t</pre>
+|/usr/bin/formail -rkbt -s $HOME/Games/are Jangi 25 0 0 0 | /usr/sbin/sendmail -t</pre>
 				<p>Up to 25 people could register for Jangi by sending an email to the server with the subject "Join Jangi."</p>
 				<p>You can also let players specify the number and sizes of their homeworlds, with these parameters: <tt>&lt;total planet size&gt; &lt;maximum planet size&gt; &lt;maximum number of planets&gt;</tt>. For example, to allow 10 players to sign up for a game named Welland with 2,500 production on up to 5 planets, with no planet larger than 1,000 production, use this procmail recipe:</p>
 <pre>:0 rw :Welland.lock
 * ^Subject.*Join Welland
-|/usr/bin/formail -rkbt -s $GALAXYNGHOME/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t</pre>
+|/usr/bin/formail -rkbt -s $HOME/Games/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t</pre>
 				<p>Players can request planet sizes by adding this line to their registration email:</p>
 <pre>#PLANETS lt;size of planet 1&gt; &lt;size of planet 2&gt; ... &lt;size of planet n&gt;
 e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>The server will send error messages to players who submit requests for planets that do not match the criteria specified in the <tt>.procmail</tt> recipe.</p>
+				<p>Note that better examples of game signup recipes can be found in the file <tt>$HOME/Games/procmailrc</tt>.</p>
 
 			<hr />
 

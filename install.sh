@@ -271,9 +271,9 @@ echo "# Someone wants to sign up for a game with custom planet sizes" >> $PROCRC
 echo "# Up to ten players, max 2500 production, max planet size 1000, max planets 5" >> $PROCRC
 echo "# Uncomment the following lines.  Change the gamename and numbers" >> $PROCRC
 echo "# of players." >> $PROCRC
-echo ":0" >> $PROCRC
+echo "# :0" >> $PROCRC
 echo "# * ^Subject.*Join Welland" >> $PROCRC
-echo "{" >> $PROCRC
+echo "# {" >> $PROCRC
 echo "  # :0: Welland.lock" >> $PROCRC
 echo "  # |/usr/bin/formail -rbt -s "$GALAXY_HOME"/are Welland 10 2500 1000 5 | /usr/sbin/sendmail -t" >> $PROCRC
 echo "  # An error occured, save the email: " >> $PROCRC
@@ -287,7 +287,7 @@ echo "  # :0 E :Welland-good" >> $PROCRC
 echo "  # galaxyng-Welland-good" >> $PROCRC
 echo "  # .galaxyng-Welland-good" >> $PROCRC
 echo "  # .galaxyng-Welland-good/" >> $PROCRC
-echo "}" >> $PROCRC
+echo "# }" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Anything else, or messages that causes the engine to fail" >> $PROCRC
 echo "# are stored in the default mailbox." >> $PROCRC
@@ -375,12 +375,12 @@ ARE=$GALAXY_HOME/are
 if { test -e $ARE; } then {
   echo "  Found an existing version of " $ARE;
   NG=$GALAXY_HOME/are.new;
-  echo "  Writing the new version to "  $NG;
+  echo "  Writing the new version to "  $ARE;
   echo "  _Test_ this new version and if it works according to your needs"
   echo "  copy it to " $GALAXY_HOME; "/are"
 }
 fi
-cp Source/galaxyng $ARE
+cp ARE/are $ARE
 strip $ARE
 
 # =========================================================
