@@ -38,9 +38,15 @@ done
 echo "o What is the GM email address?"
 echo "  (Email to the GM is sent to this address)"
 read GMEMAIL
+echo "o What is the GM name?"
+echo "  (This is used on outgoing mail)"
+read GMNAME
 echo "o What is the server email address?"
 echo "  (galaxyng commands are sent to this address)"
 read SERVEREMAIL
+echo "o What is the server name?"
+echo "  (This is used on outgoing mail)"
+read SERVERNAME
 echo "o What is the GM password?"
 echo "  (used for relay commands)"
 echo "  DO NOT USE THE GM ACCOUNT PASSWORD.  THIS PASSWORD"
@@ -375,8 +381,10 @@ echo "; a .galaxyngrc file in the game data directory:" >> $RCFILE
 echo "; $GALAXY_HOME/data/<gamename>" >> $RCFILE
 echo "sendmail { $SENDMAIL -t }" >> $RCFILE
 echo "GMemail $GMEMAIL" >> $RCFILE
+echo "GMname $GMNAME" >> $RCFILE
 echo "GMpassword $PASSWORD" >> $RCFILE
 echo "SERVERemail $SERVEREMAIL" >> $RCFILE
+echo "SERVERname $SERVERNAME" >> $RCFILE
 echo "encode $ENCODE" >> $RCFILE
 echo "compress $COMPRESS" >> $RCFILE
 echo "fontpath $GALAXY_HOME" >> $RCFILE
