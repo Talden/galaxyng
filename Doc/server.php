@@ -25,6 +25,7 @@
 					<li><a href="#install">Installation</a></li>
 					<li><a href="#files">Files</a></li>
 					<li><a href="#use">Use</a></li>
+					<li><a href="#register">Game Registration</a></li>
 					<li><a href="#create">Creating a New Game</a></li>
 					<li><a href="#mail">Mailing the Turn 0 Reports</a></li>
  					<li><a href="#process">Processing Orders</a></li>
@@ -156,6 +157,11 @@ LIBS   = -lm</pre>
 					<li>mail the turn reports.</li>
 				</ol>
 				<p>Then repeat steps 3, 4, and 5, until the players request the game be stopped.</p>
+
+			<hr />
+
+			<h2 id="register">Game Registration</h2>
+				<p>Game registration is handled by the Automatic Registration Engine (ARE), which is invoked by procmail.  See the files in /ARE for more details.  You will need to manually configure the ARE.</p>
 
 			<hr />
 
