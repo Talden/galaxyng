@@ -2336,42 +2336,42 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
     *raceName = strdup( getstr( NULL ) );
     *password = strdup( getstr( NULL ) );
     if ((ptr = getstr(NULL)) != NULL) {
-      *theTurnNumber = atoi(ptr);
-      if (!isdigit(*ptr)) {
-	*theTurnNumber = LG_CURRENT_TURN;
-	if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
-	  loadNGConfig(*aGame);
-	else {
-	  *aGame = allocStruct( game );
-	  
-	  setName( *aGame, "UnknownGame" );
-	  loadNGConfig( *aGame );
-	  if ( gameName )
-	    setName( *aGame, gameName );
-	  return RES_NO_GAME;
-	}
-	return RES_NO_TURN_NBR;
-      }
+		*theTurnNumber = atoi(ptr);
+		if (!isdigit(*ptr)) {
+			*theTurnNumber = LG_CURRENT_TURN;
+			if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
+				loadNGConfig(*aGame);
+			else {
+				*aGame = allocStruct( game );
+				
+				setName( *aGame, "UnknownGame" );
+				loadNGConfig( *aGame );
+				if ( gameName )
+					setName( *aGame, gameName );
+				return RES_NO_GAME;
+			}
+			return RES_NO_REPORT_TURN_NBR;
+		}
     }
     
     if ((ptr = getstr(NULL)) != NULL) {
-      if (noCaseStrcmp(ptr, "FinalOrders") == 0)
-	*final_orders = strdup(ptr);
+		if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+			*final_orders = strdup(ptr);
     }
     
     if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
-      player *aPlayer;
-      
-      loadNGConfig( *aGame );
-      
-      if (noCaseStrcmp("GM", *raceName) == 0) {
-	if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
-	  resNumber = RES_OK;
-	}
-      }
-      else {
-	aPlayer = findElement( player, ( *aGame )->players,
-			       *raceName );
+		player *aPlayer;
+		
+		loadNGConfig( *aGame );
+		
+		if (noCaseStrcmp("GM", *raceName) == 0) {
+			if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
+				resNumber = RES_OK;
+			}
+		}
+		else {
+			aPlayer = findElement( player, ( *aGame )->players,
+								   *raceName );
 	
 	if ( aPlayer ) {
 	  if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
@@ -2809,11 +2809,18 @@ void generateErrorMessage( int resNumber, game *aGame,
 	    "destination for your message.\n" );
     break;
     
-  case RES_NO_TURN_NBR:
+  case RES_NO_ORDERS_TURN_NBR:
     fprintf(forecast, "O Wise Leader, you didn't specify a turn "
 	    "number.\nRemember that orders start with\n\n"
 	    "#GALAXY GameName RaceName Password TurnNumber "
 	    "[FinalOrders]\n\n"
+	    "and end with\n\n#END\n");
+    break;
+
+    case RES_NO_REPORT_TURN_NBR:
+    fprintf(forecast, "O Wise Leader, you didn't specify a turn "
+	    "number.\nRemember that report requests start with\n\n"
+	    "#GALAXY GameName RaceName Password TurnNumber\n\n"
 	    "and end with\n\n#END\n");
     break;
   }

@@ -53,7 +53,8 @@ enum ResCodes {
 	RES_TURNRAN,				/* orders sent in for a turnt that ran */
 	RES_DESTINATION,			/* can't find the race sending email to */
 	RES_NODESTINATION,
-	RES_NO_TURN_NBR,			/* missing turn number */
+	RES_NO_ORDERS_TURN_NBR,		/* missing turn number in orders */
+	RES_NO_REPORT_TURN_NBR,		/* missing turn number in a report request */
 	RES_DEAD_PLAYER				/* tried to relay to a dead player */
 };
 
