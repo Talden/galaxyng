@@ -14,45 +14,48 @@
  */
 
 
-void createMailToAllHeader(game *aGame)
+void
+createMailToAllHeader(game *aGame)
 {
-  player *aPlayer;
-  int state;
-
-  printf("To: %s\nBcc: ", aGame->serverOptions.GMemail); 
-  for (aPlayer = aGame->players, state = 0;
-       aPlayer;
-       aPlayer = aPlayer->next) {
-    if (!(aPlayer->flags & F_DEAD)) { 
-      if (state == 0) {
-	printf("  %s", aPlayer->addr);
-	state = 1;
-      } else {
-      	printf(",\n  %s", aPlayer->addr);
-      }
-    }
-  }
-  printf("\nSubject:\n");
+	player *aPlayer;
+	int state;
+	
+	printf("To: %s\nBCC: ", aGame->serverOptions.GMemail); 
+	for (aPlayer = aGame->players, state = 0;
+		 aPlayer;
+		 aPlayer = aPlayer->next) {
+		if (!(aPlayer->flags & F_DEAD)) { 
+			if (state == 0) {
+				printf("  %s", aPlayer->addr);
+				state = 1;
+			} else {
+				printf(",\n  %s", aPlayer->addr);
+			}
+		}
+	}
+	printf("\nSubject:\n");
 }
 
 /****f* Mail/createEnvelope
  * NAME
  *   createEnvelope -- create an envelope.
  * FUNCTION
- *   Creates and initializes and envelope.
+ *   Creates and initializes an envelope.
  ******
  */
 
-envelope *createEnvelope() 
+envelope *
+createEnvelope() 
 {
-  envelope *e;
-  e = malloc(sizeof(envelope));
-  assert(e != NULL);
-  e->to = NULL;
-  e->from = NULL;
-  e->subject = NULL;
-  e->compress = FALSE;
-  return e; 
+	envelope *e;
+	e = malloc(sizeof(envelope));
+	assert(e != NULL);
+	e->to = NULL;
+	e->from = NULL;
+	e->subject = NULL;
+	e->bcc = NULL;
+	e->compress = FALSE;
+	return e; 
 }
 
 
@@ -67,36 +70,49 @@ envelope *createEnvelope()
  */
 
 void setHeader(envelope *e, int headerType, char *format, ...) {
-  int   n;
-
-  va_list         ap;
-
-  assert(e != NULL);
-
-  va_start(ap, format);
+	int   n;
+	
+	va_list         ap;
+	
+	assert(e != NULL);
+	
+	va_start(ap, format);
 #ifdef WIN32
-  vsprintf(lineBuffer, format, ap);
+	vsprintf(lineBuffer, format, ap);
 #else
-  n = vsnprintf(lineBuffer, LINE_BUFFER_SIZE, format, ap);
-  assert(n != -1);
+	n = vsnprintf(lineBuffer, LINE_BUFFER_SIZE, format, ap);
+	assert(n != -1);
 #endif
-  va_end(ap);
+	va_end(ap);
+	
+	switch(headerType) {
+		case MAILHEADER_TO:
+			if (e->to)
+				free(e->to);
+			e->to = strdup(lineBuffer);
+			break;
 
-  switch(headerType) {
-  case MAILHEADER_TO:
-    if (e->to) free(e->to);
-    e->to = strdup(lineBuffer);
-    break;
-  case MAILHEADER_FROM:
-    if (e->from) free(e->from);
-    e->from = strdup(lineBuffer);
-    break;
-  case MAILHEADER_SUBJECT:
-    if (e->subject) free(e->subject);
-    e->subject = strdup(lineBuffer);
-    break;
-  default: assert(0);
-  }
+		case MAILHEADER_FROM:
+			if (e->from)
+				free(e->from);
+			e->from = strdup(lineBuffer);
+			break;
+
+		case MAILHEADER_SUBJECT:
+			if (e->subject)
+				free(e->subject);
+			e->subject = strdup(lineBuffer);
+			break;
+
+		case MAILHEADER_BCC:
+			if (e->bcc)
+				free(e->bcc);
+			e->bcc = strdup(lineBuffer);
+			break;
+			
+		default:
+			assert(0);
+	}
 }
 
 /****f* Mail/destroyEnvelope
@@ -109,11 +125,16 @@ void setHeader(envelope *e, int headerType, char *format, ...) {
 
 void destroyEnvelope(envelope *e)
 {
-  assert(e != NULL);
-  if (e->to) free(e->to);
-  if (e->from) free(e->from);
-  if (e->subject) free(e->subject);
-  free(e);
+	assert(e != NULL);
+	if (e->to)
+		free(e->to);
+	if (e->from)
+		free(e->from);
+	if (e->subject)
+		free(e->subject);
+	if (e->bcc)
+		free(e->bcc);
+	free(e);
 }
 
 
@@ -134,26 +155,28 @@ void destroyEnvelope(envelope *e)
  ******
  */
 
-    int
+int
 eMail(game *aGame, envelope *e, char *fileName)
 {
-  FILE*  mailFile;
-  char    template[32] = "/tmp/galaxyXXXXXX";
-  int      result;
-
+	FILE*  mailFile;
+	char    template[32] = "/tmp/galaxyXXXXXX";
+	int      result;
+	
     pdebug(DFULL, "eMail\n");
-
+	
     assert(fileName != NULL);
     assert(aGame != NULL);
-
+	
     mailFile = fdopen(mkstemp(template),  "w");
     result = 1;
-
+	
     assert(e->to);
     assert(e->subject);
 
     fprintf(mailFile, "To: %s\n", e->to);
     fprintf(mailFile, "Subject: %s\n", e->subject);
+	if (e->bcc) 
+		fprintf(mailFile, "BCC: %s\n", e->bcc);
 #ifndef WIN32
     if (e->compress && aGame->serverOptions.compress && aGame->serverOptions.encode) {
       addMimeHeader(mailFile);
@@ -195,7 +218,8 @@ eMail(game *aGame, envelope *e, char *fileName)
 
 
 
-void addMimeHeader(FILE *mailFile) 
+void
+addMimeHeader(FILE *mailFile) 
 {
 	fprintf(mailFile, "Mime-Version: 1.0\n");
 	fprintf(mailFile, 
@@ -205,49 +229,53 @@ void addMimeHeader(FILE *mailFile)
 
 
 
-void addMimeText(FILE *mailFile)
+void
+addMimeText(FILE *mailFile)
 {
-   fprintf(mailFile, "--9jxsPFA5p3P2qPhR\n");
-   fprintf(mailFile, "Content-Type: text/plain; charset=us-ascii\n");
-   fprintf(mailFile, "Content-Disposition: inline\n");
-   fprintf(mailFile, "\n");
+	fprintf(mailFile, "--9jxsPFA5p3P2qPhR\n");
+	fprintf(mailFile, "Content-Type: text/plain; charset=us-ascii\n");
+	fprintf(mailFile, "Content-Disposition: inline\n");
+	fprintf(mailFile, "\n");
 }
 
 
 
-void addMimeZip(FILE *mailFile)
+void
+addMimeZip(FILE *mailFile)
 {
-   fprintf(mailFile, "--9jxsPFA5p3P2qPhR\n");
-   fprintf(mailFile, "Content-Type: application/zip\n");
-   fprintf(mailFile, "Content-Disposition: attachment; filename=\"turn.zip\"\n");
-   fprintf(mailFile, "Content-Transfer-Encoding: base64\n");
-   fprintf(mailFile, "\n");
+	fprintf(mailFile, "--9jxsPFA5p3P2qPhR\n");
+	fprintf(mailFile, "Content-Type: application/zip\n");
+	fprintf(mailFile, "Content-Disposition: attachment; filename=\"turn.zip\"\n");
+	fprintf(mailFile, "Content-Transfer-Encoding: base64\n");
+	fprintf(mailFile, "\n");
 }
 
 
 
-void addMimeEnd(FILE *mailFile)
+void
+addMimeEnd(FILE *mailFile)
 {
-   fprintf(mailFile, "\n--9jxsPFA5p3P2qPhR--\n");
+	fprintf(mailFile, "\n--9jxsPFA5p3P2qPhR--\n");
 }
 
 
 
-int appendToMail(char *fileName, FILE *mailFile)
+int
+appendToMail(char *fileName, FILE *mailFile)
 {
-  FILE *f;
-  char *isRead;
-  f = GOS_fopen(fileName, "r");
-  if (f) {
-    for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
-         isRead;
-         isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
-      fputs(lineBuffer, mailFile);
-    }
-	fclose(f);
-	return FALSE;
-  } else {
-    return TRUE;
-  }
+	FILE *f;
+	char *isRead;
+	f = GOS_fopen(fileName, "r");
+	if (f) {
+		for (isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f);
+			 isRead;
+			 isRead = fgets(lineBuffer, LINE_BUFFER_SIZE, f)) {
+			fputs(lineBuffer, mailFile);
+		}
+		fclose(f);
+		return FALSE;
+	} else {
+		return TRUE;
+	}
 }
 
