@@ -32,6 +32,7 @@ int CMD_immediate(int argc, char** argv);
 int CMD_create( int argc, char **argv );
 int CMD_mail0( int argc, char **argv, int kind );
 int CMD_run( int argc, char **argv, int kind );
+int CMD_webcheck( int argc, char **argv, int kind );
 int CMD_check( int argc, char **argv, int kind );
 #if 0
 int CMD_checkFile( int argc, char **argv, int kind );

@@ -30,7 +30,6 @@ CMD_webcheck( int argc, char **argv, int kind) {
   char *password;
   char *final_orders;
   game *aGame;
-  FILE *forecast;
   player *aPlayer;
   
   int resNumber, theTurnNumber;
