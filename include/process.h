@@ -43,16 +43,19 @@ struct _orderinfo {
  * SOURCE
  */
 
-#define RES_OK            0
-#define RES_NO_ORDERS     1
-#define RES_ERR_GALAXY    2
-#define RES_NO_GAME       3
-#define RES_PASSWORD      4
-#define RES_PLAYER        5
-#define RES_TURNRAN       6
-#define RES_DESTINATION   7
-#define RES_NODESTINATION 8
-#define RES_NO_TURN_NBR   9
+enum ResCodes {
+	RES_OK,						/* no error */
+	RES_NO_ORDERS,				/* missing orders */
+	RES_ERR_GALAXY,				/* no #GALAXY line */
+	RES_NO_GAME,				/* can't find the game name */
+	RES_PASSWORD,				/* password mismatch */
+	RES_PLAYER,					/* player name doesn't exist */
+	RES_TURNRAN,				/* orders sent in for a turnt that ran */
+	RES_DESTINATION,			/* can't find the race sending email to */
+	RES_NODESTINATION,
+	RES_NO_TURN_NBR,			/* missing turn number */
+	RES_DEAD_PLAYER				/* tried to relay to a dead player */
+};
 
 /**********/
 
