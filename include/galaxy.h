@@ -132,6 +132,7 @@
  { printf("validateStruct Failed in line %d of %s\n", __LINE__ , __FILE__);exit(100); } ;
 #define   getLine(f) fgets(lineBuffer, LINE_BUFFER_SIZE, f)
 
+void usage(void);
 
 
 /****d* GalaxyNG/DebugLevels

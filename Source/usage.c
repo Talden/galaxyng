@@ -1,6 +1,6 @@
 #include "galaxy.h"
 
-/****f* GalaxyNG/usage
+/****f* CLI/usage
  * NAME
  *   usage -- print usage info.
  *******
