@@ -35,8 +35,14 @@ int CMD_relay( int argc, char **argv ) {
 		return result;
 	}
 	
+	logName = createString("%s/log/orders_processed.txt", galaxynghome);
+	openLog(logName, "a");
+	free(logName);
+	plogtime(LBRIEF);
+
 	confirmName = createString("%s/NGconfirm", tempdir);
 	if ((confirm = fopen(confirmName, "w")) == NULL) {
+	  plog(LBRIEF, "Can't open \"%s\".\n", confirmName);
 		fprintf(stderr, "Can't open \"%s\".\n", confirmName);
 		free(confirmName);
 		return result;
@@ -44,10 +50,6 @@ int CMD_relay( int argc, char **argv ) {
 	else 
 		free(confirmName);
 	
-	logName = createString("%s/log/orders_processed.txt", galaxynghome);
-	openLog(logName, "a");
-	free(logName);
-	plogtime(LBRIEF);
 
 	anEnvelope = readEnvelope(stdin);
 
@@ -64,6 +66,8 @@ int CMD_relay( int argc, char **argv ) {
 		setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
 		generateErrorMessage(resNumber, aGame, raceName,
 							  theTurnNumber, confirm);
+		plog(LBRIEF, "relay: error %d\n", resNumber);
+		result |= eMail(aGame, anEnvelope, confirmName);
 		return result;
 	}
 
@@ -83,6 +87,8 @@ int CMD_relay( int argc, char **argv ) {
 		setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
 		generateErrorMessage(RES_PLAYER, aGame, raceName,
 							  theTurnNumber, confirm);
+		result |= eMail(aGame, anEnvelope, confirmName);
+		plog(LBRIEF, "cmd_relay: can't tell who mail is from.\n");
 		return result;
 	}
 	
@@ -90,6 +96,8 @@ int CMD_relay( int argc, char **argv ) {
 		setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
 		generateErrorMessage(RES_NODESTINATION, aGame, raceName,
 							  theTurnNumber, confirm);
+		result |= eMail(aGame, anEnvelope, confirmName);
+		plog(LBRIEF, "cmd_relay: can't tell who mail is to.\n");
 		return result;
 	}
 			
@@ -140,6 +148,8 @@ int CMD_relay( int argc, char **argv ) {
 						  "[GNG] Major Trouble");
 				generateErrorMessage(RES_NODESTINATION, aGame, raceName,
 									 theTurnNumber, confirm);
+				result |= eMail(aGame, anEnvelope, confirmName);
+				plog(LBRIEF, "can't find player mail is directed to.\n");
 				return result;
 			}
 
@@ -149,6 +159,8 @@ int CMD_relay( int argc, char **argv ) {
 						  "[GNG] Major Trouble");
 				generateErrorMessage(RES_DEAD_PLAYER, aGame, raceName,
 									 theTurnNumber, confirm);
+				result |= eMail(aGame, anEnvelope, confirmName);
+				plog(LBRIEF, "cmd_relay: relay is to a dead player.\n");
 				return result;
 			}
 
