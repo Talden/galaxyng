@@ -30,115 +30,26 @@ www_subSection(`units', `Units')
 
 www_subSection(`names', `Names')
 
-<P>You should ALink(`#ordc', `provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you have not done this you will simply be known as Race_5 or whatever.  As well as the various races, other things in the game which have names are ship types and planets.  Names for all three things may be no more than 20 characters (a character is a letter, digit, or underscore).  Ship types are given names by their ALink(`#ordd', `designer').  All planets only have numbers for names at the start of the game.  When you colonize a planet you can ALink(`#ordn', `change its name').  You may want to change your home planet name(s) to something more exciting e.g.  from "112" to "Zzyax_Prime".</P>
+<P>You should ALink(`#ordc', `provide a name') by which your race will be known e.g.  Mutant_Camels, Zzyaxians etc - if you have not done this you will simply be known as Race_5 or whatever.  As well as the various races, other things in the game which have names are ship types and planets.  Names may be no more than 20 characters (a character is a letter, digit, or underscore) and may not include spaces.  Ship types are given names by their ALink(`#ordd', `designer').  All planets only have numbers for names at the start of the game.  If you own a planet you can ALink(`#ordn', `change its name').  You may want to change your home planet name(s) to something more exciting e.g. from "112" to "Zzyax_Prime".</P>
 
-www_section(`planets', `Planets')
+www_subSection(`warpeace', `War and Peace')
 
-<P>Planets have seven characteristics: owner, size, population, industry, resources, production and stockpiles.</P>
+<P>At the start of the game you are assumed to be at war with all the other races.  You may declare peace on another race at the beginning of any turn.  This means that your ships will not fire on ships belonging to that race, nor bomb their planets.  However that race will still consider itself at war with you until they have declared peace with  you.  Of course, your warships will always shoot back if fired on.  (Actually, the battle will be fought just as if both sides were at war with each other; being at peace puts your warships at no disadvantage in combat.)  Having declared peace, you may declare war again at the start of any subsequent turn and vice versa.</P>
 
-www_subSection(`owner', `Owner')
-
-<p>Inhabited planets are owned by one race at a time (except in the special case of a ALink("#conque", 'standoff') when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</P>
-
-www_subSection(`size', `Size')
-
-<P>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), development planets (size 200.00 to 1000.00) and stuff planets (size 0.01 to 200.00).</P>
-
-www_subSection(`pop', `Population')
-
-<P>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with 0 population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into ALink("#col", 'colonists').</P>
-
-www_subSection(`ind', `Industry')
-
-<P>Each inhabited planet has an industry level.  This may not be greater than its population but may be less.  Industry levels may be increased by ALink("#prod", 'producing capital') at the planet or by ALink("#cargo", 'shipping capital') to the planet.</P>
-
-www_subSection(`nr', `Natural Resources')
-
-
-
-www_subSection(`prod', `Production')
-
-<P>
-The productive capacity of a planet is determined mostly by its industry and partly by its population.  Each industry unit on a planet gives
-one production point, and every 4 population units over and
-above industry also give one production point.  So at the start
-of the game you have one planet with industry and population of
-1,000.  This means you have 1,000 production points to be spend
-on producing whatever you choose.  If your home planet had
-industry 500 and population 1,000 it would generate only 625
-production points per turn.  
+<P> In your turn report, other races will be listed followed by their
+diplomatic status e.g. "Zzyaxians Peace" means that you are at peace
+with the Zzyaxians.  However you don't know whether they are at war
+with you unless you encounter some of their warships! (Of course you
+could always ask the Zzyaxians player and take his word for it...)
 </P>
 
-<P>
-Production points can be spent on producing raw materials,
-building spaceships, building industry units, or researching an
-area of technology.  Planets also produce extra population, but
-this does not cost production points.  
-</P>
+www_subSection(`victory', `Victory and Defeat')
 
-
-www_subSection(`raw', `Raw Materials')
-
-<P> Producing anything other than research requires raw materials as
-well as production points.  Raw materials represent things like sheet
-steel, copper wire and wood and oil for conversion into plastics.
-Each planet may have a stockpile of raw materials and if present this
-will be used.  If no stockpile exists, some production points will be
-allocated to producing raw materials.  </P>
-
-<P> For example, suppose you allocate production at the start of the
-game to building spaceships.  Since you start off with no raw material
-stockpiles, raw materials will have to be produced in order to build
-the spaceships.  (To build spaceships requires an amount of raw
-materials equal to the total size of the ships built).  This is
-completely invisible from your point of view, the only effect it will
-have is that spaceship production will be somewhat lower than you
-would otherwise expect.  </P>
-
-<P> The only reason you need to know about materials at all is that
-some planets are better than others at producing them.  Each planet
-has a Natural Resources attribute which indicates how rich it is in
-metal deposits, coal and oil etc.  Planets high in Natural Resources
-can produce materials more cheaply.  The attribute ranges from 0.1 to
-10, the average being 1.  Your starting planet has Natural Resources
-of 10, which means that each production point can produce 10 points of
-materials.  A planet with Natural Resources of 0.1 could only produce
-0.1 point of materials for every production point spent on this.  So
-if you colonize some planets with low Natural Resources you should
-dedicate your planets with high Natural Resources to producing
-materials and ship them to the other planets.  </P>
-
-
-
-
-
-
-www_subSection(`col', `Colonists')
-
-<P> Population increases beyond a planet's size are converted into
-colonists.  These are people stored in containers in deep freeze.
-Every 8 extra population units are converted into 1 unit of colonists.
-When colonists from a planet's stockpile are shipped to other planets
-which still have room for population growth, they are automatically
-thawed out and added to the planet's population.  This is how
-uninhabited planets are colonized.  (Note that colonist production is
-completely automatic, and consumes no production points.)  </P>
-
-
-
-www_subSection(`capi', `Capital')
-
-<P> A planet's industry level is increased by the production of
-capital goods.  These represent things like machine tools, computers
-and transport vehicles.  To produce one unit of capital requires 5
-production points and 1 unit of raw materials.  If the planet's
-industry level is below its population it will then be increased by
-one unit.  Otherwise the capital units will be stockpiled.  If shipped
-to a planet whose industry level is below its population, that
-planet's industry level will be increased.  This is useful for quickly
-building up the economy of a colony planet. </P>
-
-
+<P> Winning a Galaxy game is simple in concept: you must have
+completely exterminated all other races. When a race has no planets or
+ships left, it is declared extinct and deleted from the database.
+When a game is over, the name of the winner, together with any
+runners-up, will be posted to rec.games.pbm.  </P>
 
 www_section(`tech', `Technology')
 
@@ -152,9 +63,7 @@ Fractional increases are possible and they are immediately useful e.g.
 if you spend 500 production points on research into Weapons, your
 Weapons tech level will go up by one tenth of a point and this will
 take effect immediately, you don't have to wait until the level goes
-up by a whole point.  </P>
-
-
+up by a whole point.</P>
 
 www_section(`ships', `Ships')
 
@@ -197,33 +106,6 @@ can be fractional.  However they must be either zero or at least
 1.  For example, you can have a Drive of 1.5 but not 0.5.  See
 below for the effects of the numbers.  
 </P>
-
-
-www_subSection(`build', `Building Ships')
-
-<P>
-You can allocate a planet to producing a type of spaceship.
-The cost of a ship is equal to its mass times 10 production
-points.  A ship without weapons has a mass of Drive + Shields +
-Cargo (e.g.  a Freighter from the above list has a mass of 20).
-A ship with one attack has a mass of Drive + Weapons + Shields +
-Cargo.  For a ship with multiple attacks, each attack beyond the
-first adds half the Weapons number to the ship's mass (e.g.  a
-Gunship has a mass of 11).  
-</P>
-
-<P> 
-Example: If your homeplanet was producing Drones, and there was a
-stockpile of raw materials, it would produce 100 per turn.  (If there
-was no stockpile of raw materials, it would produce slightly over 99
-per turn.) However, if it was producing Battleships, it would only
-produce one and one-ninth per turn.  After the first turn, there would
-be one battleship in orbit, and one one-ninth built.  After the second
-turn there would be two battleships in orbit, and one two-ninths
-built.  
-</P>
-
-
 
 www_subSection(`groups', `Groups')
 
@@ -367,8 +249,6 @@ may be loaded onto a ship at a planet where it is available.
 Cargo may be unloaded onto any planet.  
 </P>
 
-
-
 www_subSection(`routes', `Routes')
 
 <P>
@@ -397,8 +277,82 @@ ships in the following order of priority:  colonists, capital,
 materials and empty transports.  
 </P>
 
+www_section(`planets', `Planets')
 
+<P>Planets are located in the galaxy by X and Y coordinates.  Planets have seven characteristics: owner, size, population, industry, natural resources, production and stockpiles.</P>
 
+www_subSection(`owner', `Owner')
+
+<p>Inhabited planets are owned by one race at a time (except in the special case of a ALink("#conquest", 'standoff') when an inhabited planet is unowned).  Uninhabited planets are not owned by any race.</P>
+
+www_subSection(`size', `Size')
+
+<P>Planets vary in size from 0.01 to 1000.00.  The size of a planet reflects the habitability of the terrain, the suitability of the climate for agriculture, and other features.  At the beginning of the game, the galaxy is divided into inhabited planets (home planets), development planets (size 200.00 to 1000.00) and stuff planets (size 0.01 to 200.00).</P>
+
+www_subSection(`pop', `Population')
+
+<P>Each planet has a population, which can never be higher than the planet's size but may be lower.  A planet with 0 population is uninhabited.  Home planets are fully populated at the beginning of the game.  A planet's population grows by 8% each turn.  Population increases beyond the planet's size are converted into colonists.  These are people stored in containers in deep freeze.  Every 8 extra population units are converted into 1 unit of colonists.</P>
+
+www_subSection(`ind', `Industry')
+
+<P>Each inhabited planet has industry, which may not be greater than the planet's population but may be lower.  If population exceed industry, the industry may be increased by capital.  If there is not an existing stockpile of capital, it may be produced at the planet or be shipped in from another planet by cargo ships.  For example, if a size 500 planet with 500 population and 200 industry produces 75 units of capital, the industry will increase to 275.  If a size 500 planet with 200 population and 200 industry has a stockpile of 100 capital, on the following turn the population and industry will both increase to 216 and there will be 84 units of capital left (because population grows by 8% per turn).</P>
+
+www_subSection(`nr', `Natural Resources')
+
+<P>Each planet has a natural resources value which indicates how rich it is in metals, coal, oil, wood and other products.  Planets high in natural resources can easily produce materials such as sheet steel, copper wire and plastics.  Home planets have a natural resources value of 10.00.  Other planets have a natural resources value between 0.01 and 10.00 with the average being 1.00.  The natural resources value equals the number of units of materials that will be produced per point of production devoted to the task.  A planet with 5.00 natural resources will produce 5.00 units of materials per point of production, while a planet with 0.10 natural resources would only produce 0.10 units of materials.  Materials are necessary to produce ships and capital.  Each planet may have a stockpile of materials and if present this will be used.  If no stockpile exists, some production points will be diverted to producing materials.</P>
+
+www_subSection(`prod', `Production')
+
+<P>The productive capacity of a planet is determined mostly by its industry value and partly by its population.  Each point of industry on a planet yields one production point, and every 4 points of population over and above industry yields an additional production point.  The formula is: Production = Industry + ((Population - Industry)/4).  A planet with 500.00 industry and 500.00 population has a production value of 500.00, while a planet with 250.00 industry and 500.00 population has a production value of 312.50.  Production points can be spent on building ships, researching technology, building capital, or building materials.</P>
+
+<P>A planet can be directed to produce spaceships.  The production cost of a ship is equal to its mass times 10.
+
+A ship without weapons has a mass of Drive + Shields +
+Cargo (e.g.  a Freighter from the above list has a mass of 20).
+A ship with one attack has a mass of Drive + Weapons + Shields +
+Cargo.  For a ship with multiple attacks, each attack beyond the
+first adds half the Weapons number to the ship's mass (e.g.  a
+Gunship has a mass of 11).  
+</P>
+
+<P> 
+Example: If your homeplanet was producing Drones, and there was a
+stockpile of raw materials, it would produce 100 per turn.  (If there
+was no stockpile of raw materials, it would produce slightly over 99
+per turn.) However, if it was producing Battleships, it would only
+produce one and one-ninth per turn.  After the first turn, there would
+be one battleship in orbit, and one one-ninth built.  After the second
+turn there would be two battleships in orbit, and one two-ninths
+built.  
+</P>
+
+<P>Materials are required to build ships or produce capital.  If no materials are available, some production points will be diverted to producing the necessary materials.  For example, suppose you allocate production at the start of the
+game to building spaceships.  Since you start off with no raw material
+stockpiles, raw materials will have to be produced in order to build
+the spaceships.  (To build spaceships requires an amount of raw
+materials equal to the total size of the ships built).  This is
+completely invisible from your point of view, the only effect it will
+have is that spaceship production will be somewhat lower than you
+would otherwise expect.  </P>
+
+www_subSection(`stock', `Stockpiles')
+
+<P> 
+When colonists from a planet's stockpile are shipped to other planets
+which still have room for population growth, they are automatically
+thawed out and added to the planet's population.  This is how
+uninhabited planets are colonized.  (Note that colonist production is
+completely automatic, and consumes no production points.)  </P>
+
+<P> A planet's industry level is increased by the production of
+capital goods.  These represent things like machine tools, computers
+and transport vehicles.  To produce one unit of capital requires 5
+production points and 1 unit of raw materials.  If the planet's
+industry level is below its population it will then be increased by
+one unit.  Otherwise the capital units will be stockpiled.  If shipped
+to a planet whose industry level is below its population, that
+planet's industry level will be increased.  This is useful for quickly
+building up the economy of a colony planet. </P>
 
 www_section(`combat', `Combat')
 
@@ -440,7 +394,6 @@ A battle is a draw if:</P>
 </OL>
 </P>
 
-
 <P> The success of an attacker firing on a target is calculated as follows: 
 The power of
 the attack is equal to the Weapons number multiplied by the Weapons
@@ -480,9 +433,7 @@ is: </P>
   can be computed with log(x)/log(4).
 </PRE>
 
-
-
-www_subSection(`conque', `Conquering Planets')
+www_subSection(`conquest', `Conquering Planets')
 
 <P> If an armed ship is left at one of an enemy race's planets after
 all fighting has been done, it will bomb the planet and wipe out 75%
@@ -510,35 +461,6 @@ when there are ships with small guns and big shields.  In this case,
 the planet is bombed but nobody gets ownership over the planet.  </P>
 
 
-
-www_subSection(`warpeace', `War and Peace')
-
-<P> At the start of the game you are assumed to be at war with all the
-other races.  You may declare peace on another race at any time.  This
-means that your ships will not fire on ships belonging to that race,
-nor bomb their planets.  However that race will still consider itself
-at war with you and until they have also declared peace, their ships
-will still attack you.  Of course, your warships will always shoot
-back if fired on.  (Actually, the battle will be fought just as if
-both sides were at war with each other; being at peace puts your
-warships at no disadvantage in combat.) Having declared peace, you may
-declare war again at any stage and vice versa.  </P>
-
-<P> In your turn report, other races will be listed followed by their
-diplomatic status e.g. "Zzyaxians Peace" means that you are at peace
-with the Zzyaxians.  However you don't know whether they are at war
-with you unless you encounter some of their warships! (Of course you
-could always ask the Zzyaxians player and take his word for it...)
-</P>
-
-
-www_subSection(`victory', `Victory and Defeat')
-
-<P> Winning a Galaxy game is simple in concept: you must have
-completely exterminated all other races. When a race has no planets or
-ships left, it is declared extinct and deleted from the database.
-When a game is over, the name of the winner, together with any
-runners-up, will be posted to rec.games.pbm.  </P>
 
 
 
