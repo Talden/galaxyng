@@ -51,7 +51,9 @@ int CMD_relay( int argc, char **argv ) {
   aGame = NULL;
   resNumber = areValidOrders( stdin, &aGame, &raceName, &password,
 			      &final_orders, &theTurnNumber );
-  
+
+  plog(LBRIEF, "CMD_relay(\"%s\", \"%s\")\n", raceName, destination);
+
   confirmName = createString("%s/relay_%s_confirm", tempdir, raceName);
   if ((confirm = fopen(confirmName, "w")) == NULL) {
     plog(LBRIEF, "Can't open \"%s\".\n", confirmName);
