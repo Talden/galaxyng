@@ -2,6 +2,15 @@
 
 How to upgrade your existing games:
 
+==== UPGRADE To release-6.4.2 ================
+
+Compile galaxyng and copy it to your Games/ directory.  You
+may want to review NG/galaxyngrc and NG/procmailrc which have
+been updated and are better documented.  If you are running a
+mirror of the GalaxyNG web site, you should copy the contents
+of NG/Doc to your web site and verify that base_url.txt is
+still correct.
+
 ==== UPGRADE To release-6.4.0 ================
 
 The entire GalaxyNG web site has been rewritten.  You have two
