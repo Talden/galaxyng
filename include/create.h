@@ -13,7 +13,7 @@
 #include <stdio.h>
 #endif
 
-/****s* GalaxyNG/newplayer
+/****s* Create/newplayer
  * NAME
  *   newplayer --
  * SOURCE
@@ -34,7 +34,7 @@ typedef struct newplayer {
 /**********/
 
 
-/****s* GalaxyNG/gamespecification
+/****s* Create/gamespecification
  * NAME
  *   gamespecification --
  * FUNCTIONS

@@ -1,4 +1,4 @@
-/****h* Galaxy/GalaxyNG *
+/****h* Galaxy/GalaxyNG
 *  NAME  
 *    galaxyng -- Server for the play-by-email game GalaxyNG
 *  SYNOPSIS
@@ -21,7 +21,7 @@
 *     GalaxyNG -- glues it all together.
 *  AUTHOR
 *    Created by:  
-*    o Frans Slothouber (fslothouber@acm.org) 
+*    o Frans Slothouber
 *    o Christophe  Barbier 
 *    o Jacco van Weert 
 *    o Tommy Lindqvist       
@@ -47,7 +47,8 @@
 *    and many not very descriptively named function. The code is
 *    pretty stable however.
 *  BUGS
-*
+*    See the sourceforge page at
+*       http://sourceforge.net/projects/galaxyng/
 **********
 */
 
@@ -110,7 +111,14 @@ int             relayMessage(game *aGame, char *nationName, player *to);
 void            usage(void);
 
 
-/****f* GalaxyNG/main
+/****h* GalaxyNG/CLI
+ * FUNCTION
+ *   Function for the command line interface of GalaxyNG.
+ *****
+ * This stuff will move to a seperate file later on.
+ */
+
+/****f* CLI/main
  * NAME
  *   main -- the start of it all.
  * RESULT
@@ -264,7 +272,7 @@ main(int argc, char **argv)
 /******/
 
 
-/****f* GalaxyNG/CMD_template
+/****f* CLI/CMD_template
  * NAME
  *   CMD_template -- Create a template .glx file that the GM can edit.
  * SYNOPSIS
@@ -423,7 +431,7 @@ CMD_template(int argc, char **argv)
 /************/
 
 
-/****f* GalaxyNG/CMD_run
+/****f* CLI/CMD_run
  * NAME
  *   CMD_run -- run turn and send turn reports
  * SYNOPSIS
@@ -566,7 +574,7 @@ CMD_run(int argc, char **argv, int kind)
 /*********/
 
 
-/****f* GalaxyNG/checkTime
+/****f* CLI/checkTime
  * NAME
  *   checkTime -- check if it is really time to run a turn.
  * SYNOPSIS
@@ -622,7 +630,7 @@ checkTime(game *aGame)
 /**********/
 
 
-/****f* GalaxyNG/CMD_check
+/****f* CLI/CMD_check
  * NAME
  *   CMD_check -- check incoming orders.
  * FUNCTION
@@ -884,7 +892,7 @@ CMD_check(int argc, char **argv, int kind)
 /***********/
 
 
-/****f* GalaxyNG/CMD_checkFile
+/****f* CLI/CMD_checkFile
  * NAME
  *   CMD_checkFile --
  * NOTE
@@ -996,7 +1004,7 @@ CMD_checkFile(int argc, char **argv, int kind)
 
 
 
-/****i* GalaxyNG/CMD_relay
+/****i* CLI/CMD_relay
  * NAME 
  *   CMD_relay -- relay a message from one nation to another.
  * FUNCTION
@@ -1097,7 +1105,7 @@ CMD_relay(int argc, char **argv)
 }
 
 
-/****i* GalaxyNG/relayMessage
+/****i* CLI/relayMessage
  * NAME
  *   relayMessage --
  ******
@@ -1144,7 +1152,7 @@ relayMessage(game *aGame, char *nationName, player *to)
 }
 
 
-/****f* GalaxyNG/CMD_create
+/****f* CLI/CMD_create
  * NAME
  *   CMD_create -- create a new galaxy and game.
  * SYNOPSIS
@@ -1203,7 +1211,7 @@ CMD_create(int argc, char **argv)
 /********/
 
 
-/****f* GalaxyNG/CMD_mail0
+/****f* CLI/CMD_mail0
  * NAME
  *   CMD_mail0 -- mail the turn 0 reports.
  * SYNOPSIS
@@ -1282,7 +1290,7 @@ CMD_mail0(int argc, char **argv, int kind)
 /**********/
 
 
-/****f* GalaxyNG/CMD_report
+/****f* CLI/CMD_report
  * NAME 
  *   CMD_report -- send a copy of a turn report.
  * SYNOPSIS
@@ -1419,7 +1427,7 @@ CMD_report(int argc, char **argv)
 /**********/
 
 
-/****f* GalaxyNG/CMD_score
+/****f* CLI/CMD_score
  * NAME
  *   CMD_score -- Show highscore list.
  * FUNCTION
@@ -1460,7 +1468,7 @@ CMD_score(int argc, char **argv)
 /*********/
 
 
-/****f* GalaxyNG/CMD_graph
+/****f* CLI/CMD_graph
  * NAME
  *   CMD_graph -- create a data dump for a graph of a game.
  * NOTES 
@@ -1501,7 +1509,7 @@ CMD_graph(int argc, char **argv)
 /******/
 
 
-/****f* GalaxyNG/CMD_dump
+/****f* CLI/CMD_dump
  *  NAME
  *    CMD_dump -- dump game data.
  *  SYNOPSIS
@@ -1633,7 +1641,7 @@ CMD_dump(int argc, char **argv, int kind)
 /**********/
 
 
-/****f* GalaxyNG/CMD_test
+/****f* CLI/CMD_test
  * NAME
  *   CMD_test -- check the integrity of a game.
  * FUNCTION
@@ -1668,7 +1676,7 @@ CMD_test(int argc, char **argv)
 
 
 
-/****f* GalaxyNG/CMD_selftest
+/****f* CLI/CMD_selftest
  * NAME
  *   CMD_selftest -- run a series of selftests
  * FUNCTION
@@ -1759,7 +1767,7 @@ CMD_battletest(int argc, char **argv)
 }
 
 
-/****f* GalaxyNG/usage
+/****f* CLI/usage
  * NAME
  *   usage -- print usage info.
  *******

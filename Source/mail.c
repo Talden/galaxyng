@@ -5,6 +5,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+/****h* GalaxyNG/Mail
+ * FUNCTION
+ *   This module contains functions to create,
+ *   fill and send email messages.
+ *****
+ */
+
+
 void createMailToAllHeader(game *aGame)
 {
   player *aPlayer;
@@ -26,7 +35,7 @@ void createMailToAllHeader(game *aGame)
   printf("\nSubject:\n");
 }
 
-/****f* GalaxyNG/createEnvelope
+/****f* Mail/createEnvelope
  * NAME
  *   createEnvelope -- create an envelope.
  * FUNCTION
@@ -47,7 +56,7 @@ envelope *createEnvelope()
 }
 
 
-/****f* GalaxyNG/setHeader
+/****f* Mail/setHeader
  * NAME
  *   setHeader -- write something on the envelope.
  * SYNOPSIS
@@ -90,7 +99,7 @@ void setHeader(envelope *e, int headerType, char *format, ...) {
   }
 }
 
-/****f* GalaxyNG/destroyEnvelope
+/****f* Mail/destroyEnvelope
  * NAME
  *   destroyEnvelope -- free memory used by an envelope.
  * SYNOPSIS
@@ -108,7 +117,7 @@ void destroyEnvelope(envelope *e)
 }
 
 
-/****f* GalaxyNG/eMail 
+/****f* Mail/eMail 
  * NAME
  *   eMail -- mail the contents of a file to someone.
  * FUNCTION

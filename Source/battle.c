@@ -5,10 +5,16 @@
 #include "list.h"
 #include "util.h"
 
+/****h* GalaxyNG/Battle
+ * FUNCTION
+ *   This module contains the battle simulator.
+ ******
+ */
+
 char           *vbattle =
     "$Id$";
 
-/****f* GalaxyNG/fightphase
+/****f* Battle/fightphase
  * NAME
  *   fightphase
  * SYNOPSIS
@@ -76,7 +82,7 @@ fightphase(game *aGame, int phase)
 
 
 
-/****f* GalaxyNG/doBattle
+/****f* Battle/doBattle
  * NAME
  *   doBattle --
  * FUNCTION
@@ -130,7 +136,7 @@ doBattle(batstat *batstats, bprotocol *aProtocol, int phase)
 /**** END doBattle ***/
 
 
-/****f* GalaxyNG/attack
+/****f* Battle/attack
  * NAME
  *   attack -- let one ship fire on another ship
  * FUNCTION
@@ -181,7 +187,7 @@ attack(bprotocol *aProtocol,
 
 
 
-/****f* GalaxyNG/shoot
+/****f* Battle/shoot
  * NAME
  *   shoot -- does a ship surive a shot? 
  * SYNOPSIS
@@ -214,7 +220,7 @@ shoot(group *attacker, group *defender)
 
 
 
-/****f* GalaxyNG/isWon
+/****f* Battle/isWon
  * NAME
  *   isWon -- is a battle is won?
  * FUNCTION
@@ -248,7 +254,7 @@ isWon(batstat *aBatstat)
 /**** END OF isWon *****/
 
 
-/****f* GalaxyNG/attackersLeft
+/****f* Battle/attackersLeft
  * NAME
  *   attackersLeft -- are there any ships that haven't fired yet?
  * FUNCTION
@@ -276,7 +282,7 @@ attackersLeft(batstat *aBatstat)
 /******/
 
 
-/****f* GalaxyNG/isDraw
+/****f* Battle/isDraw
  * NAME
  *   isDraw -- is a battle a draw?
  * SYNOPSIS
@@ -345,7 +351,7 @@ isDraw(batstat *batstats)
 /*** END OF isDraw ***/
 
 
-/****f* GalaxyNG/resetSides
+/****f* Battle/resetSides
  * NAME
  *   resetSides -- reset all groups for another round of fighting
  * FUNCTION
@@ -394,7 +400,7 @@ resetSides(batstat *aBatstat)
 /*****/
 
 
-/****f* GalaxyNG/updateGroups
+/****f* Battle/updateGroups
  * NAME
  *   updateGroups -- count the losses.
  * FUNCTION
@@ -428,7 +434,7 @@ updateGroups(battle *b)
 
 
 
-/****f* GalaxyNG/selectAttackingGroup
+/****f* Battle/selectAttackingGroup
  * NAME
  *   selectAttackingGroup -- select a group and a ship in this group
  * FUNCTION
@@ -506,7 +512,7 @@ selectAttackingGroup(batstat *batstats, batstat **attackingSide, int *ship)
 
 
 
-/****f* GalaxyNG/selectTargetGroup
+/****f* Battle/selectTargetGroup
  * NAME
  *   selectTargetGroup -- randomly select a group
  * SYNOPSIS
@@ -597,7 +603,7 @@ selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
 
 
 
-/****f* GalaxyNG/isBattle
+/****f* Battle/isBattle
  * NAME
  *   isBattle -- should a battle take place on a planet?
  * SYNOPSIS
@@ -711,7 +717,7 @@ isBattle(player *players, planet *p)
 
 
 
-/****f* GalaxyNG/mustBattle
+/****f* Battle/mustBattle
  * NAME
  *   mustBattle -- check whether participants are gonnna battle
  * SYNOPSIS
@@ -748,7 +754,7 @@ mustBattle(participant *participants)
 /**** END OF mustBattle ****/
 
 
-/****f* GalaxyNG/canShoot
+/****f* Battle/canShoot
  * NAME 
  *   canShoot -- are there armed groups in a list of groups
  * FUNCTION
@@ -799,7 +805,7 @@ dumpBattle(battle *b)
 
 
 
-/****i* GalaxyNG/allocEnemies
+/****i* Battle/allocEnemies
  * NAME
  *   allocEnemies --
  * FUNCTION
@@ -846,7 +852,7 @@ allocEnemies(batstat *batstats)
 }
 
 
-/****f* GalaxyNG/allocProtocol
+/****f* Battle/allocProtocol
  * NAME
  *   allocProtocol -- allocate a battle protocol structure
  * FUNCTION
@@ -867,7 +873,7 @@ allocProtocol(void)
 }
 
 
-/****i* GalaxyNG/addShot
+/****i* Battle/addShot
  * NAME
  *  addShot --
  *****

@@ -7,6 +7,14 @@
 
 #include "process.h"
 
+
+/****h* GalaxyNG/Process
+ * FUNCTION
+ *   This module contains functions to process orders
+ *   and run a turn.
+ ******
+ */
+
 extern int      nbrProducts;
 
 char           *vprocess =
@@ -14,7 +22,7 @@ char           *vprocess =
 
 void    forecast_xml(game* aGame, player* aPlayer, FILE* forecast);
 
-/****v* GalaxyNG/phase1orders
+/****v* Process/phase1orders
  * NAME
  *   phase1orders -- map of all phase 1 orders.
  * FUNCTION
@@ -52,7 +60,7 @@ orderinfo       phase1orders[] = {
 
 /**********/
 
-/****v* GalaxyNG/phase2orders
+/****v* Process/phase2orders
  * NAME
  *   phase2orders -- map of all phase 2 orders.
  * FUNCTION
@@ -70,7 +78,7 @@ orderinfo       phase2orders[] = {
 
 /*********/
 
-/****v* GalaxyNG/phase3orders
+/****v* Process/phase3orders
  * NAME
  *   phase3orders -- map of all phase 3 orders.
  * FUNCTION
@@ -95,7 +103,7 @@ char           *string_mail_to = "to:"; /* Dutch: aan: */
 
 char           *string_mail_from = "from:";     /* Dutch: van: */
 
-/****f* GalaxyNG/mistake
+/****f* Process/mistake
  * NAME
  *   mistake -- generate an error message about an order.
  * FUNCTION
@@ -146,7 +154,7 @@ mistake(player *P, enum error_type elevel, strlist *s, char *format, ...)
 /********/
 
 
-/****f* GalaxyNG/at_order
+/****f* Process/at_order
  * NAME
  *   at_order -- write message to a nation
  * SOURCE
@@ -198,7 +206,7 @@ at_order(game *aGame, player *P, strlist **s)
 
 
 
-/****f* GalaxyNG/eq_order
+/****f* Process/eq_order
  * NAME
  *   eq_order -- set real name
  * SOURCE
@@ -908,7 +916,7 @@ j_order(game *aGame, player *P, strlist **s)
 }
 
 
-/****f* GalaxyNG/l_order
+/****f* Process/l_order
  * NAME
  *   l_order -- load cargo onto a group of ships.
  * FUNCTION
@@ -1426,7 +1434,7 @@ t_order(game *aGame, player *P, strlist **s)
   }
 }
 
-/****f* GalaxyNG/u_order
+/****f* Process/u_order
  * NAME
  *   u_order -- unload cargo
  * SOURCE
@@ -1525,7 +1533,7 @@ u_order(game *aGame, player *P, strlist **s)
 /***** END u_order ******/
 
 
-/****f* GalaxyNG/v_order
+/****f* Process/v_order
  * NAME
  *   v_order -- claim a planet.
  * SOURCE
@@ -1556,7 +1564,7 @@ v_order(game *aGame, player *P, strlist **s)
 /***** END v_order *****/
 
 
-/****f* GalaxyNG/w_order
+/****f* Process/w_order
  * NAME
  *   w_order -- declare war on another nation.
  * SOURCE
@@ -1681,7 +1689,7 @@ z_order(game *aGame, player *P, strlist **s)
 
 
 
-/****f* GalaxyNG/runTurn
+/****f* Process/runTurn
  * NAME
  *   runTurn -- run a turn.
  * SYNOPSIS
@@ -1848,7 +1856,7 @@ runTurn(game *aGame, char *ordersFileName)
 /****************/
 
 
-/****f* GalaxyNG/checkOrders
+/****f* Process/checkOrders
  * NAME
  *   checkOrders --  check orders
  * SYNOPSIS
@@ -1959,7 +1967,7 @@ checkOrders(game *aGame, char *nationName, FILE * forecast, int kind)
 /*************/
 
 
-/****f* GalaxyNG/copyOrders
+/****f* Process/copyOrders
  * NAME
  *   copyOrders -- copy incoming orders to file.
  * SYNOPSIS
@@ -2017,7 +2025,7 @@ copyOrders(game *aGame,
 /*****************/
 
 
-/****f* GalaxyNG/areValidOrders
+/****f* Process/areValidOrders
  * NAME
  *   areValidOrders -- check if orders are valid and load game.
  * SYNOPSIS
@@ -2127,7 +2135,7 @@ areValidOrders(FILE * ordersFile,
 /*********/
 
 
-/****f* GalaxyNG/getTurnNumber
+/****f* Process/getTurnNumber
  * NAME
  *   getTurnNumber -- get the turn number
  * FUNCTION
@@ -2181,7 +2189,7 @@ getTurnNumber(FILE * orders)
 }
 
 
-/****f* GalaxyNG/getDestination
+/****f* Process/getDestination
  * NAME
  *   getDestination -- get Destination for the message
  * FUNCTION
@@ -2230,7 +2238,7 @@ getDestination(FILE * orders)
 }
 
 
-/****f* GalaxyNG/getReturnAddress
+/****f* Process/getReturnAddress
  * NAME
  *   getReturnAddress
  * FUNCTION
@@ -2262,7 +2270,7 @@ getReturnAddress(FILE * orders)
 
 
 
-/****f* GalaxyNG/doOrders
+/****f* Process/doOrders
  * NAME
  *   doOrders -- carry out all orders.
  * SYNOPSIS
@@ -2317,7 +2325,7 @@ doOrders(game *aGame, player *aPlayer, orderinfo *orderInfo, int phase)
 
 /***************/
 
-/****f* GalaxyNG/removeDeadPlayer 
+/****f* Process/removeDeadPlayer 
  * NAME
  *   removeDeadPlayer -- Removes idle players 
  * FUNCTION
@@ -2397,7 +2405,7 @@ removeDeadPlayer(game *aGame)
 /***********/
 
 
-/****f* GalaxyNG/preComputeGroupData
+/****f* Process/preComputeGroupData
  * NAME
  *   preComputeGroupData -- precompute some frequently used values.
  * FUNCTION
@@ -2426,7 +2434,7 @@ preComputeGroupData(game *aGame)
 /**********/
 
 
-/****f* GalaxyNG/generateErrorMessage 
+/****f* Process/generateErrorMessage 
  * NAME
  *   generateErrorMessage -- create error message for faulty orders.
  * FUNCTION

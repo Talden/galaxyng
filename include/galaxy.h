@@ -24,6 +24,25 @@
  * 
  */
 
+/****h* GalaxyNG/GameElements
+ * FUNCTION
+ *   This module has data types for the core elements of the game
+ *   and functions to manipulate them.
+ *****
+ * Will move to another file later on
+ */
+
+/****h* GalaxyNG/Configuration
+ * FUNCTION
+ *   This module has data types for the game configuration.
+ *   (As specified in the galaxyng.rc file).
+ *****
+ * Will move to another file later on
+ */
+
+
+
+
 #define _GNU_SOURCE
 #include <stdio.h>
 
@@ -155,7 +174,7 @@
 /******/
 
 
-/****d* GalaxyNG/ProductTypes
+/****d* GameElements/ProductTypes
  * NAME
  *   ProductTypes -- things a planet can produce.
  * SOURCE
@@ -173,7 +192,7 @@ enum {
 
 /*********/
 
-/****d* GalaxyNG/CargoTypes
+/****d* GameElements/CargoTypes
  * NAME
  *   CargoTypes
  * SOURCE
@@ -234,7 +253,7 @@ struct player;
 typedef struct player player;
 
 
-/****s* GalaxyNG/fleetname
+/****s* GameElements/fleetname
  * NAME
  *   fleetname -- name of a fleet and its speed.
  * PURPOSE
@@ -259,7 +278,7 @@ typedef struct fleetname {
 /*********/
 
 
-/****s* GalaxyNG/shiptype
+/****s* GameElements/shiptype
  * NAME 
  *   shiptype -- design of a ship.
  * PURPOSE
@@ -285,7 +304,7 @@ typedef struct shiptype {
 /**************/
 
 
-/****d* GalaxyNG/PlanetFlags 
+/****d* GameElements/PlanetFlags 
  * NAME
  *   PlanetFlags --
  * FUNCTION
@@ -302,7 +321,7 @@ typedef struct shiptype {
 /*******/
 
 
-/****s* GalaxyNG/planet
+/****s* GameElements/planet
  * NAME
  *   planet --
  * PURPOSE
@@ -340,7 +359,7 @@ typedef struct planet {
 /*********/
 
 
-/****d** GalaxyNG/GroupFlags
+/****d** GameElements/GroupFlags
  * NAME
  *   GroupFlags
  * SOURCE
@@ -352,7 +371,7 @@ typedef struct planet {
 
 /*******/
 
-/****s* GalaxyNG/group
+/****s* GameElements/group
  * NAME
  *   group -- group structure
  * FUNCTION
@@ -436,7 +455,7 @@ typedef struct alliance {
 /**************/
 
 
-/****s* GalaxyNG/participant
+/****s* Battle/participant
  * NAME
  *   participant -- participant in a battle.
  * PURPOSE
@@ -456,7 +475,7 @@ typedef struct participant {
 /***********/
 
 
-/****s* GalaxyNG/shot
+/****s* Battle/shot
  * NAME
  *   shot
  * PURPOSE
@@ -475,7 +494,7 @@ typedef struct shot {
 /*********/
 
 
-/****s* GalaxyNG/bprotocol
+/****s* Battle/bprotocol
  * NAME
  *   bprotocol -- 
  * PURPOSE
@@ -493,7 +512,7 @@ typedef struct bprotocol {
 
 
 
-/****s* GalaxyNG/battle
+/****s* Battle/battle
  * NAME
  *   battle -- battle structure
  * PURPOSE
@@ -516,7 +535,7 @@ typedef struct battle {
 
 
 
-/****s* GalaxyNG/bombing
+/****s* Battle/bombing
  * NAME
  *   bombing -- bombing structure
  * PURPOSE
@@ -546,7 +565,7 @@ typedef struct bombing {
 
 
 
-/****s* GalaxyNG/planet_claim
+/****s* GameElements/planet_claim
  * NAME
  *   planet_claim
  * PURPOSE
@@ -564,7 +583,7 @@ typedef struct planet_claim {
 /******/
 
 
-/****s* GalaxyNG/option
+/****s* GameElements/option
  * NAME
  *   option -- an option a player can switch on or off
  * PURPOSE
@@ -580,7 +599,7 @@ typedef struct option {
 /******/
 
 
-/****s* GalaxyNG/player
+/****s* GameElements/player
  * NAME
  *   player --
  * PURPOSE
@@ -640,7 +659,7 @@ struct player {
 
 
 
-/****d* GalaxyNG/PlayerFlags 
+/****d* GameElements/PlayerFlags 
  * NAME
  *   PlayerFlags
  * SOURCE
@@ -676,7 +695,7 @@ struct player {
 /****************/
 
 
-/****s* GalaxyNG/server CB 20010425
+/****s* Configuration/server [CB 20010425]
  * NAME
  *   server -- NG server options structure
  * PURPOSE
@@ -700,7 +719,7 @@ typedef struct server {
 
 /*******/
 
-/****s* GalaxyNG/gameOpt CB 20010425
+/****s* Configuration/gameOpt [CB 20010425]
  * NAME
  *   gameOpt -- NG game options structure
  * PURPOSE
@@ -719,7 +738,7 @@ typedef struct gameOpt {
 
 /*******/
 
-/****s* GalaxyNG/game
+/****s* GameElements/game
  * NAME
  *   game -- game structure
  * PURPOSE
@@ -747,7 +766,7 @@ typedef struct game {
 /*******/
 
 
-/****d* GalaxyNG/GameFlags
+/****d* GameElements/GameFlags
  * NAME
  *   GameFlags
  * SOURCE
