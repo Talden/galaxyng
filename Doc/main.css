@@ -24,6 +24,7 @@ A:active {
 p, form {
   font-family:serif;
   font-size:medium; 
+  margin-left: 1em;
 }
 
 B, STRONG, I, EM, CITE, VAR, TT, CODE, KBD, SAMP, IMG
@@ -80,6 +81,7 @@ TH {
 TD {
   color: #FFFFFF;
   background-color: #00007F;
+  vertical-align: top;
 }
 
 CODE {
@@ -90,7 +92,7 @@ CODE {
 
 PRE { 
   white-space: pre;
-  margin-top: 0.5em;
+  margin-left: 3em;
 }
 
 ADDRESS { 
