@@ -380,10 +380,10 @@ echo "SERVERemail $SERVEREMAIL" >> $RCFILE
 echo "encode $ENCODE" >> $RCFILE
 echo "compress $COMPRESS" >> $RCFILE
 echo "fontpath $GALAXY_HOME" >> $RCFILE
-echo "; The due parameter is used for the -due flag." >> $RCFILE
-echo "; Don't put any spaces around it, thus, for example:" >> $RCFILE
-echo "; due {in four hours} and not: due { in four hours }" >> $RCFILE
-echo "due {soon}" >> $RCFILE
+echo "; The due parameter (hours) is used by the -immediate and -due flag." >> $RCFILE
+echo "due 4" >> $RCFILE
+echo "; The tick parameter (hours) is used by the -immediate flag." >> $RCFILE
+echo "tick 48" >> $RCFILE
 
 # =========================================================
 #  Copy GalaxyNG code
