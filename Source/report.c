@@ -127,6 +127,8 @@ mailGMReport(game *aGame, char *gameName)
     setHeader(anEnvelope, MAILHEADER_SUBJECT,
               "GM Report Turn %d for Galaxy Game %s", aGame->turn,
               gameName);
+    setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+
     fileName = createString("%s/%s_GM", tempdir, gameName);
     if ((gmreport = GOS_fopen(fileName, "w"))) {
       createGMReport(aGame, gameName, gmreport);
@@ -276,6 +278,7 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
                   "Galaxy Game %s Turn %d Text Report for %s",
                   aGame->name, aGame->turn, aPlayer->name);
       }
+      setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
       createTurnReport(aGame, aPlayer, turnreport, kind);
       fclose(turnreport);
       result = eMail(aGame, anEnvelope, fileName);

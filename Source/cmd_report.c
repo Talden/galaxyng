@@ -41,6 +41,8 @@ int CMD_report( int argc, char **argv ) {
             anEnvelope = createEnvelope(  );
             returnAddress = getReturnAddress( stdin );
             setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
+	    setHeader(anEnvelope, MAILHEADER_REPLYTO,
+		      aGame->serverOptions.ReplyTo);
             plog( LBRIEF, "Report request from %s.\n", returnAddress );
             theTurnNumber = getTurnNumber( stdin );
             raceName = NULL;
@@ -84,8 +86,9 @@ int CMD_report( int argc, char **argv ) {
                         runTurn( aGame2, ordersName );
                         free( ordersName );
                     }
-                    /* Translate the current race name into the name used during
-                     * the * turn * * * * that is requested */
+                    /* Translate the current race name into the name used
+		       during the turn that is requested
+		    */
                     aPlayer =
                         findElement( player, aGame->players, raceName );
 

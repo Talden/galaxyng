@@ -42,6 +42,8 @@ int CMD_ordersdue(int argc, char** argv) {
 	  env->from = strdup(aGame->serverOptions.SERVERemail);
 	  env->subject = createString("Turn %d of %s is about to run",
 				      aGame->turn+1, argv[2]);
+	  setHeader(env, MAILHEADER_REPLYTO,
+		    aGame->serverOptions.ReplyTo);
 	  if (msg_count == 0) {
 	    fprintf(gmnote, "The following players have not yet "
 		    "submitted orders for turn %d of %s\n",
@@ -66,35 +68,36 @@ int CMD_ordersdue(int argc, char** argv) {
 	  }
 	  fprintf(gmnote, "%s has not turned in orders.\n",
 		  aplayer->name);
-					result |= eMail(aGame, env, missing_orders_file);
-					destroyEnvelope(env);
-					msg_count++;
-				}
-				free(orders_file);
-			}
-		}
-		free(orders_dir);
+	  result |= eMail(aGame, env, missing_orders_file);
+	  destroyEnvelope(env);
+	  msg_count++;
 	}
-	else {
-		fprintf(stderr, "Cannot open game %s\n", argv[2]);
-	}
-	
-	if (missing_orders_file) {
-		unlink(missing_orders_file);
-		free(missing_orders_file);
-	}
-	
-	if (msg_count) {
-		fclose(gmnote);
-		env = createEnvelope();
-		env->to = strdup(aGame->serverOptions.GMemail);
-		env->from = strdup(aGame->serverOptions.SERVERemail);
-		env->subject = createString("Turn %d of %s is about to run",
-									aGame->turn+1, aGame->name);
-		result |= eMail(aGame, env, gmbody);
-		
-		destroyEnvelope(env);
-	}
-
-	return result;
+	free(orders_file);
+      }
+    }
+    free(orders_dir);
+  }
+  else {
+    fprintf(stderr, "Cannot open game %s\n", argv[2]);
+  }
+  
+  if (missing_orders_file) {
+    unlink(missing_orders_file);
+    free(missing_orders_file);
+  }
+  
+  if (msg_count) {
+    fclose(gmnote);
+    env = createEnvelope();
+    env->to = strdup(aGame->serverOptions.GMemail);
+    env->from = strdup(aGame->serverOptions.SERVERemail);
+    env->subject = createString("Turn %d of %s is about to run",
+				aGame->turn+1, aGame->name);
+    setHeader(env, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+    result |= eMail(aGame, env, gmbody);
+    
+    destroyEnvelope(env);
+  }
+  
+  return result;
 }
