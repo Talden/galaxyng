@@ -4,6 +4,8 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-US">
 
+<!-- $Id$ -->
+
 	<head>
 		<link rel=stylesheet href="main.css" />
 		<title>GalaxyNG Manuals</title>
