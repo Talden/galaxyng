@@ -5,11 +5,10 @@
 	<li><a href="http://galaxy.gesserit.net/">Nine Lives GalaxyNG Server</a>
 		<ul>
 			<li><a href="http://galaxy.gesserit.net/Distance/">Distance</a></li>
-			<li><a href="http://galaxy.gesserit.net/Giants/">Giants</a></li>
+			<li><a href="http://galaxy.gesserit.net/Heaven/">Heaven</a></li>
 			<li><a href="http://galaxy.gesserit.net/Meercat/">Meercat</a></li>
 			<li><a href="http://galaxy.gesserit.net/Morat2/">Morat2</a></li>
 			<li><a href="http://galaxy.gesserit.net/Newcomer4/">Newcomer4</a></li>
-			<li><a href="http://galaxy.gesserit.net/tournament.php">Nine Lives GalaxyNG Tournament</a>: <a href="http://galaxy.gesserit.net/t15/">t15</a></p></li>
 			<li><a href="http://galaxy.gesserit.net/Polecat/">Polecat</a></li>
 			<li><a href="http://galaxy.gesserit.net/Standard2/">Standard2</a></li>
 			<li><a href="http://galaxy.gesserit.net/Tabby/">Tabby</a></li>
