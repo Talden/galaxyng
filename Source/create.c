@@ -18,7 +18,7 @@
 *        but the total sum of the sizes is the same for all nations.
 *        The resources of the planets are still chosen random.
 *
-*    (2) The home world can be spaced widely from eachother, ensuring
+*    (2) The home world can be spaced widely from each other, ensuring
 *        that a nation isn't kicked out in the first few turns.
 *
 *    (3) To improve the tactical possibilities a number of `stuff
@@ -30,7 +30,7 @@
 *        more than one home planet, this will speed up the game.
 *
 *    All these options can be controled with a set of variables
-*    that you will be asked to supply when you the galaxy
+*    that you will be asked to supply when you run the galaxy
 *    program to create a new galaxy.  A large number of
 *    different galaxies is thus possible. Try to experiment a
 *    little before you settle on a galaxy you like.
@@ -213,10 +213,6 @@ readGameSpec(FILE * specfile)
       else if (noCaseStrcmp("secondary_radius", key) == 0) {
         value = getstr(0);
         aGameSpec->radiusSecondaryPlanets = atof(value);
-      }
-      else if (noCaseStrcmp("nation_spacing", key) == 0) {
-        value = getstr(0);
-        aGameSpec->minDist = atof(value);
       }
       else if (noCaseStrcmp("name", key) == 0) {
         setName(aGameSpec, getstr(0));
@@ -504,6 +500,68 @@ createStandardLayout(gamespecification *aGameSpec,
   return TRUE;
 }
 
+
+int
+createDistributedLayout(gamespecification *aGameSpec,
+						game *aGame, int planet_name)
+{
+	newplayer* aNewPlayer;
+
+	aGame->galaxysize = aGameSpec->galaxySize;
+
+	for (aNewPlayer = aGameSpec->players;
+		 aNewPlayer; aNewPlayer = aNewPlayer->next) {
+		planet* core_planet;
+		player* aPlayer;
+
+		initUniqifyValues();        /* this is so that we can guarantee that
+									 * no two planets will inhabit the same
+									 * coordinates */
+
+		aPlayer = createPlayer(aGameSpec, aGame, aNewPlayer);
+		printf("o Adding player %s\n", aPlayer->name);
+		addList(&(aGame->players), aPlayer);
+		if ((core_planet =
+			 Add_Core_Home_Planet(aGame, aGameSpec->minDist,
+								  &planet_name, aPlayer,
+								  aNewPlayer->coreSizes[0]))) {
+			double x, y;
+			
+			x = core_planet->x;
+			y = core_planet->y;
+			if (aNewPlayer->numberOfHomePlanets > 1) {
+				int             cur_extra_home;
+				
+				printf("o Adding secondary home planets.\n");
+				for (cur_extra_home = 1;
+					 cur_extra_home < aNewPlayer->numberOfHomePlanets;
+					 cur_extra_home++) {
+					Add_Extra_Home_Planets(aGame, x, y,
+										   aNewPlayer->coreSizes[cur_extra_home],
+										   aGameSpec->radiusSecondaryPlanets,
+										   &planet_name, aPlayer);
+				}
+			}
+			if (aGameSpec->numberOfEmptyPlanets) {
+				Add_Empty_Planets(aGame, aGameSpec->numberOfEmptyPlanets,
+								  aGameSpec->radiusEmptyPlanets, x, y,
+								  &planet_name, 600.0, 700.0);
+			}
+			if (aGameSpec->numberOfStuffPlanets) {
+				Add_Stuff_Planets(aGame,
+								  aGameSpec->numberOfStuffPlanets, &planet_name);
+			}
+		}
+		else {
+			printf("Can't space homeworlds at least %f light years apart.\n",
+				   aGameSpec->minDist);
+			printf("Please try again with a larger sized galaxy.\n");
+			return FALSE;
+		}
+	}
+	/* Add_Center_Planet(aGame, &planet_name); */
+	return TRUE;
+}
 
 /****** Create/createCheckeredLayout
  *
@@ -996,7 +1054,7 @@ Randomize_Planet_Numbers(game *aGame)
  * NAME
  *   Add_Core_Home_Planet -- add a core home planet for a nation.
  * FUNCTION
- *   Each nation has atleast one home planet. This is it's core home
+ *   Each nation has at least one home planet. This is it's core home
  *   planet. The other home planets are located around it.  This
  *   function allocates a core home planet. It makes sure that there
  *   is a minimum distance between all core home planets.  The core
@@ -1015,69 +1073,69 @@ Randomize_Planet_Numbers(game *aGame)
  *****
  */
 
-planet         *
-Add_Core_Home_Planet(game *aGame,
-                     double min_dist, int *planet_name,
+planet *
+Add_Core_Home_Planet(game *aGame, double min_dist, int *planet_name,
                      player *aPlayer, double size)
 {
-  int             try;
-  int             found_location;
-  planet         *p;
-  double          x, y, beta, radius;
-
-  printf("o Adding main home planet.\n");
-  unode = (struct uniq_avl *) malloc(sizeof(struct uniq_avl));
-  for (found_location = FALSE, try = 0; !found_location; try++) {
-    double          dx, dy;
-
-    found_location = TRUE;
-    beta = frand(360) * (2 * 3.141592654 / 360.0);
-    radius = frand(aGame->galaxysize / 2.0 - 4.0);
-    x = round2(radius * cos(beta) + aGame->galaxysize / 2.0);
-    y = round2(radius * sin(beta) + aGame->galaxysize / 2.0);
-    assert((x < aGame->galaxysize) && (x > 0));
-    assert((y < aGame->galaxysize) && (y > 0));
-    sprintf(unode->key, "%08d%08d", (int) (x * 100), (int) (y * 100));
-    if (avl_search(&unique, (avl *) unode, avliter) == 0) {
-      avl_insert(&unique, (avl *) unode);
-    }
-    else {
-      printf("x, y: %.2f,%.2f  ;; key: %s\n", x, y, unode->key);
-      found_location = FALSE;
-      if (try == 4000)
-        return NULL;
-      continue;
-    }
-
-    for (p = aGame->planets; p; p = p->next) {
-      if (p->owner) {
-        dx = p->x - x;
-        dy = p->y - y;
-        if (dx * dx + dy * dy <= min_dist * min_dist) {
-          found_location = FALSE;
-          if (unique.root)
-            avl_remove(&unique, (avl *) unode);
-
-          if (try == 4000) {
-            return NULL;
-          }
-
-        }
-      }
-    }
-  }
-  p = addplanet(aGame);
-  (*planet_name)++;
-  p->x = x;
-  p->y = y;
-  p->owner = aPlayer;
-  p->size = size;
-  p->resources = 10.0;
-  p->pop = size;
-  p->ind = size;
-  p->producing = PR_DRIVE;
-  printPlanetStats(p);
-  return p;
+	int             try;
+	int             found_location;
+	planet         *p;
+	double          x, y, beta, radius;
+	double  half_galaxy = aGame->galaxysize / 2.0;
+	
+	printf("o Adding main home planet.\n");
+	unode = (struct uniq_avl *) malloc(sizeof(struct uniq_avl));
+	for (found_location = FALSE, try = 0; !found_location; try++) {
+		double          dx, dy;
+		
+		found_location = TRUE;
+		beta = frand(360.0) * 0.01745329; /* (2 * 3.141592654 / 360.0) */
+		radius = frand(half_galaxy - 4.0);
+		x = round2(radius * cos(beta) + half_galaxy);
+		y = round2(radius * sin(beta) + half_galaxy);
+		assert((x < aGame->galaxysize) && (x > 0));
+		assert((y < aGame->galaxysize) && (y > 0));
+		sprintf(unode->key, "%08d%08d", (int) (x * 100), (int) (y * 100));
+		if (avl_search(&unique, (avl *) unode, avliter) == 0) {
+			avl_insert(&unique, (avl *) unode);
+		}
+		else {
+			printf("x, y: %.2f,%.2f  ;; key: %s\n", x, y, unode->key);
+			found_location = FALSE;
+			if (try == 4000)
+				return NULL;
+			continue;
+		}
+		
+		for (p = aGame->planets; p; p = p->next) {
+			if (p->owner) {
+				dx = p->x - x;
+				dy = p->y - y;
+				if (dx * dx + dy * dy <= min_dist * min_dist) {
+					found_location = FALSE;
+					if (unique.root)
+						avl_remove(&unique, (avl *) unode);
+					
+					if (try == 4000) {
+						return NULL;
+					}
+					
+				}
+			}
+		}
+	}
+	p = addplanet(aGame);
+	(*planet_name)++;
+	p->x = x;
+	p->y = y;
+	p->owner = aPlayer;
+	p->size = size;
+	p->resources = 10.0;
+	p->pop = size;
+	p->ind = size;
+	p->producing = PR_DRIVE;
+	printPlanetStats(p);
+	return p;
 }
 
 
