@@ -1,0 +1,117 @@
+From rfsber@xs4all.nl Wed Apr 30 09:11:18 2003
+Date: Wed, 30 Apr 2003 14:33:15 +0200
+From: Frans and Ranjana Slothouber <rfsber@xs4all.nl>
+To: Steven Webb <steve@badcheese.com>
+Subject: Re: Forgot how to host a "team" game.
+
+On Tue, Apr 29, 2003 at 09:07:18AM -0600, Steven Webb wrote:
+
+Hoi Steve,
+
+> I'm hosting another "Tiger" game, and I forget what to put in the .glx
+> file.  It's not in the docs (I'll put it in there once I know), but what
+> are the special lines again?
+
+Good question :)
+
+Had a long search in my mail archives and found the following:
+
+=================================================================
+
+On Fri, Mar 30, 2001 at 12:36:26PM -0700, Steven Webb wrote:
+> Ok, how would I start a "team" game with 5.0g?
+
+:)  Guess you found out there is no documentation on that :)
+
+
+First get two teams...  best is to have the players themselves
+form the team and appoint a team captain for each team.
+
+After that you will have two lists with email addreses.
+You add them in the .glx file and above the first
+list you add
+
+  team 0
+
+and before the second list you add
+
+  team 1
+
+
+At the top of the .glx file you add
+
+  teamgame
+
+and then depending on the number of players there are:
+
+  rows 10
+  colums 10
+
+(in this case the game would have 100 players).
+
+You then run the create command and the game is ready.
+With 
+  ./galaxyng -teaminfo  game  turn  team_number
+you can create a special report for each of the team captains.
+
+
+All very simple :)  except...   depending on the number of
+players you will have to edit the creategame.c file.
+
+The galaxy that is created looks something like:
+
+   t0   t1   t0  ...  t1   t0   t1 
+
+   t1   t0   t1  ...  t0   t1   t1 
+         .            .
+         .            .
+         .            .
+   t0   t1   t0  ...  t1   t0   t1 
+
+   t1   t0   t1  ...  t0   t1   t1 
+
+Where t0 is the home planet of a team 0 player and  t1 is
+the home planet of a team 1 player.  (That way each team
+player is surrounded by an equal amount of allies and enemies).
+
+The number of rows and colums is defined in the .glx file.
+
+However  rows x colums  must be equal to the number of players
+that join. And in some case this gives odd results.
+
+For instance if  16 players join  the galaxy
+will be  4 by 4.    However if  14 player join the galaxy will
+be 2 x 7   which will look very odd.    
+This can be solved by using a bigger number of row and colums
+and removing some of the planets  (I did that for Tiger3).
+
+For instance  for the 14 player one, you can make it
+4 by 4 and remove 2 planets:  
+
+   
+        t1   t0   t1 
+
+   t1   t0   t1   t0 
+
+   t0   t1   t0   t1 
+
+   t1   t0   t1      
+
+
+You can find out how this is done in
+createCheckeredLayout()...  it is currently setup for
+a 7 by 7 grid and the removed of the corner players and
+4 players in the middle...
+
+===============================================================
+
+
+
+
+Have fun,
+Frans.
+
+
+-- 
+ Frans Slothouber
+
