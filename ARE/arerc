@@ -29,7 +29,7 @@
          Aside from naming his planets they can set the size. There
          are constraints on both number of planets to start with and
          their sizes. -->
-    <planets type="home">
+    <homeworlds>
       <sizes>
         <!-- with no <min> supplied, the game default minimum planet
              size of 100 (for homeworlds) is used -->
@@ -40,10 +40,11 @@
            define. If the player defines none, then these are the
            defaults that will be used. Setting min == max means that
            exactly that number homeworlds will be created -->
+       <count>
          <min>3</min>
          <max>3</max>
-       </sizes>
-    </planets>
+       </count>
+    </homeworlds>
     <!-- note that with nothing else defined there is a lot of default
          behaviour here. This is unlikely to happen in reality because
          there will be some sort of "game generation" process which
@@ -61,7 +62,7 @@
     <maxplayers>25</maxplayers>
     <galaxy_size>450.0</galaxy_size>
     <nation_spacing>30.0</nation_spacing>
-    <planets type="home">
+    <homeworlds>
       <!-- in a standard game all homeworlds have maximum resources -->
       <res>
         <min>10.0</min>
@@ -123,10 +124,10 @@
         <pop>250.0</pop>
         <ind>250.0</ind>
       </planet>
-    </planets>
+    </homeworlds>
     <!-- these are the planets stuck around the empire center to
          assist in player development. -->
-    <planets type="develop">
+    <develop>
       <count>
         <min>4</min>
         <max>8</max>
@@ -150,8 +151,8 @@
          <avg>1.0</avg>
       </res>
       <radius>15</radius>
-    </planets>
-    <planets type="stuff">
+    </develop>
+    <stuff>
       <radius>50</radius>
       <count>
         <min>6</min>
@@ -172,11 +173,11 @@
       <planet seq="1">
         <cap>350.0</cap>
       </planet>
-    </planets>
+    </stuff>
     <!-- asteroids are virtually useless - you can't colonize them,
          you can't store anything on them, etc. Basically they are
          just to be used for rally points for attacks. -->
-    <planets type="asteroid">
+    <asteroids>
       <radius>300</radius>
       <count>
         <min>2</min>
@@ -190,7 +191,7 @@
         <min>0</min>
         <max>0</max>
       </res>
-    </planets>
+    </asteroids>
     <!-- this sets global peace (the engine won't allow anyone to
          declare war) for the given number of turns -->
     <paxgalactica>20</paxgalactica>
@@ -226,7 +227,7 @@
              than the maximum allowed. In addition the player must
              specify sizes that add up to the <total> tag the GM
              specified.  -->
-        <planets type="home">
+        <homeworlds>
           <planet>
             <name>HomeWorld</name>
             <size>1000.0</size>
