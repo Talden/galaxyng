@@ -30,6 +30,7 @@
  					<li><a href="#process">Processing Orders</a></li>
  					<li><a href="#due">Sending Orders Due Messages</a></li>
 					<li><a href="#run">Running Turns</a></li>
+					<li><a href="#maps">Influence Maps</a></li>
 					<li><a href="#command">Command Summary</a></li>
 					<li><a href="#host">Hosting Team Games</a></li>
 					<li><a href="#trouble">Troubleshooting</a></li>
@@ -44,7 +45,7 @@
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
 procmail; to automatically process in comming orders</pre>
-				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Creating influence maps is the one operation that is memory intensive. Depending on the number of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server is large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
+				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Creating influence maps is the one operation that is memory intensive. GalaxyNG also doesn't need much hard disk space.  Depending on the number of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server is large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
 				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs practically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without coming to a conclusion.</p>
 
 			<hr />
@@ -249,7 +250,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 <pre>./galaxyng -create &lt;game name&gt;</pre>
 				<p>So, for the Orion game, run:</p>
 <pre>./galaxyng -create Orion.glx</pre>
-				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created a map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>OrionLayout.txt</tt>:</p>
+				<p>The server gives a detailed list of what it is doing and what planets are created. When the game is created an ASCII map is printed.  A lot of output is created so you might want to redirect the output of the server to some file, say <tt>OrionLayout.txt</tt>:</p>
 <pre>./galaxyng -create Orion.glx  &gt; OrionLayout.txt</pre>
 				<p>To create the turn 0 score, first create a directory for it:</p>
 <pre>mkdir &lt;web directory&gt;/&lt;game name&gt;</pre>
@@ -291,7 +292,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>When it is time to run a turn you do this with:</p>
 <pre>./run_game &lt;game name&gt;</pre>
 				<p>This shell script collects all orders in one file, runs the turn based on these orders, and then sends out all the turn reports to the players.  It also creates high-score lists in HTML and places it in your <tt>$HOME/public_html</tt> directory, if you have one.  You can edit the script and add other commands that need to be run for each turn.</p>
-				<p>After each turn you are sent a GM status report. It tells you whether the turn ran successfully. It is especially handy if the server runs on some remote computer. It also contains information on the status of all nations in the game, a list of all bombings and a map. That way you can follow the game.</p>
+				<p>After each turn you are sent a GM status report. It tells you whether the turn ran successfully. It is especially handy if the server runs on some remote computer. It also contains information on the status of all nations in the game, a list of all bombings and an ASCII map. That way you can follow the game.</p>
 				<p>If for some reason there was a problem with a turn, you can rerun it by executing:</p>
 <pre>./run_game &lt;game name&gt; &lt;turn&gt;</pre>
 				<p>The game will be rerun and new turn reports are sent to the players.  This only works for turns that already ran.</p>
@@ -316,6 +317,12 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 				<p>To send final orders, players add a "FinalOrders" to their #galaxy line when submitting their final orders for running the game.  For example:</p>
 				<pre>#GALAXY GameName RaceName Password FinalOrders</pre>
 				<p>If players do not submit final orders, the turn will not run until the time limit has expired.</p>
+
+			<hr />
+
+			<h2 id="maps">Influence Maps</h2>
+			
+				<p>Various colorful maps can be created: public, industry, attack, and defence.  You must have <a href="http://www.boutell.com/gd/">GD</a> and <a href="http://www.libpng.org/pub/png/libpng.html">libpng</a> and their development libraries installed to enable this feature.</p>
 
 			<hr />
 
@@ -391,7 +398,7 @@ e.g. #PLANETS 1000 500 500 250 250</pre>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -map &lt;game name&gt; [turn number]</tt></td>
-						<td>Show a map of the galaxy.</td>
+						<td>Show an ASCII map of the galaxy.</td>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -influence &lt;game name&gt; [public|industry|attack|defence] [turn number]</tt></td>
