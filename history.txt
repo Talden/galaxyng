@@ -1,5 +1,21 @@
 # $Id$
 
+Release 6-3-0: September 2003
+o By Ken Weinert
+  + both text and xml reports are sent on turn 0
+  + new option: TXTReport to turn them off if necessary
+  + now forecasts are returned in XML format if that option
+    (XMLReport) has been enabled
+  + further work on influence mapping. Works better, slower 
+    than it should be, gradation of influence not working
+    correctly.
+  + XML report has been brought up to current standards - note
+    that this is *not* the interchange level with GalaxyExplorer.
+    That goal was deemed to be proceeding too slowly (by 
+    both sides) and so we've temporarily delayed that effort
+    and will compromise on an exchange dtd instead of 
+    attempting to have all engines put out the same dtd.
+
 Release 6-2: July 2003
 o By Ken Weinert
   + fixed bug that could cause the create process to hang
