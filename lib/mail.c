@@ -50,6 +50,7 @@ envelope* createEnvelope() {
 	e->from = NULL;
 	e->subject = NULL;
 	e->bcc = NULL;
+	e->cc = NULL;
 	e->compress = FALSE;
 	e->contentType = NULL;
 	e->contentEncoding = NULL;
@@ -71,8 +72,7 @@ envelope* readEnvelope(FILE* fp) {
 	char      buffer[4096];
 	char*     ptr;
 	
-	e = (envelope*)malloc(sizeof(envelope));
-	assert(e != NULL);
+	e = createEnvelope();
 
 	while (fgets(buffer, 4096, fp) != NULL) {
 		*(strchr(buffer, '\n')) = '\0';
@@ -90,6 +90,8 @@ envelope* readEnvelope(FILE* fp) {
 			e->to = strdup(ptr+2);
 		else if (noCaseStrcmp(buffer, "subject") == 0)
 			e->subject = strdup(ptr+2);
+		else if (noCaseStrcmp(buffer, "cc") == 0)
+			e->cc = strdup(ptr+2);
 		else if (noCaseStrcmp(buffer, "content-type") == 0)
 			e->contentType = strdup(ptr+2);
 		else if (noCaseStrcmp(buffer, "content-transfer-encoding") == 0)
@@ -100,9 +102,6 @@ envelope* readEnvelope(FILE* fp) {
 			continue;
 	}
 
-	e->bcc = NULL;
-	e->compress = FALSE;
-	
 	return e; 
 }
 
@@ -157,6 +156,13 @@ void setHeader(envelope *e, int headerType, char *format, ...) {
 				free(e->bcc);
 			e->bcc = strdup(lineBuffer);
 			break;
+
+		case MAILHEADER_CC:
+			if (e->cc)
+				free(e->cc);
+			e->cc = strdup(lineBuffer);
+			break;
+
 			
 		case MAILHEADER_CONTENTTYPE:
 			if (e->contentType)
@@ -198,6 +204,8 @@ void destroyEnvelope(envelope *e) {
 		free(e->subject);
 	if (e->bcc)
 		free(e->bcc);
+	if (e->cc)
+		free(e->cc);
 	if (e->contentType)
 		free(e->contentType);
 	if (e->contentEncoding)
