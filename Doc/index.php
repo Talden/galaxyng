@@ -27,9 +27,10 @@
 			<h2>Servers</h2>
 				<p>Updates or corrections?  Contact <a href="http://sourceforge.net/users/christhecat/">christhecat</a>.</p>
 				<ul>
-					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a> (closing soon)</li>
-				 <li><a href="http://www.refs-home.net/galaxyng/index.php">REF's GalaxyNG Site</a></li>
 				 <li><a href="http://www.gioco.net/galaxy/">GalaxyNG GIGA Server</a> (Italian)</li>
+				 <li><a href="http://galaxy.gesserit.net/">Nine Lives GalaxyNG Server</a></li>
+				 <li><a href="http://www.refs-home.net/galaxyng/index.php">REF's GalaxyNG Site</a></li>
+					<li><a href="http://www.badcheese.com/~steve/index.php?page_title=Galaxy">Webb's Web: Galaxy</a> (closing soon)</li>
 				</ul>
 
 			<hr />
