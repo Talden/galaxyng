@@ -1315,16 +1315,36 @@ CMD_relay( int argc, char **argv )
 int
 relayMessage( game *aGame, char *raceName, player *to )
 {
-    char *messageName;
-    FILE *message;
+    char* messageName;
+	char* isRead;
+    FILE* message;
+	
     envelope *anEnvelope;
     int result;
-
+	static int message_read = 0;
+	static strlist* msg;
+	strlist* s;
+	
     result = 1;
     messageName = createString( "%s/NGmessage", tempdir );
+
+	if (!message_read) {
+		message_read = 1;
+		
+		msg = makestrlist("\n-*- Message follows -*-\n\n" );
+
+		for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin );
+			  isRead;
+			  isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin ) ) {
+			if (noCaseStrncmp("#end", lineBuffer, 4) == 0)
+				break;
+			addList(&msg, makestrlist(lineBuffer));
+		}
+
+	}
+
     if ( to->addr ) {
         if ( ( message = GOS_fopen( messageName, "w" ) ) ) {
-            char *isRead;
 
             anEnvelope = createEnvelope(  );
 
@@ -1340,14 +1360,10 @@ relayMessage( game *aGame, char *raceName, player *to )
             plog( LBRIEF, "Message relay, destination %s.\n", to->addr );
             fprintf( message, "#GALAXY %s %s %s\n",
                      aGame->name, to->name, to->pswd );
-            fprintf( message, "\n-*- Message follows -*-\n\n" );
-            for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin );
-                  isRead;
-                  isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, stdin ) ) {
-				if (noCaseStrncmp("#end", lineBuffer, 4) == 0)
-					break;
-                fputs( lineBuffer, message );
-            }
+
+			for (s = msg; s; s = s->next)
+				fprintf(message, s->str);
+
 			fprintf(message, "#END\n");
             fclose( message );
             result = eMail( aGame, anEnvelope, messageName );
@@ -1358,6 +1374,7 @@ relayMessage( game *aGame, char *raceName, player *to )
             fprintf( stderr, "Can't open \"%s\".\n", messageName );
         }
     }
+	
     return result;
 }
 
