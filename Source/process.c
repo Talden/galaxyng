@@ -2583,7 +2583,7 @@ removeDeadPlayer( game *aGame )
                     plog( LPART, "Discontinuing reports for %s\n", P->name );
                     P->flags |= F_DEAD;
 
-                    if ( aGame->turn < ENDPHASE1TURN ) {
+/*                    if ( aGame->turn < ENDPHASE1TURN ) {*/
                         P->groups = NULL;
                         sprintf( lineBuffer,
                                  "\n-*-*-*-\n%s had an unfortunate accident and was "
@@ -2607,7 +2607,7 @@ removeDeadPlayer( game *aGame )
                                 p->owner = NULL;
                             }
                         }
-                    }
+/*                    }*/
                 }
             }
         }
