@@ -356,11 +356,11 @@ fi
 echo "o Copying the GalaxyNG server"
 NG=$GALAXY_HOME/galaxyng
 if { test -e $NG; } then {
-  echo "  Found an existing version of " $NG;
-  NG=$GALAXY_HOME/galaxyng.new;
-  echo "  Writing the new version to "  $NG;
+  echo "  Found an existing version of " $NG
+  NG=$GALAXY_HOME/galaxyng.new
+  echo "  Writing the new version to "  $NG
   echo "  _Test_ this new version and if it works according to your needs"
-  echo "  copy it to " $GALAXY_HOME; "/galaxyng"
+  echo "  copy it to " $GALAXY_HOME "/galaxyng"
 }
 fi
 cp Source/galaxyng $NG
@@ -373,11 +373,11 @@ strip $NG
 echo "o Copying the Automatic Registration Engine (ARE)"
 ARE=$GALAXY_HOME/are
 if { test -e $ARE; } then {
-  echo "  Found an existing version of " $ARE;
-  NG=$GALAXY_HOME/are.new;
-  echo "  Writing the new version to "  $ARE;
+  echo "  Found an existing version of " $ARE
+  ARE=$GALAXY_HOME/are.new
+  echo "  Writing the new version to "  $ARE
   echo "  _Test_ this new version and if it works according to your needs"
-  echo "  copy it to " $GALAXY_HOME; "/are"
+  echo "  copy it to " $GALAXY_HOME "/are"
 }
 fi
 cp ARE/are $ARE
