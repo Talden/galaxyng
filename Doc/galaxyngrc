@@ -4,16 +4,14 @@
 ;
 ; The parameters defined in this file are used each time a game runs.
 ; You can override these defaults for a specific game by copying the
-; file to Games/Data/<game name>/.galaxyngrc and then modifying it.
+; file to Games/data/<game name>/.galaxyngrc and then modifying it.
 ;
-; The parameters names are not case sensitve. 
-; You can use a ";" as a comment marker.
+; The parameters names are not case sensitve.
 ;
 
 ;
-; GMemail defines the email address of the GM. 
-; A status report is send to this address each time a game is run.
-; If you do not want the report comment the line out.
+; The GM email address.  If this is not present, the GM report will
+; not be mailed.
 ;
 
 GMemail galaxyng@localdomain
@@ -34,50 +32,6 @@ sendmail {/usr/sbin/sendmail -t }
 ; and output should go to standard output.
 ;
 
-encode {/usr/bin/mmencode }
+; encode { /usr/bin/uuencode }
+encode { /usr/bin/mmencode }
 compress { /usr/bin/zip }
-
-;
-; Game options
-;
-; 
-; Full bombing, when bombed planets are completely bombed.
-; All population, industry, capital, colonists, and materials are gone.
-; Normally the population and industry is reduced to 25% of it's
-; original value.
-;
-; Uncommend if you want this option.
-
-;fullbombing
-
-;
-; Don't remove idle nations from a game.  
-; Normaly if players do not send in orders for a couple of turns
-; their nation self destructs.
-;
-; Uncommend if you want this option.
-
-;DontDropDead
-
-;
-; On some systems cron behaves a bit odd after a system reset,
-; and re-runs many old cron jobs. You can use the following option
-; to protect against this.  The server will refuse to run a turn if
-; the current time is not almost equal to the time you specified here.
-
-;StartTime 13:00
-
-; In this case the server would only run a turn if the current time
-; is between 13:00 and 13:09.   (It treats the last digit of the
-; time as a wild card, so specifying 13:05 would have had the same 
-; effect.)
-
-; 
-; Sometimes, if you have enough disk space, it is nice to get a copy
-; of turn reports that are send out to the players.
-; If you uncommend the following parameter, a copy of each turn report
-; that is send out is stored in reports/<game name>/
-
-;SaveReportCopy
-
-
