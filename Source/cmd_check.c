@@ -183,7 +183,9 @@ int CMD_check( int argc, char **argv, int kind ) {
     
     setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
     setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
-		
+    anEnvelope->from_address = strdup(aGame->serverOptions.ReplyTo);
+    anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+
     if ( resNumber == RES_OK ) {
       player *aPlayer = findElement( player, aGame->players, raceName );
       assert( aPlayer);
@@ -275,7 +277,9 @@ int CMD_check( int argc, char **argv, int kind ) {
     
     setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
     setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
-    
+    anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+    anEnvelope->from_address = strdup(aGame->serverOptions.ReplyTo);
+
     if ( resNumber == RES_OK) {
       aPlayer = findElement( player, aGame->players, raceName );
       aPlayer->orders = NULL;

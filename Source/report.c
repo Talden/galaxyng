@@ -124,6 +124,8 @@ mailGMReport(game *aGame, char *gameName)
     anEnvelope = createEnvelope();
     setHeader(anEnvelope, MAILHEADER_TO, "%s",
               aGame->serverOptions.GMemail);
+    anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
+    anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
     setHeader(anEnvelope, MAILHEADER_SUBJECT,
               "GM Report Turn %d for Galaxy Game %s", aGame->turn,
               gameName);
@@ -262,6 +264,8 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
         anEnvelope->compress = TRUE;
       }
       setHeader(anEnvelope, MAILHEADER_TO, "%s", aPlayer->addr);
+      anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+      anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
       switch (kind) {
       case F_XMLREPORT:
         setHeader(anEnvelope, MAILHEADER_SUBJECT,

@@ -44,6 +44,9 @@ int CMD_ordersdue(int argc, char** argv) {
 				      aGame->turn+1, argv[2]);
 	  setHeader(env, MAILHEADER_REPLYTO,
 		    aGame->serverOptions.ReplyTo);
+	  env->from_name = strdup(aGame->serverOptions.SERVERname);
+	  env->from_address = strdup(aGame->serverOptions.SERVERemail);
+
 	  if (msg_count == 0) {
 	    fprintf(gmnote, "The following players have not yet "
 		    "submitted orders for turn %d of %s\n",
@@ -94,6 +97,9 @@ int CMD_ordersdue(int argc, char** argv) {
     env->subject = createString("Turn %d of %s is about to run",
 				aGame->turn+1, aGame->name);
     setHeader(env, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+    env->from_name = strdup(aGame->serverOptions.SERVERname);
+    env->from_address = strdup(aGame->serverOptions.SERVERemail);
+
     result |= eMail(aGame, env, gmbody);
     
     destroyEnvelope(env);

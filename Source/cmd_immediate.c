@@ -175,6 +175,8 @@ int CMD_immediate( int argc, char **argv) {
 	createString("Turn %d of %s is about to run",
 		     aGame->turn+1, argv[2]);
       setHeader(env, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+      env->from_name = strdup(aGame->serverOptions.SERVERname);
+      env->from_address = strdup(aGame->serverOptions.ReplyTo);
       
       /* if we haven't sent any player notifications
        * yet, then we need to put the header in the GM
@@ -259,6 +261,8 @@ int CMD_immediate( int argc, char **argv) {
       env->subject = createString("Missing orders for %s (%d)",
 				  argv[2], aGame->turn+1);
       setHeader(env, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+      env->from_name = strdup(aGame->serverOptions.SERVERname);
+      env->from_address = strdup(aGame->serverOptions.ReplyTo);
 
       fclose(gmNote);
       eMail(aGame, env, gmBody);

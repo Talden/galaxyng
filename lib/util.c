@@ -1712,8 +1712,10 @@ freeDefaults(game *aGame)
   free(aGame->serverOptions.encode);
   free(aGame->serverOptions.compress);
   free(aGame->serverOptions.GMemail);
+  free(aGame->serverOptions.GMname);
   free(aGame->serverOptions.GMpassword);
   free(aGame->serverOptions.SERVERemail);
+  free(aGame->serverOptions.SERVERname);
   free(aGame->serverOptions.fontpath);
   free(aGame->serverOptions.due);
 }

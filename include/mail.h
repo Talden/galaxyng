@@ -19,16 +19,18 @@
  */
 
 typedef struct envelope {
-	int   compress;   /* Compress the body before sending */
-	char* to;        /* destination */
-	char* from;      /* Who sent it */
-	char* subject;
-	char* replyto;
-	char* cc;
-	char* bcc;
-	char* contentType;
-	char* contentEncoding;
-	char* contentDescription;
+  int   compress;   /* Compress the body before sending */
+  char* to;        /* destination */
+  char* from;      /* Who sent it */
+  char* subject;
+  char* replyto;
+  char* cc;
+  char* bcc;
+  char* contentType;
+  char* contentEncoding;
+  char* contentDescription;
+  char* from_address;
+  char* from_name;
 } envelope;
 
 /********/

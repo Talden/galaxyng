@@ -64,6 +64,8 @@ int CMD_relay( int argc, char **argv ) {
   
   setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.GMemail);
   setHeader(anEnvelope, MAILHEADER_REPLYTO, aGame->serverOptions.ReplyTo);
+  anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
+  anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
 
   fprintf(confirm, "Relay for game \"%s\"\n", aGame->name);
   

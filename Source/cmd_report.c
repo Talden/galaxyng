@@ -43,6 +43,8 @@ int CMD_report( int argc, char **argv ) {
             setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
 	    setHeader(anEnvelope, MAILHEADER_REPLYTO,
 		      aGame->serverOptions.ReplyTo);
+	    anEnvelope->from_name = strdup(aGame->serverOptions.SERVERname);
+	    anEnvelope->from_address = strdup(aGame->serverOptions.SERVERemail);
             plog( LBRIEF, "Report request from %s.\n", returnAddress );
             theTurnNumber = getTurnNumber( stdin );
             raceName = NULL;
