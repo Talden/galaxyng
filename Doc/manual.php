@@ -9,15 +9,11 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Players' Manual</title>
-		<?php $title="GalaxyNG Players' Manual"; ?>
+		<?php $title="Players' Manual"; ?>
 	</head>
 
 	<body>
 		<?php include 'menu.php'; ?>
-		
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Players'&nbsp;Manual</h1>
-
-			<hr />
 
 			<h2 id="toc">Table of Contents</h2>
 				<ul>
@@ -445,7 +441,7 @@ Daily8 Top 15 of turn 12 which ran on 18:00:02 Mon Feb 17 2003
     o      -   ______ o    __        +   -  + _   ________   o    +  o
  o  .         / ____/___ _/ /___ __  ____  __/ | / / ____/         +
       .*  -  / / __/ __ `/ / __ `/ |/_/ / / /  |/ / / __      +
-   *        / /_/ / /_/ / / /_/ />  </ /_/ / /|  / /_/ / o    -    -
+   *        / /_/ / /_/ / / /_/ /&gt;  &lt;/ /_/ / /|  / /_/ / o    -    -
     .  o    \____/\__,_/_/\__,_/_/|_|\__, /_/ |_/\____/ .    -  o     o
      *           . +        o       /____/   +   +          -
  o         o          +       -                    o         -     o
@@ -457,7 +453,7 @@ Daily8 Top 15 of turn 12 which ran on 18:00:02 Mon Feb 17 2003
 Orders should be send to:   steve@badcheese.com
 with a subject line of:     "order" or "orders"
 All orders should start with:
-  #GALAXY <game name> <your nation name> <your password>
+  #GALAXY &lt;game name&gt; &lt;your nation name&gt; &lt;your password&gt;
 and end with:
   #END
 

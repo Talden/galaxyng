@@ -9,15 +9,11 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG FAQ</title>
-		<?php $title="GalaxyNG FAQ"; ?>
+		<?php $title="FAQ"; ?>
 	</head>
 
 	<body>
 		<?php include 'menu.php'; ?>
-
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;FAQ</h1>
-
-			<hr />
 
 			<h2>Where can I learn more about Galaxy strategy and tactics?</h2>
 				<ul>

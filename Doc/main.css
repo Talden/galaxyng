@@ -1,131 +1,101 @@
 body { 
-  margin-top: 1em;
+  margin-top: 0;
   margin-bottom: 1em;
   margin-left: .5em;
   margin-right: .5em;
-  font-family: serif;
+  font-family: verdana, arial, helvetica, sans-serif;
+  font-size: 13px;
   color: #99CC80;
   background-color: #000000;
-  background-image: url("lightstars.png");
+  background-image: url("lightstars.png")
 }
 
-A:link { 
+a:link { 
   color: #6666FF; 
-  text-decoration: none;
 }
-A:visited {
+a:visited {
   color: #6699FF;
-  text-decoration: none;
 }
-A:active {
+a:active {
   color: #AAAAFF;
-  text-decoration: none;
-}
-
-p, form {
-  font-family: serif;
-  font-size: medium; 
 }
 
 p, li {
-  margin-left: 1em;
+  margin-left: 1em
 }
 
-B, STRONG, I, EM, CITE, VAR, TT, CODE, KBD, SAMP, IMG
-{ 
- display: inline;
+b, strong, i, em, cite, var, tt, code, kbd, samp, img { 
+ display: inline
 }
 
 ul {
-  list-style-type: disc;
-  display: block;
+  display: block
 }
 
-li {
-  margin-bottom: 0.2em;
-  font-family: serif;
-  font-size: medium; 
-}
-
-H1, H2, H3 {
-  font-family: sans-serif;
-  font-weight: bold;
-}
-
-H2, H3 { 
-  margin-top: 0.5em; 
-}
-
-B, STRONG { 
+b, strong { 
   font-variant: small-caps;
-  font-weight: bold;
+  font-weight: bold
 }
 
-I, CITE, EM, VAR, ADDRESS, BLOCKQUOTE {
-  font-style: italic;
+i, cite, em, var, address, blockquote {
+  font-style: italic
 }
 
-PRE, TT, KBD, SAMP {
-  font-family: monospace;
-  font-size: small;
+pre, tt, kbd, samp, code {
+  font-family: monospace
 }
 
-TABLE {
-  color: #FFFFFF;
-  background-color: #00007F;
+code {
+  white-space: pre
 }
 
-TH {
-  color: #FFFFFF;
-  background-color: #007F00;
-}
-
-TD {
-  color: #FFFFFF;
-  background-color: #00007F;
-  vertical-align: top;
-}
-
-CODE {
-  font-family: monospace;
+pre { 
   white-space: pre;
+  margin-left: 3em
 }
 
-PRE { 
-  white-space: pre;
-  margin-left: 3em;
-}
-
-ADDRESS { 
+address { 
   font-family: monospace;
-  font-size: 12pt; 
   text-align: left;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.5em
+}
+
+h1, h2, h3 {
+  font-weight: bold;
+  margin-top: 0.5em
 }
 
 h1 {
-  font-size: xx-large;
-  font-weight: bold;
-  margin-right: 36px;
-  margin-top: 0.5em; 
-  margin-bottom: 0.5em;
+  font-size: 160%;
+  margin-bottom: 0.5em
 }
 
 h2 {
-  font-size: x-large;
-  font-weight: bold;
+  font-size: 140%
 }
 
 h3 {
-  font-size: large;
-  font-style: italic;
-}
-img {
-	border: 0;
+  font-size: 120%
 }
 
-p.menu {
-	margin-left: 0;
-	font-size: small;
+img {
+	border: 0
 }
-	
+
+.menu {
+	margin: 0;
+	font-size: 12px
+}
+
+.bold {
+	font-weight: bold
+}
+
+.wide {
+	margin: 0;
+	width: 100%
+}
+
+.right {
+	text-align: right
+}

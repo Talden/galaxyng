@@ -8,16 +8,12 @@
 
 	<head>
 		<link rel="stylesheet" href="main.css" />
-		<title>GalaxyNG Sample Turn Reports</title>
-		<?php $title="GalaxyNG Sample Turn Reports"; ?>
+		<title>GalaxyNG Turn Reports</title>
+		<?php $title="Turn Reports"; ?>
 	</head>
 
 	<body>
 		<?php include 'menu.php'; ?>
-	
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Sample&nbsp;Turn&nbsp;Reports</h1>
-
-			<hr />
 			
 			<h2>Text</h2>
 			

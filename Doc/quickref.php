@@ -9,15 +9,11 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Quick Reference</title>
-		<?php $title="GalaxyNG Quick Reference"; ?>
+		<?php $title="Quick Reference"; ?>
 	</head>
 
 	<body>
 		<?php include 'menu.php'; ?>
-		
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Quick&nbsp;Reference</h1>
-		
-			<hr />
 			
 			<h2>Planet Orders</h2>
 			

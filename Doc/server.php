@@ -8,16 +8,12 @@
 
 	<head>
 		<link rel="stylesheet" href="main.css" />
-		<title>GalaxyNG Server Manual</title>
-		<?php $title="GalaxyNG Server Manual"; ?>
+		<title>GalaxyNG: Server Manual</title>
+		<?php $title="Server Manual"; ?>
 	</head>
 
 	<body>
 		<?php include 'menu.php'; ?>
-		
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Server&nbsp;Manual</h1>
-
-			<hr />
 
 			<h2>Table of Contents</h2>
 				<ul>
@@ -47,7 +43,7 @@
 				<p>The two basic items to host a game are a Linux box and an internet connection. GalaxyNG should compile and run right out of the box on Linux. This software is required:</p>
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
-procmail; to automatically process in comming orders</pre>
+procmail; to automatically process incoming orders</pre>
 				<p>The GalaxyNG server is command line based, so you don't need X-windows. It requires little memory and even runs on a 2 MB Amiga. Depending on the mumber of players and planets, you need up to 20 MB of disk space per game. It isn't so much that the GalaxyNG server large but that the data files can become quite large. For instance, turn reports with the battleprotocol option enabled can be 500 KB. So if there are 30 players left, this would amount to 15 MB of disk space just to store the reports before they are sent. In these times of GB hard disks this should not be a problem though :)</p>
 				<p>It isn't that difficult to start up your own game. It takes a while to configure the server and set up a game, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
 

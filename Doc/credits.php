@@ -9,15 +9,11 @@
 	<head>
 		<link rel="stylesheet" href="main.css" />
 		<title>GalaxyNG Credits</title>
-		<?php $title="GalaxyNG Credits"; ?>
+		<?php $title="Credits"; ?>
 	</head>
 
 	<body>
 		<?php include 'menu.php'; ?>
-	
-		<h1><a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Credits</h1>
-
-			<hr />
 		
 			<h2>GalaxyNG Code</h2>
 				<ul>
@@ -57,6 +53,15 @@
 					<li><a href="http://sourceforge.net/users/gumpu/">Frans Slothouber (gumpu)</a></li>
 					<li>Jamie Jackson</li>
 					<li><a href="http://sourceforge.net/users/christhecat/">Chris Shaffer (christhecat)</a></li>
+				</ul>
+
+			<hr />
+			
+			<h2>Web Site</h2>
+				<ul>
+					<li><a href="http://sourceforge.net/users/gumpu/">Frans Slothouber (gumpu)</a></li>
+					<li><a href="http://sourceforge.net/users/christhecat/">Chris Shaffer (christhecat)</a></li>
+					<li><a href="http://sourceforge.net/users/mincub/">Bogdan Mincu (mincub)</a></li>
 				</ul>
 
 			<hr />

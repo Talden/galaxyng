@@ -14,10 +14,6 @@
 
 	<body>
 		<?php include 'menu.php'; ?>
-	
-		<h1>&nbsp;<a href="<?php include 'base_url.txt'; ?>"><img src="galaxyngsmall.png" alt="GalaxyNG" /></a>&nbsp;Why&nbsp;GalaxyNG?</h1>
-
-			<hr />
 			
 			<p>Frans Slothouber's reasons for creating GalaxyNG are presented below.</p>
 			
@@ -77,7 +73,7 @@
 			<hr />
 			
 			<h2>Orders Checker and Forecaster</h2>
-				<p>The orders checker has been integrated with the game code, so both will use the same algorithm and produce the same results. The orders checker has also been extended with a forecasted, which generates a forecast on the sitation of the planets and groups as it will be the next turn.</p>
+				<p>The orders checker has been integrated with the game code, so both will use the same algorithm and produce the same results. The orders checker has also been extended with a forecaster, which generates a forecast on the sitation of the planets and groups as it will be the next turn.</p>
 
 		<?php include 'footer.php'; ?>
 	</body>
