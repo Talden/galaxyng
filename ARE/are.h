@@ -26,13 +26,15 @@ typedef struct _playerOpts {
   char  txtreports;
 } playerOpts;
 
-typedef struct _gameopts {
+typedef struct gameopts {
   /* basic list structure */
-  struct _gameopts* next;
+  struct gameopts*  next;
   long              cookie;
   char*             name;
   /* end basic list */
   char* from;
+  char* subject;
+  char* replyto;
   int   playerlimit;
   float totalplanetsize;
   float maxplanetsize;
@@ -54,9 +56,7 @@ void  standbyMessage(char* gameName);
 int   getPlanetSizes(FILE *orders, char **planets, double totalPlanetSize,
 					int maxNumberOfPlanets, double maxPlanetSize);
 char* getReturnAddress(FILE *orders);
-char* getstr(char *s);
-int   noCaseStrncmp(char *s, char *t, int n);
 void  badPlanetMessage(char *planets);
-int   loadConfig(serverOpts* so, const char* gamename);
+serverOpts* loadConfig(const char* gamename);
 
 #endif
