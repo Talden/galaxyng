@@ -11,6 +11,11 @@ This option also uses a free truetype font from Larabie Fonts
 
 After editing the makefile follow the directions below.
 
+If you run galaxyng by hand for game creation, etc you'll need to be
+sure that the environmental variable for locating the TTF file is set:
+GDFONTPATH is the variable that needs to be set and the file is in the 
+normal galaxyng home directory.
+
 (Ken Weinert kenw@quarter-flash.com)
 
 
