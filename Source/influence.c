@@ -111,7 +111,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	float     influence;
 	float     factor, limit;
 	
-	int        map_colors[42][4] = {
+	int        map_colors[][4] = {
 		{0, 0, 0, 0},               /* black */
 		{255, 255, 255, 0},         /* white */
 		{0, 255, 127, 0},           /* spring green */
@@ -156,12 +156,12 @@ draw_maps(game* aGame, enum map_type map_type)
 		{205, 150, 205, 0},         /* plum3 */
 	};
 	
-	int  nbr_of_players;
+	int  nbr_of_players, nbr_of_colors;
 	int  x1, y1;  /* temporary coordinates */
 	int  ticks;
 	
 	/*long total_mem = 0;*/
-	
+	nbr_of_colors = sizeof(map_colors) / (sizeof(int)*4);
 	nbr_of_players = numberOfElements(aGame->players);
 	scale = 765.0 / aGame->galaxysize;
 	iscale = (int)scale;
@@ -170,7 +170,7 @@ draw_maps(game* aGame, enum map_type map_type)
 		sprintf(font, "%s/influence.ttf", aGame->serverOptions.fontpath);
 	else
 		strcpy(font, "./influence.ttf");
-	
+
 	switch(map_type) {
 		case EffIndMap:
 			sprintf(buf, "%s/data/%s/%03d_effind.png",
@@ -199,7 +199,7 @@ draw_maps(game* aGame, enum map_type map_type)
 	
 	map_png = gdImageCreateTrueColor(1024, 768);
 	
-	for (i = 0; i < nbr_of_players+2; i++) {
+	for (i = 0; i < nbr_of_colors; i++) {
 		map_colors[i][3] = gdImageColorAllocate(map_png, map_colors[i][0],
 												map_colors[i][1],
 												map_colors[i][2]);
@@ -273,13 +273,13 @@ draw_maps(game* aGame, enum map_type map_type)
 								   * black/white */
 	j = 0;
 	for (P = aGame->players; P; P = P->next) {
-		if (i == 41) {
+		if (i == nbr_of_colors) {
 			i = 2;
 			j++;
 		}
-		fprintf(stderr, "i: %d\n", i);
+
 		err = gdImageStringFT(map_png, NULL, map_colors[i][3], font, 10.,
-							  0., 770 + (j*50), 3 + ((i - 1) * 15), P->name);
+							  0., 770 + (j*128), 3 + ((i - 1) * 15), P->name);
 		if (err)
 			fprintf(stderr, "%s\n", err);
 		i++;
