@@ -17,9 +17,12 @@
 	</li>
 	<li><a href="http://www.truehonour.com/galaxyng.html">True Honor GalaxyNG Server</a>
 		<ul>
-			<li><a href="http://flagship.dyndns.org/galaxyng/Dueler2main.html">Dueler2</a></li>
+			<li><a href="http://flagship.dyndns.org/galaxyng/Dueler3main.html">Dueler3</a></li>
+			<li><a href="http://flagship.dyndns.org/galaxyng/Dueler4main.html">Dueler4</a></li>
 			<li><a href="http://flagship.dyndns.org/galaxyng/Leagues1main.html">Leagues1</a></li>
+			<li><a href="http://flagship.dyndns.org/galaxyng/Leagues2main.html">Leagues2</a></li>
 			<li><a href="http://flagship.dyndns.org/galaxyng/Newbie1main.html">Newbie1</a></li>
+			<li><a href="http://flagship.dyndns.org/galaxyng/Newbie2main.html">Newbie2</a></li>
 		</ul>
 	</li>
 </ul>

@@ -19,9 +19,9 @@
 		</ul>
 	<li><a href="http://www.truehonour.com/galaxyng.html">True Honor GalaxyNG Server</a>
 		<ul>
-			<li><a href="http://www.truehonour.com/galaxyng.html">Dueler3</a></li>
-			<li><a href="http://www.truehonour.com/galaxyng.html">Leagues2</a></li>
-			<li><a href="http://www.truehonour.com/galaxyng.html">Newbie2</a></li>
+			<li><a href="http://www.truehonour.com/galaxyng.html">Dueler5</a></li>
+			<li><a href="http://www.truehonour.com/galaxyng.html">Leagues3</a></li>
+			<li><a href="http://www.truehonour.com/galaxyng.html">Newbie3</a></li>
 		</ul>
 	</li>
 </ul>
