@@ -67,10 +67,13 @@ echo "<tr";
 	echo ">$score[gamename]</a></td><td class=\"hallcenter\">$score[win]</td><td class=\"hall\">$score[race]</td><td class=\"hallright\">$score[pop]</td><td class=\"hallright\">$score[ind]</td><td class=\"hallright\">$score[eind]</td><td class=\"hallright\">$score[tech]</td><td class=\"hallright\">$score[planets]</td><td class=\"hallright\">";
 
 // find rank
-	$gamescores = mysql_query("select * from score where score.game='$score[game]' order by eind DESC");
+	$gamescores = mysql_query("select * from score where score.game='$score[game]' order by eind DESC, tech DESC");
 	$i = 1;
 	while ($gamescore = mysql_fetch_array($gamescores)) {
-		if ($score['id'] == $gamescore['id']) { echo $i; $rank=$i; }
+		// if rank is tied with previous player, don't increment rank
+		if ($tie != $gamescore['eind']) { $j = $i; }
+		if ($score['id'] == $gamescore['id']) { echo $j; $rank=$j; }
+		$tie = $gamescore['eind'];
 		$i++;
 	}
 	
