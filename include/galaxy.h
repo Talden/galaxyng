@@ -716,10 +716,7 @@ extern char    *productname[];
 
 /* used in loadgame.c, should be a parameter */
 extern FILE    *turnFile;
-extern FILE    *logFile;
-extern int      logLevel;
 extern struct option options[];
-extern int      debugLevel;
 
 extern char    *vcreate;
 extern char    vcid[];
