@@ -72,13 +72,11 @@ envelope* readEnvelope(FILE* fp) {
 	char      buffer[4096];
 	char*     ptr;
 	
-	plog(LBRIEF, ">readEnvelope()\n");
 	e = createEnvelope();
 
 	while (fgets(buffer, 4096, fp) != NULL) {
 		*(strchr(buffer, '\n')) = '\0';
 
-		plog(LBRIEF, "  buffer \"%s\"\n", buffer);
 		if (buffer[0] == '\0')
 			break;				/* end of headers */
 
@@ -89,37 +87,29 @@ envelope* readEnvelope(FILE* fp) {
 		
 		if (noCaseStrcmp(buffer, "from") == 0) {
 			e->from = strdup(ptr+2);
-		  plog(LBRIEF, "from: \"%s\"\n", e->from);
 		}
 		else if (noCaseStrcmp(buffer, "to") == 0) {
 			e->to = strdup(ptr+2);
-		  plog(LBRIEF, "to: \"%s\"\n", e->to);
 		}
 		else if (noCaseStrcmp(buffer, "subject") == 0) {
 			e->subject = strdup(ptr+2);
-		  plog(LBRIEF, "subject: \"%s\"\n", e->subject);
 		}
 		else if (noCaseStrcmp(buffer, "cc") == 0) {
 			e->cc = strdup(ptr+2);
-		  plog(LBRIEF, "cc: \"%s\"\n", e->cc);
 		}
 		else if (noCaseStrcmp(buffer, "content-type") == 0) {
 			e->contentType = strdup(ptr+2);
-		  plog(LBRIEF, "contentType: \"%s\"\n", e->contentType);
 		}
 		else if (noCaseStrcmp(buffer, "content-transfer-encoding") == 0) {
 			e->contentEncoding = strdup(ptr+2);
-		  plog(LBRIEF, "contentEncoding: \"%s\"\n", e->contentEncoding);
 		}
 		else if (noCaseStrcmp(buffer, "content-description") == 0) {
 			e->contentDescription = strdup(ptr+2);
-		  plog(LBRIEF, "contentDescription: \"%s\"\n", e->contentDescription);
 		}
 		else
 			continue;
 	}
 
-	plog(LBRIEF, "<readEnvelope()\n");
 	return e; 
 }
 
@@ -257,7 +247,6 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 	char    template[32] = "/tmp/galaxyXXXXXX";
 	int      result;
 
-	plog(LBRIEF, ">eMail()\n");
 	pdebug(DFULL, "eMail\n");
   
 	assert(fileName != NULL);
@@ -268,8 +257,6 @@ int eMail(game *aGame, envelope *e, char *fileName) {
   
 	assert(e->to);
 	assert(e->subject);
-
-	plog(LBRIEF, "to: \"%s\"  subject: \"%s\"\n", e->to, e->subject);
 
 	fprintf(mailFile, "To: %s\n", e->to);
 	fprintf(mailFile, "Subject: %s\n", e->subject);
@@ -324,9 +311,8 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 #endif
 	fclose(mailFile);
 #ifndef WIN32
-	plog(LBRIEF, "%s < %s\n",  aGame->serverOptions.sendmail, template);
 	result |= ssystem("%s < %s", aGame->serverOptions.sendmail, template);
-	/*result |= ssystem("rm %s", template);*/
+	result |= ssystem("rm %s", template);
 #endif
 	return result;
 }

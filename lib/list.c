@@ -267,7 +267,7 @@ void setNameF(list *anElement, const char *name)
 }
 
 void
-dumpList(char* label, list* aList, void callback(void*))
+dumpList(char* label, list* aList, void* callback(void*))
 {
     list* curElement;
 
