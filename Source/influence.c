@@ -30,9 +30,6 @@ draw_maps(game* aGame)
 	int        x0, y0, df, d_e, d_se;
 	int        r, g, b;
 	
-	double     total_weight;
-	double     highest_weight;
-	
 	double     weight;
 	double     influence;
 	double     factor, limit;
@@ -96,6 +93,7 @@ draw_maps(game* aGame)
 						galaxynghome, aGame->name, aGame->turn);
 				strcpy(map_title, "Effective Industry");
 				break;
+
 #if 0
 			case ShipAttMap:
 				sprintf(buf, "%s/data/%s/%03d_shpatt.png",
@@ -185,7 +183,8 @@ draw_maps(game* aGame)
 			owner = p->owner;
 			
 			player_nbr = ptonum(aGame->players, owner) - 1;
-			if (player_nbr < 0)
+
+			if (player_nbr < 0 && mt == EffIndMap)
 				continue;
 
 			switch(mt) {
@@ -211,7 +210,6 @@ draw_maps(game* aGame)
 					break;
 			}	
 			
-			printf("%d %f\n", player_nbr, weight);			
 			x = (int) ((scale * p->x) + 1);
 			y = (int) ((scale * p->y) + 1);
 			
