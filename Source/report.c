@@ -584,6 +584,46 @@ rateNations(player *playerList)
   }
 }
 
+
+/****f* Report/reportForecast
+ * FUNCTION
+ *   Create a forecast report.
+ *
+ ******
+ */
+
+#if FS_NEW_FORECAST
+void reportForecast( game *aGame, char *nationName, FILE *forecast )
+{
+    struct fielddef fields;
+    player *aPlayer;
+
+    aPlayer = findElement( player, aGame->players, nationName );
+    fields.destination = forecast;
+
+    nationStatus( aGame );
+    reportGlobalMessages( aGame->messages, &fields );
+    reportMessages( aPlayer, &fields );
+    reportOrders( aPlayer, &fields );
+    reportMistakes( aPlayer, &fields );
+    yourStatusForecast( aGame->planets, aPlayer, &fields );
+    if ( aPlayer->flags & F_SHIPTYPEFORECAST ) {
+        reportYourShipTypes( aPlayer, &fields );
+    }
+    if ( aPlayer->flags & F_PLANETFORECAST ) {
+        yourPlanetsForecast( aGame->planets, aPlayer, &fields );
+        reportProdTable( aGame->planets, aPlayer, &fields );
+    }
+    if ( aPlayer->flags & F_ROUTESFORECAST ) {
+        reportRoutes( aGame->planets, aPlayer, &fields );
+    }
+    if ( aPlayer->flags & F_GROUPFORECAST ) {
+        reportYourGroups( aGame->planets, aPlayer, &fields );
+        reportFleets( aPlayer, &fields );
+    }
+}
+#endif
+
 /****f* Report/report
  * NAME
  *   report -- create a basic turn report.
@@ -717,31 +757,31 @@ reportMessages(player *P, fielddef *fields)
 void
 reportOrders(player *P, fielddef *fields)
 {
-  if (P->orders) {
-    strlist        *s;
+    if (P->orders) {
+        strlist        *s;
 
-    fprintf(fields->destination, "\nORDERS RECEIVED\n\n");
-    for (s = P->orders; s; s = s->next) {
-      if (*(s->str) == '+') {
-	switch(*((s->str)+1)) {
-	case 'I':
-	  fprintf(fields->destination, ">   INFO: %s\n", (s->str)+3);
-	  break;
+        fprintf(fields->destination, "\nORDERS RECEIVED\n\n");
+        for (s = P->orders; s; s = s->next) {
+            if (*(s->str) == '+') {
+                switch(*((s->str)+1)) {
+                    case 'I':
+                        fprintf(fields->destination, ">   INFO: %s\n", (s->str)+3);
+                        break;
 
-	case 'W':
-	  fprintf(fields->destination, ">   WARNING: %s\n", (s->str)+3);
-	  break;
+                    case 'W':
+                        fprintf(fields->destination, ">   WARNING: %s\n", (s->str)+3);
+                        break;
 
-	case 'E':
-	  fprintf(fields->destination, ">   ERROR: %s\n", (s->str)+3);
-	  break;
-	}
-      }
-      else {
-	fprintf(fields->destination, "> %s\n", s->str);
-      }
+                    case 'E':
+                        fprintf(fields->destination, ">   ERROR: %s\n", (s->str)+3);
+                        break;
+                }
+            }
+            else {
+                fprintf(fields->destination, "> %s\n", s->str);
+            }
+        }
     }
-  }
 }
 
 
@@ -2931,3 +2971,8 @@ scorePercent(game *g1, fielddef *fields)
     formatPrint(fields);
   }
 }
+
+
+
+
+

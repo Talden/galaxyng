@@ -28,7 +28,8 @@
 #
 # and comment these lines
 #
-CFLAGS = -Wall -pedantic -g
+CFLAGS = -Wall -pedantic -g 
+#CFLAGS = -Wall -pedantic -g -DFS_NEW_FORECAST
 LIBS = -lm
 ADDTL_SRCS=
 

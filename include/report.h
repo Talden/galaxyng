@@ -210,4 +210,9 @@ void            reportGMBombings(game *aGame, fielddef *fields);
 
 void            scorePercent(game *g1, fielddef *fields);
 
+
+#if FS_NEW_FORECAST
+void reportForecast( game *aGame, char *nationName, FILE *forecast );
+#endif
+
 #endif                          /* GNG_REPORT_H */

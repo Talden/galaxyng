@@ -139,10 +139,13 @@ void
 int
                 runTurn(game *aGame, char *ordersFileName);
 
+#if FS_NEW_FORECAST
+void            checkOrders(game *aGame, char *nationName );
+#else
 void
                 checkOrders(game *aGame,
                             char *nationName, FILE * forecast, int kind);
-
+#endif
 
 void
                 generateErrorMessage(int resNumber,
