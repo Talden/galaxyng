@@ -60,10 +60,6 @@ int CMD_relay( int argc, char **argv ) {
     return result;
   }
   
-  plog(LBRIEF, ">CMD_relay(from: \"%s\"  to: \"%s\"), "
-       "confirmation in \"%s\"\n", anEnvelope->to, destination,
-       confirmName);
-  
   setHeader(anEnvelope, MAILHEADER_FROM, "%s", aGame->serverOptions.GMemail);
   
   /* it's ok to not have a turn number on a relay */
@@ -110,7 +106,7 @@ int CMD_relay( int argc, char **argv ) {
     /* since we are relaying to the game, then the relay goes to
      * all players and the GM
      */
-    plog(LBRIEF, "  relaying to all players since destination is the same as the game name\n");
+
     for (itPlayer = aGame->players; itPlayer; itPlayer = itPlayer->next) {
       /* skip dead players, they dislike getting email about the game :)
        */
@@ -130,7 +126,6 @@ int CMD_relay( int argc, char **argv ) {
       listPlayer->addr = strdup(itPlayer->addr);
       listPlayer->pswd = strdup(itPlayer->pswd);
       
-      plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
       addList(&toPlayers, listPlayer);
     }
     
@@ -138,7 +133,7 @@ int CMD_relay( int argc, char **argv ) {
     listPlayer->name = strdup("GM");
     listPlayer->addr = strdup(aGame->serverOptions.GMemail);
     listPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
-    plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
+
     addList(&toPlayers, listPlayer);
   }
   else {
@@ -151,7 +146,7 @@ int CMD_relay( int argc, char **argv ) {
       listPlayer->name = strdup("GM");
       listPlayer->addr = strdup(aGame->serverOptions.GMemail);
       listPlayer->pswd = strdup(aGame->serverOptions.GMpassword);
-      plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
+
       addList(&toPlayers, listPlayer);
     }
     else {
@@ -182,21 +177,19 @@ int CMD_relay( int argc, char **argv ) {
       listPlayer->name = strdup(itPlayer->name);
       listPlayer->addr = strdup(itPlayer->addr);
       listPlayer->pswd = strdup(itPlayer->pswd);
-      plog(LBRIEF, "adding %s to list of players to send message to.\n", listPlayer->name);
+
       addList(&toPlayers, listPlayer);
     }
   }
   
-  plog(LBRIEF, "  starting to send out emails, iterating through the list of players I've added\n");
   
   for (listPlayer = toPlayers; listPlayer; listPlayer = listPlayer->next) {
-    plog(LBRIEF, "relayMessage(aGame, %s, %s, %s)\n", raceName, fromPlayer->name, listPlayer->name);
     
     result = relayMessage(aGame, raceName, fromPlayer, listPlayer);
     
     if (result == 0) {
       setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] message sent");
-      fprintf(confirm, "Message has been sent to %s.\n", itPlayer->name);
+      fprintf(confirm, "Message has been sent to %s.\n", listPlayer->name);
     }
     else {
       setHeader(anEnvelope, MAILHEADER_SUBJECT,
@@ -218,7 +211,6 @@ int CMD_relay( int argc, char **argv ) {
   if (password)
     free(password);
   destroyEnvelope(anEnvelope);
-  plog(LBRIEF, "confirmName: \"%s\"\n", confirmName);
   
   result |= ssystem("rm %s", confirmName);
   result = result ? EXIT_FAILURE : EXIT_SUCCESS;

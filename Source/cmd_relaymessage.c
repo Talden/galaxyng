@@ -19,11 +19,9 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
 	
     result = 1;
 
-    plog(LBRIEF, ">relayMessage()\n");
     messageName = createString( "%s/NGmessage", tempdir );
 
 	if (!message_read) {
-	  plog(LBRIEF, "  creating message\n");
 		message_read = 1;
 		msg = makestrlist("\n-*- Message follows -*-\n\n" );
 		
@@ -43,7 +41,6 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
 	}
 
     if ( to->addr ) {
-      plog(LBRIEF, "  sending to %s\n", to->addr);
         if ( ( message = fopen( messageName, "w" ) ) ) {
 
             anEnvelope = createEnvelope(  );
@@ -67,18 +64,15 @@ int relayMessage( game *aGame, char *raceName, player* from, emailList* to ) {
 
 			fprintf(message, "\n#END\n");
             fclose( message );
-	    plog(LBRIEF, "  sending email now\n");
             result = eMail( aGame, anEnvelope, messageName );
             destroyEnvelope( anEnvelope );
             result |= ssystem( "rm %s", messageName );
             free( messageName );
         }
 		else {
-		  plog(LBRIEF, "Can't open \"%s\".\n", messageName );
             fprintf( stderr, "Can't open \"%s\".\n", messageName );
         }
     }
 	
-    plog(LBRIEF, "<cmd_relaymessage()\n");
     return result;
 }
