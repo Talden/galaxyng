@@ -2339,6 +2339,7 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 			if (*theTurnNumber == 0) {
 				*theTurnNumber = LG_CURRENT_TURN;
 				*aGame = loadgame( gameName, LG_CURRENT_TURN);
+				loadNGConfig( *aGame );
 				return RES_NO_TURN_NBR;
 			}
 		}
