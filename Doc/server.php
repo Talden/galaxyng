@@ -20,10 +20,10 @@
 			<h2>Table of Contents</h2>
 				<ul>
 					<li><a href="#intro">Introduction</a></li>
-					<li><a href="#ex">Example Files</a></li>
 					<li><a href="#compile">Compilation</a></li>
 					<li><a href="#install">Installation</a></li>
-					<li><a href="#files">Files</a></li>
+					<li><a href="#files">Files and Directories</a></li>
+					<li><a href="#config">Configuration</a></li>
 					<li><a href="#use">Use</a></li>
 					<li><a href="#register">Game Registration</a></li>
 					<li><a href="#create">Creating a New Game</a></li>
@@ -32,7 +32,7 @@
 					<li><a href="#auto">Auto Checking</a></li>
 					<li><a href="#run">Running Turns</a></li>
 					<li><a href="#command">Command Summary</a></li>
-					<li><a href="#config">Configuration</a></li>
+					<li><a href="#ex">Example Files</a></li>
 					<li><a href="#host">Hosting Team Games</a></li>
 				</ul>
  				
@@ -40,49 +40,38 @@
  			
  			<h2 id="intro">Introduction</h2>
  			
-				<p>The two basic items to host a game are a Linux box and an internet connection. GalaxyNG should compile and run right out of the box on Linux. To see if you can use it on another system, here's a checklist of the sofware needed:</p>
+				<p>The two basic items to host a game are a Linux box and an internet connection. GalaxyNG should compile and run right out of the box on Linux. This software is required:</p>
 <pre>C (gcc) compiler; to compile the server 
 crontab; to automatically run turns at a given time 
 procmail; to automatically process in comming orders</pre>
-				<p>The system is command line based, so you don't need X-windows. The program requires little memory. It even runs on a 2 MB Amiga. As for harddisk requirements; depending on the size of the game, you need about 2 to 5 MB of disk space. It isn't so much that the programs are large but that the data files can become quite large. For instance, in the end phase of the game, turn reports can be 100 KB. So if there are 30 players left at that time this would amount to 3 MB of disk space just to store the reports before they are sent. A thirteen player game needed about 2 MB of disk space at turn 52. In these times of GB hard disks this should not be a problem though :)</p>
-				<p>It isn't that difficult to start up your own game. It takes a while to configure a game and the machine, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time, and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
-
-			<hr />
-			
-			<h2 id="ex">Example Files</h2>
-				<ul>
-					<li><a href="house_rules.txt">House Rules</a></li>
-					<li><a href="global.bulletin">Global Bulletin</a></li>
-					<li><a href="galaxyngrc">Server Configuration File</a></li>
-					<li><a href="example.glx">Game Configuration File</a></li>
- 					<li><a href="intro.text">Game Introduction Text</a></li>
- 				</ul>
+				<p>The GalaxyNG server is command line based, so you don't need X-windows. The program requires little memory. It even runs on a 2 MB Amiga. Depending on the size of the game, you need about 2 to 5 MB of disk space. It isn't so much that the programs are large but that the data files can become quite large. For instance, in the end phase of the game, turn reports can be 100 KB. So if there are 30 players left at that time this would amount to 3 MB of disk space just to store the reports before they are sent. A thirteen player game needed about 2 MB of disk space at turn 52. In these times of GB hard disks this should not be a problem though :)</p>
+				<p>It isn't that difficult to start up your own game. It takes a while to configure a game and the server, but once it runs it needs pratically no time at all. The whole process is automated, except for a possible bug fix or answering questions. Before you run a game you should make sure you have enough time, and a connection to the internet for at least one year, since games can run that long. If you start a game, please continue it to the end, as it is very frustrating for players if a game just ends somewhere in the middle without comming to a conclusion.</p>
 
 			<hr />
  			
 			<h2 id="compile">Compilation</h2>
-				<p>Most of the configuration is done after compilation and is handled by the install program.  Before compiling galaxyng you might want to edit the <tt>makefile</tt> in the <tt>Source/</tt> directory to make it fit your machine's configuration.  The following variables can be configured:</p>
+				<p>Most of the configuration is done after compilation and is handled by the <tt>install.sh</tt> program.  Before compiling the GalaxyNG server you should review the <tt>makefile</tt> in the <tt>Source/</tt> directory to make it fit your machine's configuration.  The following variables can be configured:</p>
 <pre>CC     = gcc
 CFLAGS = -Wall -pedantic -g 
 LIBS   = -lm</pre>
-				<p>The above settings are valid for most Unix systems that have <tt>GCC</tt> installed. It has been tested on Debian, Slackware, SuSE, and RedHat systems and should compile without changes on most Linux boxes.  Do not add any optimization options otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
-				<p>To compile the code just type</p>
+				<p>The above settings are valid for most systems that have <tt>GCC</tt> installed. It has been tested on Debian, Slackware, SuSE, and RedHat systems and should compile without changes on most Linux boxes.  Do not add any optimization options otherwise the code will not function properly! The server only runs a couple of times per week, so speed is not an issue.</p>
+				<p>To compile the code, run:</p>
 <pre>make</pre>
 				<p>in the top level directory <tt>GalaxyNG/</tt>, this creates the executable <tt>Source/galaxyng</tt>.</p> 
 
 			<hr />
 
 			<h2 id="install">Installation</h2>
-				<p>After you compile the code, do a</p>
+				<p>To install the GalaxyNG server, run:</p>
 <pre>make install</pre>
-				<p>to install galaxyng. It creates a directory called <tt>Games</tt> in your home directory and installs a number of files in it.</p>
-				<p>If you want to have the game installed in a different directory you have to edit the first line of the <tt>install.sh</tt> script.  You also <strong>must</strong> set the environment variable <tt>GALAXYNGHOME</tt> to this directory.  You can do this by adding a line to your <tt>.bash_profile</tt> file (or the appropriate file for your favourite shell).  For instance if you have installed the game in /home/gng/mygames, add</p>
+				<p>It creates a directory called <tt>Games</tt> in your home directory and installs a number of files in it.</p>
+				<p>If you want to have the game installed in a different directory you have to edit the first line of the <tt>install.sh</tt> script.  You also <strong>must</strong> set the environment variable <tt>GALAXYNGHOME</tt> to this directory.  You can do this by adding a line to your <tt>.bash_profile</tt> file (or the appropriate file for your favourite shell).  For instance if you have installed the game in /home/gng/mygames, add:</p>
 <pre>export GALAXYNGHOME=/home/gng/mygames</pre>
 
 			<hr />
 
-			<h2 id="files">Files</h2>
-				<p>The following files are created.</p>
+			<h2 id="files">Files and Directories</h2>
+				<p>The following files and directories are created.</p>
 				<table>
 					<tr>
 						<th>File</th>
@@ -98,18 +87,17 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>procmailrc</tt></td>
-						<td>An example procmailrc file. This contains the command to automatically process incoming orders when ever a player send you an email with orders and a specific subject. To use it copy it to <tt>$HOME/.procmail</tt>.</td>
+						<td>An example procmailrc file. This contains the commands to automatically process incoming orders and other email received by the server. Edit it with your own local settings and copy it to <tt>$HOME/.procmail</tt>.</td>
 					</tr>
 					<tr>
 						<td><tt>.galaxyngrc</tt></td>
-						<td>The configuration file for the the server which allows you to specify the email address for GM reports, as well the command that should be used to send email.</td>
+						<td>The <a href="#config">configuration</a> file for the the server.  The installation script tries to figure out the location of <tt>sendmail</tt> and <tt>formail</tt>.  It also asks for the GM email address.</td>
 					</tr>
 				</table>
-				<p>The installation script tries to figure out the location of all programs needed to run the game, <tt>sendmail</tt> and <tt>formail</tt>.  It also asks you for an email address. The GM status reports go to this address.</p>
 				<p>The installation program also creates a number of directories:</p>
 				<table>
 					<tr>
-						<th>File</th>
+						<th>Directory</th>
 						<th>Explanation</th>
 					</tr>
 					<tr>
@@ -140,7 +128,7 @@ LIBS   = -lm</pre>
 				<p>There are three kind of notices available:</p>
 				<table>
 					<tr>
-						<th>File</th>
+						<th>Notice</th>
 						<th>Explanation</th>
 					</tr>
 					<tr>
@@ -154,6 +142,37 @@ LIBS   = -lm</pre>
 					<tr>
 						<td><var>&lt;game name&gt;.&lt;turn number&gt;</var><tt>.notice</tt></td>
 						<td>In this you can store information that applies to a particular turn of a game.</td>
+					</tr>
+				</table>
+
+			<hr />
+
+			<h2 id="config">Configuration</h2>
+				<p>The server is configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>, whcih overrides the global settings for that particular game. A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Doc/</tt> directory. You can use it to specify the following parameters:</p>
+				<table>
+					<tr>
+						<th>Parameter</th>
+						<th>Explanation</th>
+					</tr>
+					<tr>
+						<td><tt>GMemail</tt></td>
+						<td>The GM email address.  If this is not present, the GM report will not be mailed.</td>
+					</tr>
+					<tr>
+						<td><tt>sendmail</tt></td>
+						<td>The command that is used to send email, usually <tt>{ /usr/sbin/sendmail -t }</tt>.</td>
+					</tr>
+					<tr>
+						<td><tt>compress</tt></td>
+						<td>The command that is used to compress email, usually <tt>{ /usr/bin/zip }</tt>.</td>
+					</tr>
+					<tr>
+						<td><tt>encode</tt></td>
+						<td>The command that is used to attach compressed files to email, usually <tt>{ /usr/bin/mmencode }</tt> or <tt>{ /usr/bin/uuencode }</tt>.</td>
+					</tr>
+					<tr>
+						<td><tt>StartTime</tt></td>
+						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the following option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have had the same effect.)</td>
 					</tr>
 				</table>
 
@@ -279,122 +298,84 @@ LIBS   = -lm</pre>
 				<table>
 					<tr>
 						<th>Command</th>
-						<th>Parameters</th>
 						<th>Explanation</th>
 					</tr>
 					<tr>
-						<td><tt>template</tt></td>
-						<td><tt>&lt;game name&gt; &lt;number of players&gt;</tt></td>
+						<td><tt>galaxyng -template &lt;game name&gt; &lt;number of players&gt;</tt></td>
 						<td>Create a template specification file.</td>
 					</tr>
 					<tr>
-						<td><tt>create</tt></td>
-						<td><tt>&lt;game specification file&gt;</tt></td>
+						<td><tt>galaxyng -create &lt;game specification file&gt;</tt></td>
 						<td>Create a new game.</td>
 					</tr>
 					<tr>
-						<td><tt>mail0</tt></td>
-						<td><tt>&lt;game name&gt;</tt></td>
+						<td><tt>galaxyng -mail0 &lt;game name&gt;</tt></td>
 						<td>Create and email the turn 0 reports.</td>
 					</tr>
 					<tr>
-						<td><tt>dummymail0</tt></td>
-						<td><tt>&lt;game name&gt;</tt></td>
+						<td><tt>galaxyng -dummymail0 &lt;game name&gt;</tt></td>
 						<td>Create the turn 0 reports, but don't email them. You can find them in <tt>reports/&lt;game name&gt;</tt><td>
 					</tr>
 					<tr>
-						<td><tt>run</tt></td>
-						<td><tt>&lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
+						<td><tt>galaxyng -run &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
 						<td>Run a turn, and mail the turn reports.</td>
 					</tr>
 					<tr>
-						<td><tt>dummyrun</tt></td>
-						<td><tt>&lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
+						<td><tt>galaxyng -dummyrun &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
 						<td>Run a turn but do not mail the turn reports. Store them in <tt>reports/</tt> instead.</td>
 					</tr>
 					<tr>
-						<td><tt>check</tt></td>
-						<td>message via stdin</td>
+						<td><tt>galaxyng -check &lt;message via stdin&gt;</td>
 						<td>Check orders and mail a forecast, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>dummycheck</tt></td>
-						<td>message via stdin</td>
+						<td><tt>galaxyng -dummycheck &lt;message via stdin&gt;</td>
 						<td>Check orders, do not mail a forecast.</td>
 					</tr>
 					<tr>
-						<td><tt>report</tt></td>
-						<td>message via stdin</td>
+						<td><tt>galaxyng -report &lt;message via stdin&gt;</td>
 						<td>Mail a copy of a turn report, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>relay</tt></td>
-						<td>message via stdin</td>
+						<td><tt>galaxyng -relay &lt;message via stdin&gt;</td>
 						<td>Relay a message from one player to another player, used in combination with procmail.</td>
 					</tr>
 					<tr>
-						<td><tt>lastorders</tt></td>
-						<td><tt>&lt;game name&gt; [turn number]</tt></td>
+						<td><tt>galaxyng -lastorders &lt;game name&gt; [turn number]</tt></td>
 						<td>List for each player the last turn orders were sent in.</td>
 					</tr>
 					<tr>
-						<td><tt>players</tt></td>
-						<td><tt>&lt;game name&gt; [turn number]</tt></td>
+						<td><tt>galaxyng -players &lt;game name&gt; [turn number]</tt></td>
 						<td>List password and address of each player.</td>
 					</tr>
 					<tr>
-						<td><tt>toall</tt></td>
-						<td><tt>&lt;game name&gt;</tt></td>
+						<td><tt>galaxyng -toall &lt;game name&gt;</tt></td>
 						<td>Create a mail header to mail a message to all players.</td>
 					</tr>
 					<tr>
-						<td><tt>map</tt></td>
-						<td><tt>&lt;game name&gt; [turn number]</tt></td>
+						<td><tt>galaxyng -map &lt;game name&gt; [turn number]</tt></td>
 						<td>Show a map of the galaxy.</td>
 					</tr>
 					<tr>
-						<td><tt>score</tt></td>
-						<td><tt>&lt;game name&gt;</tt></td>
-						<td>Create a high-score list in HTML format.</td>
+						<td><tt>galaxyng -score &lt;game name&gt;</tt></td>
+						<td>Create a high score list in HTML format.</td>
 					</tr>
 					<tr>
-						<td><tt>hall</tt></td>
-						<td><tt>&lt;game name&gt; [turn number]</tt></td>
+						<td><tt>galaxyng -hall &lt;game name&gt; [turn number]</tt></td>
 						<td>Create a table with information for the Hall of Fame. At the end of a game, run this command and send the output to the <a href="http://www.refs-home.net/galaxyng/hof/">Hall of Fame maintainer</a>.</td>
 					</tr>
 				</table>
 
 			<hr />
-
-			<h2 id="config">Configuration</h2>
-				<p>The server is configured with a <tt>.galaxyngrc</tt> file. The server looks for this file in the directory <tt>$HOME/Games/</tt>. It also looks for the file in <tt>$HOME/Games/data/&lt;game name&gt;/</tt>, whcih overrides the global settings for that particular game. A documented <tt>.galaxyngrc</tt> file can be found in the <tt>Doc/</tt> directory. You can use it to specify the following parameters:</p>
-				<table>
-					<tr>
-						<th>Parameter</th>
-						<th>Explanation</th>
-					</tr>
-					<tr>
-						<td><tt>GMemail</tt></td>
-						<td>The GM email address.  If this is not present, the GM report will not be mailed.</td>
-					</tr>
-					<tr>
-						<td><tt>sendmail</tt></td>
-						<td>The command that is used to send email, usually <tt>{ /usr/sbin/sendmail -t }</tt>.</td>
-					</tr>
-					<tr>
-						<td><tt>compress</tt></td>
-						<td>The command that is used to compress email, usually <tt>{ /usr/bin/zip }</tt>.</td>
-					</tr>
-					<tr>
-						<td><tt>encode</tt></td>
-						<td>The command that is used to attach compressed files to email, usually <tt>{ /usr/bin/mmencode }</tt> or <tt>{ /usr/bin/uuencode }</tt>.</td>
-					</tr>
-					<tr>
-						<td><tt>StartTime</tt></td>
-						<td>On some systems cron behaves a bit oddly after a system reset, and re-runs many old cron jobs. You can use the following option to protect against this.  The server will refuse to run a turn if the current time is not almost equal to the time specified.  A start time of 13:00 would only run a turn if the current time is between 13:00 and 13:09. (It treats the last digit of the time as a wild card, so specifying 13:05 would have had the same effect.)</td>
-					</tr>
-				</table>
-				<p>You can override where the server looks for all its data files by setting the <tt>GALAXYNGHOME</tt> environment variable. If it is not set the server looks in <tt>$HOME/Games/</tt>.</p>
+			
+			<h2 id="ex">Example Files</h2>
+				<ul>
+					<li><a href="house_rules.txt">House Rules</a></li>
+					<li><a href="global.bulletin">Global Bulletin</a></li>
+					<li><a href="galaxyngrc">Server Configuration File</a></li>
+					<li><a href="example.glx">Game Configuration File</a></li>
+ 					<li><a href="intro.text">Game Introduction Text</a></li>
+ 				</ul>
 
 			<hr />
 
