@@ -2310,101 +2310,101 @@ int
 areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 		char **password, char** final_orders, int* theTurnNumber )
 {
-	int   resNumber;
-	int   foundOrders;
-	char* gameName;
-	char* isRead;
-	
-	gameName = NULL;
-	
-	foundOrders = FALSE;
-	for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
-		  isRead;
-		  isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
-		if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
-			foundOrders = TRUE;
-			break;
-		}
-	}
+  int   resNumber;
+  int   foundOrders;
+  char* gameName;
+  char* isRead;
+  
+  gameName = NULL;
+  
+  foundOrders = FALSE;
+  for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
+	isRead;
+	isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
+    if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
+      foundOrders = TRUE;
+      break;
+    }
+  }
 
+  *theTurnNumber = LG_CURRENT_TURN;
+	
+  if ( foundOrders ) {
+    char* ptr;
+    getstr( lineBuffer );
+    gameName = strdup( getstr( NULL ) );
+    *raceName = strdup( getstr( NULL ) );
+    *password = strdup( getstr( NULL ) );
+    if ((ptr = getstr(NULL)) != NULL) {
+      *theTurnNumber = atoi(ptr);
+      if (!isdigit(*ptr)) {
 	*theTurnNumber = LG_CURRENT_TURN;
-	
-	if ( foundOrders ) {
-		char* ptr;
-		getstr( lineBuffer );
-		gameName = strdup( getstr( NULL ) );
-		*raceName = strdup( getstr( NULL ) );
-		*password = strdup( getstr( NULL ) );
-		if ((ptr = getstr(NULL)) != NULL) {
-			*theTurnNumber = atoi(ptr);
-			if (!isdigit(*ptr)) {
-				*theTurnNumber = LG_CURRENT_TURN;
-				if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
-					loadNGConfig(*aGame);
-				else {
-					*aGame = allocStruct( game );
-		
-					setName( *aGame, "UnknownGame" );
-					loadNGConfig( *aGame );
-					if ( gameName )
-						setName( *aGame, gameName );
-					return RES_NO_GAME;
-				}
-				return RES_NO_TURN_NBR;
-			}
-		}
-		
-		if ((ptr = getstr(NULL)) != NULL) {
-			if (noCaseStrcmp(ptr, "FinalOrders") == 0)
-				*final_orders = strdup(ptr);
-		}
+	if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
+	  loadNGConfig(*aGame);
+	else {
+	  *aGame = allocStruct( game );
+	  
+	  setName( *aGame, "UnknownGame" );
+	  loadNGConfig( *aGame );
+	  if ( gameName )
+	    setName( *aGame, gameName );
+	  return RES_NO_GAME;
+	}
+	return RES_NO_TURN_NBR;
+      }
+    }
     
-		if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
-			player *aPlayer;
+    if ((ptr = getstr(NULL)) != NULL) {
+      if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+	*final_orders = strdup(ptr);
+    }
+    
+    if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
+      player *aPlayer;
       
-			loadNGConfig( *aGame );
+      loadNGConfig( *aGame );
       
-			if (noCaseStrcmp("GM", *raceName) == 0) {
-				if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
-					resNumber = RES_OK;
-				}
-			}
-			else {
-				aPlayer = findElement( player, ( *aGame )->players,
-									   *raceName );
+      if (noCaseStrcmp("GM", *raceName) == 0) {
+	if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
+	  resNumber = RES_OK;
+	}
+      }
+      else {
+	aPlayer = findElement( player, ( *aGame )->players,
+			       *raceName );
 	
-				if ( aPlayer ) {
-					if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
-						if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
-							 ( *theTurnNumber == LG_CURRENT_TURN ) ) {
-							resNumber = RES_OK;
-						} else {
-							resNumber = RES_TURNRAN;
-						}
-					} else {
-						resNumber = RES_PASSWORD;
-					}
-				} else {
-					resNumber = RES_PLAYER;
-				}
-			}
-		} else {
-			resNumber = RES_NO_GAME;
-		}
+	if ( aPlayer ) {
+	  if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
+	    if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
+		 ( *theTurnNumber == LG_CURRENT_TURN ) ) {
+	      resNumber = RES_OK;
+	    } else {
+	      resNumber = RES_TURNRAN;
+	    }
+	  } else {
+	    resNumber = RES_PASSWORD;
+	  }
 	} else {
-		resNumber = RES_NO_ORDERS;
+	  resNumber = RES_PLAYER;
 	}
-	
-	if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
-		*aGame = allocStruct( game );
-		
-		setName( *aGame, "UnknownGame" );
-		loadNGConfig( *aGame );
-		if ( gameName )
-			setName( *aGame, gameName );
-	}
-	
-	return resNumber;
+      }
+    } else {
+      resNumber = RES_NO_GAME;
+    }
+  } else {
+    resNumber = RES_NO_ORDERS;
+  }
+  
+  if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
+    *aGame = allocStruct( game );
+    
+    setName( *aGame, "UnknownGame" );
+    loadNGConfig( *aGame );
+    if ( gameName )
+      setName( *aGame, gameName );
+  }
+  
+  return resNumber;
 }
 
 /*********/
