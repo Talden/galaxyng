@@ -648,9 +648,8 @@ report(game *aGame, player *P, FILE * report)
 
   if (P->flags & F_GPLUS) {
     fprintf(fields.destination,
-            "         %s Report for Galaxy PLUS %c%s Turn %d\n",
-            P->name, toupper((aGame->name)[0]), aGame->name + 1,
-            aGame->turn);
+            "         %s Report for Galaxy PLUS %s Turn %d\n",
+            P->name, aGame->name, aGame->turn);
     fprintf(fields.destination,
             "                Galaxy PLUS version 1.0-NG-GPLUS-Emulator\n\n");
     fprintf(fields.destination,
@@ -661,9 +660,8 @@ report(game *aGame, player *P, FILE * report)
   else {
     fprintf(fields.destination, "\t%s\n\n", vcid);
     fprintf(fields.destination,
-            "\t\tGalaxy Game %c%s Turn %d Report for %s\n\n",
-            toupper((aGame->name)[0]), aGame->name + 1, aGame->turn,
-            P->name);
+            "\t\tGalaxy Game %s Turn %d Report for %s\n\n",
+            aGame->name, aGame->turn, P->name);
   }
 
   if (P->pswdstate eq 1) {
