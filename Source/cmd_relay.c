@@ -47,15 +47,10 @@ int CMD_relay( int argc, char **argv ) {
 		free(confirmName);
 		return result;
 	}
-	else 
-		free(confirmName);
 
 	anEnvelope = readEnvelope(stdin);
 
 	destination = getDestination( anEnvelope->subject );
-	plog(LBRIEF, ">CMD_relay(from: \"%s\"  to: \"%s\"), "
-	     "confirmation in \"%s\"\n", anEnvelope->from, destination,
-	     confirmName);
 
 	raceName = NULL;
 	password = NULL;
@@ -63,6 +58,10 @@ int CMD_relay( int argc, char **argv ) {
 	aGame = NULL;
 	resNumber = areValidOrders( stdin, &aGame, &raceName, &password,
 								&final_orders, &theTurnNumber );
+
+	plog(LBRIEF, ">CMD_relay(from: \"%s\"  to: \"%s\"), "
+	     "confirmation in \"%s\"\n", anEnvelope->from, destination,
+	     confirmName);
 
 	/* it's ok to not have a turn number on a relay */
 	setHeader(anEnvelope, MAILHEADER_TO, "%s", anEnvelope->from);

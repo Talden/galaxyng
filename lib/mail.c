@@ -72,36 +72,54 @@ envelope* readEnvelope(FILE* fp) {
 	char      buffer[4096];
 	char*     ptr;
 	
+	plog(LBRIEF, ">readEnvelope()\n");
 	e = createEnvelope();
 
 	while (fgets(buffer, 4096, fp) != NULL) {
 		*(strchr(buffer, '\n')) = '\0';
 
+		plog(LBRIEF, "  buffer \"%s\"\n", buffer);
 		if (buffer[0] == '\0')
 			break;				/* end of headers */
 
-		if ((ptr = strchr(buffer, ':')) == NULL)
+		if ((ptr = strchr(buffer, ':')) == NULL) 
 			continue;			/* skip header, no : in it */
 
 		*ptr = '\0';
-		if (noCaseStrcmp(buffer, "from") == 0)
+		
+		if (noCaseStrcmp(buffer, "from") == 0) {
 			e->from = strdup(ptr+2);
-		else if (noCaseStrcmp(buffer, "to") == 0)
+		  plog(LBRIEF, "from: \"%s\"\n", e->from);
+		}
+		else if (noCaseStrcmp(buffer, "to") == 0) {
 			e->to = strdup(ptr+2);
-		else if (noCaseStrcmp(buffer, "subject") == 0)
+		  plog(LBRIEF, "to: \"%s\"\n", e->to);
+		}
+		else if (noCaseStrcmp(buffer, "subject") == 0) {
 			e->subject = strdup(ptr+2);
-		else if (noCaseStrcmp(buffer, "cc") == 0)
+		  plog(LBRIEF, "subject: \"%s\"\n", e->subject);
+		}
+		else if (noCaseStrcmp(buffer, "cc") == 0) {
 			e->cc = strdup(ptr+2);
-		else if (noCaseStrcmp(buffer, "content-type") == 0)
+		  plog(LBRIEF, "cc: \"%s\"\n", e->cc);
+		}
+		else if (noCaseStrcmp(buffer, "content-type") == 0) {
 			e->contentType = strdup(ptr+2);
-		else if (noCaseStrcmp(buffer, "content-transfer-encoding") == 0)
+		  plog(LBRIEF, "contentType: \"%s\"\n", e->contentType);
+		}
+		else if (noCaseStrcmp(buffer, "content-transfer-encoding") == 0) {
 			e->contentEncoding = strdup(ptr+2);
-		else if (noCaseStrcmp(buffer, "content-description") == 0)
+		  plog(LBRIEF, "contentEncoding: \"%s\"\n", e->contentEncoding);
+		}
+		else if (noCaseStrcmp(buffer, "content-description") == 0) {
 			e->contentDescription = strdup(ptr+2);
+		  plog(LBRIEF, "contentDescription: \"%s\"\n", e->contentDescription);
+		}
 		else
 			continue;
 	}
 
+	plog(LBRIEF, "<readEnvelope()\n");
 	return e; 
 }
 
