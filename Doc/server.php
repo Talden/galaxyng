@@ -237,7 +237,7 @@ LIBS   = -lm</pre>
 			<hr />
 
 			<h2 id="auto">Auto Checking Orders</h2>
-				<p>Checking orders and running turns by hand is of course a very cumbersome process that is best automated with <tt>procmail</tt> and <tt>formail</tt>. They are programs that can reformat and process incoming emails.</p>
+				<p>Checking orders by hand is of course a very cumbersome process that is best automated with <tt>procmail</tt> and <tt>formail</tt>. They are programs that can reformat and process incoming emails.</p>
 				<p>If you have never used <tt>procmail</tt> before, read the man pages, and then use the example procmailrc installed in <tt>$HOME/Games/procmailrc</tt>.</p>
 				<p>Procmail can be difficult to get working.  On some systems <tt>procmail</tt> works by just creating a <tt>.procmailrc</tt> file in your home directory.  On other systems you have to create a <tt>.forward</tt> file, that contains <tt>| /usr/bin/procmail</tt> to get <tt>procmail</tt> to work.</p>
 				<p>Each entry in a <tt>.procmailrc</tt> defines a recipe that tells what has to be done to a message and under what condition. The recipe for order messages looks as follows.</p>
@@ -328,7 +328,7 @@ LIBS   = -lm</pre>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -run &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
-						<td>Run a turn, and mail the turn reports.  Used in combination with run_game.</td>
+						<td>Run a turn, and mail the turn reports, used in combination with run_game.</td>
 					</tr>
 					<tr>
 						<td><tt>galaxyng -dummyrun &lt;game name&gt; &lt;file with orders&gt; [turn number]</tt></td>
