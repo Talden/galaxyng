@@ -73,8 +73,6 @@ echo "  $SENDMAIL"
 #  Try to find the formail command
 # =========================================================
 
-PROCRC=$GALAXY_HOME/procmailrc
-
 echo "o Trying to locate the formail command." 
 # Check the usual locations
 for NAME in /bin/ /sbin /usr/sbin /usr/bin ; do
@@ -207,6 +205,8 @@ chmod +x $RUN_GAME
 #  Create example .procmailrc file
 # =========================================================
 
+PROCRC=$GALAXY_HOME/procmailrc
+
 echo "o Creating $PROCRC"
 echo "  You can use this file in combination with procmail"
 echo "  to automatically check incoming orders."
@@ -218,7 +218,7 @@ if [ -e $PROCRC ]; then
   echo "  Writing the new version to $PROCRC"
 fi
 
-echo "PATH=\$HOME/bin:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
+echo "PATH=\$HOME/bin:$HOME/galaxyng:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
 echo "#" >> $PROCRC
 echo "# Make sure that your mail directory exists!" >> $PROCRC
 echo "MAILDIR=\$HOME/Mail" >> $PROCRC
