@@ -38,8 +38,8 @@ CMD_webreport( int argc, char **argv ) {
       areValidOrders( stdin, &aGame, &raceName, &password,
 		      &final_orders, &theTurnNumber );
     
-    plog(LBRIEF, "Report request from %s for turn %d.\n",
-	 raceName, theTurnNumber);
+    plog(LBRIEF, "Report request from %s for turn %d, game %s.\n",
+	 raceName, theTurnNumber, aGame->name);
 
     if ( ( resNumber == RES_TURNRAN ) ||
 	 ( ( resNumber == RES_OK ) &&

@@ -40,8 +40,6 @@ CMD_report( int argc, char **argv ) {
     returnAddress = getReturnAddress( stdin );
 
     theTurnNumber = getTurnNumber( stdin );
-    plog(LBRIEF, "Report request from %s for turn %d.\n",
-		 returnAddress, theTurnNumber);
     raceName = NULL;
     password = NULL;
     final_orders = NULL;
@@ -50,8 +48,11 @@ CMD_report( int argc, char **argv ) {
       areValidOrders( stdin, &aGame, &raceName, &password,
 		      &final_orders, &theTurnNumber );
     
+    plog(LBRIEF, "Report request from %s for turn %d, game %s.\n",
+	 returnAddress, theTurnNumber, aGame->name);
+
     reportName = createString("%s/temp_report_copy_%d_%s",
-							  tempdir, theTurnNumber, returnAddress);
+			      tempdir, theTurnNumber, returnAddress);
     {
       char *ptr = strrchr(reportName, '/')+1;
       while (*ptr) {
