@@ -166,7 +166,7 @@ createDummyGame(void)
   aGame = allocStruct(game);
 
   setName(aGame, "UnknownGame");
-  loadConfig(aGame);
+  loadNGConfig(aGame);
 
   return aGame;
 }

@@ -64,7 +64,7 @@ CMD_influence(int argc, char* argv[])
 	}
 
 	if ((aGame = loadgame(argv[2], turn_nbr))) {
-		loadConfig(aGame);
+		loadNGConfig(aGame);
 		if (map_type == AllMaps) {
 			for (map_type = FirstMap; map_type < NbrMaps; map_type++)
 				result += draw_maps(aGame, map_type);

@@ -2331,7 +2331,7 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
     if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
       player *aPlayer;
       
-      loadConfig( *aGame );
+      loadNGConfig( *aGame );
       
       if (noCaseStrcmp("GM", *raceName) == 0) {
 	if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
@@ -2368,7 +2368,7 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
     *aGame = allocStruct( game );
     
     setName( *aGame, "UnknownGame" );
-    loadConfig( *aGame );
+    loadNGConfig( *aGame );
     if ( gameName )
       setName( *aGame, gameName );
   }

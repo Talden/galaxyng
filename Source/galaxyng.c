@@ -457,7 +457,7 @@ CMD_run( int argc, char **argv, int kind )
         if ( ( aGame = loadgame( argv[2], turn ) ) ) {
             player *aPlayer;
 
-            loadConfig( aGame );
+            loadNGConfig( aGame );
 
             if ( checkTime( aGame ) || ( kind == CMD_RUN_DUMMY ) ) {
                 checkIntegrity( aGame );
@@ -576,9 +576,9 @@ int CMD_clean(int argc, char **argv) {
 	turn = LG_CURRENT_TURN;
 	
 	if ( ( aGame = loadgame( argv[2], turn ) ) ) {
-		loadConfig( aGame );
+		loadNGConfig( aGame );
 		cleanDeadPlayers(aGame);
-		aGame->turn--;  // hack to force it to save to the current game file
+		aGame->turn--;  /* hack to force it to save to the current game file */
 		savegame( aGame );
 	}
 
@@ -637,7 +637,7 @@ CMD_immediate( int argc, char **argv)
 			char* ordersfile;
 			int   failed = 0;
       
-			loadConfig( aGame );
+			loadNGConfig( aGame );
       
 			next_turn =
 				createString("%s/data/%s/next_turn", galaxynghome, argv[2]);
@@ -1692,7 +1692,7 @@ CMD_create( int argc, char **argv )
                 struct fielddef fields;
 
                 fields.destination = stdout;
-                loadConfig( aGame );
+                loadNGConfig( aGame );
                 checkIntegrity( aGame );
                 savegame( aGame );
                 reportMap( aGame, aGame->players, &fields );
@@ -1738,7 +1738,7 @@ CMD_mail0( int argc, char **argv, int kind )
         if ( ( aGame = loadgame( argv[2], LG_CURRENT_TURN ) ) ) {
             player *aPlayer;
 
-            loadConfig( aGame );
+            loadNGConfig( aGame );
             checkIntegrity( aGame );
             for ( aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next ) {
                 aPlayer->pswdstate = 1;
@@ -1858,7 +1858,7 @@ CMD_report( int argc, char **argv )
                     player *aPlayer;
                     int index;
 
-                    loadConfig( aGame2 );
+                    loadNGConfig( aGame2 );
                     setHeader( anEnvelope, MAILHEADER_SUBJECT,
                                "Galaxy HQ, Copy of turn %d report",
                                theTurnNumber );
@@ -2070,7 +2070,7 @@ CMD_dump( int argc, char **argv, int kind )
 
             fields.destination = stdout;
 
-            loadConfig( aGame );
+            loadNGConfig( aGame );
             switch ( kind ) {
             case CMD_DUMP_MAP:{
                     aDummyPlayer = allocStruct( player );
@@ -2299,7 +2299,7 @@ CMD_ordersdue(int argc, char** argv)
 		usage();
 	}
 	else if ((aGame = loadgame(argv[2], LG_CURRENT_TURN)) != NULL) {
-		loadConfig( aGame );
+		loadNGConfig( aGame );
 		gmbody = createString("%s/orders_due_%s", tempdir, aGame->name);
 		gmnote = GOS_fopen(gmbody, "w");
 		
