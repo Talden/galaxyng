@@ -254,241 +254,242 @@ getReadVersion(int *version, int *revision)
 game           *
 loadgame(char *gameName, int whichTurn)
 {
-  FILE           *nextTurnFile;
-  player         *P;
-  int             turn;
-  game           *aGame;
-  int             turnversion;
-  int             turnrevision;
+	FILE           *nextTurnFile;
+	player         *P;
+	int             turn;
+	game           *aGame;
+	int             turnversion;
+	int             turnrevision;
 
-  pdebug(DFULL, "Load Game\n");
-  plog(LPART, "Loading game %s\n", gameName);
+	pdebug(DFULL, "Load Game\n");
+	plog(LPART, "Loading game %s\n", gameName);
 
-  aGame = allocStruct(game);
+	aGame = allocStruct(game);
 
-  setName(aGame, gameName);
+	setName(aGame, gameName);
 
-  if (whichTurn eq LG_CURRENT_TURN) {
-    sprintf(lineBuffer, "%s/data/%s/next_turn", galaxynghome, aGame->name);
-    nextTurnFile = GOS_fopen(lineBuffer, "r");
-    if (nextTurnFile eq NULL)
-      return FALSE;
-    fscanf(nextTurnFile, "%d", &turn);
-    turn--;
-    fclose(nextTurnFile);
-  }
-  else {
-    turn = whichTurn;
-  }
+	if (whichTurn eq LG_CURRENT_TURN) {
+		sprintf(lineBuffer, "%s/data/%s/next_turn", galaxynghome, aGame->name);
+		nextTurnFile = GOS_fopen(lineBuffer, "r");
+		if (nextTurnFile eq NULL)
+			return FALSE;
+		fscanf(nextTurnFile, "%d", &turn);
+		turn--;
+		fclose(nextTurnFile);
+	}
+	else {
+		turn = whichTurn;
+	}
 
-  sprintf(lineBuffer, "%s/data/%s/%d.new", galaxynghome, aGame->name,
-          turn);
-  turnFile = GOS_fopen(lineBuffer, "r");
-  aGame->turn = turn;
+	sprintf(lineBuffer, "%s/data/%s/%d.new", galaxynghome, aGame->name,
+			turn);
+	turnFile = GOS_fopen(lineBuffer, "r");
+	aGame->turn = turn;
 
-  if (turnFile eq NULL)
-    return FALSE;
+	if (turnFile eq NULL)
+		return FALSE;
 
-  getReadVersion(&turnversion, &turnrevision);
+	getReadVersion(&turnversion, &turnrevision);
 
-  getReadInt();
-  aGame->galaxysize = getReadFloat();
+	getReadInt();
+	aGame->galaxysize = getReadFloat();
 
-  pdebug(DFULL, "Load Game : Game Options\n");  /* CB-20010407 */
-  for (getLine(turnFile);
-       !feof(turnFile) && !strstr(lineBuffer, "@EGameOptions");
-       getLine(turnFile)) {
-    aGame->gameOptions.gameOptions = getReadInt();
-    aGame->gameOptions.initial_drive = getReadFloat();
-    aGame->gameOptions.initial_weapons = getReadFloat();
-    aGame->gameOptions.initial_shields = getReadFloat();
-    aGame->gameOptions.initial_cargo = getReadFloat();
-  }
+	pdebug(DFULL, "Load Game : Game Options\n");  /* CB-20010407 */
+	for (getLine(turnFile);
+		 !feof(turnFile) && !strstr(lineBuffer, "@EGameOptions");
+		 getLine(turnFile)) {
+		aGame->gameOptions.gameOptions = getReadInt();
+		aGame->gameOptions.initial_drive = getReadFloat();
+		aGame->gameOptions.initial_weapons = getReadFloat();
+		aGame->gameOptions.initial_shields = getReadFloat();
+		aGame->gameOptions.initial_cargo = getReadFloat();
+	}
+	
+	pdebug(DFULL, "Load Game : Players\n");
 
-  pdebug(DFULL, "Load Game : Players\n");
+	getLine(turnFile);
+	for (getLine(turnFile);
+		 !feof(turnFile) && !strstr(lineBuffer, "@EPlayers");
+		 getLine(turnFile)) {
+		P = allocStruct(player);
 
-  getLine(turnFile);
-  for (getLine(turnFile);
-       !feof(turnFile) && !strstr(lineBuffer, "@EPlayers");
-       getLine(turnFile)) {
-    P = allocStruct(player);
+		assert(P != NULL);
+		P->fleetnames = NULL;
+		P->shiptypes = NULL;
+		P->mistakes = NULL;
+		P->messages = NULL;
+		P->orders = NULL;
+		P->allies = NULL;
+		P->groups = NULL;
+		P->claimed_planets = NULL;
 
-    assert(P != NULL);
-    P->fleetnames = NULL;
-    P->shiptypes = NULL;
-    P->mistakes = NULL;
-    P->messages = NULL;
-    P->orders = NULL;
-    P->allies = NULL;
-    P->groups = NULL;
-    P->claimed_planets = NULL;
+		setName(P, readString());
+		P->addr = strdup(getReadString());
+		P->pswd = strdup(getReadString());
 
-    setName(P, readString());
-    P->addr = strdup(getReadString());
-    P->pswd = strdup(getReadString());
+		P->drive = getReadFloat();
+		P->weapons = getReadFloat();
+		P->shields = getReadFloat();
+		P->cargo = getReadFloat();
+		P->mx = getReadFloat();
+		P->my = getReadFloat();
+		P->msize = getReadFloat();
+		P->realName = strdup(getReadString());
+		P->team = getReadInt();
+		P->unused3 = getReadInt();
+		P->unused4 = getReadInt();
+		P->unused5 = getReadInt();
+		P->masslost = getReadFloat();
+		P->massproduced = getReadFloat();
+		P->lastorders = getReadInt();
+		P->flags = getReadLong();
+		P->flags |= ~F_XMLREPORT;
 
-    P->drive = getReadFloat();
-    P->weapons = getReadFloat();
-    P->shields = getReadFloat();
-    P->cargo = getReadFloat();
-    P->mx = getReadFloat();
-    P->my = getReadFloat();
-    P->msize = getReadFloat();
-    P->realName = strdup(getReadString());
-    P->team = getReadInt();
-    P->unused3 = getReadInt();
-    P->unused4 = getReadInt();
-    P->unused5 = getReadInt();
-    P->masslost = getReadFloat();
-    P->massproduced = getReadFloat();
-    P->lastorders = getReadInt();
-    P->flags = getReadLong();
+		pdebug(DFULL, "Load Game : Ship Types\n");
 
-    pdebug(DFULL, "Load Game : Ship Types\n");
-
-    getLine(turnFile);
-    for (getLine(turnFile);
-         !feof(turnFile) && !strstr(lineBuffer, "@EShipTypes");
-         getLine(turnFile)) {
-      shiptype       *aShipType;
-
-      aShipType = allocStruct(shiptype);
-
-      setName(aShipType, readString());
-      aShipType->drive = getReadFloat();
-      aShipType->attacks = getReadInt();
-      aShipType->weapons = getReadFloat();
-      aShipType->shields = getReadFloat();
-      aShipType->cargo = getReadFloat();
-      addList(&P->shiptypes, aShipType);
-    }
-
-    getLine(turnFile);
-    for (getLine(turnFile);
-         !feof(turnFile) && !strstr(lineBuffer, "@EFleets");
-         getLine(turnFile)) {
-      fleetname      *aFleetName;
-
-      aFleetName = allocStruct(fleetname);
-
-      setName(aFleetName, readString());
-      aFleetName->fleetspeed = 0.0;     /* Cause it is not stored */
-      addList(&P->fleetnames, aFleetName);
-    }
-    addList(&(aGame->players), P);
-  }
-
-  pdebug(DFULL, "Load Game : Allies\n");
-
-  for (P = aGame->players; P; P = P->next) {
-    getLine(turnFile);
-    for (getLine(turnFile);
-         !feof(turnFile) && !strstr(lineBuffer, "@EAllies");
-         getLine(turnFile)) {
-      alliance       *anAlliance;
-
-      anAlliance = allocStruct(alliance);
-
-      anAlliance->who = (player *) readPointer((list *) aGame->players);
-      assert(anAlliance->who != NULL);
-      addList(&P->allies, anAlliance);
-    }
-  }
-
-  pdebug(DFULL, "Load Game : Planets\n");
-
-  getLine(turnFile);
-  for (getLine(turnFile);
-       !feof(turnFile) && !strstr(lineBuffer, "@EPlanets");
-       getLine(turnFile)) {
-    planet         *aPlanet;
-    int             temp;
-
-    aPlanet = allocStruct(planet);
-
-    setName(aPlanet, readString());
-    aPlanet->owner = (player *) getReadPointer((list *) aGame->players);
-    aPlanet->x = getReadFloat();
-    aPlanet->y = getReadFloat();
-    aPlanet->size = getReadFloat();
-    aPlanet->resources = getReadFloat();
-    aPlanet->pop = getReadFloat();
-    aPlanet->ind = getReadFloat();
-    aPlanet->producing = getReadInt();
-    temp = getReadInt();
-    if (temp) {
-      assert(aPlanet->owner != NULL);
-      aPlanet->producingshiptype =
-          (shiptype *) readPointer((list *) aPlanet->owner->shiptypes);
-    }
-    else
-      aPlanet->producingshiptype = NULL;
-    aPlanet->cap = getReadFloat();
-    aPlanet->mat = getReadFloat();
-    aPlanet->col = getReadFloat();
-    aPlanet->inprogress = getReadFloat();
-    aPlanet->spent = getReadFloat();
-    aPlanet->flags = 0;
-    addList(&(aGame->planets), aPlanet);
-  }
-
-  pdebug(DFULL, "Load Game : Routes\n");
-
-  getLine(turnFile);
-  for (getLine(turnFile);
-       !feof(turnFile) && !strstr(lineBuffer, "@ERoutes");) {
-    planet         *aPlanet;
-
-    for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
-      int             routeIndex;
-
-      for (routeIndex = 0; routeIndex < MAXCARGO; routeIndex++) {
-        aPlanet->routes[routeIndex] =
-            (planet *) readPointer((list *) aGame->planets);
-        getLine(turnFile);
-      }
-    }
-  }
-
-  pdebug(DFULL, "Load Game : Groups\n");
-
-  for (P = aGame->players; P; P = P->next) {
-    group          *aGroup;
-
-    getLine(turnFile);
-    for (getLine(turnFile);
-         !feof(turnFile) && !strstr(lineBuffer, "@EPGroups");
-         getLine(turnFile)) {
-      aGroup = allocStruct(group);
-      aGroup->next = NULL;
-      aGroup->type = (shiptype *) readPointer((list *) P->shiptypes);
-      assert(aGroup->type != NULL);
-      aGroup->number = getReadInt();
-      aGroup->name = (char*)malloc(8);
-      sprintf(aGroup->name, "%d", aGroup->number);
-      aGroup->drive = getReadFloat();
-      aGroup->weapons = getReadFloat();
-      aGroup->shields = getReadFloat();
-      aGroup->cargo = getReadFloat();
-      aGroup->loadtype = getReadInt();
-      aGroup->load = getReadFloat();
-      aGroup->from = (planet *) getReadPointer((list *) aGame->planets);
-      aGroup->where = (planet *) getReadPointer((list *) aGame->planets);
-      aGroup->dist = getReadFloat();
-      aGroup->ships = getReadInt();
-      aGroup->thefleet =
-          (fleetname *) getReadPointer((list *) (P->fleetnames));
-      addList(&P->groups, aGroup);
-
-      aGroup->left = aGroup->ships;
-      aGroup->attack = 0.0;
-      aGroup->defense = 0.0;
-      aGroup->location = NULL;
-    }
-  }
-  loadRanTab(turnFile);
-  fclose(turnFile);
-  return aGame;
+		getLine(turnFile);
+		for (getLine(turnFile);
+			 !feof(turnFile) && !strstr(lineBuffer, "@EShipTypes");
+			 getLine(turnFile)) {
+			shiptype       *aShipType;
+			
+			aShipType = allocStruct(shiptype);
+			
+			setName(aShipType, readString());
+			aShipType->drive = getReadFloat();
+			aShipType->attacks = getReadInt();
+			aShipType->weapons = getReadFloat();
+			aShipType->shields = getReadFloat();
+			aShipType->cargo = getReadFloat();
+			addList(&P->shiptypes, aShipType);
+		}
+		
+		getLine(turnFile);
+		for (getLine(turnFile);
+			 !feof(turnFile) && !strstr(lineBuffer, "@EFleets");
+			 getLine(turnFile)) {
+			fleetname      *aFleetName;
+			
+			aFleetName = allocStruct(fleetname);
+			
+			setName(aFleetName, readString());
+			aFleetName->fleetspeed = 0.0;     /* Cause it is not stored */
+			addList(&P->fleetnames, aFleetName);
+		}
+		addList(&(aGame->players), P);
+	}
+	
+	pdebug(DFULL, "Load Game : Allies\n");
+	
+	for (P = aGame->players; P; P = P->next) {
+		getLine(turnFile);
+		for (getLine(turnFile);
+			 !feof(turnFile) && !strstr(lineBuffer, "@EAllies");
+			 getLine(turnFile)) {
+			alliance       *anAlliance;
+			
+			anAlliance = allocStruct(alliance);
+			
+			anAlliance->who = (player *) readPointer((list *) aGame->players);
+			assert(anAlliance->who != NULL);
+			addList(&P->allies, anAlliance);
+		}
+	}
+	
+	pdebug(DFULL, "Load Game : Planets\n");
+	
+	getLine(turnFile);
+	for (getLine(turnFile);
+		 !feof(turnFile) && !strstr(lineBuffer, "@EPlanets");
+		 getLine(turnFile)) {
+		planet         *aPlanet;
+		int             temp;
+		
+		aPlanet = allocStruct(planet);
+		
+		setName(aPlanet, readString());
+		aPlanet->owner = (player *) getReadPointer((list *) aGame->players);
+		aPlanet->x = getReadFloat();
+		aPlanet->y = getReadFloat();
+		aPlanet->size = getReadFloat();
+		aPlanet->resources = getReadFloat();
+		aPlanet->pop = getReadFloat();
+		aPlanet->ind = getReadFloat();
+		aPlanet->producing = getReadInt();
+		temp = getReadInt();
+		if (temp) {
+			assert(aPlanet->owner != NULL);
+			aPlanet->producingshiptype =
+				(shiptype *) readPointer((list *) aPlanet->owner->shiptypes);
+		}
+		else
+			aPlanet->producingshiptype = NULL;
+		aPlanet->cap = getReadFloat();
+		aPlanet->mat = getReadFloat();
+		aPlanet->col = getReadFloat();
+		aPlanet->inprogress = getReadFloat();
+		aPlanet->spent = getReadFloat();
+		aPlanet->flags = 0;
+		addList(&(aGame->planets), aPlanet);
+	}
+	
+	pdebug(DFULL, "Load Game : Routes\n");
+	
+	getLine(turnFile);
+	for (getLine(turnFile);
+		 !feof(turnFile) && !strstr(lineBuffer, "@ERoutes");) {
+		planet         *aPlanet;
+		
+		for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
+			int             routeIndex;
+			
+			for (routeIndex = 0; routeIndex < MAXCARGO; routeIndex++) {
+				aPlanet->routes[routeIndex] =
+					(planet *) readPointer((list *) aGame->planets);
+				getLine(turnFile);
+			}
+		}
+	}
+	
+	pdebug(DFULL, "Load Game : Groups\n");
+	
+	for (P = aGame->players; P; P = P->next) {
+		group          *aGroup;
+		
+		getLine(turnFile);
+		for (getLine(turnFile);
+			 !feof(turnFile) && !strstr(lineBuffer, "@EPGroups");
+			 getLine(turnFile)) {
+			aGroup = allocStruct(group);
+			aGroup->next = NULL;
+			aGroup->type = (shiptype *) readPointer((list *) P->shiptypes);
+			assert(aGroup->type != NULL);
+			aGroup->number = getReadInt();
+			aGroup->name = (char*)malloc(8);
+			sprintf(aGroup->name, "%d", aGroup->number);
+			aGroup->drive = getReadFloat();
+			aGroup->weapons = getReadFloat();
+			aGroup->shields = getReadFloat();
+			aGroup->cargo = getReadFloat();
+			aGroup->loadtype = getReadInt();
+			aGroup->load = getReadFloat();
+			aGroup->from = (planet *) getReadPointer((list *) aGame->planets);
+			aGroup->where = (planet *) getReadPointer((list *) aGame->planets);
+			aGroup->dist = getReadFloat();
+			aGroup->ships = getReadInt();
+			aGroup->thefleet =
+				(fleetname *) getReadPointer((list *) (P->fleetnames));
+			addList(&P->groups, aGroup);
+			
+			aGroup->left = aGroup->ships;
+			aGroup->attack = 0.0;
+			aGroup->defense = 0.0;
+			aGroup->location = NULL;
+		}
+	}
+	loadRanTab(turnFile);
+	fclose(turnFile);
+	return aGame;
 }
 
 
