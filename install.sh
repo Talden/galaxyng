@@ -75,7 +75,7 @@ echo "  $SENDMAIL"
 
 echo "o Trying to locate the formail command." 
 # Check the usual locations
-for NAME in /bin/ /sbin /usr/sbin /usr/bin ; do
+for NAME in /bin /sbin /usr/sbin /usr/bin ; do
   echo "  Checking: $NAME"
   if [ -x $NAME/formail ]; then  
     FORMAIL=$NAME/formail
