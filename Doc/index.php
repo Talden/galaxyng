@@ -12,12 +12,12 @@
 	</head>
 
 	<body>
-		<h1>Galaxy Next Generation Manuals</h1>
+		<h1>GalaxyNG Manuals</h1>
 
 		<ul>
  			<li><a href="manual.php">Players' Manual</a></li>
  			<li><a href="faq.php">FAQ</a></li>
- 			<li><a href="quickref.php">Orders Quick Reference</a></li>
+ 			<li><a href="quickref.php">Quick Reference</a></li>
 		 <li><a href="server.php">Server Manual</a>
 		 		<ul>
 				 <li><a href="house_rules.txt">Example House Rules</a></li>
@@ -33,6 +33,3 @@
  		<?php include 'footer.php'; ?>
  	</body>
 </html>
-
-
-
