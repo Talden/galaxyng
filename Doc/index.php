@@ -41,6 +41,7 @@
 					<li><a href="faq.php">FAQ</a></li>
  					<li><a href="quickref.php">Quick Reference</a></li>
  					<li><a href="etiquette.php">Etiquette</a></li>
+ 					<li><a href="turns.php">Sample Turn Reports</a></li>
 					<li><a href="server.php">Server Manual</a>	</li>
 				</ul>
 
