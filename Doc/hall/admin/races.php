@@ -23,20 +23,20 @@
 // sort order
 if ($s=="p") { $order="player.last, player.first"; }
 else if ($s=="e") { $order="score.email"; }
-else if ($s=="o") { $order="score.oldnickname"; }
+else if ($s=="n") { $order="score.nick"; }
 else if ($s=="g") { $order="game.name"; }
 else { $order="score.race"; }
 
 // list races
-$races = mysql_query("SELECT score.*, player.first, player.last, game.name as gamename FROM score LEFT JOIN player ON score.player=player.id LEFT JOIN game ON score.game=game.id ORDER BY $order") or die("Couldn't select races " . mysql_error());
+$races = mysql_query("SELECT score.*, player.first, player.last, player.nick, game.name as gamename FROM score LEFT JOIN player ON score.player=player.id LEFT JOIN game ON score.game=game.id ORDER BY $order") or die("Couldn't select races " . mysql_error());
 ?>
 <table>
-<tr><th><a href="?s=r">Race</a></th><th><a href="?s=p">Player</a></th><th><a href="?s=e">Email</a></th><th><a href="?s=o">OldNickname</a></th><th><a href="?s=g">Game</a></th></tr>
+<tr><th><a href="?s=r">Race</a></th><th><a href="?s=p">Player</a></th><th><a href="?s=e">Email</a></th><th><a href="?s=n">Nickname</a></th><th><a href="?s=g">Game</a></th></tr>
 <?php
 while ($race = mysql_fetch_array($races)) {
 	$nation = substr($race[race], 0, 7);
 	if ($race[race]) {
-		echo "<tr><td>$race[race]</td><td><a href=\"player.php?id=$race[player]\">$race[first] $race[last]</a></td><td>$race[email]</td><td>$race[oldnickname]</td><td><a href=\"score.php?game=$race[game]\">$race[gamename]</a></td></tr>\n";
+		echo "<tr><td>$race[race]</td><td><a href=\"player.php?id=$race[player]\">$race[first] $race[last]</a></td><td>$race[email]</td><td>$race[nick]</td><td><a href=\"score.php?game=$race[game]\">$race[gamename]</a></td></tr>\n";
 	}
 }
 echo "</table>";

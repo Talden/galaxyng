@@ -40,7 +40,7 @@
 
 <?php
 // select the players
-	$players = mysql_query("SELECT id,first,last,nick FROM player ORDER BY LOWER(last),LOWER(first)") or die("Invalid query: " . mysql_error());
+	$players = mysql_query("SELECT id,first,last,nick FROM player ORDER BY last, first, nick") or die("Invalid query: " . mysql_error());
 // loop through the players
 	while ($player = mysql_fetch_array($players)) {
 		echo "<br /><a href=\"player.php?id=$player[id]\">";
