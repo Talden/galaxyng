@@ -13,10 +13,23 @@
 # all versions of make.
 #
 
+#
+# if you want to have a .png map generated when a turn is processed
+# then you'll need to have libgd (http://www.boutell.com/gd/)
+# installed with png, jpeg, and freetype support enabled.
+#
+# you will also need to uncomment the following 2 lines
+#
+# CFLAGS = -Wall -pedantic -g -DDRAW_MAP
+# LIBS = -lgd -lpng -lz -ljpeg -lfreetype -lm
+#
+# and comment these lines
+#
+CFLAGS = -Wall -pedantic -g
+LIBS = -lm
+
+
 CC=gcc
-#CC=gcc
-CFLAGS=-Wall -pedantic -g
-LIBS= -lm
 
 
 SOURCES=loadgame.c savegame.c create.c phase.c battle.c process.c \
