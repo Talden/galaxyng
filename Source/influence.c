@@ -289,6 +289,7 @@ int name_rows;
 
 	if (name_rows) {
 		int row;
+int name_len;
 		/* draw the player names in the key */
 		i = 3;                        /* nations off by 3 due to
 									   * black/white/ship color */
@@ -298,9 +299,19 @@ int name_rows;
 			if (i == nbr_of_colors) {
 				i = 3;
 			}
-			
+
+strcpy(buf, P->name);
+name_len = strlen(buf);
+while (1) {
+err = gdImageStringFT((gdImagePtr) NULL, &brect[0], white, font,
+						  12., 0., 0, 0, buf);
+if (brect[4] < 220)
+break;
+buf[--name_len] = '\0';
+}
+
 			err = gdImageStringFT(map_png, NULL, map_colors[i][3], font, 12.,
-								  0., 3 + (j*225), 933 + (row * 16), P->name);
+								  0., 3 + (j*225), 933 + (row * 16), buf);
 			if (err)
 				fprintf(stderr, "%s\n", err);
 			j++;
