@@ -5,20 +5,21 @@ GAME=$1
 # Script
 cd $BASE
 
-if { ! test -z $2; } then {
+if { test -z $2; } then {
 
-	#
-	# We land here in case of a re-run of a turn. Set the turn
-	# number to the second parameter.
-	#
-	TURN=$2
+        #
+        # Determine current turn number from next_turn
+        #
+        TURN=`cat data/$1/next_turn`
 
-	} else {
+        } else {
 
-	#	
-	# Determine current turn number from next_turn
-	#
-	TURN=`cat data/$1/next_turn`
+`       #
+        # We land here in case of a re-run of a turn. Set the turn
+        # number to the second parameter.
+        #
+        TURN=$2
+
 }
 fi
 
