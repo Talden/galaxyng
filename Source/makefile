@@ -7,6 +7,21 @@
 # DO NOT USE -O2 OR ANY OTHER FORM OF OPTIMIZATION
 # IT WILL BREAK THE CODE
 #
+#
+# NOTE
+#
+#   There will be many errors if you run 'make depend' -- this is
+#   expected. I've added the option to not include the standard
+#   directories. In practice the standard headers don't change, but
+#   they are easily located in different places on different
+#   systems. As it is written, the makedepend command will generate
+#   all the local dependencies needed to ensure that all objects will
+#   be updated if a header changes, and that's all we really need.
+#
+#   I would suggest that the 'make depend' command only be run by a
+#   developer, as we can recognize the standard headers in the error
+#   messages and ignore them, while still recognizing other errors
+#
 # This makefile is much bigger than necessary. With a few implicit
 # rules it could be a fraction of the size. However not all versions
 # of make support this. This makefile will hopefully work with even
@@ -23,6 +38,11 @@ ADDTL_CFLAGS = -DDRAW_INFLUENCE_MAP
 ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype
 ADDTL_SRCS = influence.c
 ADDTL_OBJS = influence.o
+#
+# NOTE: that influence mapping is now turned on by default and you'll
+#       have to comment out the above lines to get rid of it
+#
+
 
 CFLAGS = -g -Wall -pedantic -I../include -I$(HOME)/include $(ADDTL_CFLAGS)
 #CFLAGS = -Wall -pedantic -DFS_NEW_FORECAST $(ADDTL_CFLAGS)
@@ -179,93 +199,203 @@ TAGS: $(SOURCES)
 	etags $(SOURCES)
 
 depend:
-	makedepend -- $(CFLAGS) -- $(SOURCES) galaxyng.c wopr.c
+	-@makedepend -Y -- $(CFLAGS) -- $(GNG_SRCS) $(WOPR_SRCS) 
 
 # DO NOT DELETE THIS LINE -- make depend depends on it.
 
+galaxyng.o: ../include/galaxy.h ../include/strutl.h ../include/cookies.h
+galaxyng.o: ../include/logging.h ../include/util.h ../include/list.h
+galaxyng.o: ../include/process.h ../include/savegame.h ../include/loadgame.h
+galaxyng.o: ../include/phase.h ../include/battle.h ../include/report.h
+galaxyng.o: ../include/mail.h ../include/report_m.h ../include/report_xml.h
+galaxyng.o: ../include/selftest.h ../include/create.h ../include/avl.h
+galaxyng.o: ../include/galaxyng.h
 loadgame.o: ../include/loadgame.h ../include/galaxy.h ../include/strutl.h
-loadgame.o: ../include/cookies.h ../include/logging.h
-loadgame.o: ../include/list.h
+loadgame.o: ../include/cookies.h ../include/logging.h ../include/list.h
 loadgame.o: ../include/util.h
 savegame.o: ../include/savegame.h ../include/galaxy.h ../include/strutl.h
-savegame.o: ../include/cookies.h ../include/logging.h /usr/include/time.h
-savegame.o: ../include/list.h ../include/util.h
-mail0.o: ../include/create.h ../include/galaxy.h ../include/strutl.h
-mail0.o: ../include/cookies.h
-mail0.o: ../include/logging.h 
-mail0.o: ../include/avl.h
-mail0.o: ../include/list.h ../include/util.h
-mail0.o: ../include/report.h ../include/loadgame.h ../include/mail.h
-mail0.o: ../include/report_m.h ../include/report_xml.h ../include/savegame.h
-mail0.o: ../include/process.h ../include/phase.h ../include/battle.h
-mail0.o: ../include/selftest.h
-phase.o: ../include/galaxy.h ../include/strutl.h
-phase.o: ../include/cookies.h ../include/logging.h
-phase.o: ../include/list.h ../include/util.h
+savegame.o: ../include/cookies.h ../include/logging.h ../include/list.h
+savegame.o: ../include/util.h
+create.o: ../include/create.h ../include/galaxy.h ../include/strutl.h
+create.o: ../include/cookies.h ../include/logging.h ../include/avl.h
+create.o: ../include/list.h ../include/util.h ../include/report.h
+create.o: ../include/loadgame.h ../include/mail.h ../include/report_m.h
+create.o: ../include/report_xml.h ../include/savegame.h ../include/process.h
+create.o: ../include/phase.h ../include/battle.h ../include/selftest.h
+phase.o: ../include/galaxy.h ../include/strutl.h ../include/cookies.h
+phase.o: ../include/logging.h ../include/list.h ../include/util.h
 phase.o: ../include/phase.h ../include/loadgame.h ../include/savegame.h
 battle.o: ../include/battle.h ../include/galaxy.h ../include/strutl.h
-battle.o: ../include/logging.h 
-battle.o: ../include/list.h ../include/util.h
+battle.o: ../include/cookies.h ../include/logging.h ../include/list.h
+battle.o: ../include/util.h
 process.o: ../include/process.h ../include/galaxy.h ../include/strutl.h
-process.o: ../include/cookies.h ../include/logging.h
-process.o: ../include/list.h ../include/util.h
-process.o: ../include/savegame.h ../include/loadgame.h ../include/phase.h
-process.o: ../include/battle.h ../include/report.h ../include/mail.h
-process.o: ../include/report_m.h ../include/report_xml.h
+process.o: ../include/cookies.h ../include/logging.h ../include/list.h
+process.o: ../include/util.h ../include/savegame.h ../include/loadgame.h
+process.o: ../include/phase.h ../include/battle.h ../include/report.h
+process.o: ../include/mail.h ../include/report_m.h ../include/report_xml.h
 process.o: ../include/selftest.h
 report.o: ../include/report.h ../include/galaxy.h ../include/strutl.h
-report.o: ../include/cookies.h ../include/logging.h
-report.o: ../include/loadgame.h ../include/list.h ../include/util.h
-report.o: ../include/mail.h ../include/report_m.h ../include/report_xml.h
-report.o: ../include/create.h ../include/avl.h
-battletest.o: ../include/selftest.h ../include/galaxy.h ../include/strutl.h
-battletest.o: ../include/cookies.h ../include/logging.h
-battletest.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
-battletest.o: ../include/util.h /usr/include/limits.h
-battletest.o: ../include/list.h ../include/create.h ../include/avl.h
-battletest.o: ../include/process.h
-battletest.o: ../include/savegame.h ../include/loadgame.h ../include/phase.h
-battletest.o: ../include/battle.h ../include/report.h ../include/mail.h
-battletest.o: ../include/report_m.h ../include/report_xml.h
+report.o: ../include/cookies.h ../include/logging.h ../include/loadgame.h
+report.o: ../include/list.h ../include/util.h ../include/mail.h
+report.o: ../include/report_m.h ../include/report_xml.h ../include/create.h
+report.o: ../include/avl.h
+selftest.o: ../include/selftest.h ../include/galaxy.h ../include/strutl.h
+selftest.o: ../include/cookies.h ../include/logging.h ../include/util.h
+selftest.o: ../include/list.h ../include/create.h ../include/avl.h
+selftest.o: ../include/process.h ../include/savegame.h ../include/loadgame.h
+selftest.o: ../include/phase.h ../include/battle.h ../include/report.h
+selftest.o: ../include/mail.h ../include/report_m.h ../include/report_xml.h
 report_xml.o: ../include/create.h ../include/galaxy.h ../include/strutl.h
 report_xml.o: ../include/cookies.h ../include/logging.h ../include/avl.h
-report_xml.o: ../include/report_xml.h
-report_xml.o: ../include/report.h ../include/loadgame.h ../include/list.h
-report_xml.o: ../include/util.h 
+report_xml.o: ../include/report_xml.h ../include/report.h
+report_xml.o: ../include/loadgame.h ../include/list.h ../include/util.h
 report_xml.o: ../include/mail.h ../include/report_m.h
+cmd_template.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_template.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_template.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_template.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_template.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_template.o: ../include/report_xml.h ../include/selftest.h
+cmd_template.o: ../include/create.h ../include/avl.h
+cmd_run.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_run.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_run.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_run.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_run.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_run.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
+cmd_run.o: ../include/avl.h
 report_m.o: ../include/create.h ../include/galaxy.h ../include/strutl.h
-report_m.o: ../include/logging.h ../include/avl.h
+report_m.o: ../include/cookies.h ../include/logging.h ../include/avl.h
 report_m.o: ../include/report_m.h ../include/list.h ../include/util.h
 report_m.o: ../include/report.h ../include/loadgame.h ../include/mail.h
 report_m.o: ../include/report_xml.h
-galaxyng.o: ../include/galaxy.h ../include/strutl.h
-galaxyng.o: ../include/cookies.h ../include/logging.h ../include/util.h
-galaxyng.o: ../include/list.h ../include/process.h ../include/savegame.h
-galaxyng.o: ../include/loadgame.h ../include/phase.h ../include/battle.h
-galaxyng.o: ../include/report.h ../include/mail.h ../include/report_m.h
-galaxyng.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
-galaxyng.o: ../include/avl.h ../include/galaxyng.h
-wopr.o: ../include/galaxy.h ../include/strutl.h
-wopr.o: ../include/cookies.h ../include/logging.h ../include/util.h
-wopr.o: ../include/list.h ../include/process.h ../include/savegame.h
-wopr.o: ../include/loadgame.h ../include/phase.h ../include/battle.h
-wopr.o: ../include/report.h ../include/mail.h ../include/report_m.h
-wopr.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
-wopr.o: ../include/avl.h ../include/wopr.h
 avl.o: ../include/avl.h
-usage.o: ../include/galaxy.h ../include/strutl.h
-usage.o: ../include/cookies.h ../include/logging.h
-galaxyng.o: ../include/galaxy.h ../include/strutl.h
-galaxyng.o: ../include/cookies.h ../include/logging.h ../include/util.h
-galaxyng.o: ../include/list.h ../include/process.h ../include/savegame.h
-galaxyng.o: ../include/loadgame.h ../include/phase.h ../include/battle.h
-galaxyng.o: ../include/report.h ../include/mail.h ../include/report_m.h
-galaxyng.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
-galaxyng.o: ../include/avl.h ../include/galaxyng.h
+usage.o: ../include/galaxy.h ../include/strutl.h ../include/cookies.h
+usage.o: ../include/logging.h
+cmd_immediate.o: ../include/galaxyng.h ../include/galaxy.h
+cmd_immediate.o: ../include/strutl.h ../include/cookies.h
+cmd_immediate.o: ../include/logging.h ../include/util.h ../include/list.h
+cmd_immediate.o: ../include/loadgame.h ../include/process.h
+cmd_immediate.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_immediate.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_immediate.o: ../include/report_xml.h ../include/selftest.h
+cmd_immediate.o: ../include/create.h ../include/avl.h
+influence.o: ../include/galaxy.h ../include/strutl.h ../include/cookies.h
+influence.o: ../include/logging.h ../include/influence.h ../include/list.h
+influence.o: ../include/util.h ../include/avl.h ../include/loadgame.h
+checkTime.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+checkTime.o: ../include/cookies.h ../include/logging.h ../include/util.h
+checkTime.o: ../include/list.h ../include/loadgame.h ../include/process.h
+checkTime.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+checkTime.o: ../include/report.h ../include/mail.h ../include/report_m.h
+checkTime.o: ../include/report_xml.h ../include/selftest.h
+checkTime.o: ../include/create.h ../include/avl.h
+cmd_check.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_check.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_check.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_check.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_check.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_check.o: ../include/report_xml.h ../include/selftest.h
+cmd_check.o: ../include/create.h ../include/avl.h
+cmd_relay.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_relay.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_relay.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_relay.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_relay.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_relay.o: ../include/report_xml.h ../include/selftest.h
+cmd_relay.o: ../include/create.h ../include/avl.h
+cmd_relaymessage.o: ../include/galaxyng.h ../include/galaxy.h
+cmd_relaymessage.o: ../include/strutl.h ../include/cookies.h
+cmd_relaymessage.o: ../include/logging.h ../include/util.h ../include/list.h
+cmd_relaymessage.o: ../include/loadgame.h ../include/process.h
+cmd_relaymessage.o: ../include/savegame.h ../include/phase.h
+cmd_relaymessage.o: ../include/battle.h ../include/report.h ../include/mail.h
+cmd_relaymessage.o: ../include/report_m.h ../include/report_xml.h
+cmd_relaymessage.o: ../include/selftest.h ../include/create.h
+cmd_relaymessage.o: ../include/avl.h
+cmd_create.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_create.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_create.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_create.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_create.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_create.o: ../include/report_xml.h ../include/selftest.h
+cmd_create.o: ../include/create.h ../include/avl.h
+cmd_mail0.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_mail0.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_mail0.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_mail0.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_mail0.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_mail0.o: ../include/report_xml.h ../include/selftest.h
+cmd_mail0.o: ../include/create.h ../include/avl.h
+cmd_clean.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_clean.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_clean.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_clean.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_clean.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_clean.o: ../include/report_xml.h ../include/selftest.h
+cmd_clean.o: ../include/create.h ../include/avl.h
+cmd_report.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_report.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_report.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_report.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_report.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_report.o: ../include/report_xml.h ../include/selftest.h
+cmd_report.o: ../include/create.h ../include/avl.h
+cmd_score.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_score.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_score.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_score.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_score.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_score.o: ../include/report_xml.h ../include/selftest.h
+cmd_score.o: ../include/create.h ../include/avl.h
+cmd_graph.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_graph.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_graph.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_graph.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_graph.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_graph.o: ../include/report_xml.h ../include/selftest.h
+cmd_graph.o: ../include/create.h ../include/avl.h
+cmd_dump.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_dump.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_dump.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_dump.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_dump.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_dump.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
+cmd_dump.o: ../include/avl.h
+cmd_test.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_test.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_test.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_test.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_test.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_test.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
+cmd_test.o: ../include/avl.h
+cmd_selftest.o: ../include/galaxyng.h ../include/galaxy.h ../include/strutl.h
+cmd_selftest.o: ../include/cookies.h ../include/logging.h ../include/util.h
+cmd_selftest.o: ../include/list.h ../include/loadgame.h ../include/process.h
+cmd_selftest.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_selftest.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_selftest.o: ../include/report_xml.h ../include/selftest.h
+cmd_selftest.o: ../include/create.h ../include/avl.h
+cmd_battletest.o: ../include/galaxyng.h ../include/galaxy.h
+cmd_battletest.o: ../include/strutl.h ../include/cookies.h
+cmd_battletest.o: ../include/logging.h ../include/util.h ../include/list.h
+cmd_battletest.o: ../include/loadgame.h ../include/process.h
+cmd_battletest.o: ../include/savegame.h ../include/phase.h
+cmd_battletest.o: ../include/battle.h ../include/report.h ../include/mail.h
+cmd_battletest.o: ../include/report_m.h ../include/report_xml.h
+cmd_battletest.o: ../include/selftest.h ../include/create.h ../include/avl.h
+cmd_ordersdue.o: ../include/galaxyng.h ../include/galaxy.h
+cmd_ordersdue.o: ../include/strutl.h ../include/cookies.h
+cmd_ordersdue.o: ../include/logging.h ../include/util.h ../include/list.h
+cmd_ordersdue.o: ../include/loadgame.h ../include/process.h
+cmd_ordersdue.o: ../include/savegame.h ../include/phase.h ../include/battle.h
+cmd_ordersdue.o: ../include/report.h ../include/mail.h ../include/report_m.h
+cmd_ordersdue.o: ../include/report_xml.h ../include/selftest.h
+cmd_ordersdue.o: ../include/create.h ../include/avl.h
 wopr.o: ../include/galaxy.h ../include/strutl.h ../include/cookies.h
-wopr.o: ../include/logging.h ../include/util.h 
-wopr.o: ../include/list.h ../include/process.h ../include/savegame.h
-wopr.o: ../include/loadgame.h ../include/phase.h ../include/battle.h
-wopr.o: ../include/report.h ../include/mail.h ../include/report_m.h
-wopr.o: ../include/report_xml.h ../include/selftest.h ../include/create.h
-wopr.o: ../include/avl.h /usr/include/fcntl.h ../include/wopr.h
+wopr.o: ../include/logging.h ../include/util.h ../include/list.h
+wopr.o: ../include/process.h ../include/savegame.h ../include/loadgame.h
+wopr.o: ../include/phase.h ../include/battle.h ../include/report.h
+wopr.o: ../include/mail.h ../include/report_m.h ../include/report_xml.h
+wopr.o: ../include/selftest.h ../include/create.h ../include/avl.h
+wopr.o: ../include/wopr.h
