@@ -65,7 +65,7 @@ relayMessage(game *aGame, envelope *anEnvelope, char *raceName,
       for (s = msg; s; s = s->next)
 	fprintf(message, "%s\n", s->str);
       
-      fprintf(message, "\n#end\n");
+      fprintf(message, "\n\n");
       fclose( message );
       result = eMail( aGame, anEnvelope, messageName );
       //result |= ssystem( "rm %s", messageName );
