@@ -710,6 +710,8 @@ typedef struct server {
 	 char* sendmail;
 	 /* GM reports go to this address */
 	 char* GMemail;
+	 /* GM password, for the relay command */
+	 char* GMpassword;
 	 /* the command to compress the body of an email */
 	 char* compress;
 	 /* the command to encode the compressed body */
