@@ -1916,10 +1916,13 @@ runTurn( game *aGame, char *ordersFileName )
 
     getLine( ordersFile );
     for ( ; !feof( ordersFile ); ) {
-        if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
+      char* ptr;
+      if ((ptr = strchr(lineBuffer, '#')) == NULL)
+	ptr = lineBuffer;
+        if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
             player *aPlayer;
 
-            getstr( lineBuffer );
+            getstr( ptr );
             oGameName = strdup( getstr( NULL ) );
             raceName = strdup( getstr( NULL ) );
             password = strdup( getstr( NULL ) );
@@ -1931,14 +1934,19 @@ runTurn( game *aGame, char *ordersFileName )
                     if ( noCaseStrcmp( aPlayer->pswd, password ) == 0 ) {
                         aPlayer->orders = NULL;
                         getLine( ordersFile );
+			if ((ptr = strchr(lineBuffer, '#')) == NULL)
+			  ptr = lineBuffer;
                         for ( ; !feof( ordersFile ) &&
-                              noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) &&
-                              noCaseStrncmp( "#END", lineBuffer, 4 ); ) {
+                              noCaseStrncmp( "#GALAXY", ptr, 7 ) &&
+                              noCaseStrncmp( "#END", ptr, 4 ); ) {
                             strlist *s;
 
                             if ( ( s = makestrlist( lineBuffer ) ) != NULL )
                                 addList( &( aPlayer->orders ), s );
                             getLine( ordersFile );
+			    if ((ptr = strchr(lineBuffer, '#')) == NULL)
+			      ptr = lineBuffer;
+
                         }
                     } else {
                         plog( LPART, "Password Incorrect.\n" );
