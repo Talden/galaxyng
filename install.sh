@@ -149,26 +149,26 @@ fi
 echo "PATH=\$HOME/bin:/usr/bin:/bin:/usr/local/bin:." > $PROCRC
 echo "# Make sure that this exists!" >> $PROCRC
 echo "MAILDIR=\$HOME/Mail" >> $PROCRC
-echo "# For maildir delivery (used by some mail servers instead of mbox delivery)" >> $PROCRC
-echo "# mailbox names should be followed by a /.  Comment out the above line" >> $PROCRC
-echo "# and uncomment this line:" >> $PROCRC
-echo "# MAILDIR=\$HOME/Maildir/" >> $PROCRC
+echo "# For maildir delivery (used by some mail servers instead of mbox delivery):" >> $PROCRC
+echo "# Comment out the above line and uncomment this line:" >> $PROCRC
+echo "# MAILDIR=\$HOME/Maildir" >> $PROCRC
 echo "DEFAULT=\$MAILDIR/mbox" >> $PROCRC
-echo "# For maildir delivery, use:" >> $PROCRC
-echo "# DEFAULT=\$MAILDIR" >> $PROCRC
+echo "# For maildir delivery, mailboxes end in a /, so comment out the above" >> $PROCRC
+echo "# line and use this instead:" >> $PROCRC
+echo "# DEFAULT=\$MAILDIR/" >> $PROCRC
 echo "LOGFILE=\$MAILDIR/galaxyng.log" >> $PROCRC
 echo "LOCKFILE=\$HOME/.lockmail" >> $PROCRC
 echo "LOGABSTRACT=all" >> $PROCRC
 echo "GALAXYNGHOME="$GALAXY_HOME >> $PROCRC
 echo "" >> $PROCRC
-echo "# Store GM reports in a folder called galaxyng-gm." >> $PROCRC
+echo "# Store GM reports in a folder called galaxyng-gmreport." >> $PROCRC
 echo ":0:" >> $PROCRC
 echo "* ^Subject:.*GM Report" >> $PROCRC
-echo "galaxyng-gm" >> $PROCRC
+echo "galaxyng-gmreport" >> $PROCRC
 echo "# Some IMAP servers prefix mailbox names with a '.'  For example:" >> $PROCRC
-echo "# .galaxyng-gm" >> $PROCRC
+echo "# .galaxyng-gmreport" >> $PROCRC
 echo "# Combining this with maildir delivery would yield:" >> $PROCRC
-echo "# .galaxyng-gm/" >> $PROCRC
+echo "# .galaxyng-gmreport/" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Don't reply to anything from a mail daemon, but store it" >> $PROCRC
 echo "# in a folder called postmaster." >> $PROCRC
