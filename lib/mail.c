@@ -326,12 +326,14 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 #ifndef WIN32
   sprintf(command, "%s", aGame->serverOptions.sendmail);
   if (e->from_address) {
-    strcat(command, " -f ");
-    strcat(command, e->from_address);
+    char tmpBuf[4096];
+    sprintf(tmpBuf, " -f \"%s\"", e->from_address);
+    strcat(command, tmpBuf);
   }
   if (e->from_name) {
-    strcat(command, " -F ");
-    strcat(command, e->from_name);
+    char tmpBuf[4096];
+    sprintf(tmpBuf, " -F \"%s\"", e->from_name);
+    strcat(command, tmpBuf);
   }
   result |= ssystem("%s < %s", command, template);
   result |= ssystem("rm %s", template);
