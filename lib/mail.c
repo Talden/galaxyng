@@ -44,18 +44,60 @@ createMailToAllHeader(game *aGame)
  ******
  */
 
-envelope *
-createEnvelope() 
-{
-  envelope *e;
-  e = malloc(sizeof(envelope));
-  assert(e != NULL);
-  e->to = NULL;
-  e->from = NULL;
-  e->subject = NULL;
-  e->bcc = NULL;
-  e->compress = FALSE;
-  return e; 
+envelope* createEnvelope() {
+	envelope *e;
+	e = malloc(sizeof(envelope));
+	assert(e != NULL);
+	e->to = NULL;
+	e->from = NULL;
+	e->subject = NULL;
+	e->bcc = NULL;
+	e->compress = FALSE;
+	return e; 
+}
+
+
+/****f* Mail/readEnvelope
+ * NAME
+ *   readEnvelope -- create an envelope, filling in values from mail header.
+ * FUNCTION
+ *   Creates and initializes an envelope from a file.
+ ******
+ */
+
+envelope* readEnvelope(FILE* fp) {
+
+	envelope *e;
+	char      buffer[4096];
+	char*     ptr;
+	
+	e = (envelope*)malloc(sizeof(envelope));
+	assert(e != NULL);
+
+	while (fgets(buffer, 4096, fp) != NULL) {
+		*(strchr(buffer, '\n')) = '\0';
+
+		if (buffer[0] == '\0')
+			break;				/* end of headers */
+
+		if ((ptr = strchr(buffer, ':')) == NULL)
+			continue;			/* skip header, no : in it */
+
+		*ptr = '\0';
+		if (noCaseStrcmp(buffer, "from") == 0)
+			e->from = strdup(ptr+2);
+		else if (noCaseStrcmp(buffer, "to") == 0)
+			e->to = strdup(ptr+2);
+		else if (noCaseStrcmp(buffer, "subject") == 0)
+			e->subject = strdup(ptr+2);
+		else
+			continue;
+	}
+
+	e->bcc = NULL;
+	e->compress = FALSE;
+	
+	return e; 
 }
 
 

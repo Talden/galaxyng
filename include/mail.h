@@ -42,6 +42,7 @@ enum {MAILHEADER_TO = 1, MAILHEADER_FROM, MAILHEADER_SUBJECT, MAILHEADER_BCC};
 
 void createMailToAllHeader(game *aGame);
 envelope* createEnvelope(void);
+envelope* readEnvelope(FILE* fp);
 void      destroyEnvelope(envelope *e);
 void      setHeader(envelope *e, int headerType, char *format, ...);
 int       eMail(game *aGame, envelope *e, char *fileName);
