@@ -2334,18 +2334,25 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 		*raceName = strdup( getstr( NULL ) );
 		*password = strdup( getstr( NULL ) );
 		if ((ptr = getstr(NULL)) != NULL) {
-			fprintf(stderr, "I think I have a turn number here: \"%s\"\n", ptr);
 			*theTurnNumber = atoi(ptr);
 			if (*theTurnNumber == 0) {
 				*theTurnNumber = LG_CURRENT_TURN;
+				if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
+					loadNGConfig(*aGame);
+				else {
+					*aGame = allocStruct( game );
+		
+					setName( *aGame, "UnknownGame" );
+					loadNGConfig( *aGame );
+					if ( gameName )
+						setName( *aGame, gameName );
+					return RES_NO_GAME;
+				}
+				return RES_NO_TURN_NBR;
 			}
-
-			if (noCaseStrcmp(ptr, "FinalOrders") == 0)
-				*final_orders = strdup(ptr);
 		}
 		
 		if ((ptr = getstr(NULL)) != NULL) {
-			fprintf(stderr, "I think I have final orders here: \"%s\"\n", ptr);
 			if (noCaseStrcmp(ptr, "FinalOrders") == 0)
 				*final_orders = strdup(ptr);
 		}
