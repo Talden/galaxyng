@@ -422,18 +422,258 @@ Subject: report &lt;turn number&gt;
 
 				<h3 id="repbul">Bulletins</h3>
 					<p>The bulletins are provided by the GM.  They usually include a ranked list of races, announcements about the game, holiday notices and other server updates, server instructions, GM contact information, and more.</p>
+<pre>Bulletins for Galaxy Game Daily8 Turn 12
+
+Daily8 Top 15 of turn 12 which ran on 18:00:02 Mon Feb 17 2003
+
+ # lt  Nation        Pop   dlt    Ind   dlt   eInd   dlt  tech  dlt   #  dlt
+ 1   0 Farmers      3607   267   3240   202   3332   218  5.11 0.50  11   0
+ 2   0 SiliconFun   3504   175   3205   241   3280   224  5.92 0.00  22   4
+ 3   0 NULLoids     3467   302   2618    60   2830   120  6.60 0.48  14   0
+ 4   1 Vegetaborg   3695   299   2495   211   2795   233  5.88 0.19  19   0
+ 5  -1 Valdorians   3562   185   2524   144   2784   154  5.16 0.26  18   0
+ 6   0 Nation_15    3534   348   2389    49   2675   124  5.06 0.51   6   0
+ 7   0 Nation_3     3627   267   2265   155   2605   183  4.50 0.00  15   0
+ 8   0 Santa_s      3402   229   2025    49   2369    94  5.85 0.00  12   0
+ 9   0 Nation_2     3237   276   2009   108   2316   150  6.01 0.05  13   0
+10   0 Outvaders    3127   260   1986   137   2271   168  5.62 0.00   9   0
+11   1 Nation_14    2178   168   1831   124   1918   135  4.61 0.21  14   0
+12  -1 Tarmangani   2361     4   1648     8   1827     7  5.84 0.12   8   0
+13   0 Nation_1        0     0      0     0      0     0  5.03 0.00   0   0
+14   0 Nation_10       0     0      0     0      0     0  4.32 0.00   0   0
+15   0 Nation_11       0     0      0     0      0     0  4.32 0.00   0   0
+
+***********************************************************************
+  o     o    +   .  +    o       +      +  o       o           o
+    o      -   ______ o    __        +   -  + _   ________   o    +  o
+ o  .         / ____/___ _/ /___ __  ____  __/ | / / ____/         +
+      .*  -  / / __/ __ `/ / __ `/ |/_/ / / /  |/ / / __      +
+   *        / /_/ / /_/ / / /_/ />  </ /_/ / /|  / /_/ / o    -    -
+    .  o    \____/\__,_/_/\__,_/_/|_|\__, /_/ |_/\____/ .    -  o     o
+     *           . +        o       /____/   +   +          -
+ o         o          +       -                    o         -     o
+   .  -        http://www.badcheese.com/~steve/pbm.shtml       +
+***********************************************************************
+
+-*- SENDING ORDERS -*-
+
+Orders should be send to:   steve@badcheese.com
+with a subject line of:     "order" or "orders"
+All orders should start with:
+  #GALAXY <game name> <your nation name> <your password>
+and end with:
+  #END
+
+The game name is case sensitive, so use Jangi and not jangi.  Please
+send in orders in time. Even empty orders will do.  If you miss 2
+turns in a row during the first 12 turns your nation self destructs,
+and that is not a pretty sight.  After turn 12 you can miss 5 turns in
+a row before your nation self-destructs.  If you fail to send in your
+turn0 or turn1 orders, your nation will be reset.  NOTE: It's better
+to send in blank orders, than no orders at all - especially in the
+beginning turns of the game.  The beginning orders are really easy
+anyway, so there's no reason for people to be kicked out of the game
+for any reason other than they weren't serious about playing the game
+in the first place.
+
+You can send in advance orders by adding the turn number to subject
+line. For instance, to send in orders for turn 55, use a subject line
+of "orders 55".  Advance orders are not checked, you only get a
+confirmation that they were stored on disk. Also do _NOT_ change
+your password or your nation name right before sending in advanced orders.
+The engine will then not accept the orders once the advance turn is
+run unless you remember to use your new password in the advance orders
+too.
+
+You can send in orders as many times as you please. The last set of
+valid orders is used when the turn is run.  You should get an almost
+immediate reply to your email. The message contains a report on any
+mistakes you made in your orders and a short forecast about your
+situation in the next turn.  Not everything will be reflected in the
+forecast of course - things like battles and the other players'
+decisions will affect your final turn report when the turns are run.
+
+PLEASE SEND ORDERS AND RELAYS IN PLAINTEXT ONLY!!!  NO HTML!!!
+Instructions for turning off HTML in most mail clients are here:
+http://www.expita.com/nomime.html
+
+-*- GETTING A COPY OF A TURN REPORT -*-
+
+You can get a copy of any of the previous turn reports by sending a
+set of orders that contains just one line:
+  #GALAXY <game name> <your nation name> <your password>
+to steve@badcheese.com with a Subject line of "report <turn#>"
+Use the nation name and password of the last turn, not the
+name and password you had at the turn you request.
+
+-*- ANONYMOUS IN-GAME EMAIL -*-
+
+You can send a anonymous email to another nation by sending a
+message with the following format
+  #GALAXY <game name> <your nation name> <your password>
+  <text of your message>
+  .
+  .
+to steve@badcheese.com with as Subject: relay <destination nation name>
+If you get a message like this you can just hit the reply button
+and write and send the reply. For your convenience the
+#GALAXY... line is included in the message, you probably have
+to remove the "> " your mail program added in front of it.
+Be careful with signatures if you want to stay anonymous.
+
+-*- TIME AND DUE DATES FOR ORDERS -*-
+
+Most turns get run at midnight "Mountain" time or "Colorado" time
+(That's GMT-7 or GMT-6 depending on the "Daylight time") except the
+"Daily" games which are run at 6pm every day.  For turn frequency
+and the official galaxy engine clock, please visit the web page (below).
+
+-*- OTHER INFORMATION -*-
+
+Game Stats:                     http://badcheese.com/~steve/pbm.shtml
+For information about GalaxyNG:       http://galaxyng.sourceforge.net
+The manual is at:    http://galaxyng.sourceforge.net/ManGalaxyNG.html
+
+-*- BUGS and Other Problems -*-
+
+Send bug reports about the server to steve@badcheese.com.
+Send bug reports about the game engine to fslothouber@acm.org.
+
+For all "how do I ..." questions, see the documentation or send them
+to the mailinglist: galaxy@badcheese.com.
+
+-*- ENDING A GAME -*-
+
+To end a game I need an email from all remaining players, saying they
+agree to end the game.  The result will be entered into the Hall of
+Fame and Shame, and an announcement will be made on galaxy@badcheese.com
+mailing list.
+
+    ____        _ __      ____ 
+   / __ \____ _(_) /_  __( __ )
+  / / / / __ `/ / / / / / __  |
+ / /_/ / /_/ / / / /_/ / /_/ / 
+/_____/\__,_/_/_/\__, /\____/  
+                /____/         
+See http://badcheese.com/~steve/index.php?page_title=Galaxy for
+game runtimes and frequency.
+
+
+		Production Status
+Sofar you have:
+  produced a total shipmass of 1118.42
+  lost a total shipmass of     0.00
+
+
+		Real Name
+  Your real name is none.
+
+
+End of the Bulletins</pre>
 
 				<h3 id="repglo">Global Messages</h3>
 					<p>All global messages are reported, including those sent by the player.</p>
+<pre>GLOBAL Messages
+-*-*-*-
+Nation_10 had an unfortunate accident and was obliterated.
+-*-*-*-
+
+-*-*-*-
+Nation_11 had an unfortunate accident and was obliterated.
+-*-*-*-
+
+-message starts-
+Heya! Hello Everyone! 
+-message ends-
+-message starts-
+AND SO IT BEGINS..... 
+-message ends-
+-message starts-
+A long time ago in a Galaxy .... 
+ ... Game just like this, there lived a quiet unassuming race 
+called the Fluffy_Hobbits. They stretched out from their 
+homeworld of Bag_End across the void to nearby planets 
+and were mercilessly squashed by Obsidian and Xenox. 
+So they changed their name to NSF_Hobbits (Not So 
+Fluffy) and moved to a new galaxy.  Now, a few galaxies 
+later, we are in our new home and would like to say a 
+big hello to all intelligent races out there. 
+ 
+Incidentally NSF_Hobbits are being played from England, 
+so bear this in mind if you need to contact me close to the 
+deadline (which is 7AM(ish) my time). 
+
+Stuart (Supreme Hobbit) 
+
+-message ends-</pre>
 
 				<h3 id="repper">Personal Messages</h3>
 					<p>Personal messages received from other players are reported.</p>
+<pre>PERSONAL Messages for Farmers
+
+-message starts-
+The Vegetaborg send our regards. 
+-message ends-</pre>
 
 				<h3 id="repopt">Your Options</h3>
 					<p>The status of all the player's options (on | off) is reported.</p>
+<pre>		Your Options
+
+N                 S  
+Anonymous        ON  
+AutoUnload       ON  
+ProdTable        ON  
+SortGroups       ON  
+GroupForeCast    ON  
+PlanetForeCast   ON  
+ShipTypeForecast ON  
+RoutesForecast   ON  
+Compress         OFF 
+Gplus            OFF 
+MachineReport    OFF 
+BattleProtocol   OFF 
+XMLReport        OFF</pre>
 					
 				<h3 id="repord">Orders Received</h3>
 					<p>The final set of orders from the player that were received by the server is reported.</p>
+<pre>ORDERS RECEIVED
+
+> L 2 COL 2 
+> S MAX 105 
+> L 2 COL 1 
+> S MAX 51 
+> L 1 COL 1 
+> S MAX 51 
+> L 1 COL 2 
+> S MAX 223 
+> L 1 COL 2 
+> S MAX 133 
+> L 1 COL 2 
+> S MAX 95 
+> L 1 COL 2 
+> S MAX 194 
+> L 3 COL 2 
+> S MAX 180 
+> L 3 COL 2 
+> S MAX 236 
+> L 1 COL 1 
+> S MAX 236 
+> S 1 Peas 29 
+> S 3 Peas 9 
+> P Peas CAP 
+> D Cargo3 69.98 0 0.00 0.00 29.02 
+> P Corn Cargo3 
+> P Carrots CAP
+> @ Tarmangani
+> Howdy, 
+>  
+> Always nice to see someone willing to take the time to name themselves and  
+> their planets. 
+>  
+> Seems Nation_3, a race lacking in imagination, is between us.  Interested  
+> in future collaboration on that front? 
+>  
+> Farmer </pre>
 
 				<h3 id="repmis">Mistakes</h3>
 					<p>Errors resulting from the player's orders are reported.</p>
