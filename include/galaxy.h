@@ -712,6 +712,8 @@ typedef struct server {
 	 char* GMemail;
 	 /* GM password, for the relay command */
 	 char* GMpassword;
+	 /* Server email */
+	 char* SERVERemail;
 	 /* the command to compress the body of an email */
 	 char* compress;
 	 /* the command to encode the compressed body */

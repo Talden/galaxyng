@@ -2038,7 +2038,7 @@ CMD_ordersdue(int argc, char** argv)
 			if (access(orders_file, R_OK) == -1) {
 				env = createEnvelope();
 				env->to = strdup(aplayer->addr);
-				env->from = strdup(aGame->serverOptions.GMemail);
+				env->from = strdup(aGame->serverOptions.SERVERemail);
 				env->subject = createString("Turn %d of %s is about to run",
 											aGame->turn+1, argv[2]);
 				if (msg_count == 0) {
@@ -2075,7 +2075,7 @@ CMD_ordersdue(int argc, char** argv)
 		fclose(gmnote);
 		env = createEnvelope();
 		env->to = strdup(aGame->serverOptions.GMemail);
-		env->from = strdup(aGame->serverOptions.GMemail);
+		env->from = strdup(aGame->serverOptions.SERVERemail);
 		env->subject = createString("Turn %d of %s is about to run",
 									aGame->turn+1, aGame->name);
 		result |= eMail(aGame, env, gmbody);
