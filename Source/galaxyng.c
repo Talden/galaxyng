@@ -148,6 +148,8 @@ main( int argc, char **argv )
 #endif
     else if ( strstr( argv[1], "dummycheck" ) ) {
         result = CMD_check( argc, argv, CMD_CHECK_DUMMY );
+    } else if ( strstr( argv[1], "webcheck" ) ) {
+        result = CMD_webcheck( argc, argv, CMD_CHECK_REAL );
     } else if ( strstr( argv[1], "check" ) ) {
         result = CMD_check( argc, argv, CMD_CHECK_REAL );
     } else if ( strstr( argv[1], "dummyrun" ) ) {
