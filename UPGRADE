@@ -2,6 +2,29 @@
 
 How to upgrade your existing games:
 
+==== UPGRADE To release-6.4.8 ===============
+
+If you want to allow submission of orders and report
+requests using web forms, see NG/web/README.
+
+There is a new Pax Galactica option for game creation.
+Details are in the .glx file created using the -template
+command.
+
+Graphical maps are turned on by default now.  If you do
+not want them, edit NG/Source/Makefile.  The relevant
+section is documented near the top of the file.
+
+You may specify the exact coordinates of each homeworld,
+if desired.  This has caused a change in the .glx file
+format for players.  The ARE has been updated to reflect
+this change.  You should update your ARE and any scripts
+you use to add players to games.  The new format is:
+  start_player
+  email someone@somewhere.com
+  homeworld 1000 42 75
+  end_player
+
 ==== UPGRADE To release-6.4.6 ===============
 
 If you want the graphical maps, edit

@@ -1,5 +1,18 @@
 # $Id$
 
+Release 6.4.8: January 2005
+o By Ken Weinert (madcoder42)
+  + finished work on Pax Galactica, allowing GM to enforce peace
+    at the start of the game for a set number of turns
+o By Ken Weinert (madcoder42) and Chris Shaffer (christhecat)
+  + added web submission of orders and report requests
+  + added feature to allow GM to specify homeworld coordinates
+o By Chris Shaffer (christhecat)
+  + modified GalaxyNG home page, which does not list individual
+    games anymore, as it was too difficult to keep up-to-date
+o By Ken Weinert (madcoder42) and Jeff Frasca (jafrasca)
+  + cleaned up mail headers
+
 Release 6.4.7: November 2004
 o By Ken Weinert (madcoder42)
   + enabled compressed reports from a report request (it already
@@ -16,6 +29,11 @@ o By Ken Weinert (madcoder42)
     eliminated by the DropDead process (991269)
   + fix for bug 1051572 and 1051560 - invalid missing orders report
     going to GM and due time creeping forward by one interval every turn
+o By Chris Shaffer (christhecat)
+  + standardized subject lines on email sent by server
+  + updated server and player manuals
+  + revised installation files to make cleaner examples (e.g. procmailrc)
+  + added guides and example reports to web site
 
 Release 6.4.6: February 2004
 o By Chris Shaffer (christhecat) and Bogdan Mincu (mincub)
