@@ -1,5 +1,14 @@
 # $Id$
 
+Release 6-1a: April 2003
+o By Ken Weinert
+  + Added an option to generate a .png file when the turn is 
+    run. This is for GM use only as it shows all planets. It 
+    will probably be most useful when first setting up a game
+    so the GM can get a visual indication of how things go 
+    together. It could also be useful when showing the history
+    of the game.
+
 Release 6-1: July 2002
 o By Steve Webb
   + Added gnuplot output
