@@ -347,6 +347,7 @@ if { test -n $COMPRESS ; } then {
   echo "compress { " $COMPRESS " }" >> $RCFILE
 }
 fi
+echo "fontpath { " $GALAXYNGHOME " }" >> $RCFILE
 
 
 # =========================================================
