@@ -265,7 +265,7 @@ echo "  # :0 E :Jangi-good" >> $PROCRC
 echo "  # galaxyng-Jangi-good" >> $PROCRC
 echo "  # .galaxyng-Jangi-good" >> $PROCRC
 echo "  # .galaxyng-Jangi-good/" >> $PROCRC
-echo "}" >> $PROCRC
+echo "# }" >> $PROCRC
 echo "" >> $PROCRC
 echo "# Someone wants to sign up for a game with custom planet sizes" >> $PROCRC
 echo "# Up to ten players, max 2500 production, max planet size 1000, max planets 5" >> $PROCRC
