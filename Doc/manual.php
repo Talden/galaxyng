@@ -64,7 +64,7 @@
 							<li><a href="#bomb">Bombing Planets</a></li>
 						</ol>
 					</li>
-					<li>Orders
+					<li><a href="#ord">Orders</a>
 						<ol>
 							<li>Sending Orders</li>
 							<li>Advance Orders</li>
@@ -293,60 +293,19 @@
 					<p>At the start of the game all races are assumed to be at war with all the other races (except in team games).  <a href="#orda">Alliances</a> may be declared at the beginning of any turn.  Ships will not initiate combat with allied ships, nor will they bomb allied planets.  However, there is no way to tell if the allied race has also declared an alliance until warships are encountered.  Ships will always shoot back if fired on (battles will be fought just as if both sides were at war with each other; declaring an alliance puts warships at no disadvantage in combat).  Having declared an alliance, <a href="#ordw">war</a> may be declared again at the start of any subsequent turn and vice versa.</p>
 
 				<h3><a name="bat">Battles</a></h3>
-				 <p>Battles occur whenever a ship with weapons encounters an enemy ship at a planet.  Ships in hyperspace cannot participate in battles.  In each battle round, randomly select a ship from all surviving ships that have not yet attacked (note that if a ship is destroyed before it gets a chance to fire it will not attack).  For each gun on the ship, randomly select a surviving enemy ship and fire a shot.  Repeat until all ships have fired.  Battle rounds continue until the battle is either a draw or a win.  A battle is a draw if all remaining ships are invulnerable to enemy attacks.  A battle is won if all remaining ships belong to races that are allied with each other.</p>
+				 <p>Battles occur whenever a ship with weapons encounters an enemy ship at a planet.  Ships in hyperspace cannot participate in battles.  In each battle round, randomly select a ship from all surviving ships that have not yet attacked (note that if a ship is destroyed before it gets a chance to fire it will not attack).  For each gun on the ship, randomly select a surviving enemy ship and fire a shot.  Repeat until all ships have fired.  Battle rounds continue until the battle is either a standoff or a win.  A battle is a standoff if all remaining ships are invulnerable to enemy attacks.  A battle is won if all remaining ships belong to races that are allied with each other.</p>
 				 <p>Attack and defence strengths are calculated using the following forumlae:</p>
 				 <pre>  attack strength = (weapons mass * weapons technology)
   defence strength = ((shields mass * shields technology) / (ship mass + effective cargo carried mass)^(1/3) * 30^(1/3).</pre>
       <p>If a shot is successful, the enemy ship is destroyed.  The attack forumula is:</p>
       <pre>  p[kill] = (log[4](attack strength / defence strength) + 1) / 2</pre>
-      <p>The numbers are calculated so that if a ship design 10 1 10 10 0 fires at an identical ship, it will have a 50% chance of destroying the target.  If the effective attack is four times as strong, the attack will always succeed.  If the effective defense is four times as strong, the attack will always fail.</p>
+      <p>Where log[4](x)  is the log with base 4 of x, which can be computed with log(x)/log(4).  If the attack strength is four times as strong as the defence strength, the attack will always succeed.  If the defence strength is four times as strong as the attack strength, the attack will always fail.  The numbers are calculated so that if a ship design 10 1 10 10 0 fires at an identical ship, it will have a 50% chance of destroying the target.</p>
 
 				<h3><a name="bomb">Bombing Planets</a></h3>
 					
+      <p>After all battles are resolved, ships with weapons bomb enemy planets, reducing population and industry by 75%.  If only one race has ships with weapons orbiting a bombed planet, that race becomes the new owner of the planet.  If two or more allied races have ships with weapons orbiting a bombed planet, the race that issued a <a href="#ordv">victory</a> command is the new owner.  If no race issued a victory command, the race that appears first in the races table of the turn report receives the planet.  If more than one race issued a victory command, or if there was a standoff, the planet does not have an owner.  Unowned planets can be claimed by the first player to unload colonists at the planet.</p>
 
-
-
-
-
-<PRE>
-
-                    
-  p[kill] = (log[4](Eff_Weapons / Eff_Shields) + 1) / 2
-         
-  Where log[4](x)  is the log with base 4 of x, which
-  can be computed with log(x)/log(4).
-</PRE>
-
-<h3><a name="#conquest">Conquering Planets</a></h3>
-
-<p> If an armed ship is left at one of an enemy race's planets after
-all fighting has been done, it will bomb the planet and wipe out 75%
-of the population and industry (both population and industry are
-reduced to 25% of their original value). The ownership of the planet
-goes to the race that bombed the planet. This is how you conquer
-planets occupied by another race.  </p>
-
-
-<p> You will ask, who gets the planet when two friendly races have
-ships above the same planet?  Normally this is the races that comes
-first in the list with races (as shown in the turn report).  This is
-unfair of course, allies will like to divide the planets they conquer
-amongst each other.  This is possible though with the V command, that
-allows a races to claim a planet. You use it to indicate that you
-claim ownership of a planet when it is bombed. It of course only works
-when you have ships left above the planet when it is bombed.  In case
-2 or more races claim the same planet, nobody gets ownership over
-the planet.  </p>
-
-<p> There is one other special situation. This is when after battle,
-both the owner of the planet, and the race(s) that attacked the
-planet all have ships left, a so called standoff.  This can happen
-when there are ships with small guns and big shields.  In this case,
-the planet is bombed but nobody gets ownership over the planet.  </p>
-
-
-
-<h2><a name="#orders">Orders</a></h2>
+<h2><a name="#ord">Orders</a></h2>
 
 <h3><a name="#sendord">Sending Orders</a></h2>
 
