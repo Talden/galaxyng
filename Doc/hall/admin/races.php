@@ -16,7 +16,7 @@
 
 <?php
 // connect to the database
-	$link = mysql_connect("mysql.sourceforge.net", "galaxyng", "halloffame") or die("Could not connect: " . mysql_error());
+	$link = mysql_connect("mysql-g.sourceforge.net", "galaxyng", "halloffame") or die("Could not connect: " . mysql_error());
 // make galaxyng the current db
 	mysql_select_db("galaxyng", $link) or die("Can\'t use galaxyng : " . mysql_error());
 
