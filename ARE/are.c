@@ -435,8 +435,8 @@ void playerMessage(char *gameName, char *address, char *planets)
   "  http://galaxyng.sourceforge.net/manual.php\n"
   "and the FAQ: \n"
 "   http://galaxyng.sourceforge.net/faq.php\n\n"
-  "If you then still have questions, join the galaxyng-players mailing list:\n"
-  "  http://lists.sourceforge.net/lists/listinfo/galaxyng-players\n"
+  "If you then still have questions, join the Galaxy mailing list:\n"
+  "  \n"
   "\n"
   "Happy Hunting in Galaxy %s!\n\n",
   gameName);
