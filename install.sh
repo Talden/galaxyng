@@ -121,7 +121,7 @@ echo "  $COMPRESS"
 # =========================================================
 
 echo "o Trying to find the mime encoder."
-for NAME in mmencode mimencode uuencode; do
+for NAME in mmencode mimencode; do
   echo "  Checking: $NAME"
   ENCODE=`which $NAME`
   if [ -n "$ENCODE" ]; then
