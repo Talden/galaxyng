@@ -63,6 +63,19 @@
     <maxplayers>25</maxplayers>
     <galaxysize>450.0</galaxysize>
     <nationspacing>30.0</nationspacing>
+	<turns option="finalorders">
+		<turn>
+			<start>1</start>
+			<end>10</end>
+			<miss>2</miss>
+			<frequency>48</frequency>
+		</turn>
+		<turn>
+			<start>11</start>
+			<miss>5</miss>
+			<frequency>72</frequency>
+		</turn>
+	</turns>
     <homeworlds>
       <!-- in a standard game all homeworlds have maximum resources -->
       <res>
