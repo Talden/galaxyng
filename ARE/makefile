@@ -14,7 +14,7 @@ CFLAGS = -g -Wall -pedantic -I../include $(XMLINCLUDES) $(ADDTL_CFLAGS)
 LIBS = -g -lm -L../lib -lgalaxyng $(XMLLIBS) $(ADDTL_LIBS)
 CC = gcc
 
-SOURCES=are.c loadConfig.c storage.c
+SOURCES=are.c loadConfig.c saveConfig.c storage.c join.c drop.c
 OBJECTS=$(SOURCES:.c=.o)
 ARE=are
 
