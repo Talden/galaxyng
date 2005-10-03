@@ -17,9 +17,9 @@
 
 <?php
 // connect to the database
-$link = mysql_connect("mysql-g.sourceforge.net", "galaxyng", "halloffame") or die("Could not connect " . mysql_error());
+$link = mysql_connect("mysql4-g.sourceforge.net", "g48224rw", "of") or die("Could not connect " . mysql_error());
 // make galaxyng the current db
-mysql_select_db("galaxyng", $link) or die("Can\'t use galaxyng  " . mysql_error());
+mysql_select_db("g48224_galaxyng", $link) or die("Can\'t use g48224_galaxyng  " . mysql_error());
 // page menu	
 include '../menu.php';
 
@@ -60,7 +60,7 @@ echo "</ul>";
 
 <?php
 // create temporary table playerinfo
-mysql_query("CREATE TEMPORARY TABLE playerinfo (player INT(10), standard FLOAT(10,2), industry FLOAT(10,2), firsts INT(10), wins INT(10), games INT(10), sort INT(1))") or die("Could not create table " . mysql_error());
+mysql_query("CREATE TEMPORARY TABLE playerinfo (player INT(10), standard FLOAT(10,2), industry FLOAT(10,2), firsts INT(10), wins INT(10), games INT(10), sort INT(1))") or die("Could not create table<br/>" . mysql_error());
 
 // create the records in playerinfo, count games played and indicate if player has real name
 $players = mysql_query("SELECT score.player, COUNT(score.game) AS games, player.last, player.first FROM score LEFT JOIN player ON score.player=player.id GROUP BY score.player");

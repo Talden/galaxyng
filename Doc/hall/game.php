@@ -8,9 +8,9 @@
 
 <?php
 // connect to the database
-$link = mysql_connect("mysql-g.sourceforge.net", "galaxyng", "halloffame") or die("Could not connect " . mysql_error());
+$link = mysql_connect("mysql4-g.sourceforge.net", "g48224rw", "of") or die("Could not connect " . mysql_error());
 // make galaxyng the current db
-mysql_select_db("galaxyng", $link) or die("Can\'t use galaxyng  " . mysql_error());
+mysql_select_db("g48224_galaxyng", $link) or die("Can\'t use g48224_galaxyng  " . mysql_error());
 // select the game
 $games = mysql_query("SELECT game.*, variant.name AS variantname, player.first, player.last, SUM(score.eind) as eind FROM game LEFT JOIN variant ON (game.variant=variant.id) LEFT JOIN player ON (game.gm=player.id) LEFT JOIN score ON game.id=score.game WHERE game.id=$g and score.win='y' GROUP BY game.id") or die("Can\'t select game " . mysql_error());
 // if no game found, try again without any winners
