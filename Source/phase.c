@@ -114,6 +114,9 @@ unloadgroup(group *g, player *P, double amount)
 
   x = amount * g->ships;
   p = g->where;
+  if (p->size < 0.00001)
+    return;
+
   switch (g->loadtype) {
   case CG_CAP:
     unloadcap(p, x);
