@@ -7,10 +7,8 @@
 <!-- $Id$ -->
 
 <?php
-// connect to the database
-$link = mysql_connect("mysql4-g.sourceforge.net", "g48224rw", "of") or die("Could not connect " . mysql_error());
-// make galaxyng the current db
-mysql_select_db("g48224_galaxyng", $link) or die("Can\'t use g48224_galaxyng  " . mysql_error());
+// connect to the database and make galaxyng the current db
+include 'galaxyng_db.php';
 $players = mysql_query("SELECT player.*, country.name AS countryname FROM player LEFT JOIN country ON player.country=country.id WHERE player.id='$p'") or die("Can't find player  " . mysql_error());
 $player = mysql_fetch_array($players) or die("Can't array player  " . mysql_error());
 ?>
