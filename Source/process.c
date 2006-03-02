@@ -1905,6 +1905,8 @@ int
 runTurn( game *aGame, char *ordersFileName )
 {
     player *P;
+    player *randList;
+
     char *oGameName;
     char *raceName;
     char *password;
@@ -1983,7 +1985,8 @@ runTurn( game *aGame, char *ordersFileName )
 
     plog( LPART, "Orders read, processing...\n" );
     plog( LFULL, "# Phase 1 Orders\n" );
-    for ( P = aGame->players; P; P = P->next ) {
+    randList = randomizePlayers(aGame);
+    for ( P = randList; P; P = P->randNext ) {
         doOrders( aGame, P, phase1orders, 1 );
     }
 
@@ -1991,7 +1994,8 @@ runTurn( game *aGame, char *ordersFileName )
         return FALSE;
 
     plog( LFULL, "# Phase 2 Orders\n" );
-    for ( P = aGame->players; P; P = P->next ) {
+    randList = randomizePlayers(aGame);
+    for ( P = randList; P; P = P->randNext ) {
         doOrders( aGame, P, phase2orders, 2 );
     }
 
@@ -1999,7 +2003,8 @@ runTurn( game *aGame, char *ordersFileName )
         return FALSE;
 
     plog( LFULL, "# Phase 3 Orders\n" );
-    for ( P = aGame->players; P; P = P->next ) {
+    randList = randomizePlayers(aGame);
+    for ( P = randList; P; P = P->randNext ) {
         doOrders( aGame, P, phase3orders, 3 );
     }
 

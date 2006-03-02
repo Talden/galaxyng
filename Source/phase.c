@@ -154,6 +154,7 @@ joinphase(game *aGame)
   group          *g, *g2, *g3;
 
   pdebug(DFULL, "Joinphase\n");
+  
   for (P = aGame->players; P; P = P->next) {
     for (g = P->groups; g;) {
       if (g->ships) {
@@ -228,8 +229,10 @@ void
 bombphase(game *aGame)
 {
   player         *aPlayer;
+  player         *randList;
 
-  for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
+  randList = randomizePlayers(aGame);
+  for (aPlayer = randList; aPlayer; aPlayer = aPlayer->randNext) {
     group          *attackGroup;
 
     for (attackGroup = aPlayer->groups;
@@ -391,9 +394,11 @@ determineOwnership(game *aGame, planet *targetPlanet, player *aPlayer)
   noClaims = 0;
 
   if (!standoff) {
+    player *randList = randomizePlayers(aGame);
     claimingPlayer = aPlayer;
-    for (otherPlayer = aGame->players, noClaims = 0;
-         otherPlayer; otherPlayer = otherPlayer->next) {
+
+    for (otherPlayer = randList, noClaims = 0;
+         otherPlayer; otherPlayer = otherPlayer->randNext) {
       planet_claim   *curClaim;
       int             skipRest;
 
@@ -567,13 +572,15 @@ interceptphase(game *aGame)
 	player* otherPlayer;
 	double* massPerPlanet;
 	int     noPlanets;
+	player *randList;
 
 	pdebug(DFULL, "Intercept Phase\n");
 
 	noPlanets = numberOfElements(aGame->planets);
 	massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
 
-	for (curPlayer = aGame->players; curPlayer; curPlayer = curPlayer->next) {
+	randList = randomizePlayers(aGame);
+	for (curPlayer = randList; curPlayer; curPlayer = curPlayer->randNext) {
 		group* inGroup;
 
 		for (inGroup = curPlayer->groups; inGroup; inGroup = inGroup->next) {
@@ -584,6 +591,7 @@ interceptphase(game *aGame)
 				planet* targetPlanet;
 				planet* curPlanet;
 				int     planetIndex;
+				player *randListOther;
 
 				if (inGroup->thefleet)
 					maxDist = 2 * inGroup->thefleet->fleetspeed;
@@ -604,9 +612,10 @@ interceptphase(game *aGame)
 				 * from the planet the intercept command was issued on.  Destination
 				 * planet have to be with in two turn range. */
 				memset(massPerPlanet, 0, (noPlanets + 1) * sizeof(double));
-				
-				for (otherPlayer = aGame->players;
-					 otherPlayer; otherPlayer = otherPlayer->next) {
+
+				randListOther = randomizePlayers(aGame);
+				for (otherPlayer = randListOther;
+					 otherPlayer; otherPlayer = otherPlayer->randNext) {
 					if (otherPlayer != curPlayer) {
 						group          *aGroup;
 						
@@ -722,10 +731,12 @@ movephase(game *aGame)
 {
   player         *P;
   group          *g;
+  player         *randList;
 
   pdebug(DFULL, "Move Phase\n");
 
-  for (P = aGame->players; P; P = P->next) {
+  randList = randomizePlayers(aGame);
+  for (P = randList; P; P = P->randNext) {
     for (g = P->groups; g; g = g->next) {
       if (g->thefleet)
         g->dist -= g->thefleet->fleetspeed;
@@ -753,14 +764,16 @@ unloadphase(game *aGame)
   player         *cur_player;
   group          *g;
   int             i;
+  player         *randList;
 
   pdebug(DFULL, "Unload Phase\n");
 
   /* Auto Unload */
 
   for (p = aGame->planets; p; p = p->next) {
-    for (cur_player = aGame->players;
-         cur_player; cur_player = cur_player->next) {
+    randList = randomizePlayers(aGame);
+    for (cur_player = randList;
+         cur_player; cur_player = cur_player->randNext) {
       if (cur_player->flags & F_AUTOUNLOAD) {
         for (g = cur_player->groups; g; g = g->next) {
           if (g->where == p && g->dist == 0 && g->ships) {
