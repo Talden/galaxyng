@@ -531,6 +531,7 @@ struct player {
   player         *next;
   long            cookie;
   char           *name;
+  player         *randNext;
   char           *addr;
   char           *pswd;
   int             pswdstate;
