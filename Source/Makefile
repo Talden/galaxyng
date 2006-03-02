@@ -173,7 +173,7 @@ wopr.o: wopr.c
 	$(CC) $(CFLAGS) -c wopr.c -o wopr.o
 
 
-$(GALAXYNG): $(GNG_OBJS)
+$(GALAXYNG): $(GNG_OBJS) ../lib/libgalaxyng.a
 	$(CC) $(GNG_OBJS) -o $(GALAXYNG) $(LIBS)
 
 $(WOPR): $(WOPR_OBJS)
