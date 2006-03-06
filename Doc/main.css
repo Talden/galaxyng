@@ -13,13 +13,17 @@ body {
 }
 
 a:link { 
-  color: #6666FF; 
+  color: #6666FF
 }
 a:visited {
-  color: #6699FF;
+  color: #6699FF
 }
 a:active {
-  color: #AAAAFF;
+  color: #AAAAFF
+}
+
+a:hover {
+  background-color: #FFFF99
 }
 
 p, li {
