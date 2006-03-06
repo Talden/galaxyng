@@ -370,7 +370,7 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 
 				<h3 id="bomb">Bombing Planets</h3>	
 					<p>After all battles are resolved, ships with weapons bomb enemy planets, reducing population and industry by 75%.  Bombed planets produce capital until ordered to produce something else on later turns.</p>
-					<p>If only one race has ships with weapons orbiting a bombed planet, that race becomes the new owner of the planet.  If two or more allied races have ships with weapons orbiting a bombed planet, the race that issued a <a href="#ordv">victory</a> command becomes the new owner.  If no race issued a victory command, the race that appears first in the races table of the turn report receives the planet.  If more than one race issued a victory command, or if there was a standoff, the planet becomes unowned and produces nothing until it is claimed by the first race that unloads colonists at the planet.</p>
+					<p>If only one race has ships with weapons orbiting a bombed planet, that race becomes the new owner of the planet.  If two or more allied races have ships with weapons orbiting a bombed planet, the race that issued a <a href="#ordv">victory</a> command becomes the new owner.  If no race issued a victory command, the race that appears first in the player list receives the planet.  (The player list is generated randomly each turn.)  If more than one race issued a victory command, or if there was a standoff, the planet becomes unowned and produces nothing until it is claimed by the first race that unloads colonists at the planet.</p>
 
 			<hr />
 
@@ -1074,7 +1074,7 @@ G   #   T     D    W    S    C  T   Q    D  R O
 <pre>&lt;required&gt;
 [optional]
 option1 | option2 | option3</pre>
-				<p>When orders conflict, such as two races trying to unload colonists onto an uninhabited planet simultaneously at the start of the turn, whichever race is first in the list of races will have its order executed first and colonize the planet. In practice this does not happen often enough to be relevant.</p>
+				<p>When orders conflict, such as two races trying to unload colonists onto an uninhabited planet simultaneously at the start of the turn, whichever race is first in the player list will have its order executed first and colonize the planet.  (The player list is generated randomly each turn.)</p>
 				<p>Because names are changed at the end of the turn, entities which are renamed in a turn must be referred to by their old names for all orders issued during the turn.</p>
 
 				<h3 id="send">Sending Orders</h3>
