@@ -798,7 +798,7 @@ unloadphase(game *aGame)
     if (p->owner) {
       for (i = 0; i != CG_EMPTY; i++) {
         p2 = p->routes[i];
-	if (p2->owner == p->owner) {
+	if (p2->owner == p->owner || !p2->owner) {
 	  for (g = p->owner->groups; g; g = g->next) {
 	    if (g->where == p2 &&
 		g->dist == 0 && g->loadtype == i && g->ships) {
