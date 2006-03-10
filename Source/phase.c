@@ -568,94 +568,94 @@ loadphase(game *aGame)
 void
 interceptphase(game *aGame)
 {
-	player* curPlayer;
-	player* otherPlayer;
-	double* massPerPlanet;
-	int     noPlanets;
-	player *randList;
-
-	pdebug(DFULL, "Intercept Phase\n");
-
-	noPlanets = numberOfElements(aGame->planets);
-	massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
-
-	randList = randomizePlayers(aGame);
-	for (curPlayer = randList; curPlayer; curPlayer = curPlayer->randNext) {
-		group* inGroup;
-
-		for (inGroup = curPlayer->groups; inGroup; inGroup = inGroup->next) {
-			if (inGroup->flags & GF_INTERCEPT) {
-				double maxDist;
-				double maxMass;
-				planet* inPlanet;
-				planet* targetPlanet;
-				planet* curPlanet;
-				int     planetIndex;
-				player *randListOther;
-
-				if (inGroup->thefleet)
-					maxDist = 2 * inGroup->thefleet->fleetspeed;
-				else
-					maxDist = 2 * groupSpeed(inGroup);
-
-				inPlanet = inGroup->where;
-				if (inGroup->thefleet) {
-					pdebug(DFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
-						   inGroup->thefleet->name, inPlanet->name, maxDist);
-				}
-				else {
-					pdebug(DFULL, "Group %d Intercept on Planet %s max Dist %f\n",
-						   inGroup->number, inPlanet->name, maxDist);
-				}
-				/* 
-				 * Compute the total mass per destination planet, of all groups departing
-				 * from the planet the intercept command was issued on.  Destination
-				 * planet have to be with in two turn range. */
-				memset(massPerPlanet, 0, (noPlanets + 1) * sizeof(double));
-
-				randListOther = randomizePlayers(aGame);
-				for (otherPlayer = randListOther;
-					 otherPlayer; otherPlayer = otherPlayer->randNext) {
-					if (otherPlayer != curPlayer) {
-						group          *aGroup;
-						
-						for (aGroup = otherPlayer->groups;
-							 aGroup; aGroup = aGroup->next) {
-							if ((aGroup->dist) &&
-								(aGroup->location eq inPlanet) &&
-								(dist(aGame, aGroup->where, inGroup->location) <
-								 maxDist)) {
-								massPerPlanet[ptonum(aGame->planets, aGroup->where)] +=
-									aGroup->ships * shipmass(aGroup);
-							}
-						}
-					}
-				}
-				/* 
-				 * Find the destination planet of the largest outgoing mass.  */
-				targetPlanet = NULL;
-				for (curPlanet = aGame->planets, planetIndex = 1, maxMass = 0;
-					 curPlanet; planetIndex++, curPlanet = curPlanet->next) {
-					assert(planetIndex < (noPlanets + 1));
-					if (massPerPlanet[planetIndex] > maxMass) {
-						targetPlanet = curPlanet;
-						maxMass = massPerPlanet[planetIndex];
-					}
-				}
-				
-				if (targetPlanet) {
-					pdebug(DFULL, "Result: Planet %s (%f ly away).\n",
-						   targetPlanet->name, dist(aGame, inGroup->where,
-													targetPlanet));
-					inGroup->where = inGroup->from;
-					send(aGame, inGroup, targetPlanet);
-				}
-                /* Remove the intercept flag. */ 
-				inGroup->flags &= ~GF_INTERCEPT;        
-			}
-		}
+  player* curPlayer;
+  player* otherPlayer;
+  double* massPerPlanet;
+  int     noPlanets;
+  player *randList;
+  
+  pdebug(DFULL, "Intercept Phase\n");
+  
+  noPlanets = numberOfElements(aGame->planets);
+  massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
+  
+  randList = randomizePlayers(aGame);
+  for (curPlayer = randList; curPlayer; curPlayer = curPlayer->randNext) {
+    group* inGroup;
+    
+    for (inGroup = curPlayer->groups; inGroup; inGroup = inGroup->next) {
+      if (inGroup->flags & GF_INTERCEPT) {
+	double maxDist;
+	double maxMass;
+	planet* inPlanet;
+	planet* targetPlanet;
+	planet* curPlanet;
+	int     planetIndex;
+	player *randListOther;
+	
+	if (inGroup->thefleet)
+	  maxDist = 2 * inGroup->thefleet->fleetspeed;
+	else
+	  maxDist = 2 * groupSpeed(inGroup);
+	
+	inPlanet = inGroup->where;
+	if (inGroup->thefleet) {
+	  pdebug(DFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
+		 inGroup->thefleet->name, inPlanet->name, maxDist);
 	}
-	free(massPerPlanet);
+	else {
+	  pdebug(DFULL, "Group %d Intercept on Planet %s max Dist %f\n",
+		 inGroup->number, inPlanet->name, maxDist);
+	}
+	/* 
+	 * Compute the total mass per destination planet, of all groups departing
+	 * from the planet the intercept command was issued on.  Destination
+	 * planet have to be with in two turn range. */
+	memset(massPerPlanet, 0, (noPlanets + 1) * sizeof(double));
+	
+	randListOther = randomizePlayers(aGame);
+	for (otherPlayer = randListOther;
+	     otherPlayer; otherPlayer = otherPlayer->randNext) {
+	  if (otherPlayer != curPlayer) {
+	    group          *aGroup;
+	    
+	    for (aGroup = otherPlayer->groups;
+		 aGroup; aGroup = aGroup->next) {
+	      if ((aGroup->dist) &&
+		  (aGroup->location eq inPlanet) &&
+		  (dist(aGame, aGroup->where, inGroup->location) <
+		   maxDist)) {
+		massPerPlanet[ptonum(aGame->planets, aGroup->where)] +=
+		  aGroup->ships * shipmass(aGroup);
+	      }
+	    }
+	  }
+	}
+	/* 
+	 * Find the destination planet of the largest outgoing mass.  */
+	targetPlanet = NULL;
+	for (curPlanet = aGame->planets, planetIndex = 1, maxMass = 0;
+	     curPlanet; planetIndex++, curPlanet = curPlanet->next) {
+	  assert(planetIndex < (noPlanets + 1));
+	  if (massPerPlanet[planetIndex] > maxMass) {
+	    targetPlanet = curPlanet;
+	    maxMass = massPerPlanet[planetIndex];
+	  }
+	}
+	
+	if (targetPlanet) {
+	  pdebug(DFULL, "Result: Planet %s (%f ly away).\n",
+		 targetPlanet->name, dist(aGame, inGroup->where,
+					  targetPlanet));
+	  inGroup->where = inGroup->from;
+	  send(aGame, inGroup, targetPlanet);
+	}
+	/* Remove the intercept flag. */ 
+	inGroup->flags &= ~GF_INTERCEPT;        
+      }
+    }
+  }
+  free(massPerPlanet);
 }
 
 /*********/
@@ -770,16 +770,22 @@ unloadphase(game *aGame)
 
   /* Auto Unload */
 
+  randList = randomizePlayers(aGame);
   for (p = aGame->planets; p; p = p->next) {
-    randList = randomizePlayers(aGame);
     for (cur_player = randList;
          cur_player; cur_player = cur_player->randNext) {
       if (cur_player->flags & F_AUTOUNLOAD) {
         for (g = cur_player->groups; g; g = g->next) {
           if (g->where == p && g->dist == 0 && g->ships) {
+	    FILE* debug = fopen("/tmp/autounload.dbg", "a+");
+	    fprintf(debug, "p->owner: %p, cur_player:%p\n",
+		    (void*)p->owner, (void*)cur_player);
             if ((p->owner && p->owner == cur_player) || !p->owner) {
-              unloadgroup(g, cur_player, g->load);
+	      fprintf(debug, "unloadgroup(%p, %p, %f);\n",
+		      (void*)g, (void*)cur_player, g->load);
+	      unloadgroup(g, cur_player, g->load);
             }
+	    fclose(debug);
           }
         }
       }
