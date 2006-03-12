@@ -1904,155 +1904,155 @@ z_order( game *aGame, player *P, strlist **s )
 int
 runTurn( game *aGame, char *ordersFileName )
 {
-    player *P;
-    player *randList;
+  player *P;
+  player *randList;
+  
+  char *oGameName;
+  char *raceName;
+  char *password;
+  FILE *ordersFile;
+  
+  char* rm_notify;
+  
+  rm_notify = createString("/bin/rm -f %s/orders/%s/*.notify",
+			   galaxynghome, aGame->name);
+  /*printf("executing \"%s\"\n", rm_notify);*/
+  ssystem(rm_notify);
+  free(rm_notify);
+  
+  plog( LPART, "Reading orders from file %s\n", ordersFileName );
+  
+  ordersFile = Fopen( ordersFileName, "r" );
+  
+  getLine( ordersFile );
+  for ( ; !feof( ordersFile ); ) {
+    char* ptr;
+    ptr = lineBuffer + strspn(lineBuffer, " \t");
+    if (ptr && *ptr == ';')
+      continue;		/* skip comment lines */
+    if ((ptr = strchr(lineBuffer, '#')) == NULL)
+      ptr = lineBuffer;
+    if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
+      player *aPlayer;
+      
+      getstr( ptr );
+      oGameName = strdup( getstr( NULL ) );
+      raceName = strdup( getstr( NULL ) );
+      password = strdup( getstr( NULL ) );
+      if ( noCaseStrcmp( oGameName, aGame->name ) == 0 ) {
+	aPlayer = findElement( player, aGame->players, raceName );
+	
+	if ( aPlayer ) {
+	  aPlayer->lastorders = aGame->turn + 1;
+	  if ( noCaseStrcmp( aPlayer->pswd, password ) == 0 ) {
+	    aPlayer->orders = NULL;
+	    getLine(ordersFile);
+	    if ((ptr = strchr(lineBuffer, '#')) == NULL)
+	      ptr = lineBuffer;
 
-    char *oGameName;
-    char *raceName;
-    char *password;
-    FILE *ordersFile;
-
-	char* rm_notify;
-
-	rm_notify = createString("/bin/rm -f %s/orders/%s/*.notify",
-							 galaxynghome, aGame->name);
-	/*printf("executing \"%s\"\n", rm_notify);*/
-	ssystem(rm_notify);
-	free(rm_notify);
-			
-    plog( LPART, "Reading orders from file %s\n", ordersFileName );
-
-    ordersFile = Fopen( ordersFileName, "r" );
-
+	    for ( ; !feof( ordersFile ) &&
+		    noCaseStrncmp( "#GALAXY", ptr, 7 ) &&
+		    noCaseStrncmp( "#END", ptr, 4 ); ) {
+	      strlist *s;
+	      
+	      if ( ( s = makestrlist( lineBuffer ) ) != NULL )
+		addList( &( aPlayer->orders ), s );
+	      getLine( ordersFile );
+	      if ((ptr = strchr(lineBuffer, '#')) == NULL)
+		ptr = lineBuffer;
+	    }
+	  } else {
+	    plog( LPART, "Password Incorrect.\n" );
+	  }
+	} else {
+	  plog( LPART, "Unrecognized player %s.\n", raceName );
+	}
+      } else {
+	plog( LPART, "Orders are not for game %s.\n", aGame->name );
+      }
+      free( oGameName );
+      free( raceName );
+      free( password );
+    }
     getLine( ordersFile );
-    for ( ; !feof( ordersFile ); ) {
-      char* ptr;
-      ptr = lineBuffer + strspn(lineBuffer, " \t");
-      if (ptr && *ptr == ';')
-	continue;		/* skip comment lines */
-      if ((ptr = strchr(lineBuffer, '#')) == NULL)
-	ptr = lineBuffer;
-        if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
-            player *aPlayer;
-
-            getstr( ptr );
-            oGameName = strdup( getstr( NULL ) );
-            raceName = strdup( getstr( NULL ) );
-            password = strdup( getstr( NULL ) );
-            if ( noCaseStrcmp( oGameName, aGame->name ) == 0 ) {
-                aPlayer = findElement( player, aGame->players, raceName );
-
-                if ( aPlayer ) {
-                    aPlayer->lastorders = aGame->turn + 1;
-                    if ( noCaseStrcmp( aPlayer->pswd, password ) == 0 ) {
-                        aPlayer->orders = NULL;
-                        getLine( ordersFile );
-			if ((ptr = strchr(lineBuffer, '#')) == NULL)
-			  ptr = lineBuffer;
-                        for ( ; !feof( ordersFile ) &&
-                              noCaseStrncmp( "#GALAXY", ptr, 7 ) &&
-                              noCaseStrncmp( "#END", ptr, 4 ); ) {
-                            strlist *s;
-
-                            if ( ( s = makestrlist( lineBuffer ) ) != NULL )
-                                addList( &( aPlayer->orders ), s );
-                            getLine( ordersFile );
-			    if ((ptr = strchr(lineBuffer, '#')) == NULL)
-			      ptr = lineBuffer;
-
-                        }
-                    } else {
-                        plog( LPART, "Password Incorrect.\n" );
-                    }
-                } else {
-                    plog( LPART, "Unrecognized player %s.\n", raceName );
-                }
-            } else {
-                plog( LPART, "Orders are not for game %s.\n", aGame->name );
-            }
-            free( oGameName );
-            free( raceName );
-            free( password );
-        }
-        getLine( ordersFile );
-    }
-    fclose( ordersFile );
-
-    ( aGame->turn )++;
-
-    if ( !checkIntegrity( aGame ) )
-        return FALSE;
-
-    plog( LPART, "Orders read, processing...\n" );
-    plog( LFULL, "# Phase 1 Orders\n" );
-    randList = randomizePlayers(aGame);
-    for ( P = randList; P; P = P->randNext ) {
-        doOrders( aGame, P, phase1orders, 1 );
-    }
-
-    if ( !checkIntegrity( aGame ) )
-        return FALSE;
-
-    plog( LFULL, "# Phase 2 Orders\n" );
-    randList = randomizePlayers(aGame);
-    for ( P = randList; P; P = P->randNext ) {
-        doOrders( aGame, P, phase2orders, 2 );
-    }
-
-    if ( !checkIntegrity( aGame ) )
-        return FALSE;
-
-    plog( LFULL, "# Phase 3 Orders\n" );
-    randList = randomizePlayers(aGame);
-    for ( P = randList; P; P = P->randNext ) {
-        doOrders( aGame, P, phase3orders, 3 );
-    }
-
-    if ( !checkIntegrity( aGame ) )
-        return FALSE;
-
-    plog( LFULL, "# joinphase I\n" );
-    joinphase( aGame );
-    preComputeGroupData( aGame );
-    plog( LFULL, "# fightphase I\n" );
-    fightphase( aGame, GF_INBATTLE1 );
-    plog( LFULL, "# bombphase I\n" );
-    bombphase( aGame );
-    plog( LFULL, "# loadphase\n" );
-    loadphase( aGame );
-    plog( LFULL, "# fleetphase I \n" );
-    fleetphase( aGame );
-    if ( !checkIntegrity( aGame ) )
-        return FALSE;
-    plog( LFULL, "# interceptphase\n" );
-    interceptphase( aGame );
-    plog( LFULL, "# movephase\n" );
-    movephase( aGame );
-    plog( LFULL, "# joinphase II\n" );
-    joinphase( aGame );
-    preComputeGroupData( aGame );
-    plog( LFULL, "# fightphase II\n" );
-    fightphase( aGame, GF_INBATTLE2 );
-    plog( LFULL, "# bombphase II\n" );
-    bombphase( aGame );
-    plog( LFULL, "# producephase\n" );
-    producephase( aGame );
-    plog( LFULL, "# unloadphase\n" );
-    unloadphase( aGame );
-    plog( LFULL, "# joinphase III\n" );
-    joinphase( aGame );
-    plog( LFULL, "# fleetphase II\n" );
-    fleetphase( aGame );
-    if ( !checkIntegrity( aGame ) )
-        return FALSE;
-    preComputeGroupData( aGame );
-    sortphase( aGame );
-
-    if ( !( aGame->gameOptions.gameOptions & GAME_NODROP ) )
-        removeDeadPlayer( aGame );
-    raceStatus( aGame );
-
-    return TRUE;
+  }
+  fclose( ordersFile );
+  plog(LFULL, "done parsing orders\n");
+  ( aGame->turn )++;
+  
+  if ( !checkIntegrity( aGame ) )
+    return FALSE;
+  
+  plog( LPART, "Orders read, processing...\n" );
+  plog( LFULL, "# Phase 1 Orders\n" );
+  randList = randomizePlayers(aGame);
+  for ( P = randList; P; P = P->randNext ) {
+    doOrders( aGame, P, phase1orders, 1 );
+  }
+  
+  if ( !checkIntegrity( aGame ) )
+    return FALSE;
+  
+  plog( LFULL, "# Phase 2 Orders\n" );
+  randList = randomizePlayers(aGame);
+  for ( P = randList; P; P = P->randNext ) {
+    doOrders( aGame, P, phase2orders, 2 );
+  }
+  
+  if ( !checkIntegrity( aGame ) )
+    return FALSE;
+  
+  plog( LFULL, "# Phase 3 Orders\n" );
+  randList = randomizePlayers(aGame);
+  for ( P = randList; P; P = P->randNext ) {
+    doOrders( aGame, P, phase3orders, 3 );
+  }
+  
+  if ( !checkIntegrity( aGame ) )
+    return FALSE;
+  
+  plog( LFULL, "# joinphase I\n" );
+  joinphase( aGame );
+  preComputeGroupData( aGame );
+  plog( LFULL, "# fightphase I\n" );
+  fightphase( aGame, GF_INBATTLE1 );
+  plog( LFULL, "# bombphase I\n" );
+  bombphase( aGame );
+  plog( LFULL, "# loadphase\n" );
+  loadphase( aGame );
+  plog( LFULL, "# fleetphase I \n" );
+  fleetphase( aGame );
+  if ( !checkIntegrity( aGame ) )
+    return FALSE;
+  plog( LFULL, "# interceptphase\n" );
+  interceptphase( aGame );
+  plog( LFULL, "# movephase\n" );
+  movephase( aGame );
+  plog( LFULL, "# joinphase II\n" );
+  joinphase( aGame );
+  preComputeGroupData( aGame );
+  plog( LFULL, "# fightphase II\n" );
+  fightphase( aGame, GF_INBATTLE2 );
+  plog( LFULL, "# bombphase II\n" );
+  bombphase( aGame );
+  plog( LFULL, "# producephase\n" );
+  producephase( aGame );
+  plog( LFULL, "# unloadphase\n" );
+  unloadphase( aGame );
+  plog( LFULL, "# joinphase III\n" );
+  joinphase( aGame );
+  plog( LFULL, "# fleetphase II\n" );
+  fleetphase( aGame );
+  if ( !checkIntegrity( aGame ) )
+    return FALSE;
+  preComputeGroupData( aGame );
+  sortphase( aGame );
+  
+  if ( !( aGame->gameOptions.gameOptions & GAME_NODROP ) )
+    removeDeadPlayer( aGame );
+  raceStatus( aGame );
+  
+  return TRUE;
 }
 
 /****************/

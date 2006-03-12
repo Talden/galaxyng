@@ -757,6 +757,26 @@ movephase(game *aGame)
  * SOURCE
  */
 
+static char *
+loadtypeToName(int loadtype)
+{
+  switch(loadtype) {
+  case 0:
+    return "CAP";
+
+  case 1:
+    return "MAT";
+
+  case 2:
+    return "COL";
+
+  case 3:
+    return "EMPTY";
+  }
+
+  return "ERROR";
+}
+
 void
 unloadphase(game *aGame)
 {
@@ -772,17 +792,24 @@ unloadphase(game *aGame)
   plog(LFULL, "AUTOUNLOAD\n");
   /* Auto Unload */
   for (p = aGame->planets; p; p = p->next) {
+    plog(LFULL, "checking planet %s, owned by %s\n",
+	 p->name, (p->owner ? p->owner->name : "unowned"));
     randPlayerList = randomizePlayers(aGame);
     for (cur_player = randPlayerList;
          cur_player; cur_player = cur_player->randNext) {
       if (cur_player->flags & F_AUTOUNLOAD) {
+	plog(LFULL, "  unloading %s\n", cur_player->name);
         for (g = cur_player->groups; g; g = g->next) {
           if (g->where == p && g->dist == 0 && g->ships) {
+	    plog(LFULL, "    checking group %s with cargo %s\n",
+		 g->name, loadtypeToName(g->loadtype));
             if ((p->owner && p->owner == cur_player) || p->owner == NULL) {
-	      plog(LFULL, " unloading %s on %s, owned by %s\n",
-		   cur_player->name, p->name, p->owner->name);
+	      plog(LFULL, "    unloading %s\n", loadtypeToName(g->loadtype));
 	      unloadgroup(g, cur_player, g->load);
             }
+	    else {
+	      plog(LFULL, "    can't unload, not owner\n");
+	    }
           }
         }
       }
@@ -794,15 +821,16 @@ unloadphase(game *aGame)
   randPlanetList = randomizePlanets(aGame);
   for (p = randPlanetList; p; p = p->randNext) {
     if (p->owner) {
+      plog(LFULL, "Checking %s for routes\n", p->name);
       for (i = 0; i != CG_EMPTY; i++) {
 	p2 = p->routes[i];
-	if (p2->owner == p->owner || p2->owner == NULL) {
+	if (p2 && (p2->owner == p->owner || p2->owner == NULL)) {
+	  plog(LFULL, "  has a %s route to %s\n", loadtypeToName(i), p2->name);
 	  for (g = p->owner->groups; g; g = g->next) {
 	    if (g->where == p2 &&
 		g->dist == 0 && g->loadtype == i && g->ships) {
-	      plog(LFULL, " unloading %s on %s, owned by %s\n",
-		   p->owner->name, p2->name,
-		   p2->owner ? p2->owner->name : "unowned");
+	      plog(LFULL, "  %s unloading %s\n",
+		   p->owner->name , loadtypeToName(g->loadtype));
 	      unloadgroup(g, p->owner, g->load);
 	    }
 	  }
