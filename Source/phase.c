@@ -778,16 +778,11 @@ unloadphase(game *aGame)
       if (cur_player->flags & F_AUTOUNLOAD) {
         for (g = cur_player->groups; g; g = g->next) {
           if (g->where == p && g->dist == 0 && g->ships) {
-	    /*FILE* debug = fopen("/tmp/autounload.dbg", "a+");*/
-	    /*fprintf(debug, "p->owner: %p, cur_player:%p\n",
-	      (void*)p->owner, (void*)cur_player);*/
             if ((p->owner && p->owner == cur_player) || p->owner == NULL) {
-	      /*fprintf(debug, "unloadgroup(%p, %p, %f);\n",
-		(void*)g, (void*)cur_player, g->load);*/
-	      plog(LFULL, " unloading %s on %s\n", cur_player->name, p->name);
+	      plog(LFULL, " unloading %s on %s, owned by %s\n",
+		   cur_player->name, p->name, p->owner->name);
 	      unloadgroup(g, cur_player, g->load);
             }
-	    /*fclose(debug);*/
           }
         }
       }
@@ -805,7 +800,9 @@ unloadphase(game *aGame)
 	  for (g = p->owner->groups; g; g = g->next) {
 	    if (g->where == p2 &&
 		g->dist == 0 && g->loadtype == i && g->ships) {
-	      plog(LFULL, " unloading %s on %s\n", p->owner->name, p2->name);
+	      plog(LFULL, " unloading %s on %s, owned by %s\n",
+		   p->owner->name, p2->name,
+		   p2->owner ? p2->owner->name : "unowned");
 	      unloadgroup(g, p->owner, g->load);
 	    }
 	  }
