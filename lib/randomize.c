@@ -119,5 +119,9 @@ randomizePlanets(game *aGame)
     }
   }
 
+  pdebug(DFULL, "Randomized planets\n");
+  for (randPlanet = randList; randPlanet; randPlanet = randPlanet->randNext)
+    pdebug(DFULL, "  %s\n", randPlanet->name);
+
   return randList;
 }
