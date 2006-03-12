@@ -769,6 +769,7 @@ unloadphase(game *aGame)
 
   pdebug(DFULL, "Unload Phase\n");
 
+  pdebug(DFULL, "AUTOUNLOAD\n");
   /* Auto Unload */
   for (p = aGame->planets; p; p = p->next) {
     randPlayerList = randomizePlayers(aGame);
@@ -780,9 +781,10 @@ unloadphase(game *aGame)
 	    /*FILE* debug = fopen("/tmp/autounload.dbg", "a+");*/
 	    /*fprintf(debug, "p->owner: %p, cur_player:%p\n",
 	      (void*)p->owner, (void*)cur_player);*/
-            if ((p->owner && p->owner == cur_player) || !p->owner) {
+            if ((p->owner && p->owner == cur_player) || p->owner == NULL) {
 	      /*fprintf(debug, "unloadgroup(%p, %p, %f);\n",
 		(void*)g, (void*)cur_player, g->load);*/
+	      pdebug(DFULL, " unloading %s on %s\n", cur_player->name, p->name);
 	      unloadgroup(g, cur_player, g->load);
             }
 	    /*fclose(debug);*/
@@ -793,15 +795,17 @@ unloadphase(game *aGame)
   }
 
   /* Routes */
+  pdebug(DFULL, "ROUTES\n");
   randPlanetList = randomizePlanets(aGame);
   for (p = randPlanetList; p; p = p->randNext) {
     if (p->owner) {
       for (i = 0; i != CG_EMPTY; i++) {
 	p2 = p->routes[i];
-	if (p2->owner == p->owner || !p2->owner) {
+	if (p2->owner == p->owner || p2->owner == NULL) {
 	  for (g = p->owner->groups; g; g = g->next) {
 	    if (g->where == p2 &&
 		g->dist == 0 && g->loadtype == i && g->ships) {
+	      pdebug(DFULL, " unloading %s on %s\n", p->owner->name, p2->name);
 	      unloadgroup(g, p->owner, g->load);
 	    }
 	  }
