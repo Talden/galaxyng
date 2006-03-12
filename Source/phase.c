@@ -764,14 +764,15 @@ unloadphase(game *aGame)
   player         *cur_player;
   group          *g;
   int             i;
-  player         *randList;
+  player         *randPlayerList;
+  planet         *randPlanetList;
 
   pdebug(DFULL, "Unload Phase\n");
 
   /* Auto Unload */
   for (p = aGame->planets; p; p = p->next) {
-    randList = randomizePlayers(aGame);
-    for (cur_player = randList;
+    randPlayerList = randomizePlayers(aGame);
+    for (cur_player = randPlayerList;
          cur_player; cur_player = cur_player->randNext) {
       if (cur_player->flags & F_AUTOUNLOAD) {
         for (g = cur_player->groups; g; g = g->next) {
@@ -792,19 +793,19 @@ unloadphase(game *aGame)
   }
 
   /* Routes */
-
-  for (p = aGame->planets; p; p = p->next) {
+  randPlanetList = randomizePlanets(aGame);
+  for (p = randPlanetList; p; p = p->randNext) {
     if (p->owner) {
       for (i = 0; i != CG_EMPTY; i++) {
-        p2 = p->routes[i];
+	p2 = p->routes[i];
 	if (p2->owner == p->owner || !p2->owner) {
 	  for (g = p->owner->groups; g; g = g->next) {
 	    if (g->where == p2 &&
 		g->dist == 0 && g->loadtype == i && g->ships) {
 	      unloadgroup(g, p->owner, g->load);
 	    }
-          }
-        }
+	  }
+	}
       }
     }
   }

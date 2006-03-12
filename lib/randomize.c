@@ -59,3 +59,65 @@ randomizePlayers(game *aGame)
 
   return randList;
 }
+
+
+/*
+ * this is a routine to randomize the planets list so that the lowest
+ * number doesn't always get the advantage.
+ */
+
+planet *
+randomizePlanets(game *aGame)
+{
+  planet  *randList = NULL;
+  planet  *curPlanet;
+  planet  *randPlanet = NULL;
+
+  int      unlinkedPlanets;
+  int      nbrPlanets;
+
+  int     *usedPlanets = NULL;
+
+  nbrPlanets = numberOfElements(aGame->planets);
+  if (usedPlanets == 0) {
+    usedPlanets = (int*)malloc(sizeof(int) * nbrPlanets);
+  }
+
+  memset((void*)usedPlanets, 0, sizeof(int)*nbrPlanets);
+
+  curPlanet = aGame->planets;
+
+  unlinkedPlanets = nbrPlanets;
+
+  while(curPlanet != NULL) {
+    curPlanet->randNext = NULL;
+    curPlanet = curPlanet->next;
+  }
+
+  while (unlinkedPlanets > 0) {
+    int idx = frand3(nbrPlanets);
+
+    if (usedPlanets[idx] != 0)
+      continue;
+
+    usedPlanets[idx] = 1;
+
+    curPlanet = aGame->planets;
+    while (idx--) {
+      curPlanet = curPlanet->next;
+    }
+
+    /* first one chosen must be the root */
+    if (randPlanet == NULL) {
+      randList = randPlanet = curPlanet;
+      unlinkedPlanets--;
+    }
+    else {
+      randPlanet->randNext = curPlanet;
+      randPlanet = randPlanet->randNext;
+      unlinkedPlanets--;
+    }
+  }
+
+  return randList;
+}

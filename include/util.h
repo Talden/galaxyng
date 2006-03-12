@@ -97,5 +97,6 @@ double          addShipAtt(game* aGame, planet* p);
 char*           rightNow(void);
 
 player         *randomizePlayers(game *aGame);
+planet         *randomizePlanets(game *aGame);
 
 #endif                          /* GNG_UTIL_H */

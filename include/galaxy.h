@@ -248,6 +248,7 @@ typedef struct planet {
   struct planet  *next;
   long            cookie;
   char           *name;
+  struct planet  *randNext;
   /* end basic list */
   player         *owner;
   double          x, y;
