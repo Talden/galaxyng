@@ -767,9 +767,9 @@ unloadphase(game *aGame)
   player         *randPlayerList;
   planet         *randPlanetList;
 
-  pdebug(DFULL, "Unload Phase\n");
+  plog(LFULL, "Unload Phase\n");
 
-  pdebug(DFULL, "AUTOUNLOAD\n");
+  plog(LFULL, "AUTOUNLOAD\n");
   /* Auto Unload */
   for (p = aGame->planets; p; p = p->next) {
     randPlayerList = randomizePlayers(aGame);
@@ -784,7 +784,7 @@ unloadphase(game *aGame)
             if ((p->owner && p->owner == cur_player) || p->owner == NULL) {
 	      /*fprintf(debug, "unloadgroup(%p, %p, %f);\n",
 		(void*)g, (void*)cur_player, g->load);*/
-	      pdebug(DFULL, " unloading %s on %s\n", cur_player->name, p->name);
+	      plog(LFULL, " unloading %s on %s\n", cur_player->name, p->name);
 	      unloadgroup(g, cur_player, g->load);
             }
 	    /*fclose(debug);*/
@@ -795,7 +795,7 @@ unloadphase(game *aGame)
   }
 
   /* Routes */
-  pdebug(DFULL, "ROUTES\n");
+  plog(LFULL, "ROUTES\n");
   randPlanetList = randomizePlanets(aGame);
   for (p = randPlanetList; p; p = p->randNext) {
     if (p->owner) {
@@ -805,7 +805,7 @@ unloadphase(game *aGame)
 	  for (g = p->owner->groups; g; g = g->next) {
 	    if (g->where == p2 &&
 		g->dist == 0 && g->loadtype == i && g->ships) {
-	      pdebug(DFULL, " unloading %s on %s\n", p->owner->name, p2->name);
+	      plog(LFULL, " unloading %s on %s\n", p->owner->name, p2->name);
 	      unloadgroup(g, p->owner, g->load);
 	    }
 	  }
@@ -888,7 +888,7 @@ producephase(game *aGame)
 {
   planet         *aPlanet;
 
-  pdebug(DFULL, "Produce Phase\n");
+  plog(LFULL, "Produce Phase\n");
 
   for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
     if (aPlanet->owner) {
