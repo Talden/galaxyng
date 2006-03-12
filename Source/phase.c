@@ -769,9 +769,8 @@ unloadphase(game *aGame)
   pdebug(DFULL, "Unload Phase\n");
 
   /* Auto Unload */
-
-  randList = randomizePlayers(aGame);
   for (p = aGame->planets; p; p = p->next) {
+    randList = randomizePlayers(aGame);
     for (cur_player = randList;
          cur_player; cur_player = cur_player->randNext) {
       if (cur_player->flags & F_AUTOUNLOAD) {
