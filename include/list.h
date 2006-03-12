@@ -34,6 +34,7 @@ typedef struct list {
   struct list    *next;
   long            cookie;
   char           *name;
+  struct list    *randNext;
 } list;
 
 /**********/
@@ -176,5 +177,6 @@ int             numberOfElementsF(list *aList);
 int             ptonum(void *base, void *target);
 void           *numtop(void *base, int n);
 void            dumpList(char* label, list* aList, void* callback(void*));
+void            dumpRandList(char* label, list* aList, void* callback(void*));
 
 #endif				/* GNG_LIST_H */

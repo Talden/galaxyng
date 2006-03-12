@@ -103,7 +103,8 @@ insertListF(list **aList, list* where, list *anElement)
 
   if (*aList == NULL) {
     *aList = anElement;
-  } else {
+  }
+  else {
     for (curElement = *aList; curElement->next;
 	 curElement = curElement->next) {
       if (curElement == where) {
@@ -138,16 +139,18 @@ insertListF(list **aList, list* where, list *anElement)
  ******
  */
 
-list* findElementF(list *aList, char *name) {
-	list           *anElement;
+list*
+findElementF(list *aList, char *name)
+{
+  list           *anElement;
 
-	for (anElement = aList;
-		 anElement;
-		 anElement = anElement->next) {
-		if (!noCaseStrcmp(anElement->name, name))
-			break;
-	}
-	return anElement;
+  for (anElement = aList;
+       anElement;
+       anElement = anElement->next) {
+    if (!noCaseStrcmp(anElement->name, name))
+      break;
+  }
+  return anElement;
 }
 
 
@@ -260,7 +263,8 @@ numtop(void *base, int n)
  ******
  */
 
-void setNameF(list *anElement, const char *name)
+void
+setNameF(list *anElement, const char *name)
 {
   free(anElement->name);
   anElement->name = strdup(name);
@@ -273,6 +277,22 @@ dumpList(char* label, list* aList, void* callback(void*))
 
     fprintf(stderr, "*** %s ***\n", label);
     for (curElement = aList; curElement; curElement=curElement->next) {
+	fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
+	callback((void*)curElement);
+    }
+}
+
+/* note that this function should only be called if the list has been
+ * randomized as there is no default randomization 
+ */
+
+void
+dumpRandList(char* label, list* aList, void* callback(void*))
+{
+    list* curElement;
+
+    fprintf(stderr, "*** %s ***\n", label);
+    for (curElement = aList; curElement; curElement=curElement->randNext) {
 	fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
 	callback((void*)curElement);
     }
@@ -291,6 +311,7 @@ allocStructF(unsigned int n, long cookie)
   p->cookie = cookie;
   p->name = NULL;
   p->next = NULL;
+  p->randNext = NULL;
 
   return (void *) p;
 }
