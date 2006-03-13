@@ -292,8 +292,7 @@ Hauler          1.00 +       0.10      =      1.10
 Freighter      10.00 +      10.00      =     20.00
 MegaFreighter  39.57 +     156.57      =    196.14</pre>
        <p>Cargo technology increases the amount of cargo that a ship can carry.  Thus, a Hauler with cargo technology 2.00 can carry 2.20 cargo and a Freighter with cargo technology 3.00 can carry 60.00 cargo.  This does not slow down the ships, as the cargo carried is divided by the cargo technology to obtain the effective cargo carried.  Thus, at cargo technology 3.00, a Freighter carrying 60.00 cargo has an effective cargo carried of 20.00, while the same Freighter carrying 35.00 cargo has an effective cargo carried of 11.66.</p>
-       <p>Colonists that are unloaded at an uninhabited planet will claim the planet for their race.  Each colonist becomes eight population.  Capital and materials unloaded at an
-uninhabited planet will be stockpiled until the planet is colonized.</p>
+       <p>Colonists that are unloaded at an uninhabited planet will claim the planet for their race.  Each colonist becomes eight population.  Capital and materials unloaded at an uninhabited planet will be stockpiled until the planet is colonized.</p>
 
      <h3 id="routes">Routes</h3>
 
@@ -392,7 +391,8 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 					<li>Groups with weapons bomb enemy planets.</li>
 					<li>Planets <a href="#ordp">produce</a> materials or capital, conduct research, or build ships.</li>
 					<li>Population growth occurs.</li>
-					<li>Ships at route destinations unload cargo.  All ships unload cargo if the <a href="#ordo">autounload option</a> is turned on.</li>
+					<li>All ships unload cargo if the <a href="#ordo">autounload option</a> is turned on.</li>
+					<li>For players with the <a href="#ordo">autounload</a> option turned off, ships that are at route destinations unload cargo.</li>
 					<li>Identical groups are merged.</li>
 					<li>Groups are renumbered if the <a href="#ordo">sortgroups</a> option is turned on.</li>
 					<li><a href="#ordc">Races</a>, <a href="#ordn">planets</a>, <a href="#ordt">ships</a> and <a href="#ordt">fleets</a> are renamed.</li>
@@ -400,8 +400,9 @@ defence strength = ((shield mass * shields technology) / (ship mass + effective 
 				<p>A number of things follow from this:</p>
 				<ul>
 					<li>COL, CAP and MAT transported to a planet do not effect the planet's production until the following turn.</li>
-					<li>A cargo ship can be loaded, sent to another planet and unloaded in a single turn.</li>
+					<li>A cargo ship can be loaded, sent to another planet and unloaded in a single turn, using the autounload option or a route.</li>
 					<li>One ship can bomb two planets in the same turn (though this is rare).</li>
+					<li>If more than one player tries to colonize a planet, the winner will be selected randomly from players with the autounload option on.  If all players have autounload off, the winner will be selected randomly from players with COL routes set to the planet.</li>
 				</ul>
 
 			<hr />
