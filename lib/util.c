@@ -1442,7 +1442,7 @@ raceStatus(game *aGame)
     aPlayer->totMat = 0;
     aPlayer->totCol = 0;
     for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
-      if (aPlanet->owner eq aPlayer) {
+      if (aPlanet->owner == aPlayer) {
         aPlayer->totPop += aPlanet->pop;
         aPlayer->totInd += aPlanet->ind;
         aPlayer->totCap += aPlanet->cap;

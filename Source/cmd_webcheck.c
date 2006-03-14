@@ -52,6 +52,8 @@ CMD_webcheck( int argc, char **argv, int kind) {
     
     if (resNumber == RES_OK) {
       aPlayer = findElement(player, aGame->players, raceName);
+      plog(LFULL, "cmd_webcheck, found player %s\n",
+	   aPlayer ? aPlayer->name : "(player not found)");
       aPlayer->orders = NULL;
       
       plog(LBRIEF, "Orders from %s\n", raceName);
@@ -84,10 +86,14 @@ CMD_webcheck( int argc, char **argv, int kind) {
 	if ((theTurnNumber == LG_CURRENT_TURN) ||
 	     (theTurnNumber == (aGame->turn) + 1)) {
 	  
-	  if (aPlayer->orders == NULL)
+	  if (aPlayer->orders == NULL) {
+	    plog(LFULL, "getting orders from stdin\n");
 	    copyOrders(aGame, stdin, raceName, password, final_orders,
 			aGame->turn + 1);
+	  }
+
 	  
+	  plog(LFULL, "checking orders\n");
 	  checkOrders(aGame, raceName, stdout, F_TXTREPORT);
 	  
 	}

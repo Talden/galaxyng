@@ -2228,7 +2228,14 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
     FILE *copyFile;
     player *aPlayer;
 
+    plog(LFULL, "copyOrders for %s\n", raceName);
+
     aPlayer = findElement( player, aGame->players, raceName );
+
+    if (aPlayer == NULL) {
+      plog(LFULL, "could not find player\n");
+      return;
+    }
 
     aPlayer->orders = NULL;
     copyFileName = alloc( strlen( aGame->name ) + strlen( aPlayer->name ) +
