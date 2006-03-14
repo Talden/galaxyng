@@ -2232,11 +2232,12 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
 
     aPlayer = findElement( player, aGame->players, raceName );
 
+    /*
     if (aPlayer == NULL) {
       plog(LFULL, "could not find player\n");
       return;
     }
-
+    */
     aPlayer->orders = NULL;
     copyFileName = alloc( strlen( aGame->name ) + strlen( aPlayer->name ) +
                           strlen( galaxynghome ) + strlen( "/orders//" ) +
