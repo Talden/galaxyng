@@ -72,7 +72,7 @@ highScoreList(game *aGame)
 
   assert(aGame != NULL);
 
-  pdebug(DFULL, "highScoreList\n");
+  pdebug(LFULL, "highScoreList\n");
   fileName =
       createString("%s/notices/%s.score", galaxynghome, aGame->name);
   if ((reportFile = GOS_fopen(fileName, "w"))) {
@@ -245,7 +245,7 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
   FILE           *turnreport;
   int             result;
 
-  pdebug(DFULL, "mailTurnReport\n");
+  pdebug(LFULL, "mailTurnReport\n");
 
   result = 1;
   if ((aPlayer->flags & F_DEAD) == 0) {
@@ -659,7 +659,7 @@ report(game *aGame, player *P, FILE * report)
 {
   struct fielddef fields;
 
-  pdebug(DFULL, "report\n");
+  pdebug(LFULL, "report\n");
 
   fields.destination = report;
 

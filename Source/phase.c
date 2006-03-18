@@ -153,7 +153,7 @@ joinphase(game *aGame)
   player         *P;
   group          *g, *g2, *g3;
 
-  pdebug(DFULL, "Joinphase\n");
+  pdebug(LFULL, "Joinphase\n");
   
   for (P = aGame->players; P; P = P->next) {
     for (g = P->groups; g;) {
@@ -443,7 +443,7 @@ loadphase(game *aGame)
   planet         *p;
   double          qty, shipspace, availspace;
 
-  pdebug(DFULL, "Load phase\n");
+  pdebug(LFULL, "Load phase\n");
 
   for (p = aGame->planets; p; p = p->next)
     if ((P = p->owner) != 0) {
@@ -574,7 +574,7 @@ interceptphase(game *aGame)
   int     noPlanets;
   player *randList;
   
-  pdebug(DFULL, "Intercept Phase\n");
+  pdebug(LFULL, "Intercept Phase\n");
   
   noPlanets = numberOfElements(aGame->planets);
   massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
@@ -600,11 +600,11 @@ interceptphase(game *aGame)
 	
 	inPlanet = inGroup->where;
 	if (inGroup->thefleet) {
-	  pdebug(DFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
+	  pdebug(LFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
 		 inGroup->thefleet->name, inPlanet->name, maxDist);
 	}
 	else {
-	  pdebug(DFULL, "Group %d Intercept on Planet %s max Dist %f\n",
+	  pdebug(LFULL, "Group %d Intercept on Planet %s max Dist %f\n",
 		 inGroup->number, inPlanet->name, maxDist);
 	}
 	/* 
@@ -644,7 +644,7 @@ interceptphase(game *aGame)
 	}
 	
 	if (targetPlanet) {
-	  pdebug(DFULL, "Result: Planet %s (%f ly away).\n",
+	  pdebug(LFULL, "Result: Planet %s (%f ly away).\n",
 		 targetPlanet->name, dist(aGame, inGroup->where,
 					  targetPlanet));
 	  inGroup->where = inGroup->from;
@@ -684,7 +684,7 @@ fleetphase(game *aGame)
   /* double shipspeed; */
   int             hasships;
 
-  pdebug(DFULL, "Fleet Phase\n");
+  pdebug(LFULL, "Fleet Phase\n");
 
   for (P = aGame->players; P; P = P->next) {
     for (fl = P->fleetnames; fl; fl = fl2) {
@@ -700,9 +700,9 @@ fleetphase(game *aGame)
         }
       }
       fl->fleetspeed = fleetSpeed(fl, P->groups);       /* CB-19980922 * */
-      pdebug(DFULL, "Fleet %s  speed %f\n", fl->name, fl->fleetspeed);
+      pdebug(LFULL, "Fleet %s  speed %f\n", fl->name, fl->fleetspeed);
       if (!hasships) {
-        pdebug(DFULL, "Removing Fleet %s\n", fl->name);
+        pdebug(LFULL, "Removing Fleet %s\n", fl->name);
         remList(&P->fleetnames, fl);
       }
     }
@@ -733,7 +733,7 @@ movephase(game *aGame)
   group          *g;
   player         *randList;
 
-  pdebug(DFULL, "Move Phase\n");
+  pdebug(LFULL, "Move Phase\n");
 
   randList = randomizePlayers(aGame);
   for (P = randList; P; P = P->randNext) {
@@ -1210,7 +1210,7 @@ sortphase(game *aGame)
   fleetname      *fl;
   int             n;
 
-  pdebug(DFULL, "Sort Phase\n");
+  pdebug(LFULL, "Sort Phase\n");
 
   for (P = aGame->players; P; P = P->next) {
     n = 1;

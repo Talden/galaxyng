@@ -164,7 +164,7 @@ at_order( game *aGame, player *P, strlist **s )
     alliance *plist;            /* list of people in the alliance */
     player *P2;                 /* for player searching */
 
-    pdebug( DFULL, "at_order\n" );
+    pdebug( LFULL, "at_order\n" );
 
     ns = getstr( 0 );           /* for whom is the message */
     if ( ns[0] ) {
@@ -222,7 +222,7 @@ eq_order( game *aGame, player *P, strlist **s )
 {
     char *ns;                   /* name string */
 
-    pdebug( DFULL, "eq_order\n" );
+    pdebug( LFULL, "eq_order\n" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -253,7 +253,7 @@ a_order( game *aGame, player *P, strlist **s )
     player *P2;                 /* player to find */
     alliance *a;                /* existing alliance */
 
-    pdebug( DFULL, "a_order\n" );
+    pdebug( LFULL, "a_order\n" );
 
     /* find the named player */
     P2 = findElement( player, aGame->players, getstr( 0 ) );
@@ -296,7 +296,7 @@ b_order( game *aGame, player *P, strlist **s )
     int i;                      /* int value for number of ships */
     char *ns;                   /* char value for number of ships */
 
-    pdebug( DFULL, "b_order\n" );
+    pdebug( LFULL, "b_order\n" );
 
     /* find the named group */
     g = findgroup( P, getstr( 0 ) );
@@ -361,7 +361,7 @@ c_order( game *aGame, player *P, strlist **s )
     char *c;                    /* loop variable */
     int i;                      /* loop variable */
 
-    pdebug( DFULL, "c_order\n" );
+    pdebug( LFULL, "c_order\n" );
 
     /* find name, chop off any non a-n chars */
     ns = getstr( 0 );
@@ -405,7 +405,7 @@ c_order( game *aGame, player *P, strlist **s )
         if ( !isalnum( *c ) )
             *c = '_';
     }
-    pdebug( DFULL, "c_order end\n" );
+    pdebug( LFULL, "c_order end\n" );
 }
 
 
@@ -429,7 +429,7 @@ d_order( game *aGame, player *P, strlist **s )
     int i;
     int underDefined;
 
-    pdebug( DFULL, "d_order\n" );
+    pdebug( LFULL, "d_order\n" );
 
     /* get design name, check for validity */
     ns = getstr( 0 );
@@ -610,7 +610,7 @@ e_order( game *aGame, player *P, strlist **s )
     planet *p;                  /* planet ship/fleet is orbiting */
     char *ns;                   /* retrieving parameters */
 
-    pdebug( DFULL, "e_order\n" );
+    pdebug( LFULL, "e_order\n" );
 
     /* see if this is a fleet or ship type */
     ns = getstr( 0 );
@@ -685,7 +685,7 @@ f_order( game *aGame, player *P, strlist **s )
 {
     player *P2;                 /* player requested */
 
-    pdebug( DFULL, "f_order\n" );
+    pdebug( LFULL, "f_order\n" );
 
     P2 = findElement( player, aGame->players, getstr( 0 ) );
 
@@ -731,7 +731,7 @@ g_order( game *aGame, player *P, strlist **s )
     char *ns;
     int i;
 
-    pdebug( DFULL, "g_order\n" );
+    pdebug( LFULL, "g_order\n" );
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
         mistake( P, ERROR, *s, "Group not recognized." );
@@ -822,7 +822,7 @@ h_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     char *ns;
 
-    pdebug( DFULL, "h_order\n" );
+    pdebug( LFULL, "h_order\n" );
     ns = getstr( 0 );           /* get group number or fleet name */
     g = findgroup( P, ns );
     fl = findElement( fleetname, P->fleetnames, ns );
@@ -877,7 +877,7 @@ i_order( game *aGame, player *P, strlist **s )
     fleetname *inFleet;
     char *ns;
 
-    pdebug( DFULL, "i_order\n" );
+    pdebug( LFULL, "i_order\n" );
     ns = getstr( 0 );
     inGroup = findgroup( P, ns );
     inFleet = findElement( fleetname, P->fleetnames, ns );
@@ -985,7 +985,7 @@ j_order( game *aGame, player *P, strlist **s )
     int i;
     int j;
 
-    pdebug( DFULL, "j_order\n" );
+    pdebug( LFULL, "j_order\n" );
 
     ns = getstr( 0 );
     g = findgroup( P, ns );
@@ -1105,7 +1105,7 @@ l_order( game *aGame, player *P, strlist **s )
 
     amountFlag = FALSE;
 
-    pdebug( DFULL, "l_order\n" );
+    pdebug( LFULL, "l_order\n" );
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
         mistake( P, ERROR, *s, "Group not recognized." );
@@ -1278,7 +1278,7 @@ m_order( game *aGame, player *P, strlist **s )
     double y;
     double z;
 
-    pdebug( DFULL, "m_order\n" );
+    pdebug( LFULL, "m_order\n" );
 
     x = atof( getstr( 0 ) );
     y = atof( getstr( 0 ) );
@@ -1300,7 +1300,7 @@ n_order( game *aGame, player *P, strlist **s )
     planet *p;
     char *ns;
 
-    pdebug( DFULL, "n_order %s\n", ( *s )->str );
+    pdebug( LFULL, "n_order %s\n", ( *s )->str );
 
     ns = getstr( 0 );
     p = findElement( planet, aGame->planets, ns );
@@ -1343,7 +1343,7 @@ o_order( game *aGame, player *P, strlist **s )
     int state;
     option *curOption;
 
-    pdebug( DFULL, "o_order\n" );
+    pdebug( LFULL, "o_order\n" );
 
     ns = getstr( 0 );
     state = TRUE;
@@ -1375,7 +1375,7 @@ p_order( game *aGame, player *P, strlist **s )
     planet *p;
     shiptype *t;
 
-    pdebug( DFULL, "p_order\n" );
+    pdebug( LFULL, "p_order\n" );
 
     p = findPlanet( aGame, getstr( 0 ) );
     if ( !p ) {
@@ -1427,7 +1427,7 @@ void
 q_order( game *aGame, player *P, strlist **s )
 {
 
-    pdebug( DFULL, "q_order\n" );
+    pdebug( LFULL, "q_order\n" );
 
     if ( findElement( player, aGame->players, getstr( 0 ) ) != P )
     {
@@ -1446,7 +1446,7 @@ r_order( game *aGame, player *P, strlist **s )
     planet *p2;
     int i;
 
-    pdebug( DFULL, "r_order\n" );
+    pdebug( LFULL, "r_order\n" );
 
     ns = getstr( 0 );
     p = findPlanet( aGame, ns );
@@ -1489,7 +1489,7 @@ s_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     char *ns;
 
-    pdebug( DFULL, "s_order\n" );
+    pdebug( LFULL, "s_order\n" );
     plog( LFULL, "s_order\n" );
 
     ns = getstr( 0 );
@@ -1575,7 +1575,7 @@ t_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     shiptype *t;
 
-    pdebug( DFULL, "t_order\n" );
+    pdebug( LFULL, "t_order\n" );
 
     ns = getstr( 0 );
     t = findElement( shiptype, P->shiptypes, ns );
@@ -1622,7 +1622,7 @@ u_order( game *aGame, player *P, strlist **s )
     double amount;
     char *ns;
 
-    pdebug( DFULL, "u_order\n" );
+    pdebug( LFULL, "u_order\n" );
 
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
@@ -1719,7 +1719,7 @@ v_order( game *aGame, player *P, strlist **s )
     planet *p;
     planet_claim *pclaim;
 
-    pdebug( DFULL, "v_order\n" );
+    pdebug( LFULL, "v_order\n" );
 
     p = findPlanet( aGame, getstr( 0 ) );
     if ( !p ) {
@@ -1749,7 +1749,7 @@ w_order( game *aGame, player *P, strlist **s )
     player *P2;
     alliance *a;
 
-    pdebug( DFULL, "w_order\n" );
+    pdebug( LFULL, "w_order\n" );
 
 	if (aGame->turn < aGame->gameOptions.galactic_peace) {
 		mistake(P, ERROR, *s, "Galactic Peace enforced until turn %d.",
@@ -1783,7 +1783,7 @@ x_order( game *aGame, player *P, strlist **s )
     int i;
     int j;
 
-    pdebug( DFULL, "x_order\n" );
+    pdebug( LFULL, "x_order\n" );
 
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
@@ -1836,7 +1836,7 @@ y_order( game *aGame, player *P, strlist **s )
 {
     char *ns;
 
-    pdebug( DFULL, "y_order\n" );
+    pdebug( LFULL, "y_order\n" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -1855,7 +1855,7 @@ z_order( game *aGame, player *P, strlist **s )
 {
     char *ns;
 
-    pdebug( DFULL, "z_order\n" );
+    pdebug( LFULL, "z_order\n" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -2096,7 +2096,7 @@ checkOrders( game *aGame, char *raceName )
 {
     player *aPlayer;
 
-    pdebug( DFULL, "check orders\n" );
+    pdebug( LFULL, "check orders\n" );
     aPlayer = findElement( player, aGame->players, raceName );
 
     tagVisiblePlanets( aGame->planets, aPlayer );
@@ -2133,7 +2133,7 @@ checkOrders( game *aGame, char *raceName, FILE *forecast, int kind )
        one report type is being generated */
     static int orders_done = 0;
 
-    pdebug( DFULL, "check orders\n" );
+    pdebug( LFULL, "check orders\n" );
     aPlayer = findElement( player, aGame->players, raceName );
 
     fields.destination = forecast;
@@ -2545,12 +2545,12 @@ doOrders( game *aGame, player *aPlayer, orderinfo *orderInfo, int phase )
 
     plog( LFULL, "doOrders: Phase %d Race %s\n", phase, aPlayer->name );
 
-    pdebug( DFULL, "doOrders\n" );
-    pdebug( DFULL2, "  Phase %d Race %s\n", phase, aPlayer->name );
+    pdebug( LFULL, "doOrders\n" );
+    pdebug( LFULL, "  Phase %d Race %s\n", phase, aPlayer->name );
     for ( s = aPlayer->orders; s; ) {
         char *order;
 
-        pdebug( DFULL2, "  Order %s\n", s->str );
+        pdebug( LFULL, "  Order %s\n", s->str );
         for ( order = getstr( s->str );
               ( s ) && ( phase != 1 ) && ( *order eq '@' ); ) {
             plog( LFULL, "order: %s phase:%d\n", order, phase );
@@ -2599,7 +2599,7 @@ removeDeadPlayer( game *aGame )
   int allowedOrderGap;
   int nbrPlanets;
 	
-  pdebug( DFULL, "removeDeadPlayer\n" );
+  pdebug( LFULL, "removeDeadPlayer\n" );
   allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
   for ( P = aGame->players; P; P = P3 ) {
     P3 = P->next;
@@ -2673,7 +2673,7 @@ cleanDeadPlayers( game *aGame )
     player *P3;
     int allowedOrderGap;
 	
-    pdebug( DFULL, "removeDeadPlayer\n" );
+    pdebug( LFULL, "removeDeadPlayer\n" );
     allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
     for ( P = aGame->players; P; P = P3 ) {
         P3 = P->next;
