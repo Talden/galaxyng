@@ -70,6 +70,8 @@ CMD_webreport( int argc, char **argv ) {
 	    createString( "%s/orders/%s/%d.all",
 			  galaxynghome, aGame2->name,
 			  theTurnNumber );
+
+	  checkIntegrity(aGame);
 	  runTurn( aGame2, ordersName );
 	  free( ordersName );
 	}
