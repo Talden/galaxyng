@@ -54,7 +54,6 @@ fightphase(game *aGame, int phase)
       participant    *part;
 
       plog(LFULL, "Battle at %s\n", p->name);
-      pdebug(LFULL, "Battle at %s\n", p->name);
       b->phase = phase;
       batstats = NULL;
       for (part = b->participants; part; part = part->next) {

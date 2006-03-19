@@ -256,13 +256,23 @@ int
 atwar(player *P, player *P2)
 {
   alliance       *a;
+  int  retVal = 1;
 
-  if (P == P2)
-    return 0;
-  for (a = P->allies; a; a = a->next)
-    if (a->who == P2)
-      return 0;
-  return 1;
+  plog(LFULL, "atwar(%s, %s) ", P->name, P2->name);
+  if (P == P2) {
+    retVal = 0;
+  }
+  else {
+    for (a = P->allies; a; a = a->next)
+      if (a->who == P2) {
+	retVal = 0;
+	break;
+      }
+  }
+
+  plog(LFULL, "returning %s\n", retVal == 0 ? "no" : "yes");
+
+  return retVal;
 }
 
 /**********/

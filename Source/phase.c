@@ -231,9 +231,12 @@ bombphase(game *aGame)
   player         *aPlayer;
   player         *randList;
 
+  plog(LFULL, "bombphase\n");
   randList = randomizePlayers(aGame);
   for (aPlayer = randList; aPlayer; aPlayer = aPlayer->randNext) {
     group          *attackGroup;
+
+    plog(LFULL, "  checking groups from %s\n", aPlayer->name);
 
     for (attackGroup = aPlayer->groups;
          attackGroup; attackGroup = attackGroup->next) {
@@ -242,6 +245,7 @@ bombphase(game *aGame)
         bombing        *aBombing;
         player         *viewingPlayer;
 
+	plog(LFULL, "   bombing %s\n ", attackGroup->location->name);
         targetPlanet = attackGroup->location;
         aBombing = allocStruct(bombing);
 

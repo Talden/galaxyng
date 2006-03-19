@@ -63,7 +63,7 @@ int checkIntegrity(game *aGame)
 
   randList = randomizePlayers(aGame);
 
-  for (aPlayer = randList; aPlayer; aPlayer = aPlayer->next) {
+  for (aPlayer = randList; aPlayer; aPlayer = aPlayer->randNext) {
     if (checkPlayer(aPlayer)) {
       plog(LFULL, "\n** %s **\n", aPlayer->name);
       plog(LFULL, "GROUPS:   ");
