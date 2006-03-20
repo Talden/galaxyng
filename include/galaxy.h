@@ -695,6 +695,7 @@ typedef struct game {
   int             turn;
   double          galaxysize;   /* CB-20010408 */
   player         *players;      /* list with races */
+  player         *randPlayers;	/* races in random order */
   planet         *planets;      /* list with planets */
   battle         *battles;      /* list with battles */
   bombing        *bombings;     /* list with bombings */

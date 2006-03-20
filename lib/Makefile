@@ -3,7 +3,7 @@
 #
 
 CFLAGS = -Wall -pedantic -I../include $(ADDTL_CFLAGS)
-CC = gcc -g
+CC = gcc
 
 SOURCES=strutl.c logging.c list.c globals.c mail.c util.c loadNGConfig.c \
 		lockFile.c randomize.c

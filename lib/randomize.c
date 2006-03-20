@@ -8,7 +8,7 @@ char *vrandomize = "$Id$";
  * number doesn't always get the advantage.
  */
 
-player *
+void
 randomizePlayers(game *aGame)
 {
   player  *randList = NULL;
@@ -57,7 +57,14 @@ randomizePlayers(game *aGame)
     }
   }
 
-  return randList;
+  plog(LFULL, "Randomized players: ");
+  for (randPlayer = randList; randPlayer; randPlayer = randPlayer->randNext)
+    plog(LFULL, "%s / ", randPlayer->name);
+  plog(LFULL, "\n");
+
+  aGame->randPlayers = randList;
+
+  return;
 }
 
 

@@ -49,7 +49,6 @@ int checkIntegrity(game *aGame)
   player         *aPlayer;
   battle         *aBattle;
   int             check;
-  player         *randList;
 
   plog(LFULL, "Checking Integrity\n");
 
@@ -61,9 +60,9 @@ int checkIntegrity(game *aGame)
     check = check && checkPlanet(aPlanet);
   }
 
-  randList = randomizePlayers(aGame);
+  randomizePlayers(aGame);
 
-  for (aPlayer = randList; aPlayer; aPlayer = aPlayer->randNext) {
+  for (aPlayer = aGame->randPlayers; aPlayer; aPlayer = aPlayer->randNext) {
     if (checkPlayer(aPlayer)) {
       plog(LFULL, "\n** %s **\n", aPlayer->name);
       plog(LFULL, "GROUPS:   ");
