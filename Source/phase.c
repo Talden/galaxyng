@@ -240,6 +240,8 @@ bombphase(game *aGame)
 
     for (attackGroup = aPlayer->groups;
          attackGroup; attackGroup = attackGroup->next) {
+      if (attackGroup->location)
+	plog(LFULL, "    group %d at %s\n", attackGroup->number, attackGroup->location->name);
       if (mustBomb(aPlayer, attackGroup)) {
         planet         *targetPlanet;
         bombing        *aBombing;

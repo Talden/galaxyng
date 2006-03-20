@@ -53,7 +53,7 @@ CFLAGS += $(ADDTL_CFLAGS)
 LIBS = -L$(HOME)/lib -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
 
 
-CC=gcc
+CC=gcc -g
 
 GNG_SRCS=galaxyng.c loadgame.c savegame.c create.c phase.c battle.c \
 	process.c report.c selftest.c report_xml.c cmd_template.c cmd_run.c \
