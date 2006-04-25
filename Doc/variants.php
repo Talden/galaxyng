@@ -31,7 +31,7 @@
 			<hr />
 			
 			<h2>Blind Galaxy</h2>
-				<p>Howard Bampton created <a href="http://www.cs.utk.edu/~bampton/blind.html">Blind Galaxy</a>, which provides much less information to players.  You can find new games on <a href="http://storm.myrnek.de/galaxy/">Bernhard Schmidt's Galaxy Page</a>.</p>
+				<p>Howard Bampton created <a href="http://www.cs.utk.edu/~bampton/blind.html">Blind Galaxy</a>, which provides much less information to players.  <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">galaxyng-players mailing list</a>.</p>
 				
 			<hr />
 			
