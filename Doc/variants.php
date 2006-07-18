@@ -31,17 +31,17 @@
 			<hr />
 			
 			<h2>Blind Galaxy</h2>
-				<p>Howard Bampton created <a href="http://www.cs.utk.edu/~bampton/blind.html">Blind Galaxy</a>, which provides much less information to players.  <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">galaxyng-players mailing list</a>.</p>
+				<p>Howard Bampton created <a href="http://www.cs.utk.edu/~bampton/blind.html">Blind Galaxy</a>, which provides much less information to players.  Information about other races and ships is hidden until they are encountered by your own ships.  New games are often announced on the <a href="http://lists.sourceforge.net/lists/listinfo/galaxyng-players">galaxyng-players mailing list</a>.  Some links: <a href="http://www.myrnek.de/galaxy/">Bernhard Schmidt</a>, <a href="http://www.blindgalaxy.org/">WWW.BLINDGALAXY.ORG</a>.</p>
 				
 			<hr />
 			
 			<h2>Galaxy Explorer</h2>
-				<p><a href="http://explorer.sourceforge.net/">GalaxyExplorer</a> is a variant that provides very little information to players.  It is similar to, but not based upon, Blind Galaxy.</p>
+				<p><a href="http://explorer.sourceforge.net/">Galaxy Explorer</a> is a variant that provides very little information to players.  All ships fire simultaneously, resulting in very bloody battles.  It is similar to, but not based upon, Blind Galaxy.</p>
 				
 			<hr />
 				
 			<h2>Galaxy PBW</h2>
-				<p><a href="http://galaxy.fzu.cz/galaxywww/">Galaxy PBW</a> (play-by-web) is a variant of Blind Galaxy played on the web (instead of by email).</p>
+				<p><a href="http://galaxy.fzu.cz/galaxywww/">Galaxy PBW</a> (play-by-web) is a variant of Blind Galaxy written in Java that is played on the web (instead of by email).</p>
 				
 			<hr />
 
@@ -61,7 +61,7 @@
 			<hr />
 				
 			<h2>Galactica and Galaxy/2</h2>
-				<p>Galactica and Galaxy/2 are extinct.  Galaxy/2 was the precursor to Galactica.</p>
+				<p>Galactica and Galaxy/2 are extinct.  They featured partial bombing, ship support and refueling, carriers and intelligent battle targetting.  Galaxy/2 was the precursor to Galactica.</p>
  		
  		<?php include 'footer.php'; ?>
  	</body>
