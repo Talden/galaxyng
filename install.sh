@@ -379,10 +379,10 @@ echo "; a .galaxyngrc file in the game data directory:" >> $RCFILE
 echo "; $GALAXY_HOME/data/<gamename>" >> $RCFILE
 echo "sendmail { $SENDMAIL -t }" >> $RCFILE
 echo "GMemail $GMEMAIL" >> $RCFILE
-echo "GMname $GMNAME" >> $RCFILE
+echo "GMname { $GMNAME }" >> $RCFILE
 echo "GMpassword $PASSWORD" >> $RCFILE
 echo "SERVERemail $SERVEREMAIL" >> $RCFILE
-echo "SERVERname $SERVERNAME" >> $RCFILE
+echo "SERVERname { $SERVERNAME }" >> $RCFILE
 echo "encode $ENCODE" >> $RCFILE
 echo "compress $COMPRESS" >> $RCFILE
 echo "fontpath $GALAXY_HOME" >> $RCFILE
