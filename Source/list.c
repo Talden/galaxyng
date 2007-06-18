@@ -53,16 +53,16 @@ freelist(void *base)
 {
   list           *p, *p2;
 
-  pdebug(LFULL2, "freelist");
+  pdebug(DFULL2, "freelist");
   p = base;
   while (p) {
     p2 = p->next;
     free(p->name);
     free(p);
     p = p2;
-    pdebug(LFULL2, ".");
+    pdebug(DFULL2, ".");
   }
-  pdebug(LFULL2, "\n");
+  pdebug(DFULL2, "\n");
 }
 
 

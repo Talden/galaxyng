@@ -179,9 +179,8 @@ typedef struct player player;
 typedef struct fleetname {
   /* basic list structure */
   struct fleetname *next;
-  long              cookie;
-  char             *name;
-  struct fleetname *randNext;
+  long            cookie;
+  char           *name;
   /* end basic list */
   double          fleetspeed;
 } fleetname;
@@ -201,9 +200,8 @@ typedef struct fleetname {
 typedef struct shiptype {
   /* basic list structure */
   struct shiptype *next;
-  long             cookie;
-  char            *name;
-  struct shiptype *randNext;
+  long            cookie;
+  char           *name;
   /* end basic list */
   double          drive;
   int             attacks;
@@ -250,7 +248,6 @@ typedef struct planet {
   struct planet  *next;
   long            cookie;
   char           *name;
-  struct planet  *randNext;
   /* end basic list */
   player         *owner;
   double          x, y;
@@ -319,12 +316,9 @@ typedef struct planet {
  */
 
 typedef struct group {
-  /* basic list structure */
   struct group   *next;
   unsigned long   cookie;
   char           *name;
-  struct group   *randNext;
-  /* end basic list structure */
   int             number;
   shiptype       *type;
   double          drive;
@@ -362,12 +356,9 @@ typedef struct group {
  */
 
 typedef struct alliance {
-  /* basic list structure */
   struct alliance *next;
-  long             cookie;
-  char            *name;
-  struct alliance *randNext;
-  /* end basic list structure */
+  long            cookie;
+  char           *name;
   player         *who;
 } alliance;
 
@@ -384,12 +375,9 @@ typedef struct alliance {
  */
 
 typedef struct participant {
-  /* basic list structure */
   struct participant *next;
-  long                cookie;
-  char               *name;
-  struct participant *randNext;
-  /* end basic list structure */
+  long            cookie;
+  char           *name;
   player         *who;
   group          *groups;
 } participant;
@@ -444,12 +432,9 @@ typedef struct bprotocol {
  */
 
 typedef struct battle {
-  /* basic list structure */
   struct battle  *next;
   long            cookie;
   char           *name;
-  struct battle  *randNext;
-  /* end basic list structure */
   planet         *where;
   participant    *participants;
   bprotocol      *protocol;
@@ -470,12 +455,9 @@ typedef struct battle {
  */
 
 typedef struct bombing {
-  /* basic list structure */
   struct bombing *next;
   long            cookie;
   char           *name;
-  struct bombing *randNext;
-  /* end basic list structure */
   planet         *where;
   player         *owner;
   double          pop;
@@ -502,12 +484,9 @@ typedef struct bombing {
  */
 
 typedef struct planet_claim {
-  /* basic list structure */
   struct planet_claim *next;
-  long                 cookie;
-  char                *name;
-  struct planet_claim *randNext;
-  /* end basic list structure */
+  long            cookie;
+  char           *name;
   struct planet  *planet_claimed;
 } planet_claim;
 
@@ -549,12 +528,9 @@ typedef struct option {
  */
 
 struct player {
-  /* basic list structure */
   player         *next;
   long            cookie;
   char           *name;
-  player         *randNext;
-  /* end basic list structure */
   char           *addr;
   char           *pswd;
   int             pswdstate;
@@ -695,7 +671,6 @@ typedef struct game {
   int             turn;
   double          galaxysize;   /* CB-20010408 */
   player         *players;      /* list with races */
-  player         *randPlayers;	/* races in random order */
   planet         *planets;      /* list with planets */
   battle         *battles;      /* list with battles */
   bombing        *bombings;     /* list with bombings */
@@ -706,10 +681,9 @@ typedef struct game {
 
 typedef struct emailList {
   /* basic list structure */
-  struct emailList *next;
+  struct emailList* next;
   long              cookie;
   char*             name;
-  struct emailList *randNext;
   /* end basic list */
   char*             addr;
   char*             pswd;

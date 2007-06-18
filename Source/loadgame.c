@@ -261,7 +261,7 @@ loadgame(char *gameName, int whichTurn)
   int             turnversion;
   int             turnrevision;
 
-  pdebug(LFULL, "Load Game\n");
+  pdebug(DFULL, "Load Game\n");
 
   aGame = allocStruct(game);
 
@@ -293,7 +293,7 @@ loadgame(char *gameName, int whichTurn)
   getReadInt();
   aGame->galaxysize = getReadFloat();
   
-  pdebug(LFULL, "Load Game : Game Options\n");  /* CB-20010407 */
+  pdebug(DFULL, "Load Game : Game Options\n");  /* CB-20010407 */
   for (getLine(turnFile);
        !feof(turnFile) && !strstr(lineBuffer, "@EGameOptions");
        getLine(turnFile)) {
@@ -309,7 +309,7 @@ loadgame(char *gameName, int whichTurn)
     aGame->gameOptions.initial_cargo = getReadFloat();
   }
   
-  pdebug(LFULL, "Load Game : Players\n");
+  pdebug(DFULL, "Load Game : Players\n");
   
   getLine(turnFile);
   for (getLine(turnFile);
@@ -351,7 +351,7 @@ loadgame(char *gameName, int whichTurn)
     /* temporarily turn off all xml reports */
     P->flags &= ~F_XMLREPORT;
     
-    pdebug(LFULL, "Load Game : Ship Types\n");
+    pdebug(DFULL, "Load Game : Ship Types\n");
     
     getLine(turnFile);
     for (getLine(turnFile);
@@ -385,7 +385,7 @@ loadgame(char *gameName, int whichTurn)
     addList(&(aGame->players), P);
   }
   
-  pdebug(LFULL, "Load Game : Allies\n");
+  pdebug(DFULL, "Load Game : Allies\n");
   
   for (P = aGame->players; P; P = P->next) {
     getLine(turnFile);
@@ -402,7 +402,7 @@ loadgame(char *gameName, int whichTurn)
     }
   }
   
-  pdebug(LFULL, "Load Game : Planets\n");
+  pdebug(DFULL, "Load Game : Planets\n");
   
   getLine(turnFile);
   for (getLine(turnFile);
@@ -439,7 +439,7 @@ loadgame(char *gameName, int whichTurn)
     addList(&(aGame->planets), aPlanet);
   }
   
-  pdebug(LFULL, "Load Game : Routes\n");
+  pdebug(DFULL, "Load Game : Routes\n");
   
   getLine(turnFile);
   for (getLine(turnFile);
@@ -457,7 +457,7 @@ loadgame(char *gameName, int whichTurn)
     }
   }
   
-  pdebug(LFULL, "Load Game : Groups\n");
+  pdebug(DFULL, "Load Game : Groups\n");
   
   for (P = aGame->players; P; P = P->next) {
     group          *aGroup;

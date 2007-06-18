@@ -38,8 +38,8 @@ CMD_webreport( int argc, char **argv ) {
       areValidOrders( stdin, &aGame, &raceName, &password,
 		      &final_orders, &theTurnNumber );
     
-    plog(LBRIEF, "Report request from %s for turn %d, game %s.\n",
-	 raceName, theTurnNumber, aGame->name);
+    plog(LBRIEF, "Report request from %s for turn %d.\n",
+	 raceName, theTurnNumber);
 
     if ( ( resNumber == RES_TURNRAN ) ||
 	 ( ( resNumber == RES_OK ) &&
@@ -70,8 +70,6 @@ CMD_webreport( int argc, char **argv ) {
 	    createString( "%s/orders/%s/%d.all",
 			  galaxynghome, aGame2->name,
 			  theTurnNumber );
-
-	  checkIntegrity(aGame);
 	  runTurn( aGame2, ordersName );
 	  free( ordersName );
 	}

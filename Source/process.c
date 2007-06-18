@@ -164,7 +164,7 @@ at_order( game *aGame, player *P, strlist **s )
     alliance *plist;            /* list of people in the alliance */
     player *P2;                 /* for player searching */
 
-    pdebug( LFULL, "at_order\n" );
+    pdebug( DFULL, "at_order\n" );
 
     ns = getstr( 0 );           /* for whom is the message */
     if ( ns[0] ) {
@@ -222,7 +222,7 @@ eq_order( game *aGame, player *P, strlist **s )
 {
     char *ns;                   /* name string */
 
-    pdebug( LFULL, "eq_order\n" );
+    pdebug( DFULL, "eq_order\n" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -253,7 +253,7 @@ a_order( game *aGame, player *P, strlist **s )
     player *P2;                 /* player to find */
     alliance *a;                /* existing alliance */
 
-    pdebug( LFULL, "a_order\n" );
+    pdebug( DFULL, "a_order\n" );
 
     /* find the named player */
     P2 = findElement( player, aGame->players, getstr( 0 ) );
@@ -296,7 +296,7 @@ b_order( game *aGame, player *P, strlist **s )
     int i;                      /* int value for number of ships */
     char *ns;                   /* char value for number of ships */
 
-    pdebug( LFULL, "b_order\n" );
+    pdebug( DFULL, "b_order\n" );
 
     /* find the named group */
     g = findgroup( P, getstr( 0 ) );
@@ -361,7 +361,7 @@ c_order( game *aGame, player *P, strlist **s )
     char *c;                    /* loop variable */
     int i;                      /* loop variable */
 
-    pdebug( LFULL, "c_order\n" );
+    pdebug( DFULL, "c_order\n" );
 
     /* find name, chop off any non a-n chars */
     ns = getstr( 0 );
@@ -405,7 +405,7 @@ c_order( game *aGame, player *P, strlist **s )
         if ( !isalnum( *c ) )
             *c = '_';
     }
-    pdebug( LFULL, "c_order end\n" );
+    pdebug( DFULL, "c_order end\n" );
 }
 
 
@@ -429,7 +429,7 @@ d_order( game *aGame, player *P, strlist **s )
     int i;
     int underDefined;
 
-    pdebug( LFULL, "d_order\n" );
+    pdebug( DFULL, "d_order\n" );
 
     /* get design name, check for validity */
     ns = getstr( 0 );
@@ -610,7 +610,7 @@ e_order( game *aGame, player *P, strlist **s )
     planet *p;                  /* planet ship/fleet is orbiting */
     char *ns;                   /* retrieving parameters */
 
-    pdebug( LFULL, "e_order\n" );
+    pdebug( DFULL, "e_order\n" );
 
     /* see if this is a fleet or ship type */
     ns = getstr( 0 );
@@ -685,7 +685,7 @@ f_order( game *aGame, player *P, strlist **s )
 {
     player *P2;                 /* player requested */
 
-    pdebug( LFULL, "f_order\n" );
+    pdebug( DFULL, "f_order\n" );
 
     P2 = findElement( player, aGame->players, getstr( 0 ) );
 
@@ -731,7 +731,7 @@ g_order( game *aGame, player *P, strlist **s )
     char *ns;
     int i;
 
-    pdebug( LFULL, "g_order\n" );
+    pdebug( DFULL, "g_order\n" );
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
         mistake( P, ERROR, *s, "Group not recognized." );
@@ -822,7 +822,7 @@ h_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     char *ns;
 
-    pdebug( LFULL, "h_order\n" );
+    pdebug( DFULL, "h_order\n" );
     ns = getstr( 0 );           /* get group number or fleet name */
     g = findgroup( P, ns );
     fl = findElement( fleetname, P->fleetnames, ns );
@@ -877,7 +877,7 @@ i_order( game *aGame, player *P, strlist **s )
     fleetname *inFleet;
     char *ns;
 
-    pdebug( LFULL, "i_order\n" );
+    pdebug( DFULL, "i_order\n" );
     ns = getstr( 0 );
     inGroup = findgroup( P, ns );
     inFleet = findElement( fleetname, P->fleetnames, ns );
@@ -985,7 +985,7 @@ j_order( game *aGame, player *P, strlist **s )
     int i;
     int j;
 
-    pdebug( LFULL, "j_order\n" );
+    pdebug( DFULL, "j_order\n" );
 
     ns = getstr( 0 );
     g = findgroup( P, ns );
@@ -1105,7 +1105,7 @@ l_order( game *aGame, player *P, strlist **s )
 
     amountFlag = FALSE;
 
-    pdebug( LFULL, "l_order\n" );
+    pdebug( DFULL, "l_order\n" );
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
         mistake( P, ERROR, *s, "Group not recognized." );
@@ -1278,7 +1278,7 @@ m_order( game *aGame, player *P, strlist **s )
     double y;
     double z;
 
-    pdebug( LFULL, "m_order\n" );
+    pdebug( DFULL, "m_order\n" );
 
     x = atof( getstr( 0 ) );
     y = atof( getstr( 0 ) );
@@ -1300,7 +1300,7 @@ n_order( game *aGame, player *P, strlist **s )
     planet *p;
     char *ns;
 
-    pdebug( LFULL, "n_order %s\n", ( *s )->str );
+    pdebug( DFULL, "n_order %s\n", ( *s )->str );
 
     ns = getstr( 0 );
     p = findElement( planet, aGame->planets, ns );
@@ -1343,7 +1343,7 @@ o_order( game *aGame, player *P, strlist **s )
     int state;
     option *curOption;
 
-    pdebug( LFULL, "o_order\n" );
+    pdebug( DFULL, "o_order\n" );
 
     ns = getstr( 0 );
     state = TRUE;
@@ -1375,7 +1375,7 @@ p_order( game *aGame, player *P, strlist **s )
     planet *p;
     shiptype *t;
 
-    pdebug( LFULL, "p_order\n" );
+    pdebug( DFULL, "p_order\n" );
 
     p = findPlanet( aGame, getstr( 0 ) );
     if ( !p ) {
@@ -1427,7 +1427,7 @@ void
 q_order( game *aGame, player *P, strlist **s )
 {
 
-    pdebug( LFULL, "q_order\n" );
+    pdebug( DFULL, "q_order\n" );
 
     if ( findElement( player, aGame->players, getstr( 0 ) ) != P )
     {
@@ -1446,7 +1446,7 @@ r_order( game *aGame, player *P, strlist **s )
     planet *p2;
     int i;
 
-    pdebug( LFULL, "r_order\n" );
+    pdebug( DFULL, "r_order\n" );
 
     ns = getstr( 0 );
     p = findPlanet( aGame, ns );
@@ -1489,7 +1489,7 @@ s_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     char *ns;
 
-    pdebug( LFULL, "s_order\n" );
+    pdebug( DFULL, "s_order\n" );
     plog( LFULL, "s_order\n" );
 
     ns = getstr( 0 );
@@ -1575,7 +1575,7 @@ t_order( game *aGame, player *P, strlist **s )
     fleetname *fl;
     shiptype *t;
 
-    pdebug( LFULL, "t_order\n" );
+    pdebug( DFULL, "t_order\n" );
 
     ns = getstr( 0 );
     t = findElement( shiptype, P->shiptypes, ns );
@@ -1622,7 +1622,7 @@ u_order( game *aGame, player *P, strlist **s )
     double amount;
     char *ns;
 
-    pdebug( LFULL, "u_order\n" );
+    pdebug( DFULL, "u_order\n" );
 
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
@@ -1719,7 +1719,7 @@ v_order( game *aGame, player *P, strlist **s )
     planet *p;
     planet_claim *pclaim;
 
-    pdebug( LFULL, "v_order\n" );
+    pdebug( DFULL, "v_order\n" );
 
     p = findPlanet( aGame, getstr( 0 ) );
     if ( !p ) {
@@ -1749,7 +1749,7 @@ w_order( game *aGame, player *P, strlist **s )
     player *P2;
     alliance *a;
 
-    pdebug( LFULL, "w_order\n" );
+    pdebug( DFULL, "w_order\n" );
 
 	if (aGame->turn < aGame->gameOptions.galactic_peace) {
 		mistake(P, ERROR, *s, "Galactic Peace enforced until turn %d.",
@@ -1783,7 +1783,7 @@ x_order( game *aGame, player *P, strlist **s )
     int i;
     int j;
 
-    pdebug( LFULL, "x_order\n" );
+    pdebug( DFULL, "x_order\n" );
 
     g = findgroup( P, getstr( 0 ) );
     if ( !g ) {
@@ -1836,7 +1836,7 @@ y_order( game *aGame, player *P, strlist **s )
 {
     char *ns;
 
-    pdebug( LFULL, "y_order\n" );
+    pdebug( DFULL, "y_order\n" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -1855,7 +1855,7 @@ z_order( game *aGame, player *P, strlist **s )
 {
     char *ns;
 
-    pdebug( LFULL, "z_order\n" );
+    pdebug( DFULL, "z_order\n" );
 
     ns = getstr( 0 );
     if ( !ns[0] ) {
@@ -1904,154 +1904,150 @@ z_order( game *aGame, player *P, strlist **s )
 int
 runTurn( game *aGame, char *ordersFileName )
 {
-  player *P;
-  
-  char *oGameName;
-  char *raceName;
-  char *password;
-  FILE *ordersFile;
-  
-  char* rm_notify;
-  
-  rm_notify = createString("/bin/rm -f %s/orders/%s/*.notify",
-			   galaxynghome, aGame->name);
-  /*printf("executing \"%s\"\n", rm_notify);*/
-  ssystem(rm_notify);
-  free(rm_notify);
-  
-  plog( LPART, "Reading orders from file %s\n", ordersFileName );
-  
-  ordersFile = Fopen( ordersFileName, "r" );
-  
-  getLine( ordersFile );
-  for ( ; !feof( ordersFile ); ) {
-    char* ptr;
-    ptr = lineBuffer + strspn(lineBuffer, " \t");
-    if (ptr && *ptr == ';')
-      continue;		/* skip comment lines */
-    if ((ptr = strchr(lineBuffer, '#')) == NULL)
-      ptr = lineBuffer;
-    if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
-      player *aPlayer;
-      
-      getstr( ptr );
-      oGameName = strdup( getstr( NULL ) );
-      raceName = strdup( getstr( NULL ) );
-      password = strdup( getstr( NULL ) );
-      if ( noCaseStrcmp( oGameName, aGame->name ) == 0 ) {
-	aPlayer = findElement( player, aGame->players, raceName );
-	
-	if ( aPlayer ) {
-	  aPlayer->lastorders = aGame->turn + 1;
-	  if ( noCaseStrcmp( aPlayer->pswd, password ) == 0 ) {
-	    aPlayer->orders = NULL;
-	    getLine(ordersFile);
-	    if ((ptr = strchr(lineBuffer, '#')) == NULL)
-	      ptr = lineBuffer;
+    player *P;
+    char *oGameName;
+    char *raceName;
+    char *password;
+    FILE *ordersFile;
 
-	    for ( ; !feof( ordersFile ) &&
-		    noCaseStrncmp( "#GALAXY", ptr, 7 ) &&
-		    noCaseStrncmp( "#END", ptr, 4 ); ) {
-	      strlist *s;
-	      
-	      if ( ( s = makestrlist( lineBuffer ) ) != NULL )
-		addList( &( aPlayer->orders ), s );
-	      getLine( ordersFile );
-	      if ((ptr = strchr(lineBuffer, '#')) == NULL)
-		ptr = lineBuffer;
-	    }
-	  } else {
-	    plog( LPART, "Password Incorrect.\n" );
-	  }
-	} else {
-	  plog( LPART, "Unrecognized player %s.\n", raceName );
-	}
-      } else {
-	plog( LPART, "Orders are not for game %s.\n", aGame->name );
-      }
-      free( oGameName );
-      free( raceName );
-      free( password );
-    }
+	char* rm_notify;
+
+	rm_notify = createString("/bin/rm -f %s/orders/%s/*.notify",
+							 galaxynghome, aGame->name);
+	/*printf("executing \"%s\"\n", rm_notify);*/
+	ssystem(rm_notify);
+	free(rm_notify);
+			
+    plog( LPART, "Reading orders from file %s\n", ordersFileName );
+
+    ordersFile = Fopen( ordersFileName, "r" );
+
     getLine( ordersFile );
-  }
-  fclose( ordersFile );
-  plog(LFULL, "done parsing orders\n");
-  ( aGame->turn )++;
-  
-  if ( !checkIntegrity( aGame ) )
-    return FALSE;
-  
-  plog( LPART, "Orders read, processing...\n" );
-  plog( LFULL, "# Phase 1 Orders\n" );
-  randomizePlayers(aGame);
-  for ( P = aGame->randPlayers; P; P = P->randNext ) {
-    doOrders( aGame, P, phase1orders, 1 );
-  }
-  
-  if ( !checkIntegrity( aGame ) )
-    return FALSE;
-  
-  plog( LFULL, "# Phase 2 Orders\n" );
-  randomizePlayers(aGame);
-  for ( P = aGame->randPlayers; P; P = P->randNext ) {
-    doOrders( aGame, P, phase2orders, 2 );
-  }
-  
-  if ( !checkIntegrity( aGame ) )
-    return FALSE;
-  
-  plog( LFULL, "# Phase 3 Orders\n" );
-  randomizePlayers(aGame);
-  for ( P = aGame->randPlayers; P; P = P->randNext ) {
-    doOrders( aGame, P, phase3orders, 3 );
-  }
-  
-  if ( !checkIntegrity( aGame ) )
-    return FALSE;
-  
-  plog( LFULL, "# joinphase I\n" );
-  joinphase( aGame );
-  preComputeGroupData( aGame );
-  plog( LFULL, "# fightphase I\n" );
-  fightphase( aGame, GF_INBATTLE1 );
-  plog( LFULL, "# bombphase I\n" );
-  bombphase( aGame );
-  plog( LFULL, "# loadphase\n" );
-  loadphase( aGame );
-  plog( LFULL, "# fleetphase I \n" );
-  fleetphase( aGame );
-  if ( !checkIntegrity( aGame ) )
-    return FALSE;
-  plog( LFULL, "# interceptphase\n" );
-  interceptphase( aGame );
-  plog( LFULL, "# movephase\n" );
-  movephase( aGame );
-  plog( LFULL, "# joinphase II\n" );
-  joinphase( aGame );
-  preComputeGroupData( aGame );
-  plog( LFULL, "# fightphase II\n" );
-  fightphase( aGame, GF_INBATTLE2 );
-  plog( LFULL, "# bombphase II\n" );
-  bombphase( aGame );
-  plog( LFULL, "# producephase\n" );
-  producephase( aGame );
-  plog( LFULL, "# unloadphase\n" );
-  unloadphase( aGame );
-  plog( LFULL, "# joinphase III\n" );
-  joinphase( aGame );
-  plog( LFULL, "# fleetphase II\n" );
-  fleetphase( aGame );
-  if ( !checkIntegrity( aGame ) )
-    return FALSE;
-  preComputeGroupData( aGame );
-  sortphase( aGame );
-  
-  if ( !( aGame->gameOptions.gameOptions & GAME_NODROP ) )
-    removeDeadPlayer( aGame );
-  raceStatus( aGame );
-  
-  return TRUE;
+    for ( ; !feof( ordersFile ); ) {
+      char* ptr;
+      ptr = lineBuffer + strspn(lineBuffer, " \t");
+      if (ptr && *ptr == ';')
+	continue;		/* skip comment lines */
+      if ((ptr = strchr(lineBuffer, '#')) == NULL)
+	ptr = lineBuffer;
+        if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
+            player *aPlayer;
+
+            getstr( ptr );
+            oGameName = strdup( getstr( NULL ) );
+            raceName = strdup( getstr( NULL ) );
+            password = strdup( getstr( NULL ) );
+            if ( noCaseStrcmp( oGameName, aGame->name ) == 0 ) {
+                aPlayer = findElement( player, aGame->players, raceName );
+
+                if ( aPlayer ) {
+                    aPlayer->lastorders = aGame->turn + 1;
+                    if ( noCaseStrcmp( aPlayer->pswd, password ) == 0 ) {
+                        aPlayer->orders = NULL;
+                        getLine( ordersFile );
+			if ((ptr = strchr(lineBuffer, '#')) == NULL)
+			  ptr = lineBuffer;
+                        for ( ; !feof( ordersFile ) &&
+                              noCaseStrncmp( "#GALAXY", ptr, 7 ) &&
+                              noCaseStrncmp( "#END", ptr, 4 ); ) {
+                            strlist *s;
+
+                            if ( ( s = makestrlist( lineBuffer ) ) != NULL )
+                                addList( &( aPlayer->orders ), s );
+                            getLine( ordersFile );
+			    if ((ptr = strchr(lineBuffer, '#')) == NULL)
+			      ptr = lineBuffer;
+
+                        }
+                    } else {
+                        plog( LPART, "Password Incorrect.\n" );
+                    }
+                } else {
+                    plog( LPART, "Unrecognized player %s.\n", raceName );
+                }
+            } else {
+                plog( LPART, "Orders are not for game %s.\n", aGame->name );
+            }
+            free( oGameName );
+            free( raceName );
+            free( password );
+        }
+        getLine( ordersFile );
+    }
+    fclose( ordersFile );
+
+    ( aGame->turn )++;
+
+    if ( !checkIntegrity( aGame ) )
+        return FALSE;
+
+    plog( LPART, "Orders read, processing...\n" );
+    plog( LFULL, "# Phase 1 Orders\n" );
+    for ( P = aGame->players; P; P = P->next ) {
+        doOrders( aGame, P, phase1orders, 1 );
+    }
+
+    if ( !checkIntegrity( aGame ) )
+        return FALSE;
+
+    plog( LFULL, "# Phase 2 Orders\n" );
+    for ( P = aGame->players; P; P = P->next ) {
+        doOrders( aGame, P, phase2orders, 2 );
+    }
+
+    if ( !checkIntegrity( aGame ) )
+        return FALSE;
+
+    plog( LFULL, "# Phase 3 Orders\n" );
+    for ( P = aGame->players; P; P = P->next ) {
+        doOrders( aGame, P, phase3orders, 3 );
+    }
+
+    if ( !checkIntegrity( aGame ) )
+        return FALSE;
+
+    plog( LFULL, "# joinphase I\n" );
+    joinphase( aGame );
+    preComputeGroupData( aGame );
+    plog( LFULL, "# fightphase I\n" );
+    fightphase( aGame, GF_INBATTLE1 );
+    plog( LFULL, "# bombphase I\n" );
+    bombphase( aGame );
+    plog( LFULL, "# loadphase\n" );
+    loadphase( aGame );
+    plog( LFULL, "# fleetphase I \n" );
+    fleetphase( aGame );
+    if ( !checkIntegrity( aGame ) )
+        return FALSE;
+    plog( LFULL, "# interceptphase\n" );
+    interceptphase( aGame );
+    plog( LFULL, "# movephase\n" );
+    movephase( aGame );
+    plog( LFULL, "# joinphase II\n" );
+    joinphase( aGame );
+    preComputeGroupData( aGame );
+    plog( LFULL, "# fightphase II\n" );
+    fightphase( aGame, GF_INBATTLE2 );
+    plog( LFULL, "# bombphase II\n" );
+    bombphase( aGame );
+    plog( LFULL, "# producephase\n" );
+    producephase( aGame );
+    plog( LFULL, "# unloadphase\n" );
+    unloadphase( aGame );
+    plog( LFULL, "# joinphase III\n" );
+    joinphase( aGame );
+    plog( LFULL, "# fleetphase II\n" );
+    fleetphase( aGame );
+    if ( !checkIntegrity( aGame ) )
+        return FALSE;
+    preComputeGroupData( aGame );
+    sortphase( aGame );
+
+    if ( !( aGame->gameOptions.gameOptions & GAME_NODROP ) )
+        removeDeadPlayer( aGame );
+    raceStatus( aGame );
+
+    return TRUE;
 }
 
 /****************/
@@ -2095,7 +2091,7 @@ checkOrders( game *aGame, char *raceName )
 {
     player *aPlayer;
 
-    pdebug( LFULL, "check orders\n" );
+    pdebug( DFULL, "check orders\n" );
     aPlayer = findElement( player, aGame->players, raceName );
 
     tagVisiblePlanets( aGame->planets, aPlayer );
@@ -2132,7 +2128,7 @@ checkOrders( game *aGame, char *raceName, FILE *forecast, int kind )
        one report type is being generated */
     static int orders_done = 0;
 
-    pdebug( LFULL, "check orders\n" );
+    pdebug( DFULL, "check orders\n" );
     aPlayer = findElement( player, aGame->players, raceName );
 
     fields.destination = forecast;
@@ -2227,16 +2223,8 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
     FILE *copyFile;
     player *aPlayer;
 
-    plog(LFULL, "copyOrders for %s\n", raceName);
-
     aPlayer = findElement( player, aGame->players, raceName );
 
-    /*
-    if (aPlayer == NULL) {
-      plog(LFULL, "could not find player\n");
-      return;
-    }
-    */
     aPlayer->orders = NULL;
     copyFileName = alloc( strlen( aGame->name ) + strlen( aPlayer->name ) +
                           strlen( galaxynghome ) + strlen( "/orders//" ) +
@@ -2323,103 +2311,119 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
 
 int
 areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
-		char **password, char** final_orders, int* theTurnNumber )
+        char **password, char** final_orders, int* theTurnNumber,
+        char **galaxyline )
 {
-  int   resNumber;
-  int   foundOrders;
-  char* gameName;
-  char* isRead;
-  
-  gameName = NULL;
-  
-  foundOrders = FALSE;
-  for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
-	isRead;
-	isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
-    if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
-      foundOrders = TRUE;
-      break;
-    }
-  }
+    int   resNumber;
+    int   foundOrders;
+    char* gameName;
+    char* isRead;
 
-  *theTurnNumber = LG_CURRENT_TURN;
-	
-  if ( foundOrders ) {
-    char* ptr;
-    getstr( lineBuffer );
-    gameName = strdup( getstr( NULL ) );
-    *raceName = strdup( getstr( NULL ) );
-    *password = strdup( getstr( NULL ) );
-    if ((ptr = getstr(NULL)) != NULL) {
-		*theTurnNumber = atoi(ptr);
-		if (!isdigit(*ptr)) {
-			*theTurnNumber = LG_CURRENT_TURN;
-			if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
-				loadNGConfig(*aGame);
-			else {
-				*aGame = allocStruct( game );
-				
-				setName( *aGame, "UnknownGame" );
-				loadNGConfig( *aGame );
-				if ( gameName )
-					setName( *aGame, gameName );
-				return RES_NO_GAME;
-			}
-			return RES_NO_REPORT_TURN_NBR;
-		}
+
+    gameName = NULL;
+
+    foundOrders = FALSE;
+    for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
+            isRead;
+            isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
+        if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
+            foundOrders = TRUE;
+            break;
+        }
     }
-    
-    if ((ptr = getstr(NULL)) != NULL) {
-		if (noCaseStrcmp(ptr, "FinalOrders") == 0)
-			*final_orders = strdup(ptr);
-    }
-    
-    if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
-		player *aPlayer;
-		
-		loadNGConfig( *aGame );
-		
-		if (noCaseStrcmp("GM", *raceName) == 0) {
-			if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
-				resNumber = RES_OK;
-			}
-		}
-		else {
-			aPlayer = findElement( player, ( *aGame )->players,
-								   *raceName );
-	
-	if ( aPlayer ) {
-	  if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
-	    if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
-		 ( *theTurnNumber == LG_CURRENT_TURN ) ) {
-	      resNumber = RES_OK;
-	    } else {
-	      resNumber = RES_TURNRAN;
-	    }
-	  } else {
-	    resNumber = RES_PASSWORD;
-	  }
-	} else {
-	  resNumber = RES_PLAYER;
-	}
-      }
+
+    *theTurnNumber = LG_CURRENT_TURN;
+
+    if ( foundOrders ) {
+        char* ptr;
+        char* turnNumberString = NULL;
+
+        getstr( lineBuffer );
+        *galaxyline = strdup( lineBuffer );
+        gameName = strdup( getstr( NULL ) );
+        *raceName = strdup( getstr( NULL ) );
+        *password = strdup( getstr( NULL ) );
+        turnNumberString = getstr( NULL );
+
+        if ( noCaseStrcmp( *password, "" ) == 0 ) {
+            /* No password */
+        } else {
+            if ( noCaseStrcmp( turnNumberString, "FinalOrders" ) != 0 ) {
+                if ( noCaseStrcmp( turnNumberString, "" ) != 0 ) {
+                    *theTurnNumber = atoi( turnNumberString );
+                    if (!isdigit(turnNumberString[0])) {
+                        *theTurnNumber = LG_CURRENT_TURN;
+                        if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
+                            loadNGConfig(*aGame);
+                        else {
+                            *aGame = allocStruct( game );
+
+                            setName( *aGame, "UnknownGame" );
+                            loadNGConfig( *aGame );
+                            if ( gameName )
+                                setName( *aGame, gameName );
+                            return RES_NO_GAME;
+                        }
+                        return RES_NO_REPORT_TURN_NBR;
+                    }
+                }
+            } else {
+                /* Case: #galaxy game race FinalOrders */
+                *final_orders = strdup( turnNumberString );
+            }
+        }
+
+        if ((ptr = getstr(NULL)) != NULL) {
+            if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+                *final_orders = strdup(ptr);
+        }
+
+        if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
+            player *aPlayer;
+
+            loadNGConfig( *aGame );
+
+            if (noCaseStrcmp("GM", *raceName) == 0) {
+                if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
+                    resNumber = RES_OK;
+                }
+            }
+            else {
+                aPlayer = findElement( player, ( *aGame )->players,
+                        *raceName );
+
+                if ( aPlayer ) {
+                    if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
+                        if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
+                                ( *theTurnNumber == LG_CURRENT_TURN ) ) {
+                            resNumber = RES_OK;
+                        } else {
+                            resNumber = RES_TURNRAN;
+                        }
+                    } else {
+                        resNumber = RES_PASSWORD;
+                    }
+                } else {
+                    resNumber = RES_PLAYER;
+                }
+            }
+        } else {
+            resNumber = RES_NO_GAME;
+        }
     } else {
-      resNumber = RES_NO_GAME;
+        resNumber = RES_NO_ORDERS;
     }
-  } else {
-    resNumber = RES_NO_ORDERS;
-  }
-  
-  if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
-    *aGame = allocStruct( game );
-    
-    setName( *aGame, "UnknownGame" );
-    loadNGConfig( *aGame );
-    if ( gameName )
-      setName( *aGame, gameName );
-  }
-  
-  return resNumber;
+
+    if ( ( resNumber == RES_NO_GAME ) || ( resNumber == RES_NO_ORDERS ) ) {
+        *aGame = allocStruct( game );
+
+        setName( *aGame, "UnknownGame" );
+        loadNGConfig( *aGame );
+        if ( gameName )
+            setName( *aGame, gameName );
+    }
+
+    return resNumber;
 }
 
 /*********/
@@ -2544,12 +2548,12 @@ doOrders( game *aGame, player *aPlayer, orderinfo *orderInfo, int phase )
 
     plog( LFULL, "doOrders: Phase %d Race %s\n", phase, aPlayer->name );
 
-    pdebug( LFULL, "doOrders\n" );
-    pdebug( LFULL, "  Phase %d Race %s\n", phase, aPlayer->name );
+    pdebug( DFULL, "doOrders\n" );
+    pdebug( DFULL2, "  Phase %d Race %s\n", phase, aPlayer->name );
     for ( s = aPlayer->orders; s; ) {
         char *order;
 
-        pdebug( LFULL, "  Order %s\n", s->str );
+        pdebug( DFULL2, "  Order %s\n", s->str );
         for ( order = getstr( s->str );
               ( s ) && ( phase != 1 ) && ( *order eq '@' ); ) {
             plog( LFULL, "order: %s phase:%d\n", order, phase );
@@ -2598,7 +2602,7 @@ removeDeadPlayer( game *aGame )
   int allowedOrderGap;
   int nbrPlanets;
 	
-  pdebug( LFULL, "removeDeadPlayer\n" );
+  pdebug( DFULL, "removeDeadPlayer\n" );
   allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
   for ( P = aGame->players; P; P = P3 ) {
     P3 = P->next;
@@ -2672,7 +2676,7 @@ cleanDeadPlayers( game *aGame )
     player *P3;
     int allowedOrderGap;
 	
-    pdebug( LFULL, "removeDeadPlayer\n" );
+    pdebug( DFULL, "removeDeadPlayer\n" );
     allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
     for ( P = aGame->players; P; P = P3 ) {
         P3 = P->next;
@@ -2777,37 +2781,41 @@ preComputeGroupData( game *aGame )
 
 void generateErrorMessage( int resNumber, game *aGame,
 			   char *raceName, int theTurnNumber,
-			   FILE *forecast ) {
+			   FILE *forecast,
+               char *galaxyline ) {
   switch ( resNumber ) {
   case RES_NO_ORDERS:
     fprintf(forecast, "O Wise Leader, your mail did not contain any "
 	    "orders.\nRemember orders start with\n\n"
-	    "#GALAXY GameName RaceName Password TurnNumber "
+	    "#GALAXY GameName RaceName Password [TurnNumber] "
 	    "[FinalOrders]\n\nand end with\n\n#END\n" );
     break;
     
   case RES_ERR_GALAXY:
     fprintf(forecast, "O Wise Leader, you must supply your race name "
 	    "and galaxy name.\n Remember orders start with,\n\n"
-	    "#GALAXY GameName RaceName Password TurnNumber "
+	    "#GALAXY GameName RaceName Password [TurnNumber] "
 	    "[FinalOrders]\n\nand end with\n\n#END\n");
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
     break;
     
   case RES_NO_GAME:
     fprintf(forecast, "O Wise Leader, there is no galaxy called %s.\n"
 	    "This probably means that you mispelled the galaxy name "
 	    "in your orders\n", aGame->name );
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
     break;
     
   case RES_PASSWORD:
     fprintf(forecast, "O Wise Leader, the password you gave is "
-	    "incorrect.\n" );
+            "incorrect\n" );
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
     break;
-    
   case RES_PLAYER:
     fprintf(forecast, "O Wise Leader there is no race called %s.\n"
 	    "This probably means that you mispelled your "
 	    "race name.\n", raceName );
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
     break;
     
   case RES_TURNRAN:
@@ -2827,18 +2835,20 @@ void generateErrorMessage( int resNumber, game *aGame,
     break;
     
   case RES_NO_ORDERS_TURN_NBR:
-    fprintf(forecast, "O Wise Leader, you didn't specify a turn "
+    fprintf(forecast, "O Wise Leader, you didn't specify a proper turn "
 	    "number.\nRemember that orders start with\n\n"
-	    "#GALAXY GameName RaceName Password TurnNumber "
+	    "#GALAXY GameName RaceName Password [TurnNumber] "
 	    "[FinalOrders]\n\n"
 	    "and end with\n\n#END\n");
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
     break;
 
     case RES_NO_REPORT_TURN_NBR:
-    fprintf(forecast, "O Wise Leader, you didn't specify a turn "
+    fprintf(forecast, "O Wise Leader, you didn't specify a proper turn "
 	    "number.\nRemember that report requests start with\n\n"
-	    "#GALAXY GameName RaceName Password TurnNumber\n\n"
+	    "#GALAXY GameName RaceName Password [TurnNumber]\n\n"
 	    "and end with\n\n#END\n");
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
     break;
   }
   fprintf( forecast,

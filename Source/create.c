@@ -424,75 +424,75 @@ printGameSpecs(gamespecification *aGameSpec)
 game           *
 creategame(gamespecification *aGameSpec)
 {
-  if (createGameDirectories(aGameSpec->name)) {
-    int   planet_name;
-    int   created_ok;
-    game *aGame;
-		
-    srand((int) time(NULL));
-    resetErnie(197162622 + (rand() & 0xFF));
-    aGame = allocStruct(game);
-    
-    setName(aGame, aGameSpec->name);
-    aGame->turn = 0;
-    aGame->gameOptions.gameOptions = aGameSpec->gameOptions.gameOptions;
-    aGame->gameOptions.initial_drive =
-      aGameSpec->gameOptions.initial_drive;
-    aGame->gameOptions.initial_weapons =
-      aGameSpec->gameOptions.initial_weapons;
-    aGame->gameOptions.initial_shields =
-      aGameSpec->gameOptions.initial_shields;
-    aGame->gameOptions.initial_cargo =
-      aGameSpec->gameOptions.initial_cargo;
-    aGame->gameOptions.galactic_peace =
-      aGameSpec->gameOptions.galactic_peace;
-    
-    /* Do not change this! planets can be looked up by number and this
-     * function expects the first planet to have number 1 */
-    planet_name = 1;
-    if (aGameSpec->teamGame) {
-      created_ok = createCheckeredLayout(aGameSpec, aGame, planet_name);
-      if (created_ok)
-	setTeamAllies(aGame->players);
+    if (createGameDirectories(aGameSpec->name)) {
+        int   planet_name;
+        int   created_ok;
+        game *aGame;
+
+        srand((int) time(NULL));
+        resetErnie(197162622 + (rand() & 0xFF));
+        aGame = allocStruct(game);
+
+        setName(aGame, aGameSpec->name);
+        aGame->turn = 0;
+        aGame->gameOptions.gameOptions = aGameSpec->gameOptions.gameOptions;
+        aGame->gameOptions.initial_drive =
+            aGameSpec->gameOptions.initial_drive;
+        aGame->gameOptions.initial_weapons =
+            aGameSpec->gameOptions.initial_weapons;
+        aGame->gameOptions.initial_shields =
+            aGameSpec->gameOptions.initial_shields;
+        aGame->gameOptions.initial_cargo =
+            aGameSpec->gameOptions.initial_cargo;
+        aGame->gameOptions.galactic_peace =
+            aGameSpec->gameOptions.galactic_peace;
+
+        /* Do not change this! planets can be looked up by number and this
+         * function expects the first planet to have number 1 */
+        planet_name = 1;
+        if (aGameSpec->teamGame) {
+            created_ok = createCheckeredLayout(aGameSpec, aGame, planet_name);
+            if (created_ok)
+                setTeamAllies(aGame->players);
+        }
+        else {
+            created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
+        }
+
+        if (created_ok) {
+            if (aGame->gameOptions.galactic_peace > 0) {
+                player* aPlayer;
+                player* aPlayer2;
+
+
+                for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
+                    for (aPlayer2 = aGame->players; aPlayer2; aPlayer2 = aPlayer2->next) {
+                        alliance       *a;
+
+                        if (aPlayer == aPlayer2)
+                            continue;
+
+                        a = allocStruct(alliance);
+
+                        a->who = aPlayer2;
+                        addList(&aPlayer->allies, a);
+                    }
+                }
+            }
+
+            Randomize_Planet_Numbers(aGame);
+            preComputeGroupData(aGame);
+            raceStatus(aGame);
+            return aGame;
+        }
+        else {
+            freegame(aGame);
+            return NULL;
+        }
     }
     else {
-      created_ok = createStandardLayout(aGameSpec, aGame, planet_name);
+        return NULL;
     }
-    
-    if (created_ok) {
-      if (aGame->gameOptions.galactic_peace > 0) {
-	player* aPlayer;
-	player* aPlayer2;
-	
-	
-	for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-	  for (aPlayer2 = aGame->players; aPlayer2; aPlayer2 = aPlayer2->next) {
-	    alliance       *a;
-	    
-	    if (aPlayer == aPlayer2)
-	      continue;
-	    
-	    a = allocStruct(alliance);
-	    
-	    a->who = aPlayer2;
-	    addList(&aPlayer->allies, a);
-	  }
-	}
-      }
-      
-      Randomize_Planet_Numbers(aGame);
-      preComputeGroupData(aGame);
-      raceStatus(aGame);
-      return aGame;
-    }
-    else {
-      freegame(aGame);
-      return NULL;
-    }
-  }
-  else {
-    return NULL;
-  }
 }
 
 /********/

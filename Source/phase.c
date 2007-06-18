@@ -114,9 +114,6 @@ unloadgroup(group *g, player *P, double amount)
 
   x = amount * g->ships;
   p = g->where;
-  if (p->size < 0.00001)
-    return;
-
   switch (g->loadtype) {
   case CG_CAP:
     unloadcap(p, x);
@@ -153,8 +150,7 @@ joinphase(game *aGame)
   player         *P;
   group          *g, *g2, *g3;
 
-  pdebug(LFULL, "Joinphase\n");
-  
+  pdebug(DFULL, "Joinphase\n");
   for (P = aGame->players; P; P = P->next) {
     for (g = P->groups; g;) {
       if (g->ships) {
@@ -230,23 +226,16 @@ bombphase(game *aGame)
 {
   player         *aPlayer;
 
-  plog(LFULL, "bombphase\n");
-  randomizePlayers(aGame);
-  for (aPlayer = aGame->randPlayers; aPlayer; aPlayer = aPlayer->randNext) {
+  for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
     group          *attackGroup;
-
-    plog(LFULL, "  checking groups from %s\n", aPlayer->name);
 
     for (attackGroup = aPlayer->groups;
          attackGroup; attackGroup = attackGroup->next) {
-      if (attackGroup->location)
-	plog(LFULL, "    group %d at %s\n", attackGroup->number, attackGroup->location->name);
       if (mustBomb(aPlayer, attackGroup)) {
         planet         *targetPlanet;
         bombing        *aBombing;
         player         *viewingPlayer;
 
-	plog(LFULL, "   bombing %s\n ", attackGroup->location->name);
         targetPlanet = attackGroup->location;
         aBombing = allocStruct(bombing);
 
@@ -321,11 +310,10 @@ bombphase(game *aGame)
 int
 mustBomb(player *P, group *g)
 {
-  int must_bomb;
+  int             must_bomb;
 
   must_bomb = g->location && g->location->owner && g->ships &&
-    g->type->attacks && atwar(P, g->location->owner);
-
+      g->type->attacks && atwar(P, g->location->owner);
   return must_bomb;
 }
 
@@ -401,7 +389,6 @@ determineOwnership(game *aGame, planet *targetPlanet, player *aPlayer)
 
   if (!standoff) {
     claimingPlayer = aPlayer;
-
     for (otherPlayer = aGame->players, noClaims = 0;
          otherPlayer; otherPlayer = otherPlayer->next) {
       planet_claim   *curClaim;
@@ -448,7 +435,7 @@ loadphase(game *aGame)
   planet         *p;
   double          qty, shipspace, availspace;
 
-  pdebug(LFULL, "Load phase\n");
+  pdebug(DFULL, "Load phase\n");
 
   for (p = aGame->planets; p; p = p->next)
     if ((P = p->owner) != 0) {
@@ -573,91 +560,90 @@ loadphase(game *aGame)
 void
 interceptphase(game *aGame)
 {
-  player* curPlayer;
-  player* otherPlayer;
-  double* massPerPlanet;
-  int     noPlanets;
-  
-  pdebug(LFULL, "Intercept Phase\n");
-  
-  noPlanets = numberOfElements(aGame->planets);
-  massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
-  
-  randomizePlayers(aGame);
-  for (curPlayer = aGame->randPlayers; curPlayer; curPlayer = curPlayer->randNext) {
-    group* inGroup;
-    
-    for (inGroup = curPlayer->groups; inGroup; inGroup = inGroup->next) {
-      if (inGroup->flags & GF_INTERCEPT) {
-	double maxDist;
-	double maxMass;
-	planet* inPlanet;
-	planet* targetPlanet;
-	planet* curPlanet;
-	int     planetIndex;
-	
-	if (inGroup->thefleet)
-	  maxDist = 2 * inGroup->thefleet->fleetspeed;
-	else
-	  maxDist = 2 * groupSpeed(inGroup);
-	
-	inPlanet = inGroup->where;
-	if (inGroup->thefleet) {
-	  pdebug(LFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
-		 inGroup->thefleet->name, inPlanet->name, maxDist);
+	player* curPlayer;
+	player* otherPlayer;
+	double* massPerPlanet;
+	int     noPlanets;
+
+	pdebug(DFULL, "Intercept Phase\n");
+
+	noPlanets = numberOfElements(aGame->planets);
+	massPerPlanet = (double *) alloc((noPlanets + 1) * sizeof(double));
+
+	for (curPlayer = aGame->players; curPlayer; curPlayer = curPlayer->next) {
+		group* inGroup;
+
+		for (inGroup = curPlayer->groups; inGroup; inGroup = inGroup->next) {
+			if (inGroup->flags & GF_INTERCEPT) {
+				double maxDist;
+				double maxMass;
+				planet* inPlanet;
+				planet* targetPlanet;
+				planet* curPlanet;
+				int     planetIndex;
+
+				if (inGroup->thefleet)
+					maxDist = 2 * inGroup->thefleet->fleetspeed;
+				else
+					maxDist = 2 * groupSpeed(inGroup);
+
+				inPlanet = inGroup->where;
+				if (inGroup->thefleet) {
+					pdebug(DFULL, "Fleet %s Intercept on Planet %s max Dist %f\n",
+						   inGroup->thefleet->name, inPlanet->name, maxDist);
+				}
+				else {
+					pdebug(DFULL, "Group %d Intercept on Planet %s max Dist %f\n",
+						   inGroup->number, inPlanet->name, maxDist);
+				}
+				/* 
+				 * Compute the total mass per destination planet, of all groups departing
+				 * from the planet the intercept command was issued on.  Destination
+				 * planet have to be with in two turn range. */
+				memset(massPerPlanet, 0, (noPlanets + 1) * sizeof(double));
+				
+				for (otherPlayer = aGame->players;
+					 otherPlayer; otherPlayer = otherPlayer->next) {
+					if (otherPlayer != curPlayer) {
+						group          *aGroup;
+						
+						for (aGroup = otherPlayer->groups;
+							 aGroup; aGroup = aGroup->next) {
+							if ((aGroup->dist) &&
+								(aGroup->location eq inPlanet) &&
+								(dist(aGame, aGroup->where, inGroup->location) <
+								 maxDist)) {
+								massPerPlanet[ptonum(aGame->planets, aGroup->where)] +=
+									aGroup->ships * shipmass(aGroup);
+							}
+						}
+					}
+				}
+				/* 
+				 * Find the destination planet of the largest outgoing mass.  */
+				targetPlanet = NULL;
+				for (curPlanet = aGame->planets, planetIndex = 1, maxMass = 0;
+					 curPlanet; planetIndex++, curPlanet = curPlanet->next) {
+					assert(planetIndex < (noPlanets + 1));
+					if (massPerPlanet[planetIndex] > maxMass) {
+						targetPlanet = curPlanet;
+						maxMass = massPerPlanet[planetIndex];
+					}
+				}
+				
+				if (targetPlanet) {
+					pdebug(DFULL, "Result: Planet %s (%f ly away).\n",
+						   targetPlanet->name, dist(aGame, inGroup->where,
+													targetPlanet));
+					inGroup->where = inGroup->from;
+					send(aGame, inGroup, targetPlanet);
+				}
+                /* Remove the intercept flag. */ 
+				inGroup->flags &= ~GF_INTERCEPT;        
+			}
+		}
 	}
-	else {
-	  pdebug(LFULL, "Group %d Intercept on Planet %s max Dist %f\n",
-		 inGroup->number, inPlanet->name, maxDist);
-	}
-	/* 
-	 * Compute the total mass per destination planet, of all groups departing
-	 * from the planet the intercept command was issued on.  Destination
-	 * planet have to be with in two turn range. */
-	memset(massPerPlanet, 0, (noPlanets + 1) * sizeof(double));
-	
-	for (otherPlayer = aGame->randPlayers;
-	     otherPlayer; otherPlayer = otherPlayer->randNext) {
-	  if (otherPlayer != curPlayer) {
-	    group          *aGroup;
-	    
-	    for (aGroup = otherPlayer->groups;
-		 aGroup; aGroup = aGroup->next) {
-	      if ((aGroup->dist) &&
-		  (aGroup->location eq inPlanet) &&
-		  (dist(aGame, aGroup->where, inGroup->location) <
-		   maxDist)) {
-		massPerPlanet[ptonum(aGame->planets, aGroup->where)] +=
-		  aGroup->ships * shipmass(aGroup);
-	      }
-	    }
-	  }
-	}
-	/* 
-	 * Find the destination planet of the largest outgoing mass.  */
-	targetPlanet = NULL;
-	for (curPlanet = aGame->planets, planetIndex = 1, maxMass = 0;
-	     curPlanet; planetIndex++, curPlanet = curPlanet->next) {
-	  assert(planetIndex < (noPlanets + 1));
-	  if (massPerPlanet[planetIndex] > maxMass) {
-	    targetPlanet = curPlanet;
-	    maxMass = massPerPlanet[planetIndex];
-	  }
-	}
-	
-	if (targetPlanet) {
-	  pdebug(LFULL, "Result: Planet %s (%f ly away).\n",
-		 targetPlanet->name, dist(aGame, inGroup->where,
-					  targetPlanet));
-	  inGroup->where = inGroup->from;
-	  send(aGame, inGroup, targetPlanet);
-	}
-	/* Remove the intercept flag. */ 
-	inGroup->flags &= ~GF_INTERCEPT;        
-      }
-    }
-  }
-  free(massPerPlanet);
+	free(massPerPlanet);
 }
 
 /*********/
@@ -686,7 +672,7 @@ fleetphase(game *aGame)
   /* double shipspeed; */
   int             hasships;
 
-  pdebug(LFULL, "Fleet Phase\n");
+  pdebug(DFULL, "Fleet Phase\n");
 
   for (P = aGame->players; P; P = P->next) {
     for (fl = P->fleetnames; fl; fl = fl2) {
@@ -702,9 +688,9 @@ fleetphase(game *aGame)
         }
       }
       fl->fleetspeed = fleetSpeed(fl, P->groups);       /* CB-19980922 * */
-      pdebug(LFULL, "Fleet %s  speed %f\n", fl->name, fl->fleetspeed);
+      pdebug(DFULL, "Fleet %s  speed %f\n", fl->name, fl->fleetspeed);
       if (!hasships) {
-        pdebug(LFULL, "Removing Fleet %s\n", fl->name);
+        pdebug(DFULL, "Removing Fleet %s\n", fl->name);
         remList(&P->fleetnames, fl);
       }
     }
@@ -734,10 +720,9 @@ movephase(game *aGame)
   player         *P;
   group          *g;
 
-  pdebug(LFULL, "Move Phase\n");
+  pdebug(DFULL, "Move Phase\n");
 
-  randomizePlayers(aGame);
-  for (P = aGame->randPlayers; P; P = P->randNext) {
+  for (P = aGame->players; P; P = P->next) {
     for (g = P->groups; g; g = g->next) {
       if (g->thefleet)
         g->dist -= g->thefleet->fleetspeed;
@@ -758,26 +743,6 @@ movephase(game *aGame)
  * SOURCE
  */
 
-static char *
-loadtypeToName(int loadtype)
-{
-  switch(loadtype) {
-  case 0:
-    return "CAP";
-
-  case 1:
-    return "MAT";
-
-  case 2:
-    return "COL";
-
-  case 3:
-    return "EMPTY";
-  }
-
-  return "ERROR";
-}
-
 void
 unloadphase(game *aGame)
 {
@@ -785,31 +750,20 @@ unloadphase(game *aGame)
   player         *cur_player;
   group          *g;
   int             i;
-  planet         *randPlanetList;
 
-  plog(LFULL, "Unload Phase\n");
+  pdebug(DFULL, "Unload Phase\n");
 
-  plog(LFULL, "AUTOUNLOAD\n");
   /* Auto Unload */
+
   for (p = aGame->planets; p; p = p->next) {
-    plog(LFULL, "checking planet %s, owned by %s\n",
-	 p->name, (p->owner ? p->owner->name : "unowned"));
-    randomizePlayers(aGame);
-    for (cur_player = aGame->randPlayers;
-         cur_player; cur_player = cur_player->randNext) {
+    for (cur_player = aGame->players;
+         cur_player; cur_player = cur_player->next) {
       if (cur_player->flags & F_AUTOUNLOAD) {
-	plog(LFULL, "  unloading %s\n", cur_player->name);
         for (g = cur_player->groups; g; g = g->next) {
           if (g->where == p && g->dist == 0 && g->ships) {
-	    plog(LFULL, "    checking group %s with cargo %s\n",
-		 g->name, loadtypeToName(g->loadtype));
-            if ((p->owner && p->owner == cur_player) || p->owner == NULL) {
-	      plog(LFULL, "    unloading %s\n", loadtypeToName(g->loadtype));
-	      unloadgroup(g, cur_player, g->load);
+            if ((p->owner && p->owner == cur_player) || !p->owner) {
+              unloadgroup(g, cur_player, g->load);
             }
-	    else {
-	      plog(LFULL, "    can't unload, not owner\n");
-	    }
           }
         }
       }
@@ -817,24 +771,17 @@ unloadphase(game *aGame)
   }
 
   /* Routes */
-  plog(LFULL, "ROUTES\n");
-  randPlanetList = randomizePlanets(aGame);
-  for (p = randPlanetList; p; p = p->randNext) {
+
+  for (p = aGame->planets; p; p = p->next) {
     if (p->owner) {
-      plog(LFULL, "Checking %s for routes\n", p->name);
       for (i = 0; i != CG_EMPTY; i++) {
-	p2 = p->routes[i];
-	if (p2 && (p2->owner == p->owner || p2->owner == NULL)) {
-	  plog(LFULL, "  has a %s route to %s\n", loadtypeToName(i), p2->name);
-	  for (g = p->owner->groups; g; g = g->next) {
-	    if (g->where == p2 &&
-		g->dist == 0 && g->loadtype == i && g->ships) {
-	      plog(LFULL, "  %s unloading %s\n",
-		   p->owner->name , loadtypeToName(g->loadtype));
-	      unloadgroup(g, p->owner, g->load);
-	    }
-	  }
-	}
+        p2 = p->routes[i];
+        for (g = p->owner->groups; g; g = g->next) {
+          if (g->where == p2 &&
+              g->dist == 0 && g->loadtype == i && g->ships) {
+            unloadgroup(g, p->owner, g->load);
+          }
+        }
       }
     }
   }
@@ -913,7 +860,7 @@ producephase(game *aGame)
 {
   planet         *aPlanet;
 
-  plog(LFULL, "Produce Phase\n");
+  pdebug(DFULL, "Produce Phase\n");
 
   for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
     if (aPlanet->owner) {
@@ -1210,7 +1157,7 @@ sortphase(game *aGame)
   fleetname      *fl;
   int             n;
 
-  pdebug(LFULL, "Sort Phase\n");
+  pdebug(DFULL, "Sort Phase\n");
 
   for (P = aGame->players; P; P = P->next) {
     n = 1;

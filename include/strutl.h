@@ -27,7 +27,6 @@ typedef struct strlist {
   struct strlist *next;
   long            cookie;
   char           *str;
-  struct strlist *randNext;
 } strlist;
 
 /********/

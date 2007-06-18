@@ -96,7 +96,4 @@ double          effectiveIndustry(double pop, double ind);
 double          addShipAtt(game* aGame, planet* p);
 char*           rightNow(void);
 
-void            randomizePlayers(game *aGame);
-planet         *randomizePlanets(game *aGame);
-
 #endif                          /* GNG_UTIL_H */

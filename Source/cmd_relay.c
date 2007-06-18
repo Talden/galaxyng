@@ -18,6 +18,7 @@ CMD_relay( int argc, char **argv )
   char* confirmName;
   int   resNumber;
   game* aGame;
+  char* galaxyline = NULL;
   FILE* confirm;
   emailList* toPlayers = NULL;
   emailList* listPlayer;
@@ -52,7 +53,7 @@ CMD_relay( int argc, char **argv )
   final_orders = NULL;
   aGame = NULL;
   resNumber = areValidOrders( stdin, &aGame, &raceName, &password,
-			      &final_orders, &theTurnNumber );
+			      &final_orders, &theTurnNumber, &galaxyline );
 
   plog(LBRIEF, "CMD_relay(\"%s\", \"%s\")\n", raceName, destination);
 
@@ -85,7 +86,7 @@ CMD_relay( int argc, char **argv )
   if (fromPlayer == NULL) {
     setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
     generateErrorMessage(RES_PLAYER, aGame, raceName,
-			 theTurnNumber, confirm);
+			 theTurnNumber, confirm, galaxyline );
     fprintf(confirm, "\n\n%s\n", vcid);
     fclose(confirm);
     result |= eMail(aGame, anEnvelope, confirmName);
@@ -96,7 +97,7 @@ CMD_relay( int argc, char **argv )
   if ( destination == NULL ) {
     setHeader(anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble");
     generateErrorMessage(RES_NODESTINATION, aGame, raceName,
-			 theTurnNumber, confirm);
+			 theTurnNumber, confirm, galaxyline );
     fprintf(confirm, "\n\n%s\n", vcid);
     fclose(confirm);
     result |= eMail(aGame, anEnvelope, confirmName);
@@ -157,7 +158,7 @@ CMD_relay( int argc, char **argv )
 		  setHeader(anEnvelope, MAILHEADER_SUBJECT,
 					"[GNG] Major Trouble");
 		  generateErrorMessage(RES_DESTINATION, aGame, raceName,
-							   theTurnNumber, confirm);
+							   theTurnNumber, confirm, galaxyline );
 		  fprintf(confirm, "\n\n%s\n", vcid);
 		  fclose(confirm);
 		  result |= eMail(aGame, anEnvelope, confirmName);
@@ -170,7 +171,7 @@ CMD_relay( int argc, char **argv )
 		  setHeader(anEnvelope, MAILHEADER_SUBJECT,
 					"[GNG] Major Trouble");
 		  generateErrorMessage(RES_DEAD_PLAYER, aGame, raceName,
-							   theTurnNumber, confirm);
+							   theTurnNumber, confirm, galaxyline);
 		  fprintf(confirm, "\n\n%s\n", vcid);
 		  fclose(confirm);
 		  result |= eMail(aGame, anEnvelope, confirmName);

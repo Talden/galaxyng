@@ -72,7 +72,7 @@ highScoreList(game *aGame)
 
   assert(aGame != NULL);
 
-  pdebug(LFULL, "highScoreList\n");
+  pdebug(DFULL, "highScoreList\n");
   fileName =
       createString("%s/notices/%s.score", galaxynghome, aGame->name);
   if ((reportFile = GOS_fopen(fileName, "w"))) {
@@ -245,7 +245,7 @@ mailTurnReport(game *aGame, player *aPlayer, long kind)
   FILE           *turnreport;
   int             result;
 
-  pdebug(LFULL, "mailTurnReport\n");
+  pdebug(DFULL, "mailTurnReport\n");
 
   result = 1;
   if ((aPlayer->flags & F_DEAD) == 0) {
@@ -659,7 +659,7 @@ report(game *aGame, player *P, FILE * report)
 {
   struct fielddef fields;
 
-  pdebug(LFULL, "report\n");
+  pdebug(DFULL, "report\n");
 
   fields.destination = report;
 
@@ -686,7 +686,7 @@ report(game *aGame, player *P, FILE * report)
             "\n\nPassword for player %s set to %s\n", P->name, P->pswd);
     fprintf(fields.destination,
             "First line of your orders should now be:\n");
-    fprintf(fields.destination, "#galaxy %s %s %s TurnNumber [FinalOrders]\n", aGame->name, P->name,
+    fprintf(fields.destination, "#galaxy %s %s %s [TurnNumber] [FinalOrders]\n", aGame->name, P->name,
             P->pswd);
   }
   reportGlobalMessages(aGame->messages, &fields);
@@ -1039,9 +1039,6 @@ reportBattles(game *aGame, player *P, fielddef *fields)
           int             i;
           shot           *s;
 
-	  if (b->protocol->cur > 5000 && fields->destination != stdout) {
-		continue;
-	  }
           fprintf(fields->destination, "\n\t\tBattle Protocol\n\n");
           s = b->protocol->shots;
           for (i = 0; i < b->protocol->cur; i++) {

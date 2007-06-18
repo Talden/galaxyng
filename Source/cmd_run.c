@@ -29,117 +29,121 @@
  * SOURCE
  */
 
-int
-CMD_run( int argc, char **argv, int kind ) {
-  int result;
+int CMD_run( int argc, char **argv, int kind ) {
+    int result;
 
-  result = EXIT_FAILURE;
-  if ( argc >= 4 ) {
-    game* aGame;
-    int   turn;
-    char* logName;
+    result = EXIT_FAILURE;
+    if ( argc >= 4 ) {
+        game* aGame;
+        int   turn;
+        char* logName;
 		
-    logName = createString( "%s/log/%s", galaxynghome, argv[2] );
-    openLog( logName, "w" );
-    free( logName );
+        logName = createString( "%s/log/%s", galaxynghome, argv[2] );
+        openLog( logName, "w" );
+        free( logName );
 
-    plogtime( LPART );
-    plog( LPART, "Trying to run Game \"%s\".\n", argv[2] );
+        plogtime( LPART );
+        plog( LPART, "Trying to run Game \"%s\".\n", argv[2] );
 
-    aGame = NULL;
-    turn = ( argc == 4 ) ? LG_CURRENT_TURN : atoi( argv[4] ) - 1;
-    if ( ( aGame = loadgame( argv[2], turn ) ) ) {
-      player* aPlayer;
+        aGame = NULL;
+        turn = ( argc == 4 ) ? LG_CURRENT_TURN : atoi( argv[4] ) - 1;
+        if ( ( aGame = loadgame( argv[2], turn ) ) ) {
+            player* aPlayer;
 
-      loadNGConfig( aGame );
+            loadNGConfig( aGame );
 
-      if ( checkTime( aGame ) || ( kind == CMD_RUN_DUMMY ) ) {
-	checkIntegrity( aGame );
+            if ( checkTime( aGame ) || ( kind == CMD_RUN_DUMMY ) ) {
+                checkIntegrity( aGame );
 
-	if ( runTurn( aGame, argv[3] ) ) {
-	  highScoreList( aGame );
-	  result = 0;
+                if ( runTurn( aGame, argv[3] ) ) {
+                    highScoreList( aGame );
+                    result = 0;
 					
-	  for ( aPlayer = aGame->players; aPlayer;
-		aPlayer = aPlayer->next ) {
-	    if ( aPlayer->flags & F_TXTREPORT ) {
-	      if ( kind == CMD_RUN_REAL ) {
-		result |= mailTurnReport( aGame, aPlayer, F_TXTREPORT );
-		if ( aGame->gameOptions.
-		     gameOptions & GAME_SAVECOPY ) {
-		  saveTurnReport( aGame, aPlayer,
-				  F_TXTREPORT );
-		}
-	      }
-	      else {
-		saveTurnReport( aGame, aPlayer, F_TXTREPORT );
-	      }
-	    }
-	    
-	    if ( aPlayer->flags & F_XMLREPORT ) {
-	      if ( kind == CMD_RUN_REAL ) {
-		result |= mailTurnReport( aGame, aPlayer, F_XMLREPORT );
-		if ( aGame->gameOptions.
-		     gameOptions & GAME_SAVECOPY ) {
-		  saveTurnReport( aGame, aPlayer, F_XMLREPORT );
-		}
-	      }
-	      else {
-		saveTurnReport( aGame, aPlayer, F_XMLREPORT );
-	      }
-	    }
+                    for ( aPlayer = aGame->players; aPlayer;
+                          aPlayer = aPlayer->next ) {
+                        if ( aPlayer->flags & F_TXTREPORT ) {
+                            if ( kind == CMD_RUN_REAL ) {
+                                result |=
+                                    mailTurnReport( aGame, aPlayer,
+                                                    F_TXTREPORT );
+                                if ( aGame->gameOptions.
+                                     gameOptions & GAME_SAVECOPY ) {
+                                    saveTurnReport( aGame, aPlayer,
+                                                    F_TXTREPORT );
+                                }
+                            } else {
+                                saveTurnReport( aGame, aPlayer, F_TXTREPORT );
+                            }
+                        }
 
-	    if ( aPlayer->flags & F_MACHINEREPORT ) {
-	      if ( kind == CMD_RUN_REAL ) {
-		result |= mailTurnReport( aGame, aPlayer, F_MACHINEREPORT );
-		if ( aGame->gameOptions.
-		     gameOptions & GAME_SAVECOPY ) {
-		  saveTurnReport( aGame, aPlayer, F_MACHINEREPORT );
-		}
-	      }
-	      else {
-		saveTurnReport( aGame, aPlayer, F_MACHINEREPORT );
-	      }
-	    }
-	  }
-	  savegame( aGame );
-	}
-	else {
-	  fprintf( stderr,
-		   "The server has detected an error in the game data structure. The run\n"
-		   "of the turn has been aborted. No turn reports have been sent. Please\n"
-		   "contact Ken Weinert at mc@quarter-flash.com for a solution to this\n"
-		   "problem.\n" );
-	  result = 1;
-	}
-	plogtime( LPART );
-	plog( LPART, "Run is completed.\n" );
-	result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
-      }
-      else {
-	plog( LBRIEF, "Error, attempt to run the game \"%s\" at the"
-	      " wrong time.\n"
-	      "You specified a start time of %s in your .galaxyngrc file.\n",
-	      argv[2], aGame->starttime );
-	fprintf( stderr,
-		 "Error, attempt to run the game \"%s\" at the wrong time.\n"
-		 "You specified a start time of %s in your .galaxyngrc file.\n",
-		 argv[2], aGame->starttime );
-      }
-      closeLog(  );
-      if ( kind == CMD_RUN_REAL ) {
-	mailGMReport( aGame, argv[2] );
-      }
-      freegame( aGame );
+                        if ( aPlayer->flags & F_XMLREPORT ) {
+                            if ( kind == CMD_RUN_REAL ) {
+                                result |=
+                                    mailTurnReport( aGame, aPlayer,
+                                                    F_XMLREPORT );
+                                if ( aGame->gameOptions.
+                                     gameOptions & GAME_SAVECOPY ) {
+                                    saveTurnReport( aGame, aPlayer,
+                                                    F_XMLREPORT );
+                                }
+                            } else {
+								saveTurnReport( aGame, aPlayer,
+												F_XMLREPORT );
+							}
+                        }
+
+                        if ( aPlayer->flags & F_MACHINEREPORT ) {
+                            if ( kind == CMD_RUN_REAL ) {
+                                result |=
+                                    mailTurnReport( aGame, aPlayer,
+                                                    F_MACHINEREPORT );
+                                if ( aGame->gameOptions.
+                                     gameOptions & GAME_SAVECOPY ) {
+                                    saveTurnReport( aGame, aPlayer,
+                                                    F_MACHINEREPORT );
+                                }
+							} else {
+								saveTurnReport( aGame, aPlayer,
+												F_MACHINEREPORT );
+							}
+                        }
+                    }
+                    savegame( aGame );
+                } else {
+                    fprintf( stderr,
+                             "The server has detected an error in the game data structure. The run\n"
+                             "of the turn has been aborted. No turn reports have been sent. Please\n"
+                             "contact Ken Weinert at mc@quarter-flash.com for a solution to this\n"
+                             "problem.\n" );
+                    result = 1;
+                }
+                plogtime( LPART );
+                plog( LPART, "Run is completed.\n" );
+                result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;
+            } else {
+                plog( LBRIEF, "Error, attempt to run the game \"%s\" at the"
+                      " wrong time.\n"
+                      "You specified a start time of %s in your .galaxyngrc file.\n",
+                      argv[2], aGame->starttime );
+                fprintf( stderr,
+                         "Error, attempt to run the game \"%s\" at the wrong time.\n"
+                         "You specified a start time of %s in your .galaxyngrc file.\n",
+                         argv[2], aGame->starttime );
+            }
+            closeLog(  );
+            if ( kind == CMD_RUN_REAL ) {
+                mailGMReport( aGame, argv[2] );
+            }
+            freegame( aGame );
+        }
+
+        else {
+            plog( LBRIEF, "Game \"%s\" does not exist.\n", argv[2] );
+            fprintf( stderr, "Game \"%s\" does not exist.\n", argv[2] );
+        }
+    } else {
+        usage(  );
     }
-    else {
-      plog( LBRIEF, "Game \"%s\" does not exist.\n", argv[2] );
-      fprintf( stderr, "Game \"%s\" does not exist.\n", argv[2] );
-    }
-  }
-  else {
-    usage(  );
-  }
-  closeLog(  );
-  return result;
+    closeLog(  );
+    return result;
 }

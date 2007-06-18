@@ -121,7 +121,8 @@ int
                 areValidOrders(FILE * ordersFile,
                                game **aGame,
                                char **raceName, char **password,
-                               char** final_orders, int* theTurnNumber);
+                               char** final_orders, int* theTurnNumber,
+                               char **galaxyline );
 
 void
                 preComputeGroupData(game *aGame);
@@ -153,6 +154,7 @@ void
                 generateErrorMessage(int resNumber,
                                      game *aGame,
                                      char *raceName,
-                                     int theTurnNumber, FILE * forecast);
+                                     int theTurnNumber, FILE * forecast, 
+                                     char* galaxyline );
 
 #endif                          /* GNG_PROCESS_H */

@@ -29,6 +29,7 @@ CMD_report( int argc, char **argv ) {
     char* returnAddress;
     char* raceName;
     char* password;
+    char* galaxyline = NULL;
     char* final_orders;
     int resNumber, theTurnNumber;
     game* aGame;
@@ -40,19 +41,18 @@ CMD_report( int argc, char **argv ) {
     returnAddress = getReturnAddress( stdin );
 
     theTurnNumber = getTurnNumber( stdin );
+    plog(LBRIEF, "Report request from %s for turn %d.\n",
+		 returnAddress, theTurnNumber);
     raceName = NULL;
     password = NULL;
     final_orders = NULL;
     aGame = NULL;
     resNumber =
       areValidOrders( stdin, &aGame, &raceName, &password,
-		      &final_orders, &theTurnNumber );
+		      &final_orders, &theTurnNumber, &galaxyline );
     
-    plog(LBRIEF, "Report request from %s for turn %d, game %s.\n",
-	 returnAddress, theTurnNumber, aGame->name);
-
     reportName = createString("%s/temp_report_copy_%d_%s",
-			      tempdir, theTurnNumber, returnAddress);
+							  tempdir, theTurnNumber, returnAddress);
     {
       char *ptr = strrchr(reportName, '/')+1;
       while (*ptr) {
@@ -61,7 +61,7 @@ CMD_report( int argc, char **argv ) {
 		  ptr++;
       }
     }
-    plog(LBRIEF, "Report is in \"%s\"\n", reportName);
+	plog(LBRIEF, "Report is in \"%s\"\n", reportName);
     
     setHeader( anEnvelope, MAILHEADER_TO, "%s", returnAddress );
     setHeader(anEnvelope, MAILHEADER_REPLYTO,
@@ -72,81 +72,81 @@ CMD_report( int argc, char **argv ) {
     report = fopen(reportName, "w");
     
     if ( ( resNumber == RES_TURNRAN ) ||
-	 ( ( resNumber == RES_OK ) &&
-	   ( theTurnNumber == LG_CURRENT_TURN ) ) ) {
-      game *aGame2;
+		 ( ( resNumber == RES_OK ) &&
+		   ( theTurnNumber == LG_CURRENT_TURN ) ) ) {
+		game *aGame2;
       
-      if ( theTurnNumber > 0 ) {
-	aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
-      }
-      else if ( theTurnNumber == LG_CURRENT_TURN ) {
-	theTurnNumber = aGame->turn;
-	aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
-      }
-      else {
-	aGame2 = loadgame( aGame->name, 0 );
-      }
+		if ( theTurnNumber > 0 ) {
+			aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
+		}
+		else if ( theTurnNumber == LG_CURRENT_TURN ) {
+			theTurnNumber = aGame->turn;
+			aGame2 = loadgame( aGame->name, theTurnNumber - 1 );
+		}
+		else {
+			aGame2 = loadgame( aGame->name, 0 );
+		}
       
-      if ( aGame2 ) {
-	player *aPlayer;
-	int index;
+		if ( aGame2 ) {
+			player *aPlayer;
+			int index;
 			
-	loadNGConfig( aGame2 );
-	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "[GNG] %s turn %d report copy for %s",
-		   aGame->name, theTurnNumber, raceName );
-	if ( theTurnNumber > 0 ) {  /* Rerun the turn */
-	  char *ordersName;
+			loadNGConfig( aGame2 );
+			setHeader( anEnvelope, MAILHEADER_SUBJECT,
+					   "[GNG] %s turn %d report copy for %s",
+					   aGame->name, theTurnNumber, raceName );
+			if ( theTurnNumber > 0 ) {  /* Rerun the turn */
+				char *ordersName;
 				
-	  ordersName =
-	    createString( "%s/orders/%s/%d.all",
-			  galaxynghome, aGame2->name,
-			  theTurnNumber );
-	  checkIntegrity(aGame2);
-	  runTurn( aGame2, ordersName );
-	  free( ordersName );
-	}
-	/* Translate the current race name into the name used
-	   during the turn that is requested
-	*/
-	aPlayer =
-	  findElement( player, aGame->players, raceName );
+				ordersName =
+					createString( "%s/orders/%s/%d.all",
+								  galaxynghome, aGame2->name,
+								  theTurnNumber );
+				runTurn( aGame2, ordersName );
+				free( ordersName );
+			}
+			/* Translate the current race name into the name used
+			   during the turn that is requested
+			*/
+			aPlayer =
+				findElement( player, aGame->players, raceName );
 			
-	index = ptonum( aGame->players, aPlayer );
-	aPlayer = numtop( aGame2->players, index );
+			index = ptonum( aGame->players, aPlayer );
+			aPlayer = numtop( aGame2->players, index );
 			
-	if (aPlayer->flags & F_COMPRESS)
-	  anEnvelope->compress = TRUE;
+			if (aPlayer->flags & F_COMPRESS)
+				anEnvelope->compress = TRUE;
 			
-	if ( theTurnNumber == 0 )
-	  aPlayer->pswdstate = 1;
-	highScoreList( aGame2 );
-	createTurnReport( aGame2, aPlayer, report, 0 );
-      }
-      else {
-	setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		   "[GNG] %s turn %d report copy for %s",
-		   aGame->name, theTurnNumber, raceName  );
-	fprintf( report,
-		 "\n\nThe turn you requested is no longer available...\n" );
-      }
+			if ( theTurnNumber == 0 )
+				aPlayer->pswdstate = 1;
+			highScoreList( aGame2 );
+			createTurnReport( aGame2, aPlayer, report, 0 );
+		}
+		else {
+			setHeader( anEnvelope, MAILHEADER_SUBJECT,
+					   "[GNG] %s turn %d report copy for %s",
+					   aGame->name, theTurnNumber, raceName  );
+			fprintf( report,
+					 "\n\nThe turn you requested is no longer available...\n" );
+		}
     }
     else if ( resNumber == RES_OK ) {
-      setHeader( anEnvelope, MAILHEADER_SUBJECT,
-		 "[GNG] Major Trouble" );
-      fprintf(report, "You can't request a %s report for turn %d.\n\n",
-	      aGame->name, theTurnNumber);
-      fprintf(report, "Turn %d hasn't happened yet. While I'm a good "
-	      "(some say great) server, I can't predict the future for "
-	      "you.\n\n", theTurnNumber);
+		setHeader( anEnvelope, MAILHEADER_SUBJECT,
+				   "[GNG] Major Trouble" );
+		fprintf(report, "You can't request a %s report for turn %d.\n\n",
+				aGame->name, theTurnNumber);
+		fprintf(report, "Turn %d hasn't happened yet. While I'm a good "
+				"(some say great) server, I can't predict the future for "
+				"you.\n\n", theTurnNumber);
     }
     else {
-      setHeader( anEnvelope, MAILHEADER_SUBJECT, "[GNG] Major Trouble" );
-      if (resNumber == RES_NO_ORDERS_TURN_NBR)
-	resNumber = RES_NO_REPORT_TURN_NBR;
+		setHeader( anEnvelope, MAILHEADER_SUBJECT,
+				   "[GNG] Major Trouble" );
+		if (resNumber == RES_NO_ORDERS_TURN_NBR)
+			resNumber = RES_NO_REPORT_TURN_NBR;
 		
-      generateErrorMessage( resNumber, aGame, raceName,
-			    theTurnNumber, report );
+		generateErrorMessage( resNumber, aGame, raceName,
+							  theTurnNumber, report, galaxyline );
 		/*copyEmailBody();*/
     }
     

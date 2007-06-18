@@ -43,7 +43,7 @@ fightphase(game *aGame, int phase)
 {
   planet         *p;
 
-  pdebug(LFULL, "fightphase\n");
+  pdebug(DFULL, "fightphase\n");
   plog(LFULL, "Checking for battles\n");
   for (p = aGame->planets; p; p = p->next) {
     battle         *b;
@@ -54,6 +54,7 @@ fightphase(game *aGame, int phase)
       participant    *part;
 
       plog(LFULL, "Battle at %s\n", p->name);
+      pdebug(DFULL2, "Battle at %s\n", p->name);
       b->phase = phase;
       batstats = NULL;
       for (part = b->participants; part; part = part->next) {
@@ -107,7 +108,7 @@ doBattle(batstat *batstats, bprotocol *aProtocol, int phase)
   batstat        *targetSide;
   int             gun;
 
-  pdebug(LFULL, "doBattle\n");
+  pdebug(DFULL, "doBattle\n");
 
   resetSides(batstats);
   while (!isDraw(batstats) && !isWon(batstats)) {
@@ -304,7 +305,7 @@ isDraw(batstat *batstats)
   int             draw;
   batstat        *aBatstat;
 
-  pdebug(LFULL, "isDraw\n");
+  pdebug(DFULL, "isDraw\n");
 
 
   for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
@@ -412,7 +413,7 @@ updateGroups(battle *b)
 {
   participant    *part;
 
-  pdebug(LFULL, "updateGroups\n");
+  pdebug(DFULL, "updateGroups\n");
   for (part = b->participants; part; part = part->next) {
     group          *g, *g2;
 
@@ -534,7 +535,7 @@ selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
   int             enemy;
   int             totalNumberOfTargets;
 
-  pdebug(LFULL, "selectTargetGroup\n");
+  pdebug(DFULL, "selectTargetGroup\n");
 
   /* targetGroup = NULL;*/
   *ship = 0;
@@ -628,7 +629,7 @@ isBattle(player *players, planet *p)
   participant    *participants;
   battle         *aBattle;
 
-  pdebug(LFULL, "isBattle\n");
+  pdebug(DFULL, "isBattle\n");
 
   participants = NULL;
   aBattle = NULL;
@@ -700,7 +701,7 @@ isBattle(player *players, planet *p)
   if (aBattle == NULL) {
     participant    *r, *r2;
 
-    pdebug(LFULL, "isBattle : freeing  participants.\n");
+    pdebug(DFULL2, "isBattle : freeing  participants.\n");
     r = participants;
     while (r) {
       freelist(r->groups);
@@ -735,7 +736,7 @@ mustBattle(participant *participants)
   int             war;
   participant    *part1, *part2;
 
-  pdebug(LFULL, "mustBattle\n");
+  pdebug(DFULL, "mustBattle\n");
   war = FALSE;
   for (part1 = participants; part1 && !war; part1 = part1->next) {
     for (part2 = participants; part2; part2 = part2->next) {
