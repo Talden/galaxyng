@@ -28,6 +28,7 @@ CMD_webreport( int argc, char **argv ) {
     char* password;
     char* final_orders;
     int resNumber, theTurnNumber;
+    char* galaxyline = NULL;
     game* aGame;
     
     raceName = NULL;
@@ -36,7 +37,7 @@ CMD_webreport( int argc, char **argv ) {
     aGame = NULL;
     resNumber =
       areValidOrders( stdin, &aGame, &raceName, &password,
-		      &final_orders, &theTurnNumber );
+		      &final_orders, &theTurnNumber, &galaxyline );
     
     plog(LBRIEF, "Report request from %s for turn %d.\n",
 	 raceName, theTurnNumber);
@@ -104,7 +105,7 @@ CMD_webreport( int argc, char **argv ) {
 	resNumber = RES_NO_REPORT_TURN_NBR;
 		
       generateErrorMessage( resNumber, aGame, raceName,
-			    theTurnNumber, stdout );
+			    theTurnNumber, stdout, galaxyline );
     }
     
     result = ( result ) ? EXIT_FAILURE : EXIT_SUCCESS;

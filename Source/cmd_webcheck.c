@@ -29,6 +29,8 @@ CMD_webcheck( int argc, char **argv, int kind) {
   char *raceName;
   char *password;
   char *final_orders;
+  char* galaxyline = NULL;
+
   game *aGame;
   player *aPlayer;
   
@@ -47,7 +49,7 @@ CMD_webcheck( int argc, char **argv, int kind) {
     final_orders = NULL;
     aGame = NULL;
     resNumber = areValidOrders(stdin, &aGame, &raceName,
-			       &password, &final_orders, &theTurnNumber);
+			       &password, &final_orders, &theTurnNumber, &galaxyline);
     plog(LBRIEF, "game %s\n", aGame->name);
     
     if (resNumber == RES_OK) {
@@ -98,7 +100,7 @@ CMD_webcheck( int argc, char **argv, int kind) {
       plog(LBRIEF, "Major Trouble %d\n", resNumber);
       
       generateErrorMessage(resNumber, aGame, raceName,
-			    theTurnNumber, stdout);
+			    theTurnNumber, stdout, galaxyline );
       
     }
     
