@@ -277,8 +277,8 @@ dumpList(char* label, list* aList, void* callback(void*))
 
     fprintf(stderr, "*** %s ***\n", label);
     for (curElement = aList; curElement; curElement=curElement->next) {
-	fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
-	callback((void*)curElement);
+        fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
+        callback((void*)curElement);
     }
 }
 
@@ -290,12 +290,15 @@ void
 dumpRandList(char* label, list* aList, void* callback(void*))
 {
     list* curElement;
-
+    /* TODO */
+#if 0
     fprintf(stderr, "*** %s ***\n", label);
+    assert( 0 );
     for (curElement = aList; curElement; curElement=curElement->randNext) {
-	fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
-	callback((void*)curElement);
+        fprintf(stderr, "%lX: %s\n", curElement->cookie, curElement->name);
+        callback((void*)curElement);
     }
+#endif
 }
 
 void*
@@ -311,7 +314,7 @@ allocStructF(unsigned int n, long cookie)
   p->cookie = cookie;
   p->name = NULL;
   p->next = NULL;
-  p->randNext = NULL;
+/*  TODO p->randNext = NULL; */
 
   return (void *) p;
 }

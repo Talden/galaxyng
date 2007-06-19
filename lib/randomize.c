@@ -8,6 +8,7 @@ char *vrandomize = "$Id$";
  * number doesn't always get the advantage.
  */
 
+#if 0
 void
 randomizePlayers(game *aGame)
 {
@@ -128,3 +129,5 @@ randomizePlanets(game *aGame)
 
   return randList;
 }
+
+#endif
