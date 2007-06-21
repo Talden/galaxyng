@@ -32,6 +32,7 @@
 
 typedef struct list {
   struct list    *next;
+  struct list    *randNext;
   long            cookie;
   char           *name;
 } list;
