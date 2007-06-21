@@ -11,8 +11,7 @@
  ******
  */
 
-char           *vbattle =
-    "$Id$";
+char *vbattle = "$Id$";
 
 /****f* Battle/fightphase
  * NAME
@@ -39,43 +38,43 @@ char           *vbattle =
  */
 
 void
-fightphase(game *aGame, int phase)
+fightphase( game *aGame, int phase )
 {
-  planet         *p;
+    planet *p;
 
-  pdebug(DFULL, "fightphase\n");
-  plog(LFULL, "Checking for battles\n");
-  for (p = aGame->planets; p; p = p->next) {
-    battle         *b;
+    pdebug( DFULL, "fightphase\n" );
+    plog( LFULL, "Checking for battles\n" );
+    for ( p = aGame->planets; p; p = p->next ) {
+        battle *b;
 
-    if ((b = isBattle(aGame->players, p))) {
-      batstat        *batstats;
-      batstat        *aBatstat;
-      participant    *part;
+        if ( ( b = isBattle( aGame->players, p ) ) ) {
+            batstat *batstats;
+            batstat *aBatstat;
+            participant *part;
 
-      plog(LFULL, "Battle at %s\n", p->name);
-      pdebug(DFULL2, "Battle at %s\n", p->name);
-      b->phase = phase;
-      batstats = NULL;
-      for (part = b->participants; part; part = part->next) {
-        aBatstat = allocStruct(batstat);
+            plog( LFULL, "Battle at %s\n", p->name );
+            pdebug( DFULL2, "Battle at %s\n", p->name );
+            b->phase = phase;
+            batstats = NULL;
+            for ( part = b->participants; part; part = part->next ) {
+                aBatstat = allocStruct( batstat );
 
-        aBatstat->who = part->who;
-        aBatstat->groups = part->groups;
-        addList(&batstats, aBatstat);
-      }
+                aBatstat->who = part->who;
+                aBatstat->groups = part->groups;
+                addList( &batstats, aBatstat );
+            }
 
-      allocEnemies(batstats);
-      doBattle(batstats, b->protocol, phase);
-      addList(&(aGame->battles), b);
-      updateGroups(b);
+            allocEnemies( batstats );
+            doBattle( batstats, b->protocol, phase );
+            addList( &( aGame->battles ), b );
+            updateGroups( b );
 
-      for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
-        free(aBatstat->enemies);
-      }
-      freelist(batstats);
+            for ( aBatstat = batstats; aBatstat; aBatstat = aBatstat->next ) {
+                free( aBatstat->enemies );
+            }
+            freelist( batstats );
+        }
     }
-  }
 }
 
 /***** END fightphase ****/
@@ -98,39 +97,41 @@ fightphase(game *aGame, int phase)
  */
 
 void
-doBattle(batstat *batstats, bprotocol *aProtocol, int phase)
+doBattle( batstat *batstats, bprotocol *aProtocol, int phase )
 {
-  int             attackingShip;
-  int             targetShip;
-  group          *attackingGroup;
-  group          *targetGroup;
-  batstat        *attackingSide;
-  batstat        *targetSide;
-  int             gun;
+    int attackingShip;
+    int targetShip;
+    group *attackingGroup;
+    group *targetGroup;
+    batstat *attackingSide;
+    batstat *targetSide;
+    int gun;
 
-  pdebug(DFULL, "doBattle\n");
+    pdebug( DFULL, "doBattle\n" );
 
-  resetSides(batstats);
-  while (!isDraw(batstats) && !isWon(batstats)) {
-    while (attackersLeft(batstats)) {
-      attackingGroup =
-          selectAttackingGroup(batstats, &attackingSide, &attackingShip);
-      assert(attackingGroup);
-      attackingGroup->flags |= phase;
+    resetSides( batstats );
+    while ( !isDraw( batstats ) && !isWon( batstats ) ) {
+        while ( attackersLeft( batstats ) ) {
+            attackingGroup =
+                selectAttackingGroup( batstats, &attackingSide,
+                                      &attackingShip );
+            assert( attackingGroup );
+            attackingGroup->flags |= phase;
 
-      for (gun = 0; gun < attackingGroup->type->attacks; gun++) {
-        targetGroup =
-            selectTargetGroup(attackingSide, &targetSide, &targetShip);
-        if (targetGroup) {
-          targetGroup->flags |= phase;
-          attack(aProtocol,
-                 attackingSide, attackingGroup, attackingShip,
-                 targetSide, targetGroup, targetShip);
+            for ( gun = 0; gun < attackingGroup->type->attacks; gun++ ) {
+                targetGroup =
+                    selectTargetGroup( attackingSide, &targetSide,
+                                       &targetShip );
+                if ( targetGroup ) {
+                    targetGroup->flags |= phase;
+                    attack( aProtocol,
+                            attackingSide, attackingGroup, attackingShip,
+                            targetSide, targetGroup, targetShip );
+                }
+            }
         }
-      }
+        resetSides( batstats );
     }
-    resetSides(batstats);
-  }
 }
 
 /**** END doBattle ***/
@@ -157,30 +158,29 @@ doBattle(batstat *batstats, bprotocol *aProtocol, int phase)
  */
 
 void
-attack(bprotocol *aProtocol,
-       batstat *attackingSide, group *attackingGroup, int attackingShip,
-       batstat *targetSide, group *targetGroup, int targetShip)
+attack( bprotocol *aProtocol,
+        batstat *attackingSide, group *attackingGroup, int attackingShip,
+        batstat *targetSide, group *targetGroup, int targetShip )
 {
 
-  if (shoot(attackingGroup, targetGroup)) {
-    targetGroup->left--;
-    (targetGroup->alive)[targetShip] = FALSE;
-    if (targetGroup->type->weapons) {
-      if ((targetGroup->canshoot)[targetShip]) {
-        (targetGroup->canshoot)[targetShip] = FALSE;
-        targetGroup->numberOfAttackersLeft--;
-        targetSide->numberOfAttackersLeft--;
-      }
+    if ( shoot( attackingGroup, targetGroup ) ) {
+        targetGroup->left--;
+        ( targetGroup->alive )[targetShip] = FALSE;
+        if ( targetGroup->type->weapons ) {
+            if ( ( targetGroup->canshoot )[targetShip] ) {
+                ( targetGroup->canshoot )[targetShip] = FALSE;
+                targetGroup->numberOfAttackersLeft--;
+                targetSide->numberOfAttackersLeft--;
+            }
+        }
+        addShot( aProtocol, attackingSide->who, attackingGroup->type,
+                 targetSide->who, targetGroup->type, 1 );
+        targetSide->numberOfTargets--;
+        targetSide->who->masslost += typemass( targetGroup->type );
+    } else {
+        addShot( aProtocol, attackingSide->who, attackingGroup->type,
+                 targetSide->who, targetGroup->type, 0 );
     }
-    addShot(aProtocol, attackingSide->who, attackingGroup->type,
-            targetSide->who, targetGroup->type, 1);
-    targetSide->numberOfTargets--;
-    targetSide->who->masslost += typemass(targetGroup->type);
-  }
-  else {
-    addShot(aProtocol, attackingSide->who, attackingGroup->type,
-            targetSide->who, targetGroup->type, 0);
-  }
 }
 
 /**** END attack ****/
@@ -206,14 +206,15 @@ attack(bprotocol *aProtocol,
  */
 
 int
-shoot(group *attacker, group *defender)
+shoot( group *attacker, group *defender )
 {
-  double          defense;
+    double defense;
 
-  assert(attacker->type->weapons > 0);
-  defense = defender->defense;
-  return ((defense > 0) ?
-          ((attacker->attack / defense) > pow(4.0, frand2())) : 1);
+    assert( attacker->type->weapons > 0 );
+    defense = defender->defense;
+    return ( ( defense > 0 ) ?
+             ( ( attacker->attack / defense ) >
+               pow( 4.0, frand2(  ) ) ) : 1 );
 }
 
 /***** END of shoot *******/
@@ -231,24 +232,24 @@ shoot(group *attacker, group *defender)
  */
 
 int
-isWon(batstat *aBatstat)
+isWon( batstat *aBatstat )
 {
-  int             iswon = TRUE;
+    int iswon = TRUE;
 
-  for (; aBatstat && iswon; aBatstat = aBatstat->next) {
-    int             enemy;
+    for ( ; aBatstat && iswon; aBatstat = aBatstat->next ) {
+        int enemy;
 
-    if (aBatstat->numberOfAttackers) {
-      for (enemy = 0; enemy < aBatstat->noEnemies; enemy++) {
-        if ((aBatstat->enemies)[enemy]->numberOfTargets) {
-          iswon = FALSE;
-          break;
+        if ( aBatstat->numberOfAttackers ) {
+            for ( enemy = 0; enemy < aBatstat->noEnemies; enemy++ ) {
+                if ( ( aBatstat->enemies )[enemy]->numberOfTargets ) {
+                    iswon = FALSE;
+                    break;
+                }
+            }
         }
-      }
     }
-  }
 
-  return iswon;
+    return iswon;
 }
 
 /**** END OF isWon *****/
@@ -269,14 +270,14 @@ isWon(batstat *aBatstat)
  */
 
 int
-attackersLeft(batstat *aBatstat)
+attackersLeft( batstat *aBatstat )
 {
-  for (; aBatstat; aBatstat = aBatstat->next) {
-    if (aBatstat->numberOfAttackersLeft) {
-      return TRUE;
+    for ( ; aBatstat; aBatstat = aBatstat->next ) {
+        if ( aBatstat->numberOfAttackersLeft ) {
+            return TRUE;
+        }
     }
-  }
-  return FALSE;
+    return FALSE;
 }
 
 /******/
@@ -300,52 +301,52 @@ attackersLeft(batstat *aBatstat)
  */
 
 int
-isDraw(batstat *batstats)
+isDraw( batstat *batstats )
 {
-  int             draw;
-  batstat        *aBatstat;
+    int draw;
+    batstat *aBatstat;
 
-  pdebug(DFULL, "isDraw\n");
+    pdebug( DFULL, "isDraw\n" );
 
 
-  for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
-    double          maxAttack, curAttack, minDefense, curDefense;
-    group          *aGroup;
+    for ( aBatstat = batstats; aBatstat; aBatstat = aBatstat->next ) {
+        double maxAttack, curAttack, minDefense, curDefense;
+        group *aGroup;
 
-    maxAttack = 0.0;
-    minDefense = -1.0;
-    for (aGroup = aBatstat->groups; aGroup; aGroup = aGroup->next) {
-      if (aGroup->left) {
-        curAttack = aGroup->attack;
-        if (curAttack > maxAttack)
-          maxAttack = curAttack;
-        curDefense = aGroup->defense;
-        if (minDefense < 0)
-          minDefense = curDefense;
-        else if (curDefense < minDefense)
-          minDefense = curDefense;
-      }
-    }
-    aBatstat->maxAttack = maxAttack;
-    aBatstat->minDefense = minDefense;
-  }
-
-  draw = TRUE;
-  for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
-    int             enemy;
-
-    for (enemy = 0; enemy < aBatstat->noEnemies; enemy++) {
-      batstat        *targetSide;
-
-      targetSide = aBatstat->enemies[enemy];
-      if (targetSide->minDefense >= 0) {
-        if (targetSide->minDefense / 4.0 < aBatstat->maxAttack) {
-          draw = FALSE;
+        maxAttack = 0.0;
+        minDefense = -1.0;
+        for ( aGroup = aBatstat->groups; aGroup; aGroup = aGroup->next ) {
+            if ( aGroup->left ) {
+                curAttack = aGroup->attack;
+                if ( curAttack > maxAttack )
+                    maxAttack = curAttack;
+                curDefense = aGroup->defense;
+                if ( minDefense < 0 )
+                    minDefense = curDefense;
+                else if ( curDefense < minDefense )
+                    minDefense = curDefense;
+            }
         }
-      }
+        aBatstat->maxAttack = maxAttack;
+        aBatstat->minDefense = minDefense;
     }
-  }
-  return draw;
+
+    draw = TRUE;
+    for ( aBatstat = batstats; aBatstat; aBatstat = aBatstat->next ) {
+        int enemy;
+
+        for ( enemy = 0; enemy < aBatstat->noEnemies; enemy++ ) {
+            batstat *targetSide;
+
+            targetSide = aBatstat->enemies[enemy];
+            if ( targetSide->minDefense >= 0 ) {
+                if ( targetSide->minDefense / 4.0 < aBatstat->maxAttack ) {
+                    draw = FALSE;
+                }
+            }
+        }
+    }
+    return draw;
 }
 
 /*** END OF isDraw ***/
@@ -363,38 +364,37 @@ isDraw(batstat *batstats)
  */
 
 void
-resetSides(batstat *aBatstat)
+resetSides( batstat *aBatstat )
 {
-  for (; aBatstat; aBatstat = aBatstat->next) {
-    group          *aGroup;
+    for ( ; aBatstat; aBatstat = aBatstat->next ) {
+        group *aGroup;
 
-    aBatstat->numberOfAttackers = 0;
-    aBatstat->numberOfTargets = 0;
-    for (aGroup = aBatstat->groups; aGroup; aGroup = aGroup->next) {
-      int             ship;
+        aBatstat->numberOfAttackers = 0;
+        aBatstat->numberOfTargets = 0;
+        for ( aGroup = aBatstat->groups; aGroup; aGroup = aGroup->next ) {
+            int ship;
 
-      if (aGroup->type->attacks) {
-        for (ship = 0; ship < aGroup->left; ship++) {
-          (aGroup->canshoot)[ship] = TRUE;
+            if ( aGroup->type->attacks ) {
+                for ( ship = 0; ship < aGroup->left; ship++ ) {
+                    ( aGroup->canshoot )[ship] = TRUE;
+                }
+                aGroup->numberOfAttackers = aGroup->left;
+                aGroup->numberOfAttackersLeft = aGroup->left;
+                aBatstat->numberOfAttackers += aGroup->left;
+            } else {
+                aGroup->numberOfAttackers = 0;
+                aGroup->numberOfAttackersLeft = 0;
+            }
+            for ( ship = 0; ship < aGroup->left; ship++ ) {
+                ( aGroup->alive )[ship] = TRUE;
+            }
+            for ( ; ship < aGroup->ships; ship++ ) {
+                ( aGroup->alive )[ship] = FALSE;
+            }
+            aBatstat->numberOfTargets += aGroup->left;
         }
-        aGroup->numberOfAttackers = aGroup->left;
-        aGroup->numberOfAttackersLeft = aGroup->left;
-        aBatstat->numberOfAttackers += aGroup->left;
-      }
-      else {
-        aGroup->numberOfAttackers = 0;
-        aGroup->numberOfAttackersLeft = 0;
-      }
-      for (ship = 0; ship < aGroup->left; ship++) {
-        (aGroup->alive)[ship] = TRUE;
-      }
-      for (; ship < aGroup->ships; ship++) {
-        (aGroup->alive)[ship] = FALSE;
-      }
-      aBatstat->numberOfTargets += aGroup->left;
+        aBatstat->numberOfAttackersLeft = aBatstat->numberOfAttackers;
     }
-    aBatstat->numberOfAttackersLeft = aBatstat->numberOfAttackers;
-  }
 }
 
 /*****/
@@ -409,24 +409,24 @@ resetSides(batstat *aBatstat)
  */
 
 void
-updateGroups(battle *b)
+updateGroups( battle *b )
 {
-  participant    *part;
+    participant *part;
 
-  pdebug(DFULL, "updateGroups\n");
-  for (part = b->participants; part; part = part->next) {
-    group          *g, *g2;
+    pdebug( DFULL, "updateGroups\n" );
+    for ( part = b->participants; part; part = part->next ) {
+        group *g, *g2;
 
-    for (g = part->who->groups, g2 = part->groups; g; g = g->next) {
-      if (g->location == b->where) {
-        assert(g2 != NULL);
-        assert(g->where == g2->where);
-        assert(g->type == g2->type);
-        g->ships = g2->left;
-        g2 = g2->next;
-      }
+        for ( g = part->who->groups, g2 = part->groups; g; g = g->next ) {
+            if ( g->location == b->where ) {
+                assert( g2 != NULL );
+                assert( g->where == g2->where );
+                assert( g->type == g2->type );
+                g->ships = g2->left;
+                g2 = g2->next;
+            }
+        }
     }
-  }
 }
 
 /****** END updateGroups *****/
@@ -443,69 +443,70 @@ updateGroups(battle *b)
  * SOURCE
  */
 
-group          *
-selectAttackingGroup(batstat *batstats, batstat **attackingSide, int *ship)
+group *
+selectAttackingGroup( batstat *batstats, batstat **attackingSide, int *ship )
 {
-  int             totalNumberOfAttackersLeft;
-  batstat        *aBatstat;
+    int totalNumberOfAttackersLeft;
+    batstat *aBatstat;
 
-  /* Compute the number of ships that haven't fired yet. */
-  totalNumberOfAttackersLeft = 0;
-  for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
-    totalNumberOfAttackersLeft += aBatstat->numberOfAttackersLeft;
-  }
-
-  if (totalNumberOfAttackersLeft > 0) {
-    int             lowerLim;
-    int             upperLim;
-    int             n;
-
-    lowerLim = 0;
-    /* Randomly select one of these ships */
-    n = frand3(totalNumberOfAttackersLeft);
-
-    /* Find the the owner and the group the ship belongs to. */
-    for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
-      upperLim = lowerLim + aBatstat->numberOfAttackersLeft;
-      if ((n >= lowerLim) && (n < upperLim)) {
-        group          *aGroup;
-
-        /* Found the owner */
-        *attackingSide = aBatstat;
-        n -= lowerLim;
-        lowerLim = 0;
-        /* Now find the group the ship belongs to */
-        for (aGroup = (*attackingSide)->groups;
-             aGroup; aGroup = aGroup->next) {
-          upperLim = lowerLim + aGroup->numberOfAttackersLeft;
-          if ((n >= lowerLim) && (n < upperLim)) {
-            int             curShip;
-
-            n -= lowerLim;
-            /* Now find the number of the ship within the group */
-            for (*ship = 0, curShip = 0;
-                 *ship < aGroup->numberOfAttackers; (*ship)++) {
-              /* Did the ship fire yet? */
-              if ((aGroup->canshoot)[*ship]) {
-                if (n == curShip) {
-                  aGroup->numberOfAttackersLeft--;
-                  (*attackingSide)->numberOfAttackersLeft--;
-                  (aGroup->canshoot)[*ship] = FALSE;
-                  return aGroup;
-                }
-                else {
-                  curShip++;
-                }
-              }
-            }
-          }
-          lowerLim = upperLim;
-        }
-      }
-      lowerLim = upperLim;
+    /* Compute the number of ships that haven't fired yet. */
+    totalNumberOfAttackersLeft = 0;
+    for ( aBatstat = batstats; aBatstat; aBatstat = aBatstat->next ) {
+        totalNumberOfAttackersLeft += aBatstat->numberOfAttackersLeft;
     }
-  }
-  return NULL;
+
+    if ( totalNumberOfAttackersLeft > 0 ) {
+        int lowerLim;
+        int upperLim;
+        int n;
+
+        lowerLim = 0;
+        /* Randomly select one of these ships */
+        n = frand3( totalNumberOfAttackersLeft );
+
+        /* Find the the owner and the group the ship belongs to. */
+        for ( aBatstat = batstats; aBatstat; aBatstat = aBatstat->next ) {
+            upperLim = lowerLim + aBatstat->numberOfAttackersLeft;
+            if ( ( n >= lowerLim ) && ( n < upperLim ) ) {
+                group *aGroup;
+
+                /* Found the owner */
+                *attackingSide = aBatstat;
+                n -= lowerLim;
+                lowerLim = 0;
+                /* Now find the group the ship belongs to */
+                for ( aGroup = ( *attackingSide )->groups;
+                      aGroup; aGroup = aGroup->next ) {
+                    upperLim = lowerLim + aGroup->numberOfAttackersLeft;
+                    if ( ( n >= lowerLim ) && ( n < upperLim ) ) {
+                        int curShip;
+
+                        n -= lowerLim;
+                        /* Now find the number of the ship within the group */
+                        for ( *ship = 0, curShip = 0;
+                              *ship < aGroup->numberOfAttackers;
+                              ( *ship )++ ) {
+                            /* Did the ship fire yet? */
+                            if ( ( aGroup->canshoot )[*ship] ) {
+                                if ( n == curShip ) {
+                                    aGroup->numberOfAttackersLeft--;
+                                    ( *attackingSide )->
+                                        numberOfAttackersLeft--;
+                                    ( aGroup->canshoot )[*ship] = FALSE;
+                                    return aGroup;
+                                } else {
+                                    curShip++;
+                                }
+                            }
+                        }
+                    }
+                    lowerLim = upperLim;
+                }
+            }
+            lowerLim = upperLim;
+        }
+    }
+    return NULL;
 }
 
 /**** END OF selectAttackingGroup ****/
@@ -528,75 +529,76 @@ selectAttackingGroup(batstat *batstats, batstat **attackingSide, int *ship)
  * SOURCE
  */
 
-group          *
-selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
+group *
+selectTargetGroup( batstat *attackingSide, batstat **targetSide, int *ship )
 {
-  /* group *targetGroup; */
-  int             enemy;
-  int             totalNumberOfTargets;
+    /* group *targetGroup; */
+    int enemy;
+    int totalNumberOfTargets;
 
-  pdebug(DFULL, "selectTargetGroup\n");
+    pdebug( DFULL, "selectTargetGroup\n" );
 
-  /* targetGroup = NULL;*/
-  *ship = 0;
+    /* targetGroup = NULL; */
+    *ship = 0;
 
-  /* Compute the total number of targets */
-  totalNumberOfTargets = 0;
-  for (enemy = 0; enemy < attackingSide->noEnemies; enemy++) {
-    totalNumberOfTargets +=
-        (attackingSide->enemies[enemy])->numberOfTargets;
-  }
+    /* Compute the total number of targets */
+    totalNumberOfTargets = 0;
+    for ( enemy = 0; enemy < attackingSide->noEnemies; enemy++ ) {
+        totalNumberOfTargets +=
+            ( attackingSide->enemies[enemy] )->numberOfTargets;
+    }
 
-  if (totalNumberOfTargets > 0) {
-    int             lowerLim;
-    int             upperLim;
-    int             n;
+    if ( totalNumberOfTargets > 0 ) {
+        int lowerLim;
+        int upperLim;
+        int n;
 
-    lowerLim = 0;
-
-    /* Randomly select one of the targets */
-    n = frand3(totalNumberOfTargets);
-
-    /* Find the owner of the target this ship */
-    for (enemy = 0; enemy < attackingSide->noEnemies; enemy++) {
-      upperLim =
-          lowerLim + (attackingSide->enemies[enemy])->numberOfTargets;
-      if ((n >= lowerLim) && (n < upperLim)) {
-        group          *aGroup;
-
-        *targetSide = attackingSide->enemies[enemy];
-        n -= lowerLim;
         lowerLim = 0;
 
-        /* Find the group the ship belongs to, and the number of the ship
-         * * within * the group */
-        for (aGroup = (*targetSide)->groups; aGroup; aGroup = aGroup->next) {
-          upperLim = lowerLim + aGroup->left;
-          if ((n >= lowerLim) && (n < upperLim)) {
-            int             curShip;
+        /* Randomly select one of the targets */
+        n = frand3( totalNumberOfTargets );
 
-            n -= lowerLim;
-            /* targetGroup = aGroup; */
-            for (*ship = 0, curShip = 0; *ship < aGroup->ships; (*ship)++) {
-              /* Is the ship alive */
-              if ((aGroup->alive)[*ship]) {
-                if (n == curShip) {
-                  return aGroup;
+        /* Find the owner of the target this ship */
+        for ( enemy = 0; enemy < attackingSide->noEnemies; enemy++ ) {
+            upperLim =
+                lowerLim + ( attackingSide->enemies[enemy] )->numberOfTargets;
+            if ( ( n >= lowerLim ) && ( n < upperLim ) ) {
+                group *aGroup;
+
+                *targetSide = attackingSide->enemies[enemy];
+                n -= lowerLim;
+                lowerLim = 0;
+
+                /* Find the group the ship belongs to, and the number of the ship
+                 * * within * the group */
+                for ( aGroup = ( *targetSide )->groups; aGroup;
+                      aGroup = aGroup->next ) {
+                    upperLim = lowerLim + aGroup->left;
+                    if ( ( n >= lowerLim ) && ( n < upperLim ) ) {
+                        int curShip;
+
+                        n -= lowerLim;
+                        /* targetGroup = aGroup; */
+                        for ( *ship = 0, curShip = 0; *ship < aGroup->ships;
+                              ( *ship )++ ) {
+                            /* Is the ship alive */
+                            if ( ( aGroup->alive )[*ship] ) {
+                                if ( n == curShip ) {
+                                    return aGroup;
+                                } else {
+                                    curShip++;
+                                }
+                            }
+                        }
+                        assert( 0 );
+                    }
+                    lowerLim = upperLim;
                 }
-                else {
-                  curShip++;
-                }
-              }
             }
-            assert(0);
-          }
-          lowerLim = upperLim;
+            lowerLim = upperLim;
         }
-      }
-      lowerLim = upperLim;
     }
-  }
-  return NULL;
+    return NULL;
 }
 
 /***** END selectTargetGroup *****/
@@ -622,95 +624,98 @@ selectTargetGroup(batstat *attackingSide, batstat **targetSide, int *ship)
  * SOURCE
  */
 
-battle         *
-isBattle(player *players, planet *p)
+battle *
+isBattle( player *players, planet *p )
 {
-  player         *side;
-  participant    *participants;
-  battle         *aBattle;
+    player *side;
+    participant *participants;
+    battle *aBattle;
 
-  pdebug(DFULL, "isBattle\n");
+    pdebug( DFULL, "isBattle\n" );
 
-  participants = NULL;
-  aBattle = NULL;
+    participants = NULL;
+    aBattle = NULL;
 
-  for (side = players; side; side = side->next) {
-    group          *aGroup;
+    for ( side = players; side; side = side->next ) {
+        group *aGroup;
 
-    for (aGroup = side->groups; aGroup; aGroup = aGroup->next) {
-      if (aGroup->location == p) {
-        participant    *aParticipant;
-        aParticipant = allocStruct(participant);
+        for ( aGroup = side->groups; aGroup; aGroup = aGroup->next ) {
+            if ( aGroup->location == p ) {
+                participant *aParticipant;
+                aParticipant = allocStruct( participant );
 
-        assert(aParticipant != NULL);
-        aParticipant->who = side;
-        aParticipant->groups = NULL;
-        addList(&participants, aParticipant);
-        break;
-      }
-    }
-  }
-
-  if (numberOfElements(participants) >= 2) {
-    participant    *aParticipant;
-
-    for (aParticipant = participants;
-         aParticipant; aParticipant = aParticipant->next) {
-      group          *aGroup;
-
-      for (aGroup = aParticipant->who->groups;
-           aGroup; aGroup = aGroup->next) {
-        if (aGroup->location == p) {
-          group          *newGroup;
-          newGroup = allocStruct(group);
-
-          assert(newGroup != NULL);
-          *newGroup = *aGroup;
-          assert(newGroup->ships == aGroup->ships);
-          newGroup->left = aGroup->ships;
-	  newGroup->next = NULL;
-	  newGroup->name = (char*)malloc(8);
-	  sprintf(newGroup->name, "%d", newGroup->number);
-          addList(&(aParticipant->groups), newGroup);
+                assert( aParticipant != NULL );
+                aParticipant->who = side;
+                aParticipant->groups = NULL;
+                addList( &participants, aParticipant );
+                break;
+            }
         }
-      }
     }
 
-    if (mustBattle(participants)) {
-      participant    *aParticipant;
+    if ( numberOfElements( participants ) >= 2 ) {
+        participant *aParticipant;
 
-      aBattle = allocStruct(battle);
+        for ( aParticipant = participants;
+              aParticipant; aParticipant = aParticipant->next ) {
+            group *aGroup;
 
-      assert(aBattle != NULL);
-      aBattle->participants = participants;
-      aBattle->where = p;
-      aBattle->protocol = allocProtocol();
-      for (aParticipant = participants;
-           aParticipant; aParticipant = aParticipant->next) {
-        group          *aGroup;
+            for ( aGroup = aParticipant->who->groups;
+                  aGroup; aGroup = aGroup->next ) {
+                if ( aGroup->location == p ) {
+                    group *newGroup;
+                    newGroup = allocStruct( group );
 
-        for (aGroup = aParticipant->groups; aGroup; aGroup = aGroup->next) {
-          aGroup->canshoot = alloc(sizeof(int) * (aGroup->ships));
-          aGroup->alive = alloc(sizeof(int) * (aGroup->ships));
-          assert(aGroup->canshoot);
-          assert(aGroup->alive);
+                    assert( newGroup != NULL );
+                    *newGroup = *aGroup;
+                    assert( newGroup->ships == aGroup->ships );
+                    newGroup->left = aGroup->ships;
+                    newGroup->next = NULL;
+                    newGroup->name = ( char * ) malloc( 8 );
+                    sprintf( newGroup->name, "%d", newGroup->number );
+                    addList( &( aParticipant->groups ), newGroup );
+                }
+            }
         }
-      }
-    }
-  }
-  if (aBattle == NULL) {
-    participant    *r, *r2;
 
-    pdebug(DFULL2, "isBattle : freeing  participants.\n");
-    r = participants;
-    while (r) {
-      freelist(r->groups);
-      r2 = r->next;
-      free(r);
-      r = r2;
+        if ( mustBattle( participants ) ) {
+            participant *aParticipant;
+
+            aBattle = allocStruct( battle );
+
+            assert( aBattle != NULL );
+            aBattle->participants = participants;
+            aBattle->where = p;
+            aBattle->protocol = allocProtocol(  );
+            for ( aParticipant = participants;
+                  aParticipant; aParticipant = aParticipant->next ) {
+                group *aGroup;
+
+                for ( aGroup = aParticipant->groups; aGroup;
+                      aGroup = aGroup->next ) {
+                    aGroup->canshoot =
+                        alloc( sizeof( int ) * ( aGroup->ships ) );
+                    aGroup->alive =
+                        alloc( sizeof( int ) * ( aGroup->ships ) );
+                    assert( aGroup->canshoot );
+                    assert( aGroup->alive );
+                }
+            }
+        }
     }
-  }
-  return aBattle;
+    if ( aBattle == NULL ) {
+        participant *r, *r2;
+
+        pdebug( DFULL2, "isBattle : freeing  participants.\n" );
+        r = participants;
+        while ( r ) {
+            freelist( r->groups );
+            r2 = r->next;
+            free( r );
+            r = r2;
+        }
+    }
+    return aBattle;
 }
 
 /**********/
@@ -731,24 +736,25 @@ isBattle(player *players, planet *p)
  */
 
 int
-mustBattle(participant *participants)
+mustBattle( participant *participants )
 {
-  int             war;
-  participant    *part1, *part2;
+    int war;
+    participant *part1, *part2;
 
-  pdebug(DFULL, "mustBattle\n");
-  war = FALSE;
-  for (part1 = participants; part1 && !war; part1 = part1->next) {
-    for (part2 = participants; part2; part2 = part2->next) {
-      if (part1 != part2) {
-        if (atwar(part1->who, part2->who) && canShoot(part1->groups)) {
-          war = TRUE;
-          break;
+    pdebug( DFULL, "mustBattle\n" );
+    war = FALSE;
+    for ( part1 = participants; part1 && !war; part1 = part1->next ) {
+        for ( part2 = participants; part2; part2 = part2->next ) {
+            if ( part1 != part2 ) {
+                if ( atwar( part1->who, part2->who )
+                     && canShoot( part1->groups ) ) {
+                    war = TRUE;
+                    break;
+                }
+            }
         }
-      }
     }
-  }
-  return war;
+    return war;
 }
 
 /**** END OF mustBattle ****/
@@ -769,38 +775,38 @@ mustBattle(participant *participants)
  */
 
 int
-canShoot(group *g)
+canShoot( group *g )
 {
-  int             can;
+    int can;
 
-  for (can = FALSE; g; g = g->next) {
-    if (g->type->attacks) {
-      can = TRUE;
-      break;
-    };
-  }
-  return can;
+    for ( can = FALSE; g; g = g->next ) {
+        if ( g->type->attacks ) {
+            can = TRUE;
+            break;
+        };
+    }
+    return can;
 }
 
 /**** END of canShoot *****/
 
 
 void
-dumpBattle(battle *b)
+dumpBattle( battle *b )
 {
-  participant    *part;
+    participant *part;
 
-  printf("Battle at Planet %s\n", b->where->name);
-  printf("Participants\n");
-  for (part = b->participants; part; part = part->next) {
-    group          *g;
+    printf( "Battle at Planet %s\n", b->where->name );
+    printf( "Participants\n" );
+    for ( part = b->participants; part; part = part->next ) {
+        group *g;
 
-    printf("Player %s\n", part->who->name);
-    printf("  Groups\n");
-    for (g = part->groups; g; g = g->next) {
-      printf("   %d %s\n", g->ships, g->type->name);
+        printf( "Player %s\n", part->who->name );
+        printf( "  Groups\n" );
+        for ( g = part->groups; g; g = g->next ) {
+            printf( "   %d %s\n", g->ships, g->type->name );
+        }
     }
-  }
 }
 
 
@@ -814,41 +820,42 @@ dumpBattle(battle *b)
  */
 
 void
-allocEnemies(batstat *batstats)
+allocEnemies( batstat *batstats )
 {
-  batstat        *aBatstat, *aBatstat2;
+    batstat *aBatstat, *aBatstat2;
 
-  for (aBatstat = batstats; aBatstat; aBatstat = aBatstat->next) {
-    for (aBatstat->noEnemies = 0, aBatstat2 = batstats;
-         aBatstat2; aBatstat2 = aBatstat2->next) {
-      if (aBatstat != aBatstat2) {
-        if (atwar(aBatstat->who, aBatstat2->who) ||
-            (atwar(aBatstat2->who, aBatstat->who) &&
-             canShoot(aBatstat2->groups))) {
-          aBatstat->noEnemies++;
+    for ( aBatstat = batstats; aBatstat; aBatstat = aBatstat->next ) {
+        for ( aBatstat->noEnemies = 0, aBatstat2 = batstats;
+              aBatstat2; aBatstat2 = aBatstat2->next ) {
+            if ( aBatstat != aBatstat2 ) {
+                if ( atwar( aBatstat->who, aBatstat2->who ) ||
+                     ( atwar( aBatstat2->who, aBatstat->who ) &&
+                       canShoot( aBatstat2->groups ) ) ) {
+                    aBatstat->noEnemies++;
+                }
+            }
         }
-      }
-    }
 
-    if (aBatstat->noEnemies) {
-      batstat       **enemy;
+        if ( aBatstat->noEnemies ) {
+            batstat **enemy;
 
-      aBatstat->enemies = alloc(sizeof(batstat *) * aBatstat->noEnemies);
+            aBatstat->enemies =
+                alloc( sizeof( batstat * ) * aBatstat->noEnemies );
 
-      assert(aBatstat->enemies != NULL);
-      for (enemy = aBatstat->enemies, aBatstat2 = batstats;
-           aBatstat2; aBatstat2 = aBatstat2->next) {
-        if (aBatstat != aBatstat2) {
-          if (atwar(aBatstat->who, aBatstat2->who) ||
-              (atwar(aBatstat2->who, aBatstat->who) &&
-               canShoot(aBatstat2->groups))) {
-            *enemy = aBatstat2;
-            enemy++;
-          }
+            assert( aBatstat->enemies != NULL );
+            for ( enemy = aBatstat->enemies, aBatstat2 = batstats;
+                  aBatstat2; aBatstat2 = aBatstat2->next ) {
+                if ( aBatstat != aBatstat2 ) {
+                    if ( atwar( aBatstat->who, aBatstat2->who ) ||
+                         ( atwar( aBatstat2->who, aBatstat->who ) &&
+                           canShoot( aBatstat2->groups ) ) ) {
+                        *enemy = aBatstat2;
+                        enemy++;
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }
 
 
@@ -860,16 +867,16 @@ allocEnemies(batstat *batstats)
  ******
  */
 
-bprotocol      *
-allocProtocol(void)
+bprotocol *
+allocProtocol( void )
 {
-  bprotocol      *p;
-  p = (bprotocol *) alloc(sizeof(bprotocol));
-  p->shots = (shot *) alloc(10 * sizeof(shot));
+    bprotocol *p;
+    p = ( bprotocol * ) alloc( sizeof( bprotocol ) );
+    p->shots = ( shot * ) alloc( 10 * sizeof( shot ) );
 
-  p->size = 10;
-  p->cur = 0;
-  return p;
+    p->size = 10;
+    p->cur = 0;
+    return p;
 }
 
 
@@ -880,20 +887,20 @@ allocProtocol(void)
  */
 
 void
-addShot(bprotocol *p, player *attacker, shiptype *t1,
-        player *target, shiptype *t2, int result)
+addShot( bprotocol *p, player *attacker, shiptype *t1,
+         player *target, shiptype *t2, int result )
 {
-  shot           *s;
+    shot *s;
 
-  s = p->shots;
-  (s[p->cur]).attacker = attacker;
-  (s[p->cur]).atype = t1;
-  (s[p->cur]).target = target;
-  (s[p->cur]).ttype = t2;
-  (s[p->cur]).result = result;
-  p->cur++;
-  if (p->cur >= p->size) {
-    p->size *= 2;
-    p->shots = realloc(p->shots, p->size * sizeof(shot));
-  }
+    s = p->shots;
+    ( s[p->cur] ).attacker = attacker;
+    ( s[p->cur] ).atype = t1;
+    ( s[p->cur] ).target = target;
+    ( s[p->cur] ).ttype = t2;
+    ( s[p->cur] ).result = result;
+    p->cur++;
+    if ( p->cur >= p->size ) {
+        p->size *= 2;
+        p->shots = realloc( p->shots, p->size * sizeof( shot ) );
+    }
 }

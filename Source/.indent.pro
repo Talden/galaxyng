@@ -1,3 +1,4 @@
+--verbose
 --braces-on-if-line
 --cuddle-else 
 --indent-level 4 
