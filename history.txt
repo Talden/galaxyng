@@ -1,6 +1,8 @@
 # $Id$
 
-Release 6.4.9: July 2005
+Refactor Branch: July 2007
+o By Frans Slothouber
+  Created baseline for refactoring of functionality.
 
 Release 6.4.8: January 2005
 o By Ken Weinert (madcoder42)
