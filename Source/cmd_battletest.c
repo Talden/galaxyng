@@ -1,6 +1,8 @@
 #include "galaxyng.h"
 
-int CMD_battletest( int argc, char **argv ) {
+int
+CMD_battletest( int argc, char **argv )
+{
     game *aGame;
 
     aGame = bat_createGame(  );
@@ -67,7 +69,6 @@ int CMD_battletest( int argc, char **argv ) {
 
         printf( "\n" );
     }
-	
+
     return 0;
 }
-

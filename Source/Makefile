@@ -148,9 +148,6 @@ process.o: process.c
 report.o: report.c
 	$(CC) $(CFLAGS) -c report.c -o report.o
 
-list.o: list.c
-	$(CC) $(CFLAGS) -c list.c -o list.o
-
 ordersdue.o: ordersdue.c
 	$(CC) $(CFLAGS) -c ordersdue.c -o ordersdue.o
 

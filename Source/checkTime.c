@@ -29,7 +29,9 @@
  * SOURCE
  */
 
-int checkTime( game *aGame ) {
+int
+checkTime( game *aGame )
+{
     int runGame;
 
     assert( aGame != NULL );
@@ -44,8 +46,7 @@ int checkTime( game *aGame ) {
         if ( strncmp( timeBuffer, aGame->starttime, 4 ) == 0 ) {
             runGame = TRUE;
         }
-    }
-	else {
+    } else {
         runGame = TRUE;
     }
     return runGame;
