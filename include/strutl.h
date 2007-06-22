@@ -23,21 +23,21 @@
  * SOURCE
  */
 
-typedef struct strlist {
-  struct strlist *next;
-  long            cookie;
-  char           *str;
+typedef struct strlist
+{
+    struct strlist *next;
+    long cookie;
+    char *str;
 } strlist;
 
 /********/
 
-char*    getstr(char* s);
-strlist* makestrlist(char* ns);
-void     freestrlist(strlist* s);
-void     dumpstrlist(strlist* aStrlist);
-int      noCaseStrncmp(const char *s, const char *t, int n);
-int      noCaseStrcmp(const char *s, const char *t);
-char*    strlwr(char* str);
+char *getstr( char *s );
+strlist *makestrlist( char *ns );
+void freestrlist( strlist *s );
+void dumpstrlist( strlist *aStrlist );
+int noCaseStrncmp( const char *s, const char *t, int n );
+int noCaseStrcmp( const char *s, const char *t );
+char *strlwr( char *str );
 
 #endif
-

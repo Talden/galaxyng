@@ -28,22 +28,14 @@ enum
 };
 
 void SetDirectoryVariables( void );
-int CMD_immediate(int argc, char** argv);
 int CMD_create( int argc, char **argv );
-int CMD_mail0( int argc, char **argv, int kind );
-int CMD_run( int argc, char **argv, int kind );
-int CMD_webcheck( int argc, char **argv, int kind );
-int CMD_check( int argc, char **argv, int kind );
-#if 0
-int CMD_checkFile( int argc, char **argv, int kind );
-#endif
+int CMD_mail0( int argc, char **argv );
+int CMD_run( int argc, char **argv );
+int CMD_check( int argc, char **argv );
 int CMD_report( int argc, char **argv );
-int CMD_webreport( int argc, char **argv );
 int CMD_score( int argc, char **argv );
-int CMD_graph( int argc, char **argv );
 int CMD_dump( int argc, char **argv, int kind );
 int CMD_test( int argc, char **argv );
-int CMD_relay( int argc, char **argv );
 int CMD_template( int argc, char **argv );
 int CMD_selftest(  );
 int CMD_battletest( int argc, char **argv );
@@ -51,9 +43,6 @@ int CMD_battletest( int argc, char **argv );
 int CMD_influence( int argc, char **argv );
 #endif
 int checkTime( game *aGame );
-int relayMessage(game *aGame, envelope *anEnvelope, char *nationName,
-		 player *from, emailList *to );
-int CMD_ordersdue(int argc, char** argv);
-int CMD_clean(int argc, char** argv);
+int CMD_clean( int argc, char **argv );
 
-#endif                          /* GNG_GALAXYNG_H */
+#endif /* GNG_GALAXYNG_H */

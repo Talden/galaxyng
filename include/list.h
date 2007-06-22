@@ -16,13 +16,13 @@
  *   can use a number of standard functions to manipulate the lists.
  *
  *   Base pointer    First element        Second element
- *   +--+        +------------+         +------------+         
- *   | *-------->| next   | *---------->| next   | *---------->  
+ *   +--+        +------------+         +------------+
+ *   | *-------->| next   | *---------->| next   | *---------->
  *   +--+        | cookie |   |         | cookie |   |
  *               | name   |   |         | name   |   |
  *               +------------+         +------------+
  *               | other data |         | other data |
- *   
+ *
  *   The cookie is used to do sanity checks. Each kind of list
  *   has its own unique cookie. This way we can check if the
  *   base pointer really points to a list of planets and not
@@ -30,11 +30,11 @@
  * SOURCE   
  */
 
-typedef struct list {
-  struct list    *next;
-  struct list    *randNext;
-  long            cookie;
-  char           *name;
+typedef struct list
+{
+    struct list *next;
+    long cookie;
+    char *name;
 } list;
 
 /**********/
@@ -166,16 +166,16 @@ typedef struct list {
 /*******/
 
 
-void            add2ListF(list **aList, list *anElement);
-void            freelist(void *base);
-void            addListF(list **aList, list *anElement);
-void            insertListF(list **aList, list* anchor, list *anElement);
-list           *findElementF(list *aList, char *name);
-void            removeListF(list **aList, list *anElement);
-void            setNameF(list *anElement, const char *name);
-int             numberOfElementsF(list *aList);
-int             ptonum(void *base, void *target);
-void           *numtop(void *base, int n);
-void            dumpList(char* label, list* aList, void* callback(void*));
+void add2ListF( list **aList, list *anElement );
+void freelist( void *base );
+void addListF( list **aList, list *anElement );
+void insertListF( list **aList, list *anchor, list *anElement );
+list *findElementF( list *aList, char *name );
+void removeListF( list **aList, list *anElement );
+void setNameF( list *anElement, const char *name );
+int numberOfElementsF( list *aList );
+int ptonum( void *base, void *target );
+void *numtop( void *base, int n );
+void dumpList( char *label, list *aList, void *callback( void * ) );
 
-#endif				/* GNG_LIST_H */
+#endif /* GNG_LIST_H */

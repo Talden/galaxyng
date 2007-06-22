@@ -18,47 +18,48 @@
  * SOURCE
  */
 
-typedef struct batstat {
-  struct batstat *next;
-  long            cookie;
-  char           *name;
-  player         *who;
-  group          *groups;
-  double          maxAttack;
-  double          minDefense;
-  int             numberOfTargets;
-  int             numberOfAttackers;
-  int             numberOfAttackersLeft;
-  int             noEnemies;
-  struct batstat **enemies;
+typedef struct batstat
+{
+    struct batstat *next;
+    long cookie;
+    char *name;
+    player *who;
+    group *groups;
+    double maxAttack;
+    double minDefense;
+    int numberOfTargets;
+    int numberOfAttackers;
+    int numberOfAttackersLeft;
+    int noEnemies;
+    struct batstat **enemies;
 } batstat;
 
 /***** END batstat ******/
 
-int             isWon(batstat *aBatstat);
-int             isDraw(batstat *aBatstat);
-void            fightphase(game *aGame, int phase);
-void            attack(bprotocol *aProtocol,
-                       batstat *attackingSide, group *attackingGroup,
-                       int attackingShip, batstat *targetSide,
-                       group *targetGroup, int targetShip);
-battle         *isBattle(player *players, planet *p);
-int             mustBattle(participant *participants);
-int             attackersLeft(batstat *aBatstat);
-void            resetSides(batstat *aBatstat);
-int             canShoot(group *g);
-void            dumpBattle(battle *b);
-int             shoot(group *attacker, group *defender);
-void            allocEnemies(batstat *batstats);
-void            doBattle(batstat *batstats, bprotocol *p, int phase);
+int isWon( batstat *aBatstat );
+int isDraw( batstat *aBatstat );
+void fightphase( game *aGame, int phase );
+void attack( bprotocol *aProtocol,
+             batstat *attackingSide, group *attackingGroup,
+             int attackingShip, batstat *targetSide,
+             group *targetGroup, int targetShip );
+battle *isBattle( player *players, planet *p );
+int mustBattle( participant *participants );
+int attackersLeft( batstat *aBatstat );
+void resetSides( batstat *aBatstat );
+int canShoot( group *g );
+void dumpBattle( battle *b );
+int shoot( group *attacker, group *defender );
+void allocEnemies( batstat *batstats );
+void doBattle( batstat *batstats, bprotocol *p, int phase );
 
-group          *selectTargetGroup(batstat *attackingSide,
-                                  batstat **targetSide, int *ship);
-group          *selectAttackingGroup(batstat *batstats,
-                                     batstat **attackingSide, int *ship);
-void            updateGroups(battle *b);
-bprotocol      *allocProtocol(void);
-void            addShot(bprotocol *p, player *attacker, shiptype *t1,
-                        player *target, shiptype *t2, int result);
+group *selectTargetGroup( batstat *attackingSide,
+                          batstat **targetSide, int *ship );
+group *selectAttackingGroup( batstat *batstats,
+                             batstat **attackingSide, int *ship );
+void updateGroups( battle *b );
+bprotocol *allocProtocol( void );
+void addShot( bprotocol *p, player *attacker, shiptype *t1,
+              player *target, shiptype *t2, int result );
 
-#endif                          /* GNG_BATTLE_H */
+#endif /* GNG_BATTLE_H */

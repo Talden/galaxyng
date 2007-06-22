@@ -11,22 +11,22 @@
                                  * loadgame * will * load  *  * * the *
                                  * current turn */
 
-void            loadNGConfig(game *aGame);
-void            readDefaults(game *aGame, FILE * f);
-void            freeDefaults(game *aGame);
+void loadNGConfig( game *aGame );
+void readDefaults( game *aGame, FILE *f );
+void freeDefaults( game *aGame );
 
-void            getReadVersion(int *version, int *revision);
-game           *loadgame(char *gameName, int whichTurn);
-double          readFloat(void);
-char           *readString(void);
-int             readInt(void);
-int             readLong(void);
-list           *readPointer(void *base);
+void getReadVersion( int *version, int *revision );
+game *loadgame( char *gameName, int whichTurn );
+double readFloat( void );
+char *readString( void );
+int readInt( void );
+int readLong( void );
+list *readPointer( void *base );
 
-double          getReadFloat(void);
-char           *getReadString(void);
-int             getReadInt(void);
-int             getReadLong(void);
-list           *getReadPointer(void *base);
+double getReadFloat( void );
+char *getReadString( void );
+int getReadInt( void );
+int getReadLong( void );
+list *getReadPointer( void *base );
 
-#endif                          /* GNG_LOADGAME_H */
+#endif /* GNG_LOADGAME_H */

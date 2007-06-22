@@ -16,7 +16,8 @@
  ******
  */
 
-enum DebugLevels {DNONE, DERR, DSTOP, DWARN, DFULL, DFULL2};
+enum DebugLevels
+{ DNONE, DERR, DSTOP, DWARN, DFULL, DFULL2 };
 
 /****d* GalaxyNG/LogLevels
  * NAME
@@ -32,17 +33,17 @@ enum DebugLevels {DNONE, DERR, DSTOP, DWARN, DFULL, DFULL2};
  * SOURCE
  */
 
-enum LogLevels {LNONE, LBRIEF, LPART, LFULL};
+enum LogLevels
+{ LNONE, LBRIEF, LPART, LFULL };
 
 /******/
 
-void pdebug(enum DebugLevels level, char *format, ...);
-void plog(enum LogLevels level, char *format, ...);
-void plogtime(enum LogLevels level);
-int  openLog(char* filename, char* mode);
-void closeLog(void);
-enum LogLevels setLogLevel(enum LogLevels level);
-enum DebugLevels setDebugLevel(enum DebugLevels level);
+void pdebug( enum DebugLevels level, char *format, ... );
+void plog( enum LogLevels level, char *format, ... );
+void plogtime( enum LogLevels level );
+int openLog( char *filename, char *mode );
+void closeLog( void );
+enum LogLevels setLogLevel( enum LogLevels level );
+enum DebugLevels setDebugLevel( enum DebugLevels level );
 
 #endif
-

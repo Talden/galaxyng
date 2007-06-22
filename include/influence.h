@@ -9,10 +9,11 @@
 #include <gd.h>
 #include <avl.h>
 
-enum map_type {
+enum map_type
+{
     AllMaps = -1,
-    FirstMap=0,
-    EffIndMap=0,
+    FirstMap = 0,
+    EffIndMap = 0,
     ShipAttMap,
     ShipDefMap,
     LocationMap,

@@ -102,7 +102,7 @@
 
 #define   getLine(f) fgets(lineBuffer, LINE_BUFFER_SIZE, f)
 
-void usage(void);
+void usage( void );
 
 
 /****d* GameElements/ProductTypes
@@ -111,14 +111,15 @@ void usage(void);
  * SOURCE
  */
 
-enum {
-  PR_CAP,
-  PR_MAT,
-  PR_SHIP,
-  PR_DRIVE,
-  PR_WEAPONS,
-  PR_SHIELDS,
-  PR_CARGO
+enum
+{
+    PR_CAP,
+    PR_MAT,
+    PR_SHIP,
+    PR_DRIVE,
+    PR_WEAPONS,
+    PR_SHIELDS,
+    PR_CARGO
 };
 
 /*********/
@@ -129,12 +130,13 @@ enum {
  * SOURCE
  */
 
-enum {
-  CG_CAP,
-  CG_MAT,
-  CG_COL,
-  CG_EMPTY,
-  MAXCARGO
+enum
+{
+    CG_CAP,
+    CG_MAT,
+    CG_COL,
+    CG_EMPTY,
+    MAXCARGO
 };
 
 /*****/
@@ -145,17 +147,19 @@ enum {
  * SOURCE
  */
 
-enum error_type {
-  INFO,
-  WARNING,
-  ERROR
+enum error_type
+{
+    INFO,
+    WARNING,
+    ERROR
 };
 
 /*******/
 
-typedef struct mapdimensions {
-  double          x1, y1;
-  double          x2, y2;
+typedef struct mapdimensions
+{
+    double x1, y1;
+    double x2, y2;
 } mapdimensions;
 
 
@@ -176,13 +180,14 @@ typedef struct player player;
  * SOURCE
  */
 
-typedef struct fleetname {
-  /* basic list structure */
-  struct fleetname *next;
-  long            cookie;
-  char           *name;
-  /* end basic list */
-  double          fleetspeed;
+typedef struct fleetname
+{
+    /* basic list structure */
+    struct fleetname *next;
+    long cookie;
+    char *name;
+    /* end basic list */
+    double fleetspeed;
 } fleetname;
 
 /*********/
@@ -197,18 +202,19 @@ typedef struct fleetname {
  * SOURCE
  */
 
-typedef struct shiptype {
-  /* basic list structure */
-  struct shiptype *next;
-  long            cookie;
-  char           *name;
-  /* end basic list */
-  double          drive;
-  int             attacks;
-  double          weapons;
-  double          shields;
-  double          cargo;
-  int             flag;
+typedef struct shiptype
+{
+    /* basic list structure */
+    struct shiptype *next;
+    long cookie;
+    char *name;
+    /* end basic list */
+    double drive;
+    int attacks;
+    double weapons;
+    double shields;
+    double cargo;
+    int flag;
 } shiptype;
 
 /**************/
@@ -243,27 +249,28 @@ typedef struct shiptype {
  * SOURCE
  */
 
-typedef struct planet {
-  /* basic list structure */
-  struct planet  *next;
-  long            cookie;
-  char           *name;
-  /* end basic list */
-  player         *owner;
-  double          x, y;
-  double          size;
-  double          resources;
-  double          pop;
-  double          ind;
-  int             producing;
-  shiptype       *producingshiptype;
-  double          cap;
-  double          mat;
-  double          col;
-  double          inprogress;   /* Production spent in the last turns */
-  double          spent;
-  struct planet  *routes[MAXCARGO];
-  long            flags;
+typedef struct planet
+{
+    /* basic list structure */
+    struct planet *next;
+    long cookie;
+    char *name;
+    /* end basic list */
+    player *owner;
+    double x, y;
+    double size;
+    double resources;
+    double pop;
+    double ind;
+    int producing;
+    shiptype *producingshiptype;
+    double cap;
+    double mat;
+    double col;
+    double inprogress;          /* Production spent in the last turns */
+    double spent;
+    struct planet *routes[MAXCARGO];
+    long flags;
 } planet;
 
 /*********/
@@ -315,32 +322,33 @@ typedef struct planet {
  * SOURCE
  */
 
-typedef struct group {
-  struct group   *next;
-  unsigned long   cookie;
-  char           *name;
-  int             number;
-  shiptype       *type;
-  double          drive;
-  double          weapons;
-  double          shields;
-  double          cargo;
-  int             loadtype;
-  double          load;
-  planet         *from;
-  planet         *where;
-  double          dist;
-  int             ships;
-  int             left;
-  long            flags;
-  fleetname      *thefleet;
-  double          attack;
-  double          defense;
-  int            *canshoot;
-  int            *alive;
-  int             numberOfAttackers;
-  int             numberOfAttackersLeft;
-  planet         *location;
+typedef struct group
+{
+    struct group *next;
+    unsigned long cookie;
+    char *name;
+    int number;
+    shiptype *type;
+    double drive;
+    double weapons;
+    double shields;
+    double cargo;
+    int loadtype;
+    double load;
+    planet *from;
+    planet *where;
+    double dist;
+    int ships;
+    int left;
+    long flags;
+    fleetname *thefleet;
+    double attack;
+    double defense;
+    int *canshoot;
+    int *alive;
+    int numberOfAttackers;
+    int numberOfAttackersLeft;
+    planet *location;
 } group;
 
 /************/
@@ -355,11 +363,12 @@ typedef struct group {
  * SOURCE
  */
 
-typedef struct alliance {
-  struct alliance *next;
-  long            cookie;
-  char           *name;
-  player         *who;
+typedef struct alliance
+{
+    struct alliance *next;
+    long cookie;
+    char *name;
+    player *who;
 } alliance;
 
 /**************/
@@ -374,12 +383,13 @@ typedef struct alliance {
  * SOURCE
  */
 
-typedef struct participant {
-  struct participant *next;
-  long            cookie;
-  char           *name;
-  player         *who;
-  group          *groups;
+typedef struct participant
+{
+    struct participant *next;
+    long cookie;
+    char *name;
+    player *who;
+    group *groups;
 } participant;
 
 /***********/
@@ -393,12 +403,13 @@ typedef struct participant {
  * SOURCE
  */
 
-typedef struct shot {
-  player         *attacker;
-  shiptype       *atype;
-  player         *target;
-  shiptype       *ttype;
-  int             result;
+typedef struct shot
+{
+    player *attacker;
+    shiptype *atype;
+    player *target;
+    shiptype *ttype;
+    int result;
 } shot;
 
 /*********/
@@ -412,10 +423,11 @@ typedef struct shot {
  * SOURCE
  */
 
-typedef struct bprotocol {
-  long            size;         /* maximum size */
-  long            cur;          /* current size */
-  shot           *shots;        /* Array of shots, grows when needed */
+typedef struct bprotocol
+{
+    long size;                  /* maximum size */
+    long cur;                   /* current size */
+    shot *shots;                /* Array of shots, grows when needed */
 } bprotocol;
 
 /*******/
@@ -431,14 +443,15 @@ typedef struct bprotocol {
  * SOURCE
  */
 
-typedef struct battle {
-  struct battle  *next;
-  long            cookie;
-  char           *name;
-  planet         *where;
-  participant    *participants;
-  bprotocol      *protocol;
-  int             phase;        /* Either GF_INBATTLE1 or GF_INBATTLE2 */
+typedef struct battle
+{
+    struct battle *next;
+    long cookie;
+    char *name;
+    planet *where;
+    participant *participants;
+    bprotocol *protocol;
+    int phase;                  /* Either GF_INBATTLE1 or GF_INBATTLE2 */
 } battle;
 
 /**************/
@@ -454,21 +467,22 @@ typedef struct battle {
  * SOURCE
  */
 
-typedef struct bombing {
-  struct bombing *next;
-  long            cookie;
-  char           *name;
-  planet         *where;
-  player         *owner;
-  double          pop;
-  double          ind;
-  int             producing;
-  shiptype       *producingshiptype;
-  double          cap;
-  double          mat;
-  double          col;
-  player         *who;
-  alliance       *viewers;
+typedef struct bombing
+{
+    struct bombing *next;
+    long cookie;
+    char *name;
+    planet *where;
+    player *owner;
+    double pop;
+    double ind;
+    int producing;
+    shiptype *producingshiptype;
+    double cap;
+    double mat;
+    double col;
+    player *who;
+    alliance *viewers;
 } bombing;
 
 /*************/
@@ -483,11 +497,12 @@ typedef struct bombing {
  * SOURCE
  */
 
-typedef struct planet_claim {
-  struct planet_claim *next;
-  long            cookie;
-  char           *name;
-  struct planet  *planet_claimed;
+typedef struct planet_claim
+{
+    struct planet_claim *next;
+    long cookie;
+    char *name;
+    struct planet *planet_claimed;
 } planet_claim;
 
 /******/
@@ -501,9 +516,10 @@ typedef struct planet_claim {
  *   optionMask -- 
  */
 
-typedef struct option {
-  char           *optionName;
-  long            optionMask;
+typedef struct option
+{
+    char *optionName;
+    long optionMask;
 } option;
 
 /******/
@@ -527,42 +543,43 @@ typedef struct option {
  * SOURCE
  */
 
-struct player {
-  player         *next;
-  long            cookie;
-  char           *name;
-  char           *addr;
-  char           *pswd;
-  int             pswdstate;
-  double          drive;
-  double          weapons;
-  double          shields;
-  double          cargo;
-  fleetname      *fleetnames;
-  shiptype       *shiptypes;
-  alliance       *allies;
-  group          *groups;
-  double          mx, my, msize;
-  char           *realName;     /* For in the Hall of Fame */
-  int             team;
-  int             unused3;      /* For future expansion */
-  int             unused4;      /* For future expansion */
-  int             unused5;      /* For future expansion */
-  double          masslost;
-  double          massproduced;
-  int             lastorders;
-  long            flags;
-  strlist        *orders;
-  strlist        *messages;
-  strlist        *mistakes;
-  planet_claim   *claimed_planets;
-  double          totPop;       /* Cache */
-  double          totInd;       /* Cache */
-  double          totCap;       /* Cache */
-  double          totMat;       /* Cache */
-  double          totCol;       /* Cache */
-  int             numberOfPlanets;      /* Cache */
-  int             rating;       /* Used for the high score list */
+struct player
+{
+    player *next;
+    long cookie;
+    char *name;
+    char *addr;
+    char *pswd;
+    int pswdstate;
+    double drive;
+    double weapons;
+    double shields;
+    double cargo;
+    fleetname *fleetnames;
+    shiptype *shiptypes;
+    alliance *allies;
+    group *groups;
+    double mx, my, msize;
+    char *realName;             /* For in the Hall of Fame */
+    int team;
+    int unused3;                /* For future expansion */
+    int unused4;                /* For future expansion */
+    int unused5;                /* For future expansion */
+    double masslost;
+    double massproduced;
+    int lastorders;
+    long flags;
+    strlist *orders;
+    strlist *messages;
+    strlist *mistakes;
+    planet_claim *claimed_planets;
+    double totPop;              /* Cache */
+    double totInd;              /* Cache */
+    double totCap;              /* Cache */
+    double totMat;              /* Cache */
+    double totCol;              /* Cache */
+    int numberOfPlanets;        /* Cache */
+    int rating;                 /* Used for the high score list */
 };
 
 /********/
@@ -614,20 +631,21 @@ struct player {
  * SOURCE
  */
 
-typedef struct server {
-  char* sendmail;		/* the command to email a file */
-  char* GMemail;		/* GM reports go to this address */
-  char* GMname;			/* name the email should appear to be from */
-  char* GMpassword;		/* GM password, for the relay command */
-  char* SERVERemail;		/* Server email */
-  char* SERVERname;		/* name the email should appear to be from */
-  char* ReplyTo;		/* Server replyto */
-  char* compress;		/* the command to compress the body of
-				   an email */ 
-  char* encode;			/* the command to encode the compressed body */
-  char* fontpath;		/* the directory where the fonts are located */
-  char* due;			/* this is used for the -due command */
-  char* tick_interval;		/* this is used for the -immediate command */
+typedef struct server
+{
+    char *sendmail;             /* the command to email a file */
+    char *GMemail;              /* GM reports go to this address */
+    char *GMname;               /* name the email should appear to be from */
+    char *GMpassword;           /* GM password, for the relay command */
+    char *SERVERemail;          /* Server email */
+    char *SERVERname;           /* name the email should appear to be from */
+    char *ReplyTo;              /* Server replyto */
+    char *compress;             /* the command to compress the body of
+                                   an email */
+    char *encode;               /* the command to encode the compressed body */
+    char *fontpath;             /* the directory where the fonts are located */
+    char *due;                  /* this is used for the -due command */
+    char *tick_interval;        /* this is used for the -immediate command */
 } server;
 
 /*******/
@@ -641,13 +659,14 @@ typedef struct server {
  * SOURCE
  */
 
-typedef struct gameOpt {
-	 long   gameOptions;
-	 int	galactic_peace;
-	 double initial_drive;
-	 double initial_weapons;
-	 double initial_shields;
-	 double initial_cargo;
+typedef struct gameOpt
+{
+    long gameOptions;
+    int galactic_peace;
+    double initial_drive;
+    double initial_weapons;
+    double initial_shields;
+    double initial_cargo;
 } gameOpt;
 
 /*******/
@@ -660,33 +679,35 @@ typedef struct gameOpt {
  * SOURCE
  */
 
-typedef struct game {
-  player         *next;
-  long            cookie;
-  char           *name;
-  server          serverOptions;
-  gameOpt         gameOptions;
-  /* the time at which a turn is started, used for sanity check. */
-  char           *starttime;
-  int             turn;
-  double          galaxysize;   /* CB-20010408 */
-  player         *players;      /* list with races */
-  planet         *planets;      /* list with planets */
-  battle         *battles;      /* list with battles */
-  bombing        *bombings;     /* list with bombings */
-  strlist        *messages;     /* list with messages */
+typedef struct game
+{
+    player *next;
+    long cookie;
+    char *name;
+    server serverOptions;
+    gameOpt gameOptions;
+    /* the time at which a turn is started, used for sanity check. */
+    char *starttime;
+    int turn;
+    double galaxysize;          /* CB-20010408 */
+    player *players;            /* list with races */
+    planet *planets;            /* list with planets */
+    battle *battles;            /* list with battles */
+    bombing *bombings;          /* list with bombings */
+    strlist *messages;          /* list with messages */
 } game;
 
 /*******/
 
-typedef struct emailList {
-  /* basic list structure */
-  struct emailList* next;
-  long              cookie;
-  char*             name;
-  /* end basic list */
-  char*             addr;
-  char*             pswd;
+typedef struct emailList
+{
+    /* basic list structure */
+    struct emailList *next;
+    long cookie;
+    char *name;
+    /* end basic list */
+    char *addr;
+    char *pswd;
 } emailList;
 
 
@@ -714,31 +735,31 @@ typedef struct emailList {
 
 
 
-extern char  map[MAPWIDTH][MAPHEIGHT];
-extern char  buf[LINE_BUFFER_SIZE];
-extern char  lineBuffer[2 * LINE_BUFFER_SIZE];
-extern char* galaxynghome;
-extern char* tempdir;
-extern char* productname[];
-extern char* string_mail_to;
-extern char* string_mail_subject;
-extern char* string_mail_from;
+extern char map[MAPWIDTH][MAPHEIGHT];
+extern char buf[LINE_BUFFER_SIZE];
+extern char lineBuffer[2 * LINE_BUFFER_SIZE];
+extern char *galaxynghome;
+extern char *tempdir;
+extern char *productname[];
+extern char *string_mail_to;
+extern char *string_mail_subject;
+extern char *string_mail_from;
 
 /* used in loadgame.c, should be a parameter */
-extern FILE    *turnFile;
+extern FILE *turnFile;
 extern struct option options[];
 
-extern char    *vcreate;
-extern char    vcid[];
-extern char    *vprocess;
-extern char    *vphase;
-extern char    *vreport;
-extern char    *vbattle;
-extern char    *vsavegame;
-extern char    *vloadgame;
-extern int      nbrProducts;
+extern char *vcreate;
+extern char vcid[];
+extern char *vprocess;
+extern char *vphase;
+extern char *vreport;
+extern char *vbattle;
+extern char *vsavegame;
+extern char *vloadgame;
+extern int nbrProducts;
 
-void loadNGConfig(game* aGame);
-int spcLockFile(const char* lfpath);
+void loadNGConfig( game *aGame );
+int spcLockFile( const char *lfpath );
 
-#endif                          /* GNG_GALAXY_H */
+#endif /* GNG_GALAXY_H */
