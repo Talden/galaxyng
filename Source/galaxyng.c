@@ -133,48 +133,24 @@ main( int argc, char **argv )
         usage(  );
     } else if ( strstr( argv[1], "clean" ) ) {
         result = CMD_clean( argc, argv );
-    } else if ( strstr( argv[1], "immediate" ) ) {
-        result = CMD_immediate( argc, argv );
     } else if ( strstr( argv[1], "create" ) ) {
         result = CMD_create( argc, argv );
     } else if ( strstr( argv[1], "dummymail0" ) ) {
         result = CMD_mail0( argc, argv, CMD_CHECK_DUMMY );
-    } else if ( strstr( argv[1], "mail0" ) ) {
-        result = CMD_mail0( argc, argv, CMD_CHECK_REAL );
-    }
-#if 0
-    else if ( strstr( argv[1], "filecheck" ) ) {
-        result = CMD_checkFile( argc, argv, CMD_CHECK_DUMMY );
-    }
-#endif
-    else if ( strstr( argv[1], "dummycheck" ) ) {
+    } else if ( strstr( argv[1], "dummycheck" ) ) {
         result = CMD_check( argc, argv, CMD_CHECK_DUMMY );
-    } else if ( strstr( argv[1], "webcheck" ) ) {
-        result = CMD_webcheck( argc, argv, CMD_CHECK_REAL );
-    } else if ( strstr( argv[1], "check" ) ) {
-        result = CMD_check( argc, argv, CMD_CHECK_REAL );
     } else if ( strstr( argv[1], "dummyrun" ) ) {
         result = CMD_run( argc, argv, CMD_RUN_DUMMY );
-    } else if ( strstr( argv[1], "run" ) ) {
-        result = CMD_run( argc, argv, CMD_RUN_REAL );
     } else if ( strstr( argv[1], "selftest" ) ) {       /* experimental */
         result = CMD_selftest(  );
-    } else if ( strstr( argv[1], "battletest" ) ) {     /* experimental */
-        result = CMD_battletest( argc, argv );
     } else if ( strstr( argv[1], "test" ) ) {   /* experimental */
         result = CMD_test( argc, argv );
-    } else if ( strstr( argv[1], "webreport" ) ) {
-        result = CMD_webreport( argc, argv );
     } else if ( strstr( argv[1], "report" ) ) {
         result = CMD_report( argc, argv );
-    } else if ( strstr( argv[1], "relay" ) ) {
-        result = CMD_relay( argc, argv );
     } else if ( strstr( argv[1], "pscore" ) ) { /* experimental */
         result = CMD_dump( argc, argv, CMD_DUMP_PSCORE );
     } else if ( strstr( argv[1], "score" ) ) {
         result = CMD_score( argc, argv );
-    } else if ( strstr( argv[1], "graph" ) ) {  /* experimental */
-        result = CMD_graph( argc, argv );
     } else if ( strstr( argv[1], "template" ) ) {
         result = CMD_template( argc, argv );
     }
@@ -183,9 +159,7 @@ main( int argc, char **argv )
         result = CMD_influence( argc, argv );
     }
 #endif
-    else if ( strstr( argv[1], "due" ) ) {
-        result = CMD_ordersdue( argc, argv );
-    } else if ( strstr( argv[1], "map" ) ) {
+    else if ( strstr( argv[1], "map" ) ) {
         result = CMD_dump( argc, argv, CMD_DUMP_MAP );
     } else if ( strstr( argv[1], "hall" ) ) {
         result = CMD_dump( argc, argv, CMD_DUMP_HALL );
