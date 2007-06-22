@@ -1,7 +1,7 @@
 #include "galaxy.h"
 
-char            map[MAPWIDTH][MAPHEIGHT];
-char            buf[LINE_BUFFER_SIZE];
+char map[MAPWIDTH][MAPHEIGHT];
+char buf[LINE_BUFFER_SIZE];
 
 /****v* GalaxyNG/lineBuffer
  * NAME
@@ -11,7 +11,7 @@ char            buf[LINE_BUFFER_SIZE];
  * SOURCE
  */
 
-char            lineBuffer[2 * LINE_BUFFER_SIZE];
+char lineBuffer[2 * LINE_BUFFER_SIZE];
 
 /******/
 
@@ -22,15 +22,15 @@ char            lineBuffer[2 * LINE_BUFFER_SIZE];
  * SOURCE
  */
 
-char           *productname[] = {
-  "CAP", "MAT", 0, "Drive", "Weapons", "Shields", "Cargo",
+char *productname[] = {
+    "CAP", "MAT", 0, "Drive", "Weapons", "Shields", "Cargo",
 };
 
 /******/
 
-int             nbrProducts = sizeof(productname) / sizeof(char *);
+int nbrProducts = sizeof( productname ) / sizeof( char * );
 
-FILE           *turnFile = NULL;
+FILE *turnFile = NULL;
 
 
 /******/
@@ -42,7 +42,7 @@ FILE           *turnFile = NULL;
  * SOURCE
  */
 
-char           *galaxynghome = NULL;
+char *galaxynghome = NULL;
 
 /*****/
 
@@ -52,7 +52,7 @@ char           *galaxynghome = NULL;
  * SOURCE
  */
 
-char           *tempdir = NULL;
+char *tempdir = NULL;
 
 /*****/
 
@@ -65,27 +65,27 @@ char           *tempdir = NULL;
  * SOURCE
  */
 
-struct option   options[] = {
-  {"anonymous", F_ANONYMOUS},
-  {"autoUnload", F_AUTOUNLOAD},
-  {"prodTable", F_PRODTABLE},
-  {"sortGroups", F_SORTGROUPS},
-  {"groupForeCast", F_GROUPFORECAST},
-  {"planetForeCast", F_PLANETFORECAST},
-  {"shipTypeForecast", F_SHIPTYPEFORECAST},
-  {"routesForecast", F_ROUTESFORECAST},
-  {"compress", F_COMPRESS},
-  {"gplus", F_GPLUS},
-  {"machineReport", F_MACHINEREPORT},   /* CB 1998 - Experimental */
-  {"battleProtocol", F_BATTLEPROTOCOL},
-  {"xmlReport", F_XMLREPORT},   /* KDW 2003 */
-  {"txtReport", F_TXTREPORT},
-  {NULL, 0}
+struct option options[] = {
+    {"anonymous", F_ANONYMOUS},
+    {"autoUnload", F_AUTOUNLOAD},
+    {"prodTable", F_PRODTABLE},
+    {"sortGroups", F_SORTGROUPS},
+    {"groupForeCast", F_GROUPFORECAST},
+    {"planetForeCast", F_PLANETFORECAST},
+    {"shipTypeForecast", F_SHIPTYPEFORECAST},
+    {"routesForecast", F_ROUTESFORECAST},
+    {"compress", F_COMPRESS},
+    {"gplus", F_GPLUS},
+    {"machineReport", F_MACHINEREPORT}, /* CB 1998 - Experimental */
+    {"battleProtocol", F_BATTLEPROTOCOL},
+    {"xmlReport", F_XMLREPORT}, /* KDW 2003 */
+    {"txtReport", F_TXTREPORT},
+    {NULL, 0}
 };
 
 
-char* string_mail_subject = "subject:"; /* Dutch: onderwerp: */
-char* string_mail_to = "to:";   /* Dutch: aan: */
-char* string_mail_from = "from:";       /* Dutch: van: */
+char *string_mail_subject = "subject:"; /* Dutch: onderwerp: */
+char *string_mail_to = "to:";   /* Dutch: aan: */
+char *string_mail_from = "from:";       /* Dutch: van: */
 
 /**********/

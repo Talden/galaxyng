@@ -133,26 +133,28 @@ getstr( char *s )
  * SOURCE
  */
 
-strlist* makestrlist(char* ns) {
-    strlist* s;
-    strlist* cur;
+strlist *
+makestrlist( char *ns )
+{
+    strlist *s;
+    strlist *cur;
 
-	char* tmp;
-    char* sPtr;
-	char* ePtr;
-	char* sep;
-	
+    char *tmp;
+    char *sPtr;
+    char *ePtr;
+    char *sep;
+
     cur = NULL;
 
-	sPtr = tmp = strdup(ns);
-    sep = ePtr = strpbrk(sPtr, "\n\r");
+    sPtr = tmp = strdup( ns );
+    sep = ePtr = strpbrk( sPtr, "\n\r" );
 
-	if (ePtr == NULL) {
-		cur = (strlist*)allocStruct(strlist);
-		cur->str = tmp;
-		return cur;
-	}
-	
+    if ( ePtr == NULL ) {
+        cur = ( strlist * ) allocStruct( strlist );
+        cur->str = tmp;
+        return cur;
+    }
+
     do {
         if ( cur ) {
             cur->next = ( strlist * ) allocStruct( strlist );
@@ -160,22 +162,22 @@ strlist* makestrlist(char* ns) {
         } else
             s = cur = ( strlist * ) allocStruct( strlist );
 
-		*ePtr = '\0';
+        *ePtr = '\0';
 
         cur->str = strdup( sPtr );
 
-		if (*sep == '\n' && *(ePtr+1) == '\r')
-			sPtr = ePtr + 2;
-		else
-			sPtr = ePtr + 1;
-    } while ((sep = ePtr = strpbrk(sPtr, "\n\r")) != NULL);
+        if ( *sep == '\n' && *( ePtr + 1 ) == '\r' )
+            sPtr = ePtr + 2;
+        else
+            sPtr = ePtr + 1;
+    } while ( ( sep = ePtr = strpbrk( sPtr, "\n\r" ) ) != NULL );
 
-	if (*sPtr != '\0') {
-		cur->next = ( strlist * ) allocStruct( strlist );
-		cur = cur->next;
-		cur->str = strdup(sPtr);
-	}
-		
+    if ( *sPtr != '\0' ) {
+        cur->next = ( strlist * ) allocStruct( strlist );
+        cur = cur->next;
+        cur->str = strdup( sPtr );
+    }
+
     free( tmp );
 
     return s;
@@ -213,10 +215,10 @@ freestrlist( strlist *s )
 }
 
 void
-dumpstrlist(strlist *aStrlist)
+dumpstrlist( strlist *aStrlist )
 {
-    for (; aStrlist; aStrlist = aStrlist->next) { 
-	printf("%s\n", aStrlist->str); 
+    for ( ; aStrlist; aStrlist = aStrlist->next ) {
+        printf( "%s\n", aStrlist->str );
     }
 }
 
@@ -236,12 +238,12 @@ dumpstrlist(strlist *aStrlist)
  */
 
 int
-noCaseStrcmp(const char *s, const char *t)
+noCaseStrcmp( const char *s, const char *t )
 {
-  for (; tolower(*s) == tolower(*t); s++, t++)
-    if (*s == '\0')
-      return 0;
-  return (int) (tolower(*s) - tolower(*t));
+    for ( ; tolower( *s ) == tolower( *t ); s++, t++ )
+        if ( *s == '\0' )
+            return 0;
+    return ( int ) ( tolower( *s ) - tolower( *t ) );
 }
 
 /*********/
@@ -263,26 +265,29 @@ noCaseStrcmp(const char *s, const char *t)
  */
 
 int
-noCaseStrncmp(const char *s, const char *t, int n)
+noCaseStrncmp( const char *s, const char *t, int n )
 {
-  for (n--; (tolower(*s) == tolower(*t)) && (n > 0); s++, t++, n--)
-    if (*s == '\0')
-      return 0;
-  return (int) (tolower(*s) - tolower(*t));
+    for ( n--; ( tolower( *s ) == tolower( *t ) ) && ( n > 0 );
+          s++, t++, n-- )
+        if ( *s == '\0' )
+            return 0;
+    return ( int ) ( tolower( *s ) - tolower( *t ) );
 }
 
 /***********/
 
 
 
-char* strlwr(char* str) {
-  char* ptr = str;
+char *
+strlwr( char *str )
+{
+    char *ptr = str;
 
-  while (*ptr) {
-    if (isupper(*ptr))
-      *ptr = tolower(*ptr);
-    ptr++;
-  }
+    while ( *ptr ) {
+        if ( isupper( *ptr ) )
+            *ptr = tolower( *ptr );
+        ptr++;
+    }
 
-  return str;
+    return str;
 }

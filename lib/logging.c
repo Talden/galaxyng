@@ -2,7 +2,7 @@
 
 static enum DebugLevels debugLevel = DNONE;
 static enum LogLevels logLevel = LNONE;
-static FILE* logFile = NULL;
+static FILE *logFile = NULL;
 
 /****f* logging/pdebug
  * NAME
@@ -19,19 +19,19 @@ static FILE* logFile = NULL;
  *   ...    -- other parameters
  * SOURCE
  */
-    
+
 void
-pdebug(enum DebugLevels level, char *format, ...)
+pdebug( enum DebugLevels level, char *format, ... )
 {
-  va_list         ap;
-    
-  if (level <= debugLevel) {
-    va_start(ap, format);
-    vprintf(format, ap);
-    va_end(ap);
-  }
+    va_list ap;
+
+    if ( level <= debugLevel ) {
+        va_start( ap, format );
+        vprintf( format, ap );
+        va_end( ap );
+    }
 }
-  
+
 /*******/
 
 
@@ -50,22 +50,22 @@ pdebug(enum DebugLevels level, char *format, ...)
  *   ...    -- other parameters
  * SOURCE
  */
-    
-void
-plog(enum LogLevels level, char *format, ...)
-{
-  va_list         ap;
 
-  if (level <= logLevel && logFile) {
-    va_start(ap, format);
-    vfprintf(logFile, format, ap);
-    va_end(ap);
-  }
+void
+plog( enum LogLevels level, char *format, ... )
+{
+    va_list ap;
+
+    if ( level <= logLevel && logFile ) {
+        va_start( ap, format );
+        vfprintf( logFile, format, ap );
+        va_end( ap );
+    }
 }
-    
+
 /**********/
 
-  
+
 /****f* logging/plogtime
  * NAME
  *   plogtime -- write current time and date to the log file.
@@ -75,16 +75,17 @@ plog(enum LogLevels level, char *format, ...)
  */
 
 void
-plogtime(enum LogLevels level)
+plogtime( enum LogLevels level )
 {
-  if (level <= logLevel && logFile) {
-    time_t          ttp;
-    char            timeBuffer[255];
+    if ( level <= logLevel && logFile ) {
+        time_t ttp;
+        char timeBuffer[255];
 
-    time(&ttp);
-    strftime(timeBuffer, 255, "%H:%M:%S %a %b %d %Y\n", localtime(&ttp));
-    fprintf(logFile, "%s", timeBuffer);
-  }
+        time( &ttp );
+        strftime( timeBuffer, 255, "%H:%M:%S %a %b %d %Y\n",
+                  localtime( &ttp ) );
+        fprintf( logFile, "%s", timeBuffer );
+    }
 }
 
 /***********/
@@ -99,7 +100,8 @@ plogtime(enum LogLevels level)
  * SOURCE
  */
 
-enum DebugLevels setDebugLevel(enum DebugLevels level)
+enum DebugLevels
+setDebugLevel( enum DebugLevels level )
 {
     enum DebugLevels lastLevel = debugLevel;
 
@@ -118,7 +120,8 @@ enum DebugLevels setDebugLevel(enum DebugLevels level)
  * SOURCE
  */
 
-enum LogLevels setLogLevel(enum LogLevels level)
+enum LogLevels
+setLogLevel( enum LogLevels level )
 {
     enum LogLevels lastLevel = logLevel;
 
@@ -137,26 +140,25 @@ enum LogLevels setLogLevel(enum LogLevels level)
  */
 
 int
-openLog(char *name, char* mode)
+openLog( char *name, char *mode )
 {
-    if (logFile)
-	fclose(logFile);
-    if ((logFile = fopen(name, mode)) == NULL) {
-	fprintf(stderr, "Could not open log file %s\n", name);
-	return 1;
+    if ( logFile )
+        fclose( logFile );
+    if ( ( logFile = fopen( name, mode ) ) == NULL ) {
+        fprintf( stderr, "Could not open log file %s\n", name );
+        return 1;
     }
-    setvbuf(logFile, NULL, _IONBF, 0);
+    setvbuf( logFile, NULL, _IONBF, 0 );
     return 0;
 }
 
 /**********/
 
 void
-closeLog()
+closeLog(  )
 {
-    if (logFile) {
-	fclose(logFile);
-	logFile = NULL;
+    if ( logFile ) {
+        fclose( logFile );
+        logFile = NULL;
     }
 }
-

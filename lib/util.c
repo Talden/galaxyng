@@ -51,17 +51,17 @@
  *******
  */
 
-FILE           *
-Fopen(char *filename, char *mode)
+FILE *
+Fopen( char *filename, char *mode )
 {
-  FILE           *f;
+    FILE *f;
 
-  f = fopen(filename, mode);
-  if (f == 0) {
-    fprintf(stderr, "Can't open file %s in mode %s\n", filename, mode);
-    exit(1);
-  }
-  return f;
+    f = fopen( filename, mode );
+    if ( f == 0 ) {
+        fprintf( stderr, "Can't open file %s in mode %s\n", filename, mode );
+        exit( 1 );
+    }
+    return f;
 }
 
 
@@ -73,21 +73,21 @@ Fopen(char *filename, char *mode)
  ******
  */
 
-FILE           *
-GOS_fopen(char *filename, char *mode)
+FILE *
+GOS_fopen( char *filename, char *mode )
 {
-  FILE           *f;
+    FILE *f;
 
 #ifdef WIN32
-  char           *c;
+    char *c;
 
-  for (c = filename; *c; c++) {
-    if (*c == '/')
-      *c = '\\';
-  }
+    for ( c = filename; *c; c++ ) {
+        if ( *c == '/' )
+            *c = '\\';
+    }
 #endif
-  f = fopen(filename, mode);
-  return f;
+    f = fopen( filename, mode );
+    return f;
 }
 
 /****f* Util/GOS_mkdir
@@ -99,16 +99,16 @@ GOS_fopen(char *filename, char *mode)
  */
 
 int
-GOS_mkdir(char *pathname, int mode)
+GOS_mkdir( char *pathname, int mode )
 {
-  int             res;
+    int res;
 
 #ifdef WIN32
-  res = mkdir(pathname);
+    res = mkdir( pathname );
 #else
-  res = mkdir(pathname, mode);
-#endif                          /* WIN32 */
-  return res;
+    res = mkdir( pathname, mode );
+#endif /* WIN32 */
+    return res;
 }
 
 /****f* Util/GOS_copy
@@ -118,31 +118,31 @@ GOS_mkdir(char *pathname, int mode)
  */
 
 int
-GOS_copy(char *fromfile, char *tofile)
+GOS_copy( char *fromfile, char *tofile )
 {
-  int             res;
+    int res;
 
-  char           *c;
+    char *c;
 #ifdef WIN32
 
-  for (c = fromfile; *c; c++) {
-    if (*c == '/')
-      *c = '\\';
-  }
-  for (c = tofile; *c; c++) {
-    if (*c == '/')
-      *c = '\\';
-  }
-  res = ssystem("copy %s %s", fromfile, tofile);
+    for ( c = fromfile; *c; c++ ) {
+        if ( *c == '/' )
+            *c = '\\';
+    }
+    for ( c = tofile; *c; c++ ) {
+        if ( *c == '/' )
+            *c = '\\';
+    }
+    res = ssystem( "copy %s %s", fromfile, tofile );
 #else
-  for (c = tofile; *c; c++) {
-    if (*c == ' ')
-      *c = '_';
-  }
-  plog(LBRIEF, "cp %s %s\n", fromfile, tofile);
-  res = ssystem("cp %s %s", fromfile, tofile);
+    for ( c = tofile; *c; c++ ) {
+        if ( *c == ' ' )
+            *c = '_';
+    }
+    plog( LBRIEF, "cp %s %s\n", fromfile, tofile );
+    res = ssystem( "cp %s %s", fromfile, tofile );
 #endif
-  return res;
+    return res;
 }
 
 /****f* Util/GOS_delete
@@ -152,22 +152,22 @@ GOS_copy(char *fromfile, char *tofile)
  */
 
 int
-GOS_delete(char *filename)
+GOS_delete( char *filename )
 {
-  int             res;
+    int res;
 
 #ifdef WIN32
-  char           *c;
+    char *c;
 
-  for (c = filename; *c; c++) {
-    if (*c == '/')
-      *c = '\\';
-  }
-  res = ssystem("del %s", filename);
+    for ( c = filename; *c; c++ ) {
+        if ( *c == '/' )
+            *c = '\\';
+    }
+    res = ssystem( "del %s", filename );
 #else
-  res = ssystem("rm %s", filename);
+    res = ssystem( "rm %s", filename );
 #endif
-  return res;
+    return res;
 }
 
 /****f* Util/GOS_copy
@@ -190,17 +190,17 @@ GOS_delete(char *filename)
  * SOURCE
  */
 
-void           *
-alloc(unsigned int n)
+void *
+alloc( unsigned int n )
 {
-  void           *p;
+    void *p;
 
-  p = malloc(n);
-  if (p == 0) {
-    printf("Out of memory\n");
-    exit(1);
-  }
-  return p;
+    p = malloc( n );
+    if ( p == 0 ) {
+        printf( "Out of memory\n" );
+        exit( 1 );
+    }
+    return p;
 }
 
 /************/
@@ -222,20 +222,20 @@ alloc(unsigned int n)
  * SOURCE
  */
 
-planet         *
-addplanet(game *aGame)
+planet *
+addplanet( game *aGame )
 {
-  planet         *p;
-  int             i;
-  char            name[20];
+    planet *p;
+    int i;
+    char name[20];
 
-  for (p = aGame->planets, i = 1; p; p = p->next, i++);
-  p = allocStruct(planet);
+    for ( p = aGame->planets, i = 1; p; p = p->next, i++ );
+    p = allocStruct( planet );
 
-  addList(&(aGame->planets), p);
-  sprintf(name, "%d", i);
-  setName(p, name);
-  return p;
+    addList( &( aGame->planets ), p );
+    sprintf( name, "%d", i );
+    setName( p, name );
+    return p;
 }
 
 /*************/
@@ -253,26 +253,25 @@ addplanet(game *aGame)
  */
 
 int
-atwar(player *P, player *P2)
+atwar( player *P, player *P2 )
 {
-  alliance       *a;
-  int  retVal = 1;
+    alliance *a;
+    int retVal = 1;
 
-  plog(LFULL, "atwar(%s, %s) ", P->name, P2->name);
-  if (P == P2) {
-    retVal = 0;
-  }
-  else {
-    for (a = P->allies; a; a = a->next)
-      if (a->who == P2) {
-	retVal = 0;
-	break;
-      }
-  }
+    plog( LFULL, "atwar(%s, %s) ", P->name, P2->name );
+    if ( P == P2 ) {
+        retVal = 0;
+    } else {
+        for ( a = P->allies; a; a = a->next )
+            if ( a->who == P2 ) {
+                retVal = 0;
+                break;
+            }
+    }
 
-  plog(LFULL, "returning %s\n", retVal == 0 ? "no" : "yes");
+    plog( LFULL, "returning %s\n", retVal == 0 ? "no" : "yes" );
 
-  return retVal;
+    return retVal;
 }
 
 /**********/
@@ -290,13 +289,14 @@ atwar(player *P, player *P2)
  */
 
 double
-weaponmass(shiptype *t)
+weaponmass( shiptype *t )
 {
-  double          res;
+    double res;
 
-  res = (t->attacks ? t->weapons : 0) +
-      ((t->attacks > 1) ? ((t->attacks - 1) * 0.5 * t->weapons) : 0);
-  return res;
+    res = ( t->attacks ? t->weapons : 0 ) +
+        ( ( t->attacks >
+            1 ) ? ( ( t->attacks - 1 ) * 0.5 * t->weapons ) : 0 );
+    return res;
 }
 
 /**********/
@@ -316,26 +316,26 @@ weaponmass(shiptype *t)
  */
 
 double
-typemass(shiptype *t)
+typemass( shiptype *t )
 {
-  double          res;
+    double res;
 
-  res = t->drive + weaponmass(t) + t->shields + t->cargo;
-  return res;
+    res = t->drive + weaponmass( t ) + t->shields + t->cargo;
+    return res;
 }
 
 /***********/
 
 
 double
-calcdefense(group *target)
+calcdefense( group *target )
 {
-  double          res;
+    double res;
 
-  res = target->type->shields * target->shields * BATTLEMAGIC /
-      pow(shipmass(target), .333333333333333);
+    res = target->type->shields * target->shields * BATTLEMAGIC /
+        pow( shipmass( target ), .333333333333333 );
 
-  return res;
+    return res;
 }
 
 
@@ -346,17 +346,17 @@ calcdefense(group *target)
  ***/
 
 int
-cankill(group *attack, group *target)
+cankill( group *attack, group *target )
 {
-  double          defense, ratio;
+    double defense, ratio;
 
-  if (!attack->type->attacks)
-    return 0;
-  defense = calcdefense(target);
-  if (!defense)
-    return 1;
-  ratio = attack->weapons * attack->type->weapons / defense;
-  return ratio > .251;
+    if ( !attack->type->attacks )
+        return 0;
+    defense = calcdefense( target );
+    if ( !defense )
+        return 1;
+    ratio = attack->weapons * attack->type->weapons / defense;
+    return ratio > .251;
 }
 
 
@@ -370,14 +370,14 @@ cankill(group *attack, group *target)
  */
 
 double
-cargospace(group *g)
+cargospace( group *g )
 {
-  double          size;
-  double          res;
+    double size;
+    double res;
 
-  size = g->type->cargo;
-  res = g->cargo * size * (1 + size / 10.0);
-  return res;
+    size = g->type->cargo;
+    res = g->cargo * size * ( 1 + size / 10.0 );
+    return res;
 }
 
 /********/
@@ -397,12 +397,12 @@ cargospace(group *g)
  */
 
 double
-typeSpeed(shiptype *t)
+typeSpeed( shiptype *t )
 {
-  double          res;
+    double res;
 
-  res = t->drive * DRIVEMAGIC / typemass(t);
-  return res;
+    res = t->drive * DRIVEMAGIC / typemass( t );
+    return res;
 }
 
 /**********/
@@ -424,12 +424,12 @@ typeSpeed(shiptype *t)
  */
 
 double
-typeDefense(shiptype *t)
+typeDefense( shiptype *t )
 {
-  double          res;
+    double res;
 
-  res = t->shields * BATTLEMAGIC / pow(typemass(t), .333333333333333);
-  return res;
+    res = t->shields * BATTLEMAGIC / pow( typemass( t ), .333333333333333 );
+    return res;
 }
 
 /********/
@@ -450,13 +450,13 @@ typeDefense(shiptype *t)
  */
 
 double
-groupDefense(group *g)
+groupDefense( group *g )
 {
-  double          res;
+    double res;
 
-  res = g->type->shields * g->shields *
-      BATTLEMAGIC / pow(shipmass(g), .333333333333333);
-  return res;
+    res = g->type->shields * g->shields *
+        BATTLEMAGIC / pow( shipmass( g ), .333333333333333 );
+    return res;
 }
 
 /***********/
@@ -474,12 +474,12 @@ groupDefense(group *g)
  */
 
 double
-groupAttack(group *g)
+groupAttack( group *g )
 {
-  double          res;
+    double res;
 
-  res = g->weapons * g->type->weapons;
-  return res;
+    res = g->weapons * g->type->weapons;
+    return res;
 }
 
 /**********/
@@ -499,16 +499,16 @@ groupAttack(group *g)
  */
 
 double
-shipmass(group *g)
+shipmass( group *g )
 {
-  double          l;
-  double          res;
+    double l;
+    double res;
 
-  l = g->load;
-  if (g->cargo)
-    l /= g->cargo;
-  res = typemass(g->type) + l;
-  return res;
+    l = g->load;
+    if ( g->cargo )
+        l /= g->cargo;
+    res = typemass( g->type ) + l;
+    return res;
 }
 
 /**********/
@@ -527,12 +527,12 @@ shipmass(group *g)
  */
 
 double
-effectiveIndustry(double pop, double ind)
+effectiveIndustry( double pop, double ind )
 {
-  double          res;
+    double res;
 
-  res = (pop - ind) / 4.0 + ind;
-  return res;
+    res = ( pop - ind ) / 4.0 + ind;
+    return res;
 }
 
 /*********/
@@ -550,12 +550,12 @@ effectiveIndustry(double pop, double ind)
  */
 
 double
-groupSpeed(group *g)
+groupSpeed( group *g )
 {
-  double          res;
+    double res;
 
-  res = g->type->drive * g->drive * DRIVEMAGIC / shipmass(g);
-  return res;
+    res = g->type->drive * g->drive * DRIVEMAGIC / shipmass( g );
+    return res;
 }
 
 /*********/
@@ -581,27 +581,27 @@ groupSpeed(group *g)
  */
 
 double
-fleetSpeed(fleetname *fl, group *g)
+fleetSpeed( fleetname *fl, group *g )
 {                               /* CB-19980922 */
-  double          res = 0, tmp;
-  group          *g2;
+    double res = 0, tmp;
+    group *g2;
 
-  /* FS Mon Oct 12 14:39:11 MEST 1998 Sometimes people have fleets with *
-   * * * * * * * * * * ships of speed 0.0 */
-  for (g2 = g; g2; g2 = g2->next) {
-    if (g2->thefleet == fl) {
-      res = groupSpeed(g2);
-      break;
+    /* FS Mon Oct 12 14:39:11 MEST 1998 Sometimes people have fleets with *
+     * * * * * * * * * * ships of speed 0.0 */
+    for ( g2 = g; g2; g2 = g2->next ) {
+        if ( g2->thefleet == fl ) {
+            res = groupSpeed( g2 );
+            break;
+        }
     }
-  }
-  for (; g2; g2 = g2->next) {
-    if (g2->thefleet == fl) {
-      tmp = groupSpeed(g2);
-      if (tmp <= res)
-        res = tmp;
+    for ( ; g2; g2 = g2->next ) {
+        if ( g2->thefleet == fl ) {
+            tmp = groupSpeed( g2 );
+            if ( tmp <= res )
+                res = tmp;
+        }
     }
-  }
-  return res;
+    return res;
 }
 
 /**********/
@@ -627,19 +627,19 @@ fleetSpeed(fleetname *fl, group *g)
  */
 
 int
-numOfGroupsInFleet(fleetname *fl, group *g)
+numOfGroupsInFleet( fleetname *fl, group *g )
 {
-  group          *g2;
-  int             count;
+    group *g2;
+    int count;
 
-  count = 0;
-  for (g2 = g; g2; g2 = g2->next) {
-    if (g2->thefleet == fl) {
-      count++;
+    count = 0;
+    for ( g2 = g; g2; g2 = g2->next ) {
+        if ( g2->thefleet == fl ) {
+            count++;
+        }
     }
-  }
 
-  return count;
+    return count;
 }
 
 /***********/
@@ -654,33 +654,33 @@ numOfGroupsInFleet(fleetname *fl, group *g)
  */
 
 double
-dist(game *aGame, planet *p1, planet *p2)
+dist( game *aGame, planet *p1, planet *p2 )
 {
-  double          dx, dy;
-  double          res;
-  double          x1, x2, y1, y2, s1, s2;
+    double dx, dy;
+    double res;
+    double x1, x2, y1, y2, s1, s2;
 
-  x1 = p1->x;
-  x2 = p2->x;
-  y1 = p1->y;
-  y2 = p2->y;
+    x1 = p1->x;
+    x2 = p2->x;
+    y1 = p1->y;
+    y2 = p2->y;
 
-  dx = fabs(x1 - x2);
-  dy = fabs(y1 - y2);
+    dx = fabs( x1 - x2 );
+    dy = fabs( y1 - y2 );
 
-  if (aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY) {  /* CB-20010401 
-                                                                 * ; see
-                                                                 * galaxy.h 
-                                                                 */
-    s1 = aGame->galaxysize;
-    s2 = aGame->galaxysize / 2.0;
+    if ( aGame->gameOptions.gameOptions & GAME_SPHERICALGALAXY ) {      /* CB-20010401 
+                                                                         * ; see
+                                                                         * galaxy.h 
+                                                                         */
+        s1 = aGame->galaxysize;
+        s2 = aGame->galaxysize / 2.0;
 
-    dx = (dx < s2) ? dx : s1 - dx;
-    dy = (dy < s2) ? dy : s1 - dy;
-  }
+        dx = ( dx < s2 ) ? dx : s1 - dx;
+        dy = ( dy < s2 ) ? dy : s1 - dy;
+    }
 
-  res = sqrt(dx * dx + dy * dy);
-  return res;
+    res = sqrt( dx * dx + dy * dy );
+    return res;
 }
 
 /********/
@@ -696,15 +696,15 @@ dist(game *aGame, planet *p1, planet *p2)
  */
 
 void
-putmap(mapdimensions *md, double x, double y, int c)
+putmap( mapdimensions *md, double x, double y, int c )
 {
-  int             ix, iy;
+    int ix, iy;
 
-  ix = (x - md->x1) / (md->x2 - md->x1) * MAPWIDTH;
-  iy = (y - md->y1) / (md->y2 - md->y1) * MAPHEIGHT;
-  if (ix < 0 || ix >= MAPWIDTH || iy < 0 || iy >= MAPHEIGHT)
-    return;
-  map[ix][iy] = c;
+    ix = ( x - md->x1 ) / ( md->x2 - md->x1 ) * MAPWIDTH;
+    iy = ( y - md->y1 ) / ( md->y2 - md->y1 ) * MAPHEIGHT;
+    if ( ix < 0 || ix >= MAPWIDTH || iy < 0 || iy >= MAPHEIGHT )
+        return;
+    map[ix][iy] = c;
 }
 
 /********/
@@ -722,11 +722,11 @@ putmap(mapdimensions *md, double x, double y, int c)
  */
 
 void
-send(game *aGame, group *g, planet *p)
+send( game *aGame, group *g, planet *p )
 {
-	g->from = g->where;
-	g->where = p;
-	g->dist = dist(aGame, p, g->from);
+    g->from = g->where;
+    g->where = p;
+    g->dist = dist( aGame, p, g->from );
 }
 
 /*********/
@@ -746,14 +746,14 @@ send(game *aGame, group *g, planet *p)
  */
 
 void
-recall(game *aGame, group *g)
+recall( game *aGame, group *g )
 {                               /* CB-19980923 */
-  planet         *p2;
+    planet *p2;
 
-  g->dist = dist(aGame, g->from, g->where) - g->dist;
-  p2 = g->from;
-  g->from = g->where;
-  g->where = p2;
+    g->dist = dist( aGame, g->from, g->where ) - g->dist;
+    p2 = g->from;
+    g->from = g->where;
+    g->where = p2;
 }
 
 /**********/
@@ -773,26 +773,26 @@ recall(game *aGame, group *g)
  */
 
 void
-setproduction(game *aGame, planet *p, int t)
+setproduction( game *aGame, planet *p, int t )
 {
-  double          perccomp;
-  double          mass;
-  double          theshipmass;
-  double          prog;
+    double perccomp;
+    double mass;
+    double theshipmass;
+    double prog;
 
-  if (p->producing == PR_SHIP) {
-    theshipmass = typemass(p->producingshiptype);
-    mass = theshipmass * INDPERSHIP;
-    prog = p->inprogress;
-    if (theshipmass > p->mat)
-      mass += (theshipmass - p->mat) / p->resources;
-    perccomp = prog / mass;
-    p->mat += typemass(p->producingshiptype) * perccomp;
-  }
-  if (!(aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION))
-    p->inprogress = 0;
-  p->producing = t;
-  p->producingshiptype = 0;
+    if ( p->producing == PR_SHIP ) {
+        theshipmass = typemass( p->producingshiptype );
+        mass = theshipmass * INDPERSHIP;
+        prog = p->inprogress;
+        if ( theshipmass > p->mat )
+            mass += ( theshipmass - p->mat ) / p->resources;
+        perccomp = prog / mass;
+        p->mat += typemass( p->producingshiptype ) * perccomp;
+    }
+    if ( !( aGame->gameOptions.gameOptions & GAME_KEEPPRODUCTION ) )
+        p->inprogress = 0;
+    p->producing = t;
+    p->producingshiptype = 0;
 }
 
 /********/
@@ -813,18 +813,18 @@ setproduction(game *aGame, planet *p, int t)
  */
 
 double
-groupx(game *aGame, group *g)
+groupx( game *aGame, group *g )
 {
-  double          dx, ratio, dis;
-  double          res;
+    double dx, ratio, dis;
+    double res;
 
-  dis = dist(aGame, g->from, g->where);
-  if (!dis)
-    return g->where->x;
-  dx = g->where->x - g->from->x;
-  ratio = g->dist / dis;
-  res = g->where->x - ratio * dx;
-  return res;
+    dis = dist( aGame, g->from, g->where );
+    if ( !dis )
+        return g->where->x;
+    dx = g->where->x - g->from->x;
+    ratio = g->dist / dis;
+    res = g->where->x - ratio * dx;
+    return res;
 }
 
 /*********/
@@ -846,18 +846,18 @@ groupx(game *aGame, group *g)
 
 
 double
-groupy(game *aGame, group *g)
+groupy( game *aGame, group *g )
 {
-  double          dy, ratio, dis;
-  double          res;
+    double dy, ratio, dis;
+    double res;
 
-  dis = dist(aGame, g->from, g->where);
-  if (!dis)
-    return g->where->y;
-  dy = g->where->y - g->from->y;
-  ratio = g->dist / dis;
-  res = g->where->y - ratio * dy;
-  return res;
+    dis = dist( aGame, g->from, g->where );
+    if ( !dis )
+        return g->where->y;
+    dy = g->where->y - g->from->y;
+    ratio = g->dist / dis;
+    res = g->where->y - ratio * dy;
+    return res;
 }
 
 /*********/
@@ -873,49 +873,49 @@ groupy(game *aGame, group *g)
  */
 
 void
-freebattles(game *aGame)
+freebattles( game *aGame )
 {
 
-  battle         *b, *b2;
-  bombing        *B, *B2;
-  participant    *r, *r2;
+    battle *b, *b2;
+    bombing *B, *B2;
+    participant *r, *r2;
 
-  pdebug(DFULL, "freebattles\n");
+    pdebug( DFULL, "freebattles\n" );
 
-  b = aGame->battles;
-  while (b) {
-    validateStruct(battle, b);
+    b = aGame->battles;
+    while ( b ) {
+        validateStruct( battle, b );
 
-    r = b->participants;
-    while (r) {
-      freelist(r->groups);
-      r2 = r->next;
-      free(r);
-      r = r2;
+        r = b->participants;
+        while ( r ) {
+            freelist( r->groups );
+            r2 = r->next;
+            free( r );
+            r = r2;
+        }
+        if ( b->protocol ) {
+            free( b->protocol->shots );
+            free( b->protocol );
+        }
+        free( b->name );
+        b2 = b->next;
+        free( b );
+        b = b2;
     }
-    if (b->protocol) {
-      free(b->protocol->shots);
-      free(b->protocol);
+
+    B = aGame->bombings;
+    while ( B ) {
+        validateStruct( bombing, B );
+
+        freelist( B->viewers );
+        B2 = B->next;
+        free( B->name );
+        free( B );
+        B = B2;
     }
-    free(b->name);
-    b2 = b->next;
-    free(b);
-    b = b2;
-  }
 
-  B = aGame->bombings;
-  while (B) {
-    validateStruct(bombing, B);
-
-    freelist(B->viewers);
-    B2 = B->next;
-    free(B->name);
-    free(B);
-    B = B2;
-  }
-
-  aGame->battles = NULL;
-  aGame->bombings = NULL;
+    aGame->battles = NULL;
+    aGame->bombings = NULL;
 
 }
 
@@ -934,45 +934,45 @@ freebattles(game *aGame)
  */
 
 void
-freegame(game *aGame)
+freegame( game *aGame )
 {
-  player         *aPlayer, *P2;
+    player *aPlayer, *P2;
 
-  pdebug(DFULL, "freegame()\n");
+    pdebug( DFULL, "freegame()\n" );
 
-  freelist(aGame->planets);
-  aPlayer = aGame->players;
-  while (aPlayer) {
-    pdebug(DFULL, "freegame : freeing player %s\n", aPlayer->name);
-    freelist(aPlayer->shiptypes);
-    freelist(aPlayer->allies);
-    freelist(aPlayer->groups);
-    freelist(aPlayer->fleetnames);
-    pdebug(DFULL, "free game : P->orders\n");
-    freestrlist(aPlayer->orders);
-    pdebug(DFULL, "free game : P->messages\n");
-    freestrlist(aPlayer->messages);
-    pdebug(DFULL, "free game : P->mistakes\n");
-    freestrlist(aPlayer->mistakes);
-    free(aPlayer->name);
-    free(aPlayer->realName);
-    free(aPlayer->addr);
-    free(aPlayer->pswd);
-    P2 = aPlayer->next;
-    free(aPlayer);
-    aPlayer = P2;
-  }
-  pdebug(DFULL, "free game : messages\n");
-  freestrlist(aGame->messages);
-  pdebug(DFULL, "free game : battles\n");
-  freebattles(aGame);
-  aGame->battles = NULL;
-  aGame->planets = NULL;
-  aGame->players = NULL;
-  aGame->messages = NULL;
-  freeDefaults(aGame);
-  free(aGame->name);
-  free(aGame);
+    freelist( aGame->planets );
+    aPlayer = aGame->players;
+    while ( aPlayer ) {
+        pdebug( DFULL, "freegame : freeing player %s\n", aPlayer->name );
+        freelist( aPlayer->shiptypes );
+        freelist( aPlayer->allies );
+        freelist( aPlayer->groups );
+        freelist( aPlayer->fleetnames );
+        pdebug( DFULL, "free game : P->orders\n" );
+        freestrlist( aPlayer->orders );
+        pdebug( DFULL, "free game : P->messages\n" );
+        freestrlist( aPlayer->messages );
+        pdebug( DFULL, "free game : P->mistakes\n" );
+        freestrlist( aPlayer->mistakes );
+        free( aPlayer->name );
+        free( aPlayer->realName );
+        free( aPlayer->addr );
+        free( aPlayer->pswd );
+        P2 = aPlayer->next;
+        free( aPlayer );
+        aPlayer = P2;
+    }
+    pdebug( DFULL, "free game : messages\n" );
+    freestrlist( aGame->messages );
+    pdebug( DFULL, "free game : battles\n" );
+    freebattles( aGame );
+    aGame->battles = NULL;
+    aGame->planets = NULL;
+    aGame->players = NULL;
+    aGame->messages = NULL;
+    freeDefaults( aGame );
+    free( aGame->name );
+    free( aGame );
 }
 
 
@@ -986,10 +986,10 @@ freegame(game *aGame)
  */
 
 void
-dumpGame(void)
+dumpGame( void )
 {
-  /* 
-   * dumpPlanets(planets);  dumpPlayers(players); */
+    /* 
+     * dumpPlanets(planets);  dumpPlayers(players); */
 }
 
 /****i* Util/dumpPlanets
@@ -999,16 +999,16 @@ dumpGame(void)
  */
 
 void
-dumpPlanets(planet *aPlanet)
+dumpPlanets( planet *aPlanet )
 {
-  /* 
-   * for (; aPlanet; aPlanet = aPlanet->next) { printf("%s %.2f %.2f %.2f
-   * %.2f %.2f %.2f ", aPlanet->name, aPlanet->x, aPlanet->y, aPlanet->size, 
-   * aPlanet->resources, aPlanet->pop, aPlanet->ind); printf(" %.2f %.2f
-   * %.2f %.2f ", aPlanet->cap, aPlanet->mat, aPlanet->col,
-   * aPlanet->inprogress); if (aPlanet->owner) { printf("%d ",
-   * ptonum(players, aPlanet->owner)); printf("%s\n", aPlanet->owner->name);
-   * } else printf("0 none\n"); } */
+    /* 
+     * for (; aPlanet; aPlanet = aPlanet->next) { printf("%s %.2f %.2f %.2f
+     * %.2f %.2f %.2f ", aPlanet->name, aPlanet->x, aPlanet->y, aPlanet->size, 
+     * aPlanet->resources, aPlanet->pop, aPlanet->ind); printf(" %.2f %.2f
+     * %.2f %.2f ", aPlanet->cap, aPlanet->mat, aPlanet->col,
+     * aPlanet->inprogress); if (aPlanet->owner) { printf("%d ",
+     * ptonum(players, aPlanet->owner)); printf("%s\n", aPlanet->owner->name);
+     * } else printf("0 none\n"); } */
 
 }
 
@@ -1019,12 +1019,12 @@ dumpPlanets(planet *aPlanet)
  */
 
 void
-dumpPlayers(player *aPlayer)
+dumpPlayers( player *aPlayer )
 {
-  /* 
-   * for (; aPlayer; aPlayer = aPlayer->next) { printf("%s\n",
-   * aPlayer->name); dumpStrList(aPlayer->messages);
-   * dumpStrList(aPlayer->mistakes); } */
+    /* 
+     * for (; aPlayer; aPlayer = aPlayer->next) { printf("%s\n",
+     * aPlayer->name); dumpStrList(aPlayer->messages);
+     * dumpStrList(aPlayer->mistakes); } */
 }
 
 
@@ -1040,23 +1040,22 @@ dumpPlayers(player *aPlayer)
  */
 
 int
-ssystem(char *format, ...)
+ssystem( char *format, ... )
 {
-  int             res;
-  va_list         ap;
+    int res;
+    va_list ap;
 
-  va_start(ap, format);
-  vsprintf(lineBuffer, format, ap);
-  res = system(lineBuffer);
+    va_start( ap, format );
+    vsprintf( lineBuffer, format, ap );
+    res = system( lineBuffer );
 
-  if (res != 0) {
-    plog(LBRIEF, "%s returned %d\n", lineBuffer, res);
-  }
-  else {
-    plog(LPART, "ran %s\n", lineBuffer);
-  }
-  va_end(ap);
-  return res;
+    if ( res != 0 ) {
+        plog( LBRIEF, "%s returned %d\n", lineBuffer, res );
+    } else {
+        plog( LPART, "ran %s\n", lineBuffer );
+    }
+    va_end( ap );
+    return res;
 }
 
 /**********/
@@ -1076,21 +1075,21 @@ ssystem(char *format, ...)
  * SOURCE
  */
 
-char           *
-createString(char *format, ...)
+char *
+createString( char *format, ... )
 {
-  int             n;
-  va_list         ap;
+    int n;
+    va_list ap;
 
-  va_start(ap, format);
+    va_start( ap, format );
 #ifdef WIN32
-  vsprintf(lineBuffer, format, ap);
+    vsprintf( lineBuffer, format, ap );
 #else
-  n = vsnprintf(lineBuffer, LINE_BUFFER_SIZE, format, ap);
-  assert(n != -1);
+    n = vsnprintf( lineBuffer, LINE_BUFFER_SIZE, format, ap );
+    assert( n != -1 );
 #endif
-  va_end(ap);
-  return strdup(lineBuffer);
+    va_end( ap );
+    return strdup( lineBuffer );
 }
 
 /************/
@@ -1117,24 +1116,24 @@ createString(char *format, ...)
  */
 
 void
-savefprintf(FILE * f, char *format, ...)
+savefprintf( FILE *f, char *format, ... )
 {
-  int             error;
-  va_list         ap;
+    int error;
+    va_list ap;
 
-  va_start(ap, format);
-  error = vfprintf(f, format, ap);
-  if (error < 0) {
-    fprintf(stderr, "Galaxyng: write to file failed!\n");
-    plogtime(LNONE);
-    plog(LFULL, "Galaxyng: write to file failed!\n");
-    printf("Subject: Error\n");
-    printf("\nThere was a serious error, your orders are lost.\n");
-    printf("\nPlease Contact your game master\n");
-    closeLog();
-    abort();
-  }
-  va_end(ap);
+    va_start( ap, format );
+    error = vfprintf( f, format, ap );
+    if ( error < 0 ) {
+        fprintf( stderr, "Galaxyng: write to file failed!\n" );
+        plogtime( LNONE );
+        plog( LFULL, "Galaxyng: write to file failed!\n" );
+        printf( "Subject: Error\n" );
+        printf( "\nThere was a serious error, your orders are lost.\n" );
+        printf( "\nPlease Contact your game master\n" );
+        closeLog(  );
+        abort(  );
+    }
+    va_end( ap );
 }
 
 
@@ -1149,18 +1148,18 @@ savefprintf(FILE * f, char *format, ...)
  */
 
 int
-canseegroup(player *P, group *g)
+canseegroup( player *P, group *g )
 {
-  group          *g2;
+    group *g2;
 
-  if (g->dist)
+    if ( g->dist )
+        return 0;
+    if ( g->where->owner == P )
+        return 1;
+    for ( g2 = P->groups; g2; g2 = g2->next )
+        if ( !g2->dist && g2->where == g->where )
+            return 1;
     return 0;
-  if (g->where->owner == P)
-    return 1;
-  for (g2 = P->groups; g2; g2 = g2->next)
-    if (!g2->dist && g2->where == g->where)
-      return 1;
-  return 0;
 }
 
 /********/
@@ -1177,16 +1176,16 @@ canseegroup(player *P, group *g)
  */
 
 int
-canseeplanet(player *P, planet *p)
+canseeplanet( player *P, planet *p )
 {
-  group          *g;
+    group *g;
 
-  if (p->owner == P)
-    return 1;
-  for (g = P->groups; g; g = g->next)
-    if (g->dist == 0 && g->where == p)
-      return 1;
-  return 0;
+    if ( p->owner == P )
+        return 1;
+    for ( g = P->groups; g; g = g->next )
+        if ( g->dist == 0 && g->where == p )
+            return 1;
+    return 0;
 }
 
 /******/
@@ -1211,9 +1210,9 @@ canseeplanet(player *P, planet *p)
  */
 
 int
-isunidentified(player *P, planet *p)
+isunidentified( player *P, planet *p )
 {
-  return (p->owner != NULL && p->owner != P && !canseeplanet(P, p));
+    return ( p->owner != NULL && p->owner != P && !canseeplanet( P, p ) );
 }
 
 /*********/
@@ -1234,9 +1233,9 @@ isunidentified(player *P, planet *p)
  */
 
 int
-isuninhabited(player *P, planet *p)
+isuninhabited( player *P, planet *p )
 {
-  return (p->owner == NULL);
+    return ( p->owner == NULL );
 }
 
 /********/
@@ -1256,17 +1255,17 @@ isuninhabited(player *P, planet *p)
  * SOURCE
  */
 
-planet         *
-groupLocation(game *aGame, group *g)
+planet *
+groupLocation( game *aGame, group *g )
 {
-  planet         *p;
+    planet *p;
 
-  p = NULL;
-  if (g->dist eq 0)
-    p = g->where;
-  else if (g->dist eq dist(aGame, g->where, g->from))
-    p = g->from;
-  return p;
+    p = NULL;
+    if ( g->dist eq 0 )
+        p = g->where;
+    else if ( g->dist eq dist( aGame, g->where, g->from ) )
+        p = g->from;
+    return p;
 }
 
 /**********/
@@ -1285,13 +1284,13 @@ groupLocation(game *aGame, group *g)
  */
 
 double
-round2(double f)
+round2( double f )
 {
-  int             i;
+    int i;
 
-  i = f * 100.0;
-  f = i / 100.0;
-  return f;
+    i = f * 100.0;
+    f = i / 100.0;
+    return f;
 }
 
 /********/
@@ -1307,13 +1306,13 @@ round2(double f)
  */
 
 double
-roundup2(double f)
+roundup2( double f )
 {
-  int             i;
+    int i;
 
-  i = (f + 0.005) * 100.0;
-  f = i / 100.0;
-  return f;
+    i = ( f + 0.005 ) * 100.0;
+    f = i / 100.0;
+    return f;
 }
 
 /********/
@@ -1331,18 +1330,18 @@ roundup2(double f)
  */
 
 void
-numberGroup(player *aPlayer, group *aGroup)
+numberGroup( player *aPlayer, group *aGroup )
 {
-  group          *curGroup;
-  int             groupNumber;
+    group *curGroup;
+    int groupNumber;
 
-  groupNumber = 0;
-  for (curGroup = aPlayer->groups; curGroup; curGroup = curGroup->next) {
-    if (curGroup->number > groupNumber)
-      groupNumber = curGroup->number;
-  }
-  groupNumber++;
-  aGroup->number = groupNumber;
+    groupNumber = 0;
+    for ( curGroup = aPlayer->groups; curGroup; curGroup = curGroup->next ) {
+        if ( curGroup->number > groupNumber )
+            groupNumber = curGroup->number;
+    }
+    groupNumber++;
+    aGroup->number = groupNumber;
 }
 
 /********/
@@ -1366,23 +1365,21 @@ numberGroup(player *aPlayer, group *aGroup)
  * SOURCE
  */
 
-planet         *
-findPlanet(game *aGame, char *name)
+planet *
+findPlanet( game *aGame, char *name )
 {
-  if (name[0] eq '#') {
-    char           *c;
+    if ( name[0] eq '#' ) {
+        char *c;
 
-    for (c = name + 1; *c && isdigit(*c); c++);
-    if (!(*c)) {
-      return (planet *) numtop(aGame->planets, atoi(name + 1));
+        for ( c = name + 1; *c && isdigit( *c ); c++ );
+        if ( !( *c ) ) {
+            return ( planet * ) numtop( aGame->planets, atoi( name + 1 ) );
+        } else {
+            return NULL;
+        }
+    } else {
+        return findElement( planet, aGame->planets, name );
     }
-    else {
-      return NULL;
-    }
-  }
-  else {
-    return findElement(planet, aGame->planets, name);
-  }
 }
 
 /*************/
@@ -1406,24 +1403,24 @@ findPlanet(game *aGame, char *name)
  * SOURCE
  */
 
-group          *
-findgroup(player *P, char *s)
+group *
+findgroup( player *P, char *s )
 {
-  group          *g;
+    group *g;
 
-  g = NULL;
-  if (P->groups) {
-    if (!noCaseStrcmp(s, "max")) {
-      for (g = P->groups; g->next; g = g->next);
-    }
-    else {
-      int             groupNumber;
+    g = NULL;
+    if ( P->groups ) {
+        if ( !noCaseStrcmp( s, "max" ) ) {
+            for ( g = P->groups; g->next; g = g->next );
+        } else {
+            int groupNumber;
 
-      groupNumber = atoi(s);
-      for (g = P->groups; g && (g->number != groupNumber); g = g->next);
+            groupNumber = atoi( s );
+            for ( g = P->groups; g && ( g->number != groupNumber );
+                  g = g->next );
+        }
     }
-  }
-  return g;
+    return g;
 }
 
 /***********/
@@ -1439,29 +1436,29 @@ findgroup(player *P, char *s)
  */
 
 void
-raceStatus(game *aGame)
+raceStatus( game *aGame )
 {
-  planet         *aPlanet;
-  player         *aPlayer;
+    planet *aPlanet;
+    player *aPlayer;
 
-  for (aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next) {
-    aPlayer->totPop = 0;
-    aPlayer->totInd = 0;
-    aPlayer->numberOfPlanets = 0;
-    aPlayer->totCap = 0;
-    aPlayer->totMat = 0;
-    aPlayer->totCol = 0;
-    for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
-      if (aPlanet->owner == aPlayer) {
-        aPlayer->totPop += aPlanet->pop;
-        aPlayer->totInd += aPlanet->ind;
-        aPlayer->totCap += aPlanet->cap;
-        aPlayer->totMat += aPlanet->mat;
-        aPlayer->totCol += aPlanet->col;
-        aPlayer->numberOfPlanets++;
-      }
+    for ( aPlayer = aGame->players; aPlayer; aPlayer = aPlayer->next ) {
+        aPlayer->totPop = 0;
+        aPlayer->totInd = 0;
+        aPlayer->numberOfPlanets = 0;
+        aPlayer->totCap = 0;
+        aPlayer->totMat = 0;
+        aPlayer->totCol = 0;
+        for ( aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next ) {
+            if ( aPlanet->owner == aPlayer ) {
+                aPlayer->totPop += aPlanet->pop;
+                aPlayer->totInd += aPlanet->ind;
+                aPlayer->totCap += aPlanet->cap;
+                aPlayer->totMat += aPlanet->mat;
+                aPlayer->totCol += aPlanet->col;
+                aPlayer->numberOfPlanets++;
+            }
+        }
     }
-  }
 }
 
 /*************/
@@ -1484,21 +1481,21 @@ raceStatus(game *aGame)
  */
 
 #define RTAB_LENGTH 55          /* Don't ever change this!!! */
-unsigned int    Ran_tab[RTAB_LENGTH];
-int             Ran_k;
-int             Ran_j;
+unsigned int Ran_tab[RTAB_LENGTH];
+int Ran_k;
+int Ran_j;
 
 unsigned int
-krandom(void)
+krandom( void )
 {
-  Ran_tab[Ran_k] += Ran_tab[Ran_j];
-  Ran_k--;
-  Ran_j--;
-  if (Ran_k < 0)
-    Ran_k = 54;
-  if (Ran_j < 0)
-    Ran_j = 54;
-  return (Ran_tab[Ran_k]);
+    Ran_tab[Ran_k] += Ran_tab[Ran_j];
+    Ran_k--;
+    Ran_j--;
+    if ( Ran_k < 0 )
+        Ran_k = 54;
+    if ( Ran_j < 0 )
+        Ran_j = 54;
+    return ( Ran_tab[Ran_k] );
 }
 
 /***********/
@@ -1519,12 +1516,12 @@ krandom(void)
  */
 
 double
-frand(double x)
+frand( double x )
 {
-  double          fr;
+    double fr;
 
-  fr = (double) krandom() / (double) (UINT_MAX);        /* From limits.h */
-  return x * fr;
+    fr = ( double ) krandom(  ) / ( double ) ( UINT_MAX );      /* From limits.h */
+    return x * fr;
 }
 
 /********/
@@ -1545,9 +1542,9 @@ frand(double x)
  */
 
 double
-frand2(void)
+frand2( void )
 {
-  return ((double) krandom() / (double) (UINT_MAX)) * 2.0 - 1.0;
+    return ( ( double ) krandom(  ) / ( double ) ( UINT_MAX ) ) * 2.0 - 1.0;
 }
 
 /************/
@@ -1568,9 +1565,10 @@ frand2(void)
  */
 
 int
-frand3(int r)
+frand3( int r )
 {
-  return (int) floor(((double) krandom() / (double) (UINT_MAX)) * r);
+    return ( int ) floor( ( ( double ) krandom(  ) / ( double ) ( UINT_MAX ) )
+                          * r );
 }
 
 /***********/
@@ -1588,13 +1586,13 @@ frand3(int r)
  */
 
 void
-saveRanTab(FILE * f)
+saveRanTab( FILE *f )
 {
-  int             i;
+    int i;
 
-  for (i = 0; i < RTAB_LENGTH; i++) {
-    fprintf(f, "%u\n", Ran_tab[i]);
-  }
+    for ( i = 0; i < RTAB_LENGTH; i++ ) {
+        fprintf( f, "%u\n", Ran_tab[i] );
+    }
 }
 
 /***********/
@@ -1612,30 +1610,28 @@ saveRanTab(FILE * f)
  */
 
 void
-loadRanTab(FILE * f)
+loadRanTab( FILE *f )
 {
-  int             i, loaded;
+    int i, loaded;
 
-  loaded = TRUE;
-  for (i = 0; i < RTAB_LENGTH; i++) {
-    unsigned int    s;
+    loaded = TRUE;
+    for ( i = 0; i < RTAB_LENGTH; i++ ) {
+        unsigned int s;
 
-    if (fscanf(f, "%u", &s) != 1) {
-      loaded = FALSE;
-      break;
+        if ( fscanf( f, "%u", &s ) != 1 ) {
+            loaded = FALSE;
+            break;
+        } else {
+            Ran_tab[i] = s;
+        }
     }
-    else {
-      Ran_tab[i] = s;
+    if ( loaded ) {
+        Ran_k = 23;
+        Ran_j = 54;
+    } else {
+        plog( LPART, "Failed to load the random table, creating one.\n" );
+        resetErnie( 197162622 );
     }
-  }
-  if (loaded) {
-    Ran_k = 23;
-    Ran_j = 54;
-  }
-  else {
-    plog(LPART, "Failed to load the random table, creating one.\n");
-    resetErnie(197162622);
-  }
 }
 
 /**********/
@@ -1655,28 +1651,31 @@ loadRanTab(FILE * f)
  */
 
 void
-resetErnie(unsigned long seed)
+resetErnie( unsigned long seed )
 {
-  unsigned long   rval;
-  int             i, bit;
+    unsigned long rval;
+    int i, bit;
 
-  pdebug(DFULL, "resetErnie\n");
-  rval = seed;
-  for (i = 0; i < 55; i++) {
-    unsigned long   temp;
+    pdebug( DFULL, "resetErnie\n" );
+    rval = seed;
+    for ( i = 0; i < 55; i++ ) {
+        unsigned long temp;
 
-    for (bit = 0, temp = 0; bit < 32; bit++) {
-      temp = temp << 1;
-      rval = ((((rval >> 31) ^ (rval >> 6) ^ (rval >> 4) ^ (rval >> 2)
-                ^ (rval >> 1) ^ rval) & 0x1) << 31) | (rval >> 1);
-      temp |= rval & 0x00000001;
+        for ( bit = 0, temp = 0; bit < 32; bit++ ) {
+            temp = temp << 1;
+            rval =
+                ( ( ( ( rval >> 31 ) ^ ( rval >> 6 ) ^ ( rval >> 4 ) ^
+                      ( rval >> 2 )
+                      ^ ( rval >> 1 ) ^ rval ) & 0x1 ) << 31 ) | ( rval >>
+                                                                   1 );
+            temp |= rval & 0x00000001;
+        }
+        Ran_tab[i] = temp;
     }
-    Ran_tab[i] = temp;
-  }
-  Ran_k = 23;
-  Ran_j = 54;
-  for (i = 0; i < 18000; i++)
-    krandom();
+    Ran_k = 23;
+    Ran_j = 54;
+    for ( i = 0; i < 18000; i++ )
+        krandom(  );
 }
 
 /*********/
@@ -1693,77 +1692,79 @@ resetErnie(unsigned long seed)
  */
 
 double
-addShipAtt(game* aGame, planet* p)
+addShipAtt( game *aGame, planet *p )
 {
-	double total = 0.;
-	player* P = aGame->players;
-	group*  g;
+    double total = 0.;
+    player *P = aGame->players;
+    group *g;
 
-	while (P) {
-		printf("checking player %s\n", P->name);
-		for (g = P->groups; g; g = g->next) {
-			if (g->where == p && g->dist == 0.) {
-				printf("found a group, value: %f\n", g->weapons*g->type->weapons);
-				total += g->weapons * g->type->weapons;
-			}
-		}
-		P = P->next;
-	}
-	printf("%s: %f\n", p->name, total);
-	return total;
+    while ( P ) {
+        printf( "checking player %s\n", P->name );
+        for ( g = P->groups; g; g = g->next ) {
+            if ( g->where == p && g->dist == 0. ) {
+                printf( "found a group, value: %f\n",
+                        g->weapons * g->type->weapons );
+                total += g->weapons * g->type->weapons;
+            }
+        }
+        P = P->next;
+    }
+    printf( "%s: %f\n", p->name, total );
+    return total;
 }
 
 /*******/
 
 void
-freeDefaults(game *aGame)
+freeDefaults( game *aGame )
 {
-  free(aGame->serverOptions.sendmail);
-  free(aGame->serverOptions.encode);
-  free(aGame->serverOptions.compress);
-  free(aGame->serverOptions.GMemail);
-  free(aGame->serverOptions.GMname);
-  free(aGame->serverOptions.GMpassword);
-  free(aGame->serverOptions.SERVERemail);
-  free(aGame->serverOptions.SERVERname);
-  free(aGame->serverOptions.fontpath);
-  free(aGame->serverOptions.due);
+    free( aGame->serverOptions.sendmail );
+    free( aGame->serverOptions.encode );
+    free( aGame->serverOptions.compress );
+    free( aGame->serverOptions.GMemail );
+    free( aGame->serverOptions.GMname );
+    free( aGame->serverOptions.GMpassword );
+    free( aGame->serverOptions.SERVERemail );
+    free( aGame->serverOptions.SERVERname );
+    free( aGame->serverOptions.fontpath );
+    free( aGame->serverOptions.due );
 }
 
 
-char*
-rightNow() {
-  static char timestamp[32];
+char *
+rightNow(  )
+{
+    static char timestamp[32];
 
-  time_t now = time(NULL);
-	
-  strcpy(timestamp, asctime(localtime(&now)));
-  
-  return timestamp;
+    time_t now = time( NULL );
+
+    strcpy( timestamp, asctime( localtime( &now ) ) );
+
+    return timestamp;
 }
 
 
 void
-copyEmailBody(FILE *inMail, FILE *outMail)
+copyEmailBody( FILE *inMail, FILE *outMail )
 {
-  char buffer[4096];
+    char buffer[4096];
 
-  rewind(inMail);
+    rewind( inMail );
 
-  /* read all the header stuff which only goes until the first blank line */
-  while (fgets(buffer, sizeof(char)*4096, inMail)) {
-    if (buffer[0] == '\n')
-      break;
-  }
-
-  /* now copy everything up to the (optional) #end */
-  while (fgets(buffer, sizeof(char)*4096, inMail)) {
-    if (noCaseStrncmp(buffer, "#end", 4) == 0) {
-      fprintf(outMail, "%s", buffer);
-      break;
+    /* read all the header stuff which only goes until the first blank line */
+    while ( fgets( buffer, sizeof( char ) * 4096, inMail ) ) {
+        if ( buffer[0] == '\n' )
+            break;
     }
-    fprintf(outMail, "%s", buffer);
-  }
 
-  return;
+    /* now copy everything up to the (optional) #end */
+    while ( fgets( buffer, sizeof( char ) * 4096, inMail ) ) {
+        if ( noCaseStrncmp( buffer, "#end", 4 ) == 0 ) {
+            fprintf( outMail, "%s", buffer );
+            break;
+        }
+        fprintf( outMail, "%s", buffer );
+    }
+
+    return;
 }
