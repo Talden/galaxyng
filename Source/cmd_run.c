@@ -30,7 +30,7 @@
  */
 
 int
-CMD_run( int argc, char **argv, int kind )
+CMD_run( int argc, char **argv )
 {
     int result;
 
@@ -54,7 +54,7 @@ CMD_run( int argc, char **argv, int kind )
 
             loadNGConfig( aGame );
 
-            if ( checkTime( aGame ) || ( kind == CMD_RUN_DUMMY ) ) {
+            if ( checkTime( aGame ) ) {
                 checkIntegrity( aGame );
 
                 if ( runTurn( aGame, argv[3] ) ) {
@@ -64,49 +64,15 @@ CMD_run( int argc, char **argv, int kind )
                     for ( aPlayer = aGame->players; aPlayer;
                           aPlayer = aPlayer->next ) {
                         if ( aPlayer->flags & F_TXTREPORT ) {
-                            if ( kind == CMD_RUN_REAL ) {
-                                result |=
-                                    mailTurnReport( aGame, aPlayer,
-                                                    F_TXTREPORT );
-                                if ( aGame->gameOptions.
-                                     gameOptions & GAME_SAVECOPY ) {
-                                    saveTurnReport( aGame, aPlayer,
-                                                    F_TXTREPORT );
-                                }
-                            } else {
-                                saveTurnReport( aGame, aPlayer, F_TXTREPORT );
-                            }
+                            saveTurnReport( aGame, aPlayer, F_TXTREPORT );
                         }
 
                         if ( aPlayer->flags & F_XMLREPORT ) {
-                            if ( kind == CMD_RUN_REAL ) {
-                                result |=
-                                    mailTurnReport( aGame, aPlayer,
-                                                    F_XMLREPORT );
-                                if ( aGame->gameOptions.
-                                     gameOptions & GAME_SAVECOPY ) {
-                                    saveTurnReport( aGame, aPlayer,
-                                                    F_XMLREPORT );
-                                }
-                            } else {
-                                saveTurnReport( aGame, aPlayer, F_XMLREPORT );
-                            }
+                            saveTurnReport( aGame, aPlayer, F_XMLREPORT );
                         }
-
                         if ( aPlayer->flags & F_MACHINEREPORT ) {
-                            if ( kind == CMD_RUN_REAL ) {
-                                result |=
-                                    mailTurnReport( aGame, aPlayer,
-                                                    F_MACHINEREPORT );
-                                if ( aGame->gameOptions.
-                                     gameOptions & GAME_SAVECOPY ) {
-                                    saveTurnReport( aGame, aPlayer,
-                                                    F_MACHINEREPORT );
-                                }
-                            } else {
-                                saveTurnReport( aGame, aPlayer,
-                                                F_MACHINEREPORT );
-                            }
+                            saveTurnReport( aGame, aPlayer,
+                                    F_MACHINEREPORT );
                         }
                     }
                     savegame( aGame );
@@ -114,7 +80,7 @@ CMD_run( int argc, char **argv, int kind )
                     fprintf( stderr,
                              "The server has detected an error in the game data structure. The run\n"
                              "of the turn has been aborted. No turn reports have been sent. Please\n"
-                             "contact Ken Weinert at mc@quarter-flash.com for a solution to this\n"
+                             "contact Frans Slothouber at rfsber@xs4all.nl for a solution to this\n"
                              "problem.\n" );
                     result = 1;
                 }
@@ -132,9 +98,7 @@ CMD_run( int argc, char **argv, int kind )
                          argv[2], aGame->starttime );
             }
             closeLog(  );
-            if ( kind == CMD_RUN_REAL ) {
-                mailGMReport( aGame, argv[2] );
-            }
+            saveGMReport( aGame, argv[2] );
             freegame( aGame );
         }
 

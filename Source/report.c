@@ -92,70 +92,6 @@ highScoreList( game *aGame )
 
 
 
-/****f* Report/mailGMReport
- * NAME
- *   mailGMReport -- mail the GM a status report.
- * SYNOPSIS
- *   void mailGMReport(game *aGame, char *gameName)
- * FUNCTION
- *   Email the GM a status report about a run of a turn.
- * SEE ALSO
- *   CMD_run()  
- * NOTES 
- *   Does log any errors.
- *   Does not return an error status.
- *****
- */
-
-void
-mailGMReport( game *aGame, char *gameName )
-{
-    char *fileName;
-    FILE *gmreport;
-    envelope *anEnvelope;
-
-    assert( aGame != NULL );
-
-    if ( aGame->serverOptions.GMemail ) {
-        anEnvelope = createEnvelope(  );
-        setHeader( anEnvelope, MAILHEADER_TO, "%s",
-                   aGame->serverOptions.GMemail );
-        /*
-           anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
-           anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
-         */
-        setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                   "[GNG] %s turn %d text report for GM", gameName,
-                   aGame->turn );
-        setHeader( anEnvelope, MAILHEADER_REPLYTO,
-                   aGame->serverOptions.ReplyTo );
-
-        /* I'm changing these so the server emails to the GM, not the
-         * GM to himself.
-         anEnvelope->from_name = strdup(aGame->serverOptions.GMname);
-         anEnvelope->from_address = strdup(aGame->serverOptions.GMemail);
-         */
-
-        anEnvelope->from_name = strdup( aGame->serverOptions.SERVERname );
-        anEnvelope->from_address = strdup( aGame->serverOptions.SERVERemail );
-
-        fileName = createString( "%s/%s_GM", tempdir, gameName );
-        if ( ( gmreport = fopen( fileName, "w" ) ) ) {
-            createGMReport( aGame, gameName, gmreport );
-            fclose( gmreport );
-            eMail( aGame, anEnvelope, fileName );
-            ssystem( "rm %s", fileName );
-        } else {
-            fprintf( stderr, "Can't open \"%s\".\n", fileName );
-        }
-        destroyEnvelope( anEnvelope );
-        free( fileName );
-    } else {
-        plog( LBRIEF,
-              "No email address of GM set, so no GM report is mailed.\n" );
-    }
-}
-
 
 /****f* Report/createDummyGame
  * NAME
@@ -182,24 +118,52 @@ createDummyGame( void )
 }
 
 
+/****f* Report/saveGMReport
+ * NAME
+ *   saveGMReport -- create status report for GM and save it
+ *                   in the reports directory.
+ * SYNOPSIS
+ */
+void saveGMReport( game *aGame, char *gameName )
+/* 
+ * FUNCTION
+ *   Creates the status report for the GM and save it
+ *   in the reports directory. 
+ ******
+ */
+
+{
+    char *fileName;
+    FILE *gmreport;
+
+    fileName = createString( "%s/reports/%s/%s_%d.txt",
+            galaxynghome, aGame->name, "NG_GameMaster",
+            aGame->turn );
+    if ( !( gmreport = GOS_fopen( fileName, "w" ) ) ) {
+        fprintf( stderr, "Can't open %s\n", fileName );
+    } else {
+        createGMReport( aGame, gameName, gmreport );
+        fclose( gmreport );
+    }
+}
+
+
 /****f* Report/createGMReport
  * NAME
  *   createGMReport -- create status report for GM
  * SYNOPSIS
- *   void createGMReport(game *aGame, char *gameName, FILE *gmreport)
+ */
+void createGMReport( game *aGame, char *gameName, FILE* gmreport )
+/*
  * FUNCTION
  *   Creates the status report for the GM. Currently consists of
  *   the log file and the high score list.
  ******
  */
-
-void
-createGMReport( game *aGame, char *gameName, FILE *gmreport )
 {
     char *fileName;
     struct fielddef fields;
     player *aDummyPlayer;
-
 
     fileName = createString( "%s/notices/%s.score", galaxynghome, gameName );
     appendToFile( fileName, gmreport );
@@ -219,96 +183,6 @@ createGMReport( game *aGame, char *gameName, FILE *gmreport )
     setName( aDummyPlayer, "DummyDummy" );
     aDummyPlayer->msize = aGame->galaxysize;
     reportMap( aGame, aDummyPlayer, &fields );
-}
-
-
-
-/****f* Report/mailTurnReport
- * NAME 
- *   mailTurnReport -- create and mail a turn report
- * FUNCTION
- *   Create and mail a turn report to a player.
- *    0  -- all OK
- *   >0  -- something went wrong
- *******
- */
-
-int
-mailTurnReport( game *aGame, player *aPlayer, long kind )
-{
-    char *fileName;
-    char ext[4];
-    FILE *turnreport;
-    int result;
-
-    pdebug( DFULL, "mailTurnReport\n" );
-
-    result = 1;
-    if ( ( aPlayer->flags & F_DEAD ) == 0 ) {
-        switch ( kind ) {
-        case F_XMLREPORT:
-            strcpy( ext, "xml" );
-            break;
-
-        case F_MACHINEREPORT:
-            strcpy( ext, "mch" );
-            break;
-
-        default:
-            strcpy( ext, "txt" );
-            break;
-        }
-
-        fileName = createString( "%s/reports/%s/%s_%d.%s",
-                                 galaxynghome,
-                                 aGame->name, aPlayer->name, aGame->turn,
-                                 ext );
-        if ( ( turnreport = GOS_fopen( fileName, "w" ) ) ) {
-            envelope *anEnvelope;
-
-            anEnvelope = createEnvelope(  );
-            if ( aPlayer->flags & F_COMPRESS ) {
-                anEnvelope->compress = TRUE;
-            }
-            setHeader( anEnvelope, MAILHEADER_TO, "%s", aPlayer->addr );
-            anEnvelope->from_name = strdup( aGame->serverOptions.SERVERname );
-            anEnvelope->from_address =
-                strdup( aGame->serverOptions.SERVERemail );
-            switch ( kind ) {
-            case F_XMLREPORT:
-                setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                           "[GNG] %s turn %d XML report for %s",
-                           aGame->name, aGame->turn, aPlayer->name );
-                break;
-            case F_MACHINEREPORT:
-                setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                           "[GNG] %s turn %d machine report for %s",
-                           aGame->name, aGame->turn, aPlayer->name );
-                break;
-            default:
-                setHeader( anEnvelope, MAILHEADER_SUBJECT,
-                           "[GNG] %s turn %d text report for %s",
-                           aGame->name, aGame->turn, aPlayer->name );
-            }
-            setHeader( anEnvelope, MAILHEADER_REPLYTO,
-                       aGame->serverOptions.ReplyTo );
-            createTurnReport( aGame, aPlayer, turnreport, kind );
-            fclose( turnreport );
-            result = eMail( aGame, anEnvelope, fileName );
-            destroyEnvelope( anEnvelope );
-#if 0
-#ifdef WIN32
-            result |= ssystem( "del %s", fileName );
-#else
-            result |= ssystem( "rm %s", fileName );
-#endif
-#endif
-        } else {
-            fprintf( stderr, "Can't open %s\n", fileName );
-        }
-        free( fileName );
-    }
-    return result;
 }
 
 
@@ -401,16 +275,15 @@ createTurnReport( game *aGame, player *aPlayer, FILE *reportfile, long kind )
     fprintf( reportfile, "\n\nEnd of the Bulletins\n\n" );
 
 
-
     switch ( kind ) {
-    case F_XMLREPORT:
-        report_xml( aGame, aPlayer, reportfile, Report );
-        break;
-    case F_MACHINEREPORT:
-        report_m( aPlayer, aGame, reportfile );
-        break;
-    default:
-        report( aGame, aPlayer, reportfile );
+        case F_XMLREPORT:
+            report_xml( aGame, aPlayer, reportfile, Report );
+            break;
+        case F_MACHINEREPORT:
+            report_m( aPlayer, aGame, reportfile );
+            break;
+        default:
+            report( aGame, aPlayer, reportfile );
     }
 }
 

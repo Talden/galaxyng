@@ -135,12 +135,12 @@ main( int argc, char **argv )
         result = CMD_clean( argc, argv );
     } else if ( strstr( argv[1], "create" ) ) {
         result = CMD_create( argc, argv );
-    } else if ( strstr( argv[1], "dummymail0" ) ) {
-        result = CMD_mail0( argc, argv, CMD_CHECK_DUMMY );
-    } else if ( strstr( argv[1], "dummycheck" ) ) {
-        result = CMD_check( argc, argv, CMD_CHECK_DUMMY );
-    } else if ( strstr( argv[1], "dummyrun" ) ) {
-        result = CMD_run( argc, argv, CMD_RUN_DUMMY );
+    } else if ( strstr( argv[1], "mail0" ) ) {
+        result = CMD_mail0( argc, argv );
+    } else if ( strstr( argv[1], "check" ) ) {
+        result = CMD_check( argc, argv );
+    } else if ( strstr( argv[1], "run" ) ) {
+        result = CMD_run( argc, argv );
     } else if ( strstr( argv[1], "selftest" ) ) {       /* experimental */
         result = CMD_selftest(  );
     } else if ( strstr( argv[1], "test" ) ) {   /* experimental */

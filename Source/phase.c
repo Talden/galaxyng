@@ -182,31 +182,6 @@ joinphase( game *aGame )
     }
 }
 
-
-/****f* Phase/kill
- * NAME
- *   kill --
- * NOTES
- *   Should be in battle.c I guess.
- *****
- */
-
-int
-kill( group *attack, group *target )
-{
-    double defense, ratio;
-
-    if ( !attack->type->attacks )
-        return 0;
-    defense = calcdefense( target );
-    if ( !defense )
-        return 1;
-    ratio = attack->weapons * attack->type->weapons / defense;
-    return ratio > pow( 4.0, frand2(  ) );
-}
-
-
-
 /****f* Phase/bombphase
  * NAME
  *   bombphase -- bomb planets
