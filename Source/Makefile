@@ -15,7 +15,11 @@
 # of make support this. This makefile will hopefully work with even
 # all versions of make.
 #
-
+# If you use this makefile for regular developement,
+# use a
+#   make depend
+# to update the dependencies.
+#
 #
 # Influence mapping:
 # if you want to have a .png map generated when the -influence 
@@ -154,7 +158,7 @@ $(WOPR): $(WOPR_OBJS)
 	$(CC) $(WOPR_OBJS) -o $(WOPR) $(LIBS)
 
 clean:
-	rm -f $(GNG_OBJS) $(WOPR_OBJS)
+	rm -f $(GNG_OBJS) $(WOPR_OBJS) $(DEPS)
 	rm -f $(GALAXYNG)
 	rm -f $(GALAXYNG).o
 	rm -f $(WOPR)
@@ -176,6 +180,13 @@ test: galaxyng
 count:
 	egrep -v -G "^ \*" *.c *.h | egrep -v -G "/\*"  | wc
 
+#
+# Indent all the .c files according to the settings
+# in .indent.pro
+# It is good to have a similar look for all sourcecode 
+# See man indent for more information.
+indent:
+	indent *.c
 
 -include $(DEPS)
 
