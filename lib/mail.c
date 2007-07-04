@@ -137,6 +137,7 @@ readEnvelope( FILE *fp )
 void
 setHeader( envelope *e, int headerType, char *format, ... )
 {
+#if 0
     int n;
 
     va_list ap;
@@ -210,6 +211,7 @@ setHeader( envelope *e, int headerType, char *format, ... )
     default:
         assert( 0 );
     }
+#endif
 }
 
 /****f* Mail/destroyEnvelope
@@ -271,9 +273,11 @@ destroyEnvelope( envelope *e )
 int
 eMail( game *aGame, envelope *e, char *fileName )
 {
+    int result = 0;
+#if 0
     FILE *mailFile;
     char template[128];
-    int result;
+
     char command[4096];
 
     pdebug( DFULL, "eMail\n" );
@@ -371,6 +375,7 @@ eMail( game *aGame, envelope *e, char *fileName )
     }
     result |= ssystem( "%s < %s", command, template );
     result |= ssystem( "rm %s", template );
+#endif
 #endif
     return result;
 }

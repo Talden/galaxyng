@@ -10,7 +10,12 @@
 #
 
 CFLAGS = -Wall -pedantic -I../include $(ADDTL_CFLAGS)
+# For a cross compile.
+MINGW_CC=/usr/local/bin/i386-mingw32-gcc
+MINGW_AR=/usr/local/bin/i386-mingw32-ar
+
 CC = gcc
+AR = ar
 
 SOURCES=strutl.c logging.c list.c globals.c mail.c util.c loadNGConfig.c \
 		lockFile.c randomize.c
@@ -20,10 +25,13 @@ DEPENDENCIES = $(OBJECTS:.o=.d)
 all : libgalaxyng.a
 
 libgalaxyng.a: $(OBJECTS)
-	ar cr libgalaxyng.a $(OBJECTS)
+	$(AR) cr libgalaxyng.a $(OBJECTS)
 
 clean:
 	rm -f libgalaxyng.a $(OBJECTS) *~ $(DEPENDENCIES)
+
+xcompile:
+	$(MAKE) -f Makefile CC=$(MINGW_CC) AR=$(MINGW_AR) libgalaxyng.a
 
 # Make a copy of the master configuration
 # file.
