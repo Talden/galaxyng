@@ -44,6 +44,9 @@ CFLAGS += $(ADDTL_CFLAGS)
 
 LIBS = -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
 
+# For a cross compile.
+MINGW_CC=/usr/local/bin/i386-mingw32-gcc
+
 # Everybody has gcc
 CC=gcc
 
@@ -152,7 +155,7 @@ wopr.o: wopr.c
 
 
 $(GALAXYNG): $(GNG_OBJS) ../lib/libgalaxyng.a
-	$(CC) $(GNG_OBJS) -o $(GALAXYNG) $(LIBS)
+	$(CC) $(GNG_OBJS) -o $(GALAXYNG)$(EXE) $(LIBS)
 
 $(WOPR): $(WOPR_OBJS)
 	$(CC) $(WOPR_OBJS) -o $(WOPR) $(LIBS)
@@ -169,6 +172,13 @@ clean:
 	rm -f tags
 	rm -f $(DOCS)
 	rm -f masterindex.html
+
+
+# Cross compile for windows.
+#
+xcompile:
+	$(MAKE) -f Makefile CC=$(MINGW_CC) EXE=.exe galaxyng
+
 
 #=========================================================
 #                For development 

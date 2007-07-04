@@ -1245,10 +1245,6 @@ Add_Circle_Home_Planet( game *aGame,
     double x, y;
     double alpha, beta, radius;
 
-#ifdef WIN32
-    float M_PI = 3.14159265358979;
-#endif
-
     found_location = TRUE;
     if ( num_players < 3 )
         return Add_Core_Home_Planet( aGame, min_dist, planet_name, aPlayer,
@@ -1588,10 +1584,6 @@ CalcCirclegalaxysize( int num, double dist, double sphere )
     /* systems. TL 980629 */
     double result;
 
-#ifdef WIN32
-    float M_PI = 3.14159265358979;
-
-#endif
     result = dist / sin( M_PI / num );
 
     /* now we add the fuzzines factor to the radius we have gotten. */

@@ -17,7 +17,8 @@
 int
 CMD_report( int argc, char **argv )
 {
-    char *logName = createString( "%s/log/orders_processed.txt", galaxynghome );
+    char *logName =
+        createString( "%s/log/orders_processed.txt", galaxynghome );
 
     openLog( logName, "a" );
     free( logName );
@@ -28,17 +29,18 @@ CMD_report( int argc, char **argv )
         /* Not enough parameters */
         return EXIT_FAILURE;
     } else {
-        game*   aGame   = NULL;
-        char *gameName = argv[ 2 ];
-        char *raceName = argv[ 3 ];
-        int theTurnNumber = atoi( argv[ 4 ] );
+        game *aGame = NULL;
+        char *gameName = argv[2];
+        char *raceName = argv[3];
+        int theTurnNumber = atoi( argv[4] );
 
         if ( ( aGame = loadgame( gameName, LG_CURRENT_TURN ) ) == NULL ) {
             /* Can't load game */
             return EXIT_FAILURE;
         } else {
-            player* aPlayer = findElement( player, ( aGame )->players, raceName );
-            if ( aPlayer == NULL  ) {
+            player *aPlayer =
+                findElement( player, ( aGame )->players, raceName );
+            if ( aPlayer == NULL ) {
                 /* Can't find player */
                 return EXIT_FAILURE;
             } else {
@@ -60,19 +62,19 @@ CMD_report( int argc, char **argv )
 
                     loadNGConfig( aGame2 );
 
-                    if ( theTurnNumber > 0 ) {      /* Rerun the turn */
+                    if ( theTurnNumber > 0 ) {  /* Rerun the turn */
                         char *ordersName;
 
                         ordersName =
                             createString( "%s/orders/%s/%d.all",
-                                    galaxynghome, aGame2->name,
-                                    theTurnNumber );
+                                          galaxynghome, aGame2->name,
+                                          theTurnNumber );
                         runTurn( aGame2, ordersName );
                         free( ordersName );
                     }
                     /* Translate the current race name into the name used
                        during the turn that is requested
-                       */
+                     */
                     aPlayer = findElement( player, aGame->players, raceName );
 
                     index = ptonum( aGame->players, aPlayer );
@@ -93,5 +95,3 @@ CMD_report( int argc, char **argv )
     closeLog(  );
     return EXIT_SUCCESS;
 }
-
-

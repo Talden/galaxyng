@@ -71,8 +71,7 @@ CMD_run( int argc, char **argv )
                             saveTurnReport( aGame, aPlayer, F_XMLREPORT );
                         }
                         if ( aPlayer->flags & F_MACHINEREPORT ) {
-                            saveTurnReport( aGame, aPlayer,
-                                    F_MACHINEREPORT );
+                            saveTurnReport( aGame, aPlayer, F_MACHINEREPORT );
                         }
                     }
                     savegame( aGame );

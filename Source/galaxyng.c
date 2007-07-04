@@ -61,11 +61,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#ifdef WIN32
-    /* Empty */
-#else
 #include <unistd.h>
-#endif
 #include "galaxy.h"
 #include "util.h"
 #include "process.h"
@@ -78,8 +74,7 @@
 #include "galaxyng.h"
 
 
-char *galaxyng =
-    "$Id$";
+char *galaxyng = "$Id$";
 
 char vcid[128];
 

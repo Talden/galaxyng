@@ -31,16 +31,17 @@ CMD_check( int argc, char **argv )
         /* Not enough parameters */
         return EXIT_FAILURE;
     } else {
-        game*   aGame   = NULL;
-        char *gameName = argv[ 2 ];
-        char *raceName = argv[ 3 ];
+        game *aGame = NULL;
+        char *gameName = argv[2];
+        char *raceName = argv[3];
 
         if ( ( aGame = loadgame( gameName, LG_CURRENT_TURN ) ) == NULL ) {
             /* Can't load game */
             return EXIT_FAILURE;
         } else {
-            player* aPlayer = findElement( player, ( aGame )->players, raceName );
-            if ( aPlayer == NULL  ) {
+            player *aPlayer =
+                findElement( player, ( aGame )->players, raceName );
+            if ( aPlayer == NULL ) {
                 /* Can't find player */
                 return EXIT_FAILURE;
             } else {
@@ -62,4 +63,3 @@ CMD_check( int argc, char **argv )
     }
     return EXIT_SUCCESS;
 }
-

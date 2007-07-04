@@ -124,21 +124,21 @@ createDummyGame( void )
  *                   in the reports directory.
  * SYNOPSIS
  */
-void saveGMReport( game *aGame, char *gameName )
+void
+saveGMReport( game *aGame, char *gameName )
 /* 
  * FUNCTION
  *   Creates the status report for the GM and save it
  *   in the reports directory. 
  ******
  */
-
 {
     char *fileName;
     FILE *gmreport;
 
     fileName = createString( "%s/reports/%s/%s_%d.txt",
-            galaxynghome, aGame->name, "NG_GameMaster",
-            aGame->turn );
+                             galaxynghome, aGame->name, "NG_GameMaster",
+                             aGame->turn );
     if ( !( gmreport = GOS_fopen( fileName, "w" ) ) ) {
         fprintf( stderr, "Can't open %s\n", fileName );
     } else {
@@ -153,7 +153,8 @@ void saveGMReport( game *aGame, char *gameName )
  *   createGMReport -- create status report for GM
  * SYNOPSIS
  */
-void createGMReport( game *aGame, char *gameName, FILE* gmreport )
+void
+createGMReport( game *aGame, char *gameName, FILE *gmreport )
 /*
  * FUNCTION
  *   Creates the status report for the GM. Currently consists of
@@ -276,14 +277,14 @@ createTurnReport( game *aGame, player *aPlayer, FILE *reportfile, long kind )
 
 
     switch ( kind ) {
-        case F_XMLREPORT:
-            report_xml( aGame, aPlayer, reportfile, Report );
-            break;
-        case F_MACHINEREPORT:
-            report_m( aPlayer, aGame, reportfile );
-            break;
-        default:
-            report( aGame, aPlayer, reportfile );
+    case F_XMLREPORT:
+        report_xml( aGame, aPlayer, reportfile, Report );
+        break;
+    case F_MACHINEREPORT:
+        report_m( aPlayer, aGame, reportfile );
+        break;
+    default:
+        report( aGame, aPlayer, reportfile );
     }
 }
 

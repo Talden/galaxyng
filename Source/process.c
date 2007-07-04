@@ -133,12 +133,8 @@ mistake( player *P, enum error_type elevel, strlist *s, char *format, ... )
         break;
     }
 
-#ifdef WIN32
-    vsprintf( lineBuffer, format, ap );
-#else
     n = vsnprintf( lineBuffer, LINE_BUFFER_SIZE, lformat, ap );
     assert( n != -1 );
-#endif
 
     free( lformat );
 
@@ -2403,5 +2399,3 @@ preComputeGroupData( game *aGame )
 }
 
 /**********/
-
-

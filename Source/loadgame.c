@@ -3,7 +3,8 @@
 #include <stdlib.h>
 #include <string.h>
 
-char *vloadgame = "$Id$";
+char *vloadgame =
+    "$Id$";
 
 /****h* GalaxyNG/LoadGame
  * NAME
@@ -485,8 +486,7 @@ loadgame( char *gameName, int whichTurn )
                 ( planet * ) getReadPointer( ( list * ) aGame->planets );
             aGroup->dist = getReadFloat(  );
             aGroup->ships = getReadInt(  );
-            aGroup->thefleet =
-                ( fleetname * )
+            aGroup->thefleet = ( fleetname * )
                 getReadPointer( ( list * ) ( P->fleetnames ) );
             addList( &P->groups, aGroup );
 
