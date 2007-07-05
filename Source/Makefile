@@ -184,6 +184,9 @@ xcompile:
 #                For development 
 #=========================================================
 
+tags:
+	ctags -R .
+
 test: galaxyng
 	cp galaxyng $(HOME)/Games/galaxyng
 
