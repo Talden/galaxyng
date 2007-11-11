@@ -12,12 +12,26 @@ usage(  )
     printf( "%s\n", vcid );
     printf( "Usage: galaxyng <command> <parameters> <options>\n"
             "\nCommands Available:\n"
-            " General Commands\n"
-            "   -template   <game name> <number of players>\n"
-            "   -create     <specifcation file>\n"
-            "   -mail0      <game name>\n"
-            "   -check\n"
-            "   -run        <game name> <file with all orders> [turn]\n"
+            " -template   <game name> <number of players>\n"
+            " -create     <specifcation file>\n"
+            " -mail0      <game name>\n"
+            " -check      <game name> <race name>\n"
+            " -run        <game name> <file with all orders> [turn]\n"
+            " -report     <game name> <race name> <turnnumber>\n"
+            " -players    <game name>\n"
+          );
+    printf( "\nExplanation:\n"
+            " -template   - create a template .glx file for use with -create.\n"
+            " -create     - create a new game.\n"
+            " -mail0      - store the turn-0-reports in reports/<game name>.\n"
+            " -check      - check incoming orders, orders are read from stdin.\n" );
+    printf( " -run        - run a game and store the turn-reports to reports/<game name>.\n"
+            " -score      - creates highscore list in HTML format.\n"
+            " -players    - list address and password of all players.\n"
+            " -report     - creates a particular turn-report which is written to stdout.\n" );
+
+/* TODO Re-enable once done */
+#if 0
             "   -score      <game name> [turn]\n"
             "   -toall      <game name>\n"
             "   -report\n" "   -relay\n" "   -hall       <game name>\n" );
@@ -74,4 +88,6 @@ usage(  )
           "               a) all players have submitted final orders\n"
           "               b) the GM specified amount of time has expired\n"
           " -players    - list address and password of all players.\n" );
+#endif
+
 }

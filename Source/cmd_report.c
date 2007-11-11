@@ -4,8 +4,11 @@
  * NAME 
  *   CMD_report -- create a copy of a turn report.
  * SYNOPSIS
+ */
+   int CMD_report(int argc, char **argv) 
+/*
+ * USAGE
  *   ./galaxyng -report <gamename> <player> <turnnumber>
- *   int CMD_report(int argc, char **argv) 
  * FUNCTION
  *   Recreate a turn report of a given turn. 
  *   Report is send to stdout.
@@ -14,8 +17,6 @@
  * SOURCE
  */
 
-int
-CMD_report( int argc, char **argv )
 {
     char *logName =
         createString( "%s/log/orders_processed.txt", galaxynghome );

@@ -1908,6 +1908,7 @@ runTurn( game *aGame, char *ordersFileName )
     char *password;
     FILE *ordersFile;
 
+#if 0
     char *rm_notify;
 
     rm_notify = createString( "/bin/rm -f %s/orders/%s/*.notify",
@@ -1915,6 +1916,7 @@ runTurn( game *aGame, char *ordersFileName )
     /*printf("executing \"%s\"\n", rm_notify); */
     ssystem( rm_notify );
     free( rm_notify );
+#endif
 
     plog( LPART, "Reading orders from file %s\n", ordersFileName );
 

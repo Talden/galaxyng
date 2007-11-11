@@ -4,7 +4,12 @@
  * NAME
  *   CMD_run -- run turn and send turn reports
  * SYNOPSIS
- *   ./galaxyng -run <game name> <file with all orders>
+ */
+int
+CMD_run( int argc, char **argv )
+/*
+ * USAGE
+ *   ./galaxyng -run <game name> <file with all orders> [turn]
  * FUNCTION
  *   Run an turn, Compute the highscore list, and send the turn reports 
  *   to all players. The GM is send a status report. If the option
@@ -29,8 +34,6 @@
  * SOURCE
  */
 
-int
-CMD_run( int argc, char **argv )
 {
     int result;
 

@@ -4,12 +4,6 @@
 #include "galaxy.h"
 #include "util.h"
 
-#ifdef WIN32
-#include <stdio.h>
-#include <stdarg.h>
-#include <TCHAR.H>
-#endif
-
 /****s* Mail/envelope
  * NAME
  *   envelope -- envelope for an email message.
