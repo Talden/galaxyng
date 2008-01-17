@@ -376,19 +376,18 @@ c_order( game *aGame, player *P, strlist **s )
         return;
     }
 
-    if ( noCaseStrcmp( ns, "GM" ) == 0 ) {
-        mistake( P, ERROR, *s, "GM is a reserved name" );
-        return;
-    }
+	if (noCaseStrcmp(ns, "GM") == 0) {
+		mistake(P, ERROR, *s, "GM is a reserved name");
+		return;
+	}
 
-    if ( noCaseStrcmp( aGame->name, ns ) == 0 ) {
-        mistake( P, ERROR, *s, "You cannot use game name for a Race name" );
-        return;
-    }
-
+	if (noCaseStrcmp(aGame->name, ns) == 0) {
+		mistake(P, ERROR, *s, "You cannot use game name for a Race name");
+		return;
+	}
+	
     /* someone else already using it? */
-    if ( findElement( player, aGame->players, ns ) != NULL )
-    {
+    if ( findElement( player, aGame->players, ns ) != NULL ) {
         mistake( P, ERROR, *s, "Race name already in use." );
         return;
     }
@@ -1114,6 +1113,16 @@ l_order( game *aGame, player *P, strlist **s )
     }
     p = g->where;
 
+    /* If galactic peace is enforced and the planet is not
+     * owned by the race trying to upload, refuse the upload.
+     */
+    if ( (aGame->turn < aGame->gameOptions.galactic_peace) &&
+         ( p->owner != P ) ) {
+        mistake(P, ERROR, *s, "Galactic Peace enforced until turn %d.",
+                aGame->gameOptions.galactic_peace);
+        return;
+    }
+
     typeOfCargo = nametocargotype( getstr( 0 ) );
     if ( g->type->cargo == 0 ) {
         mistake( P, ERROR, *s, "Group cannot carry cargo." );
@@ -1210,12 +1219,11 @@ l_order( game *aGame, player *P, strlist **s )
                  p->name );
         return;
     }
-    if ( roundup2( y / numberOfShips ) < AMOUNTMIN ) {
+    if ( roundup2(y / numberOfShips) < AMOUNTMIN ) {
         mistake( P, ERROR, *s,
                  "Not enough cargo available on \"%s\" to"
                  " load at least %f per ship (%f per ship available, %f / %d).",
-                 p->name, AMOUNTMIN, roundup2( y / numberOfShips ), y,
-                 numberOfShips );
+				 p->name, AMOUNTMIN, roundup2(y / numberOfShips), y, numberOfShips );
         return;
     }
     if ( y < x ) {
@@ -1753,9 +1761,9 @@ w_order( game *aGame, player *P, strlist **s )
 
     pdebug( DFULL, "w_order\n" );
 
-    if ( aGame->turn < aGame->gameOptions.galactic_peace ) {
-        mistake( P, ERROR, *s, "Galactic Peace enforced until turn %d.",
-                 aGame->gameOptions.galactic_peace );
+    if (aGame->turn < aGame->gameOptions.galactic_peace) {
+        mistake(P, ERROR, *s, "Galactic Peace enforced until turn %d.",
+                aGame->gameOptions.galactic_peace);
         return;
     }
 
@@ -1912,26 +1920,26 @@ runTurn( game *aGame, char *ordersFileName )
     char *password;
     FILE *ordersFile;
 
-    char *rm_notify;
+	char* rm_notify;
 
-    rm_notify = createString( "/bin/rm -f %s/orders/%s/*.notify",
-                              galaxynghome, aGame->name );
-    /*printf("executing \"%s\"\n", rm_notify); */
-    ssystem( rm_notify );
-    free( rm_notify );
-
+	rm_notify = createString("/bin/rm -f %s/orders/%s/*.notify",
+							 galaxynghome, aGame->name);
+	/*printf("executing \"%s\"\n", rm_notify);*/
+	ssystem(rm_notify);
+	free(rm_notify);
+			
     plog( LPART, "Reading orders from file %s\n", ordersFileName );
 
     ordersFile = Fopen( ordersFileName, "r" );
 
     getLine( ordersFile );
     for ( ; !feof( ordersFile ); ) {
-        char *ptr;
-        ptr = lineBuffer + strspn( lineBuffer, " \t" );
-        if ( ptr && *ptr == ';' )
-            continue;           /* skip comment lines */
-        if ( ( ptr = strchr( lineBuffer, '#' ) ) == NULL )
-            ptr = lineBuffer;
+      char* ptr;
+      ptr = lineBuffer + strspn(lineBuffer, " \t");
+      if (ptr && *ptr == ';')
+	continue;		/* skip comment lines */
+      if ((ptr = strchr(lineBuffer, '#')) == NULL)
+	ptr = lineBuffer;
         if ( noCaseStrncmp( "#GALAXY", ptr, 7 ) == 0 ) {
             player *aPlayer;
 
@@ -1947,8 +1955,8 @@ runTurn( game *aGame, char *ordersFileName )
                     if ( noCaseStrcmp( aPlayer->pswd, password ) == 0 ) {
                         aPlayer->orders = NULL;
                         getLine( ordersFile );
-                        if ( ( ptr = strchr( lineBuffer, '#' ) ) == NULL )
-                            ptr = lineBuffer;
+			if ((ptr = strchr(lineBuffer, '#')) == NULL)
+			  ptr = lineBuffer;
                         for ( ; !feof( ordersFile ) &&
                               noCaseStrncmp( "#GALAXY", ptr, 7 ) &&
                               noCaseStrncmp( "#END", ptr, 4 ); ) {
@@ -1957,8 +1965,8 @@ runTurn( game *aGame, char *ordersFileName )
                             if ( ( s = makestrlist( lineBuffer ) ) != NULL )
                                 addList( &( aPlayer->orders ), s );
                             getLine( ordersFile );
-                            if ( ( ptr = strchr( lineBuffer, '#' ) ) == NULL )
-                                ptr = lineBuffer;
+			    if ((ptr = strchr(lineBuffer, '#')) == NULL)
+			      ptr = lineBuffer;
 
                         }
                     } else {
@@ -2218,7 +2226,7 @@ checkOrders( game *aGame, char *raceName, FILE *forecast, int kind )
 
 void
 copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
-            char *final_orders, int theTurnNumber )
+	    char* final_orders, int theTurnNumber )
 {
     strlist *s;
     char *copyFileName;
@@ -2231,27 +2239,28 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
     copyFileName = alloc( strlen( aGame->name ) + strlen( aPlayer->name ) +
                           strlen( galaxynghome ) + strlen( "/orders//" ) +
                           20 );
-    if ( final_orders ) {
-        sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome,
-                 aGame->name, aPlayer->name, theTurnNumber );
-        unlink( copyFileName );
-        sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
-                 aGame->name, aPlayer->name, theTurnNumber );
-    } else {
-        sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
-                 aGame->name, aPlayer->name, theTurnNumber );
-        unlink( copyFileName );
-        sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome,
-                 aGame->name, aPlayer->name, theTurnNumber );
+    if (final_orders) {
+      sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome,
+	       aGame->name, aPlayer->name, theTurnNumber );
+      unlink(copyFileName);
+      sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
+	       aGame->name, aPlayer->name, theTurnNumber );
     }
-
+    else {
+      sprintf( copyFileName, "%s/orders/%s/%s_final.%d", galaxynghome,
+	       aGame->name, aPlayer->name, theTurnNumber );
+      unlink(copyFileName);
+      sprintf( copyFileName, "%s/orders/%s/%s.%d", galaxynghome, aGame->name,
+	       aPlayer->name, theTurnNumber );
+	}
+	
     copyFile = Fopen( copyFileName, "w" );
     savefprintf( copyFile, "#GALAXY %s %s %s",
                  aGame->name, raceName, password );
-    if ( final_orders )
-        savefprintf( copyFile, " FinalOrders" );
-    savefprintf( copyFile, "\n" );
-
+	if (final_orders)
+		savefprintf(copyFile, " FinalOrders");
+	savefprintf(copyFile, "\n");
+	
     getLine( orders );
     for ( ; !feof( orders ) && noCaseStrncmp( "#END", lineBuffer, 4 ); ) {
         savefprintf( copyFile, "%s", lineBuffer );
@@ -2312,21 +2321,21 @@ copyOrders( game *aGame, FILE *orders, char *raceName, char *password,
 
 int
 areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
-                char **password, char **final_orders, int *theTurnNumber,
-                char **galaxyline )
+        char **password, char** final_orders, int* theTurnNumber,
+        char **galaxyline )
 {
-    int resNumber;
-    int foundOrders;
-    char *gameName;
-    char *isRead;
+    int   resNumber;
+    int   foundOrders;
+    char* gameName;
+    char* isRead;
 
 
     gameName = NULL;
 
     foundOrders = FALSE;
     for ( isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile );
-          isRead;
-          isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
+            isRead;
+            isRead = fgets( lineBuffer, LINE_BUFFER_SIZE, ordersFile ) ) {
         if ( noCaseStrncmp( "#GALAXY", lineBuffer, 7 ) == 0 ) {
             foundOrders = TRUE;
             break;
@@ -2336,8 +2345,8 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
     *theTurnNumber = LG_CURRENT_TURN;
 
     if ( foundOrders ) {
-        char *ptr;
-        char *turnNumberString = NULL;
+        char* ptr;
+        char* turnNumberString = NULL;
 
         getstr( lineBuffer );
         *galaxyline = strdup( lineBuffer );
@@ -2352,12 +2361,10 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
             if ( noCaseStrcmp( turnNumberString, "FinalOrders" ) != 0 ) {
                 if ( noCaseStrcmp( turnNumberString, "" ) != 0 ) {
                     *theTurnNumber = atoi( turnNumberString );
-                    if ( !isdigit( turnNumberString[0] ) ) {
+                    if (!isdigit(turnNumberString[0])) {
                         *theTurnNumber = LG_CURRENT_TURN;
-                        if ( ( *aGame =
-                               loadgame( gameName,
-                                         LG_CURRENT_TURN ) ) != NULL )
-                            loadNGConfig( *aGame );
+                        if ((*aGame = loadgame(gameName, LG_CURRENT_TURN)) != NULL)
+                            loadNGConfig(*aGame);
                         else {
                             *aGame = allocStruct( game );
 
@@ -2376,9 +2383,9 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
             }
         }
 
-        if ( ( ptr = getstr( NULL ) ) != NULL ) {
-            if ( noCaseStrcmp( ptr, "FinalOrders" ) == 0 )
-                *final_orders = strdup( ptr );
+        if ((ptr = getstr(NULL)) != NULL) {
+            if (noCaseStrcmp(ptr, "FinalOrders") == 0)
+                *final_orders = strdup(ptr);
         }
 
         if ( ( *aGame = loadgame( gameName, LG_CURRENT_TURN ) ) ) {
@@ -2386,19 +2393,19 @@ areValidOrders( FILE *ordersFile, game **aGame, char **raceName,
 
             loadNGConfig( *aGame );
 
-            if ( noCaseStrcmp( "GM", *raceName ) == 0 ) {
-                if ( strcmp( ( *aGame )->serverOptions.GMpassword, *password )
-                     == 0 ) {
+            if (noCaseStrcmp("GM", *raceName) == 0) {
+                if (strcmp((*aGame)->serverOptions.GMpassword, *password) == 0) {
                     resNumber = RES_OK;
                 }
-            } else {
+            }
+            else {
                 aPlayer = findElement( player, ( *aGame )->players,
-                                       *raceName );
+                        *raceName );
 
                 if ( aPlayer ) {
                     if ( noCaseStrcmp( aPlayer->pswd, *password ) eq 0 ) {
                         if ( ( *theTurnNumber >= ( *aGame )->turn + 1 ) ||
-                             ( *theTurnNumber == LG_CURRENT_TURN ) ) {
+                                ( *theTurnNumber == LG_CURRENT_TURN ) ) {
                             resNumber = RES_OK;
                         } else {
                             resNumber = RES_TURNRAN;
@@ -2501,28 +2508,29 @@ char *
 getDestination( char *subject )
 {
     int theTurnNumber;
-    char *destination;
+    char* destination;
     char *c;
 
     theTurnNumber = LG_CURRENT_TURN;
 
-    /*plog(LBRIEF, ">getDestination(%s)\n", subject); */
+    /*plog(LBRIEF, ">getDestination(%s)\n", subject);*/
 
-    c = strlwr( strdup( subject ) );
+    c = strlwr(strdup(subject));
+      
+    if ((destination = strstr(c, "relay")) == NULL) {
+      plog(LBRIEF, "  subject does not have \"relay\" in it\n");
+      return NULL;		/* can't be a relay subject */
+    }
+    else
+      destination += 5;
 
-    if ( ( destination = strstr( c, "relay" ) ) == NULL ) {
-        plog( LBRIEF, "  subject does not have \"relay\" in it\n" );
-        return NULL;            /* can't be a relay subject */
-    } else
-        destination += 5;
+    while (isspace(*destination))
+      destination++;
 
-    while ( isspace( *destination ) )
-        destination++;
+    destination = strdup(destination);
+    free (c);
 
-    destination = strdup( destination );
-    free( c );
-
-    /*plog(LBRIEF, "<getDestination(%s)\n", destination); */
+    /*plog(LBRIEF, "<getDestination(%s)\n", destination);*/
 
     return destination;
 }
@@ -2599,74 +2607,75 @@ doOrders( game *aGame, player *aPlayer, orderinfo *orderInfo, int phase )
 void
 removeDeadPlayer( game *aGame )
 {
-    player *P;
-    player *P3;
-    int allowedOrderGap;
-    int nbrPlanets;
-
-    pdebug( DFULL, "removeDeadPlayer\n" );
-    allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
-    for ( P = aGame->players; P; P = P3 ) {
-        P3 = P->next;
-        if ( P->addr[0] ) {
-            int idleTurns;
-
-            idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
-                allowedOrderGap + 1;
-            plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
-            if ( idleTurns != 0 ) {
-                if ( idleTurns < allowedOrderGap ) {
-                    int gap = allowedOrderGap - idleTurns;
-                    sprintf( lineBuffer, "\n\
+  player *P;
+  player *P3;
+  int allowedOrderGap;
+  int nbrPlanets;
+	
+  pdebug( DFULL, "removeDeadPlayer\n" );
+  allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
+  for ( P = aGame->players; P; P = P3 ) {
+    P3 = P->next;
+    if ( P->addr[0] ) {
+      int idleTurns;
+      
+      idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
+	allowedOrderGap + 1;
+      plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
+      if ( idleTurns != 0 ) {
+	if ( idleTurns < allowedOrderGap ) {
+	  int gap = allowedOrderGap - idleTurns;
+	  sprintf( lineBuffer, "\n\
 *** NOTE: You didn't send orders this turn.  You have %d more turn%s to\n\
 *** remain idle before you forfeit your position.", gap, &"s"[gap == 1] );
-
-                    addList( &P->messages, makestrlist( lineBuffer ) );
-                } else if ( idleTurns == allowedOrderGap ) {
-                    addList( &P->messages, makestrlist( "\n\
+	  
+	  addList( &P->messages, makestrlist( lineBuffer ) );
+	} else if ( idleTurns == allowedOrderGap ) {
+	  addList( &P->messages, makestrlist( "\n\
 *** WARNING: If you do not send orders for this next turn then you will\n \
 *** forfeit your position in the game!  Please send orders next turn if you\n \
 *** wish to continue playing." ) );
-                } else if ( idleTurns > allowedOrderGap ) {
-                    planet *p;
+	} else if ( idleTurns > allowedOrderGap ) {
+	  planet *p;
 
-                    P->flags |= F_DEAD;
+	  P->flags |= F_DEAD;
+	  
+	  /* fix for bug 991269 */
+	  freelist(P->groups);
+	  P->groups = NULL;
 
-                    /* fix for bug 991269 */
-                    freelist( P->groups );
-                    P->groups = NULL;
-
-                    nbrPlanets = 0;
-                    for ( p = aGame->planets; p; p = p->next ) {
-                        if ( p->owner == P ) {
-                            nbrPlanets++;
-                            plog( LPART, "Resetting planet %s\n", p->name );
-                            p->col = 0;
-                            p->producing = PR_CAP;
-                            p->producingshiptype = 0;
-                            p->inprogress = 0;
-                            memset( p->routes, 0, sizeof( p->routes ) );
-                            p->pop = 0;
-                            p->ind = 0;
-                            p->cap = 0;
-                            p->mat = 0;
-                            p->owner = NULL;
-                        }
-                    }
-                    if ( nbrPlanets ) {
-                        plog( LPART, "Discontinuing reports for %s\n",
-                              P->name );
-                        sprintf( lineBuffer,
-                                 "\n-*-*-*-\n%s had an unfortunate accident and was "
-                                 "obliterated.\n-*-*-*-\n", P->name );
-                        addList( &( aGame->messages ),
-                                 makestrlist( lineBuffer ) );
-                    }
-                    /*                    } */
-                }
-            }
-        }
+	  nbrPlanets = 0;
+	  for ( p = aGame->planets; p; p = p->next ) {
+	    if ( p->owner == P ) {
+	      nbrPlanets++;
+	      plog( LPART, "Resetting planet %s\n",
+		    p->name );
+	      p->col = 0;
+	      p->producing = PR_CAP;
+	      p->producingshiptype = 0;
+	      p->inprogress = 0;
+	      memset( p->routes, 0, sizeof( p->routes ) );
+	      p->pop = 0;
+	      p->ind = 0;
+	      p->cap = 0;
+	      p->mat = 0;
+	      p->owner = NULL;
+	    }
+	  }
+	  if (nbrPlanets) {
+	    plog( LPART, "Discontinuing reports for %s\n",
+		  P->name );
+	    sprintf( lineBuffer,
+		     "\n-*-*-*-\n%s had an unfortunate accident and was "
+		     "obliterated.\n-*-*-*-\n", P->name );
+	    addList( &( aGame->messages ),
+		     makestrlist( lineBuffer ) );
+	  }
+	  /*                    }*/
+	}
+      }
     }
+  }
 }
 
 
@@ -2676,14 +2685,14 @@ cleanDeadPlayers( game *aGame )
     player *P;
     player *P3;
     int allowedOrderGap;
-
+	
     pdebug( DFULL, "removeDeadPlayer\n" );
     allowedOrderGap = ( aGame->turn < ENDPHASE1TURN ) ? ORDERGAP1 : ORDERGAP2;
     for ( P = aGame->players; P; P = P3 ) {
         P3 = P->next;
         if ( P->addr[0] ) {
             int idleTurns;
-
+			
             idleTurns = ( P->lastorders ) ? aGame->turn - P->lastorders :
                 allowedOrderGap + 1;
             plog( LFULL, "Player %s idle turns %d\n", P->name, idleTurns );
@@ -2700,35 +2709,36 @@ cleanDeadPlayers( game *aGame )
 *** WARNING: If you do not send orders for this next turn then you will\n\
 *** forfeit your position in the game!  Please send orders next turn if you\n\
 *** wish to continue playing." ) );
-                } else if ( idleTurns > allowedOrderGap ) {
+                } else if (idleTurns > allowedOrderGap) {
                     planet *p;
 
                     plog( LPART, "Discontinuing reports for %s\n", P->name );
                     P->flags |= F_DEAD;
 
 /*                    if ( aGame->turn < ENDPHASE1TURN ) {*/
-                    P->groups = NULL;
-                    sprintf( lineBuffer,
-                             "\n-*-*-*-\n%s had an unfortunate accident and was "
-                             "obliterated.\n-*-*-*-\n", P->name );
-                    addList( &( aGame->messages ),
-                             makestrlist( lineBuffer ) );
+                        P->groups = NULL;
+                        sprintf( lineBuffer,
+                                 "\n-*-*-*-\n%s had an unfortunate accident and was "
+                                 "obliterated.\n-*-*-*-\n", P->name );
+                        addList( &( aGame->messages ),
+                                 makestrlist( lineBuffer ) );
 
-                    for ( p = aGame->planets; p; p = p->next ) {
-                        if ( p->owner eq P ) {
-                            plog( LPART, "Resetting planet %s\n", p->name );
-                            p->col = 0;
-                            p->producing = PR_CAP;
-                            p->producingshiptype = 0;
-                            p->inprogress = 0;
-                            memset( p->routes, 0, sizeof( p->routes ) );
-                            p->pop = 0;
-                            p->ind = 0;
-                            p->cap = 0;
-                            p->mat = 0;
-                            p->owner = NULL;
+                        for ( p = aGame->planets; p; p = p->next ) {
+                            if ( p->owner eq P ) {
+                                plog( LPART, "Resetting planet %s\n",
+                                      p->name );
+                                p->col = 0;
+                                p->producing = PR_CAP;
+                                p->producingshiptype = 0;
+                                p->inprogress = 0;
+                                memset( p->routes, 0, sizeof( p->routes ) );
+                                p->pop = 0;
+                                p->ind = 0;
+                                p->cap = 0;
+                                p->mat = 0;
+                                p->owner = NULL;
+                            }
                         }
-                    }
 /*                    }*/
                 }
             }
@@ -2779,99 +2789,81 @@ preComputeGroupData( game *aGame )
  * SOURCE
  */
 
-void
-generateErrorMessage( int resNumber, game *aGame,
-                      char *raceName, int theTurnNumber,
-                      FILE *forecast, char *galaxyline )
-{
-    switch ( resNumber ) {
-    case RES_NO_ORDERS:
-        fprintf( forecast, "O Wise Leader, your mail did not contain any "
-                 "orders.\nRemember orders start with\n\n"
-                 "#GALAXY GameName RaceName Password [TurnNumber] "
-                 "[FinalOrders]\n\nand end with\n\n#END\n" );
-        break;
-
-    case RES_ERR_GALAXY:
-        fprintf( forecast, "O Wise Leader, you must supply your race name "
-                 "and galaxy name.\n Remember orders start with,\n\n"
-                 "#GALAXY GameName RaceName Password [TurnNumber] "
-                 "[FinalOrders]\n\nand end with\n\n#END\n" );
-        if ( galaxyline ) {
-            fprintf( forecast, "\nThe first line you sent was:\n%s\n",
-                     galaxyline );
-        }
-        break;
-
-    case RES_NO_GAME:
-        fprintf( forecast, "O Wise Leader, there is no galaxy called %s.\n"
-                 "This probably means that you mispelled the galaxy name "
-                 "in your orders\n", aGame->name );
-        if ( galaxyline ) {
-            fprintf( forecast, "\nThe first line you sent was:\n%s\n",
-                     galaxyline );
-        }
-        break;
-
-    case RES_PASSWORD:
-        fprintf( forecast, "O Wise Leader, the password you gave is "
-                 "incorrect\n" );
-        if ( galaxyline ) {
-            fprintf( forecast, "\nThe first line you sent was:\n%s\n",
-                     galaxyline );
-        }
-        break;
-    case RES_PLAYER:
-        fprintf( forecast, "O Wise Leader there is no race called %s.\n"
-                 "This probably means that you mispelled your "
-                 "race name.\n", raceName );
-        if ( galaxyline ) {
-            fprintf( forecast, "\nThe first line you sent was:\n%s\n",
-                     galaxyline );
-        }
-        break;
-
-    case RES_TURNRAN:
-        fprintf( forecast, "O Wise Leader, you sent in orders for turn %d "
-                 "but that turn already ran.\nThe next turn is %d.",
-                 theTurnNumber, aGame->turn + 1 );
-        break;
-
-    case RES_DESTINATION:
-        fprintf( forecast, "O Wise Leader, the recipient of the message "
-                 "you sent does not exist.\n" );
-        break;
-
-    case RES_NODESTINATION:
-        fprintf( forecast, "O Wise Leader, you failed to give a "
-                 "destination for your message.\n" );
-        break;
-
-    case RES_NO_ORDERS_TURN_NBR:
-        fprintf( forecast, "O Wise Leader, you didn't specify a proper turn "
-                 "number.\nRemember that orders start with\n\n"
-                 "#GALAXY GameName RaceName Password [TurnNumber] "
-                 "[FinalOrders]\n\n" "and end with\n\n#END\n" );
-        if ( galaxyline ) {
-            fprintf( forecast, "\nThe first line you sent was:\n%s\n",
-                     galaxyline );
-        }
-        break;
+void generateErrorMessage( int resNumber, game *aGame,
+			   char *raceName, int theTurnNumber,
+			   FILE *forecast,
+               char *galaxyline ) {
+  switch ( resNumber ) {
+  case RES_NO_ORDERS:
+    fprintf(forecast, "O Wise Leader, your mail did not contain any "
+	    "orders.\nRemember orders start with\n\n"
+	    "#GALAXY GameName RaceName Password [TurnNumber] "
+	    "[FinalOrders]\n\nand end with\n\n#END\n" );
+    break;
+    
+  case RES_ERR_GALAXY:
+    fprintf(forecast, "O Wise Leader, you must supply your race name "
+	    "and galaxy name.\n Remember orders start with,\n\n"
+	    "#GALAXY GameName RaceName Password [TurnNumber] "
+	    "[FinalOrders]\n\nand end with\n\n#END\n");
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
+    break;
+    
+  case RES_NO_GAME:
+    fprintf(forecast, "O Wise Leader, there is no galaxy called %s.\n"
+	    "This probably means that you mispelled the galaxy name "
+	    "in your orders\n", aGame->name );
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
+    break;
+    
+  case RES_PASSWORD:
+    fprintf(forecast, "O Wise Leader, the password you gave is "
+            "incorrect\n" );
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
+    break;
+  case RES_PLAYER:
+    fprintf(forecast, "O Wise Leader there is no race called %s.\n"
+	    "This probably means that you mispelled your "
+	    "race name.\n", raceName );
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
+    break;
+    
+  case RES_TURNRAN:
+    fprintf(forecast, "O Wise Leader, you sent in orders for turn %d "
+	    "but that turn already ran.\nThe next turn is %d.",
+	    theTurnNumber, aGame->turn+1);
+    break;
+    
+  case RES_DESTINATION:
+    fprintf(forecast, "O Wise Leader, the recipient of the message "
+	    "you sent does not exist.\n" );
+    break;
+    
+  case RES_NODESTINATION:
+    fprintf(forecast, "O Wise Leader, you failed to give a "
+	    "destination for your message.\n" );
+    break;
+    
+  case RES_NO_ORDERS_TURN_NBR:
+    fprintf(forecast, "O Wise Leader, you didn't specify a proper turn "
+	    "number.\nRemember that orders start with\n\n"
+	    "#GALAXY GameName RaceName Password [TurnNumber] "
+	    "[FinalOrders]\n\n"
+	    "and end with\n\n#END\n");
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
+    break;
 
     case RES_NO_REPORT_TURN_NBR:
-        fprintf( forecast, "O Wise Leader, you didn't specify a proper turn "
-                 "number.\nRemember that report requests start with\n\n"
-                 "#GALAXY GameName RaceName Password [TurnNumber]\n\n"
-                 "and end with\n\n#END\n" );
-        if ( galaxyline ) {
-            fprintf( forecast, "\nThe first line you sent was:\n%s\n",
-                     galaxyline );
-        }
-        break;
-    }
-    fprintf( forecast,
-             "\nYour orders have been discarded!\n"
-             "Please correct the mistake and retransmit your orders.\n" );
+    fprintf(forecast, "O Wise Leader, you didn't specify a proper turn "
+	    "number.\nRemember that report requests start with\n\n"
+	    "#GALAXY GameName RaceName Password [TurnNumber]\n\n"
+	    "and end with\n\n#END\n");
+    if ( galaxyline ) { fprintf(forecast, "\nThe first line you sent was:\n%s\n", galaxyline ); }
+    break;
+  }
+  fprintf( forecast,
+	   "\nYour orders have been discarded!\n"
+	   "Please correct the mistake and retransmit your orders.\n" );
 }
 
 /***********/

@@ -8,9 +8,7 @@
  ******
  */
 
-int
-CMD_test( int argc, char **argv )
-{
+int CMD_test( int argc, char **argv ) {
     game *aGame;
     int result;
     int turn;
@@ -22,9 +20,10 @@ CMD_test( int argc, char **argv )
         dumpPlanets( aGame->planets );
         dumpPlayers( aGame->players );
         result = EXIT_SUCCESS;
-    } else {
+    }
+	else {
         result = EXIT_FAILURE;
     }
-
+	
     return result;
 }

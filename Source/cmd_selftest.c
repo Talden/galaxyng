@@ -8,13 +8,12 @@
  *****
  */
 
-int
-CMD_selftest(  )
-{
-    getstrTest(  );
-    frandTest(  );
-    frand2Test(  );
-    frand3Test(  );
-
+int CMD_selftest() {
+    getstrTest();
+    frandTest();
+    frand2Test();
+    frand3Test();
+	
     return 0;
 }
+

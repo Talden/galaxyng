@@ -8,9 +8,7 @@
  * SOURCE
  */
 
-int
-CMD_graph( int argc, char **argv )
-{
+int CMD_graph( int argc, char **argv ) {
     game *aGame;
     int result;
 
@@ -27,13 +25,15 @@ CMD_graph( int argc, char **argv )
                         effectiveIndustry( aPlayer->totPop,
                                            aPlayer->totInd ) );
             }
-        } else {
+        }
+		else {
             fprintf( stderr, "Could not load game \"%s\" turn %s\n",
                      argv[2], argv[3] );
         }
-    } else {
+    }
+	else {
         usage(  );
     }
-
+	
     return result;
 }

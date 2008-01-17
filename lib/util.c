@@ -256,23 +256,13 @@ int
 atwar(player *P, player *P2)
 {
   alliance       *a;
-  int  retVal = 1;
 
-  plog(LFULL, "atwar(%s, %s) ", P->name, P2->name);
-  if (P == P2) {
-    retVal = 0;
-  }
-  else {
-    for (a = P->allies; a; a = a->next)
-      if (a->who == P2) {
-	retVal = 0;
-	break;
-      }
-  }
-
-  plog(LFULL, "returning %s\n", retVal == 0 ? "no" : "yes");
-
-  return retVal;
+  if (P == P2)
+    return 0;
+  for (a = P->allies; a; a = a->next)
+    if (a->who == P2)
+      return 0;
+  return 1;
 }
 
 /**********/
@@ -1051,6 +1041,7 @@ ssystem(char *format, ...)
 
   if (res != 0) {
     plog(LBRIEF, "%s returned %d\n", lineBuffer, res);
+    perror( "galaxyng:" );
   }
   else {
     plog(LPART, "ran %s\n", lineBuffer);
@@ -1452,7 +1443,7 @@ raceStatus(game *aGame)
     aPlayer->totMat = 0;
     aPlayer->totCol = 0;
     for (aPlanet = aGame->planets; aPlanet; aPlanet = aPlanet->next) {
-      if (aPlanet->owner == aPlayer) {
+      if (aPlanet->owner eq aPlayer) {
         aPlayer->totPop += aPlanet->pop;
         aPlayer->totInd += aPlanet->ind;
         aPlayer->totCap += aPlanet->cap;

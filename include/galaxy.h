@@ -97,8 +97,8 @@
 #define   XMLREPORT_VERSION       1.5
 #define   GNG_MAJOR               6
 #define   GNG_MINOR               4
-#define   GNG_RELEASE             8
-#define   GNG_DATE                "January 2005"
+#define   GNG_RELEASE             10
+#define   GNG_DATE                "October 2007"
 
 #define   getLine(f) fgets(lineBuffer, LINE_BUFFER_SIZE, f)
 

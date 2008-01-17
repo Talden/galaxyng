@@ -60,12 +60,14 @@ envelope* readEnvelope(FILE* fp);
 void      destroyEnvelope(envelope *e);
 void      setHeader(envelope *e, int headerType, char *format, ...);
 int       eMail(game *aGame, envelope *e, char *fileName);
+int       eMail_old(game *aGame, envelope *e, char *fileName);
 char*     getReturnAddress(FILE * orders);
 
 
 void      addMimeHeader(FILE *mailFile);
 void      addMimeText(FILE *mailFile);
 void      addMimeZip(FILE *mailFile);
+void      addMimeTXT(FILE *mailFile, int turn);
 void      addMimeEnd(FILE *mailFile);
 int       appendToMail(char *fileName, FILE *mailFile);
 void      gmNotify(char* subject, char* filename, game* aGame);

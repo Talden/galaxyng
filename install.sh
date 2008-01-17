@@ -272,10 +272,10 @@ echo "# Received a message with the word order in the subject:" >> $PROCRC
 echo ":0" >> $PROCRC
 echo "* ^Subject:.*order" >> $PROCRC
 echo "{" >> $PROCRC
-echo "  :0crw:orders_l" >> $PROCRC
+echo "  :0crw:order" >> $PROCRC
 echo "  # Check the orders and send a forecast or an error message:" >> $PROCRC
 echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -check" >> $PROCRC
-echo "  :0:orders_l" >> $PROCRC
+echo "  :0:orders" >> $PROCRC
 echo "  # Save a copy of the orders message" >> $PROCRC
 echo "  orders" >> $PROCRC
 echo "}" >> $PROCRC
@@ -285,9 +285,9 @@ echo ":0" >> $PROCRC
 echo "* ^Subject:.*report" >> $PROCRC
 echo "{" >> $PROCRC
 echo "  # Send a turn report or an error message: " >> $PROCRC
-echo "  :0crw:reports_l" >> $PROCRC
+echo "  :0crw:report" >> $PROCRC
 echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -report" >> $PROCRC
-echo "  :0:reports_l" >> $PROCRC
+echo "  :0:reports" >> $PROCRC
 echo "  # Save a copy of the report request" >> $PROCRC
 echo "  reports" >> $PROCRC
 echo "}" >> $PROCRC
@@ -296,10 +296,10 @@ echo "# Someone wants to relay a message to another player." >> $PROCRC
 echo ":0" >> $PROCRC
 echo "* ^Subject:.*relay" >> $PROCRC
 echo "{" >> $PROCRC
-echo "  :0crw:relay_l" >> $PROCRC
+echo "  :0crw:relay" >> $PROCRC
 echo "  # Relay the message and send a confirmation or error report to the player" >> $PROCRC
 echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/galaxyng -relay" >> $PROCRC
-echo "  :0:relays_l" >> $PROCRC
+echo "  :0:relays" >> $PROCRC
 echo "  # Save a copy of the relay request" >> $PROCRC
 echo "  relays" >> $PROCRC
 echo "}" >> $PROCRC
@@ -309,9 +309,9 @@ echo "# change the gamename and number of players." >> $PROCRC
 echo ":0" >> $PROCRC
 echo "* ^Subject.*Join Jangi" >> $PROCRC
 echo "{" >> $PROCRC
-echo "  :0c:Jangi_l" >> $PROCRC
-echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/are Jangi 25 0 0 0 | $SENDMAIL -t" >> $PROCRC
-echo "  :0:Jangi_l" >> $PROCRC
+echo "  :0c:Jangi" >> $PROCRC
+echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Jangi 25 0 0 0 | $SENDMAIL -t" >> $PROCRC
+echo "  :0:Jangi" >> $PROCRC
 echo "  # Save a copy of the registration request" >> $PROCRC
 echo "  Jangi" >> $PROCRC
 echo "}" >> $PROCRC
@@ -323,9 +323,9 @@ echo "# gamename, planet sizes, and number of players." >> $PROCRC
 echo ":0" >> $PROCRC
 echo "* ^Subject.*Join Welland" >> $PROCRC
 echo "{" >> $PROCRC
-echo "  :0c:Welland_l" >> $PROCRC
-echo "  |$FORMAIL -rkbt -s $GALAXY_HOME/are Welland 10 2500 1000 5 | $SENDMAIL -t" >> $PROCRC
-echo "  :0:Welland_l" >> $PROCRC
+echo "  :0c:Welland" >> $PROCRC
+echo "  |$FORMAIL -rbt -s $GALAXY_HOME/are Welland 10 2500 1000 5 | $SENDMAIL -t" >> $PROCRC
+echo "  :0:Welland" >> $PROCRC
 echo "  # Save a copy of the registration request" >> $PROCRC
 echo "  Welland" >> $PROCRC
 echo "}" >> $PROCRC
@@ -379,10 +379,10 @@ echo "; a .galaxyngrc file in the game data directory:" >> $RCFILE
 echo "; $GALAXY_HOME/data/<gamename>" >> $RCFILE
 echo "sendmail { $SENDMAIL -t }" >> $RCFILE
 echo "GMemail $GMEMAIL" >> $RCFILE
-echo "GMname { $GMNAME }" >> $RCFILE
+echo "GMname $GMNAME" >> $RCFILE
 echo "GMpassword $PASSWORD" >> $RCFILE
 echo "SERVERemail $SERVEREMAIL" >> $RCFILE
-echo "SERVERname { $SERVERNAME }" >> $RCFILE
+echo "SERVERname $SERVERNAME" >> $RCFILE
 echo "encode $ENCODE" >> $RCFILE
 echo "compress $COMPRESS" >> $RCFILE
 echo "fontpath $GALAXY_HOME" >> $RCFILE

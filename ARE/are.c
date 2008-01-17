@@ -102,10 +102,10 @@ char lineBuffer[LINE_BUFFER_SIZE+2] ;
  * SOURCE
  */
 
-#define FROMHEADER "From: Registration_Engine <youraddress@yourdomain>\n"
+#define FROMHEADER "From: Registration_Engine <ngserver@xs4all.nl>\n"
 #define SUBJECT    "Subject: Enrollment Reply\n"
-#define REPLYTO    "Reply-To: yourhomeaddress@localhost\n"
-#define CCHEADER   "Cc: someotheraddress@localhost\n"
+#define REPLYTO    "Reply-To: rfsber@xs4all.nl\n"
+#define CCHEADER   "Cc: rfsber@xs4all.nl\n"
 
 /*******/
 

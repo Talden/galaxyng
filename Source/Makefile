@@ -35,7 +35,7 @@
 # (http://www.boutell.com/gd/) installed with png, jpeg, and 
 # freetype support enabled and uncomment the following lines:
 ADDTL_CFLAGS = -DDRAW_INFLUENCE_MAP
-ADDTL_LIBS = ../lib/libgd.a -lpng -lz -ljpeg -lfreetype
+ADDTL_LIBS = -lgd -lpng -lz -ljpeg -lfreetype
 ADDTL_SRCS = influence.c
 ADDTL_OBJS = influence.o
 #
@@ -50,7 +50,7 @@ CFLAGS += $(ADDTL_CFLAGS)
 #CFLAGS += -Wmissing-declarations -Wmissing-format-attribute -Wnested-externs
 #CFLAGS += -Wredundant-decls -Wstrict-prototypes -Wunreachable-code
 
-LIBS = -L$(HOME)/lib -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
+LIBS = -L$(HOME)/lib -L /usr/local/lib -L../lib -lgalaxyng -lm $(ADDTL_LIBS)
 
 
 CC=gcc

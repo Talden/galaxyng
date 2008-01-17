@@ -1,7 +1,5 @@
 # $Id$
 
-Release 6.4.9: July 2005
-
 Release 6.4.8: January 2005
 o By Ken Weinert (madcoder42)
   + finished work on Pax Galactica, allowing GM to enforce peace

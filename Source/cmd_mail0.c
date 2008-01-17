@@ -12,9 +12,7 @@
  * SOURCE
  */
 
-int
-CMD_mail0( int argc, char **argv, int kind )
-{
+int CMD_mail0( int argc, char **argv, int kind ) {
     game *aGame;
     int result;
 
@@ -62,10 +60,12 @@ CMD_mail0( int argc, char **argv, int kind )
                 }
             }
             result = EXIT_SUCCESS;
-        } else {
+        }
+		else {
             fprintf( stderr, "Could not load game \"%s\"\n", argv[2] );
         }
-    } else {
+    }
+	else {
         usage(  );
     }
     return result;

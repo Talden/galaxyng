@@ -248,9 +248,10 @@ void destroyEnvelope(envelope *e) {
 }
 
 
-/****f* Mail/eMail 
+
+/****f* Mail/eMail_old
  * NAME
- *   eMail -- mail the contents of a file to someone.
+ *   eMail_old -- mail the contents of a file to someone.
  * FUNCTION
  *   Mail a file to someone. 
  * INPUTS
@@ -265,7 +266,7 @@ void destroyEnvelope(envelope *e) {
  ******
  */
 
-int eMail(game *aGame, envelope *e, char *fileName) {
+int eMail_old(game *aGame, envelope *e, char *fileName) {
   FILE*  mailFile;
   char   template[128];
   int    result;
@@ -375,6 +376,155 @@ int eMail(game *aGame, envelope *e, char *fileName) {
 }
 
 
+/****f* Mail/eMail 
+ * NAME
+ *   eMail -- mail the contents of a file to someone.
+ * FUNCTION
+ *   Mail a file to someone. 
+ * INPUTS
+ *   e        -- envelope
+ *   aGame    -- game structure, contains settings for mailer etc.
+ *   fileName -- name of the file to send.
+ * RESULT
+ *   status  0, all OK.
+ *          >0, something went wrong
+ * BUGS
+ *   Does not write anything to the log file.
+ ******
+ */
+
+int eMail(game *aGame, envelope *e, char *fileName) {
+  FILE*  mailFile;
+  char   template[128];
+  int    result;
+  char   command[4096];
+
+  pdebug(DFULL, "eMail %s\n", fileName );
+ 
+  sprintf(template, "%s/galaxyXXXXXX", tempdir);
+ 
+  assert(fileName != NULL);
+  assert(aGame != NULL);
+  
+  mailFile = fdopen(mkstemp(template),  "w");
+  result = 1;
+  
+  assert(e->to);
+  assert(e->subject);
+
+  if (e->from_address && e->from_name) { 
+    fprintf(mailFile, "From: %s <%s>\n", e->from_name, e->from_address);
+  } else if (e->from) {
+    fprintf(mailFile, "From: %s\n", e->from);
+  }
+  
+  fprintf(mailFile, "To: %s\n", e->to);
+  fprintf(mailFile, "Subject: %s\n", e->subject);
+  
+  if (e->replyto)
+    fprintf(mailFile, "Reply-To: %s\n", e->replyto);
+  
+  if (e->bcc) 
+    fprintf(mailFile, "BCC: %s\n", e->bcc);
+  if (e->cc)
+    fprintf(mailFile, "CC: %s\n", e->cc);
+  if (e->contentType)
+    fprintf(mailFile, "Content-Type: %s\n", e->contentType);
+  if (e->contentEncoding)
+    fprintf(mailFile, "Content-tranfer-encoding: %s\n",
+	    e->contentEncoding);
+  if (e->contentDescription)
+    fprintf(mailFile, "Content-description: %s\n", e->contentDescription);
+  
+#ifndef WIN32
+  addMimeHeader(mailFile);
+  fprintf(mailFile, "\n\n");
+  if (e->compress &&
+      aGame->serverOptions.compress &&
+      aGame->serverOptions.encode) {
+    char *relative_path; 
+    char *ptr;
+    char zipped_name[4096];
+    char encoded_name[4096];
+
+    addMimeText(mailFile);
+    fprintf(mailFile, "Turn report is attached as .zip file.\n\n");
+    relative_path = strstr(fileName, "reports");
+    if (relative_path == NULL) {
+      relative_path = fileName;
+    }
+    strcpy(zipped_name, fileName);
+    if ((ptr = strrchr(zipped_name, '.')) != NULL)
+	*ptr = '_';
+    strcat(zipped_name, ".zip");
+    strcpy(encoded_name, fileName);
+    strcat(encoded_name, "_enc");
+    if ((ptr = strrchr(encoded_name, '.')) != NULL)
+	*ptr = '_';
+    result = ssystem("%s %s %s > /dev/null 2>&1",
+		     aGame->serverOptions.compress,
+		     zipped_name,
+		     relative_path);
+    result |= ssystem("%s < %s > %s 2> /dev/null", 
+		      aGame->serverOptions.encode, 
+		      zipped_name, 
+		      encoded_name);
+    addMimeZip(mailFile);
+    result |= appendToMail(encoded_name, mailFile);
+    addMimeEnd(mailFile);
+    result |= ssystem("rm %s %s", zipped_name, encoded_name);
+  }
+  else {
+    char *relative_path; 
+    char *ptr;
+    char dos_name[4096];
+    char encoded_name[4096];
+
+    addMimeText(mailFile);
+    fprintf(mailFile, "Turn report is attached as text file.\n\n");
+    relative_path = strstr(fileName, "reports");
+    if (relative_path == NULL) {
+      relative_path = fileName;
+    }
+    strcpy(encoded_name, fileName);
+    strcat(encoded_name, "_enc");
+    strcpy(dos_name, fileName);
+    strcat(dos_name, "_dos");
+    if ((ptr = strrchr(encoded_name, '.')) != NULL)
+	*ptr = '_';
+    result = ssystem("/usr/bin/unix2dos -n %s %s 2> /dev/null", 
+		      relative_path, 
+		      dos_name);
+    result |= ssystem("%s < %s > %s 2> /dev/null", 
+		      aGame->serverOptions.encode, 
+		      dos_name, 
+		      encoded_name);
+    addMimeTXT(mailFile, aGame->turn);
+    result |= appendToMail(encoded_name, mailFile);
+    addMimeEnd(mailFile);
+//    result |= ssystem("rm %s %s" , encoded_name, dos_name);
+  }
+#endif
+  fclose(mailFile);
+#ifndef WIN32
+  sprintf(command, "%s", aGame->serverOptions.sendmail);
+  if (e->from_address) {
+    char tmpBuf[4096];
+    sprintf(tmpBuf, " -f \"%s\"", e->from_address);
+    strcat(command, tmpBuf);
+  }
+  if (e->from_name) {
+    char tmpBuf[4096];
+    sprintf(tmpBuf, " -F \"%s\"", e->from_name);
+    strcat(command, tmpBuf);
+  }
+  result |= ssystem("%s < %s", command, template);
+  result |= ssystem("rm %s", template);
+#endif
+  return result;
+}
+
+
 
 void
 addMimeHeader(FILE *mailFile) 
@@ -417,6 +567,17 @@ addMimeZip(FILE *mailFile)
   fprintf(mailFile, "Content-Transfer-Encoding: base64\n");
   fprintf(mailFile, "\n");
 }
+
+void
+addMimeTXT(FILE *mailFile, int turn)
+{
+  fprintf(mailFile, "--9jxsPFA5p3P2qPhR\n");
+  fprintf(mailFile, "Content-Type: text/plain\n");
+  fprintf(mailFile, "Content-Disposition: attachment; filename=\"turn%02d.txt\"\n", turn);
+  fprintf(mailFile, "Content-Transfer-Encoding: base64\n");
+  fprintf(mailFile, "\n");
+}
+
 
 
 

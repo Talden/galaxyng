@@ -16,16 +16,16 @@
  */
 
 int
-numberOfElementsF( list *aList )
+numberOfElementsF(list *aList)
 {
-    list *el;
-    int noEl;
+  list           *el;
+  int             noEl;
 
-    noEl = 0;
-    if ( aList )
-        for ( el = aList; el; el = el->next )
-            noEl++;
-    return noEl;
+  noEl = 0;
+  if (aList)
+    for (el = aList; el; el = el->next)
+      noEl++;
+  return noEl;
 }
 
 /****i* List/add2ListF
@@ -35,10 +35,10 @@ numberOfElementsF( list *aList )
  */
 
 void
-add2ListF( list **aList, list *anElement )
+add2ListF(list **aList, list *anElement)
 {
-    anElement->next = *aList;
-    *aList = anElement;
+  anElement->next = *aList;
+  *aList = anElement;
 }
 
 
@@ -49,20 +49,20 @@ add2ListF( list **aList, list *anElement )
  */
 
 void
-freelist( void *base )
+freelist(void *base)
 {
-    list *p, *p2;
+  list           *p, *p2;
 
-    pdebug( DFULL2, "freelist" );
-    p = base;
-    while ( p ) {
-        p2 = p->next;
-        free( p->name );
-        free( p );
-        p = p2;
-        pdebug( DFULL2, "." );
-    }
-    pdebug( DFULL2, "\n" );
+  pdebug(DFULL2, "freelist");
+  p = base;
+  while (p) {
+    p2 = p->next;
+    free(p->name);
+    free(p);
+    p = p2;
+    pdebug(DFULL2, ".");
+  }
+  pdebug(DFULL2, "\n");
 }
 
 
@@ -72,19 +72,20 @@ freelist( void *base )
  *   addListF --
  ******
  */
-
+ 
 void
-addListF( list **aList, list *anElement )
+addListF(list **aList, list *anElement)
 {
-    list *curElement;
+  list           *curElement;
 
-    if ( *aList == NULL ) {
-        *aList = anElement;
-    } else {
-        for ( curElement = *aList;
-              curElement->next; curElement = curElement->next );
-        curElement->next = anElement;
-    }
+  if (*aList == NULL) {
+    *aList = anElement;
+  } else {
+    for (curElement = *aList;
+	 curElement->next;
+	 curElement = curElement->next);
+    curElement->next = anElement;
+  }
 
 }
 
@@ -93,29 +94,30 @@ addListF( list **aList, list *anElement )
  *   insertListF --
  ******
  */
-
+ 
 void
-insertListF( list **aList, list *where, list *anElement )
+insertListF(list **aList, list* where, list *anElement)
 {
-    list *curElement;
-    list *listEnd;
+  list *curElement;
+  list *listEnd;
 
-    if ( *aList == NULL ) {
-        *aList = anElement;
-    } else {
-        for ( curElement = *aList; curElement->next;
-              curElement = curElement->next ) {
-            if ( curElement == where ) {
-                break;
-            }
-        }
-
-        for ( listEnd = anElement; listEnd->next; listEnd = listEnd->next );
-
-        listEnd->next = curElement->next;
-        curElement->next = anElement;
-
+  if (*aList == NULL) {
+    *aList = anElement;
+  } else {
+    for (curElement = *aList; curElement->next;
+	 curElement = curElement->next) {
+      if (curElement == where) {
+	break;
+      }
     }
+
+    for (listEnd = anElement; listEnd->next; listEnd = listEnd->next)
+      ;
+
+    listEnd->next = curElement->next;
+    curElement->next = anElement;
+
+  }
 
 }
 
@@ -136,16 +138,18 @@ insertListF( list **aList, list *where, list *anElement )
  ******
  */
 
-list *
-findElementF( list *aList, char *name )
+list           *
+findElementF(list *aList, char *name)
 {
-    list *anElement;
+  list           *anElement;
 
-    for ( anElement = aList; anElement; anElement = anElement->next ) {
-        if ( !noCaseStrcmp( anElement->name, name ) )
-            break;
-    }
-    return anElement;
+  for (anElement = aList;
+       anElement;
+       anElement = anElement->next) {
+    if (!noCaseStrcmp(anElement->name, name))
+      break;
+  }
+  return anElement;
 }
 
 /****f* List/removeListF
@@ -162,23 +166,23 @@ findElementF( list *aList, char *name )
  */
 
 void
-removeListF( list **aList, list *anElement )
+removeListF(list **aList, list *anElement)
 {
-    list *prevElement;
+  list           *prevElement;
 
-    assert( anElement != NULL );
+  assert(anElement != NULL);
 
-    if ( *aList == anElement )
-        *aList = anElement->next;
-    else {
-        for ( prevElement = *aList;
-              prevElement->next != anElement;
-              prevElement = prevElement->next ) {
-            assert( prevElement != NULL );
-        }
-        prevElement->next = anElement->next;
+  if (*aList == anElement)
+    *aList = anElement->next;
+  else {
+    for (prevElement = *aList;
+	 prevElement->next != anElement;
+	 prevElement = prevElement->next) {
+      assert(prevElement != NULL);
     }
-    free( anElement );
+    prevElement->next = anElement->next;
+  }
+  free(anElement);
 }
 
 
@@ -200,15 +204,15 @@ removeListF( list **aList, list *anElement )
  */
 
 int
-ptonum( void *base, void *target )
+ptonum(void *base, void *target)
 {
-    list *p;
-    int i;
+  list           *p;
+  int             i;
 
-    for ( p = base, i = 1; p; p = p->next, i++ )
-        if ( p == target )
-            return i;
-    return 0;
+  for (p = base, i = 1; p; p = p->next, i++)
+    if (p == target)
+      return i;
+  return 0;
 }
 
 
@@ -228,18 +232,18 @@ ptonum( void *base, void *target )
  */
 
 void *
-numtop( void *base, int n )
+numtop(void *base, int n)
 {
-    list *p;
-    int i;
+  list           *p;
+  int             i;
 
-    i = 0;
-    for ( p = base; p; p = p->next ) {
-        i++;
-        if ( i == n )
-            return p;
-    }
-    return 0;
+  i = 0;
+  for (p = base; p; p = p->next) {
+    i++;
+    if (i == n)
+      return p;
+  }
+  return 0;
 }
 
 
@@ -257,20 +261,29 @@ numtop( void *base, int n )
  ******
  */
 
-void
-setNameF( list *anElement, char *name )
+void setNameF(list *anElement, char *name)
 {
-    free( anElement->name );
-    anElement->name = strdup( name );
+  free(anElement->name);
+  anElement->name = strdup(name);
 }
 
 void
-dumpList( char *label, list *aList )
+dumpList(char* label, list* aList)
 {
-    list *curElement;
+  list* curElement;
 
-    plog( LBRIEF, "*** %s ***\n", label );
-    for ( curElement = aList; curElement->next;
-          curElement = curElement->next )
-        plog( LBRIEF, "%lX: %s\n", curElement->cookie, curElement->name );
+  plog(LBRIEF, "*** %s ***\n", label);
+  for (curElement = aList; curElement->next; curElement=curElement->next)
+    plog(LBRIEF, "%lX: %s\n", curElement->cookie, curElement->name);
 }
+
+
+
+
+
+
+
+
+
+
+
