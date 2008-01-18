@@ -205,6 +205,9 @@ count:
 TAGS: $(SOURCES)
 	etags $(SOURCES)
 
+indent:
+	indent *.c
+
 depend:
 	-@makedepend -Y -- $(CFLAGS) -- $(GNG_SRCS) $(WOPR_SRCS) 
 
